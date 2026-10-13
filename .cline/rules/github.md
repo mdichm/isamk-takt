@@ -71,35 +71,32 @@ At the end of each ticket, perform the following steps in order **only after the
 - Relevant files may include `README.md`, architecture docs, OpenAPI specs, `.env.example`, and inline JSDoc/Docstrings.
 - Include documentation changes in the same atomic commit as the related code change, or use a separate `docs: ...` commit when appropriate.
 
-### 6.3 Update the backlog
+### 6.3 Update the backlog (mark ticket as Terminé)
 
-After documentation is updated, refresh the backlog source of truth:
+After implementation is complete, update the ticket status and regenerate backlog artifacts:
 
+**Step 1: Update ticket status in source data**
+```bash
+# Edit docs/tools/tickets_data.py
+# Find the ticket by key (e.g., "repo") and change:
+# statut="À faire"  →  statut="Terminé"
+```
+
+**Step 2: Regenerate backlog artifacts & validate**
 ```bash
 python3 docs/tools/build_backlog.py
-# Windows fallback:
-py -3 docs/tools/build_backlog.py
-```
-
-This should generate:
-
-- `docs/Backlog_TAKT_tickets.csv`
-- `docs/Backlog_TAKT.xlsx`
-- `docs/tools/correspondance_tickets.json`
-
-Validate consistency:
-
-```bash
 python3 docs/tools/verifier_coherence.py
-# Windows fallback:
-py -3 docs/tools/verifier_coherence.py
 ```
 
-Commit generated files:
-
+**Step 3: Update velocity**
 ```bash
-git add docs/Backlog_TAKT_tickets.csv docs/Backlog_TAKT.xlsx docs/tools/correspondance_tickets.json
-git commit -m "docs: update backlog"
+python3 docs/tools/velocity_tracker.py
+```
+
+**Step 4: Commit all generated files**
+```bash
+git add docs/Backlog_TAKT_tickets.csv docs/Backlog_TAKT.xlsx docs/tools/correspondance_tickets.json docs/VELOCITE.md
+git commit -m "docs: update backlog & velocity (ticket <TICKET-ID> → Terminé)"
 ```
 
 ### 6.4 Update velocity
