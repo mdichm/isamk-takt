@@ -1,0 +1,715 @@
+﻿ID;Lot;Epic ID;Epic;Type;Titre;Description;Critères d'acceptation;Réf. SF;Réf. ST;Profil;Priorité;Points;Dépendances;Statut;Sprint
+L0-01;L0;E0.1;Monorepo & CI/CD;Tâche technique;Initialiser le monorepo;Créer apps (web, api, worker) et packages (contracts, conflict-engine, charge-engine, engine-fet, design-tokens, db).;"- Arborescence conforme à ST §1.5
+- Une commande unique lance lint, typecheck et build sur tous les paquets
+- TypeScript strict activé partout
+- Règles de dépendance entre modules vérifiées par le lint (un module n'importe que les interfaces des autres)";EX-NFR-09;§1.5, §1.4;DEVOPS;Must;3;;À faire;
+L0-02;L0;E0.1;Monorepo & CI/CD;Tâche technique;Pipeline CI/CD et registre d'images privé;Lint, typecheck, tests, build d'images publiées dans un registre privé interne, migrations, déploiement par environnement par scripts.;"- Une PR déclenche lint, typecheck, tests et build
+- Le scan des dépendances, des secrets et des images est exécuté
+- Les images sont publiées dans le registre privé interne
+- Un déploiement dev est automatique après merge";EX-NFR-02;§5.5, §1.8;DEVOPS;Must;5;L0-01;À faire;
+L0-03;L0;E0.1;Monorepo & CI/CD;Tâche technique;Paquet contracts (Zod + types OpenAPI);Schémas partagés front/back et génération des types clients.;"- Les schémas Zod sont importables par api et web
+- Les types clients sont générés depuis l'OpenAPI
+- Un changement de contrat casse le build si non répercuté";—;§3.1, §5.3;BACK;Must;3;L0-01;À faire;
+L0-04;L0;E0.1;Monorepo & CI/CD;Tâche technique;Prisma initial et migrations SQL brutes;Schéma d'amorçage (User, UserRole, RefreshToken, AuditLog), identifiants UUID, mécanisme de migrations --create-only, Testcontainers.;"- Les migrations s'appliquent sur une base vide en CI
+- Une migration SQL brute (index partiel, trigger) est rejouée avec succès
+- Tests d'intégration PostgreSQL via Testcontainers opérationnels
+- Les clés primaires sont des UUID et les codes fonctionnels sont distincts des identifiants techniques";EX-DAT-01;§2.2, §2.4;BACK;Must;5;L0-01;À faire;
+L0-05;L0;E0.1;Monorepo & CI/CD;Tâche technique;Intégration des tokens de conception;Paquet design-tokens : génération des variables CSS depuis TAKT_design_tokens_v2_3_6.json (charte V2.3.6, clés d'état = codes API), configuration Tailwind, polices Sora, Inter et Black Ops One auto-hébergées, logo maître SVG, icônes métier SVG.;"- Les couleurs de l'interface proviennent exclusivement des variables CSS générées, sans valeur hexadécimale en dur hors du paquet
+- Aucune requête réseau externe pour les polices
+- Black Ops One n'est utilisée que pour la signature de marque « TAKT » ; le logo est toujours le SVG maître, jamais reconstruit en texte
+- OFL-Black-Ops-One.txt est conservé avec la police dans le dépôt et dans l'image web
+- Les couleurs d'état sont lues uniquement depuis states.*.*.text (texte) et states.*.*.color (icône, bordure) ; le lint interdit color en texte
+- Le contraste texte 4,5:1 et composant 3:1 est vérifié sur Ivory, Warm, Inset, Card et Elevated ; seul color.navigation_on_deep.text_disabled est exempté ; le build échoue en cas d'écart
+- Les icônes d'état référencées par les tokens existent dans lucide-react (version épinglée) ou dans le dossier icons/ ; un test échoue sinon";EX-NFR-10;§0.1;FRONT;Must;5;L0-01;À faire;
+L0-06;L0;E0.2;Infrastructure sur site;Tâche technique;Réseau et périmètre sur site;Nginx en reverse proxy (TLS, limitation de débit), pare-feu, réseau de conteneurs interne, route sortante unique de l'API vers le SMTP.;"- Seul le port 443 de Nginx est exposé sur le réseau interne
+- API, worker et base accessibles uniquement depuis le réseau de conteneurs
+- La limitation de débit par IP est active
+- Le worker n'a aucune route sortante ; l'API n'a que la route vers l'hôte et le port SMTP";EX-NFR-01;§5.3, §1.8;DEVOPS;Must;8;L0-01;À faire;
+L0-07;L0;E0.2;Infrastructure sur site;Tâche technique;Données, fichiers et secrets sur site;PostgreSQL 16, volume de fichiers derrière le port FileStore sur disque chiffré, file de jobs pg-boss (generation, export, email), secrets en fichiers, rôles de base.;"- Disques et volumes de fichiers chiffrés (LUKS)
+- Rôles app_rw, worker_rw, audit_ro et audit_purge créés avec droits minimaux
+- Les secrets sont montés en fichiers en lecture seule, absents des images
+- File d'échecs configurée avec reprise après 3 tentatives
+- Le port FileStore est la seule interface d'accès aux fichiers";EX-NFR-01, EX-NFR-06;§1.8, §5.3, §4.19;DEVOPS;Must;8;L0-06;À faire;
+L0-08;L0;E0.2;Infrastructure sur site;Tâche technique;Calcul et environnements sur site;Docker Compose pour web, api et worker, trois environnements, redémarrage progressif de l'API.;"- Environnements dev, recette et production déployables par scripts (Compose, Ansible)
+- Redémarrage progressif de l'API avec contrôles de santé, sans coupure
+- Image worker dédiée distincte de l'API";EX-NFR-02;§1.8, §5.5;DEVOPS;Must;8;L0-07;À faire;
+L0-09;L0;E0.2;Infrastructure sur site;Tâche technique;Observabilité de base;Logs pino avec requestId, traces OpenTelemetry, Prometheus et Grafana, alertes.;"- Chaque requête porte un requestId présent dans les logs
+- Une trace relie API, base et worker
+- Alertes Grafana sur file d'échecs non vide et 5xx
+- Les journaux techniques sont séparés de l'audit métier";EX-NFR-05;§5.4;DEVOPS;Should;5;L0-08;À faire;
+L0-10;L0;E0.3;Authentification & comptes;Story;Connexion, refresh et déconnexion;POST /auth/login, /auth/refresh, /auth/logout avec argon2id, JWT 15 min, refresh opaque rotatif 7 jours, lecture des paramètres de sécurité.;"- Mots de passe hachés argon2id, longueur minimale issue des paramètres de sécurité (défaut 12)
+- Le refresh token tourne à chaque usage
+- La réutilisation d'un jeton révoqué révoque toute la famille
+- Le refresh est en cookie httpOnly, Secure, SameSite=Strict";EX-SEC-01;§5.1, §3.4.1;BACK;Must;8;L0-04;À faire;
+L0-11;L0;E0.3;Authentification & comptes;Story;Verrouillage de compte et anti-énumération;Verrouillage après le nombre d'échecs configuré, pour la durée configurée.;"- Au dépassement du seuil (défaut 5), 401 ACCOUNT_LOCKED avec retryAfter
+- Le délai de réponse est identique que le compte existe ou non
+- Le message d'erreur est générique";EX-SEC-05;§5.1;BACK;Must;3;L0-10;À faire;
+L0-12;L0;E0.3;Authentification & comptes;Story;MFA TOTP;Enrôlement et vérification TOTP, activable par rôle.;"- Un rôle listé dans mfaRoles ne peut pas finaliser sa connexion sans MFA (défaut : Administrateur)
+- Le code TOTP est vérifié à la connexion
+- MFA facultative pour les autres rôles, activable par l'Administrateur";EX-SEC-06;§5.1;BACK;Must;5;L0-10;À faire;
+L0-13;L0;E0.3;Authentification & comptes;Story;Paramètres de sécurité configurables;Modèle ParametreSecurite (ligne unique) et API GET/PATCH /parametres/securite.;"- Longueur minimale, composition, expiration, historique, verrouillage, inactivité, MFA par rôle et conservation des journaux sont modifiables par l'Administrateur
+- Longueur minimale inférieure à 8 refusée (422)
+- Chaque modification écrit un audit (ancienne et nouvelle valeur)
+- Valeurs par défaut conformes à ST §5.1";EX-SEC-04;§5.1, §3.4.21, §2.2;BACK;Must;5;L0-10, L0-22;À faire;
+L0-14;L0;E0.3;Authentification & comptes;Story;Déconnexion après inactivité;Suivi de lastActivityAt, refus du refresh au-delà du délai configuré.;"- Le refresh est refusé (401 SESSION_INACTIVE) au-delà du délai d'inactivité
+- Les requêtes automatiques (heartbeat, SSE) ne comptent pas comme une activité
+- L'interface déconnecte à l'expiration du délai";EX-SEC-07;§5.1;FULL;Must;3;L0-13;À faire;
+L0-15;L0;E0.3;Authentification & comptes;Story;Gestion des comptes et des rôles;CRUD utilisateurs, PUT /users/{id}/roles avec portée par département, désactivation logique et réactivation.;"- Seul l'Administrateur gère les comptes
+- Les quatre rôles existent (Administrateur, Gestionnaire, Responsable de département, Direction)
+- Un rôle Responsable exige un departementCode
+- La désactivation révoque immédiatement les refresh tokens et conserve l'identité dans l'audit
+- Aucune suppression physique d'un compte";EX-SEC-02, EX-ROL-01;§3.3, §5.2;BACK;Must;5;L0-10, L0-19;À faire;
+L0-16;L0;E0.3;Authentification & comptes;Story;Réinitialisation du mot de passe par l'Administrateur;POST /users/{id}/reset-password, lien à usage unique, POST /auth/reset/confirm, POST /auth/password pour le changement personnel, politique et historique.;"- Seul l'Administrateur déclenche une réinitialisation ; le lien est envoyé par e-mail à l'adresse du compte
+- Le lien ne fonctionne qu'une fois et expire après la durée configurée
+- L'Administrateur ne voit jamais un mot de passe
+- Le nouveau mot de passe respecte la politique et l'historique (422 PASSWORD_POLICY)
+- Déclenchement et usage journalisés dans le journal de sécurité";EX-SEC-03;§5.1, §3.4.21;BACK;Must;5;L0-13, L0-15, L0-18;À faire;
+L0-17;L0;E0.3;Authentification & comptes;Tâche technique;Interface AuthProvider;Abstraction permettant un futur SSO (OIDC, LDAP/AD) sans toucher au RBAC.;"- L'authentification locale passe par l'interface AuthProvider
+- Le RBAC est indépendant du fournisseur";EX-SEC-01;§5.1;BACK;Could;2;L0-10;À faire;
+L0-18;L0;E0.3;Authentification & comptes;Story;Journal de sécurité;"Table SecurityEvent distincte de l'audit, écriture des connexions, verrouillages, réutilisation de jeton, usage de lien, MFA, accès aux exports ; consultation Administrateur.";"- Connexions réussies et échouées, verrouillages et réutilisations de jeton sont enregistrés
+- GET /security-events réservé à l'Administrateur avec filtres et pagination par curseur
+- Aucune connexion n'est écrite dans l'audit métier
+- Aucun mot de passe ni jeton en clair dans le journal";EX-SEC-09;§5.3, §2.2, §2.4;BACK;Must;5;L0-10, L0-04;À faire;
+L0-19;L0;E0.4;RBAC avec portée;Story;Module policy RBAC avec portée;Permissions ressource:action, CASL, ScopeGuard par département, quatre rôles.;"- Toute route sans décorateur de permission est refusée
+- Un objet hors portée renvoie 404
+- L'ImmutabilityGuard s'applique aussi à l'Administrateur
+- Le Gestionnaire ne modifie pas la répartition ; la Direction n'a aucun droit d'écriture";EX-SEC-08, EX-ROL-03, EX-ROL-05, EX-PRI-05;§5.2;BACK;Must;8;L0-10;À faire;
+L0-20;L0;E0.4;RBAC avec portée;Test;Matrice RBAC automatisée;Test rôle × endpoint déduit de la matrice des permissions (4 rôles).;"- Un test parcourt le routeur et échoue si une route n'est pas déclarée
+- Chaque cellule de la matrice (ST §5.2) est vérifiée
+- Les cas négatifs (Responsable hors département, Direction en écriture) sont couverts";EX-SEC-08, EX-ROL-04;§5.2, §5.5;QA;Must;5;L0-19;À faire;
+L0-21;L0;E0.4;RBAC avec portée;Story;Droits étendus de l'Administrateur et séparation des tâches;"L'Administrateur détient l'union des droits du Gestionnaire, écrit la répartition de tout département et valide par département ; garde de séparation des tâches.";"- L'Administrateur accède à toutes les routes du Gestionnaire
+- Il peut écrire et valider la répartition d'un département en le nommant
+- Une personne ne peut pas valider un cycle qu'elle a soumis (403 SEGREGATION_OF_DUTIES)
+- Tests de non-régression sur la matrice";EX-ROL-02, EX-ROL-06;§5.2, §4.1.1;BACK;Must;3;L0-19;À faire;
+L0-22;L0;E0.5;Audit append-only;Story;AuditService append-only;Écriture de l'audit dans la même transaction que l'écriture métier.;"- Une action métier et son audit sont atomiques
+- UPDATE et DELETE sur AuditLog sont refusés (trigger et REVOKE)
+- L'audit contient ancienne et nouvelle valeur";EX-AUD-01;§2.4, §0.5;BACK;Must;5;L0-04;À faire;
+L0-23;L0;E0.5;Audit append-only;Story;Consultation de l'audit;GET /audit avec filtres, complet pour l'Administrateur, limité pour Gestionnaire et Responsable, consultation pour la Direction.;"- Filtres objetType, objetId, userId, from, to opérationnels
+- Gestionnaire et Responsable ne voient que leurs actions et leur périmètre
+- La Direction consulte l'audit métier en lecture seule
+- Pagination par curseur";EX-AUD-01, EX-ROL-04;§3.3, §5.3;BACK;Should;3;L0-22, L0-19;À faire;
+L0-24;L0;E0.5;Audit append-only;Story;Conservation et purge des journaux;Fonction purge_journaux (rôle audit_purge), durées configurables, purge tracée.;"- La durée de conservation de l'audit et du journal de sécurité est configurable (défauts : audit sans purge, sécurité 12 mois)
+- La purge passe uniquement par la fonction dédiée et écrit un audit de purge
+- app_rw ne peut ni supprimer ni modifier les journaux";EX-AUD-02;§2.4, §5.3;BACK;Should;3;L0-13, L0-22;À faire;
+L0-25;L0;E0.6;Socle API;Tâche technique;Erreurs RFC 9457 et catalogue de codes;Format problem+json, codes métier, traduction SQLSTATE P0001 et 23505.;"- Toutes les erreurs suivent le format ST §3.2
+- IMMUTABLE_VERSION, YEAR_CLOSED, APPEND_ONLY_TABLE, CHARGE_RULESET_PUBLISHED, CONFIG_IN_USE et 23505 sont traduits en 409 ou 423
+- requestId présent dans chaque erreur";—;§3.2, §2.4;BACK;Must;5;L0-01;À faire;
+L0-26;L0;E0.6;Socle API;Tâche technique;Conventions HTTP transverses;ETag et If-Match, pagination par curseur, Idempotency-Key, throttling, Helmet, CORS.;"- If-Match absent ou périmé renvoie 412
+- Pagination limit et cursor opérationnelle
+- Rate limiting renforcé sur /auth/*";—;§3.1, §5.3;BACK;Must;5;L0-25;À faire;
+L0-27;L0;E0.6;Socle API;Tâche technique;OpenAPI 3.1 généré;Documentation exposée sur /api/docs, désactivable en production publique.;"- Le contrat est généré depuis le code
+- /api/docs est désactivé en production publique";—;§3.1;BACK;Should;2;L0-26;À faire;
+L0-28;L0;E0.7;Socle web;Story;Shell web, navigation par rôle et connexion;Layout, login, MFA, changement de mot de passe, refresh transparent, React Query, shadcn, i18n français (textes externalisés), libellés d'états du glossaire.;"- Le menu affiche uniquement les entrées autorisées au rôle (quatre rôles)
+- Le jeton expiré est rafraîchi sans perte de saisie
+- Les textes sont externalisés (i18n) et aucun code d'état technique n'est affiché
+- Dates JJ/MM/AAAA et heures sur 24 h";EX-NFR-08, EX-EXP-01;§0.1, §5.1;FRONT;Must;8;L0-10, L0-05;À faire;
+L0-29;L0;E0.7;Socle web;Story;Écran d'administration des utilisateurs;Liste, création, rôles et portées, activation, désactivation, déclenchement de réinitialisation, MFA.;"- L'Administrateur crée un compte et affecte rôle et département
+- Il déclenche une réinitialisation sans voir de mot de passe
+- Les erreurs API sont affichées de façon lisible";EX-SEC-02, EX-SEC-03;§3.3;FRONT;Must;5;L0-28, L0-15, L0-16;À faire;
+L0-30;L0;E0.7;Socle web;Story;Écrans des paramètres de sécurité et du journal;Paramètres de sécurité, conservation, journal de sécurité (Administrateur).;"- Tous les paramètres sont modifiables avec leurs valeurs courantes et par défaut
+- Le journal est filtrable par type, utilisateur et période
+- Accès réservé à l'Administrateur";EX-SEC-04, EX-SEC-09;§3.3;FRONT;Should;5;L0-28, L0-13, L0-18;À faire;
+L0-31;L0;E0.7;Socle web;Tâche technique;JWT Auth Guard (JwtAuthGuard);Implémentation du guard JwtAuthGuard pour protéger les routes avec vérification du JWT d'accès (signature, expiration, revocation via refresh token family).;"- Le guard extrait le token du header Authorization Bearer
+- Valide la signature et l'expiration
+- Vérifie la non-révocation via la famille de refresh tokens
+- Retourne 401 avec ProblemJson RFC 9457 en cas d'échec";EX-SEC-01;§5.1;BACK;Must;3;L0-10;À faire;
+L0-32;L0;E0.7;Socle web;Tâche technique;RolesGuard et décorateur @Roles();"Guard RolesGuard vérifiant les rôles requis et la portée département ; décorateur @Roles() pour déclarer les rôles attendus sur les contrôleurs.";"- Le guard lit les rôles depuis le payload JWT
+- Vérifie l'appartenance au département de l'utilisateur
+- Le décorateur accepte un ou plusieurs rôles
+- Retourne 403 ProblemJson si insuffisant";EX-SEC-01;§5.1;BACK;Must;3;L0-31;À faire;
+L0-33;L0;E0.7;Socle web;Story;UsersModule (CRUD + reset‑pwd);Module Users complet : création, lecture, mise à jour, suppression (soft‑delete) d'utilisateurs, changement de mot de passe par l'utilisateur, réinitialisation par l'administrateur avec lien à usage unique.;"- Seul l'Administrateur peut créer/supprimer
+- L'utilisateur peut modifier son propre profil et mot de passe
+- L'administrateur génère un lien de réinitialisation (token opaque, TTL court)
+- Tous les endpoints documentés OpenAPI";EX-SEC-02;§5.1, §3.4.21;BACK;Must;5;L0-32;À faire;
+L0-34;L0;E0.7;Socle web;Tâche technique;Filtre global ProblemJson (RFC 9457);Filtre d'exception global transformant toute erreur en réponse application/problem+json (type, title, status, detail, instance, errors).;"- Toutes les HttpException et erreurs imprévues passent par le filtre
+- Le format respecte RFC 9457
+- Le type d'erreur contient une URI stable https://takt.example.fr/errors/{status}";EX-NFR-05;§5.4;BACK;Must;3;L0-31;À faire;
+L0-35;L0;E0.7;Socle web;Tâche technique;Intercepteur de réponse avec en‑tête Link (pagination curseur);ResponseInterceptor ajoutant l'en‑tête Link RFC 5988 (rel=next) lorsque le payload paginé contient nextCursor.;"- L'en‑tête Link n'est ajouté que si nextCursor présent
+- L'URL construida conserve les paramètres de requête existants
+- Conforme à la pagination curseur définie dans ST §3.1";EX-NFR-04;§3.1, §5.4;BACK;Must;2;L0-34;À faire;
+L0-36;L0;E0.7;Socle web;Tâche technique;Configuration Swagger UI à /api/docs;Initialisation de SwaggerModule avec DocumentBuilder (BearerAuth, tags, version) et exposition de l'UI à /api/docs.;"- L'UI est accessible sans authentification
+- Les schémas DTO sont inclus via @ApiProperty
+- Le document OpenAPI 3.1 est généré au démarrage";EX-NFR-09;§5.3;BACK;Must;2;L0-34;À faire;
+L0-37;L0;E0.7;Socle web;Tâche technique;Enregistrement d'événements de sécurité;Service d'audit pour tracer les événements de sécurité (connexion, échec, MFA, changements de rôle, etc.) et les exposer via API.;"- Les événements sont écrits de façon asynchrone
+- Chaque événement contient: type, userId, ip, userAgent, timestamp, détails
+- L'API permet de lister/filtrer les événements (admin only)
+- Intégré au guard JWT et au service d'audit futur";EX-SEC-01;§5.1;BACK;Must;3;L0-31, L0-22;À faire;
+L1-01;L1;E1.1;Années & semestres;Story;CRUD années et semestres;Années universitaires et semestres (numéro, code, nbSemaines).;"- Unicité du code d'année et du couple (année, numéro)
+- Seul l'Administrateur écrit ; les autres rôles lisent
+- Un semestre compte 14 semaines par défaut";EX-CAL-01;§2.2;BACK;Must;3;L0-19, L0-22;À faire;
+L1-02;L1;E1.1;Années & semestres;Story;Activation d'une année;Transition ACTIVER avec gardes (une seule année active).;"- Une seule année ACTIVE (index unique partiel)
+- Activation refusée sans jeu de règles de charge affecté (garde branchée en L2)
+- Les statuts sont PREPARATION, ACTIVE et CLOTUREE uniquement";EX-CAL-01, EX-CAL-05;§4.1.3, §3.4.15;BACK;Must;3;L1-01;À faire;
+L1-03;L1;E1.2;Structure académique;Story;CRUD départements, formations, niveaux;Structure académique rattachée à l'année avec originId.;"- Unicité par (année, code), (département, code), (formation, code)
+- Suppression refusée si référencé (RESTRICT) avec liste des références";EX-ORG-01;§2.2, §4.19;BACK;Must;5;L1-01;À faire;
+L1-04;L1;E1.2;Structure académique;Story;CRUD groupes hiérarchiques par semestre;SECTION, GROUPE, SOUS_GROUPE, effectif, parent, semestre.;"- Hiérarchie sans cycle
+- Effectif supérieur ou égal à 0
+- La fermeture {soi, ancêtres, descendants} est calculable
+- Un enfant partage le semestre de son parent (trigger SQL)
+- Unicité (niveau, semestre, code)";EX-ORG-02;§2.2, §4.3;BACK;Must;5;L1-03;À faire;
+L1-05;L1;E1.2;Structure académique;Story;CRUD modules, types d'enseignement et grades;Modules par niveau, types (CM, TD, TP, CI, Autre) et grades paramétrables.;"- Module rattaché à un niveau avec semestreNumero
+- Types et grades paramétrables par l'Administrateur";EX-REF-01, EX-REF-02;§2.2;BACK;Must;5;L1-03;À faire;
+L1-06;L1;E1.2;Structure académique;Story;Référentiel des Activity Tags;CRUD des FET Activity Tags, tag par défaut d'un type d'enseignement.;"- Un tag est distinct d'un type d'enseignement
+- Chaque type porte un tag par défaut
+- Un tag référencé ne peut pas être supprimé (désactivation)";EX-REF-05;§2.2, §0.1;BACK;Must;3;L1-05;À faire;
+L1-07;L1;E1.2;Structure académique;Story;Nomenclature normalisée des groupes;Code {niveau}-{abréviation}-{groupe} validé partout.;"- Regex configurable ^(L1|L2|L3|M1|M2)-[A-Z0-9]{2,8}-[A-Z0-9]{1,4}$
+- Segment 2 = abréviation de la formation, unique par année
+- GET /groupes/code-suggestion propose le prochain identifiant libre
+- Code non conforme refusé (422 GROUP_CODE_INVALID), y compris à l'import
+- Segment 3 = identifiant du groupe dans le niveau (1, 2, 3 ou A, B)";EX-ORG-03;§4.10;BACK;Must;5;L1-04;À faire;
+L1-08;L1;E1.2;Structure académique;Story;Duplication des groupes d'un semestre à l'autre;POST /groupes/duplicate {sourceSemestre, cibleSemestre}.;"- Parents copiés avant les enfants
+- Idempotent via originId
+- Effectifs copiés ou réinitialisés avec avertissement
+- Aucune affectation copiée";EX-ORG-03;§4.10;BACK;Should;3;L1-07;À faire;
+L1-09;L1;E1.2;Structure académique;Story;UI structure académique;Arbre département > formation > niveau > groupes, modules, types, tags.;"- Création, modification et désactivation depuis l'arbre
+- Erreurs de suppression RESTRICT expliquées";EX-ORG-01, EX-ORG-02;§3.3;FRONT;Must;8;L1-04, L1-05, L1-06, L0-28;À faire;
+L1-10;L1;E1.3;Enseignants, grades & décharges;Story;CRUD enseignants et modules enseignables;Enseignant (matricule, grade, département, téléphone facultatif), modules enseignables.;"- Unicité (année, matricule)
+- Désactivation refusée (409) si présent dans une répartition d'une année non clôturée
+- Le Responsable modifie les modules enseignables de son département uniquement";EX-REF-03;§4.19, §3.3;BACK;Must;5;L1-05, L0-19;À faire;
+L1-11;L1;E1.3;Enseignants, grades & décharges;Story;Décharges enseignant;Décharges par semestre en heures équivalentes.;"- CRUD réservé à l'Administrateur
+- Les décharges sont prises en compte par le calcul de charge (L2)";EX-REF-07;§2.2, §4.2;BACK;Must;3;L1-10;À faire;
+L1-12;L1;E1.3;Enseignants, grades & décharges;Story;UI enseignants;Liste, fiche, modules enseignables, décharges.;"- Filtres par département et grade
+- Le Responsable voit uniquement son département en écriture";EX-REF-03, EX-REF-07;§3.3;FRONT;Must;5;L1-10, L0-28;À faire;
+L1-13;L1;E1.4;Salles & équipements;Story;CRUD salles, types de salle et équipements;Capacité maximale et recommandée, accessibilité PMR, commentaire, site, rattachement département optionnel.;"- CHECK capacité > 0 et capacité recommandée inférieure ou égale à la maximale
+- Salle partagée = département nul
+- Désactivation recommandée à la suppression";EX-REF-04;§2.2, §2.4;BACK;Must;5;L1-03;À faire;
+L1-14;L1;E1.4;Salles & équipements;Story;Référentiel des sites;"Site principal et annexes ; rattachement obligatoire d'une salle à un site.";"- Un site principal existe par défaut
+- Les filtres et vues par site sont disponibles
+- Le site n'a aucun effet de calcul en v1.0";EX-REF-04;§2.2;BACK;Should;2;L1-13;À faire;
+L1-15;L1;E1.4;Salles & équipements;Story;Compatibilités salle/tag et exigences d'équipement;SalleActivityTag et ExigenceEquipement (module, type, niveau obligatoire ou souhaité).;"- Une salle liste les Activity Tags autorisés
+- Un (module, type) liste les équipements requis avec leur niveau (obligatoire par défaut)
+- La compatibilité distingue compatible, acceptable avec avertissement et incompatible";EX-REF-05, EX-CTR-08;§2.2, §4.3;BACK;Must;5;L1-13, L1-06;À faire;
+L1-16;L1;E1.4;Salles & équipements;Story;UI salles;Liste, fiche, équipements, tags compatibles, sites.;"- Création et modification d'une salle avec ses compatibilités
+- Lecture seule pour le Gestionnaire";EX-REF-04;§3.3;FRONT;Must;5;L1-15, L1-14, L0-28;À faire;
+L1-17;L1;E1.5;Grille horaire & indisponibilités;Story;CRUD créneaux et pauses (par semestre);Grille lundi–samedi propre à chaque semestre, ordre consécutif, pauses, pas fixe de 30 minutes.;"- Unicité (semestre, jour, ordre)
+- Durée exacte de 30 minutes (CHECK SQL, constante SLOT_MINUTES)
+- Une pause est non planifiable
+- Les deux semestres d'une année peuvent avoir des grilles différentes";EX-CAL-02;§2.2, §2.4;BACK;Must;5;L1-01;À faire;
+L1-18;L1;E1.5;Grille horaire & indisponibilités;Story;Générateur de grille horaire par semestre;POST /semestres/{id}/creneaux/generate : jours ouvrés, heures de début et de fin par jour, pauses.;"- Entrée par jour : heures de début et de fin (multiples de 30 minutes) et pauses
+- Génération déterministe de créneaux consécutifs, pauses marquées
+- dryRun retourne le décompte par jour sans écriture
+- 409 SLOT_IN_USE si des séances référencent un créneau qui disparaîtrait
+- Paramètres conservés dans Semestre.grilleParams";EX-CAL-02, EX-CAL-03;§4.10;BACK;Must;5;L1-17;À faire;
+L1-19;L1;E1.5;Grille horaire & indisponibilités;Story;Duplication des créneaux depuis un autre semestre ou une autre année;POST /creneaux/duplicate (action optionnelle).;"- Les créneaux ne sont jamais reconduits automatiquement
+- La duplication ne copie ni contraintes ni indisponibilités
+- Refusée si la cible contient déjà des créneaux, sauf option « remplacer » sans séance";EX-CAL-03;§4.10;BACK;Should;2;L1-17;À faire;
+L1-20;L1;E1.5;Grille horaire & indisponibilités;Story;CRUD indisponibilités enseignants et salles;Indisponibilité absolue par jour et créneau, rattachée au semestre.;"- CHECK enseignant XOR salle
+- Écriture par l'Administrateur et le Gestionnaire
+- Un effet sur les versions en cours est déclenché en L3";EX-REF-06;§2.2, §2.4;BACK;Must;3;L1-17, L1-10, L1-13;À faire;
+L1-21;L1;E1.5;Grille horaire & indisponibilités;Story;UI grille horaire et indisponibilités;Saisie des créneaux, pauses et indisponibilités en grille, via le générateur.;"- La grille affiche jours et créneaux ordonnés
+- Sélection de plages multiples pour une indisponibilité
+- Les heures de début et de fin par jour passent par le générateur";EX-CAL-02, EX-REF-06;§3.3;FRONT;Must;5;L1-20, L1-18, L0-28;À faire;
+L1-22;L1;E1.6;Grille Ramadan;Story;Correspondance d'affichage Ramadan (modèle et API);CreneauAffichage par semestre : horaire Ramadan par créneau logique, durées libres.;"- Contrôles : ordre croissant, aucun chevauchement, pauses conservées
+- Aucune contrainte de 30 minutes sur l'horaire affiché
+- Les vues acceptent grille=NORMALE ou RAMADAN
+- Aucun effet sur FET, les volumes ou les conflits";EX-CAL-04;§4.10, §2.2;BACK;Must;5;L1-17;À faire;
+L1-23;L1;E1.6;Grille Ramadan;Story;UI de saisie et de duplication de la grille Ramadan;Écran de correspondance par semestre, duplication depuis un autre semestre ou une autre année.;"- Saisie jour par jour des horaires Ramadan avec contrôles visibles
+- Duplication idempotente
+- Aperçu de la grille normale et de la grille Ramadan côte à côte";EX-CAL-04;§4.10;FRONT;Must;5;L1-22, L0-28;À faire;
+L1-24;L1;E1.7;Import depuis une année clôturée;Story;Import depuis une année clôturée avec aperçu;POST /annees/{id}/import : sélection par type de donnée, dryRun puis confirmation, idempotent par originId.;"- Aperçu obligatoire : ajouts, modifications, doublons, conflits, erreurs
+- Application transactionnelle sur confirmation avec l'importId de l'aperçu
+- Copie départements, formations, niveaux, groupes (parents d'abord), modules, salles, enseignants, et en option créneaux et grille Ramadan
+- Relancer ne duplique rien
+- Répartitions, séances, versions, contraintes, indisponibilités, charges non copiés
+- Effectifs réinitialisables avec avertissement";EX-IMP-02;§4.9, §3.4.16;BACK;Must;8;L1-10, L1-15, L1-04, L1-22, L1-17;À faire;
+L1-25;L1;E1.7;Import depuis une année clôturée;Story;UI import depuis une année clôturée;Assistant de choix des types de données, aperçu détaillé, confirmation.;"- Le résumé des copies, conflits et avertissements est affiché avant confirmation
+- L'opération est transactionnelle";EX-IMP-02;§3.4.16;FRONT;Should;3;L1-24, L0-28;À faire;
+L1-26;L1;E1.8;Imports CSV/XLSX;Story;Import CSV/XLSX avec simulation et impact;"POST /imports/{entite}?dryRun=true pour enseignants, salles, groupes, modules ; analyse d'impact sur les répartitions validées.";"- Simulation obligatoire avant import réel
+- Rapport ligne par ligne (ligne, colonne, valeur, erreur, cause, correction attendue) sans enregistrement partiel
+- Contrôle de taille et de type réel (magic bytes), parseur isolé
+- Groupes : colonne semestre obligatoire et code validé selon la nomenclature
+- Une donnée utilisée dans une répartition validée déclenche une analyse d'impact avant application, sans modifier de validation";EX-IMP-01, EX-IMP-03;§4.9, §5.3;BACK;Should;8;L1-10, L1-13, L1-04, L1-05, L1-07;À faire;
+L1-27;L1;E1.8;Imports CSV/XLSX;Story;UI import;Dépôt de fichier, rapport d'erreurs, impacts, confirmation.;"- Le rapport de simulation est lisible avant confirmation
+- Fichier invalide rejeté avec message explicite
+- Les impacts sur les données validées sont affichés";EX-IMP-01, EX-IMP-03;§3.3;FRONT;Should;3;L1-26, L0-28;À faire;
+L2-01;L2;E2.1;Volumes prévus (maquette);Story;Volumes prévus par (module, type);CRUD /modules/{id}/volumes (ModuleVolume).;"- Unicité (module, type)
+- Écriture par l'Administrateur et le Responsable de son département
+- Volume en minutes multiple de 30";EX-REF-01;§2.2, §3.3;BACK;Must;3;L1-05, L1-17;À faire;
+L2-02;L2;E2.1;Volumes prévus (maquette);Story;UI maquette pédagogique;Saisie des volumes par module et type, import possible.;"- Tableau éditable par niveau
+- Les volumes non multiples de 30 minutes sont signalés";EX-REF-01;§3.3;FRONT;Must;3;L2-01, L0-28;À faire;
+L2-03;L2;E2.2;Charge paramétrable;Story;Jeux de règles de charge et publication immuable;ChargeRuleSet, ChargeReferenceGrade, ChargeCoefficient (grade facultatif), publication.;"- Un jeu publié est immuable (trigger CHARGE_RULESET_PUBLISHED, 423)
+- Modifier un jeu publié impose d'en créer un nouveau (numéro +1)
+- Période HEBDOMADAIRE, SEMESTRIELLE ou ANNUELLE, seuil, plafond et arrondi paramétrables
+- Un coefficient propre à un grade prime sur le coefficient du type";EX-CHG-01;§2.2, §2.4, §4.2;BACK;Must;8;L1-05, L0-22;À faire;
+L2-04;L2;E2.2;Charge paramétrable;Story;Moteur de calcul de la charge (charge-engine);Fonction pure calculerCharge en Decimal : volume brut, charge calculée, charge de référence, service dû, écart, heures supplémentaires.;"- Coefficient ou charge manquants lèvent ConfigurationError explicite
+- Un CM commun compte une seule fois pour l'enseignant (test dédié)
+- Écart = charge calculée − service dû ; heures sup, seuil et plafond conformes à ST §4.2
+- Tests par propriété et cas limites (période annuelle partielle)
+- Détail par activité : type, volume, coefficient, contribution";EX-CHG-02, EX-CHG-05, EX-ACT-03;§4.2;BACK;Must;8;L0-03;À faire;
+L2-05;L2;E2.2;Charge paramétrable;Story;UI paramétrage de la charge;Édition d'un jeu de règles, publication, création du suivant, affectation à l'année.;"- Édition impossible après publication
+- Affectation du jeu à l'année (garde d'activation)
+- Vocabulaire « charge » partout, aucun « DU »";EX-CHG-01;§4.2;FRONT;Must;5;L2-03, L0-28;À faire;
+L2-06;L2;E2.3;Saisie de la répartition;Story;Répartitions par département et semestre;Une répartition par (semestre, département), statuts BROUILLON, VALIDEE, ROUVERTE.;"- Création automatique à l'ouverture du semestre
+- Consultation par Administrateur, Gestionnaire, Direction (lecture) et Responsable";EX-REP-01;§4.1.2, §3.3;BACK;Must;3;L1-01, L0-19;À faire;
+L2-07;L2;E2.3;Saisie de la répartition;Story;CRUD affectations;"POST/PATCH/DELETE /repartitions/{id}/affectations ; activité à un seul enseignant, séances par semaine, durée contiguë, CM commun, Activity Tag facultatif.";"- volumeHebdoMinutes calculé par le serveur
+- 403 OUT_OF_SCOPE hors département (sauf Administrateur), 409 sur doublon, 422 si enseignant inactif ou module hors niveau
+- Un seul enseignant par activité ; durée multiple de 30 minutes
+- Le tag par défaut du type s'applique si le tag n'est pas fixé
+- workingRevision incrémenté à chaque modification
+- Le Gestionnaire ne peut pas écrire";EX-REP-01, EX-ACT-01, EX-ACT-02, EX-ACT-03, EX-ROL-03;§3.4.2, §0.3;BACK;Must;8;L2-06, L1-10, L2-01, L2-04, L1-06;À faire;
+L2-08;L2;E2.3;Saisie de la répartition;Story;UI saisie de la répartition;Tableau par groupe, module et type avec charges visibles en temps réel.;"- Ajout d'une affectation met à jour la charge de l'enseignant
+- Les écarts de volume sont visibles pendant la saisie
+- Le Responsable fixe l'Activity Tag d'une affectation";EX-REP-01, EX-CHG-03;§4.2;FRONT;Must;8;L2-07, L0-28;À faire;
+L2-09;L2;E2.3;Saisie de la répartition;Story;Contrôles de cohérence des volumes;GET /repartitions/{id}/controles.;"- Écart par (groupe, module, type) = volume attendu − somme des affectations
+- Écarts négatifs « non couvert », positifs « excédent »";EX-REP-02;§4.2;BACK;Must;5;L2-07;À faire;
+L2-10;L2;E2.4;Charges;Story;API des charges et agrégations;GET /charges par enseignant, département, formation, module, groupe, type.;"- Volumes bruts et pondérés retournés
+- Calcul partiel signalé si un semestre n'a pas de répartition validée
+- Temps de calcul d'un département < 500 ms";EX-CHG-03;§4.2, §5.4;BACK;Must;5;L2-07;À faire;
+L2-11;L2;E2.4;Charges;Story;UI tableau de bord des charges;Charge de référence, service dû, écart, heures supplémentaires, dépassement de plafond.;"- Dépassement de plafond mis en évidence
+- Filtres département et enseignant
+- Libellés : dépassement de X h ou reste X h à affecter";EX-CHG-03;§4.2;FRONT;Must;5;L2-10, L0-28;À faire;
+L2-12;L2;E2.5;Validation & snapshots;Story;Validation de la répartition et snapshot;"POST /repartitions/{id}/validate ; validation par le Responsable ou par l'Administrateur pour un département.";"- Refusée (422 REPARTITION_INVALID) tant qu'il reste un écart de volume, avec le détail
+- Création d'un snapshot immuable (affectations, tag résolu, charges, jeu de règles, hash)
+- Triggers append-only sur SnapshotAffectation et SnapshotCharge
+- SnapshotCharge conserve volume brut, charge calculée, charge de référence, décharges, service dû, écart, heures sup
+- Validation par l'Administrateur tracée (parAdministrateur) avec notification au Responsable (L5)";EX-REP-03, EX-ROL-06, EX-CHG-05;§3.4.3, §4.1.2;BACK;Must;8;L2-09, L2-10, L2-03, L0-21;À faire;
+L2-13;L2;E2.5;Validation & snapshots;Story;Réouverture et indicateur de divergence;POST /repartitions/{id}/reopen.;"- Réouverture sans effet sur les versions existantes
+- La divergence est calculée selon ST §4.1.2
+- Résumé de comparaison entre deux snapshots (ajoutées, supprimées, modifiées, enseignants multi-départements)";EX-REP-04;§4.1.2, §3.4.3;BACK;Must;3;L2-12;À faire;
+L2-14;L2;E2.5;Validation & snapshots;Story;Historique et consultation des snapshots;API et écran de consultation en lecture seule.;"- Liste des révisions avec auteur, date et mention éventuelle « validé par l'Administrateur »
+- Consultation d'un snapshot en lecture seule";EX-REP-03;§3.3;FULL;Should;3;L2-12, L0-28;À faire;
+L2-15;L2;E2.6;Demandes de modification;Story;Demandes de modification (API);Création par le Gestionnaire, traitement par le Responsable.;"- Statuts OUVERTE, TRAITEE, REFUSEE avec réponse
+- Le Responsable ne voit que son département
+- Demande liée à une affectation ou une séance";EX-REP-05, EX-ROL-05;§3.3;BACK;Must;5;L2-06;À faire;
+L2-16;L2;E2.6;Demandes de modification;Story;UI demandes de modification;Création, suivi et traitement.;"- Le Gestionnaire crée une demande depuis une affectation
+- Le Responsable la traite avec motif";EX-REP-05;§3.3;FRONT;Must;3;L2-15, L0-28;À faire;
+L2-17;L2;E2.7;Vue annuelle des charges;Story;API de la vue annuelle des charges (S1 + S2);GET /charges/annuelles : cumul des deux semestres indépendant de la période du jeu de règles.;"- Par semestre : charge calculée et source (SNAPSHOT_VALIDE, COPIE_TRAVAIL, ABSENT)
+- Heures supplémentaires calculées sur le cumul quand la période est ANNUELLE
+- Indicateur de divergence si un semestre a été rouvert après validation
+- Décharges des deux semestres additionnées
+- Calcul en Decimal ; < 500 ms par département";EX-CHG-04;§4.2;BACK;Must;5;L2-10;À faire;
+L2-18;L2;E2.7;Vue annuelle des charges;Story;Charge globale d'un enseignant multi-départements;GET /enseignants/{id}/charge-globale : total toutes affectations confondues, sans détail hors département.;"- Le Responsable voit la charge calculée par département pour un enseignant de sa répartition
+- Aucun détail de module ou de groupe des autres départements n'est exposé
+- Test RBAC : aucune fuite de détail hors portée
+- Alerte de dépassement calculée sur le total";EX-ROL-07;§4.2, §5.2;BACK;Must;3;L2-17;À faire;
+L2-19;L2;E2.7;Vue annuelle des charges;Story;UI vue annuelle des charges par enseignant;Tableau S1, S2, total, service dû, écart, alertes, accessible depuis la saisie de la répartition.;"- Colonnes S1, S2, total, service dû, écart, heures supplémentaires
+- La source de chaque semestre et la divergence sont visibles
+- Le total multi-départements est affiché pour les enseignants concernés";EX-CHG-04, EX-ROL-07;§3.3;FRONT;Must;3;L2-17, L2-18, L0-28;À faire;
+L3-01;L3;E3.1;Contraintes;Story;Catalogue de contraintes et règles centralisées;ContrainteDefinition seedée (dures/souples, portée, fetSupport, message), moteur de règles unique alimentant génération, contrôles et édition.;"- Catalogue consultable par Administrateur, Gestionnaire et Direction
+- Chaque définition expose un schéma de paramètres, une catégorie, un support FET et un message
+- Une règle ajoutée au catalogue n'impose pas de modifier les écrans existants
+- Les trois consommateurs (fichier FET, contrôles avant génération, édition) lisent la même définition";EX-CTR-01, EX-PRI-06;§2.2, §4.11;BACK;Must;5;L0-04;À faire;
+L3-02;L3;E3.1;Contraintes;Story;Classification des règles et matrice de traduction;"Classement HARD_CONSTRAINT, SOFT_CONSTRAINT, BUSINESS_VALIDATION, INFORMATIONAL et FET_SUPPORTED, FET_TRANSFORMED, APPLICATION_ONLY ; matrice de traduction.";"- Chaque règle du catalogue porte sa classe et sa traduction technique
+- La nature (règle ou préférence) est affichée partout
+- Aucune règle APPLICATION_ONLY n'est présentée comme respectée par FET
+- La matrice de traduction (identifiant, domaine, sévérité, type, entrée FET, contrôles pré/post-génération et édition, message, test, version) est générée depuis le catalogue";EX-CTR-06, EX-PRI-02;§4.3, §4.6.3;BACK;Must;3;L3-01;À faire;
+L3-03;L3;E3.1;Contraintes;Story;Instances de contraintes;CRUD /contraintes/instances par semestre.;"- Poids 0–100 (CHECK), null pour les dures
+- Cible enseignant, groupe, salle ou module cohérente avec la portée
+- Champs nature (REGLE ou VOEU) et commentaire";EX-CTR-02;§2.2, §4.11;BACK;Must;5;L3-01, L1-10, L1-04, L1-13;À faire;
+L3-04;L3;E3.1;Contraintes;Story;UI contraintes;Création et paramétrage des contraintes avec rapport de traduction FET en aperçu.;"- Le poids n'est saisissable que pour les contraintes souples
+- L'aperçu fet-mapping est affiché (branché en L4)
+- La nature de chaque contrainte (règle, préférence) est visible";EX-CTR-02, EX-CTR-06;§3.3;FRONT;Should;5;L3-03, L0-28;À faire;
+L3-05;L3;E3.1;Contraintes;Story;Catalogue des règles générales;Heures par jour, heures continues, creux, jours par semaine, amplitude, intervalle.;"- Codes MAX/MIN_HOURS_PER_DAY, MAX/MIN_CONTINUOUS_HOURS, MAX_GAPS_PER_DAY/WEEK, MAX/MIN_DAYS_PER_WEEK, MAX_SPAN_PER_DAY, MAX_HOURS_IN_INTERVAL
+- Schéma de paramètres validé pour chaque code
+- Catégories et portées autorisées par définition
+- fetSupport renseigné après vérification au spike S1
+- Une instance globale par semestre est créable par le Gestionnaire";EX-CTR-02;§4.11;BACK;Must;5;L3-01;À faire;
+L3-06;L3;E3.1;Contraintes;Story;Précédence et cohérence des règles;Précédence entre instances globales et spécifiques, contrôle de cohérence.;"- Une instance dure spécifique remplace la règle globale dure de même code pour son sujet ; les souples sont cumulatives
+- 422 CONSTRAINT_INCOHERENT si minimum supérieur au maximum
+- MIN_HOURS_PER_DAY : jours vides autorisés par défaut
+- Avertissement si le volume d'un groupe dépasse heures par jour × jours par semaine";EX-CTR-02;§4.11;BACK;Must;3;L3-03, L3-05;À faire;
+L3-07;L3;E3.1;Contraintes;Story;Duplication des contraintes et vœux d'un semestre à l'autre;POST /contraintes/duplicate {sourceSemestreId, cibleSemestreId, natures}.;"- Copie uniquement les contraintes dont tous les sujets ont un homologue (originId)
+- Indisponibilités recopiées par correspondance jour + heure de début
+- Rapport listant ce qui n'a pas pu être copié
+- Idempotent";EX-CTR-03;§4.11;BACK;Should;3;L3-03, L1-20;À faire;
+L3-08;L3;E3.1;Contraintes;Story;Pauses fixes et fenêtres de pause;Pauses fixes, créneaux bloqués, pause libre minimale dans une fenêtre (par exemple 30 minutes entre 12h00 et 14h00).;"- La pause libre minimale est exprimée par MAX_HOURS_IN_INTERVAL
+- Elle est contrôlée à la génération et à l'édition manuelle
+- Une fenêtre de pause impossible à satisfaire est signalée dans la préparation";EX-CTR-04;§4.11, §4.3;BACK;Must;3;L3-05, L1-17;À faire;
+L3-09;L3;E3.2;Versions & séances;Story;Création de version;POST /versions, sélection des derniers snapshots validés, création des séances.;"- 422 si un département n'a pas de snapshot validé
+- CM commun (groupeCommunKey) produit une seule séance multi-groupes
+- Une seule version de travail à la fois (409)
+- Numérotation majeur/mineur selon RC-04
+- Chaque séance porte affectationKey, rang et tag résolu";EX-WFL-07;§3.4.4, §0.3;BACK;Must;8;L2-12, L1-17;À faire;
+L3-10;L3;E3.2;Versions & séances;Story;Séances, occupations et immutabilité;Modèle Seance, SeanceGroupe, Occupation, CHECK de placement, triggers d'immutabilité.;"- Unicité des occupations par ressource et créneau en base
+- CHECK chk_seance_placement vérifié
+- Séance d'une version PUBLIE ou ARCHIVE non modifiable, y compris par l'Administrateur";EX-PRI-03;§2.2, §2.4;BACK;Must;5;L3-09;À faire;
+L3-11;L3;E3.2;Versions & séances;Story;API de consultation des séances et versions;GET /versions, /versions/{id}, /versions/{id}/seances, /seances/{id}.;"- Filtres jour, groupe, enseignant, salle
+- ETag et If-None-Match
+- Chargement d'une grille < 500 ms
+- La Direction ne voit que les versions publiées et archivées";EX-NFR-04, EX-ROL-04;§3.3, §5.4;BACK;Must;5;L3-10;À faire;
+L3-12;L3;E3.3;Conflict-engine;Story;Structures du conflict-engine;OccupancyIndex, GroupeClosure, IndispoSet, Reqs, SnapshotIndex, VerrouIndex.;"- Paquet pur sans dépendance NestJS ni Prisma
+- Construction en O(S)";EX-EDI-02;§4.3;BACK;Must;5;L0-03;À faire;
+L3-13;L3;E3.3;Conflict-engine;Story;Règles de collision;TEACHER, ROOM, GROUP_DOUBLE_BOOKING et SLOT_SPANS_BREAK.;"- Un groupe est en conflit avec ses ancêtres et descendants
+- Une séance qui franchit une pause ou la fin de journée est refusée";EX-EDI-02;§4.3;BACK;Must;5;L3-12;À faire;
+L3-14;L3;E3.3;Conflict-engine;Story;Règles de capacité, disponibilité et compatibilité;ROOM_CAPACITY, ROOM_CAPACITY_RECOMMENDED, TEACHER/ROOM_UNAVAILABLE, ROOM_TAG_INCOMPATIBLE, ROOM_EQUIPMENT_MISSING, ROOM_NOT_ALLOWED.;"- La capacité somme les effectifs des groupes distincts (l'ancêtre prime sur le descendant)
+- La capacité maximale est bloquante, la recommandée est un avertissement
+- Un équipement obligatoire manquant est bloquant, un équipement souhaité est un avertissement
+- Un CM commun cumule les indisponibilités de chaque groupe
+- La salle imposée et la liste autorisée sont contrôlées";EX-EDI-02, EX-CTR-07, EX-CTR-08;§4.3;BACK;Must;5;L3-12, L1-15;À faire;
+L3-15;L3;E3.3;Conflict-engine;Story;Règles pédagogiques et de complétude;TEACHER_NOT_IN_SNAPSHOT, SESSION_OVERPLANNED, SESSION_DURATION_MISMATCH, COVERAGE_INCOMPLETE, SESSION_UNPLACED.;"- Couverture exactement égale à 100 % requise (B7)
+- Sur-planification = conflit bloquant";EX-EDI-02, EX-EDI-05;§4.3, §4.8;BACK;Must;5;L3-12;À faire;
+L3-16;L3;E3.3;Conflict-engine;Story;Sévérités et signature des conflits;"Sévérité BLOQUANT, AVERTISSEMENT, INFORMATION par règle ; signature stable de chaque conflit.";"- Chaque règle porte sa sévérité et son caractère acceptable ou non
+- La signature change dès que la séance, la salle ou le créneau change
+- Les types VERROU, COVOITURAGE et VOEU existent";EX-CTR-07, EX-EDI-02;§4.3;BACK;Must;3;L3-14;À faire;
+L3-17;L3;E3.3;Conflict-engine;Story;Recalcul incrémental et complet;impactedSeances, conflits:recompute, persistance Conflit.;"- Le recalcul incrémental donne le même résultat que le recalcul complet
+- Les conflits disparus reçoivent resoluLe
+- conflits:recompute < 2 s pour 4 000 séances";EX-EDI-01, EX-NFR-04;§4.3, §5.4;BACK;Must;8;L3-13, L3-14, L3-15, L3-10, L3-16;À faire;
+L3-18;L3;E3.3;Conflict-engine;Test;Tests par propriété du conflict-engine;fast-check sur déplacements aléatoires.;"- Aucun déplacement accepté ne crée de double réservation
+- Incrémental = complet sur des séquences aléatoires";EX-NFR-07;§5.5;QA;Must;5;L3-17;À faire;
+L3-19;L3;E3.4;Bail d'édition & concurrence;Story;Bail d'édition exclusif;POST/DELETE /versions/{id}/edit-lock, bail 30 minutes, heartbeat.;"- Le second utilisateur reçoit 423 EDIT_LOCK_HELD et reste en lecture seule
+- Le bail expire automatiquement
+- L'Administrateur peut forcer la libération (audit)";EX-EDI-04;§4.4, §3.3;BACK;Must;5;L3-11, L0-22;À faire;
+L3-20;L3;E3.5;Éditeur manuel;Story;Déplacement d'une séance;PATCH /seances/{id}/placement (MoveSeanceUseCase).;"- If-Match obligatoire (412 si périmé)
+- Un nouveau conflit bloquant provoque 422 SEANCE_CONFLICT_BLOCKING avec détail et rollback
+- Mise à jour atomique séance, occupations, conflits, revision et audit
+- Séance verrouillée (créneau, salle ou activité) refusée, état non éditable en 409";EX-EDI-01;§3.4.9, §4.4;BACK;Must;8;L3-17, L3-19, L3-36;À faire;
+L3-21;L3;E3.5;Éditeur manuel;Story;Simulation de placement;POST /seances/{id}/placement:simulate sans écriture, avec contraintes respectées et violées et impacts.;"- Aucune écriture en base
+- Réponse < 100 ms
+- La réponse indique contraintes respectées et violées, impact groupe, enseignant, salle et verrous";EX-EDI-03;§4.4, §5.4;BACK;Must;3;L3-17;À faire;
+L3-22;L3;E3.5;Éditeur manuel;Story;Changement d'enseignant;PATCH /seances/{id}.;"- Enseignant autorisé uniquement s'il figure dans le snapshot pour tous les groupes (sinon 422 TEACHER_NOT_ASSIGNED et suggestion de demande)
+- Refusé si un verrou enseignant ou activité est actif";EX-EDI-01, EX-ROL-05;§4.4, §0.3;BACK;Must;5;L3-20, L2-15;À faire;
+L3-23;L3;E3.5;Éditeur manuel;Tâche technique;Cache OccupancyIndex;Cache mémoire clé versionId@revision.;"- Invalidation naturelle au changement de revision
+- Une instance en retard reconstruit l'index";EX-NFR-04;§5.4;BACK;Should;3;L3-20;À faire;
+L3-24;L3;E3.5;Éditeur manuel;Story;Historique et annulation en brouillon;Dernier auteur, dernière modification, annulation d'une modification récente, comparaison avec la version de référence.;"- Chaque déplacement est historisé (avant, après)
+- L'annulation ré-applique la position précédente avec les mêmes contrôles
+- Le détail de la version expose dernier auteur et dernière modification
+- La comparaison avec la version de référence est disponible";EX-EDI-06;§4.4;FULL;Should;5;L3-20;À faire;
+L3-25;L3;E3.6;Guidage de résolution;Story;Suggestions de résolution;GET /seances/{id}/suggestions, 20 alternatives maximum.;"- Aucune écriture, alternatives sans conflit bloquant
+- Tri par conflits résolus, delta de score souple, distance, salle conservée
+- Départage déterministe et réponse < 1 s
+- Alternatives d'enseignant proposées séparément";EX-EDI-03;§4.5;BACK;Must;8;L3-17, L3-27;À faire;
+L3-26;L3;E3.6;Guidage de résolution;Story;UI suggestions et séances non placées;Panneau des alternatives et liste des séances à placer.;"- Appliquer une suggestion déclenche le déplacement
+- Une séance NON_PLACEE peut être placée par glisser-déposer
+- La liste des séances à placer applique la règle des tokens : pastille sur Ivory uniquement, marqueur en ligne (icône map-pin-off et libellé « À placer ») sur Warm et Inset";EX-EDI-03;§4.5;FRONT;Must;5;L3-28, L3-25;À faire;
+L3-27;L3;E3.7;Grille d'édition (UI);Story;Évaluateurs de contraintes souples;Sous-ensemble : heures consécutives, creux, plages à éviter, équilibre journalier.;"- Un score et un delta sont retournés à chaque déplacement
+- Les contraintes sans évaluateur sont marquées « non évaluée »";EX-CMP-02, EX-CTR-02;§4.7, §0.3;BACK;Should;8;L3-03, L3-17;À faire;
+L3-28;L3;E3.7;Grille d'édition (UI);Story;Grille d'édition drag-and-drop;Vues groupe, enseignant, salle avec dnd-kit, choix grille normale ou Ramadan.;"- Déplacement par glisser-déposer avec retour visuel immédiat et rollback en cas de 4xx
+- Grille virtualisée pour 4 000 séances
+- Lecture seule dans les états non éditables
+- Les états des séances sont rendus par couleur, icône et libellé
+- Hauteur de ligne de 28 px par tranche de 30 minutes (24 px en densité forte, 32 px en mode lecture), issue des tokens";EX-EDI-01, EX-CAL-04;§0.1, §5.4;FRONT;Must;13;L3-20, L3-11, L0-28, L1-22;À faire;
+L3-29;L3;E3.7;Grille d'édition (UI);Story;Panneau de conflits et simulation;Conflits actifs, simulation au survol, détail des règles violées, sévérité.;"- La simulation s'affiche avant dépôt
+- Les conflits sont filtrables par type et sévérité
+- La classification opérationnelle des conflits est affichée";EX-EDI-02, EX-EDI-03;§3.4.9;FRONT;Must;8;L3-28, L3-21;À faire;
+L3-30;L3;E3.8;Complétude & impacts référentiel;Story;Couverture et complétude;GET /versions/{id}/completude.;"- Attendu, placé et écart par affectation
+- Seule une couverture exacte autorise le passage à PRET_POUR_VALIDATION";EX-EDI-05;§4.8;BACK;Must;5;L3-15;À faire;
+L3-31;L3;E3.8;Complétude & impacts référentiel;Story;UI couverture;Tableau de couverture par affectation et département.;"- Écarts négatifs et positifs distingués
+- Navigation vers les séances concernées";EX-EDI-05;§4.8;FRONT;Should;3;L3-30, L0-28;À faire;
+L3-32;L3;E3.8;Complétude & impacts référentiel;Story;Recalcul sur changement de référentiel;Indisponibilité ajoutée, capacité ou effectif modifié.;"- Les conflits DISPONIBILITE ou CAPACITE sont recalculés sur les versions non publiées
+- Aucune modification sur une version PUBLIE ou ARCHIVE";EX-EDI-02;§4.19;BACK;Must;5;L3-17, L1-20;À faire;
+L3-33;L3;E3.9;Vœux des enseignants;Story;Vœux des enseignants (modèle et API);Vœux = contraintes souples nature VOEU par enseignant et par semestre.;"- Types : créneaux à éviter, jour libre souhaité, jours par semaine, heures par jour, creux
+- Niveaux de poids FAIBLE 25, MOYEN 50, FORT 75, TRES_FORT 90 ; poids 100 refusé
+- Saisie par le Gestionnaire ou l'Administrateur, commentaire facultatif, audit
+- Avertissement si un vœu contredit une indisponibilité";EX-CTR-03;§4.11;BACK;Must;5;L3-03, L3-05;À faire;
+L3-34;L3;E3.9;Vœux des enseignants;Story;UI de saisie des vœux;Grille jour × créneau de 30 minutes par enseignant, avec niveau de préférence.;"- Trois états par plage : libre, à éviter (niveau), indisponible
+- Sélection de plages multiples et copie des vœux d'un enseignant à un autre
+- Récapitulatif par enseignant, filtre et recherche
+- Les vœux et indisponibilités sont visuellement distincts";EX-CTR-03;§3.3;FRONT;Must;5;L3-33, L0-28;À faire;
+L3-35;L3;E3.9;Vœux des enseignants;Story;Évaluateur de satisfaction des vœux;Mesure du respect des vœux dans l'éditeur et la comparaison de générations.;"- Score par enseignant et global, delta à chaque déplacement
+- Vœu non respecté signalé comme avertissement dans le panneau de conflits
+- Résultat repris dans Generation.metrics";EX-CTR-03, EX-CMP-02;§4.7, §4.11;BACK;Should;3;L3-33, L3-27;À faire;
+L3-36;L3;E3.10;Verrous;Story;Verrous par séance (modèle et API);"VerrouSeance de type CRENEAU, SALLE, ENSEIGNANT, ACTIVITE ; levée avec historique.";"- Un verrou actif par (séance, type) (index partiel)
+- Seuls le Gestionnaire et l'Administrateur posent et lèvent ; justification facultative
+- La levée écrit leveLe et levePar ; le verrou levé reste en base
+- Pose et levée auditées
+- Les verrous suivent la séance dans new-revision et disparaissent avec elle";EX-VRR-01;§4.14, §3.4.18;BACK;Must;5;L3-10;À faire;
+L3-37;L3;E3.10;Verrous;Story;Pose en masse et aperçu de levée;POST /versions/{id}/verrous:bulk et DELETE /verrous/{id}?preview=true.;"- Pose en masse pour un groupe, un enseignant ou une salle
+- La levée affiche son impact sur les générations futures avant confirmation";EX-VRR-01;§3.4.18, §4.14;BACK;Must;3;L3-36;À faire;
+L3-38;L3;E3.10;Verrous;Story;UI des verrous;Pose, pose en masse, levée avec aperçu et historique dans la grille.;"- Chaque type de verrou affiche son icône (lock-calendar, lock-room, lock-teacher, lock-activity) et son libellé accessible issus des tokens, en plus de la couleur
+- Historique (utilisateur, date) consultable
+- Pose en masse depuis les vues groupe, enseignant et salle";EX-VRR-01;§4.14;FRONT;Must;5;L3-37, L3-28;À faire;
+L3-39;L3;E3.11;Avertissements acceptés;Story;Acceptation des avertissements (API);AvertissementAccepte, POST /versions/{id}/avertissements:accept, caducité par signature.;"- Aucun conflit bloquant ne peut être accepté (422 BLOCKING_NOT_ACCEPTABLE)
+- L'impact est retourné avant confirmation
+- L'acceptation est tracée (utilisateur, date, règle, version) et auditée
+- L'acceptation devient caduque si la signature disparaît ou change
+- La sévérité stockée du conflit n'est jamais modifiée";EX-CTR-07;§4.15, §3.4.19;BACK;Must;5;L3-16, L0-22;À faire;
+L3-40;L3;E3.11;Avertissements acceptés;Story;UI des avertissements;Liste des avertissements, acceptation par avertissement ou par règle, avec impact.;"- Les avertissements acceptés et non acceptés sont séparés
+- L'impact est affiché avant confirmation
+- Les avertissements acceptés restent visibles dans l'historique";EX-CTR-07;§4.15;FRONT;Must;3;L3-39, L3-29;À faire;
+L3-41;L3;E3.12;Covoiturage & exigences de salle;Story;Groupes de covoiturage (modèle, API, évaluateur);GroupeCovoiturage par semestre, marge, jours communs, option strict, évaluateur applicatif.;"- Marge par défaut 60 minutes, jours communs minimum configurables
+- Souple par défaut ; strict produit un conflit bloquant CARPOOL_VIOLATION
+- Évalué après import et en édition ; marqué NON_TRADUITE dans le rapport FET
+- Duplication d'un semestre à l'autre";EX-CTR-05;§4.11, §4.3;BACK;Should;5;L3-03, L3-17;À faire;
+L3-42;L3;E3.12;Covoiturage & exigences de salle;Story;UI covoiturage;Création des groupes, membres, marge et indicateur strict.;"- Au moins deux enseignants par groupe
+- Le caractère souple ou strict est visible";EX-CTR-05;§3.3;FRONT;Should;3;L3-41, L0-28;À faire;
+L3-43;L3;E3.12;Covoiturage & exigences de salle;Story;Exigences de salle par activité;ExigenceSalleActivite : salle imposée et liste de salles autorisées, par semestre et affectationKey.;"- Écriture réservée au Gestionnaire et à l'Administrateur ; le Responsable est en lecture
+- Salle imposée : toute autre salle est bloquante (ROOM_NOT_ALLOWED)
+- Liste autorisée : la salle doit être compatible par tag et figurer dans la liste
+- Une exigence orpheline est signalée par un avertissement de préparation";EX-ACT-04;§4.11, §2.2;BACK;Must;5;L3-14, L3-09;À faire;
+L3-44;L3;E3.12;Covoiturage & exigences de salle;Story;UI des exigences de salle;Choix d'une salle imposée ou d'une liste autorisée depuis une affectation ou une séance.;"- Indication des salles incompatibles et de la capacité
+- Lecture seule pour le Responsable";EX-ACT-04;§3.3;FRONT;Should;3;L3-43, L0-28;À faire;
+L3-45;L3;E3.13;Imports de planification;Story;Import des données de planification par le Gestionnaire;Imports CSV et XLSX des indisponibilités, vœux, contraintes et groupes de covoiturage.;"- Mêmes règles que l'import de référentiel (simulation, rapport, aucun import partiel)
+- Écriture réservée au Gestionnaire et à l'Administrateur";EX-IMP-01;§4.9;BACK;Should;5;L1-26, L3-33, L3-41, L3-03;À faire;
+L4-01;L4;E4.1;Spike FET (S1);Spike;Spike S1 : tests empiriques FET (analyse documentaire faite);L'analyse documentaire est terminée (ADR_S1_FET.md). Reste à valider sur FET 7.11.1 (Linux) avec le fichier de l'ISAMK, via s1_fet_tests.sh.;"- Capacité de salle contre effectif des groupes testée et résultat consigné
+- Codes de sortie de fet-cl documentés (succès, impossible, limite de temps, SIGTERM)
+- Durée d'écriture d'un résultat partiel mesurée et délai SIGKILL fixé
+- Emplacement et déclencheur de sigwrite confirmés
+- Positions imposées à 100 % sans passage à « impossible » testées
+- ADR-S1 passé au statut Accepté et résultats ajoutés en section 7";EX-MOT-04, EX-MOT-06;§6.1, §4.6.4;BACK;Must;5;;À faire;
+L4-02;L4;E4.2;Port & adaptateur FET;Story;Port SchedulingEngine et modèle neutre;Interface SchedulingEngine, EngineInput neutre, describeCapabilities.;"- Le domaine ne dépend d'aucun type FET ni Prisma
+- Un moteur futur n'implémente que le port";EX-MOT-01, EX-PRI-01;§1.6;BACK;Must;3;L0-03;À faire;
+L4-03;L4;E4.2;Port & adaptateur FET;Story;Construction du fichier FET : entités;Activités, enseignants (identifiants techniques), groupes, salles, créneaux, Activity Tags.;"- Sérialisation déterministe, identique octet à octet pour les mêmes entrées
+- Aucune identité en clair dans le fichier
+- Test golden file sur jeu de données de l'ISAMK
+- Périodes FET construites depuis les créneaux du semestre (jours × créneaux de 30 minutes) ; durée d'activité en nombre de créneaux";EX-MOT-02;§4.6.1, §4.6.2;BACK;Must;8;L4-02, L4-01, L3-09, L1-06;À faire;
+L4-04;L4;E4.2;Port & adaptateur FET;Story;Construction du fichier FET : contraintes dures;Pauses, indisponibilités, compatibilités salles par tag, salle imposée, liste autorisée, espacement des séances.;"- Chaque contrainte dure active produit son équivalent FET
+- Tests golden file par contrainte";EX-MOT-02;§4.6.2;BACK;Must;8;L4-03, L3-43, L3-08;À faire;
+L4-05;L4;E4.2;Port & adaptateur FET;Story;Construction du fichier FET : contraintes souples et verrous;Poids %, positions imposées pour verrous créneau, salle et activité.;"- Poids convertis en pourcentage FET
+- Verrou créneau, salle ou activité envoyé comme contrainte imposée à 100 % de poids
+- Test : régénération partielle sans passage à « impossible »
+- Les vœux sont traduits en contraintes souples à poids inférieur à 100 %, jamais 100 %
+- Verrou enseignant et règles APPLICATION_ONLY non envoyés";EX-MOT-02, EX-VRR-01;§4.6.2, §4.14;BACK;Must;8;L4-04, L3-36, L3-33;À faire;
+L4-06;L4;E4.2;Port & adaptateur FET;Story;Rapport de traduction;mappingReport TRADUITE, PARTIELLE, NON_TRADUITE et prévisualisation, règles traduites et règles contrôlées par l'application.;"- Chaque contrainte active a un statut
+- GET /semestres/{id}/contraintes/fet-mapping retourne le rapport
+- Les PARTIELLE ont une raison explicite
+- Le rapport de génération distingue règles traduites dans le fichier et règles contrôlées par l'application";EX-MOT-03, EX-PRI-02;§4.6.3;BACK;Must;5;L4-04, L3-02;À faire;
+L4-07;L4;E4.3;Worker de génération;Story;Worker idempotent sur la file PostgreSQL;Consommation de la file pg-boss, claim, reprise des jobs orphelins, file d'échecs.;"- Un job tué est repris sans doublon
+- File d'échecs après 3 tentatives avec alerte
+- Un seul job actif par semestre";EX-GEN-04, EX-GEN-05;§4.6.4, §4.19;BACK;Must;8;L0-07;À faire;
+L4-08;L4;E4.3;Worker de génération;Story;Exécution isolée de fet-cl;Sous-processus fet-cl en version épinglée 7.11.1, outputdir dédié, arrêt ordonné.;"- Conteneur sans réseau sortant, système de fichiers en lecture seule, non-root, limites CPU et mémoire
+- Arrêt par SIGTERM (écriture du résultat partiel) puis SIGKILL après un délai configurable (30 s par défaut)
+- Dépassement du délai : résultat partiel récupéré s'il existe
+- Un outputdir propre à chaque job, sorties inutiles désactivées, six graines --randomseeds10/11/12/20/21/22 fournies (--randomseedx/y refusés)
+- Binaire FET 7.11.1 épinglé par empreinte
+- Issue lue dans logs/result.txt (le code de sortie 0 couvre aussi Impossible et Time exceeded), sigwrite résiduel supprimé avant le lancement, délai de garde externe";EX-MOT-04, EX-MOT-06;§4.6.4;BACK;Must;8;L4-07, L4-01;À faire;
+L4-09;L4;E4.3;Worker de génération;Story;Import du résultat et métriques;"Import du meilleur état, y compris partiel, avec séances NON_PLACEE ; échec conservé pour diagnostic.";"- Chaque activité est appariée par affectationKey et rang
+- Résultat partiel (limite de temps, génération impossible, SIGTERM) importé : séances absentes créées NON_PLACEE, statut SUCCEEDED_WITH_WARNINGS, metrics.cause renseignée
+- Sans sortie exploitable : FAILED avec les dernières lignes du journal, génération conservée, version de travail intacte
+- Conflits détectés listés après passage du ConflictEngine";EX-MOT-05, EX-GEN-07;§4.6.5, §4.6.1;BACK;Must;8;L4-08, L3-17;À faire;
+L4-10;L4;E4.4;Profils de génération;Story;Profils de génération versionnés (modèle et API);"ProfilGeneration : durée limite, préservation des verrous, versions du moteur et du constructeur, graines, poids du score ; profil par défaut du semestre.";"- Un profil utilisé par une génération est immuable ; le modifier crée la version suivante (CONFIG_IN_USE)
+- Création et modification par le Gestionnaire et l'Administrateur
+- Un profil par défaut peut être défini par semestre
+- Chaque génération enregistre le profil, sa version et une copie de ses valeurs";EX-GEN-01;§2.2, §3.3;BACK;Must;5;L1-01, L0-22;À faire;
+L4-11;L4;E4.4;Profils de génération;Story;UI des profils de génération;Création, nouvelle version, profil par défaut, poids du score.;"- Les poids des critères sont éditables avec leur total
+- Un profil utilisé est présenté en lecture seule avec « nouvelle version »";EX-GEN-01;§3.3;FRONT;Should;3;L4-10, L0-28;À faire;
+L4-12;L4;E4.5;Préparation et périmètre;Story;Tableau de préparation du semestre;GET /semestres/{id}/preparation : contrôles avant génération avec niveau, objet, règle, explication, action et lien.;"- Contrôles : grille, groupes valides, enseignants, salles et modules, répartitions validées (n/m), volumes couverts, verrous, exigences de salle, règles générales, indisponibilités et vœux, profil
+- Chaque anomalie indique son niveau (bloquant, avertissement, information), l'objet, le département, l'activité et la règle
+- Lien vers l'écran de correction pour chaque anomalie
+- Filtrable par département, enseignant, groupe, salle, activité et règle
+- Mêmes contrôles réutilisés par le lancement de génération";EX-GEN-03;§4.12;FULL;Must;8;L2-12, L1-18, L3-05, L3-36, L3-43, L4-10;À faire;
+L4-13;L4;E4.5;Préparation et périmètre;Story;Périmètre explicite et empreinte;"GET /versions/{id}/perimetre : périmètre figé du semestre complet et empreinte ; refus du lancement si les données ont changé.";"- Le périmètre affiche année, semestre, départements, activités, groupes, enseignants, salles, contraintes, verrous, profil, version du jeu de règles et de l'adaptateur
+- Il n'est ni réductible ni modifiable en v1.0
+- Le lancement exige l'empreinte affichée (409 PERIMETER_CHANGED sinon)
+- Le périmètre figé est enregistré avec la génération";EX-GEN-02;§4.12, §3.4.5;BACK;Must;5;L4-12, L3-09;À faire;
+L4-14;L4;E4.6;API de génération;Story;Lancement de génération;POST /versions/{id}/generations (202).;"- Pré-validation synchrone : préparation, verrous, contraintes, empreinte du périmètre
+- 422 UNTRANSLATED_CONSTRAINTS_UNACKNOWLEDGED sans acquittement, 422 LOCK_INCOMPATIBLE, 422 PREPARATION_BLOCKED
+- 409 GENERATION_ALREADY_RUNNING, 423 si version immuable ou bail détenu
+- Une modification de répartition pendant une génération n'a aucun effet sur elle";EX-GEN-04, EX-GEN-05, EX-GEN-02;§3.4.5, §4.6.1;BACK;Must;5;L4-06, L4-07, L3-19, L4-13, L4-10;À faire;
+L4-15;L4;E4.6;API de génération;Story;Suivi, annulation et fichier moteur;"Suivi par SSE, annulation, téléchargement du fichier moteur ; progression via le fichier sigwrite.";"- Les événements status, progress et done sont émis
+- Progression : le worker dépose périodiquement sigwrite et compte les activités placées ; si indisponible, phase et elapsedSeconds seulement
+- Le fichier moteur se télécharge par URL signée courte, avec empreinte et version de FET
+- Durée, journal d'exécution et informations techniques conservés";EX-GEN-04, EX-GEN-06;§3.5, §4.6.7;BACK;Must;8;L4-14;À faire;
+L4-16;L4;E4.6;API de génération;Story;Export du fichier moteur et import d'un résultat manuel;POST /versions/{id}/generations/import : résultat d'un fichier exporté et relancé à la main dans FET.;"- L'empreinte du fichier exporté est vérifiée (422 ENGINE_FILE_MISMATCH sinon)
+- La génération porte le mode MANUELLE et référence l'empreinte
+- Elle se compare et s'adopte comme une génération automatique, sans graines reproductibles
+- L'import de structure depuis un fichier FET externe n'est pas proposé";EX-MOT-07;§4.6.7, §3.4.22;BACK;Should;5;L4-15, L4-09;À faire;
+L4-17;L4;E4.7;Comparaison & adoption;Story;Métriques de génération et score 0-100;Utilisation des salles, répartition temporelle, creux, score normalisé par critère, renormalisation des poids.;"- Métriques et score calculés à l'import et mis en cache dans Generation.metrics
+- Chaque critère reçoit un sous-score de 0 à 100 ; le score global est la moyenne pondérée par les poids du profil
+- Un critère non évaluable est exclu et les poids sont renormalisés ; la liste des critères pris en compte est renvoyée
+- Reproductibilité tracée : paramètres, six graines, snapshots, version de FET, sha256 du fichier
+- Le score souple est lu dans le fichier _soft_conflicts.txt de chaque exécution ; en multi-graines, la meilleure génération est retenue selon Total soft conflicts
+- Une génération avec conflit bloquant ou séance non placée est exclue du classement mais conservée";EX-CMP-02, EX-GEN-06, EX-MOT-06;§4.7, §4.6.6;BACK;Must;8;L4-09, L3-27, L3-35, L3-41;À faire;
+L4-18;L4;E4.7;Comparaison & adoption;Story;Comparaison et diff de générations;GET /generations/compare?ids= (2 à 4).;"- 400 hors 2–4 identifiants, 422 si snapshots différents
+- Appariement par affectationKey#rang
+- Séances identiques, déplacées, changées de salle ou d'enseignant, conflits apparus ou disparus, verrous respectés ou non, contraintes satisfaites ou non";EX-CMP-01;§4.7, §3.4.7;BACK;Must;5;L4-17;À faire;
+L4-19;L4;E4.7;Comparaison & adoption;Story;Adoption d'une génération;POST /versions/{id}/adopt.;"- Transaction : remplacement des séances MOTEUR sans verrou activité, occupations, conflits
+- Une génération partielle (SUCCEEDED_WITH_WARNINGS) est adoptable
+- Version en EDITION, majeur +1 selon RC-04
+- 422 si génération non réussie ou si les snapshots de la version ont changé depuis la génération
+- Le système ne sélectionne jamais automatiquement une génération";EX-CMP-03, EX-PRI-04, EX-GEN-05;§3.4.8, §4.7;BACK;Must;8;L4-18;À faire;
+L4-20;L4;E4.8;UI génération;Story;UI lancement et suivi;Périmètre, profil, rapport de traduction, confirmation, suivi SSE.;"- Le périmètre figé est affiché et confirmé avant lancement
+- Les contraintes non traduites doivent être acquittées
+- Progression et statut en temps réel, annulation possible
+- Libellés français des statuts de génération";EX-GEN-02, EX-GEN-04;§3.4.5, §3.5;FRONT;Must;8;L4-15, L0-28;À faire;
+L4-21;L4;E4.8;UI génération;Story;UI comparaison et adoption;Tableau de métriques, score par critère, diff visuel, adoption.;"- Comparaison côte à côte de 2 à 4 générations en mode différences uniquement
+- Score global, contribution de chaque critère et indicateurs bruts
+- Les générations non classées sont affichées à part, sans rang
+- Adoption avec confirmation et motif facultatif";EX-CMP-01, EX-CMP-02, EX-CMP-03;§4.7;FRONT;Must;8;L4-19, L0-28;À faire;
+L4-22;L4;E4.8;UI génération;Story;Régénération partielle;Séances verrouillées imposées à la génération suivante.;"- Les séances verrouillées gardent leur position après régénération
+- Option preserverVerrouilles du profil respectée";EX-VRR-01;§4.14;BACK;Should;5;L4-05, L4-19;À faire;
+L4-23;L4;E4.8;UI génération;Story;UI export du fichier moteur et import manuel;Téléchargement du fichier moteur, dépôt du résultat d'une exécution manuelle.;"- L'empreinte attendue est affichée
+- Le résultat importé apparaît dans l'historique avec le mode manuel";EX-MOT-07;§4.6.7;FRONT;Should;3;L4-16, L0-28;À faire;
+L4-24;L4;E4.8;UI génération;Story;UI historique des générations;Historique, snapshot, provenance, journaux, génération échouée conservée.;"- Chaque génération affiche paramètres, snapshot, fichier moteur, résultats, erreurs, conflits, métriques, score et statut
+- Une génération en échec expose le message FET et les journaux, et permet de corriger et relancer
+- Aucune suppression automatique";EX-GEN-06, EX-GEN-07;§4.6.5;FRONT;Should;3;L4-15, L0-28;À faire;
+L5-01;L5;E5.1;Machine d'états des versions;Story;Machine d'états et transitions;POST /versions/{id}/transitions.;"- Actions DEMARRER_EDITION, MARQUER_PRET, SOUMETTRE, REPRENDRE, RESOUMETTRE, ABANDONNER avec gardes par permission
+- Chaque transition écrit WorkflowTransition et audit et incrémente revision
+- 409 INVALID_STATE_TRANSITION hors table
+- Motif d'abandon facultatif";EX-WFL-01;§4.1.1, §3.4.11;BACK;Must;8;L3-30, L0-19, L3-39;À faire;
+L5-02;L5;E5.1;Machine d'états des versions;Story;Contrôle de soumission;Recontrôle conflits et couverture avant MARQUER_PRET, SOUMETTRE, RESOUMETTRE, PUBLIER.;"- 422 VERSION_NOT_SUBMITTABLE avec détail conflits et couverture
+- Les avertissements non acceptés ne bloquent pas ; leur nombre est renvoyé pour la confirmation globale
+- Version en lecture seule et bail libéré après soumission
+- Ouverture d'un nouveau cycleValidation, soumisPar enregistré";EX-WFL-01, EX-EDI-05;§3.4.11, §4.1.1;BACK;Must;5;L5-01;À faire;
+L5-03;L5;E5.2;Validation par les Responsables;Story;Analyse d'impact et report des approbations;"Calcul du statut IMPACTE ou NON_IMPACTE par département ; report des approbations non impactées ; GET /versions/{id}/impact.";"- Département impacté si séances modifiées, snapshot modifié ou enseignant partagé avec une séance modifiée
+- Département non impacté dont la version parente est approuvée : approbation reportée (reportee, cycleSource) et tracée
+- Sans version parente ou sans approbation antérieure : tous les départements impactés
+- Les salles ne comptent pas comme dépendance
+- Synthèse disponible à la création de la version, avant régénération et à la soumission";EX-WFL-04;§4.13, §3.4.17;BACK;Must;8;L5-02, L3-10;À faire;
+L5-04;L5;E5.2;Validation par les Responsables;Story;Décisions de validation par département;"POST /versions/{id}/validations ; décision du Responsable ou de l'Administrateur pour un département nommé.";"- Un Responsable décide uniquement pour son département impacté en attente
+- L'Administrateur décide pour un département nommé ; mention « validé par l'Administrateur » et notification du Responsable
+- Motif obligatoire en cas de rejet, facultatif sinon
+- Unanimité requise : passage automatique à VALIDE ou REJETE
+- 403 SEGREGATION_OF_DUTIES si le décideur a soumis le cycle
+- 409 si décision déjà donnée dans le cycle";EX-WFL-03, EX-ROL-06;§3.4.12, §4.1.1;BACK;Must;8;L5-03, L0-21;À faire;
+L5-05;L5;E5.2;Validation par les Responsables;Story;UI validation par les Responsables;Consultation de la version du département, conflits, avertissements, approbation ou rejet.;"- Le Responsable voit le planning complet de son département et ses conflits
+- Il peut valider malgré des avertissements, jamais malgré un blocage
+- Le rejet exige un motif
+- Un département non impacté affiche « approbation reportée »";EX-WFL-03;§3.4.12;FRONT;Must;8;L5-04, L0-28;À faire;
+L5-06;L5;E5.2;Validation par les Responsables;Story;UI synthèse d'impact;Séances modifiées, enseignants et départements concernés, statut par département avec raison.;"- Affichée à la création de la version, avant une régénération et à la soumission
+- Chaque statut cite sa raison";EX-WFL-04;§3.4.17;FRONT;Must;3;L5-03, L0-28;À faire;
+L5-07;L5;E5.3;Publication & révisions;Story;Publication atomique;POST /versions/{id}/publish par le Gestionnaire ou l'Administrateur.;"- Réservée au Gestionnaire et à l'Administrateur, version VALIDE requise
+- Contrôles finaux : validations, conflits, couverture, verrous, provenance, snapshot, périmètre, absence de modification concurrente
+- L'ancienne version publiée passe en ARCHIVE dans la même transaction
+- La correspondance Ramadan est figée avec la version
+- Une seule PUBLIE par semestre (409 sur course) ; aucun état partiel en cas d'échec";EX-WFL-05;§4.1.1, §3.4.13;BACK;Must;5;L5-04, L1-22;À faire;
+L5-08;L5;E5.3;Publication & révisions;Story;Prévisualisation avant publication;GET /versions/{id}/previsualisation-publication et confirmation explicite.;"- Affiche version candidate et précédente, départements validés, activités modifiées, conflits, avertissements acceptés, verrous, provenance, profil, activités planifiées ou non
+- La publication exige une confirmation explicite";EX-WFL-09;§3.3, §4.1.1.1;FULL;Must;5;L5-07, L3-39;À faire;
+L5-09;L5;E5.3;Publication & révisions;Story;Historique de version;GET /versions/{id}/history et chronologie.;- Transitions et décisions affichées avec auteur, date, motif, mention automatique ou reportée;EX-WFL-07;§3.3;FULL;Should;3;L5-01, L0-28;À faire;
+L5-10;L5;E5.3;Publication & révisions;Story;Nouvelle révision d'une version publiée;POST /versions/{id}/new-revision.;"- Version enfant avec parentId, séances et verrous copiés, statut EDITION
+- Numérotation mineure ou majeure selon RC-04
+- La version publiée reste inchangée
+- L'analyse d'impact utilise la version parente";EX-WFL-06, EX-PRI-03;§4.1.1, §0.3;BACK;Must;5;L5-07, L3-36;À faire;
+L5-11;L5;E5.3;Publication & révisions;Story;Différences entre versions;GET /versions/{id}/diff?against= et affichage.;"- Séances identiques, déplacées, changées de salle ou d'enseignant
+- Affichage visuel du diff";EX-WFL-06;§3.3;FULL;Should;5;L5-10;À faire;
+L5-12;L5;E5.3;Publication & révisions;Story;Provenance et versionnement des objets critiques;"Chaîne version → génération → profil → jeu de règles → snapshot → adaptateur ; question « pourquoi ce créneau ? ».";"- Chaque version publiée permet de retrouver génération source, version du profil, jeu de règles de charge, snapshots et version de l'adaptateur
+- Les objets critiques sont versionnés indépendamment
+- Une version issue d'une édition manuelle indique les séances d'origine MANUEL";EX-WFL-07, EX-DAT-02, EX-PRI-07;§2.2, §4.1.1.1;BACK;Must;5;L5-07, L4-17;À faire;
+L5-13;L5;E5.3;Publication & révisions;Story;Impact d'un changement de règle;Identification des versions concernées et des plannings potentiellement obsolètes lors d'une modification de règle ou de contrainte.;"- Une règle ne change jamais rétroactivement une version publiée
+- Les versions non publiées concernées sont listées et les utilisateurs avertis
+- Les anciennes versions sont conservées";EX-DAT-03;§4.19;BACK;Should;5;L5-12, L3-03;À faire;
+L5-14;L5;E5.3;Publication & révisions;Story;Modification de contraintes après validation;"Choix entre application immédiate et application à la prochaine génération ; régénération ou annulation.";"- Application immédiate : la version courante est recalculée et les conflits identifiés
+- Si le planning devient non conforme : choix de régénérer (avec le profil de son choix) ou d'annuler la modification
+- La version publiée ou validée précédente reste immuable ; la régénération alimente une nouvelle version de travail";EX-WFL-08;§4.1.1;FULL;Should;5;L5-10, L4-14, L3-17;À faire;
+L5-15;L5;E5.4;UI workflow;Story;UI cycle de vie des versions;Badges d'état et actions autorisées selon rôle et état.;"- Seules les actions permises sont proposées
+- Libellés français issus du glossaire
+- Confirmation globale à la soumission si des avertissements ne sont pas acceptés";EX-WFL-01;§4.1.1;FRONT;Must;5;L5-01, L0-28, L3-40;À faire;
+L5-16;L5;E5.4;UI workflow;Test;E2E du workflow par rôle;Playwright : Gestionnaire, Responsable, Administrateur, Direction.;"- Parcours édition > soumission > validation > publication vert
+- Parcours de rejet et correction vert
+- Parcours enseignant partagé : report d'approbation et revalidation vert
+- La Direction ne peut rien modifier";EX-NFR-07, EX-WFL-04;§5.5;QA;Must;5;L5-05, L5-07;À faire;
+L5-17;L5;E5.5;Circuit de validation configurable;Story;Paramètre global du workflow;Modèle ParametreWorkflow (ligne unique) : validationPlanningRequise et publicationRequise. GET et PATCH /parametres/workflow.;"- Ligne unique garantie par CHECK (id = 1), valeurs par défaut : les deux interrupteurs à true
+- GET lisible par tous les rôles, PATCH réservé à l'Administrateur (parametre:write)
+- Corps vide ou invalide : 422
+- Chaque modification écrit un audit (ancienne et nouvelle valeur, motif facultatif)
+- Test de matrice de permissions mis à jour";EX-WFL-02;§2.2, §2.4, §4.1.1;BACK;Must;3;L5-01, L0-19;À faire;
+L5-18;L5;E5.5;Circuit de validation configurable;Story;Transitions selon le circuit figé;SOUMETTRE et RESOUMETTRE copient les deux interrupteurs sur la version et appliquent le chemin direct ou automatique correspondant.;"- Validation non requise : SOUMETTRE mène directement à VALIDE, sans EN_VALIDATION ni ValidationDepartement
+- Publication non requise : VALIDE passe à PUBLIE dans la même transaction (ancienne version archivée)
+- Gardes inchangées : recontrôle des conflits, couverture à 100 %
+- Échec du recontrôle à la publication automatique : la version reste VALIDE
+- Une ligne WorkflowTransition par transition, avec commentaire explicite ; auteur = utilisateur déclencheur
+- POST /versions/{id}/publish reste possible sur toute version VALIDE
+- Confirmation exigée (confirmerPublication) quand la soumission publiera";EX-WFL-02;§4.1.1, §3.4.11;BACK;Must;5;L5-17, L5-07, L5-02;À faire;
+L5-19;L5;E5.5;Circuit de validation configurable;Story;UI paramétrage du circuit et adaptation du workflow;"Écran Administrateur pour les deux interrupteurs ; adaptation des écrans de validation et de soumission.";"- Écran réservé à l'Administrateur avec la valeur courante et la date de dernière modification
+- Confirmation à la soumission quand elle publiera la version, en précisant que la version actuelle sera archivée
+- Pour un cycle sans validation : aucune action proposée aux Responsables et mention « validation du planning non requise »
+- Une version publiée automatiquement l'indique dans son historique";EX-WFL-02;§4.1.1;FRONT;Should;3;L5-17, L5-15;À faire;
+L5-20;L5;E5.5;Circuit de validation configurable;Test;Tests du circuit configurable;Quatre configurations du circuit et gel des valeurs à la soumission.;"- Matrice des quatre configurations sur SOUMETTRE et RESOUMETTRE
+- Gel : paramètre modifié entre la soumission et l'approbation, sans effet sur le cycle en cours
+- Échec du recontrôle à la publication automatique
+- Absence de ValidationDepartement quand la validation n'est pas requise
+- Audit du changement de paramètre";EX-WFL-02;§4.1.1;QA;Must;3;L5-18;À faire;
+L5-21;L5;E5.6;Notifications;Story;Modèle et service de notification;Table Notification, service d'émission dans la transaction du use case, catalogue d'événements et destinataires.;"- Une notification par destinataire, insérée dans la transaction métier
+- Les événements et destinataires du tableau SF §14 sont tous branchés (soumission, validation à refaire, validation ou rejet, validation par l'Administrateur, périmètre prêt, génération, nouvelle version, publication, répartition rouverte, demandes)
+- Destinataires résolus par rôle et périmètre
+- Toutes les notifications ont la même priorité";EX-NOT-03, EX-NOT-01;§4.16, §1.7;BACK;Must;8;L5-01, L5-04, L2-12, L4-14, L2-15;À faire;
+L5-22;L5;E5.6;Notifications;Story;File e-mail et SMTP institutionnel;Processeur de la file email dans l'API, envoi par SMTP cck.rnu.tn, reprises exponentielles, file d'échecs et alerte.;"- Une panne SMTP ne bloque aucune transition
+- Reprises avec backoff puis statut ECHEC, file d'échecs et alerte Grafana
+- Contenu minimal : titre et lien, sans donnée de charge ni détail pédagogique
+- Les e-mails obligatoires ne sont pas désactivables
+- Paramètres SMTP et adresse expéditrice lus depuis les secrets";EX-NOT-02;§4.16, §1.7;BACK;Must;5;L5-21, L0-06;À faire;
+L5-23;L5;E5.6;Notifications;Story;Boîte de réception (API et SSE);GET /notifications, marquage lu, tout lire, SSE /notifications/events.;"- Historique lu et non lu avec compteur
+- Mise à jour en direct par SSE
+- Une notification ne se lit que par son destinataire";EX-NOT-01;§3.3, §3.5;BACK;Must;3;L5-21;À faire;
+L5-24;L5;E5.6;Notifications;Story;UI de la boîte de notifications;Cloche, compteur, liste, marquage lu.;"- Le compteur se met à jour en direct
+- Chaque notification mène à l'objet concerné";EX-NOT-01;§3.3;FRONT;Must;3;L5-23, L0-28;À faire;
+L5-25;L5;E5.6;Notifications;Test;Tests des notifications;SMTP factice, scénarios d'échec et de reprise.;"- Chaque événement du tableau produit les bonnes notifications et les bons e-mails
+- Une panne SMTP simulée n'interrompt pas le workflow
+- Les e-mails ne contiennent aucune donnée de charge";EX-NOT-02, EX-NOT-03;§5.5;QA;Must;3;L5-22;À faire;
+L5-26;L5;E5.7;Tableau de bord;Story;API du tableau de bord et règles d'actions;GET /tableau-de-bord : agrégation par rôle, actions prioritaires déterministes (cinq au plus).;"- Contenu : contexte, répartitions, validations en attente, préparation, version en préparation, générations, version publiée avec provenance, changements
+- Huit règles d'action évaluées dans l'ordre de ST §4.17, chacune avec sa cause et un lien direct
+- Au plus cinq actions affichées, liste complète sur demande
+- Aucune nouvelle table ; < 500 ms (p95)";EX-TDB-01, EX-TDB-02;§4.17, §3.4.20;BACK;Must;8;L4-12, L5-03, L5-23, L5-12, L2-10;À faire;
+L5-27;L5;E5.7;Tableau de bord;Story;UI tableau de bord Gestionnaire et Administrateur;Page d'accueil avec blocs, actions prioritaires et liens directs.;"- Chaque anomalie mène directement à l'objet à corriger
+- Le tableau répond aux sept questions de la SF §18";EX-TDB-01;§4.17;FRONT;Must;8;L5-26, L0-28;À faire;
+L5-28;L5;E5.7;Tableau de bord;Story;UI tableau de bord Responsable et Direction;Responsable : répartitions, charges et alertes, validations, demandes. Direction : version publiée et exports.;"- Le Responsable ne voit que son département et le total inter-départements
+- La Direction n'a aucune action d'écriture";EX-TDB-02;§4.17;FRONT;Must;5;L5-26, L0-28;À faire;
+L5-29;L5;E5.8;Espace Direction;Story;Consultation par la Direction;Accès en lecture seule aux plannings publiés et archivés, exports officiels, répartition, charges, contraintes et audit.;"- Aucune route d'écriture accessible
+- Aucun accès aux versions de travail, aux générations, aux verrous ni au journal de sécurité
+- Navigation dédiée dans l'interface";EX-ROL-04;§5.2;FULL;Must;5;L3-11, L0-23, L0-28;À faire;
+L6-01;L6;E6.1;Spike PDF/Excel (S2);Spike;Spike S2 : rendu PDF/Excel;Polices françaises, taille et temps de rendu.;"- Comparatif Playwright et bibliothèque dédiée documenté
+- ADR de choix et temps de rendu pour 100 pages
+- Rendu lisible en noir et blanc (états par icône et libellé)";EX-EXP-02;§6.1;BACK;Must;5;;À faire;
+L6-02;L6;E6.2;Modèles & jobs d'export;Story;Modèles visuels d'export versionnés;"ExportStyle : logo(s), en-tête, pied de page, couleurs, orientation, format, éléments affichés ; versionné et immuable une fois utilisé.";"- Un style utilisé n'est jamais modifié, toute évolution crée styleVersion+1
+- CRUD réservé à l'Administrateur
+- Les logos sont stockés via FileStore
+- Le style par défaut utilise TAKT_logo_monochrome_deep.svg";EX-EXP-04;§4.18, §2.2;BACK;Must;5;L5-07;À faire;
+L6-03;L6;E6.2;Modèles & jobs d'export;Story;Configurations de vue d'export versionnées;ExportView : vue (groupe, enseignant, salle, formation, département, globale, charges), colonnes, ordre, feuilles, regroupements.;"- CRUD par le Gestionnaire et l'Administrateur
+- Versionné et immuable une fois utilisé
+- Les sept vues sont disponibles";EX-EXP-04, EX-EXP-01;§4.18;BACK;Must;5;L6-02;À faire;
+L6-04;L6;E6.2;Modèles & jobs d'export;Story;Jobs d'export asynchrones;POST /exports, statut, téléchargement par URL signée.;"- Les versions du style et de la vue sont enregistrées dans ExportJob
+- Droits : Administrateur et Gestionnaire tout ; Responsable son département ; Direction exports officiels (403 OUT_OF_SCOPE ou 422 sinon)
+- Échec de job avec message, relance manuelle, limite de taille
+- Chaque téléchargement écrit dans le journal de sécurité";EX-EXP-06, EX-EXP-05;§3.4.14, §4.18, §4.19;BACK;Must;8;L6-03, L0-07, L4-07, L0-18;À faire;
+L6-05;L6;E6.2;Modèles & jobs d'export;Story;Brouillon, officiel, grille Ramadan et avertissements;Export filigrané pour version non publiée, officiel pour PUBLIE ou ARCHIVE, choix de grille, avertissements acceptés.;"- Export officiel refusé hors PUBLIE ou ARCHIVE
+- Export brouillon : réservé aux versions non publiées (422 sur une version PUBLIE ou ARCHIVE), filigrane BROUILLON (Deep, opacité 0,1, -45°, répété) et numéro de version ; le filigrane n'apparaît jamais sur une version publiée
+- Export officiel : numéro de version, date de publication, grille utilisée et avertissements acceptés en pied de page
+- La grille Ramadan figée de la version est utilisée pour l'export officiel
+- Régénération d'un export historique avec les versions enregistrées";EX-EXP-05, EX-CAL-04;§4.18, §4.1.1.1;BACK;Must;5;L6-04, L3-39;À faire;
+L6-06;L6;E6.3;Rendus XLSX/PDF;Story;Rendu XLSX;"ExcelJS : grilles par groupe, enseignant, salle, formation, département et vue globale ; structure configurable.";"- Grille jours/créneaux fidèle à la version
+- Colonnes, feuilles, ordre et regroupements selon la configuration de vue
+- Plusieurs objets par classeur";EX-EXP-03;§4.18;BACK;Must;8;L6-04;À faire;
+L6-07;L6;E6.3;Rendus XLSX/PDF;Story;Rendu PDF;HTML vers PDF (Playwright/Chromium), A4 ou A3, logo, orientation, couleurs, locale française.;"- Polices françaises auto-hébergées rendues correctement
+- Export de 100 pages < 60 s
+- États lisibles en noir et blanc (icône et libellé en plus de la couleur)
+- Le modèle visuel détermine en-tête, pied de page, couleurs et format
+- Impression monochrome selon export.print_monochrome des tokens (encres #000/#333/#666, bordure #808080) ; logo imprimé à 30 mm minimum (master), 20 mm (compact), 6 mm (symbole)";EX-EXP-02, EX-NFR-04;§4.18, §5.4;BACK;Must;13;L6-04, L6-01, L0-05;À faire;
+L6-08;L6;E6.3;Rendus XLSX/PDF;Story;Export des charges;Volume brut, charge calculée, charge de référence, service dû, écart et heures supplémentaires par enseignant et département.;"- Valeurs identiques à celles du snapshot de la version
+- Heures supplémentaires et plafond mis en évidence
+- Le Responsable n'exporte que son département";EX-EXP-01, EX-EXP-06;§4.2, §4.18;BACK;Should;5;L6-04, L2-10;À faire;
+L6-09;L6;E6.4;UI exports;Story;UI exports;"Choix de la vue, du style, du périmètre, de la grille et du mode ; suivi et téléchargement.";"- Suivi de statut du job
+- Téléchargement via URL signée
+- Les choix proposés dépendent du rôle";EX-EXP-05, EX-EXP-06;§3.3;FRONT;Must;5;L6-04, L0-28;À faire;
+L6-10;L6;E6.4;UI exports;Story;UI modèles visuels et configurations de vue;Édition des styles (Administrateur) et des vues (Gestionnaire et Administrateur) avec aperçu.;"- Aperçu avant enregistrement
+- Un modèle utilisé se duplique en nouvelle version
+- Seul l'Administrateur modifie les styles";EX-EXP-04;§4.18;FRONT;Should;5;L6-02, L6-03, L0-28;À faire;
+L7-01;L7;E7.1;Clôture & archivage;Story;Clôture d'année avec confirmation;POST /annees/{id}/transitions CLOTURER avec confirmation par code de l'année.;"- 422 CONFIRMATION_MISMATCH si la confirmation diffère du code de l'année
+- Clôture refusée (422) si une version est EN_VALIDATION
+- Versions non publiées archivées avec le motif « clôture »
+- Aucune action de réouverture n'existe
+- Audit de la clôture (closedAt, closedBy)";EX-CAL-05;§4.1.3, §3.4.15;BACK;Must;5;L1-02, L5-01;À faire;
+L7-02;L7;E7.1;Clôture & archivage;Story;UI de clôture;Boîte de dialogue de confirmation.;"- Elle liste les conséquences : lecture seule, irréversible, nombre de versions non publiées archivées
+- Le bouton ne s'active qu'après saisie du code de l'année";EX-CAL-05;§3.4.15;FRONT;Must;3;L7-01, L0-28;À faire;
+L7-03;L7;E7.1;Clôture & archivage;Story;Consultation des années clôturées en lecture seule;Planning, répartition, charges, versions, audit et exports d'une année clôturée.;"- Aucune écriture possible sur une année clôturée, Administrateur compris
+- Exports officiels régénérables à l'identique
+- Un test d'immutabilité couvre toutes les tables dérivées";EX-CAL-06;§4.1.3, §2.4;FULL;Must;5;L7-01;À faire;
+L7-04;L7;E7.1;Clôture & archivage;Test;Tests d'immutabilité;Testcontainers : triggers et garde de service, Administrateur inclus.;"- Toute écriture sur version PUBLIE ou ARCHIVE ou sur année CLOTUREE échoue
+- Même résultat par la garde de service et par les triggers
+- La modification d'une configuration utilisée (profil, style, vue, jeu de règles) échoue";EX-PRI-03, EX-CAL-06;§2.4, §5.2;QA;Must;5;L7-01, L3-10;À faire;
+L7-05;L7;E7.2;Durcissement sécurité;Tâche technique;Durcissement applicatif;CSP, Helmet, CORS en liste blanche, CSRF (en-tête et Origin), rate limiting /auth.;"- Les en-têtes de sécurité sont présents
+- Une requête mutante sans en-tête personnalisé est rejetée
+- SAST et DAST intégrés à la CI";EX-SEC-08;§5.1, §5.3;BACK;Must;8;L0-02, L0-26;À faire;
+L7-06;L7;E7.2;Durcissement sécurité;Test;Revue RBAC et tests d'autorisation négatifs;Relecture de la matrice et tests hors portée.;"- Aucun accès inter-départements possible
+- La Direction n'a aucun accès d'écriture ni aux versions de travail
+- Séparation des tâches vérifiée
+- Rapport de revue sécurité sans critique ouverte";EX-SEC-08, EX-ROL-05;§5.2, §5.5;QA;Must;8;L0-20, L7-01;À faire;
+L7-07;L7;E7.2;Durcissement sécurité;Tâche technique;Chaîne d'approvisionnement;SBOM, scan d'images, secret scanning, empreinte du binaire FET.;"- SBOM généré à chaque build
+- Image du worker bloquée si empreinte FET différente";EX-NFR-02;§5.3;DEVOPS;Should;3;L0-02, L4-08;À faire;
+L7-08;L7;E7.3;Performance;Test;Tests de charge k6;10 éditeurs simultanés sur 4 000 séances, génération parallèle refusée.;"- Objectifs p95 de ST §5.4 mesurés et documentés (dont tableau de bord et export de 100 pages)
+- Une seconde génération sur le même semestre est refusée (409)";EX-NFR-04;§5.4;QA;Must;8;L3-28, L4-14, L5-26;À faire;
+L7-09;L7;E7.3;Performance;Tâche technique;Optimisations selon mesures;Corrections ciblées issues des tests de charge.;- Tous les objectifs p95 sont atteints ou dérogation documentée;EX-NFR-04;§5.4;FULL;Should;8;L7-08;À faire;
+L7-10;L7;E7.4;Exploitation & conformité;Tâche technique;Sauvegardes et restauration;"Sauvegardes planifiées PostgreSQL (pg_dump format custom + SQL plain) : quotidienne 02h, hebdomadaire dimanche 03h, mensuelle 1er du mois 04h, rétention 30 jours ; volumes Docker (db, grafana, prometheus, loki, tempo) : archives tar.gz quotidiennes/hebdomadaires/mensuelles ; support S3/MinIO optionnel pour copie off-site ; manifestes JSON avec checksums SHA256 ; script de restauration restore.sh avec vérification d'intégrité.";"- Restauration testée avec RPO 24h (quotidien) et RTO 4 heures indicatifs
+- Les sauvegardes sont sur un support séparé du serveur (volume backup_data + S3 optionnel)
+- Procédure documentée (infra/backup/README.md) et test trimestriel planifié
+- Protection contre la suppression accidentelle (rétention, checksums)
+- Manifestes JSON horodatés pour audit et traçabilité";EX-NFR-03;§5.3, §1.8;DEVOPS;Must;5;L0-07;À faire;
+L7-11;L7;E7.4;Exploitation & conformité;Tâche technique;Alarmes et runbooks;File d'échecs non vide, génération au-delà du seuil, 5xx, e-mails en échec.;"- Chaque alarme a un runbook
+- Alerte déclenchée sur les scénarios simulés";EX-NFR-05;§5.4, §4.19;DEVOPS;Should;5;L0-09, L5-22;À faire;
+L7-12;L7;E7.4;Exploitation & conformité;Tâche technique;Conformité INPDP et conservation;Durées de conservation audit, journal de sécurité et exports, droit d'accès et de rectification, validation DPO.;"- Politique de conservation validée par la maîtrise d'ouvrage
+- Données hébergées en Tunisie ; cadre INPDP et durée de conservation validés avec le DPO";EX-NFR-06, EX-AUD-02;§5.3, §0.4;FULL;Must;5;;À faire;
+L7-13;L7;E7.4;Exploitation & conformité;Tâche technique;Mentions de licence de FET (NOTICE);FET (AGPL v3) est utilisé tel quel, en développement interne pour le seul compte de l'ISAMK.;"- Mode d'intégration (binaire non modifié, processus séparé) confirmé par l'équipe, sans avis juridique
+- Obligations éventuelles (mention, accès au source) listées et planifiées
+- Fichier NOTICE (nom, version, licence, lien vers le source) dans le dépôt et l'image du worker
+- COPYING et en-têtes de la version 7.11.1 archivés avec le source
+- Règle consignée : ne pas modifier FET ni remettre l'application ou son image à une autre entité sans réexaminer la licence";EX-MOT-08;§4.6.4;DEVOPS;Must;1;;À faire;
+L7-14;L7;E7.5;Recette & mise en production;Tâche technique;Stratégie de tests et jeux de données de recette;Jeux de données représentatifs (POC FET, recette), scénarios Given/When/Then de la SF §23, matrice de traçabilité vérifiée en CI.;"- Les onze scénarios de la SF §23 sont automatisés ou documentés
+- Jeu de données couvrant CM, TD, TP, CI, salle spécifique, capacités différentes, indisponibilités, préférences, pause, contrainte inter-départementale, activité verrouillée, génération réussie et impossible
+- Le script de vérification de cohérence documentaire passe en CI";EX-NFR-07;§5.5, §6.1;QA;Must;5;L0-02, L4-09;À faire;
+L7-15;L7;E7.5;Recette & mise en production;Test;E2E complet répartition → export;Playwright sur tout le parcours, par rôle.;"- Parcours complet vert en recette
+- Rejouable en CI";EX-NFR-07;§5.5;QA;Must;8;L5-16, L6-07, L6-06;À faire;
+L7-16;L7;E7.5;Recette & mise en production;Story;Recette sur données réelles de l'ISAMK;Chargement des données réelles (S4), recette, correctifs, documentation et formation.;"- Recette signée par la maîtrise d'ouvrage
+- Documentation utilisateur et administrateur livrée
+- Anomalies bloquantes corrigées
+- Valeurs initiales du jeu de règles de charge saisies et validées";EX-NFR-07;§5.5, §6.4;FULL;Must;13;L7-15, L7-06, L7-09;À faire;
+L7-17;L7;E7.5;Recette & mise en production;Tâche technique;Mise en production et hypercare;Bascule, surveillance renforcée.;"- Production déployée via pipeline
+- Période d'hypercare avec points quotidiens
+- Plan de retour arrière documenté";EX-NFR-02;§5.5, §1.8;DEVOPS;Must;5;L7-16, L7-10, L7-11;À faire;

@@ -1,0 +1,8 @@
+TAKT V2.3 — Black Ops One
+
+Black Ops One is licensed under the SIL Open Font License, Version 1.1 (OFL).
+Source/reference: Google Fonts / SorkinType Black-Ops.
+
+See the official license: https://github.com/google/fonts/blob/main/ofl/blackopsone/OFL.txt
+
+This package does not redistribute the font binary itself; the reference is included for implementation/licensing documentation.

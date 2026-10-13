@@ -1,0 +1,36 @@
+{
+  "name": "takt",
+  "version": "0.0.0",
+  "private": true,
+  "description": "TAKT - Monorepo for ISAMK scheduling application",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "validate": "pnpm lint && pnpm typecheck && pnpm build",
+    "db:generate": "turbo run db:generate",
+    "db:migrate": "turbo run db:migrate",
+    "db:push": "turbo run db:push",
+    "db:studio": "turbo run db:studio",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md,yaml,yml}\"",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "eslint": "^9.0.0",
+    "oxlint": "^1.58.0",
+    "prettier": "^3.4.2",
+    "turbo": "^2.0.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2",
+    "@changesets/cli": "^2.27.1"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
