@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 466.16 210.02">
+  <g id="Monochrome_Clair" data-name="Monochrome Clair" transform="translate(0 0.22)">
+    <path d="M191.32,13.92l.04,71.74c-6.66,9.62-19.99,28.87-19.99,28.87h9.46s8.8,19.06,8.8,19.06h-31.45c-3.49,5.04-6.97,10.07-10.46,15.11-14.24,0-28.48,0-42.72,0L191.32,13.92Z" fill="#fbfcff"/>
+    <rect x="13.31" y="13.92" width="117.3" height="29.43" fill="#fbfcff"/>
+    <rect x="48.54" y="50.38" width="46.84" height="98.67" fill="#fbfcff"/>
+    <rect x="198.29" y="13.92" width="45.01" height="135.12" fill="#fbfcff"/>
+    <polygon points="250.22 129.9 250.22 64.23 281.79 13.92 328.63 13.92 250.22 129.9" fill="#fbfcff"/>
+    <polygon points="282.09 149.05 266.82 117.58 293.5 77.56 330.76 149.05 282.09 149.05" fill="#fbfcff"/>
+    <rect x="335.55" y="13.75" width="117.3" height="29.43" fill="#fbfcff"/>
+    <rect x="370.78" y="50.2" width="46.84" height="98.67" fill="#fbfcff"/>
+    <polyline points="23.25 189.49 243.29 189.49 243.29 177.76 23.25 177.76" fill="#fbfcff"/>
+    <circle cx="380" cy="183.63" r="12.65" fill="#fbfcff"/>
+    <circle cx="279.46" cy="183.63" r="12.65" fill="#fbfcff"/>
+    <circle cx="329.73" cy="183.63" r="12.65" fill="#fbfcff"/>
+    <circle cx="430.27" cy="183.63" r="12.65" fill="#fbfcff"/>
+  </g>
+</svg>

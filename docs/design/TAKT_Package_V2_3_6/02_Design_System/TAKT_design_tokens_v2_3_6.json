@@ -1,0 +1,1713 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "name": "TAKT Design Tokens",
+  "version": "2.3.6",
+  "brand": "TAKT",
+  "direction": "Argile & Sable chaleureux",
+  "implementation": "V2.3.6 — source unique des états (states.*), bordure de champ AA sur toutes les surfaces claires, paires UI et navigation déclarées dans le test automatique",
+  "logo": {
+    "master": "TAKT_logo_master_color.svg",
+    "system": [
+      "TAKT_logo_monochrome_deep.svg",
+      "TAKT_logo_monochrome_ivory.svg",
+      "TAKT_logo_inverse.svg",
+      "TAKT_logo_compact.svg",
+      "TAKT_logo_compact_inverse.svg",
+      "TAKT_symbol.svg"
+    ],
+    "background": "transparent",
+    "rule": "Le logo maître est vectoriel et indépendant de toute police. Les variantes Ivory et Inverse sont transparentes; aucun rectangle de fond n'est intégré au SVG.",
+    "compact_on_dark": "TAKT_logo_compact_inverse.svg",
+    "protection_zone": {
+      "unit": "x",
+      "definition": "x = hauteur du bloc vertical Clay du logo maître",
+      "minimum_clear_space": "1x sur les quatre côtés",
+      "applies_to": "master et variantes officielles",
+      "note": "À mesurer sur le master vectoriel; aucun élément graphique ou texte ne doit entrer dans cette zone."
+    },
+    "minimum_size": {
+      "digital": {
+        "master_full_logo_px": 120,
+        "compact_px": 80,
+        "symbol_px": 24
+      },
+      "print": {
+        "master_full_logo_mm": 30,
+        "compact_mm": 20,
+        "symbol_mm": 6
+      },
+      "rule": "Ne pas reproduire sous ces tailles minimales; privilégier le symbole seul pour les usages inférieurs au seuil du symbole."
+    },
+    "co_branding_isamk": {
+      "clear_space": "1x minimum autour de TAKT; respecter également la zone de protection officielle du logo ISAMK",
+      "separator": "séparateur vertical neutre",
+      "hierarchy": "TAKT et ISAMK sont placés sur une même ligne, sans fusion des marques ni recoloration du logo ISAMK",
+      "minimum_gap": "2x entre les zones de protection des deux marques",
+      "approval": "Utiliser le master officiel ISAMK fourni par l’organisation; ne pas redessiner ni modifier ses proportions."
+    }
+  },
+  "typography": {
+    "brand": {
+      "family": "Black Ops One",
+      "weight": 400,
+      "usage": "Signature de marque autonome « TAKT » uniquement; jamais pour menus, formulaires, tableaux ou corps."
+    },
+    "display": {
+      "family": "Sora",
+      "weights": [
+        600,
+        700
+      ],
+      "usage": "Display, H1, H2, H3, grands indicateurs éditoriaux"
+    },
+    "interface": {
+      "family": "Inter",
+      "weights": [
+        400,
+        500,
+        600
+      ],
+      "usage": "Interface, corps, navigation, formulaires, tableaux, données"
+    },
+    "numeric": {
+      "family": "Inter",
+      "feature": "tabular-nums",
+      "usage": "Horaires, métriques et colonnes numériques"
+    }
+  },
+  "color": {
+    "brand": {
+      "deep": "#29363C",
+      "clay": "#B98268",
+      "sage": "#7D938A",
+      "sand": "#E9D8BF",
+      "ivory": "#FBFCFF",
+      "sun": "#F5F3BB"
+    },
+    "functional": {
+      "success": "#3F765E",
+      "warning": "#B47732",
+      "error": "#B6534B",
+      "info": "#526D78",
+      "error_text": "#9E3F3A"
+    },
+    "accessible_on_ivory": {
+      "clay": "#886656",
+      "warning": "#926531",
+      "sage": "#5F726D",
+      "text_tertiary": "#627076",
+      "error": "#9E3F3A"
+    },
+    "control": {
+      "border_default_aa": "#858E91"
+    },
+    "state_tints_on_ivory": {
+      "success": "#E4ECEC",
+      "warning": "#F2ECE6",
+      "error": "#F3E8E9",
+      "info": "#E7EBEF"
+    },
+    "navigation_on_deep": {
+      "text_primary": "#FBFCFF",
+      "text_secondary": "#B1BABC",
+      "text_disabled": "#8F9B9F",
+      "icon_primary": "#FBFCFF",
+      "icon_secondary": "#B1BABC",
+      "active_indicator": "#F5F3BB",
+      "focus": "#FBFCFF"
+    },
+    "status": {
+      "success": {
+        "text": "#3F765E"
+      },
+      "warning": {
+        "text": "#926531"
+      },
+      "error": {
+        "text": "#9E3F3A"
+      },
+      "info": {
+        "text": "#526D78"
+      }
+    },
+    "status_text_source": "Les variantes status.*.text sont les couleurs canoniques de texte; color.functional.* reste la couleur fonctionnelle pour icônes/bordures/repères."
+  },
+  "semantic": {
+    "color.bg.primary": "#FBFCFF",
+    "color.bg.warm": "#FCF9F4",
+    "color.bg.inset": "#F3F5F5",
+    "color.surface.card": "#FFFFFF",
+    "color.surface.elevated": "#FFFFFF",
+    "color.surface.navigation": "#29363C",
+    "color.surface.warm": "#FCF9F4",
+    "color.text.primary": "#29363C",
+    "color.text.secondary": "#56646A",
+    "color.text.tertiary": "#627076",
+    "color.text.onDeep": "#FBFCFF",
+    "color.text.onDeep.secondary": "#B1BABC",
+    "color.border.subtle": "#E7EAEB",
+    "color.border.default": "#858E91",
+    "color.border.interactive": "#858E91",
+    "color.brand.primary": "#B98268",
+    "color.brand.primary.text": "#886656",
+    "color.brand.secondary": "#7D938A",
+    "color.brand.secondary.text": "#5F726D",
+    "color.brand.dark": "#29363C",
+    "color.status.success": "#3F765E",
+    "color.status.success.bg": "#E4ECEC",
+    "color.status.warning": "#B47732",
+    "color.status.warning.text": "#926531",
+    "color.status.warning.bg": "#F2ECE6",
+    "color.status.error": "#B6534B",
+    "color.status.error.bg": "#F3E8E9",
+    "color.status.info": "#526D78",
+    "color.status.info.bg": "#E7EBEF",
+    "color.accent.sun": "#F5F3BB",
+    "color.focus.navigation": "#FBFCFF",
+    "color.status.error.text": "#9E3F3A"
+  },
+  "contrast": {
+    "text_on_ivory": {
+      "clay": {
+        "foreground": "#886656",
+        "ratio": 5.015,
+        "minimum": "AA normal text 4.5:1"
+      },
+      "warning": {
+        "foreground": "#926531",
+        "ratio": 4.959,
+        "minimum": "AA normal text 4.5:1"
+      },
+      "sage": {
+        "foreground": "#5F726D",
+        "ratio": 4.975,
+        "minimum": "AA normal text 4.5:1"
+      },
+      "tertiary": {
+        "foreground": "#627076",
+        "ratio": 4.994,
+        "minimum": "AA normal text 4.5:1"
+      }
+    },
+    "field_border_on_ivory": {
+      "foreground": "#858E91",
+      "ratio": 3.262,
+      "minimum": "3:1 for UI components"
+    },
+    "state_tint_deep_on_ivory": {
+      "success": {
+        "background": "#E4ECEC",
+        "ratio": 10.377
+      },
+      "warning": {
+        "background": "#F2ECE6",
+        "ratio": 10.619
+      },
+      "error": {
+        "background": "#F3E8E9",
+        "ratio": 10.39
+      },
+      "info": {
+        "background": "#E7EBEF",
+        "ratio": 10.389
+      }
+    },
+    "navigation_deep": {
+      "primary_ivory": 12.133,
+      "secondary_b1babc": 6.294,
+      "disabled_8f9b9f": 4.361,
+      "focus_ivory": 12.133
+    },
+    "focus_deep": {
+      "on_sand": 8.914,
+      "on_sun": 10.918,
+      "on_ivory": 12.133
+    },
+    "focus_navigation": {
+      "foreground": "#FBFCFF",
+      "background": "#29363C",
+      "ratio": 12.133,
+      "minimum": "Visible focus on Deep navigation"
+    },
+    "test_policy": {
+      "wcag_aa_text": "4.5:1",
+      "wcag_aa_ui_component": "3:1",
+      "exemptions": [
+        {
+          "token": "color.navigation_on_deep.text_disabled",
+          "value": "#8F9B9F",
+          "reason": "WCAG: disabled controls are exempt from minimum contrast; automated token test must exclude this token explicitly."
+        }
+      ]
+    },
+    "automated_test": {
+      "standard": "WCAG 2 AA",
+      "text_min_ratio": 4.5,
+      "ui_component_min_ratio": 3.0,
+      "exempt_tokens": [
+        "color.navigation_on_deep.text_disabled"
+      ],
+      "exemption_rule": "Ne pas échouer le build sur les contrôles désactivés; conserver leur ratio à titre informatif.",
+      "disabled_ratio_note": "#8F9B9F sur Deep = 4.361:1; la valeur est documentée mais exclue du gate AA texte.",
+      "text_surfaces": {
+        "ivory": "#FBFCFF",
+        "warm": "#FCF9F4",
+        "inset": "#F3F5F5",
+        "card": "#FFFFFF",
+        "elevated": "#FFFFFF"
+      },
+      "text_tokens": [
+        "color.brand.primary.text",
+        "color.brand.secondary.text",
+        "color.status.error.text",
+        "color.status.warning.text",
+        "color.text.tertiary"
+      ],
+      "surface_rule": "Tester chaque token texte sur Ivory, Warm, Inset, Card et Elevated; aucune validation AA ne doit dépendre d’un arrondi spécifique à Ivory.",
+      "a_placer_rule": "Pour states.seance.NON_PLACEE (« À placer »), la pastille est autorisée sur Ivory uniquement avec border #858E91 >= 3:1 + icône. Ne jamais poser la pastille sur Warm ni Inset. Sur Warm/Inset, utiliser le pattern alternatif states.seance.NON_PLACEE.ux_alternative sans bordure de pastille.",
+      "print_border": "#808080",
+      "print_border_ratio_on_white": 3.949,
+      "a_placer_border_test": {
+        "border": "#858E91",
+        "minimum_ratio": "3:1",
+        "usage": "outer_only",
+        "inner_on_sand_ratio": 2.397,
+        "ratios_on_surrounding_light_surfaces": {
+          "ivory": 3.262,
+          "warm": 3.186,
+          "inset": 3.058
+        },
+        "rule": "#858E91 atteint 3:1 sur Ivory, Warm et Inset. La pastille « À placer » reste néanmoins réservée à Ivory (décision UX conservée, DL-032) ; sur Warm et Inset, utiliser le marqueur en ligne sans bordure de pastille."
+      },
+      "state_color_text_lint": {
+        "standard": "TAKT state token lint",
+        "rule": "Interdire l’utilisation de states.*.*.color comme couleur de texte.",
+        "text_sources": [
+          "states.*.*.text",
+          "states.*.*.textOnLight"
+        ],
+        "color_role": "icône/bordure/repère uniquement",
+        "scope": "Tous les codes d’états canoniques des groupes version, generation, repartition, annee, validation_departement (impact, decision et REPORTEE), seance, ainsi que severity; ne jamais référencer d’anciennes clés planning/session.",
+        "exception": "Aucune; même lorsqu’un ratio AA serait atteint, color reste réservé au rôle non textuel."
+      },
+      "state_text_tokens": "Tous les states.*.*.text et states.*.*.textOnLight, sur tous les groupes et codes API canoniques de la version 2.3.6; chaque couleur de texte doit atteindre 4.5:1 sur Ivory, Warm, Inset, Card et Elevated.",
+      "a_placer_ux_pattern": "La pastille states.seance.NON_PLACEE (« À placer ») ne se pose jamais sur Warm ni sur Inset. Sur Ivory uniquement, utiliser la bordure extérieure déclarée; sur Warm/Inset, utiliser un pattern alternatif sans cette pastille Sand.",
+      "state_text_lint_codes": {
+        "version": [
+          "BROUILLON",
+          "GENERATION",
+          "EDITION",
+          "PRET_POUR_VALIDATION",
+          "EN_VALIDATION",
+          "REJETE",
+          "CORRECTION",
+          "VALIDE",
+          "PUBLIE",
+          "ARCHIVE"
+        ],
+        "generation": [
+          "QUEUED",
+          "RUNNING",
+          "SUCCEEDED",
+          "SUCCEEDED_WITH_WARNINGS",
+          "FAILED",
+          "TIMED_OUT",
+          "CANCELLED"
+        ],
+        "repartition": [
+          "BROUILLON",
+          "VALIDEE",
+          "ROUVERTE"
+        ],
+        "annee": [
+          "PREPARATION",
+          "ACTIVE",
+          "CLOTUREE"
+        ],
+        "validation_departement": [
+          "impact",
+          "decision",
+          "REPORTEE"
+        ],
+        "seance": [
+          "PLACEE",
+          "NON_PLACEE"
+        ],
+        "lock": [
+          "CRENEAU",
+          "SALLE",
+          "ENSEIGNANT",
+          "ACTIVITE"
+        ],
+        "constraint": [
+          "REGLE_DURE",
+          "REGLE_SOUPLE",
+          "VOEU"
+        ],
+        "origin": [
+          "MOTEUR",
+          "MANUEL"
+        ],
+        "warning_acceptance": [
+          "AVERTISSEMENT_ACCEPTE",
+          "ACCEPTATION_CADUQUE"
+        ],
+        "severity": [
+          "BLOQUANT",
+          "AVERTISSEMENT",
+          "INFORMATION"
+        ]
+      },
+      "ui_pairs": [
+        {
+          "token": "color.border.default",
+          "surfaces": [
+            "ivory",
+            "warm",
+            "inset",
+            "card"
+          ],
+          "min": 3.0
+        },
+        {
+          "token": "color.border.interactive",
+          "surfaces": [
+            "ivory",
+            "warm",
+            "inset",
+            "card"
+          ],
+          "min": 3.0
+        },
+        {
+          "token": "states.seance.NON_PLACEE.border",
+          "surfaces": [
+            "ivory"
+          ],
+          "min": 3.0
+        }
+      ],
+      "navigation_surface": "#29363C",
+      "navigation_rule": "Tester chaque color.navigation_on_deep.* sur Deep : text_* >= 4.5:1 ; icon_*, active_indicator et focus >= 3:1 ; seule l'exemption déclarée est ignorée."
+    },
+    "text_on_light_surfaces": {
+      "surfaces": {
+        "ivory": "#FBFCFF",
+        "warm": "#FCF9F4",
+        "inset": "#F3F5F5",
+        "card": "#FFFFFF",
+        "elevated": "#FFFFFF"
+      },
+      "minimum": "AA normal text 4.5:1",
+      "tokens": {
+        "deep": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "clay": {
+          "foreground": "#886656",
+          "ratios": {
+            "ivory": 5.015,
+            "warm": 4.899,
+            "inset": 4.701,
+            "card": 5.145,
+            "elevated": 5.145
+          },
+          "minimum": "4.5:1"
+        },
+        "sage": {
+          "foreground": "#5F726D",
+          "ratios": {
+            "ivory": 4.975,
+            "warm": 4.86,
+            "inset": 4.664,
+            "card": 5.104,
+            "elevated": 5.104
+          },
+          "minimum": "4.5:1"
+        },
+        "warning": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        },
+        "success": {
+          "foreground": "#3F765E",
+          "ratios": {
+            "ivory": 5.164,
+            "warm": 5.044,
+            "inset": 4.841,
+            "card": 5.297,
+            "elevated": 5.297
+          },
+          "minimum": "4.5:1"
+        },
+        "info": {
+          "foreground": "#526D78",
+          "ratios": {
+            "ivory": 5.362,
+            "warm": 5.238,
+            "inset": 5.027,
+            "card": 5.501,
+            "elevated": 5.501
+          },
+          "minimum": "4.5:1"
+        },
+        "error": {
+          "foreground": "#9E3F3A",
+          "ratios": {
+            "ivory": 6.345,
+            "warm": 6.198,
+            "inset": 5.949,
+            "card": 6.51,
+            "elevated": 6.51
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "rule": "Les textes de marque/accessibilité testés ici doivent atteindre 4.5:1 sur toutes les surfaces claires déclarées. Ne pas utiliser ces tokens texte sur la navigation Deep."
+    },
+    "state_text_on_light_surfaces": {
+      "deep": {
+        "foreground": "#29363C",
+        "ratios": {
+          "ivory": 12.133,
+          "warm": 11.851,
+          "inset": 11.374,
+          "card": 12.447,
+          "elevated": 12.447
+        },
+        "minimum": "4.5:1"
+      },
+      "clay": {
+        "foreground": "#886656",
+        "ratios": {
+          "ivory": 5.015,
+          "warm": 4.899,
+          "inset": 4.701,
+          "card": 5.145,
+          "elevated": 5.145
+        },
+        "minimum": "4.5:1"
+      },
+      "sage": {
+        "foreground": "#5F726D",
+        "ratios": {
+          "ivory": 4.975,
+          "warm": 4.86,
+          "inset": 4.664,
+          "card": 5.104,
+          "elevated": 5.104
+        },
+        "minimum": "4.5:1"
+      },
+      "warning": {
+        "foreground": "#926531",
+        "ratios": {
+          "ivory": 4.959,
+          "warm": 4.844,
+          "inset": 4.649,
+          "card": 5.087,
+          "elevated": 5.087
+        },
+        "minimum": "4.5:1"
+      },
+      "success": {
+        "foreground": "#3F765E",
+        "ratios": {
+          "ivory": 5.164,
+          "warm": 5.044,
+          "inset": 4.841,
+          "card": 5.297,
+          "elevated": 5.297
+        },
+        "minimum": "4.5:1"
+      },
+      "info": {
+        "foreground": "#526D78",
+        "ratios": {
+          "ivory": 5.362,
+          "warm": 5.238,
+          "inset": 5.027,
+          "card": 5.501,
+          "elevated": 5.501
+        },
+        "minimum": "4.5:1"
+      },
+      "error": {
+        "foreground": "#9E3F3A",
+        "ratios": {
+          "ivory": 6.345,
+          "warm": 6.198,
+          "inset": 5.949,
+          "card": 6.51,
+          "elevated": 6.51
+        },
+        "minimum": "4.5:1"
+      },
+      "rule": "Tous les states.*.*.text et states.*.*.textOnLight sont testés sur Ivory, Warm, Inset, Card et Elevated; minimum 4.5:1."
+    },
+    "error_text": {
+      "foreground": "#9E3F3A",
+      "ratios": {
+        "ivory": 6.345,
+        "warm": 6.198,
+        "inset": 5.949,
+        "card": 6.51,
+        "elevated": 6.51
+      },
+      "minimum": "4.5:1",
+      "replaces": "#B6534B for text only; #B6534B remains functional/icon/border color."
+    },
+    "state_text_matrix": {
+      "version": {
+        "BROUILLON": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "GENERATION": {
+          "foreground": "#526D78",
+          "ratios": {
+            "ivory": 5.362,
+            "warm": 5.238,
+            "inset": 5.027,
+            "card": 5.501,
+            "elevated": 5.501
+          },
+          "minimum": "4.5:1"
+        },
+        "EDITION": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "PRET_POUR_VALIDATION": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        },
+        "EN_VALIDATION": {
+          "foreground": "#526D78",
+          "ratios": {
+            "ivory": 5.362,
+            "warm": 5.238,
+            "inset": 5.027,
+            "card": 5.501,
+            "elevated": 5.501
+          },
+          "minimum": "4.5:1"
+        },
+        "REJETE": {
+          "foreground": "#9E3F3A",
+          "ratios": {
+            "ivory": 6.345,
+            "warm": 6.198,
+            "inset": 5.949,
+            "card": 6.51,
+            "elevated": 6.51
+          },
+          "minimum": "4.5:1"
+        },
+        "CORRECTION": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        },
+        "VALIDE": {
+          "foreground": "#3F765E",
+          "ratios": {
+            "ivory": 5.164,
+            "warm": 5.044,
+            "inset": 4.841,
+            "card": 5.297,
+            "elevated": 5.297
+          },
+          "minimum": "4.5:1"
+        },
+        "PUBLIE": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "ARCHIVE": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "generation": {
+        "QUEUED": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "RUNNING": {
+          "foreground": "#526D78",
+          "ratios": {
+            "ivory": 5.362,
+            "warm": 5.238,
+            "inset": 5.027,
+            "card": 5.501,
+            "elevated": 5.501
+          },
+          "minimum": "4.5:1"
+        },
+        "SUCCEEDED": {
+          "foreground": "#3F765E",
+          "ratios": {
+            "ivory": 5.164,
+            "warm": 5.044,
+            "inset": 4.841,
+            "card": 5.297,
+            "elevated": 5.297
+          },
+          "minimum": "4.5:1"
+        },
+        "SUCCEEDED_WITH_WARNINGS": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        },
+        "FAILED": {
+          "foreground": "#9E3F3A",
+          "ratios": {
+            "ivory": 6.345,
+            "warm": 6.198,
+            "inset": 5.949,
+            "card": 6.51,
+            "elevated": 6.51
+          },
+          "minimum": "4.5:1"
+        },
+        "TIMED_OUT": {
+          "foreground": "#9E3F3A",
+          "ratios": {
+            "ivory": 6.345,
+            "warm": 6.198,
+            "inset": 5.949,
+            "card": 6.51,
+            "elevated": 6.51
+          },
+          "minimum": "4.5:1"
+        },
+        "CANCELLED": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "repartition": {
+        "BROUILLON": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "VALIDEE": {
+          "foreground": "#3F765E",
+          "ratios": {
+            "ivory": 5.164,
+            "warm": 5.044,
+            "inset": 4.841,
+            "card": 5.297,
+            "elevated": 5.297
+          },
+          "minimum": "4.5:1"
+        },
+        "ROUVERTE": {
+          "foreground": "#886656",
+          "ratios": {
+            "ivory": 5.015,
+            "warm": 4.899,
+            "inset": 4.701,
+            "card": 5.145,
+            "elevated": 5.145
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "annee": {
+        "PREPARATION": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "ACTIVE": {
+          "foreground": "#3F765E",
+          "ratios": {
+            "ivory": 5.164,
+            "warm": 5.044,
+            "inset": 4.841,
+            "card": 5.297,
+            "elevated": 5.297
+          },
+          "minimum": "4.5:1"
+        },
+        "CLOTUREE": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "validation_departement": {
+        "impact.IMPACTE": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        },
+        "impact.NON_IMPACTE": {
+          "foreground": "#3F765E",
+          "ratios": {
+            "ivory": 5.164,
+            "warm": 5.044,
+            "inset": 4.841,
+            "card": 5.297,
+            "elevated": 5.297
+          },
+          "minimum": "4.5:1"
+        },
+        "decision.EN_ATTENTE": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "decision.APPROUVE": {
+          "foreground": "#3F765E",
+          "ratios": {
+            "ivory": 5.164,
+            "warm": 5.044,
+            "inset": 4.841,
+            "card": 5.297,
+            "elevated": 5.297
+          },
+          "minimum": "4.5:1"
+        },
+        "decision.REJETE": {
+          "foreground": "#9E3F3A",
+          "ratios": {
+            "ivory": 6.345,
+            "warm": 6.198,
+            "inset": 5.949,
+            "card": 6.51,
+            "elevated": 6.51
+          },
+          "minimum": "4.5:1"
+        },
+        "REPORTEE": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "seance": {
+        "PLACEE": {
+          "foreground": "#3F765E",
+          "ratios": {
+            "ivory": 5.164,
+            "warm": 5.044,
+            "inset": 4.841,
+            "card": 5.297,
+            "elevated": 5.297
+          },
+          "minimum": "4.5:1"
+        },
+        "NON_PLACEE": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "lock": {
+        "CRENEAU": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "SALLE": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "ENSEIGNANT": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        },
+        "ACTIVITE": {
+          "foreground": "#29363C",
+          "ratios": {
+            "ivory": 12.133,
+            "warm": 11.851,
+            "inset": 11.374,
+            "card": 12.447,
+            "elevated": 12.447
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "constraint": {
+        "REGLE_DURE": {
+          "foreground": "#9E3F3A",
+          "ratios": {
+            "ivory": 6.345,
+            "warm": 6.198,
+            "inset": 5.949,
+            "card": 6.51,
+            "elevated": 6.51
+          },
+          "minimum": "4.5:1"
+        },
+        "REGLE_SOUPLE": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        },
+        "VOEU": {
+          "foreground": "#886656",
+          "ratios": {
+            "ivory": 5.015,
+            "warm": 4.899,
+            "inset": 4.701,
+            "card": 5.145,
+            "elevated": 5.145
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "origin": {
+        "MOTEUR": {
+          "foreground": "#526D78",
+          "ratios": {
+            "ivory": 5.362,
+            "warm": 5.238,
+            "inset": 5.027,
+            "card": 5.501,
+            "elevated": 5.501
+          },
+          "minimum": "4.5:1"
+        },
+        "MANUEL": {
+          "foreground": "#886656",
+          "ratios": {
+            "ivory": 5.015,
+            "warm": 4.899,
+            "inset": 4.701,
+            "card": 5.145,
+            "elevated": 5.145
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "warning_acceptance": {
+        "AVERTISSEMENT_ACCEPTE": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        },
+        "ACCEPTATION_CADUQUE": {
+          "foreground": "#9E3F3A",
+          "ratios": {
+            "ivory": 6.345,
+            "warm": 6.198,
+            "inset": 5.949,
+            "card": 6.51,
+            "elevated": 6.51
+          },
+          "minimum": "4.5:1"
+        }
+      },
+      "severity": {
+        "BLOQUANT": {
+          "foreground": "#9E3F3A",
+          "ratios": {
+            "ivory": 6.345,
+            "warm": 6.198,
+            "inset": 5.949,
+            "card": 6.51,
+            "elevated": 6.51
+          },
+          "minimum": "4.5:1"
+        },
+        "AVERTISSEMENT": {
+          "foreground": "#926531",
+          "ratios": {
+            "ivory": 4.959,
+            "warm": 4.844,
+            "inset": 4.649,
+            "card": 5.087,
+            "elevated": 5.087
+          },
+          "minimum": "4.5:1"
+        },
+        "INFORMATION": {
+          "foreground": "#526D78",
+          "ratios": {
+            "ivory": 5.362,
+            "warm": 5.238,
+            "inset": 5.027,
+            "card": 5.501,
+            "elevated": 5.501
+          },
+          "minimum": "4.5:1"
+        }
+      }
+    },
+    "field_border_on_surfaces": {
+      "foreground": "#858E91",
+      "ratios": {
+        "ivory": 3.262,
+        "warm": 3.186,
+        "inset": 3.058,
+        "card": 3.346
+      },
+      "minimum": "3:1 for UI components"
+    }
+  },
+  "states": {
+    "principle": "Les codes de l’API sont les clés canoniques des tokens. La couleur complète le libellé et l’icône; elle ne porte jamais seule l’information. Les propriétés text/textOnLight sont les seules couleurs autorisées pour le texte.",
+    "version": {
+      "BROUILLON": {
+        "color": "#718086",
+        "icon": "file-pen",
+        "label": "Brouillon",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "GENERATION": {
+        "color": "#526D78",
+        "icon": "loader",
+        "label": "Génération",
+        "text": "#526D78",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "EDITION": {
+        "color": "#29363C",
+        "icon": "pencil-line",
+        "label": "En édition",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "PRET_POUR_VALIDATION": {
+        "color": "#926531",
+        "icon": "clipboard-check",
+        "label": "Prêt pour validation",
+        "text": "#926531",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "EN_VALIDATION": {
+        "color": "#526D78",
+        "icon": "shield-check",
+        "label": "En validation",
+        "text": "#526D78",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "REJETE": {
+        "color": "#B6534B",
+        "icon": "circle-x",
+        "label": "Rejeté",
+        "text": "#9E3F3A",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "CORRECTION": {
+        "color": "#926531",
+        "icon": "message-circle-warning",
+        "label": "En correction",
+        "text": "#926531",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "VALIDE": {
+        "color": "#3F765E",
+        "icon": "circle-check",
+        "label": "Validé",
+        "text": "#3F765E",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "PUBLIE": {
+        "color": "#29363C",
+        "icon": "badge-check",
+        "label": "Publié",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "ARCHIVE": {
+        "color": "#718086",
+        "icon": "archive",
+        "label": "Archivé",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      }
+    },
+    "generation": {
+      "QUEUED": {
+        "color": "#718086",
+        "icon": "clock",
+        "label": "En attente",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "RUNNING": {
+        "color": "#526D78",
+        "icon": "loader",
+        "label": "En cours",
+        "text": "#526D78",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "SUCCEEDED": {
+        "color": "#3F765E",
+        "icon": "circle-check",
+        "label": "Réussie",
+        "text": "#3F765E",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "SUCCEEDED_WITH_WARNINGS": {
+        "color": "#926531",
+        "icon": "circle-check",
+        "label": "Réussie partiellement",
+        "text": "#926531",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "FAILED": {
+        "color": "#B6534B",
+        "icon": "circle-x",
+        "label": "Échec",
+        "text": "#9E3F3A",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "TIMED_OUT": {
+        "color": "#B6534B",
+        "icon": "timer-off",
+        "label": "Délai dépassé sans résultat",
+        "text": "#9E3F3A",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "CANCELLED": {
+        "color": "#718086",
+        "icon": "circle-stop",
+        "label": "Annulée",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      }
+    },
+    "repartition": {
+      "BROUILLON": {
+        "color": "#718086",
+        "icon": "file-pen",
+        "label": "Brouillon",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "VALIDEE": {
+        "color": "#3F765E",
+        "icon": "circle-check",
+        "label": "Validée",
+        "text": "#3F765E",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "ROUVERTE": {
+        "color": "#886656",
+        "icon": "rotate-ccw",
+        "label": "Rouverte",
+        "text": "#886656",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      }
+    },
+    "annee": {
+      "PREPARATION": {
+        "color": "#718086",
+        "icon": "calendar-cog",
+        "label": "En préparation",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "ACTIVE": {
+        "color": "#3F765E",
+        "icon": "calendar-check",
+        "label": "Active",
+        "text": "#3F765E",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "CLOTUREE": {
+        "color": "#29363C",
+        "icon": "calendar-x",
+        "label": "Clôturée",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      }
+    },
+    "validation_departement": {
+      "impact": {
+        "IMPACTE": {
+          "color": "#926531",
+          "icon": "triangle-alert",
+          "label": "Impacté",
+          "text": "#926531",
+          "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+        },
+        "NON_IMPACTE": {
+          "color": "#3F765E",
+          "icon": "circle-check",
+          "label": "Non impacté",
+          "text": "#3F765E",
+          "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+        }
+      },
+      "decision": {
+        "EN_ATTENTE": {
+          "color": "#718086",
+          "icon": "clock",
+          "label": "À revalider ou à valider",
+          "text": "#29363C",
+          "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+        },
+        "APPROUVE": {
+          "color": "#3F765E",
+          "icon": "circle-check",
+          "label": "Approuvé",
+          "text": "#3F765E",
+          "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+        },
+        "REJETE": {
+          "color": "#B6534B",
+          "icon": "circle-x",
+          "label": "Rejeté",
+          "text": "#9E3F3A",
+          "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+        }
+      },
+      "REPORTEE": {
+        "icon": "calendar-clock",
+        "label": "Approbation reportée",
+        "aria": "Approbation reportée",
+        "usage": "Indicateur complémentaire de décision; ne remplace pas le code d’état API. color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte.",
+        "color": "#B47732",
+        "text": "#926531"
+      }
+    },
+    "seance": {
+      "PLACEE": {
+        "color": "#3F765E",
+        "icon": "map-pin-check",
+        "label": "Placée",
+        "text": "#3F765E",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "NON_PLACEE": {
+        "color": "#E9D8BF",
+        "icon": "map-pin-off",
+        "label": "À placer",
+        "text": "#29363C",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte. La pastille « À placer » ne se pose jamais sur Warm ni sur Inset.",
+        "ux_alternative": {
+          "surfaces": [
+            "Warm",
+            "Inset"
+          ],
+          "pattern": "inline_marker",
+          "description": "Ne pas utiliser de pastille ni de bordure de pastille. Afficher l’icône map-pin-off en Deep, suivie du libellé « À placer » en Deep, dans le flux de la séance; conserver l’icône comme repère visuel et le texte comme information explicite.",
+          "background": "inherit",
+          "border": "none",
+          "icon": "map-pin-off",
+          "icon_color": "#29363C",
+          "text": "#29363C",
+          "aria": "À placer"
+        },
+        "border": "#858E91"
+      }
+    },
+    "lock": {
+      "CRENEAU": {
+        "color": "#29363C",
+        "icon": "lock-calendar",
+        "label": "Verrouillé sur le créneau",
+        "aria": "Verrouillé sur le créneau — non modifiable",
+        "text": "#29363C",
+        "usage": "Repère non textuel + libellé accessible; ne pas porter le sens par la couleur seule."
+      },
+      "SALLE": {
+        "color": "#29363C",
+        "icon": "lock-room",
+        "label": "Verrouillé sur la salle",
+        "aria": "Verrouillé sur la salle — non modifiable",
+        "text": "#29363C",
+        "usage": "Repère non textuel + libellé accessible; ne pas porter le sens par la couleur seule."
+      },
+      "ENSEIGNANT": {
+        "color": "#29363C",
+        "icon": "lock-teacher",
+        "label": "Verrouillé sur l’enseignant",
+        "aria": "Verrouillé sur l’enseignant — non modifiable",
+        "text": "#29363C",
+        "usage": "Repère non textuel + libellé accessible; ne pas porter le sens par la couleur seule."
+      },
+      "ACTIVITE": {
+        "color": "#29363C",
+        "icon": "lock-activity",
+        "label": "Activité figée",
+        "aria": "Activité figée — non modifiable",
+        "text": "#29363C",
+        "usage": "Repère non textuel + libellé accessible; ne pas porter le sens par la couleur seule."
+      }
+    },
+    "constraint": {
+      "REGLE_DURE": {
+        "color": "#B6534B",
+        "text": "#9E3F3A",
+        "icon": "shield-alert",
+        "label": "Règle dure",
+        "usage": "Interdiction/contrainte non négociable; ne jamais présenter comme une préférence.",
+        "nature": "REGLE",
+        "strength": "DURE",
+        "api_code": false,
+        "derivation": "Dérivé de (catégorie, nature) ; ce n'est pas un code API d'état."
+      },
+      "REGLE_SOUPLE": {
+        "color": "#926531",
+        "text": "#926531",
+        "icon": "shield-check",
+        "label": "Règle souple",
+        "usage": "Contrainte souple; distincte d’un vœu de préférence.",
+        "nature": "REGLE",
+        "strength": "SOUPLE",
+        "api_code": false,
+        "derivation": "Dérivé de (catégorie, nature) ; ce n'est pas un code API d'état."
+      },
+      "VOEU": {
+        "color": "#886656",
+        "text": "#886656",
+        "icon": "heart-handshake",
+        "label": "Vœu",
+        "usage": "Préférence; ne jamais présenter comme une interdiction.",
+        "nature": "VOEU",
+        "api_code": false,
+        "derivation": "Dérivé de (catégorie, nature) ; ce n'est pas un code API d'état."
+      }
+    },
+    "origin": {
+      "MOTEUR": {
+        "color": "#526D78",
+        "text": "#526D78",
+        "icon": "cpu",
+        "label": "Moteur",
+        "usage": "Séance issue du moteur de génération."
+      },
+      "MANUEL": {
+        "color": "#886656",
+        "text": "#886656",
+        "icon": "hand",
+        "label": "Manuel",
+        "usage": "Séance modifiée ou placée manuellement; repère visible pour distinguer l’intervention humaine."
+      }
+    },
+    "warning_acceptance": {
+      "AVERTISSEMENT_ACCEPTE": {
+        "color": "#926531",
+        "text": "#926531",
+        "icon": "triangle-alert-check",
+        "label": "Avertissement accepté",
+        "usage": "Repère visible à la publication et dans les exports officiels."
+      },
+      "ACCEPTATION_CADUQUE": {
+        "color": "#B6534B",
+        "text": "#9E3F3A",
+        "icon": "triangle-alert-clock",
+        "label": "Acceptation caduque",
+        "usage": "Repère visible à la publication et dans les exports officiels."
+      }
+    },
+    "severity": {
+      "BLOQUANT": {
+        "color": "#B6534B",
+        "icon": "circle-alert",
+        "label": "Bloquant",
+        "text": "#9E3F3A",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "AVERTISSEMENT": {
+        "color": "#B47732",
+        "icon": "triangle-alert",
+        "label": "Avertissement",
+        "text": "#926531",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      },
+      "INFORMATION": {
+        "color": "#526D78",
+        "icon": "info",
+        "label": "Information",
+        "text": "#526D78",
+        "usage": "color = icône/bordure/repère uniquement; text = couleur AA autorisée pour texte sur Ivory, Warm, Inset, Card et Elevated. Ne jamais utiliser color comme couleur de texte."
+      }
+    }
+  },
+  "categories": {
+    "principle": "Le type d’enseignement est une catégorie métier paramétrable par l’administrateur, pas un état. Le libellé reste obligatoire; la couleur n’est pas porteuse de sens.",
+    "display": "label",
+    "compact_marker": "initials",
+    "use_color": "neutral_only",
+    "types": {
+      "CM": {
+        "label": "CM",
+        "marker": "CM"
+      },
+      "TD": {
+        "label": "TD",
+        "marker": "TD"
+      },
+      "TP": {
+        "label": "TP",
+        "marker": "TP"
+      },
+      "CI": {
+        "label": "CI",
+        "marker": "CI"
+      }
+    },
+    "unknown_type_fallback": {
+      "marker": "initials_auto",
+      "max_length": 3,
+      "normalization": "Majuscules, espaces et signes séparateurs ignorés pour la génération des initiales",
+      "label_required": true,
+      "example": "Projet intégré -> PI",
+      "usage": "Si le type paramétré n’existe pas dans les tokens, générer automatiquement un marqueur de 1 à 3 initiales; ne jamais inventer une couleur métier."
+    }
+  },
+  "focus": {
+    "color": "#29363C",
+    "width": 2,
+    "offset": 2,
+    "style": "solid",
+    "rule": "Anneau 2 px Deep + offset 2 px; ne pas utiliser Clay comme focus universel sur Sand/Sun. Le focus reste visible sur Ivory, Sand, Sun et Deep. Les surfaces de référence sont explicites: on_light_surfaces = Deep; on_deep_surfaces = Ivory. Cela ne constitue pas un thème sombre.",
+    "keyboard_only": true,
+    "navigation": {
+      "color": "#FBFCFF",
+      "width": 2,
+      "offset": 2,
+      "style": "solid",
+      "rule": "Anneau Ivory 2 px + offset 2 px sur navigation Deep; le focus ne peut pas être Deep sur fond Deep."
+    },
+    "on_light_surfaces": "#29363C",
+    "on_deep_surfaces": "#FBFCFF"
+  },
+  "grid": {
+    "planning_slot_minutes": 30,
+    "desktop_row_height_px": 28,
+    "compact_row_height_px": 24,
+    "comfortable_row_height_px": 32,
+    "rule": "La hauteur 40–44 px concerne les contrôles, pas les lignes de planning. La grille privilégie 28 px par tranche de 30 min sur desktop; 24 px en densité forte et 32 px en mode lecture.",
+    "numeric": "Inter tabular-nums"
+  },
+  "surfaces": {
+    "page": "#FBFCFF",
+    "warm": "#FCF9F4",
+    "card": "#FFFFFF",
+    "elevated": "#FFFFFF",
+    "inset": "#F3F5F5",
+    "navigation": "#29363C",
+    "card_rule": "1 px border.subtle; rayon 12 px; ombre minimale uniquement lorsque nécessaire.",
+    "elevated_rule": "Même surface que card; différenciation par ombre légère et/ou hiérarchie, jamais par une nouvelle couleur arbitraire."
+  },
+  "motion": {
+    "default": {
+      "micro_ms": 120,
+      "standard_ms": 180,
+      "complex_ms": 240
+    },
+    "easing": "cubic-bezier(0.2,0,0,1)",
+    "reduced_motion": {
+      "when": "prefers-reduced-motion: reduce",
+      "duration_ms": 0,
+      "disable": [
+        "transform",
+        "scale",
+        "parallax",
+        "decorative_motion",
+        "auto_play_motion"
+      ],
+      "keep": [
+        "state_change",
+        "focus",
+        "loading_feedback"
+      ],
+      "rule": "Remplacer les transitions par changement d’état instantané; conserver uniquement les signaux fonctionnels indispensables."
+    }
+  },
+  "theme": {
+    "dark_mode": {
+      "v1_0": "excluded",
+      "rule": "Pas de mode sombre dans la V1.0. Les tokens navigation Deep ne constituent pas un thème sombre complet. Une extension future devra être versionnée séparément."
+    }
+  },
+  "spacing": {
+    "base": 4,
+    "scale": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      40,
+      48,
+      64
+    ]
+  },
+  "radius": {
+    "control": 8,
+    "card": 12,
+    "modal": 16,
+    "pill": 999
+  },
+  "size": {
+    "touchTarget": {
+      "min": 40,
+      "recommended": 44
+    }
+  },
+  "license": {
+    "Black Ops One": "SIL Open Font License 1.1 (OFL)",
+    "source": "Google Fonts / SorkinType Black-Ops",
+    "note": "Conserver OFL.txt avec toute redistribution de la police; le logo SVG ne dépend pas de la police.",
+    "Sora": "SIL Open Font License 1.1 (OFL)",
+    "Inter": "SIL Open Font License 1.1 (OFL)"
+  },
+  "source_of_truth": {
+    "file": "02_Design_System/TAKT_design_tokens_v2_3_6.json",
+    "status": "authoritative",
+    "migration": "Cette V2.3.6 remplace la V2.3.5. Les .docx/.pdf doivent être synchronisés séparément avec ce JSON dans le package."
+  },
+  "shadow": {
+    "none": "none",
+    "card": "0 1px 2px rgba(41,54,60,0.06)",
+    "elevated": "0 4px 12px rgba(41,54,60,0.10)",
+    "modal": "0 12px 32px rgba(41,54,60,0.14)",
+    "rule": "Ombres minimales; utiliser d’abord surfaces et bordures. Les ombres sont réservées aux surfaces réellement superposées."
+  },
+  "export": {
+    "print_monochrome": {
+      "enabled": true,
+      "mode": "grayscale",
+      "ink_primary": "#000000",
+      "ink_secondary": "#333333",
+      "ink_muted": "#666666",
+      "border": "#808080",
+      "surface": "#FFFFFF",
+      "status_rule": "Les états restent distincts par libellé/icône; aucune information critique ne dépend de la couleur.",
+      "border_ratio_on_white": 3.949,
+      "border_rule": "Utiliser #808080 minimum lorsque la bordure porte une information d’interface; ratio 3.949:1 sur blanc."
+    },
+    "draft_watermark": {
+      "text": "BROUILLON",
+      "color": "#29363C",
+      "opacity": 0.1,
+      "angle_deg": -45,
+      "position": "center",
+      "repeat": true,
+      "print": true,
+      "rule": "Filigrane réservé aux documents non publiés; ne jamais l’utiliser sur une version publiée. L'API refuse le mode brouillon (422) sur une version PUBLIE ou ARCHIVE."
+    }
+  },
+  "accessibility": {
+    "text_rule": "Les couleurs fonctionnelles et de statut utilisées comme texte doivent employer leur variante *.text lorsqu’elle existe. #B47732 et #718086 sont réservées aux icônes, bordures ou repères sur les surfaces claires; le texte utilise respectivement #926531 et Deep #29363C.",
+    "disabled_rule": "color.navigation_on_deep.text_disabled #8F9B9F est exempté du test de contraste AA du texte car il représente un contrôle désactivé; l’exemption doit être explicite dans le test automatisé des tokens.",
+    "contrast_method": "Ratios recalculés avec la formule WCAG 2 relative luminance."
+  },
+  "migration": {
+    "from": "2.3.6",
+    "to": "2.3.7",
+    "rule": "Conserver les codes API comme clés canoniques ; aucun mapping frontend ne doit être réintroduit.",
+    "removed_root_blocks": [
+      "lock",
+      "constraint",
+      "origin",
+      "warning_acceptance"
+    ],
+    "ux": {
+      "color.border.default": "#8A9396 -> #858E91 (3:1 sur Ivory, Warm, Inset, Card)",
+      "states.seance.NON_PLACEE": "Pastille Ivory uniquement ; Warm/Inset utilisent le marqueur en ligne."
+    }
+  },
+  "change_log": [
+    {
+      "version": "2.3.7",
+      "changes": [
+        "Suppression des blocs racine dupliqués lock, constraint, origin, warning_acceptance : states.* est l'unique source (métadonnées nature/strength conservées dans states.constraint).",
+        "Bordure de champ #8A9396 -> #858E91 : 3:1 atteint sur Ivory, Warm, Inset et Card (ratios recalculés).",
+        "Ajout de automated_test.ui_pairs et des règles de test de la navigation sur Deep.",
+        "Exemption corrigée : color.navigation_on_deep.text_disabled.",
+        "decision.EN_ATTENTE : libellé aligné sur la SF §20.",
+        "Icône file-edit remplacée par file-pen (nom canonique Lucide).",
+        "Ajout de states.seance.NON_PLACEE.border ; licences de Sora et Inter.",
+        "source_of_truth corrigé."
+      ],
+      "notes": [
+        "Les .docx/.pdf du package restent à resynchroniser avec ce JSON.",
+        "Le filigrane BROUILLON est refusé par l'API sur une version publiée (ST §3.4.14)."
+      ]
+    },
+    {
+      "version": "2.3.6",
+      "changes": [
+        "Restauration de states.severity: BLOQUANT, AVERTISSEMENT, INFORMATION.",
+        "Ajout de semantic.color.status.error.text et usage dans REJETE, FAILED et TIMED_OUT.",
+        "Mise à jour des tests automatisés pour les codes API canoniques, dont seance.NON_PLACEE, sans anciennes clés planning/session.",
+        "REPORTEE sortie du groupe decision et dotée d’un token text AA.",
+        "Confirmation dans les tokens que REGLE_DURE, REGLE_SOUPLE et VOEU ne sont pas des codes API; dérivation par catégorie et nature.",
+        "Ajout des six SVG d’icônes métier hors Lucide.",
+        "Description du pattern alternatif « À placer » sur Warm et Inset."
+      ],
+      "notes": [
+        "Aucun document .docx/.pdf n’est modifié dans ce livrable."
+      ]
+    },
+    {
+      "version": "2.3.6-takt1",
+      "changes": [
+        "Suppression des blocs racine lock, constraint, origin et warning_acceptance (doublons de states.*).",
+        "Exemption du test de contraste : color.navigation_on_deep.text_disabled.",
+        "source_of_truth.file et migration alignés sur la V2.3.6."
+      ],
+      "notes": [
+        "Correctif local TAKT à reporter dans le package officiel.",
+        "Les principes de lock et de constraint (ex-blocs racine) restent portés par states.*.usage."
+      ]
+    }
+  ]
+}
