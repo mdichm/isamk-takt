@@ -1,0 +1,75 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER, APP_PIPE, APP_GUARD } from '@nestjs/core';
+import { createObserveModule } from '@nestjs/observe';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+
+import { PrismaModule } from './prisma/prisma.module.js';
+import { AuthModule } from './auth/auth.module.js';
+import { UsersModule } from './users/users.module.js';
+import { ProjectsModule } from './projects/projects.module.js';
+import { TasksModule } from './tasks/tasks.module.js';
+import { SprintsModule } from './sprints/sprints.module.js';
+import { TagsModule } from './tags/tags.module.js';
+import { CommentsModule } from './comments/comments.module.js';
+import { ActivitiesModule } from './activities/activities.module.js';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter.js';
+import { ValidationPipe } from './common/pipes/validation.pipe.js';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
+import { RolesGuard } from './common/guards/roles.guard.js';
+import appConfig from './config/app.config.js';
+
+export const { ObserveModule, ObserveInstrument } = createObserveModule();
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [appConfig],
+      envFilePath: ['.env.local', '.env'],
+    }),
+    ObserveModule.forRoot({
+      appKey: process.env.OBSERVE_APP_KEY || 'YOUR_APP_KEY',
+      appSecret: process.env.OBSERVE_APP_SECRET || 'YOUR_APP_SECRET',
+      serviceId: 'backend',
+    }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 100,
+      },
+    ]),
+    PrismaModule,
+    AuthModule,
+    UsersModule,
+    ProjectsModule,
+    TasksModule,
+    SprintsModule,
+    TagsModule,
+    CommentsModule,
+    ActivitiesModule,
+  ],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
+})
+export class AppModule {}
