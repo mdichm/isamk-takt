@@ -11,10 +11,10 @@ S, T, TT = "Story", "Tâche technique", "Test"
 E = "Monorepo & CI/CD"
 t("repo","L0",E,T,"Initialiser le monorepo","Créer apps (web, api, worker) et packages (contracts, conflict-engine, charge-engine, engine-fet, design-tokens, db).",
   ["Arborescence conforme à ST §1.5","Une commande unique lance lint, typecheck et build sur tous les paquets","TypeScript strict activé partout","Règles de dépendance entre modules vérifiées par le lint (un module n'importe que les interfaces des autres)"],
-  "EX-NFR-09","§1.5, §1.4","DEVOPS","Must",3,[],"L0-01",statut="À faire")
+  "EX-NFR-09","§1.5, §1.4","DEVOPS","Must",3,[],"L0-01",statut="Terminé")
 t("ci","L0",E,T,"Pipeline CI/CD et registre d'images privé","Lint, typecheck, tests, build d'images publiées dans un registre privé interne, migrations, déploiement par environnement par scripts.",
   ["Une PR déclenche lint, typecheck, tests et build","Le scan des dépendances, des secrets et des images est exécuté","Les images sont publiées dans le registre privé interne","Un déploiement dev est automatique après merge"],
-  "EX-NFR-02","§5.5, §1.8","DEVOPS","Must",5,["repo"],"L0-02",statut="À faire")
+  "EX-NFR-02","§5.5, §1.8","DEVOPS","Must",5,["repo"],"L0-02",statut="Terminé")
 t("contracts","L0",E,T,"Paquet contracts (Zod + types OpenAPI)","Schémas partagés front/back et génération des types clients.",
   ["Les schémas Zod sont importables par api et web","Les types clients sont générés depuis l'OpenAPI","Un changement de contrat casse le build si non répercuté"],
   "—","§3.1, §5.3","BACK","Must",3,["repo"],"L0-03",statut="À faire")

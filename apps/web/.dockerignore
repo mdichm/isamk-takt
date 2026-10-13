@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Docker ignore for TAKT Web
+
+# Dependencies
+node_modules
+npm-debug.log*
+
+# Build outputs
+.next
+build
+*.tsbuildinfo
+
+# Source maps
+*.map
+
+# IDE/Editor
+.vscode
+.idea
+*.swp
+*.swo
+
+# Git
+.git
+.gitignore
+
+# Environment files (secrets should be mounted, not baked)
+.env
+.env.*
+!.env.example
+
+# Test/coverage
+coverage
+.nyc_output
+
+# Turbo
+.turbo
+
+# Logs
+logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Next.js specific
+.next/*
+!.next/standalone
+!.next/static

@@ -1,0 +1,75 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Dependabot Configuration for Automated Dependency Updates
+
+version: 2
+updates:
+  # ---------------------------------------------------------------------------
+  # npm/pnpm dependencies (root + all workspaces)
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 10
+    groups:
+      dev-dependencies:
+        patterns:
+          - "*"
+        dependency-type: "development"
+      dependencies:
+        patterns:
+          - "*"
+        dependency-type: "production"
+    # Auto-merge for patch/minor updates if CI passes
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    ignore:
+      # Major version upgrades require manual review
+      - dependency-name: "*"
+        update-type: "version-update:semver-major"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated"
+
+  # ---------------------------------------------------------------------------
+  # GitHub Actions dependencies
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "github-actions"
+      - "automated"
+
+  # ---------------------------------------------------------------------------
+  # Docker base images
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    labels:
+      - "docker"
+      - "automated"
