@@ -1,55 +1,29 @@
-import { z } from 'zod';
+/**
+ * @takt/contracts — Point d'entrée unique
+ * Schémas Zod partagés + Types OpenAPI générés
+ */
 
-// Prisma enums (defined locally to avoid dependency on @prisma/client)
-export type UserRole = 'ADMIN' | 'MANAGER' | 'OPERATOR' | 'VIEWER';
-export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'IN_REVIEW' | 'DONE' | 'BLOCKED';
-export type TaskPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
-export type ProjectStatus = 'PLANNING' | 'ACTIVE' | 'ON_HOLD' | 'COMPLETED' | 'ARCHIVED';
-export type SprintStatus = 'PLANNING' | 'ACTIVE' | 'COMPLETED' | 'CANCELLED';
-export type ActivityType = 'CREATED' | 'UPDATED' | 'DELETED' | 'STATUS_CHANGED' | 'ASSIGNED' | 'COMMENTED' | 'MOVED';
+// ============================================================
+// Primitives & communs
+// ============================================================
+export * from './zod/common.js';
 
-// Zod schemas for API validation
-export const userRoleSchema = z.enum(['ADMIN', 'MANAGER', 'OPERATOR', 'VIEWER']);
-export const taskStatusSchema = z.enum(['TODO', 'IN_PROGRESS', 'IN_REVIEW', 'DONE', 'BLOCKED']);
-export const taskPrioritySchema = z.enum(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']);
-export const projectStatusSchema = z.enum(['PLANNING', 'ACTIVE', 'ON_HOLD', 'COMPLETED', 'ARCHIVED']);
-export const sprintStatusSchema = z.enum(['PLANNING', 'ACTIVE', 'COMPLETED', 'CANCELLED']);
+// ============================================================
+// Enums TAKT
+// ============================================================
+export * from './zod/enums.js';
 
-// Common schemas
-export const uuidSchema = z.string().uuid();
-export const paginationSchema = z.object({
-  page: z.coerce.number().int().positive().default(1),
-  limit: z.coerce.number().int().positive().max(100).default(20),
-});
-export type PaginationParams = z.infer<typeof paginationSchema>;
+// ============================================================
+// Authentification
+// ============================================================
+export * from './zod/auth.js';
 
-export const paginationResponseSchema = z.object({
-  data: z.array(z.unknown()),
-  meta: z.object({
-    page: z.number().int().positive(),
-    limit: z.number().int().positive(),
-    total: z.number().int().nonnegative(),
-    totalPages: z.number().int().nonnegative(),
-  }),
-});
-export type PaginationResponse<T> = {
-  data: T[];
-  meta: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-  };
-};
+// ============================================================
+// Utilisateurs
+// ============================================================
+export * from './zod/user.js';
 
-// Error response schema (RFC 9457)
-export const problemDetailsSchema = z.object({
-  type: z.string().url(),
-  title: z.string(),
-  status: z.number().int(),
-  detail: z.string().optional(),
-  instance: z.string().optional(),
-  code: z.string().optional(),
-  requestId: z.string().optional(),
-});
-export type ProblemDetails = z.infer<typeof problemDetailsSchema>;
+// ============================================================
+// Types OpenAPI générés (ne pas éditer à la main)
+// ============================================================
+export * from './openapi/index.js';

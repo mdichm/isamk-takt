@@ -17,7 +17,7 @@ t("ci","L0",E,T,"Pipeline CI/CD et registre d'images privé","Lint, typecheck, t
   "EX-NFR-02","§5.5, §1.8","DEVOPS","Must",5,["repo"],"L0-02",statut="Terminé")
 t("contracts","L0",E,T,"Paquet contracts (Zod + types OpenAPI)","Schémas partagés front/back et génération des types clients.",
   ["Les schémas Zod sont importables par api et web","Les types clients sont générés depuis l'OpenAPI","Un changement de contrat casse le build si non répercuté"],
-  "—","§3.1, §5.3","BACK","Must",3,["repo"],"L0-03",statut="À faire")
+  "—","§3.1, §5.3","BACK","Must",3,["repo"],"L0-03",statut="Terminé")
 t("prisma","L0",E,T,"Prisma initial et migrations SQL brutes","Schéma d'amorçage (User, UserRole, RefreshToken, AuditLog), identifiants UUID, mécanisme de migrations --create-only, Testcontainers.",
   ["Les migrations s'appliquent sur une base vide en CI","Une migration SQL brute (index partiel, trigger) est rejouée avec succès","Tests d'intégration PostgreSQL via Testcontainers opérationnels","Les clés primaires sont des UUID et les codes fonctionnels sont distincts des identifiants techniques"],
   "EX-DAT-01","§2.2, §2.4","BACK","Must",5,["repo"],"L0-04",statut="À faire")
