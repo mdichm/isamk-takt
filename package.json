@@ -20,14 +20,14 @@
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.3",
     "@types/node": "^24.0.0",
     "eslint": "^9.0.0",
     "oxlint": "^1.58.0",
     "prettier": "^3.4.2",
     "turbo": "^2.0.0",
     "typescript": "^6.0.2",
-    "vitest": "^4.1.2",
-    "@changesets/cli": "^2.27.1"
+    "vitest": "^4.1.2"
   },
   "engines": {
     "node": ">=24.0.0"
@@ -38,7 +38,8 @@
       "undici": "^8.12.1",
       "tmp": "^0.2.7",
       "mysql2": "^3.24.0",
-      "deepmerge-ts": "^8.0.0"
+      "deepmerge-ts": "^8.0.0",
+      "braces": "^3.0.3"
     }
   }
 }
