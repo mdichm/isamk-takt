@@ -1,0 +1,214 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "TAKT API",
+    "version": "0.0.1",
+    "description": "API pour la gestion des emplois du temps ISAMK"
+  },
+  "servers": [
+    {
+      "url": "/api/v1",
+      "description": "API v1"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "operationId": "login",
+        "summary": "Connexion utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Connexion réussie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requête invalide",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non authentifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "operationId": "listUsers",
+        "summary": "Liste des utilisateurs",
+        "parameters": [
+          {"name": "limit", "in": "query", "schema": {"type": "integer", "default": 50}},
+          {"name": "cursor", "in": "query", "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste paginée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedUsersResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {"type": "string", "format": "email"},
+          "password": {"type": "string"},
+          "totp": {"type": "string", "pattern": "^\\d{6}$"}
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "required": ["accessToken", "expiresIn", "mustChangePassword", "user"],
+        "properties": {
+          "accessToken": {"type": "string"},
+          "expiresIn": {"type": "integer"},
+          "mustChangePassword": {"type": "boolean"},
+          "user": {"$ref": "#/components/schemas/AuthUser"}
+        }
+      },
+      "AuthUser": {
+        "type": "object",
+        "required": ["id", "email", "nom", "prenom", "roles", "mfaActive", "mustChangePassword"],
+        "properties": {
+          "id": {"type": "string", "format": "uuid"},
+          "email": {"type": "string", "format": "email"},
+          "nom": {"type": "string"},
+          "prenom": {"type": "string"},
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["role", "departementCode"],
+              "properties": {
+                "role": {"type": "string", "enum": ["ADMINISTRATEUR", "GESTIONNAIRE", "RESPONSABLE_DEPARTEMENT", "DIRECTION"]},
+                "departementCode": {"type": "string", "nullable": true}
+              }
+            }
+          },
+          "mfaActive": {"type": "boolean"},
+          "mustChangePassword": {"type": "boolean"}
+        }
+      },
+      "UserDto": {
+        "type": "object",
+        "required": ["id", "email", "nom", "prenom", "roles", "actif", "mfaActive", "mustChangePassword", "createdAt", "updatedAt"],
+        "properties": {
+          "id": {"type": "string", "format": "uuid"},
+          "email": {"type": "string", "format": "email"},
+          "nom": {"type": "string"},
+          "prenom": {"type": "string"},
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["role", "departementCode"],
+              "properties": {
+                "role": {"type": "string", "enum": ["ADMINISTRATEUR", "GESTIONNAIRE", "RESPONSABLE_DEPARTEMENT", "DIRECTION"]},
+                "departementCode": {"type": "string", "nullable": true}
+              }
+            }
+          },
+          "actif": {"type": "boolean"},
+          "desactiveLe": {"type": "string", "format": "date-time", "nullable": true},
+          "lastLoginAt": {"type": "string", "format": "date-time", "nullable": true},
+          "mfaActive": {"type": "boolean"},
+          "mustChangePassword": {"type": "boolean"},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "updatedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "PaginatedUsersResponse": {
+        "type": "object",
+        "required": ["data", "nextCursor"],
+        "properties": {
+          "data": {"type": "array", "items": {"$ref": "#/components/schemas/UserDto"}},
+          "nextCursor": {"type": "string", "nullable": true}
+        }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "required": ["type", "title", "status"],
+        "properties": {
+          "type": {"type": "string", "format": "uri"},
+          "title": {"type": "string"},
+          "status": {"type": "integer"},
+          "detail": {"type": "string"},
+          "instance": {"type": "string"},
+          "code": {"type": "string"},
+          "requestId": {"type": "string"},
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["field", "message"],
+              "properties": {
+                "field": {"type": "string"},
+                "message": {"type": "string"}
+              }
+            }
+          },
+          "conflits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type", "severite", "regleCode", "message"],
+              "properties": {
+                "type": {"type": "string"},
+                "severite": {"type": "string"},
+                "regleCode": {"type": "string"},
+                "objet": {
+                  "type": "object",
+                  "required": ["type", "id"],
+                  "properties": {
+                    "type": {"type": "string"},
+                    "id": {"type": "string"}
+                  }
+                },
+                "seanceIds": {"type": "array", "items": {"type": "string"}},
+                "message": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
