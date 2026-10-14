@@ -18,6 +18,7 @@
     "test:cov": "vitest run --coverage",
     "test:debug": "vitest --inspect-brk --no-file-parallelism",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
+    "test:integration": "vitest run --config ./vitest.config.integration.ts",
     "db:generate": "prisma generate --schema=../../packages/db/prisma/schema.prisma",
     "db:migrate": "prisma migrate dev --schema=../../packages/db/prisma/schema.prisma",
     "db:push": "prisma db push --schema=../../packages/db/prisma/schema.prisma",
@@ -65,6 +66,9 @@
     "supertest": "^7.0.0",
     "typescript": "^6.0.2",
     "vite": "^8.0.0",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.2",
+    "@testcontainers/postgresql": "^10.13.0",
+    "testcontainers": "^10.13.0",
+    "@prisma/adapter-pg": "^7.10.0"
   }
 }
