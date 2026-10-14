@@ -36,7 +36,9 @@
   "pnpm": {
     "overrides": {
       "undici": "^8.12.1",
-      "tmp": "^0.2.7"
+      "tmp": "^0.2.7",
+      "mysql2": "^3.24.0",
+      "deepmerge-ts": "^8.0.0"
     }
   }
 }
