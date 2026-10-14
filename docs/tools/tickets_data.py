@@ -34,7 +34,7 @@ t("tokens","L0",E,T,"Intégration des tokens de conception",
 E = "Infrastructure sur site"
 t("reseau","L0",E,T,"Réseau et périmètre sur site","Nginx en reverse proxy (TLS, limitation de débit), pare-feu, réseau de conteneurs interne, route sortante unique de l'API vers le SMTP.",
   ["Seul le port 443 de Nginx est exposé sur le réseau interne","API, worker et base accessibles uniquement depuis le réseau de conteneurs","La limitation de débit par IP est active","Le worker n'a aucune route sortante ; l'API n'a que la route vers l'hôte et le port SMTP"],
-  "EX-NFR-01","§5.3, §1.8","DEVOPS","Must",8,["repo"],"L0-05",statut="À faire")
+  "EX-NFR-01","§5.3, §1.8","DEVOPS","Must",8,["repo"],"L0-05",statut="Terminé")
 t("donnees","L0",E,T,"Données, fichiers et secrets sur site","PostgreSQL 16, volume de fichiers derrière le port FileStore sur disque chiffré, file de jobs pg-boss (generation, export, email), secrets en fichiers, rôles de base.",
   ["Disques et volumes de fichiers chiffrés (LUKS)","Rôles app_rw, worker_rw, audit_ro et audit_purge créés avec droits minimaux","Les secrets sont montés en fichiers en lecture seule, absents des images","File d'échecs configurée avec reprise après 3 tentatives","Le port FileStore est la seule interface d'accès aux fichiers"],
   "EX-NFR-01, EX-NFR-06","§1.8, §5.3, §4.19","DEVOPS","Must",8,["reseau"],"L0-06")

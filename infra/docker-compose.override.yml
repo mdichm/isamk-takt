@@ -1,0 +1,61 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Development Override (Hot Reload)
+# This file is automatically loaded by docker compose
+# Usage: docker compose -f infra/docker-compose.yml up -d
+
+version: "3.9"
+
+services:
+  nginx:
+    # In dev, we can use the runner stage with hot reload
+    # Or use a simpler nginx:alpine with volume mount for config
+    build:
+      target: runner
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    # Disable healthcheck in dev for faster startup
+    healthcheck:
+      disable: true
+
+  api:
+    build:
+      target: deps  # Use deps stage for hot reload with ts-node
+    command: npm run dev
+    volumes:
+      - ../apps/api:/app
+      - /app/node_modules  # Anonymous volume to preserve container node_modules
+    environment:
+      NODE_ENV: development
+    # Expose port directly in dev for easier debugging (bypass nginx)
+    ports:
+      - "3000:3000"
+
+  web:
+    build:
+      target: deps
+    command: npm run dev
+    volumes:
+      - ../apps/web:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:3000
+    # Expose port directly in dev for easier debugging (bypass nginx)
+    ports:
+      - "3001:3000"
+
+  worker:
+    build:
+      target: deps
+    command: npm run dev
+    volumes:
+      - ../apps/worker:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+
+  pgadmin:
+    # Expose pgAdmin in dev
+    ports:
+      - "5050:80"

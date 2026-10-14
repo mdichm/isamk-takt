@@ -24,7 +24,7 @@ L0-05;L0;E0.1;Monorepo & CI/CD;Tâche technique;Intégration des tokens de conce
 L0-06;L0;E0.2;Infrastructure sur site;Tâche technique;Réseau et périmètre sur site;Nginx en reverse proxy (TLS, limitation de débit), pare-feu, réseau de conteneurs interne, route sortante unique de l'API vers le SMTP.;"- Seul le port 443 de Nginx est exposé sur le réseau interne
 - API, worker et base accessibles uniquement depuis le réseau de conteneurs
 - La limitation de débit par IP est active
-- Le worker n'a aucune route sortante ; l'API n'a que la route vers l'hôte et le port SMTP";EX-NFR-01;§5.3, §1.8;DEVOPS;Must;8;L0-01;À faire;
+- Le worker n'a aucune route sortante ; l'API n'a que la route vers l'hôte et le port SMTP";EX-NFR-01;§5.3, §1.8;DEVOPS;Must;8;L0-01;Terminé;
 L0-07;L0;E0.2;Infrastructure sur site;Tâche technique;Données, fichiers et secrets sur site;PostgreSQL 16, volume de fichiers derrière le port FileStore sur disque chiffré, file de jobs pg-boss (generation, export, email), secrets en fichiers, rôles de base.;"- Disques et volumes de fichiers chiffrés (LUKS)
 - Rôles app_rw, worker_rw, audit_ro et audit_purge créés avec droits minimaux
 - Les secrets sont montés en fichiers en lecture seule, absents des images
