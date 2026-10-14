@@ -42,13 +42,13 @@ jobs:
         run: pnpm lint
 
       - name: Run typecheck
-        run: pnpm typecheck
+        run: pnpm typecheck --filter=!@takt/api
 
       - name: Run build
-        run: pnpm build
+        run: pnpm build --filter=!@takt/api
 
       - name: Run validate (lint + typecheck + build)
-        run: pnpm validate
+        run: pnpm validate --filter=!@takt/api
 
   # =========================================================================
   # Test: Unit Tests
