@@ -13,7 +13,7 @@ import { SprintsModule } from './sprints/sprints.module.js';
 import { TagsModule } from './tags/tags.module.js';
 import { CommentsModule } from './comments/comments.module.js';
 import { ActivitiesModule } from './activities/activities.module.js';
-import { HttpExceptionFilter } from './common/filters/http-exception.filter.js';
+import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
 import { RolesGuard } from './common/guards/roles.guard.js';
@@ -52,7 +52,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
   providers: [
     {
       provide: APP_FILTER,
-      useClass: HttpExceptionFilter,
+      useClass: ProblemJsonFilter,
     },
     {
       provide: APP_PIPE,

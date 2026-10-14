@@ -2,6 +2,11 @@ import { PipeTransform, Injectable, ArgumentMetadata, BadRequestException } from
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 
+interface ValidationErrorItem {
+  field: string;
+  message: string;
+}
+
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
   async transform(value: any, { metatype }: ArgumentMetadata) {
@@ -11,11 +16,17 @@ export class ValidationPipe implements PipeTransform<any> {
     const object = plainToInstance(metatype, value);
     const errors = await validate(object, { whitelist: true, forbidNonWhitelisted: true });
     if (errors.length > 0) {
-      const messages = errors.flatMap((err) => Object.values(err.constraints || {}));
+      const validationErrors: ValidationErrorItem[] = errors.flatMap((err) =>
+        Object.entries(err.constraints || {}).map(([code, message]) => ({
+          field: err.property,
+          message,
+        }))
+      );
       throw new BadRequestException({
-        message: messages,
+        message: 'Données invalides',
         error: 'Validation Error',
         errorCode: 'VALIDATION_ERROR',
+        validationErrors,
       });
     }
     return object;
