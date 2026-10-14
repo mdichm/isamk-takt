@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ConflictException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateSprintDto, UpdateSprintDto, SprintQueryDto, SprintResponseDto, PaginatedSprintsDto, AddSprintMemberDto } from './dto/sprint.dto.js';
-import { SprintStatus, UserRole } from '@takt/db';
+import { SprintStatus, UserRole, Prisma } from '@takt/db';
 
 @Injectable()
 export class SprintsService {
@@ -121,7 +121,7 @@ export class SprintsService {
       throw new BadRequestException('Seuls les sprints actifs peuvent etre termines');
     }
 
-    await this.prisma.$transaction(async (tx) => {
+    await this.prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       await tx.task.updateMany({
         where: { sprintId, status: { not: 'DONE' } },
         data: { sprintId: null },
