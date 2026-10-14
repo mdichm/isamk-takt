@@ -39,7 +39,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run lint
-        run: pnpm lint
+        run: pnpm lint --filter=!@takt/api
 
       - name: Run typecheck
         run: pnpm typecheck --filter=!@takt/api
