@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { ActivityQueryDto, ActivityResponseDto } from './dto/activity.dto.js';
-import { ActivityType } from '@prisma/client';
 
 @Injectable()
 export class ActivitiesService {

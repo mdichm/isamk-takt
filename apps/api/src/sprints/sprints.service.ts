@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ConflictException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateSprintDto, UpdateSprintDto, SprintQueryDto, SprintResponseDto, PaginatedSprintsDto, AddSprintMemberDto } from './dto/sprint.dto.js';
-import { SprintStatus, UserRole } from '@prisma/client';
+import { SprintStatus, UserRole } from '@takt/db';
 
 @Injectable()
 export class SprintsService {

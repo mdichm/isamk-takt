@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { RegisterDto, LoginDto } from './dto/auth.dto.js';
-import { User, UserRole } from '@prisma/client';
+import { User, UserRole } from '@takt/db';
 
 export interface JwtPayload {
   sub: string;
@@ -119,7 +119,7 @@ export class AuthService {
     if (!user || !user.isActive) {
       return null;
     }
-    const { passwordHash, ...result } = user;
+    const { passwordHash: _passwordHash, ...result } = user;
     return result;
   }
 
@@ -137,7 +137,7 @@ export class AuthService {
       },
     });
 
-    const { passwordHash, ...userWithoutPassword } = user;
+    const { passwordHash: _passwordHash, ...userWithoutPassword } = user;
     return {
       user: userWithoutPassword,
       accessToken,

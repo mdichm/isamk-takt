@@ -1,2 +1,2 @@
 export { prisma, default } from './client.js';
-export * from '@prisma/client';
+export * from './../node_modules/.prisma/client/index.js';

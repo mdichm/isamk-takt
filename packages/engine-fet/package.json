@@ -4,7 +4,7 @@
   "description": "TAKT FET Engine - XML builder/parser for FET 7.11.1",
   "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-only",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -21,8 +21,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "xmlbuilder2": "^3.1.1",
-    "@takt/contracts": "workspace:*"
+    "@takt/contracts": "workspace:*",
+    "xmlbuilder2": "^4.0.3"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

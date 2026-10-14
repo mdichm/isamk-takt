@@ -4,7 +4,7 @@
   "description": "TAKT Worker - pg-boss job processor with FET integration",
   "author": "",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "AGPL-3.0-only",
   "type": "module",
   "scripts": {
     "build": "tsc",
@@ -16,9 +16,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "pg-boss": "^9.0.0",
+    "@prisma/client": "^6.19.3",
     "@takt/db": "workspace:*",
-    "@prisma/client": "^6.19.3"
+    "pg-boss": "^12.38.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

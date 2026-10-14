@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, ConflictException } from '@nestjs/common
 import { PrismaService } from '../prisma/prisma.service.js';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto, UpdateUserDto, UpdatePasswordDto, UserQueryDto, UserResponseDto, PaginatedUsersDto } from './dto/user.dto.js';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@takt/db';
 
 @Injectable()
 export class UsersService {
@@ -163,7 +163,7 @@ export class UsersService {
   }
 
   private toResponseDto(user: any): UserResponseDto {
-    const { passwordHash, ...result } = user;
+    const { passwordHash: _passwordHash, ...result } = user;
     return result;
   }
 }

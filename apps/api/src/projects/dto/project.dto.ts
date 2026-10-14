@@ -1,6 +1,6 @@
-import { IsString, IsOptional, MinLength, MaxLength, IsEnum, IsUUID, IsDateString, IsInt, Min, Max } from 'class-validator';
+import { IsString, IsOptional, MinLength, MaxLength, IsEnum, IsUUID, IsDateString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { ProjectStatus } from '@prisma/client';
+import { ProjectStatus, UserRole } from '@takt/db';
 
 export class CreateProjectDto {
   @ApiProperty({ example: 'Projet TAKT' })
@@ -158,5 +158,3 @@ export class UpdateMemberRoleDto {
   @IsEnum(UserRole)
   role: UserRole;
 }
-
-import { UserRole } from '@prisma/client';

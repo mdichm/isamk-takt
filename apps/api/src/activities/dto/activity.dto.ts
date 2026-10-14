@@ -1,6 +1,6 @@
 import { IsOptional, IsString, IsEnum, IsUUID } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { ActivityType } from '@prisma/client';
+import { ActivityType } from '@takt/db';
 
 export class ActivityQueryDto {
   @ApiPropertyOptional({ default: 1 })
