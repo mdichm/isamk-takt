@@ -17,6 +17,14 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (isPublic) {
       return true;
     }
+
+    // Allow Swagger UI and OpenAPI JSON endpoints without authentication
+    const request = context.switchToHttp().getRequest();
+    const path = request.url;
+    if (path.startsWith('/api/docs')) {
+      return true;
+    }
+
     return super.canActivate(context);
   }
 

@@ -123,13 +123,13 @@ L0-33;L0;E0.7;Socle web;Story;UsersModule (CRUD + reset‑pwd);Module Users comp
 - Tous les endpoints documentés OpenAPI";EX-SEC-02;§5.1, §3.4.21;BACK;Must;5;L0-32;À faire;
 L0-34;L0;E0.7;Socle web;Tâche technique;Filtre global ProblemJson (RFC 9457);Filtre d'exception global transformant toute erreur en réponse application/problem+json (type, title, status, detail, instance, errors).;"- Toutes les HttpException et erreurs imprévues passent par le filtre
 - Le format respecte RFC 9457
-- Le type d'erreur contient une URI stable https://takt.example.fr/errors/{status}";EX-NFR-05;§5.4;BACK;Must;3;L0-31;À faire;
+- Le type d'erreur contient une URI stable https://takt.example.fr/errors/{status}";EX-NFR-05;§5.4;BACK;Must;3;L0-31;Terminé;
 L0-35;L0;E0.7;Socle web;Tâche technique;Intercepteur de réponse avec en‑tête Link (pagination curseur);ResponseInterceptor ajoutant l'en‑tête Link RFC 5988 (rel=next) lorsque le payload paginé contient nextCursor.;"- L'en‑tête Link n'est ajouté que si nextCursor présent
 - L'URL construida conserve les paramètres de requête existants
 - Conforme à la pagination curseur définie dans ST §3.1";EX-NFR-04;§3.1, §5.4;BACK;Must;2;L0-34;À faire;
 L0-36;L0;E0.7;Socle web;Tâche technique;Configuration Swagger UI à /api/docs;Initialisation de SwaggerModule avec DocumentBuilder (BearerAuth, tags, version) et exposition de l'UI à /api/docs.;"- L'UI est accessible sans authentification
 - Les schémas DTO sont inclus via @ApiProperty
-- Le document OpenAPI 3.1 est généré au démarrage";EX-NFR-09;§5.3;BACK;Must;2;L0-34;À faire;
+- Le document OpenAPI 3.1 est généré au démarrage";EX-NFR-09;§5.3;BACK;Must;2;L0-34;Terminé;
 L0-37;L0;E0.7;Socle web;Tâche technique;Enregistrement d'événements de sécurité;Service d'audit pour tracer les événements de sécurité (connexion, échec, MFA, changements de rôle, etc.) et les exposer via API.;"- Les événements sont écrits de façon asynchrone
 - Chaque événement contient: type, userId, ip, userAgent, timestamp, détails
 - L'API permet de lister/filtrer les événements (admin only)
