@@ -6,9 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 
-// Read the source tokens - use absolute path to monorepo root
-const docsRoot = '/home/mehdi/dev/isamk-takt';
-const tokensPath = join(docsRoot, 'docs', 'design', 'TAKT_Package_V2_3_6', '02_Design_System', 'TAKT_design_tokens_v2_3_6.json');
+// Read the source tokens - use relative path to copied JSON file
+const tokensPath = join(rootDir, 'src', 'tokens', 'TAKT_design_tokens_v2_3_6.json');
 const tokens = JSON.parse(readFileSync(tokensPath, 'utf-8'));
 
 function flattenTokens(obj: Record<string, unknown>, prefix = ''): Record<string, string> {
