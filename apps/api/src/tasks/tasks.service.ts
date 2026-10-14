@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException, ForbiddenException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateTaskDto, UpdateTaskDto, MoveTaskDto, TaskQueryDto, TaskResponseDto, PaginatedTasksDto, BulkUpdateTasksDto } from './dto/task.dto.js';
-import { TaskStatus, TaskPriority, UserRole } from '@prisma/client';
+import { TaskStatus, TaskPriority } from '@takt/db';
 
 @Injectable()
 export class TasksService {

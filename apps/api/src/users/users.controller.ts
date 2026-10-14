@@ -5,7 +5,7 @@ import { CreateUserDto, UpdateUserDto, UpdatePasswordDto, UserQueryDto, UserResp
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { RolesGuard } from '../common/guards/roles.guard.js';
 import { Roles } from '../common/decorators/roles.decorator.js';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '@takt/db';
 
 @ApiTags('Utilisateurs')
 @Controller('users')

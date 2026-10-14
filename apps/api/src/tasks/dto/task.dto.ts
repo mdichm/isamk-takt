@@ -1,6 +1,6 @@
 import { IsString, IsOptional, MinLength, MaxLength, IsEnum, IsUUID, IsInt, Min, Max, IsNumber, IsDateString, IsBoolean } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { TaskStatus, TaskPriority } from '@prisma/client';
+import { TaskStatus, TaskPriority } from '@takt/db';
 
 export class CreateTaskDto {
   @ApiProperty({ example: 'Implémenter l\'authentification' })

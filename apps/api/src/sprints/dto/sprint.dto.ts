@@ -1,6 +1,6 @@
-import { IsString, IsOptional, MinLength, MaxLength, IsEnum, IsUUID, IsDateString, IsInt, Min, Max } from 'class-validator';
+import { IsString, IsOptional, MinLength, MaxLength, IsEnum, IsUUID, IsDateString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { SprintStatus } from '@prisma/client';
+import { SprintStatus } from '@takt/db';
 
 export class CreateSprintDto {
   @ApiProperty({ example: 'Sprint 1' })
