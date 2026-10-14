@@ -41,12 +41,6 @@ jobs:
       - name: Run lint
         run: pnpm lint
 
-      - name: Debug TypeScript
-        run: |
-          cd apps/web
-          pnpm exec tsc --version
-          cat tsconfig.json
-
       - name: Run typecheck
         run: pnpm typecheck
 
