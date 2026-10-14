@@ -20,7 +20,7 @@ t("contracts","L0",E,T,"Paquet contracts (Zod + types OpenAPI)","Schémas partag
   "—","§3.1, §5.3","BACK","Must",3,["repo"],"L0-03",statut="Terminé")
 t("prisma","L0",E,T,"Prisma initial et migrations SQL brutes","Schéma d'amorçage (User, UserRole, RefreshToken, AuditLog), identifiants UUID, mécanisme de migrations --create-only, Testcontainers.",
   ["Les migrations s'appliquent sur une base vide en CI","Une migration SQL brute (index partiel, trigger) est rejouée avec succès","Tests d'intégration PostgreSQL via Testcontainers opérationnels","Les clés primaires sont des UUID et les codes fonctionnels sont distincts des identifiants techniques"],
-  "EX-DAT-01","§2.2, §2.4","BACK","Must",5,["repo"],"L0-04",statut="À faire")
+  "EX-DAT-01","§2.2, §2.4","BACK","Must",5,["repo"],"L0-04",statut="Terminé")
 t("tokens","L0",E,T,"Intégration des tokens de conception",
   "Paquet design-tokens : génération des variables CSS depuis TAKT_design_tokens_v2_3_6.json (charte V2.3.6, clés d'état = codes API), configuration Tailwind, polices Sora, Inter et Black Ops One auto-hébergées, logo maître SVG, icônes métier SVG.",
   ["Les couleurs de l'interface proviennent exclusivement des variables CSS générées, sans valeur hexadécimale en dur hors du paquet",
@@ -30,7 +30,7 @@ t("tokens","L0",E,T,"Intégration des tokens de conception",
    "Les couleurs d'état sont lues uniquement depuis states.*.*.text (texte) et states.*.*.color (icône, bordure) ; le lint interdit color en texte",
    "Le contraste texte 4,5:1 et composant 3:1 est vérifié sur Ivory, Warm, Inset, Card et Elevated ; seul color.navigation_on_deep.text_disabled est exempté ; le build échoue en cas d'écart",
    "Les icônes d'état référencées par les tokens existent dans lucide-react (version épinglée) ou dans le dossier icons/ ; un test échoue sinon"],
-  "EX-NFR-10","§0.1","FRONT","Must",5,["repo"],"L0-05",statut="À faire")
+  "EX-NFR-10","§0.1","FRONT","Must",5,["repo"],"L0-05",statut="Terminé")
 E = "Infrastructure sur site"
 t("reseau","L0",E,T,"Réseau et périmètre sur site","Nginx en reverse proxy (TLS, limitation de débit), pare-feu, réseau de conteneurs interne, route sortante unique de l'API vers le SMTP.",
   ["Seul le port 443 de Nginx est exposé sur le réseau interne","API, worker et base accessibles uniquement depuis le réseau de conteneurs","La limitation de débit par IP est active","Le worker n'a aucune route sortante ; l'API n'a que la route vers l'hôte et le port SMTP"],

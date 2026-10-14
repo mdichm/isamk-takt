@@ -17,6 +17,8 @@ const nextConfig = {
       },
     },
   },
+  // Allow loading from design-tokens package
+  transpilePackages: ["@takt/design-tokens"],
 };
 
 export default nextConfig;

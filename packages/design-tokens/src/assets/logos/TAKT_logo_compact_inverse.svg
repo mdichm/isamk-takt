@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750.88 210.02">
+  <g id="Horizental_Compact" data-name="Horizental Compact">
+    <path d="M217.8,27.48l.05,85.46c-7.94,11.46-23.81,34.39-23.81,34.39h11.27s10.48,22.7,10.48,22.7h-37.47c-4.15,6-8.31,12-12.46,18h-50.89S217.8,27.48,217.8,27.48Z" fill="#fbfcff"/>
+    <rect x="5.73" y="27.48" width="139.74" height="35.06" fill="#fbfcff"/>
+    <rect x="47.7" y="70.9" width="55.8" height="117.54" fill="#fbfcff"/>
+    <rect x="226.1" y="27.48" width="53.62" height="160.97" fill="#b98268"/>
+    <polygon points="287.96 165.64 287.96 87.4 325.57 27.48 381.37 27.48 287.96 165.64" fill="#fbfcff"/>
+    <polygon points="325.93 188.45 307.73 150.96 339.52 103.29 383.91 188.45 325.93 188.45" fill="#fbfcff"/>
+    <rect x="389.61" y="27.27" width="139.74" height="35.06" fill="#fbfcff"/>
+    <rect x="431.59" y="70.7" width="55.8" height="117.54" fill="#fbfcff"/>
+    <polyline points="529.36 127.57 593.65 127.57 593.65 115.08 529.36 115.08" fill="#fbfcff"/>
+    <circle cx="675.6" cy="121.32" r="13.47" fill="#fbfcff"/>
+    <circle cx="621.97" cy="121.32" r="13.47" fill="#fbfcff"/>
+    <circle cx="729.22" cy="121.32" r="13.47" fill="#b98268"/>
+  </g>
+</svg>
