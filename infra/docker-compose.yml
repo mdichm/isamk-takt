@@ -1,0 +1,150 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Development Environment Docker Compose
+# Usage: docker compose -f infra/docker-compose.yml up -d
+
+version: "3.9"
+
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL 16 Database
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: takt-postgres-dev
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-takt}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-takt_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-takt_dev}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-takt} -d ${POSTGRES_DB:-takt_dev}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - takt-network
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # API - NestJS Backend
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: ../apps/api
+      dockerfile: Dockerfile
+      target: runner
+    container_name: takt-api-dev
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-takt}:${POSTGRES_PASSWORD:-takt_dev_password}@postgres:5432/${POSTGRES_DB:-takt_dev}?schema=public
+      JWT_SECRET: ${JWT_SECRET:-dev_jwt_secret_change_in_production}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev_refresh_secret_change_in_production}
+    volumes:
+      # Mount source for hot reload in dev (override in docker-compose.override.yml)
+      - ../apps/api/src:/app/src:ro
+      - ../packages:/app/packages:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {if(r.statusCode!==200) process.exit(1)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - takt-network
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Web - Next.js Frontend
+  # ---------------------------------------------------------------------------
+  web:
+    build:
+      context: ../apps/web
+      dockerfile: Dockerfile
+      target: runner
+    container_name: takt-web-dev
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      NEXT_PUBLIC_API_URL: http://localhost:3000
+    ports:
+      - "3001:3000"
+    depends_on:
+      - api
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {if(r.statusCode!==200) process.exit(1)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      - takt-network
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Worker - pg-boss Job Processor
+  # ---------------------------------------------------------------------------
+  worker:
+    build:
+      context: ../apps/worker
+      dockerfile: Dockerfile
+      target: runner
+    container_name: takt-worker-dev
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://${POSTGRES_USER:-takt}:${POSTGRES_PASSWORD:-takt_dev_password}@postgres:5432/${POSTGRES_DB:-takt_dev}?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - takt-network
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # pgAdmin (optional - for database management)
+  # ---------------------------------------------------------------------------
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: takt-pgadmin-dev
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@takt.local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - takt-network
+    restart: unless-stopped
+    profiles:
+      - tools
+
+# -----------------------------------------------------------------------------
+# Volumes
+# -----------------------------------------------------------------------------
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+# -----------------------------------------------------------------------------
+# Networks
+# -----------------------------------------------------------------------------
+networks:
+  takt-network:
+    driver: bridge
+    name: takt-dev-network
