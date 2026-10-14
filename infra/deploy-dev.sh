@@ -34,12 +34,18 @@ log_error() { echo -e "${RED}[ERROR]${NC} $*"; }
 
 usage() {
     cat <<EOF
-Usage: $0 [VERSION_TAG]
+Usage: $0 [VERSION_TAG] [OPTIONS]
 
 Deploy TAKT to dev environment using Docker Compose.
 
 Arguments:
   VERSION_TAG    SemVer tag to deploy (e.g., v1.2.0). If omitted, uses 'latest'.
+
+Options:
+  --with-proxy   Include nginx reverse proxy (TLS, rate limiting)
+  --with-tools   Include pgAdmin and other dev tools
+  --no-build     Skip image build, use existing images
+  --pull         Pull latest images before starting
 
 Environment Variables:
   REGISTRY              Container registry (default: ghcr.io)
@@ -49,6 +55,6 @@ Environment Variables:
 Examples:
   $0 v1.2.0
   $0 latest
+  $0 v1.2.0 --with-proxy
+  $0 v1.2.0 --with-proxy --with-tools
   REGISTRY=my-registry.com $0 v2.0.0
-EOF
-}

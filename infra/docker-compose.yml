@@ -6,6 +6,33 @@ version: "3.9"
 
 services:
   # ---------------------------------------------------------------------------
+  # Nginx Reverse Proxy (TLS termination, rate limiting)
+  # ---------------------------------------------------------------------------
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+      target: runner
+    container_name: takt-nginx-dev
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # TLS certificates - mount from host in production
+      - ./certs:/etc/nginx/certs:ro
+      # ACME challenge for Let's Encrypt
+      - certbot_webroot:/var/www/certbot
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - web
+      - api
+    restart: unless-stopped
+    profiles:
+      - proxy
+
+  # ---------------------------------------------------------------------------
   # PostgreSQL 16 Database
   # ---------------------------------------------------------------------------
   postgres:
@@ -18,16 +45,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db:/docker-entrypoint-initdb.d:ro
-    ports:
-      - "5432:5432"
+    # Port only exposed for direct access in dev (remove in production)
+    # ports:
+    #   - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-takt} -d ${POSTGRES_DB:-takt_dev}"]
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${POSTGRES_USER:-takt} -d ${POSTGRES_DB:-takt_dev}
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
     networks:
-      - takt-network
+      - backend
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------
@@ -45,23 +75,37 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-takt}:${POSTGRES_PASSWORD:-takt_dev_password}@postgres:5432/${POSTGRES_DB:-takt_dev}?schema=public
       JWT_SECRET: ${JWT_SECRET:-dev_jwt_secret_change_in_production}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev_refresh_secret_change_in_production}
+      SMTP_HOST: ${SMTP_HOST:-cck.rnu.tn}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-noreply@takt.local}
     volumes:
       # Mount source for hot reload in dev (override in docker-compose.override.yml)
       - ../apps/api/src:/app/src:ro
       - ../packages:/app/packages:ro
-    ports:
-      - "3000:3000"
+    # Port not exposed directly - accessed via nginx on frontend network
+    # ports:
+    #   - "3000:3000"
     depends_on:
       postgres:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {if(r.statusCode!==200) process.exit(1)})"]
+      test:
+        - CMD
+        - node
+        - -e
+        - |
+          require('http').get('http://localhost:3000/health', (r) => {if(r.statusCode!==200) process.exit(1)})
       interval: 30s
       timeout: 3s
       retries: 3
       start_period: 10s
     networks:
-      - takt-network
+      - frontend
+      - backend
+      - smtp
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------
@@ -75,20 +119,26 @@ services:
     container_name: takt-web-dev
     environment:
       NODE_ENV: development
-      PORT: 3001
-      NEXT_PUBLIC_API_URL: http://localhost:3000
-    ports:
-      - "3001:3000"
+      PORT: 3000
+      NEXT_PUBLIC_API_URL: https://localhost/api
+    # Port not exposed directly - accessed via nginx on frontend network
+    # ports:
+    #   - "3001:3000"
     depends_on:
       - api
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {if(r.statusCode!==200) process.exit(1)})"]
+      test:
+        - CMD
+        - node
+        - -e
+        - |
+          require('http').get('http://localhost:3000', (r) => {if(r.statusCode!==200) process.exit(1)})
       interval: 30s
       timeout: 3s
       retries: 3
       start_period: 10s
     networks:
-      - takt-network
+      - frontend
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------
@@ -107,7 +157,7 @@ services:
       postgres:
         condition: service_healthy
     networks:
-      - takt-network
+      - backend
     restart: unless-stopped
 
   # ---------------------------------------------------------------------------
@@ -122,12 +172,13 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: "False"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
-    ports:
-      - "5050:80"
+    # Port only exposed for dev tools profile
+    # ports:
+    #   - "5050:80"
     depends_on:
       - postgres
     networks:
-      - takt-network
+      - backend
     restart: unless-stopped
     profiles:
       - tools
@@ -140,11 +191,29 @@ volumes:
     driver: local
   pgadmin_data:
     driver: local
+  certbot_webroot:
+    driver: local
 
 # -----------------------------------------------------------------------------
-# Networks
+# Networks (Isolation per security requirements)
 # -----------------------------------------------------------------------------
 networks:
-  takt-network:
+  frontend:     # Nginx ↔ Web (port 3000)
     driver: bridge
-    name: takt-dev-network
+    internal: false  # Port 443/80 exposed via nginx
+    name: takt-frontend
+
+  backend:      # Nginx ↔ API ↔ Worker ↔ PostgreSQL ↔ pg-boss
+    driver: bridge
+    internal: true   # No external exposure
+    name: takt-backend
+
+  smtp:         # API → SMTP externe (seule sortie)
+    driver: bridge
+    internal: false  # Allows egress to cck.rnu.tn:587
+    name: takt-smtp
+
+  observability: # Prometheus, Grafana, Loki, Tempo
+    driver: bridge
+    internal: true   # Monitoring internal only
+    name: takt-observability
