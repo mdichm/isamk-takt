@@ -183,6 +183,9 @@ importers:
       '@takt/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@takt/design-tokens':
+        specifier: workspace:*
+        version: link:../../packages/design-tokens
       '@tanstack/react-query':
         specifier: ^5.104.2
         version: 5.104.2(react@19.3.0)
