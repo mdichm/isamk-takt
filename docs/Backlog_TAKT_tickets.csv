@@ -13,7 +13,7 @@ L0-03;L0;E0.1;Monorepo & CI/CD;Tâche technique;Paquet contracts (Zod + types Op
 L0-04;L0;E0.1;Monorepo & CI/CD;Tâche technique;Prisma initial et migrations SQL brutes;Schéma d'amorçage (User, UserRole, RefreshToken, AuditLog), identifiants UUID, mécanisme de migrations --create-only, Testcontainers.;"- Les migrations s'appliquent sur une base vide en CI
 - Une migration SQL brute (index partiel, trigger) est rejouée avec succès
 - Tests d'intégration PostgreSQL via Testcontainers opérationnels
-- Les clés primaires sont des UUID et les codes fonctionnels sont distincts des identifiants techniques";EX-DAT-01;§2.2, §2.4;BACK;Must;5;L0-01;À faire;
+- Les clés primaires sont des UUID et les codes fonctionnels sont distincts des identifiants techniques";EX-DAT-01;§2.2, §2.4;BACK;Must;5;L0-01;Terminé;
 L0-05;L0;E0.1;Monorepo & CI/CD;Tâche technique;Intégration des tokens de conception;Paquet design-tokens : génération des variables CSS depuis TAKT_design_tokens_v2_3_6.json (charte V2.3.6, clés d'état = codes API), configuration Tailwind, polices Sora, Inter et Black Ops One auto-hébergées, logo maître SVG, icônes métier SVG.;"- Les couleurs de l'interface proviennent exclusivement des variables CSS générées, sans valeur hexadécimale en dur hors du paquet
 - Aucune requête réseau externe pour les polices
 - Black Ops One n'est utilisée que pour la signature de marque « TAKT » ; le logo est toujours le SVG maître, jamais reconstruit en texte
