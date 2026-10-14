@@ -32,5 +32,11 @@
   "engines": {
     "node": ">=24.0.0"
   },
-  "packageManager": "pnpm@9.0.0"
+  "packageManager": "pnpm@9.0.0",
+  "pnpm": {
+    "overrides": {
+      "undici": "^8.12.1",
+      "tmp": "^0.2.7"
+    }
+  }
 }
