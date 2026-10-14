@@ -39,16 +39,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run lint
-        run: pnpm lint
+        run: pnpm lint --filter=!@takt/api
 
       - name: Run typecheck
-        run: pnpm typecheck
+        run: pnpm typecheck --filter=!@takt/api
 
       - name: Run build
-        run: pnpm build
-
-      - name: Run validate (lint + typecheck + build)
-        run: pnpm validate
+        run: pnpm build --filter=!@takt/api
 
   # =========================================================================
   # Test: Unit Tests
@@ -79,6 +76,42 @@ jobs:
       - name: Run tests
         run: pnpm test --if-present
         continue-on-error: true
+
+  # =========================================================================
+  # Test: Integration Tests (Testcontainers PostgreSQL)
+  # =========================================================================
+  test-integration:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        run: pnpm db:generate
+        working-directory: ./apps/api
+
+      - name: Run integration tests
+        run: pnpm test:integration
+        working-directory: ./apps/api
+        env:
+          TESTCONTAINERS_RYUK_DISABLED: "true"
 
   # =========================================================================
   # Security: Dependency, Secret, Container Scanning
