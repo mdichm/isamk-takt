@@ -8,13 +8,18 @@
 FROM node:24-alpine AS base
 WORKDIR /app
 RUN apk add --no-cache dumb-init
+RUN corepack enable pnpm
 
 # =============================================================================
 # Stage 2: Install dependencies
 # =============================================================================
 FROM base AS deps
-COPY package.json package-lock.json* ./
-RUN npm ci --ignore-scripts
+WORKDIR /app
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/api/package.json ./apps/api/package.json
+COPY packages/contracts/package.json ./packages/contracts/package.json
+COPY packages/db/package.json ./packages/db/package.json
+RUN pnpm install --filter=@takt/api... --prod --ignore-scripts
 
 # =============================================================================
 # Stage 3: Build
@@ -23,7 +28,7 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN pnpm --filter=@takt/api run build
 
 # =============================================================================
 # Stage 4: Production runner
@@ -37,9 +42,9 @@ RUN addgroup -g 1001 -S nodejs && \
     adduser -S nestjs -u 1001 -G nodejs
 
 # Copy built application
-COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nestjs:nodejs /app/apps/api/dist ./dist
 COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nestjs:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=nestjs:nodejs /app/apps/api/package.json ./package.json
 
 USER nestjs
 

@@ -8,13 +8,18 @@
 FROM node:24-alpine AS base
 WORKDIR /app
 RUN apk add --no-cache dumb-init
+RUN corepack enable pnpm
 
 # =============================================================================
 # Stage 2: Install dependencies
 # =============================================================================
 FROM base AS deps
-COPY package.json package-lock.json* ./
-RUN npm ci --ignore-scripts
+WORKDIR /app
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/web/package.json ./apps/web/package.json
+COPY packages/contracts/package.json ./packages/contracts/package.json
+COPY packages/db/package.json ./packages/db/package.json
+RUN pnpm install --filter=@takt/web... --prod --ignore-scripts
 
 # =============================================================================
 # Stage 3: Build
@@ -24,7 +29,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # Generate Prisma client if needed (for any shared packages)
-RUN npm run build
+RUN pnpm --filter=@takt/web run build
 
 # =============================================================================
 # Stage 4: Production runner (standalone)
@@ -39,9 +44,9 @@ RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001 -G nodejs
 
 # Copy standalone output
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./.next/static
 
 USER nextjs
 
