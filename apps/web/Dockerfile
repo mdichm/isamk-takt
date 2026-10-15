@@ -38,6 +38,8 @@ COPY packages/db/package.json ./packages/db/package.json
 RUN pnpm config set minimumReleaseAge 0
 RUN pnpm install --filter=@takt/web... --ignore-scripts
 COPY . .
+# Build design-tokens first (generates CSS)
+RUN pnpm --filter=@takt/design-tokens run build
 RUN pnpm --filter=@takt/web run build
 
 # =============================================================================
