@@ -56,7 +56,7 @@ describe('Database Integration Tests', () => {
   beforeEach(async () => {
     // audit_logs and security_events are append-only (triggers prevent DELETE)
     // Clean only mutable tables
-    await prisma.userRole.deleteMany();
+    await prisma.userSystemRole.deleteMany();
     await prisma.refreshToken.deleteMany();
     await prisma.passwordHistory.deleteMany();
     await prisma.passwordResetToken.deleteMany();
@@ -71,16 +71,16 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'test@example.com',
           passwordHash: 'hashed_password',
-          nom: 'Doe',
-          prenom: 'John',
+          firstName: 'John',
+          lastName: 'Doe',
         },
       });
 
       expect(user.id).toBeDefined();
       expect(user.email).toBe('test@example.com');
-      expect(user.nom).toBe('Doe');
-      expect(user.prenom).toBe('John');
-      expect(user.actif).toBe(true);
+      expect(user.firstName).toBe('John');
+      expect(user.lastName).toBe('Doe');
+      expect(user.isActive).toBe(true);
       expect(user.failedAttempts).toBe(0);
       expect(user.mfaActive).toBe(false);
       expect(user.mustChangePassword).toBe(false);
@@ -93,8 +93,8 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'unique@example.com',
           passwordHash: 'hash',
-          nom: 'User',
-          prenom: 'One',
+          firstName: 'User',
+          lastName: 'One',
         },
       });
 
@@ -103,8 +103,8 @@ describe('Database Integration Tests', () => {
           data: {
             email: 'unique@example.com',
             passwordHash: 'hash',
-            nom: 'User',
-            prenom: 'Two',
+            firstName: 'User',
+            lastName: 'Two',
           },
         })
       ).rejects.toThrow();
@@ -115,20 +115,20 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'update@example.com',
           passwordHash: 'hash',
-          nom: 'Original',
-          prenom: 'User',
+          firstName: 'Original',
+          lastName: 'User',
         },
       });
 
       const updated = await prisma.user.update({
         where: { id: user.id },
         data: {
-          nom: 'Updated',
+          firstName: 'Updated',
           lastLoginAt: new Date(),
         },
       });
 
-      expect(updated.nom).toBe('Updated');
+      expect(updated.firstName).toBe('Updated');
       expect(updated.lastLoginAt).toBeInstanceOf(Date);
       expect(updated.updatedAt).not.toEqual(user.updatedAt);
     });
@@ -142,15 +142,15 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'role@example.com',
           passwordHash: 'hash',
-          nom: 'Role',
-          prenom: 'User',
+          firstName: 'Role',
+          lastName: 'User',
         },
       });
       userId = user.id;
     });
 
     it('should create global user role', async () => {
-      const role = await prisma.userRole.create({
+      const role = await prisma.userSystemRole.create({
         data: {
           userId,
           role: 'ADMINISTRATEUR',
@@ -165,7 +165,7 @@ describe('Database Integration Tests', () => {
     });
 
     it('should prevent duplicate global role for same user', async () => {
-      await prisma.userRole.create({
+      await prisma.userSystemRole.create({
         data: {
           userId,
           role: 'ADMINISTRATEUR',
@@ -174,7 +174,7 @@ describe('Database Integration Tests', () => {
       });
 
       await expect(
-        prisma.userRole.create({
+        prisma.userSystemRole.create({
           data: {
             userId,
             role: 'ADMINISTRATEUR',
@@ -185,7 +185,7 @@ describe('Database Integration Tests', () => {
     });
 
     it('should allow same role with different department code', async () => {
-      await prisma.userRole.create({
+      await prisma.userSystemRole.create({
         data: {
           userId,
           role: 'RESPONSABLE_DEPARTEMENT',
@@ -193,7 +193,7 @@ describe('Database Integration Tests', () => {
         },
       });
 
-      const role2 = await prisma.userRole.create({
+      const role2 = await prisma.userSystemRole.create({
         data: {
           userId,
           role: 'RESPONSABLE_DEPARTEMENT',
@@ -205,7 +205,7 @@ describe('Database Integration Tests', () => {
     });
 
     it('should enforce unique constraint on (userId, role, departementCode)', async () => {
-      await prisma.userRole.create({
+      await prisma.userSystemRole.create({
         data: {
           userId,
           role: 'ENSEIGNANT',
@@ -214,7 +214,7 @@ describe('Database Integration Tests', () => {
       });
 
       await expect(
-        prisma.userRole.create({
+        prisma.userSystemRole.create({
           data: {
             userId,
             role: 'ENSEIGNANT',
@@ -225,7 +225,7 @@ describe('Database Integration Tests', () => {
     });
 
     it('should cascade delete user roles when user is deleted', async () => {
-      await prisma.userRole.create({
+      await prisma.userSystemRole.create({
         data: {
           userId,
           role: 'ADMINISTRATEUR',
@@ -235,7 +235,7 @@ describe('Database Integration Tests', () => {
 
       await prisma.user.delete({ where: { id: userId } });
 
-      const roles = await prisma.userRole.findMany({ where: { userId } });
+      const roles = await prisma.userSystemRole.findMany({ where: { userId } });
       expect(roles).toHaveLength(0);
     });
   });
@@ -248,8 +248,8 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'refresh@example.com',
           passwordHash: 'hash',
-          nom: 'Refresh',
-          prenom: 'User',
+          firstName: 'Refresh',
+          lastName: 'User',
         },
       });
       userId = user.id;
@@ -324,8 +324,8 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'audit@example.com',
           passwordHash: 'hash',
-          nom: 'Audit',
-          prenom: 'User',
+          firstName: 'Audit',
+          lastName: 'User',
         },
       });
       userId = user.id;
@@ -392,8 +392,8 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'security@example.com',
           passwordHash: 'hash',
-          nom: 'Security',
-          prenom: 'User',
+          firstName: 'Security',
+          lastName: 'User',
         },
       });
       userId = user.id;
@@ -517,8 +517,8 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'history@example.com',
           passwordHash: 'hash',
-          nom: 'History',
-          prenom: 'User',
+          firstName: 'History',
+          lastName: 'User',
         },
       });
       userId = user.id;
@@ -562,8 +562,8 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'reset@example.com',
           passwordHash: 'hash',
-          nom: 'Reset',
-          prenom: 'User',
+          firstName: 'Reset',
+          lastName: 'User',
         },
       });
       userId = user.id;
@@ -572,8 +572,8 @@ describe('Database Integration Tests', () => {
         data: {
           email: 'admin@example.com',
           passwordHash: 'hash',
-          nom: 'Admin',
-          prenom: 'User',
+          firstName: 'Admin',
+          lastName: 'User',
         },
       });
       adminId = admin.id;
