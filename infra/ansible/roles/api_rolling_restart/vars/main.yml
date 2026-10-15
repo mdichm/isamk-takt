@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Ansible Role: Vars pour le redémarrage progressif de l'API
+---
+takt_compose_dir: "/opt/takt/{{ takt_env }}"
+takt_compose_files:
+  - "{{ takt_compose_file }}"
+  - "{{ takt_compose_override }}"
+takt_env_file: "/opt/takt/{{ takt_env }}/.env"
+takt_api_replicas: 1
+takt_rolling_update_interval: 30s

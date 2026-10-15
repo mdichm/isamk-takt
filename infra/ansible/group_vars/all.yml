@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Ansible Group Vars: Tous les environnements
+
+takt_project_name: takt
+takt_compose_cmd: docker compose
+takt_healthcheck_interval: 30s
+takt_healthcheck_timeout: 10s
+takt_healthcheck_retries: 3
+takt_healthcheck_start_period: 40s
+takt_rolling_update_interval: 30s
+takt_rolling_update_max_failure_ratio: 0
+takt_restart_policy_delay: 10s
+takt_restart_policy_max_attempts: 3
+takt_prisma_migration_cmd: pnpm --filter=@takt/db run db:migrate deploy

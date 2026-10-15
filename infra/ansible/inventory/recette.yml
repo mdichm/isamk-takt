@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Ansible Inventory: Recette
+all:
+  hosts:
+    recette.takt.local:
+      ansible_user: deploy
+      ansible_ssh_private_key_file: ~/.ssh/id_ed25519
+  vars:
+    takt_env: recette
+    takt_compose_file: infra/docker-compose.yml
+    takt_env_file: infra/.env.recette
+    takt_compose_override: infra/docker-compose.recette.yml
+    takt_registry: ghcr.io
+    takt_repository_owner: mdichm
+    takt_image_tag: latest
+    takt_postgres_user: takt_recette
+    takt_postgres_password: takt_recette_password
+    takt_postgres_db: takt_recette
+    takt_jwt_secret_file: /run/secrets/jwt_secret
+    takt_jwt_refresh_secret_file: /run/secrets/jwt_refresh_secret
+    takt_smtp_host: cck.rnu.tn
+    takt_smtp_port: 587
+    takt_smtp_secure: false
+    takt_smtp_user: ""
+    takt_smtp_pass: ""
+    takt_smtp_from: noreply@takt.recette.local
+    takt_nginx_ports:
+      - "443:443"
+    takt_api_replicas: 2
+    takt_worker_replicas: 1

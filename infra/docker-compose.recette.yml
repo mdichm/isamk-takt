@@ -1,0 +1,148 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Docker Compose override: environnement de recette
+# Usage: docker compose -f infra/docker-compose.yml -f infra/docker-compose.recette.yml up -d
+
+version: "3.9"
+
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL 16 Database (recette)
+  # ---------------------------------------------------------------------------
+  postgres:
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-takt_recette}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-takt_recette_password}
+      POSTGRES_DB: ${POSTGRES_DB:-takt_recette}
+    volumes:
+      - postgres_recette_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d:ro
+      - filestore_recette_data:/filestore:ro
+    networks:
+      - backend
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # API - NestJS Backend (recette)
+  # ---------------------------------------------------------------------------
+  api:
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-api:${IMAGE_TAG:-latest}
+    container_name: takt-api-recette
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-takt_recette}:${POSTGRES_PASSWORD:-takt_recette_password}@postgres:5432/${POSTGRES_DB:-takt_recette}?schema=public
+      JWT_SECRET_FILE: /run/secrets/jwt_secret
+      JWT_REFRESH_SECRET_FILE: /run/secrets/jwt_refresh_secret
+      SMTP_HOST: ${SMTP_HOST:-cck.rnu.tn}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER_FILE: /run/secrets/smtp_user
+      SMTP_PASS_FILE: /run/secrets/smtp_pass
+      SMTP_FROM: ${SMTP_FROM:-noreply@takt.recette.local}
+    volumes:
+      - filestore_recette_data:/filestore
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - |
+          require('http').get('http://localhost:3000/health', (r) => {
+            if (r.statusCode !== 200) process.exit(1)
+          })
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - backend
+    restart: unless-stopped
+    deploy:
+      replicas: 2
+      update_config:
+        order: start-first
+        interval: 30s
+        failure_action: rollback
+        max_failure_ratio: 0
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+
+  # ---------------------------------------------------------------------------
+  # Web - Next.js Frontend (recette)
+  # ---------------------------------------------------------------------------
+  web:
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-web:${IMAGE_TAG:-latest}
+    container_name: takt-web-recette
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_API_URL: https://recette.takt.local/api
+    depends_on:
+      - api
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - |
+          require('http').get('http://localhost:3000', (r) => {
+            if (r.statusCode !== 200) process.exit(1)
+          })
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+    networks:
+      - frontend
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Worker - pg-boss Job Processor (recette)
+  # ---------------------------------------------------------------------------
+  worker:
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-worker:${IMAGE_TAG:-latest}
+    container_name: takt-worker-recette
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-takt_recette}:${POSTGRES_PASSWORD:-takt_recette_password}@postgres:5432/${POSTGRES_DB:-takt_recette}?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+    restart: unless-stopped
+
+# -----------------------------------------------------------------------------
+# Volumes (recette)
+# -----------------------------------------------------------------------------
+volumes:
+  postgres_recette_data:
+    driver: local
+  filestore_recette_data:
+    driver: local
+
+# -----------------------------------------------------------------------------
+# Networks (recette)
+# -----------------------------------------------------------------------------
+networks:
+  frontend:
+    driver: bridge
+    internal: false
+    name: takt-frontend-recette
+  backend:
+    driver: bridge
+    internal: true
+    name: takt-backend-recette
+  smtp:
+    driver: bridge
+    internal: false
+    name: takt-smtp-recette
+  observability:
+    driver: bridge
+    internal: true
+    name: takt-observability-recette
