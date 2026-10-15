@@ -64,10 +64,7 @@ services:
   # API - NestJS Backend
   # ---------------------------------------------------------------------------
   api:
-    build:
-      context: ../apps/api
-      dockerfile: Dockerfile
-      target: runner
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-api:${IMAGE_TAG:-latest}
     container_name: takt-api-dev
     environment:
       NODE_ENV: development
@@ -112,10 +109,7 @@ services:
   # Web - Next.js Frontend
   # ---------------------------------------------------------------------------
   web:
-    build:
-      context: ../apps/web
-      dockerfile: Dockerfile
-      target: runner
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-web:${IMAGE_TAG:-latest}
     container_name: takt-web-dev
     environment:
       NODE_ENV: development
@@ -145,10 +139,7 @@ services:
   # Worker - pg-boss Job Processor
   # ---------------------------------------------------------------------------
   worker:
-    build:
-      context: ../apps/worker
-      dockerfile: Dockerfile
-      target: runner
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-worker:${IMAGE_TAG:-latest}
     container_name: takt-worker-dev
     environment:
       NODE_ENV: development
