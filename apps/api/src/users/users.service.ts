@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, ConflictException } from '@nestjs/common
 import { PrismaService } from '../prisma/prisma.service.js';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto, UpdateUserDto, UpdatePasswordDto, UserQueryDto, UserResponseDto, PaginatedUsersDto } from './dto/user.dto.js';
-import { UserRole } from '@takt/db';
+import { RoleCode } from '@takt/db';
 
 @Injectable()
 export class UsersService {
@@ -22,9 +22,17 @@ export class UsersService {
       data: {
         email: createUserDto.email,
         passwordHash,
-        firstName: createUserDto.firstName,
-        lastName: createUserDto.lastName,
-        role: createUserDto.role || UserRole.VIEWER,
+        nom: createUserDto.firstName,
+        prenom: createUserDto.lastName,
+        actif: true,
+        roles: {
+          create: {
+            role: createUserDto.role || RoleCode.ETUDIANT,
+          },
+        },
+      },
+      include: {
+        roles: true,
       },
     });
 
@@ -41,17 +49,19 @@ export class UsersService {
     if (query.search) {
       where.OR = [
         { email: { contains: query.search, mode: 'insensitive' } },
-        { firstName: { contains: query.search, mode: 'insensitive' } },
-        { lastName: { contains: query.search, mode: 'insensitive' } },
+        { nom: { contains: query.search, mode: 'insensitive' } },
+        { prenom: { contains: query.search, mode: 'insensitive' } },
       ];
     }
 
     if (query.role) {
-      where.role = query.role;
+      where.roles = {
+        some: { role: query.role },
+      };
     }
 
     if (query.isActive !== undefined) {
-      where.isActive = query.isActive;
+      where.actif = query.isActive;
     }
 
     const [users, total] = await Promise.all([
@@ -60,24 +70,15 @@ export class UsersService {
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
-        select: {
-          id: true,
-          email: true,
-          firstName: true,
-          lastName: true,
-          role: true,
-          avatarUrl: true,
-          isActive: true,
-          lastLoginAt: true,
-          createdAt: true,
-          updatedAt: true,
+        include: {
+          roles: true,
         },
       }),
       this.prisma.user.count({ where }),
     ]);
 
     return {
-      data: users,
+      data: users.map(u => this.toResponseDto(u)),
       total,
       page,
       limit,
@@ -88,23 +89,14 @@ export class UsersService {
   async findOne(id: string): Promise<UserResponseDto> {
     const user = await this.prisma.user.findUnique({
       where: { id },
-      select: {
-        id: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        role: true,
-        avatarUrl: true,
-        isActive: true,
-        lastLoginAt: true,
-        createdAt: true,
-        updatedAt: true,
+      include: {
+        roles: true,
       },
     });
     if (!user) {
       throw new NotFoundException('Utilisateur non trouvé');
     }
-    return user;
+    return this.toResponseDto(user);
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
@@ -119,24 +111,21 @@ export class UsersService {
       }
     }
 
+    const data: any = {};
+    if (updateUserDto.firstName) data.nom = updateUserDto.firstName;
+    if (updateUserDto.lastName) data.prenom = updateUserDto.lastName;
+    if (updateUserDto.email) data.email = updateUserDto.email;
+    if (updateUserDto.isActive !== undefined) data.actif = updateUserDto.isActive;
+
     const user = await this.prisma.user.update({
       where: { id },
-      data: updateUserDto,
-      select: {
-        id: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        role: true,
-        avatarUrl: true,
-        isActive: true,
-        lastLoginAt: true,
-        createdAt: true,
-        updatedAt: true,
+      data,
+      include: {
+        roles: true,
       },
     });
 
-    return user;
+    return this.toResponseDto(user);
   }
 
   async updatePassword(id: string, updatePasswordDto: UpdatePasswordDto): Promise<void> {
@@ -163,7 +152,15 @@ export class UsersService {
   }
 
   private toResponseDto(user: any): UserResponseDto {
-    const { passwordHash: _passwordHash, ...result } = user;
-    return result;
+    const primaryRole = user.roles?.[0]?.role || RoleCode.ETUDIANT;
+    const { passwordHash: _passwordHash, roles: _roles, ...result } = user;
+    return {
+      ...result,
+      firstName: user.nom,
+      lastName: user.prenom,
+      role: primaryRole,
+      isActive: user.actif,
+      avatarUrl: user.avatarUrl || null,
+    };
   }
 }
