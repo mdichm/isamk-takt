@@ -19,7 +19,7 @@ COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/api/package.json ./apps/api/package.json
 COPY packages/contracts/package.json ./packages/contracts/package.json
 COPY packages/db/package.json ./packages/db/package.json
-RUN pnpm install --filter=@takt/api... --prod --ignore-scripts
+RUN pnpm install --filter=@takt/api... --prod --ignore-scripts --no-verify-store-integrity
 
 # =============================================================================
 # Stage 3: Build
