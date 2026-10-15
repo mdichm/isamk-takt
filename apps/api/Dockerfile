@@ -16,6 +16,7 @@ RUN corepack enable pnpm
 FROM base AS deps
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json ./
 COPY apps/api/package.json ./apps/api/package.json
 COPY packages/contracts/package.json ./packages/contracts/package.json
 COPY packages/db/package.json ./packages/db/package.json
@@ -29,6 +30,7 @@ RUN pnpm install --filter=@takt/api... --prod --ignore-scripts
 FROM base AS builder
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json ./
 COPY apps/api/package.json ./apps/api/package.json
 COPY packages/contracts/package.json ./packages/contracts/package.json
 COPY packages/db/package.json ./packages/db/package.json
@@ -37,7 +39,7 @@ RUN pnpm config set minimumReleaseAge 0
 RUN pnpm install --filter=@takt/api... --ignore-scripts
 COPY . .
 # Generate Prisma Client (required for build)
-RUN pnpm --filter=@takt/db run prisma:generate
+RUN pnpm --filter=@takt/db run db:generate
 RUN pnpm --filter=@takt/api run build
 
 # =============================================================================

@@ -16,6 +16,7 @@ RUN corepack enable pnpm
 FROM base AS deps
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json ./
 COPY apps/web/package.json ./apps/web/package.json
 COPY packages/contracts/package.json ./packages/contracts/package.json
 COPY packages/design-tokens/package.json ./packages/design-tokens/package.json
@@ -30,6 +31,7 @@ RUN pnpm install --filter=@takt/web... --prod --ignore-scripts
 FROM base AS builder
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY package.json ./
 COPY apps/web/package.json ./apps/web/package.json
 COPY packages/contracts/package.json ./packages/contracts/package.json
 COPY packages/design-tokens/package.json ./packages/design-tokens/package.json
