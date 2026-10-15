@@ -40,8 +40,8 @@ RUN pnpm install --filter=@takt/api... --ignore-scripts
 COPY . .
 # Generate Prisma Client (required for build)
 RUN pnpm --filter=@takt/db run db:generate
-# Build with TypeScript compiler directly (nest build has issues with incremental)
-RUN cd /app/apps/api && npx tsc -p tsconfig.json
+# Build with NestJS CLI (handles TypeScript config correctly)
+RUN cd /app/apps/api && npx nest build
 
 # =============================================================================
 # Stage 4: Production runner
