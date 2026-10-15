@@ -37,7 +37,7 @@ t("reseau","L0",E,T,"Réseau et périmètre sur site","Nginx en reverse proxy (T
   "EX-NFR-01","§5.3, §1.8","DEVOPS","Must",8,["repo"],"L0-05",statut="Terminé")
 t("donnees","L0",E,T,"Données, fichiers et secrets sur site","PostgreSQL 16, volume de fichiers derrière le port FileStore sur disque chiffré, file de jobs pg-boss (generation, export, email), secrets en fichiers, rôles de base.",
   ["Disques et volumes de fichiers chiffrés (LUKS)","Rôles app_rw, worker_rw, audit_ro et audit_purge créés avec droits minimaux","Les secrets sont montés en fichiers en lecture seule, absents des images","File d'échecs configurée avec reprise après 3 tentatives","Le port FileStore est la seule interface d'accès aux fichiers"],
-  "EX-NFR-01, EX-NFR-06","§1.8, §5.3, §4.19","DEVOPS","Must",8,["reseau"],"L0-06")
+  "EX-NFR-01, EX-NFR-06","§1.8, §5.3, §4.19","DEVOPS","Must",8,["reseau"],"L0-06",statut="Terminé")
 t("compose","L0",E,T,"Calcul et environnements sur site","Docker Compose pour web, api et worker, trois environnements, redémarrage progressif de l'API.",
   ["Environnements dev, recette et production déployables par scripts (Compose, Ansible)","Redémarrage progressif de l'API avec contrôles de santé, sans coupure","Image worker dédiée distincte de l'API"],
   "EX-NFR-02","§1.8, §5.5","DEVOPS","Must",8,["donnees"],"L0-07")

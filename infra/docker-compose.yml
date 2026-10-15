@@ -45,6 +45,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db:/docker-entrypoint-initdb.d:ro
+      - filestore_data:/filestore:ro
     # Port only exposed for direct access in dev (remove in production)
     # ports:
     #   - "5432:5432"
@@ -82,6 +83,8 @@ services:
       # Mount source for hot reload in dev (override in docker-compose.override.yml)
       - ../apps/api/src:/app/src:ro
       - ../packages:/app/packages:ro
+      # FileStore : seule interface d'acces aux fichiers (volume sur disque chiffre en production)
+      - filestore_data:/filestore
     # Port not exposed directly - accessed via nginx on frontend network
     # ports:
     #   - "3000:3000"
@@ -184,6 +187,11 @@ volumes:
     driver: local
   certbot_webroot:
     driver: local
+  filestore_data:
+    driver: local
+    # Volume dedie pour le FileStore (fichiers moteur, sorties FET, exports, logos).
+    # En production, ce volume doit etre sur un disque chiffre (LUKS).
+    # C'est la seule interface d'acces aux fichiers (pas d'autre volume de fichiers expose).
 
 # -----------------------------------------------------------------------------
 # Networks (Isolation per security requirements)
