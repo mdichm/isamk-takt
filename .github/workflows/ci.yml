@@ -285,4 +285,4 @@ jobs:
           JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
         run: |
           chmod +x ./infra/deploy-dev.sh
-          ./infra/deploy-dev.sh "${IMAGE_TAG}"
+          ./infra/deploy-dev.sh "${IMAGE_TAG}" --no-build --pull
