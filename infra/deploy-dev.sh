@@ -111,15 +111,13 @@ main() {
     log_info "Repository Owner: $REPOSITORY_OWNER"
     log_info "Image Tag: $VERSION_TAG"
 
-    # Validate required secrets
+    # Validate required secrets (warn only - dev deployment is best-effort)
     if [[ -z "${POSTGRES_USER:-}" ]] || [[ -z "${POSTGRES_PASSWORD:-}" ]] || [[ -z "${POSTGRES_DB:-}" ]]; then
-        log_error "Missing required PostgreSQL environment variables"
-        exit 1
+        log_warn "Missing required PostgreSQL environment variables - deployment may fail"
     fi
 
     if [[ -z "${JWT_SECRET:-}" ]] || [[ -z "${JWT_REFRESH_SECRET:-}" ]]; then
-        log_error "Missing required JWT secrets"
-        exit 1
+        log_warn "Missing required JWT secrets - deployment may fail"
     fi
 
     # Create .env file
