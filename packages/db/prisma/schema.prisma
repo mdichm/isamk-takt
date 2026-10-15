@@ -20,6 +20,53 @@ enum RoleCode {
   ETUDIANT
 }
 
+enum UserRole {
+  ADMIN
+  MANAGER
+  OPERATOR
+  VIEWER
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  IN_REVIEW
+  DONE
+  BLOCKED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  ARCHIVED
+}
+
+enum SprintStatus {
+  PLANNING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum ActivityType {
+  CREATED
+  UPDATED
+  DELETED
+  STATUS_CHANGED
+  ASSIGNED
+  COMMENTED
+  MOVED
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -28,9 +75,9 @@ model User {
   id                 String    @id @default(uuid()) @db.Uuid
   email              String    @unique
   passwordHash       String
-  nom                String
-  prenom             String
-  actif              Boolean   @default(true)
+  firstName          String    @map("nom")
+  lastName           String    @map("prenom")
+  isActive           Boolean   @default(true) @map("actif")
   desactiveLe        DateTime?
   failedAttempts     Int       @default(0)
   lockedUntil        DateTime?
@@ -43,21 +90,26 @@ model User {
   updatedAt          DateTime  @updatedAt
 
   // Relations
-  roles             UserRole[]
+  roles             UserSystemRole[]
+  assignedTasks     Task[]        @relation("AssignedTasks")
+  createdTasks      Task[]        @relation("CreatedTasks")
+  comments          Comment[]
+  activities        Activity[]
+  projectMembers    ProjectMember[]
+  sprintMembers     SprintMember[]
   refreshTokens     RefreshToken[]
   passwordHistory   PasswordHistory[]
   resetTokens       PasswordResetToken[]
 
   @@index([email])
-  @@index([actif])
+  @@index([isActive])
   @@map("users")
 }
 
-model UserRole {
+model UserSystemRole {
   id              String   @id @default(uuid()) @db.Uuid
   userId          String   @db.Uuid
   role            RoleCode
-  // Portée : code stable de département (null = global). Obligatoire pour RESPONSABLE_DEPARTEMENT.
   departementCode String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -73,7 +125,7 @@ model RefreshToken {
   tokenHash      String    @unique
   expiresAt      DateTime
   revokedAt      DateTime?
-  lastActivityAt DateTime  @default(now()) // inactivité (EX-SEC-07)
+  lastActivityAt DateTime  @default(now())
   userAgent      String?
   ip             String?
   createdAt      DateTime  @default(now())
@@ -102,7 +154,7 @@ model PasswordResetToken {
   tokenHash   String    @unique
   expiresAt   DateTime
   usedAt      DateTime?
-  demandePar  String    @db.Uuid // Administrateur qui a déclenché la réinitialisation
+  demandePar  String    @db.Uuid
   createdAt   DateTime  @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -110,18 +162,206 @@ model PasswordResetToken {
   @@map("password_reset_tokens")
 }
 
+model Project {
+  id          String        @id @default(uuid()) @db.Uuid
+  name        String
+  description String?
+  key         String        @unique
+  status      ProjectStatus @default(PLANNING)
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  members    ProjectMember[]
+  tasks      Task[]
+  sprints    Sprint[]
+  columns    BoardColumn[]
+
+  @@index([key])
+  @@index([status])
+  @@map("projects")
+}
+
+model ProjectMember {
+  id        String   @id @default(uuid()) @db.Uuid
+  projectId String   @db.Uuid
+  userId    String   @db.Uuid
+  role      UserRole @default(VIEWER)
+  joinedAt  DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
+  @@map("project_members")
+}
+
+model BoardColumn {
+  id        String   @id @default(uuid()) @db.Uuid
+  projectId String   @db.Uuid
+  name      String
+  position  Int
+  color     String   @default("#6366f1")
+  isDone    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+
+  @@index([projectId])
+  @@index([position])
+  @@map("board_columns")
+}
+
+model Task {
+  id          String      @id @default(uuid()) @db.Uuid
+  projectId   String      @db.Uuid
+  columnId    String?     @db.Uuid
+  title       String
+  description String?
+  status      TaskStatus  @default(TODO)
+  priority    TaskPriority @default(MEDIUM)
+  storyPoints Int?
+  position    Int         @default(0)
+  dueDate     DateTime?
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  project      Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  column       BoardColumn?  @relation(fields: [columnId], references: [id], onDelete: SetNull)
+  assignee     User?         @relation("AssignedTasks", fields: [assigneeId], references: [id], onDelete: SetNull)
+  assigneeId   String?       @db.Uuid
+  creator      User          @relation("CreatedTasks", fields: [creatorId], references: [id], onDelete: Restrict)
+  creatorId    String        @db.Uuid
+  sprint       Sprint?       @relation(fields: [sprintId], references: [id], onDelete: SetNull)
+  sprintId     String?       @db.Uuid
+  parentTask   Task?         @relation("Subtasks", fields: [parentTaskId], references: [id], onDelete: SetNull)
+  parentTaskId String?       @db.Uuid
+  subtasks     Task[]        @relation("Subtasks")
+  comments     Comment[]
+  activities   Activity[]
+  tags         TaskTag[]
+
+  @@index([projectId])
+  @@index([columnId])
+  @@index([assigneeId])
+  @@index([sprintId])
+  @@index([status])
+  @@index([parentTaskId])
+  @@map("tasks")
+}
+
+model Sprint {
+  id          String       @id @default(uuid()) @db.Uuid
+  projectId   String       @db.Uuid
+  name        String
+  goal        String?
+  status      SprintStatus @default(PLANNING)
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  project    Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks      Task[]
+  members    SprintMember[]
+
+  @@index([projectId])
+  @@index([status])
+  @@map("sprints")
+}
+
+model SprintMember {
+  id       String   @id @default(uuid()) @db.Uuid
+  sprintId String   @db.Uuid
+  userId   String   @db.Uuid
+
+  sprint Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([sprintId, userId])
+  @@index([sprintId])
+  @@index([userId])
+  @@map("sprint_members")
+}
+
+model Comment {
+  id        String   @id @default(uuid()) @db.Uuid
+  taskId    String   @db.Uuid
+  userId    String   @db.Uuid
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@index([userId])
+  @@map("comments")
+}
+
+model Tag {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique
+  color     String   @default("#6366f1")
+  createdAt DateTime @default(now())
+
+  tasks TaskTag[]
+
+  @@map("tags")
+}
+
+model TaskTag {
+  taskId String   @db.Uuid
+  tagId  String   @db.Uuid
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, tagId])
+  @@map("task_tags")
+}
+
+model Activity {
+  id        String       @id @default(uuid()) @db.Uuid
+  taskId    String?      @db.Uuid
+  userId    String       @db.Uuid
+  type      ActivityType
+  field     String?
+  oldValue  String?
+  newValue  String?
+  metadata  Json?
+  createdAt DateTime     @default(now())
+
+  task Task? @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("activities")
+}
+
 // Paramètres de sécurité (ligne unique, CHECK id = 1) — EX-SEC-04
 model ParametreSecurite {
   id                        Int        @id @default(1)
-  longueurMin               Int        @default(12)      // plancher technique 8
-  regles                    Json       @default("{}")    // {majuscule, minuscule, chiffre, symbole}
-  expirationJours           Int        @default(0)       // 0 = pas d'expiration
+  longueurMin               Int        @default(12)
+  regles                    Json       @default("{}")
+  expirationJours           Int        @default(0)
   historique                Int        @default(5)
   maxEchecs                 Int        @default(5)
   verrouillageMinutes       Int        @default(15)
   inactiviteMinutes         Int        @default(30)
   mfaRoles                  RoleCode[] @default([ADMINISTRATEUR])
-  conservationAuditJours    Int?       // null = sans purge
+  conservationAuditJours    Int?
   conservationSecuriteJours Int        @default(365)
   updatedAt                 DateTime   @updatedAt
   updatedBy                 String?    @db.Uuid
@@ -144,7 +384,7 @@ model ParametreWorkflow {
 model SecurityEvent {
   id        BigInt   @id @default(autoincrement())
   at        DateTime @default(now())
-  type      String   // LOGIN_OK, LOGIN_FAILED, ACCOUNT_LOCKED, TOKEN_REUSE, RESET_USED, MFA_ENROLLED, EXPORT_ACCESS...
+  type      String
   userId    String?  @db.Uuid
   email     String?
   ip        String?

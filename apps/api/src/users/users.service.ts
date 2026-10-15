@@ -22,12 +22,12 @@ export class UsersService {
       data: {
         email: createUserDto.email,
         passwordHash,
-        nom: createUserDto.firstName,
-        prenom: createUserDto.lastName,
-        actif: true,
+        firstName: createUserDto.firstName,
+        lastName: createUserDto.lastName,
+        isActive: true,
         roles: {
           create: {
-            role: createUserDto.role || RoleCode.ETUDIANT,
+            role: RoleCode.ETUDIANT,
           },
         },
       },
@@ -49,8 +49,8 @@ export class UsersService {
     if (query.search) {
       where.OR = [
         { email: { contains: query.search, mode: 'insensitive' } },
-        { nom: { contains: query.search, mode: 'insensitive' } },
-        { prenom: { contains: query.search, mode: 'insensitive' } },
+        { firstName: { contains: query.search, mode: 'insensitive' } },
+        { lastName: { contains: query.search, mode: 'insensitive' } },
       ];
     }
 
@@ -61,7 +61,7 @@ export class UsersService {
     }
 
     if (query.isActive !== undefined) {
-      where.actif = query.isActive;
+      where.isActive = query.isActive;
     }
 
     const [users, total] = await Promise.all([
@@ -112,10 +112,10 @@ export class UsersService {
     }
 
     const data: any = {};
-    if (updateUserDto.firstName) data.nom = updateUserDto.firstName;
-    if (updateUserDto.lastName) data.prenom = updateUserDto.lastName;
+    if (updateUserDto.firstName) data.firstName = updateUserDto.firstName;
+    if (updateUserDto.lastName) data.lastName = updateUserDto.lastName;
     if (updateUserDto.email) data.email = updateUserDto.email;
-    if (updateUserDto.isActive !== undefined) data.actif = updateUserDto.isActive;
+    if (updateUserDto.isActive !== undefined) data.isActive = updateUserDto.isActive;
 
     const user = await this.prisma.user.update({
       where: { id },
@@ -156,10 +156,10 @@ export class UsersService {
     const { passwordHash: _passwordHash, roles: _roles, ...result } = user;
     return {
       ...result,
-      firstName: user.nom,
-      lastName: user.prenom,
+      firstName: user.firstName,
+      lastName: user.lastName,
       role: primaryRole,
-      isActive: user.actif,
+      isActive: user.isActive,
       avatarUrl: user.avatarUrl || null,
     };
   }

@@ -40,7 +40,8 @@ RUN pnpm install --filter=@takt/api... --ignore-scripts
 COPY . .
 # Generate Prisma Client (required for build)
 RUN pnpm --filter=@takt/db run db:generate
-RUN pnpm --filter=@takt/api run build
+# Build with TypeScript compiler directly (nest build has issues with incremental)
+RUN cd /app/apps/api && npx tsc -p tsconfig.json
 
 # =============================================================================
 # Stage 4: Production runner
@@ -48,15 +49,16 @@ RUN pnpm --filter=@takt/api run build
 FROM base AS runner
 ENV NODE_ENV=production
 ENV PORT=3000
+WORKDIR /app
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nestjs -u 1001 -G nodejs
 
 # Copy built application and production deps
-COPY --from=builder --chown=nestjs:nodejs /app/apps/api/dist ./dist
-COPY --from=deps --chown=nestjs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nestjs:nodejs /app/apps/api/package.json ./package.json
+COPY --from=builder /app/apps/api/dist ./dist
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app/apps/api/package.json ./package.json
 
 USER nestjs
 
