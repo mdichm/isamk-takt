@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Ansible Role: Handlers pour le redémarrage progressif de l'API
+---
+- name: Restaurer l'API après échec de rolling restart
+  ansible.builtin.shell: >
+    docker compose -f {{ takt_compose_files | join(' -f ') }} --env-file {{ takt_env_file }}
+      up -d --no-deps --scale api={{ takt_api_replicas }} api
+  working_directory: "{{ takt_compose_dir }}"
+  failed_when: false

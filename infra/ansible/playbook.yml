@@ -1,0 +1,139 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Ansible Playbook: Déploiement par environnement avec redémarrage progressif de l'API
+# Usage:
+#   ansible-playbook -i infra/ansible/inventory/<env>.yml infra/ansible/playbook.yml --extra-vars "takt_env=<env>"
+---
+- name: Déploiement TAKT sur l'environnement cible
+  hosts: all
+  become: true
+  vars:
+    takt_compose_files:
+      - "{{ takt_compose_file }}"
+      - "{{ takt_compose_override }}"
+    takt_env_file_path: "{{ takt_env_file }}"
+  pre_tasks:
+    - name: Vérifier que Docker est disponible
+      ansible.builtin.command: docker --version
+      register: docker_version
+      changed_when: false
+    - name: Vérifier que docker compose est disponible
+      ansible.builtin.command: docker compose version
+      register: docker_compose_version
+      changed_when: false
+    - name: Afficher l'environnement cible
+      ansible.builtin.debug:
+        msg: "Déploiement TAKT sur l'environnement : {{ takt_env }} (compose: {{ takt_compose_files | join(', ') }})"
+
+  tasks:
+    - name: Créer le répertoire de travail
+      ansible.builtin.file:
+        path: "/opt/takt/{{ takt_env }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copier les fichiers de configuration Docker Compose
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "/opt/takt/{{ takt_env }}/{{ item | basename }}"
+        mode: '0644'
+      loop: "{{ takt_compose_files }}"
+
+    - name: Copier le fichier d'environnement
+      ansible.builtin.copy:
+        src: "{{ takt_env_file_path }}"
+        dest: "/opt/takt/{{ takt_env }}/.env"
+        mode: '0600'
+      when: takt_env_file_path is defined and takt_env_file_path != ""
+
+    - name: Se connecter au registre d'images privées
+      community.docker.docker_login:
+        registry: "{{ takt_registry }}"
+        username: "{{ github_actor | default(omit) }}"
+        password: "{{ github_token | default(omit) }}"
+      when: takt_registry is defined and takt_registry != ""
+
+    - name: Pull des images Docker
+      community.docker.docker_compose_v2:
+        project_source: "/opt/takt/{{ takt_env }}"
+        pull: true
+      register: compose_pull
+
+    - name: Appliquer les migrations Prisma
+      ansible.builtin.command: >
+        docker compose
+        -f {{ takt_compose_files | join(' -f ') }}
+        --env-file {{ takt_env_file_path }}
+        run --rm api
+        npx prisma migrate deploy
+      working_directory: "/opt/takt/{{ takt_env }}"
+      register: prisma_migrate
+      changed_when: '"already applied" not in prisma_migrate.stdout and prisma_migrate.rc == 0'
+      failed_when: prisma_migrate.rc != 0
+
+    - name: Redémarrage progressif de l'API avec contrôles de santé
+      block:
+        - name: Redémarrer l'API avec rolling update
+          ansible.builtin.shell: >
+            set -eo pipefail;
+            for i in $(seq 1 {{ takt_api_replicas }}); do
+              echo "Redémarrage de l'instance API #$i sur {{ takt_env }}..."
+              docker compose -f {{ takt_compose_files | join(' -f ') }} --env-file {{ takt_env_file_path }}
+                up -d --no-deps --scale api={{ takt_api_replicas }} api
+              sleep {{ takt_rolling_update_interval | replace('s', '') }}
+              echo "Vérification du healthcheck de l'instance #$i..."
+              docker compose -f {{ takt_compose_files | join(' -f ') }} --env-file {{ takt_env_file_path }}
+                ps api --filter "health=healthy" | grep -q "healthy" || {
+                  echo "ERREUR: L'instance #$i n'est pas saine après le redémarrage";
+                  exit 1;
+                }
+              echo "Instance #$i saine."
+            done
+          working_directory: "/opt/takt/{{ takt_env }}"
+          register: api_rolling_restart
+          changed_when: true
+
+        - name: Vérifier que toutes les instances API sont saines
+          ansible.builtin.shell: >
+            docker compose -f {{ takt_compose_files | join(' -f ') }} --env-file {{ takt_env_file_path }}
+              ps api --filter "health=healthy" | wc -l
+          working_directory: "/opt/takt/{{ takt_env }}"
+          register: api_healthy_count
+          changed_when: false
+
+        - name: Valider le nombre d'instances API saines
+          ansible.builtin.assert:
+            that:
+              - api_healthy_count.stdout | int >= takt_api_replicas
+            fail_msg: "Seules {{ api_healthy_count.stdout }} instances API sont saines (attendu : {{ takt_api_replicas }})"
+            success_msg: "Toutes les {{ takt_api_replicas }} instances API sont saines après le redémarrage progressif"
+
+      rescue:
+        - name: Restaurer l'API en cas d'échec du redémarrage progressif
+          ansible.builtin.shell: >
+            docker compose -f {{ takt_compose_files | join(' -f ') }} --env-file {{ takt_env_file_path }}
+              up -d --no-deps --scale api={{ takt_api_replicas }} api
+          working_directory: "/opt/takt/{{ takt_env }}"
+          failed_when: false
+        - ansible.builtin.fail:
+            msg: "Échec du redémarrage progressif de l'API sur {{ takt_env }}"
+
+    - name: Redémarrer les autres services (web, worker)
+      community.docker.docker_compose_v2:
+        project_source: "/opt/takt/{{ takt_env }}"
+        services:
+          - web
+          - worker
+        pull: false
+      when: takt_env != "dev"
+
+    - name: Afficher le statut final des services
+      community.docker.docker_compose_v2:
+        project_source: "/opt/takt/{{ takt_env }}"
+      register: compose_ps
+      changed_when: false
+
+    - name: Afficher le résumé du déploiement
+      ansible.builtin.debug:
+        msg: |
+          Déploiement TAKT terminé sur {{ takt_env }}
+          Services: {{ compose_ps.services | default([]) | join(', ') }}

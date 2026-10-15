@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Ansible Group Vars: Recette
+
+takt_api_replicas: 2
+takt_worker_replicas: 1
+takt_nginx_ports:
+  - "443:443"

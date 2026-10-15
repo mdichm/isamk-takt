@@ -1,0 +1,182 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Docker Compose override: environnement de production
+# Usage: docker compose -f infra/docker-compose.yml -f infra/docker-compose.prod.yml up -d
+
+version: "3.9"
+
+services:
+  # ---------------------------------------------------------------------------
+  # Nginx Reverse Proxy (production, TLS termination, rate limiting)
+  # ---------------------------------------------------------------------------
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+      target: runner
+    container_name: takt-nginx-prod
+    ports:
+      - "443:443"
+    volumes:
+      - ./certs:/etc/nginx/certs:ro
+      - certbot_webroot:/var/www/certbot
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - web
+      - api
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL 16 Database (production)
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: takt-postgres-prod
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-takt_prod}
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_DB: ${POSTGRES_DB:-takt_prod}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d:ro
+      - filestore_prod_data:/filestore:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${POSTGRES_USER:-takt_prod} -d ${POSTGRES_DB:-takt_prod}
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - backend
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # API - NestJS Backend (production)
+  # ---------------------------------------------------------------------------
+  api:
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-api:${IMAGE_TAG:-latest}
+    container_name: takt-api-prod
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-takt_prod}:${POSTGRES_PASSWORD_FILE:+$(cat /run/secrets/postgres_password)}@postgres:5432/${POSTGRES_DB:-takt_prod}?schema=public
+      JWT_SECRET_FILE: /run/secrets/jwt_secret
+      JWT_REFRESH_SECRET_FILE: /run/secrets/jwt_refresh_secret
+      SMTP_HOST: ${SMTP_HOST:-cck.rnu.tn}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER_FILE: /run/secrets/smtp_user
+      SMTP_PASS_FILE: /run/secrets/smtp_pass
+      SMTP_FROM: ${SMTP_FROM:-noreply@takt.prod.local}
+    volumes:
+      - filestore_prod_data:/filestore
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - |
+          require('http').get('http://localhost:3000/health', (r) => {
+            if (r.statusCode !== 200) process.exit(1)
+          })
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - backend
+    restart: unless-stopped
+    deploy:
+      replicas: 3
+      update_config:
+        order: start-first
+        interval: 30s
+        failure_action: rollback
+        max_failure_ratio: 0
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+
+  # ---------------------------------------------------------------------------
+  # Web - Next.js Frontend (production)
+  # ---------------------------------------------------------------------------
+  web:
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-web:${IMAGE_TAG:-latest}
+    container_name: takt-web-prod
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_API_URL: https://takt.local/api
+    depends_on:
+      - api
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - |
+          require('http').get('http://localhost:3000', (r) => {
+            if (r.statusCode !== 200) process.exit(1)
+          })
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+    networks:
+      - frontend
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Worker - pg-boss Job Processor (production)
+  # ---------------------------------------------------------------------------
+  worker:
+    image: ${REGISTRY}/${REPOSITORY_OWNER}/takt-worker:${IMAGE_TAG:-latest}
+    container_name: takt-worker-prod
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-takt_prod}:${POSTGRES_PASSWORD_FILE:+$(cat /run/secrets/postgres_password)}@postgres:5432/${POSTGRES_DB:-takt_prod}?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+    restart: unless-stopped
+
+# -----------------------------------------------------------------------------
+# Volumes (production)
+# -----------------------------------------------------------------------------
+volumes:
+  postgres_prod_data:
+    driver: local
+  filestore_prod_data:
+    driver: local
+  certbot_webroot:
+    driver: local
+
+# -----------------------------------------------------------------------------
+# Networks (production)
+# -----------------------------------------------------------------------------
+networks:
+  frontend:
+    driver: bridge
+    internal: false
+    name: takt-frontend-prod
+  backend:
+    driver: bridge
+    internal: true
+    name: takt-backend-prod
+  smtp:
+    driver: bridge
+    internal: false
+    name: takt-smtp-prod
+  observability:
+    driver: bridge
+    internal: true
+    name: takt-observability-prod

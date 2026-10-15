@@ -40,7 +40,7 @@ t("donnees","L0",E,T,"Données, fichiers et secrets sur site","PostgreSQL 16, vo
   "EX-NFR-01, EX-NFR-06","§1.8, §5.3, §4.19","DEVOPS","Must",8,["reseau"],"L0-06",statut="Terminé")
 t("compose","L0",E,T,"Calcul et environnements sur site","Docker Compose pour web, api et worker, trois environnements, redémarrage progressif de l'API.",
   ["Environnements dev, recette et production déployables par scripts (Compose, Ansible)","Redémarrage progressif de l'API avec contrôles de santé, sans coupure","Image worker dédiée distincte de l'API"],
-  "EX-NFR-02","§1.8, §5.5","DEVOPS","Must",8,["donnees"],"L0-07")
+  "EX-NFR-02","§1.8, §5.5","DEVOPS","Must",8,["donnees"],"L0-07",statut="Terminé")
 t("obs","L0",E,T,"Observabilité de base","Logs pino avec requestId, traces OpenTelemetry, Prometheus et Grafana, alertes.",
   ["Chaque requête porte un requestId présent dans les logs","Une trace relie API, base et worker","Alertes Grafana sur file d'échecs non vide et 5xx","Les journaux techniques sont séparés de l'audit métier"],
   "EX-NFR-05","§5.4","DEVOPS","Should",5,["compose"],"L0-08")

@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Ansible Inventory: Développement
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_python_interpreter: /usr/bin/python3
+  vars:
+    takt_env: dev
+    takt_compose_file: infra/docker-compose.yml
+    takt_env_file: infra/.env
+    takt_compose_override: infra/docker-compose.override.yml
+    takt_registry: ghcr.io
+    takt_repository_owner: mdichm
+    takt_image_tag: latest
+    takt_postgres_user: takt
+    takt_postgres_password: takt_dev_password
+    takt_postgres_db: takt_dev
+    takt_jwt_secret: dev_jwt_secret_change_in_production_min_32_chars
+    takt_jwt_refresh_secret: dev_refresh_secret_change_in_production_min_32_chars
+    takt_smtp_host: cck.rnu.tn
+    takt_smtp_port: 587
+    takt_smtp_secure: false
+    takt_smtp_user: ""
+    takt_smtp_pass: ""
+    takt_smtp_from: noreply@takt.local
+    takt_nginx_ports:
+      - "80:80"
+      - "443:443"
+    takt_api_replicas: 1
+    takt_worker_replicas: 1

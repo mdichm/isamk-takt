@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Ansible Role: Redémarrage progressif de l'API avec contrôles de santé
+---
+- name: Vérifier le healthcheck de l'API avant redémarrage
+  community.docker.docker_compose_v2:
+    project_source: "{{ takt_compose_dir }}"
+    services:
+      - api
+  register: api_status_before
+  changed_when: false
+
+- name: Redémarrer l'API instance par instance (rolling update)
+  ansible.builtin.shell: >
+    set -eo pipefail;
+    for i in $(seq 1 {{ takt_api_replicas }}); do
+      echo "Redémarrage de l'instance API #$i..."
+      docker compose -f {{ takt_compose_files | join(' -f ') }} --env-file {{ takt_env_file }}
+        up -d --no-deps --scale api={{ takt_api_replicas }} api
+      sleep {{ takt_rolling_update_interval | replace('s', '') }}
+      echo "Vérification du healthcheck de l'instance #$i..."
+      docker compose -f {{ takt_compose_files | join(' -f ') }} --env-file {{ takt_env_file }}
+        ps api --filter "health=healthy" | grep -q "healthy" || {
+          echo "ERREUR: L'instance #$i n'est pas saine";
+          exit 1;
+        }
+      echo "Instance #$i saine."
+    done
+  working_directory: "{{ takt_compose_dir }}"
+  register: api_rolling_restart
+  changed_when: true
+
+- name: Valider que toutes les instances API sont saines
+  ansible.builtin.shell: >
+    docker compose -f {{ takt_compose_files | join(' -f ') }} --env-file {{ takt_env_file }}
+      ps api --filter "health=healthy" | wc -l
+  working_directory: "{{ takt_compose_dir }}"
+  register: api_healthy_count
+  changed_when: false
+
+- name: Assertion sur le nombre d'instances saines
+  ansible.builtin.assert:
+    that:
+      - api_healthy_count.stdout | int >= takt_api_replicas
+    fail_msg: "Seules {{ api_healthy_count.stdout }} instances API sont saines (attendu : {{ takt_api_replicas }})"
+    success_msg: "Toutes les {{ takt_api_replicas }} instances API sont saines"
