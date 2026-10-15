@@ -65,6 +65,8 @@ EOF
 # Argument Parsing
 # =============================================================================
 VERSION_TAG="${1:-latest}"
+shift || true
+
 WITH_PROXY=false
 WITH_TOOLS=false
 NO_BUILD=false
