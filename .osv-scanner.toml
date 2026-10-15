@@ -1,4 +1,0 @@
-# OSV Scanner configuration
-# Ignore CVE-2026-93687 in braces@3.0.3 (dev-only dependency via @changesets/cli, no patch available)
-
-ignore = ["CVE-2026-93687"]
