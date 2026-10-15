@@ -11,7 +11,7 @@ RUN apk add --no-cache dumb-init
 RUN corepack enable pnpm
 
 # =============================================================================
-# Stage 2: Install dependencies
+# Stage 2: Install production dependencies (for runner)
 # =============================================================================
 FROM base AS deps
 WORKDIR /app
@@ -25,11 +25,18 @@ RUN pnpm config set minimumReleaseAge 0
 RUN pnpm install --filter=@takt/web... --prod --ignore-scripts
 
 # =============================================================================
-# Stage 3: Build
+# Stage 3: Install all dependencies & Build
 # =============================================================================
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/web/package.json ./apps/web/package.json
+COPY packages/contracts/package.json ./packages/contracts/package.json
+COPY packages/design-tokens/package.json ./packages/design-tokens/package.json
+COPY packages/db/package.json ./packages/db/package.json
+# Disable supply-chain policy (minimumReleaseAge) for CI builds
+RUN pnpm config set minimumReleaseAge 0
+RUN pnpm install --filter=@takt/web... --ignore-scripts
 COPY . .
 RUN pnpm --filter=@takt/web run build
 
@@ -45,10 +52,11 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001 -G nodejs
 
-# Copy standalone output
+# Copy standalone output and production deps
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./.next/static
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 
 USER nextjs
 

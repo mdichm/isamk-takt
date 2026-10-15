@@ -11,7 +11,7 @@ RUN apk add --no-cache dumb-init
 RUN corepack enable pnpm
 
 # =============================================================================
-# Stage 2: Install dependencies
+# Stage 2: Install production dependencies (for runner)
 # =============================================================================
 FROM base AS deps
 WORKDIR /app
@@ -24,11 +24,17 @@ RUN pnpm config set minimumReleaseAge 0
 RUN pnpm install --filter=@takt/api... --prod --ignore-scripts
 
 # =============================================================================
-# Stage 3: Build
+# Stage 3: Install all dependencies & Build
 # =============================================================================
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/api/package.json ./apps/api/package.json
+COPY packages/contracts/package.json ./packages/contracts/package.json
+COPY packages/db/package.json ./packages/db/package.json
+# Disable supply-chain policy (minimumReleaseAge) for CI builds
+RUN pnpm config set minimumReleaseAge 0
+RUN pnpm install --filter=@takt/api... --ignore-scripts
 COPY . .
 RUN pnpm --filter=@takt/api run build
 
@@ -43,9 +49,9 @@ ENV PORT=3000
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nestjs -u 1001 -G nodejs
 
-# Copy built application
+# Copy built application and production deps
 COPY --from=builder --chown=nestjs:nodejs /app/apps/api/dist ./dist
-COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
+COPY --from=deps --chown=nestjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nestjs:nodejs /app/apps/api/package.json ./package.json
 
 USER nestjs

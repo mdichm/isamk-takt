@@ -11,7 +11,7 @@ RUN apk add --no-cache dumb-init
 RUN corepack enable pnpm
 
 # =============================================================================
-# Stage 2: Install dependencies
+# Stage 2: Install production dependencies (for runner)
 # =============================================================================
 FROM base AS deps
 WORKDIR /app
@@ -24,11 +24,17 @@ RUN pnpm config set minimumReleaseAge 0
 RUN pnpm install --filter=@takt/worker... --prod --ignore-scripts
 
 # =============================================================================
-# Stage 3: Build
+# Stage 3: Install all dependencies & Build
 # =============================================================================
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/worker/package.json ./apps/worker/package.json
+COPY packages/contracts/package.json ./packages/contracts/package.json
+COPY packages/db/package.json ./packages/db/package.json
+# Disable supply-chain policy (minimumReleaseAge) for CI builds
+RUN pnpm config set minimumReleaseAge 0
+RUN pnpm install --filter=@takt/worker... --ignore-scripts
 COPY . .
 RUN pnpm --filter=@takt/worker run build
 
@@ -42,9 +48,9 @@ ENV NODE_ENV=production
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S worker -u 1001 -G nodejs
 
-# Copy built application
+# Copy built application and production deps
 COPY --from=builder --chown=worker:nodejs /app/apps/worker/dist ./dist
-COPY --from=builder --chown=worker:nodejs /app/node_modules ./node_modules
+COPY --from=deps --chown=worker:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=worker:nodejs /app/apps/worker/package.json ./package.json
 
 USER worker
