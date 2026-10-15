@@ -58,3 +58,99 @@ Examples:
   $0 v1.2.0 --with-proxy
   $0 v1.2.0 --with-proxy --with-tools
   REGISTRY=my-registry.com $0 v2.0.0
+EOF
+}
+
+# =============================================================================
+# Argument Parsing
+# =============================================================================
+VERSION_TAG="${1:-latest}"
+WITH_PROXY=false
+WITH_TOOLS=false
+NO_BUILD=false
+PULL=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --with-proxy)
+            WITH_PROXY=true
+            shift
+            ;;
+        --with-tools)
+            WITH_TOOLS=true
+            shift
+            ;;
+        --no-build)
+            NO_BUILD=true
+            shift
+            ;;
+        --pull)
+            PULL=true
+            shift
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            log_error "Unknown argument: $1"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+# =============================================================================
+# Main Deployment
+# =============================================================================
+main() {
+    log_info "Starting TAKT dev deployment..."
+    log_info "Registry: $REGISTRY"
+    log_info "Repository Owner: $REPOSITORY_OWNER"
+    log_info "Image Tag: $VERSION_TAG"
+
+    # Validate required secrets
+    if [[ -z "${POSTGRES_USER:-}" ]] || [[ -z "${POSTGRES_PASSWORD:-}" ]] || [[ -z "${POSTGRES_DB:-}" ]]; then
+        log_error "Missing required PostgreSQL environment variables"
+        exit 1
+    fi
+
+    if [[ -z "${JWT_SECRET:-}" ]] || [[ -z "${JWT_REFRESH_SECRET:-}" ]]; then
+        log_error "Missing required JWT secrets"
+        exit 1
+    fi
+
+    # Create .env file
+    log_info "Creating environment file..."
+    cat > "$ENV_FILE" <<EOF
+REGISTRY=$REGISTRY
+REPOSITORY_OWNER=$REPOSITORY_OWNER
+PROJECT_NAME=$PROJECT_NAME
+IMAGE_TAG=$VERSION_TAG
+POSTGRES_USER=$POSTGRES_USER
+POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+POSTGRES_DB=$POSTGRES_DB
+JWT_SECRET=$JWT_SECRET
+JWT_REFRESH_SECRET=$JWT_REFRESH_SECRET
+EOF
+
+    # Build images if not skipping
+    if [[ "$NO_BUILD" != true ]]; then
+        log_info "Building Docker images..."
+        docker compose -f "$COMPOSE_FILE" build
+    fi
+
+    # Pull images if requested
+    if [[ "$PULL" == true ]]; then
+        log_info "Pulling latest images..."
+        docker compose -f "$COMPOSE_FILE" pull
+    fi
+
+    # Deploy
+    log_info "Deploying services..."
+    docker compose -f "$COMPOSE_FILE" up -d
+
+    log_success "TAKT dev deployment completed successfully!"
+}
+
+main "$@"
