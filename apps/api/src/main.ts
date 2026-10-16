@@ -19,7 +19,6 @@ import { context } from '@opentelemetry/api';
 import { Request, Response, NextFunction } from 'express';
 import { randomUUID } from 'crypto';
 import helmet from 'helmet';
-import { ConfigService } from '@nestjs/config';
 
 // ---------------------------------------------------------------------------
 // Initialisation OpenTelemetry (traces uniquement ; métriques via /metrics + prom-client)
@@ -93,7 +92,6 @@ async function bootstrap() {
   app.use(helmet.crossOriginEmbedderPolicy({ policy: 'credentialless' }));
 
   // CORS en liste blanche (ST §5.3)
-  const configService = app.get(ConfigService);
   const corsOrigin = configService.get<string>('app.cors.origin') ?? '*';
   app.enableCors({
     origin: corsOrigin === '*' ? '*' : corsOrigin.split(',').map((o: string) => o.trim()),
