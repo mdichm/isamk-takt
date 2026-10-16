@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { AuthService } from './auth.service.js';
 import { hashPassword, verifyPassword } from './password.js';
 import type { RoleCode } from '@takt/db';
+
 // ---------------------------------------------------------------------------
 // Doublon PrismaService minimal (mocks des méthodes utilisées par AuthService)
 // ---------------------------------------------------------------------------
