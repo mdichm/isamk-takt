@@ -30,6 +30,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       id: user.id,
       email: user.email,
       role: getUserPrimaryRole(user),
+      roles: user.roles,
+      departments: user.roles
+        .map((r) => r.departementCode)
+        .filter((d): d is string => Boolean(d)),
       firstName: user.firstName,
       lastName: user.lastName,
     };

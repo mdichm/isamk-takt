@@ -1,0 +1,130 @@
+import { Injectable, ForbiddenException } from '@nestjs/common';
+import { RoleCode } from '@takt/db';
+
+type Permission = string;
+
+interface RolePolicy {
+  permissions: Permission[];
+}
+
+const AUTH_ME_LOGOUT_MFA = ['auth:me', 'auth:logout', 'mfa:manage'];
+
+/**
+ * Roles sans portée département : ils accèdent à tous les départements.
+ */
+const UNSCOPED_ROLES = new Set<RoleCode>([
+  RoleCode.ADMINISTRATEUR,
+  RoleCode.GESTIONNAIRE,
+]);
+
+/**
+ * Moteur de politique RBAC avec portée (département), matricé sur ST §5.2.
+ * Défaut = refus ; séparation des fonctions (Gestionnaire pas d'écriture sur la
+ * répartition, Direction lecture seule, Administrateur = union des droits).
+ *
+ * Les routes d'authentification de soi (me / logout / mfa) sont accessibles à
+ * tout utilisateur authentifié possédant l'un des quatre rôles métier.
+ */
+@Injectable()
+export class PolicyService {
+  private readonly policies = new Map<RoleCode, RolePolicy>([
+    [
+      RoleCode.ADMINISTRATEUR,
+      {
+        permissions: [
+          'user:manage','role:manage','securite:write','security-event:read',
+          'annee:manage','annee:transition',
+          'referentiel:write','creneau:write','charge-ruleset:write','export-style:write','referentiel:read',
+          'enseignant:write','salle:write',
+          'creneau-affichage:write','indisponibilite:write',
+          'repartition:read','repartition:write','repartition:validate',
+          'charges:read',
+          'contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
+          'version:create','generation:launch','seance:edit','verrou:write','avertissement:accept',
+          'version:read','version:submit','version:abandon','version:validate','version:publish',
+          'parametre:write','export:create','export-view:write','audit:read',
+          'demande:create','demande:handle','notification:read','tableau-de-bord:read',
+          ...AUTH_ME_LOGOUT_MFA,
+        ],
+      },
+    ],
+    [
+      RoleCode.GESTIONNAIRE,
+      {
+        permissions: [
+          'referentiel:read','creneau-affichage:write','indisponibilite:write',
+          'repartition:read','charges:read',
+          'contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
+          'version:create','generation:launch','verrou:write','avertissement:accept',
+          'version:read','version:submit','version:abandon','version:publish',
+          'export:create','export-view:write','demande:create',
+          'notification:read','tableau-de-bord:read',
+          ...AUTH_ME_LOGOUT_MFA,
+        ],
+      },
+    ],
+    [
+      RoleCode.RESPONSABLE_DEPARTEMENT,
+      {
+        permissions: [
+          'referentiel:read','enseignant:write','repartition:read','repartition:write',
+          'repartition:validate','charges:read','version:read','version:validate',
+          'demande:handle','notification:read','tableau-de-bord:read',
+          ...AUTH_ME_LOGOUT_MFA,
+        ],
+      },
+    ],
+    [
+      RoleCode.DIRECTION,
+      {
+        permissions: [
+          'referentiel:read','repartition:read','charges:read','version:read',
+          'export:create','notification:read','tableau-de-bord:read',
+          ...AUTH_ME_LOGOUT_MFA,
+        ],
+      },
+    ],
+  ]);
+
+  getPermissions(role: RoleCode): Permission[] {
+    return this.policies.get(role)?.permissions ?? [];
+  }
+
+  /**
+   * Verifie la portee departement d un role sur un objet cible.
+   * - pas de cible departementale (objet partage) => true.
+   * - role sans portee (Admin, Gestionnaire) => true.
+   * - sinon, le departement de l utilisateur doit contenir le departement cible.
+   */
+  isWithinScope(
+    role: RoleCode,
+    userDepartments: string[] | undefined,
+    targetDepartment: string | undefined | null,
+  ): boolean {
+    if (!targetDepartment) {
+      return true;
+    }
+    if (UNSCOPED_ROLES.has(role)) {
+      return true;
+    }
+    const departments = userDepartments ?? [];
+    return departments.includes(targetDepartment);
+  }
+
+  hasPermission(role: RoleCode, required: Permission[]): boolean {
+    const permissions = new Set(this.getPermissions(role));
+    return required.some((p) => permissions.has(p));
+  }
+
+  hasAllPermissions(role: RoleCode, required: Permission[]): boolean {
+    const permissions = new Set(this.getPermissions(role));
+    return required.every((p) => permissions.has(p));
+  }
+
+  requirePermission(role: RoleCode, required: Permission[]): void {
+    if (!this.hasPermission(role, required)) {
+      throw new ForbiddenException('Permissions insuffisantes');
+    }
+  }
+}
+

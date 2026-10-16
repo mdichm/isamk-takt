@@ -18,6 +18,10 @@ import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
 import { RolesGuard } from './common/guards/roles.guard.js';
+import { PermissionsGuard } from './policy/guards/permissions.guard.js';
+import { ScopeGuard } from './policy/guards/scope.guard.js';
+import { ImmutabilityGuard } from './policy/guards/immutability.guard.js';
+import { PolicyModule } from './policy/policy.module.js';
 import appConfig from './config/app.config.js';
 import { MetricsController } from './common/metrics/metrics.controller.js';
 import { MetricsService } from './common/metrics/metrics.service.js';
@@ -56,6 +60,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     CommentsModule,
     ActivitiesModule,
     HealthModule,
+    PolicyModule,
   ],
   controllers: [MetricsController],
   providers: [
@@ -78,6 +83,18 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ScopeGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ImmutabilityGuard,
     },
     {
       provide: APP_INTERCEPTOR,

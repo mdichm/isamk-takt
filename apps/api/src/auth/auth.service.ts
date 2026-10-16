@@ -22,10 +22,18 @@ export interface JwtPayload {
   sub: string;
   email: string;
   role: RoleCode;
+  /** Tous les rôles de l'utilisateur avec leur département (portée RBAC). */
+  roles: { role: RoleCode; departementCode?: string | null }[];
+  /** Codes départementaux de l'utilisateur (pour la ScopeGuard). */
+  departments: string[];
 }
 
 export interface AuthResult {
-  user: Omit<User, 'passwordHash'> & { role: RoleCode };
+  user: Omit<User, 'passwordHash'> & {
+    role: RoleCode;
+    roles: { role: RoleCode; departementCode?: string | null }[];
+    departments: string[];
+  };
   accessToken: string;
   refreshToken: string;
 }
@@ -221,7 +229,17 @@ export class AuthService {
     }
 
     const role = getUserPrimaryRole(user);
-    const payload: JwtPayload = { sub: user.id, email: user.email, role };
+    const roles = user.roles ?? [];
+    const departments = roles
+      .map((r) => r.departementCode)
+      .filter((d): d is string => Boolean(d));
+    const payload: JwtPayload = {
+      sub: user.id,
+      email: user.email,
+      role,
+      roles,
+      departments,
+    };
     const accessToken = this.jwtService.sign(payload);
     const newRefreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
 
@@ -257,9 +275,19 @@ export class AuthService {
     return { ...result, role: getUserPrimaryRole(user) };
   }
 
-  private async generateAuthResult(user: User & { roles: { role: RoleCode }[] }): Promise<AuthResult> {
+  private async generateAuthResult(user: User & { roles: { role: RoleCode; departementCode?: string | null }[] }): Promise<AuthResult> {
     const role = getUserPrimaryRole(user);
-    const payload: JwtPayload = { sub: user.id, email: user.email, role };
+    const roles = user.roles ?? [];
+    const departments = roles
+      .map((r) => r.departementCode)
+      .filter((d): d is string => Boolean(d));
+    const payload: JwtPayload = {
+      sub: user.id,
+      email: user.email,
+      role,
+      roles,
+      departments,
+    };
     const accessToken = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
 
@@ -276,7 +304,7 @@ export class AuthService {
 
     const { passwordHash: _passwordHash, ...userWithoutPassword } = user;
     return {
-      user: { ...userWithoutPassword, role },
+      user: { ...userWithoutPassword, role, roles, departments },
       accessToken,
       refreshToken,
     };

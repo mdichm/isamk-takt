@@ -2,6 +2,7 @@
 // TAKT - Endpoint Prometheus /metrics
 
 import { Controller, Get } from '@nestjs/common';
+import { Public } from '../decorators/public.decorator.js';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Registry } from 'prom-client';
 import { MetricsService } from './metrics.service.js';
@@ -15,6 +16,7 @@ export class MetricsController {
   constructor(private readonly metricsService: MetricsService) {}
 
   @Get()
+  @Public()
   @ApiOperation({
     summary: 'Métriques Prometheus',
     description:
