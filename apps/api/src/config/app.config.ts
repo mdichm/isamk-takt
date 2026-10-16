@@ -8,6 +8,12 @@ export default registerAs('app', () => ({
     expiration: process.env.JWT_EXPIRATION || '15m',
     refreshExpiration: process.env.REFRESH_TOKEN_EXPIRATION || '7d',
   },
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    path: '/',
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
+  },
   database: {
     url: process.env.DATABASE_URL,
   },

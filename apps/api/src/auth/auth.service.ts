@@ -1,9 +1,14 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+  BadRequestException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { RegisterDto, LoginDto } from './dto/auth.dto.js';
 import { User, RoleCode } from '@takt/db';
+import { hashPassword, verifyPassword } from './password.js';
 import { randomUUID } from 'crypto';
 
 // Get primary system role from user's roles
@@ -23,6 +28,18 @@ export interface AuthResult {
   refreshToken: string;
 }
 
+const DEFAULT_LONGUEUR_MIN = 12;
+
+/**
+ * Lit les paramètres de sécurité (ligne unique id = 1) et retourne la
+ * longueur minimale de mot de passe à appliquer.
+ */
+async function getLongueurMinMotDePasse(prisma: PrismaService): Promise<number> {
+  const params = await prisma.parametreSecurite.findUnique({ where: { id: 1 } });
+  const longueurMin = params?.longueurMin ?? DEFAULT_LONGUEUR_MIN;
+  return longueurMin < 8 ? 8 : longueurMin;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -38,7 +55,14 @@ export class AuthService {
       throw new ConflictException('Cet email est déjà utilisé');
     }
 
-    const passwordHash = await bcrypt.hash(registerDto.password, 12);
+    const longueurMin = await getLongueurMinMotDePasse(this.prisma);
+    if (registerDto.password.length < longueurMin) {
+      throw new BadRequestException(
+        `Le mot de passe doit contenir au moins ${longueurMin} caractères`,
+      );
+    }
+
+    const passwordHash = await hashPassword(registerDto.password);
 
     const user = await this.prisma.user.create({
       data: {
@@ -65,7 +89,7 @@ export class AuthService {
       throw new UnauthorizedException('Identifiants invalides');
     }
 
-    const isPasswordValid = await bcrypt.compare(loginDto.password, user.passwordHash);
+    const isPasswordValid = await verifyPassword(loginDto.password, user.passwordHash);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Identifiants invalides');
     }
@@ -82,21 +106,35 @@ export class AuthService {
     return await this.generateAuthResult(user);
   }
 
-  async refreshToken(userId: string, refreshToken: string): Promise<{ accessToken: string; refreshToken: string }> {
+  async refreshToken(refreshToken: string): Promise<{ accessToken: string; refreshToken: string }> {
     const storedToken = await this.prisma.refreshToken.findUnique({
       where: { tokenHash: refreshToken },
     });
-    if (!storedToken || storedToken.userId !== userId || storedToken.revokedAt || storedToken.expiresAt < new Date()) {
+    if (!storedToken) {
       throw new UnauthorizedException('Token de rafraîchissement invalide ou expiré');
     }
 
+    // Réutilisation d'un jeton déjà révoqué → on révoque toute la famille
+    if (storedToken.revokedAt) {
+      await this.prisma.refreshToken.updateMany({
+        where: { familyId: storedToken.familyId },
+        data: { revokedAt: new Date() },
+      });
+      throw new UnauthorizedException('Token de rafraîchissement invalide ou expiré');
+    }
+
+    if (storedToken.expiresAt < new Date()) {
+      throw new UnauthorizedException('Token de rafraîchissement invalide ou expiré');
+    }
+
+    // Rotation : révoque le jeton courant et en émet un nouveau dans la même famille
     await this.prisma.refreshToken.update({
       where: { id: storedToken.id },
       data: { revokedAt: new Date() },
     });
 
     const user = await this.prisma.user.findUnique({
-      where: { id: userId },
+      where: { id: storedToken.userId },
       include: { roles: true },
     });
     if (!user || !user.isActive) {
@@ -108,13 +146,13 @@ export class AuthService {
     const accessToken = this.jwtService.sign(payload);
     const newRefreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
 
-    const familyId = randomUUID();
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     await this.prisma.refreshToken.create({
       data: {
         userId: user.id,
-        familyId,
+        familyId: storedToken.familyId,
         tokenHash: newRefreshToken,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        expiresAt,
       },
     });
 
