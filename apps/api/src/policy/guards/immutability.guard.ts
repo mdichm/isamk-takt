@@ -5,12 +5,9 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { RoleCode } from '@takt/db';
 
 export interface ImmutabilityOptions {
-  /** Nom du paramètre de route portant l'ID de la version (défaut 'id'). */
   versionIdParam?: string;
-  /** Champs du corps de requête permettant de déduire la version (ex. 'versionId'). */
   bodyVersionField?: string;
 }
 
@@ -36,14 +33,11 @@ export class ImmutabilityGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest();
-    const user = request.user as { role?: RoleCode } | undefined;
-    const role = user?.role;
 
-    // L'immutabilité s'applique à tout le monde, y compris l'Administrateur.
-    // Ce garde ne fait que déclarer l'intention ; la vérification effective de
+    // Ce garde déclare l'intention d'immutabilité ; la vérification effective de
     // l'état de la version se fait dans le service métier (lecture de la version
-    // puis contrôle de son statut). Le garde lève une erreur si la route est
-    // verrouillée par un paramètre `locked` explicite.
+    // puis contrôle de son statut). Il lève une erreur si la route est verrouillée
+    // par un paramètre `locked` explicite.
     if (request.query.locked === 'true' || request.body.locked === true) {
       throw new ForbiddenException(
         'Cette version est verrouillée et ne peut plus être modifiée',
@@ -53,3 +47,4 @@ export class ImmutabilityGuard implements CanActivate {
     return true;
   }
 }
+
