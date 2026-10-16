@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Configuration Tempo (stockage des traces OpenTelemetry)
+
+server:
+  http_listen_port: 3200
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
+        http:
+          endpoint: 0.0.0.0:4318
+
+ingester:
+  max_block_duration: 1h
+
+compactor:
+  ring:
+    instance_addr: 127.0.0.1
+    kvstore:
+      store: inmemory
+
+storage:
+  trace:
+    backend: local
+    local:
+      directories:
+        - /tmp/tempo/blocks
+    wal:
+      path: /tmp/tempo/wal

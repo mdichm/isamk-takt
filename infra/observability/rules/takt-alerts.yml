@@ -1,0 +1,79 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Règles d'alerte Grafana
+# Conforme ST §5.4 : alertes sur file d'échecs, génération > seuil, 5xx
+# Conforme EX-NFR-05 : alertes (file d'échecs non vide, génération trop longue, erreurs serveur)
+
+groups:
+  - name: takt-api-alerts
+    rules:
+      # -----------------------------------------------------------------------
+      # Alerte : erreurs serveur 5xx
+      # -----------------------------------------------------------------------
+      - alert: TAKT_API_5xx_Errors
+        expr: rate(takt_http_requests_total{status_code=~"5.."}[5m]) > 0.01
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Taux d'erreurs 5xx élevé sur l'API TAKT"
+          description: "Plus de 1% de requêtes retournent des 5xx sur les 5 dernières minutes. requestId corrélé dans les logs."
+
+      # -----------------------------------------------------------------------
+      # Alerte : erreurs client 4xx (taux d'erreurs 422)
+      # -----------------------------------------------------------------------
+      - alert: TAKT_API_4xx_Errors
+        expr: rate(takt_http_requests_total{status_code=~"4.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Taux d'erreurs 4xx élevé sur l'API TAKT"
+          description: "Plus de 5% de requêtes retournent des 4xx (dont 422 Unprocessable Content)."
+
+      # -----------------------------------------------------------------------
+      # Alerte : latence élevée (p95 > 1s)
+      # -----------------------------------------------------------------------
+      - alert: TAKT_API_HighLatency
+        expr: histogram_quantile(0.95, rate(takt_http_request_duration_seconds_bucket[5m])) > 1
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Latence p95 élevée sur l'API TAKT"
+          description: "Le 95e centile de latence dépasse 1 seconde."
+
+      # -----------------------------------------------------------------------
+      # Alerte : file d'échecs non vide (jobs pg-boss en échec)
+      # -----------------------------------------------------------------------
+      - alert: TAKT_Failed_Queue_Not_Empty
+        expr: takt_failed_queue_size > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "File d'échecs TAKT non vide"
+          description: "Des jobs sont en échec dans la file d'échecs pg-boss. Vérifier les logs et les traces."
+
+      # -----------------------------------------------------------------------
+      # Alerte : génération trop longue (> 10 minutes)
+      # -----------------------------------------------------------------------
+      - alert: TAKT_Generation_Too_Long
+        expr: takt_generation_duration_seconds > 600
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Génération FET trop longue"
+          description: "Une génération FET dépasse 10 minutes. Vérifier le worker et les traces OpenTelemetry."
+
+      # -----------------------------------------------------------------------
+      # Alerte : erreurs d'envoi d'e-mail
+      # -----------------------------------------------------------------------
+      - alert: TAKT_Email_Errors
+        expr: rate(takt_email_errors_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Erreurs d'envoi d'e-mail TAKT"
+          description: "Des erreurs SMTP ont été détectées lors de l'envoi d'e-mails."

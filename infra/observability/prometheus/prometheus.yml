@@ -1,0 +1,64 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Configuration Prometheus
+# Collecte les métriques de l'API, du worker et des composants infra
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093  # Optionnel : activer pour alertes externes
+
+rule_files:
+  - /etc/prometheus/rules/*.yml
+
+scrape_configs:
+  # ---------------------------------------------------------------------------
+  # Prometheus lui-même
+  # ---------------------------------------------------------------------------
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # ---------------------------------------------------------------------------
+  # API TAKT - métriques exposées sur /metrics
+  # ---------------------------------------------------------------------------
+  - job_name: 'takt-api'
+    static_configs:
+      - targets: ['api:3000']
+    metrics_path: /metrics
+    scrape_interval: 10s
+
+  # ---------------------------------------------------------------------------
+  # Worker TAKT (pas de /metrics, métriques via DB)
+  # ---------------------------------------------------------------------------
+  - job_name: 'takt-worker'
+    static_configs:
+      - targets: ['worker:3000']
+    scrape_interval: 30s
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL (via exporter optionnel ou métriques internes)
+  # ---------------------------------------------------------------------------
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:9187']  # postgres_exporter si déployé
+    scrape_interval: 30s
+
+  # ---------------------------------------------------------------------------
+  # Loki - logs
+  # ---------------------------------------------------------------------------
+  - job_name: 'loki'
+    static_configs:
+      - targets: ['loki:3100']
+
+  # ---------------------------------------------------------------------------
+  # Tempo - traces
+  # ---------------------------------------------------------------------------
+  - job_name: 'tempo'
+    static_configs:
+      - targets: ['tempo:9090']
