@@ -139,7 +139,7 @@ t("security_event","L0",E,T,"Enregistrement d'événements de sécurité","Servi
 # ============================== L1 ==============================
 E = "Années & semestres"
 t("annees","L1",E,S,"CRUD années et semestres","Années universitaires et semestres (numéro, code, nbSemaines).",
-  ["Unicité du code d'année et du couple (année, numéro)","Seul l'Administrateur écrit ; les autres rôles lisent","Un semestre compte 14 semaines par défaut"],
+  ["Unicité du code d'année et du couple (année, numéro)","Seul l'Administrateur écrit ; les autres rôles lisent","Un semestre compte 14 semaines par défaut","Toutes les routes du contrôleur d'années sont protégées par @Permissions('annee:read')/@Permissions('annee:write') ; toute route non décorée est refusée par défaut (403)"],
   "EX-CAL-01","§2.2","BACK","Must",3,["rbac","audit_service"],"L1-01")
 t("annee_activer","L1",E,S,"Activation d'une année","Transition ACTIVER avec gardes (une seule année active).",
   ["Une seule année ACTIVE (index unique partiel)","Activation refusée sans jeu de règles de charge affecté (garde branchée en L2)","Les statuts sont PREPARATION, ACTIVE et CLOTUREE uniquement"],
@@ -168,7 +168,7 @@ t("structure_ui","L1",E,S,"UI structure académique","Arbre département > forma
   "EX-ORG-01, EX-ORG-02","§3.3","FRONT","Must",8,["groupes","modules","tags","shell"],"L1-06")
 E = "Enseignants, grades & décharges"
 t("ens","L1",E,S,"CRUD enseignants et modules enseignables","Enseignant (matricule, grade, département, téléphone facultatif), modules enseignables.",
-  ["Unicité (année, matricule)","Désactivation refusée (409) si présent dans une répartition d'une année non clôturée","Le Responsable modifie les modules enseignables de son département uniquement"],
+  ["Unicité (année, matricule)","Désactivation refusée (409) si présent dans une répartition d'une année non clôturée","Le Responsable modifie les modules enseignables de son département uniquement","Toutes les routes du contrôleur enseignants sont protégées par @Permissions('enseignant:read')/@Permissions('enseignant:write') ; toute route non décorée est refusée par défaut (403)"],
   "EX-REF-03","§4.19, §3.3","BACK","Must",5,["modules","rbac"],"L1-07")
 t("decharges","L1",E,S,"Décharges enseignant","Décharges par semestre en heures équivalentes.",
   ["CRUD réservé à l'Administrateur","Les décharges sont prises en compte par le calcul de charge (L2)"],
@@ -247,7 +247,7 @@ t("ruleset_ui","L2",E,S,"UI paramétrage de la charge","Édition d'un jeu de rè
   "EX-CHG-01","§4.2","FRONT","Must",5,["ruleset","shell"],"L2-05")
 E = "Saisie de la répartition"
 t("repartitions","L2",E,S,"Répartitions par département et semestre","Une répartition par (semestre, département), statuts BROUILLON, VALIDEE, ROUVERTE.",
-  ["Création automatique à l'ouverture du semestre","Consultation par Administrateur, Gestionnaire, Direction (lecture) et Responsable"],
+  ["Création automatique à l'ouverture du semestre","Consultation par Administrateur, Gestionnaire, Direction (lecture) et Responsable","Toutes les routes du contrôleur de répartitions sont protégées par @Permissions('repartition:read')/@Permissions('repartition:write')/@Permissions('repartition:validate') ; toute route non décorée est refusée par défaut (403)","ScopeGuard renvoie 404 pour une répartition hors du département du Responsable (pas de révélation d'existence)"],
   "EX-REP-01","§4.1.2, §3.3","BACK","Must",3,["annees","rbac"],"L2-06")
 t("affectations","L2",E,S,"CRUD affectations","POST/PATCH/DELETE /repartitions/{id}/affectations ; activité à un seul enseignant, séances par semaine, durée contiguë, CM commun, Activity Tag facultatif.",
   ["volumeHebdoMinutes calculé par le serveur","403 OUT_OF_SCOPE hors département (sauf Administrateur), 409 sur doublon, 422 si enseignant inactif ou module hors niveau","Un seul enseignant par activité ; durée multiple de 30 minutes","Le tag par défaut du type s'applique si le tag n'est pas fixé","workingRevision incrémenté à chaque modification","Le Gestionnaire ne peut pas écrire"],
@@ -267,7 +267,7 @@ t("charges_ui","L2",E,S,"UI tableau de bord des charges","Charge de référence,
   "EX-CHG-03","§4.2","FRONT","Must",5,["charges_api","shell"],"L2-11")
 E = "Validation & snapshots"
 t("validate","L2",E,S,"Validation de la répartition et snapshot","POST /repartitions/{id}/validate ; validation par le Responsable ou par l'Administrateur pour un département.",
-  ["Refusée (422 REPARTITION_INVALID) tant qu'il reste un écart de volume, avec le détail","Création d'un snapshot immuable (affectations, tag résolu, charges, jeu de règles, hash)","Triggers append-only sur SnapshotAffectation et SnapshotCharge","SnapshotCharge conserve volume brut, charge calculée, charge de référence, décharges, service dû, écart, heures sup","Validation par l'Administrateur tracée (parAdministrateur) avec notification au Responsable (L5)"],
+  ["Refusée (422 REPARTITION_INVALID) tant qu'il reste un écart de volume, avec le détail","Création d'un snapshot immuable (affectations, tag résolu, charges, jeu de règles, hash)","Triggers append-only sur SnapshotAffectation et SnapshotCharge","SnapshotCharge conserve volume brut, charge calculée, charge de référence, décharges, service dû, écart, heures sup","Validation par l'Administrateur tracée (parAdministrateur) avec notification au Responsable (L5)","La route POST /repartitions/{id}/validate est protégée par @Permissions('repartition:validate') (Responsable de département ou Administrateur uniquement)","ImmutabilityGuard s'applique : une fois validé, le snapshot ne peut plus être modifié, y compris par l'Administrateur"],
   "EX-REP-03, EX-ROL-06, EX-CHG-05","§3.4.3, §4.1.2","BACK","Must",8,["controles","charges_api","ruleset","admin_perm"],"L2-12")
 t("reopen","L2",E,S,"Réouverture et indicateur de divergence","POST /repartitions/{id}/reopen.",
   ["Réouverture sans effet sur les versions existantes","La divergence est calculée selon ST §4.1.2","Résumé de comparaison entre deux snapshots (ajoutées, supprimées, modifiées, enseignants multi-départements)"],
