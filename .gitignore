@@ -42,6 +42,16 @@ docker-compose.override.yml
 
 # Turbo
 turbo
+.turbo/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# IDE / AI assistants
+.cline/
 
 # Misc
 *.tsbuildinfo
