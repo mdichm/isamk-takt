@@ -15,10 +15,12 @@ import type { Request, Response } from 'express';
 import { AuthService } from './auth.service.js';
 import type { AuthResult } from './auth.service.js';
 import { RegisterDto, LoginDto, AuthResponseDto } from './dto/auth.dto.js';
+import { ResetPasswordConfirmDto } from './dto/password-reset.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Public } from '../common/decorators/public.decorator.js';
 import { MfaService } from './mfa.service.js';
+import { PasswordResetService } from './password-reset.service.js';
 
 const REFRESH_TOKEN_COOKIE = 'refreshToken';
 
@@ -42,7 +44,11 @@ function extractRefreshToken(req: Request): string | undefined {
 @ApiTags('Authentification')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService, private mfaService: MfaService) {}
+  constructor(
+    private authService: AuthService,
+    private mfaService: MfaService,
+    private passwordResetService: PasswordResetService,
+  ) {}
 
   @Public()
   @Post('register')
@@ -97,6 +103,19 @@ export class AuthController {
     const result = await this.authService.refreshToken(refreshToken);
     res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, cookieOptions());
     return { accessToken: result.accessToken };
+  }
+
+  @Public()
+  @Post('reset/confirm')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Confirmer la réinitialisation de mot de passe (lien à usage unique)' })
+  @ApiResponse({ status: 204, description: 'Mot de passe réinitialisé avec succès' })
+  @ApiResponse({ status: 401, description: 'Token invalide, expiré ou déjà utilisé' })
+  @ApiResponse({ status: 422, description: 'Règle de politique de mot de passe violée (PASSWORD_POLICY)' })
+  async resetConfirm(
+    @Body() dto: ResetPasswordConfirmDto,
+  ): Promise<void> {
+    await this.passwordResetService.confirmReset(dto.token, dto.password);
   }
 
   @UseGuards(JwtAuthGuard)
