@@ -8,7 +8,7 @@ import * as path from 'node:path';
 
 // Import the generated PrismaClient dynamically to avoid typecheck issues
 const { PrismaClient: GeneratedPrismaClient } = await import(
-  '../../../packages/db/node_modules/.prisma/client/index.js'
+  '../../../packages/db/src/generated/prisma/client/index.js'
 );
 
 describe('Database Integration Tests', () => {

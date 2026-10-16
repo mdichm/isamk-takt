@@ -1,4 +1,4 @@
-import { PrismaClient } from './../node_modules/.prisma/client/index.js';
+import { PrismaClient } from './generated/prisma/client/index.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 
 const globalForPrisma = globalThis as unknown as {

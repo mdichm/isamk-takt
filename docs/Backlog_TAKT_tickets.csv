@@ -87,7 +87,7 @@ L0-22;L0;E0.4;RBAC avec portée;Story;Droits étendus de l'Administrateur et sé
 - Tests de non-régression sur la matrice";EX-ROL-02, EX-ROL-06;§5.2, §4.1.1;BACK;Must;3;L0-19;À faire;
 L0-23;L0;E0.5;Audit append-only;Story;AuditService append-only;Écriture de l'audit dans la même transaction que l'écriture métier.;"- Une action métier et son audit sont atomiques
 - UPDATE et DELETE sur AuditLog sont refusés (trigger et REVOKE)
-- L'audit contient ancienne et nouvelle valeur";EX-AUD-01;§2.4, §0.5;BACK;Must;5;L0-04;À faire;
+- L'audit contient ancienne et nouvelle valeur";EX-AUD-01;§2.4, §0.5;BACK;Must;5;L0-04;Terminé;
 L0-24;L0;E0.5;Audit append-only;Story;Consultation de l'audit;GET /audit avec filtres, complet pour l'Administrateur, limité pour Gestionnaire et Responsable, consultation pour la Direction.;"- Filtres objetType, objetId, userId, from, to opérationnels
 - Gestionnaire et Responsable ne voient que leurs actions et leur périmètre
 - La Direction consulte l'audit métier en lecture seule

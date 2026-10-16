@@ -88,7 +88,7 @@ t("admin_perm","L0",E,S,"Droits étendus de l'Administrateur et séparation des 
 E = "Audit append-only"
 t("audit_service","L0",E,S,"AuditService append-only","Écriture de l'audit dans la même transaction que l'écriture métier.",
   ["Une action métier et son audit sont atomiques","UPDATE et DELETE sur AuditLog sont refusés (trigger et REVOKE)","L'audit contient ancienne et nouvelle valeur"],
-  "EX-AUD-01","§2.4, §0.5","BACK","Must",5,["prisma"],"L0-17")
+  "EX-AUD-01","§2.4, §0.5","BACK","Must",5,["prisma"],"L0-17",statut="Terminé")
 t("audit_read","L0",E,S,"Consultation de l'audit","GET /audit avec filtres, complet pour l'Administrateur, limité pour Gestionnaire et Responsable, consultation pour la Direction.",
   ["Filtres objetType, objetId, userId, from, to opérationnels","Gestionnaire et Responsable ne voient que leurs actions et leur périmètre","La Direction consulte l'audit métier en lecture seule","Pagination par curseur"],
   "EX-AUD-01, EX-ROL-04","§3.3, §5.3","BACK","Should",3,["audit_service","rbac"],"L0-18",statut="À faire")

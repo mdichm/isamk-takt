@@ -4,6 +4,7 @@ import { APP_FILTER, APP_PIPE, APP_GUARD } from '@nestjs/core';
 import { createObserveModule } from '@nestjs/observe';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 
+import { AuditModule } from './audit/audit.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { UsersModule } from './users/users.module.js';
@@ -50,6 +51,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
         limit: 100,
       },
     ]),
+    AuditModule,
     PrismaModule,
     AuthModule,
     UsersModule,

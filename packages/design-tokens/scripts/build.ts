@@ -459,7 +459,17 @@ export interface TailwindConfig {
 writeFileSync(join(distDir, 'index.d.ts'), dtsOutput);
 writeFileSync(join(distDir, 'tailwind.d.ts'), `import type { Config } from 'tailwindcss';
 
-export default {} satisfies Config;
+export interface TailwindConfig extends Config {
+  theme: {
+    extend: {
+      colors: Record<string, string | Record<string, string>>;
+      spacing: Record<string, string>;
+      fontFamily: Record<string, string>;
+    };
+  };
+}
+
+export default {} as TailwindConfig;
 `);
 
 console.log('\n✅ Design tokens built successfully!');

@@ -5,9 +5,9 @@ export default defineConfig({
   // Schema file location
   schema: './prisma/schema.prisma',
   
-  // Output directory for generated client
+  // Output directory for generated client (resolved via @prisma/client import)
   client: {
-    output: '../node_modules/.prisma/client',
+    output: '../src/generated/prisma/client',
   },
   
   // Database connection for migrations
