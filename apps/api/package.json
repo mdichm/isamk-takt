@@ -44,6 +44,7 @@
     "@opentelemetry/sdk-node": "^0.223.0",
     "@takt/contracts": "workspace:*",
     "@takt/db": "workspace:*",
+    "argon2": "^0.41.1",
     "bcryptjs": "^3.0.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",

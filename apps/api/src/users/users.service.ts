@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
-import * as bcrypt from 'bcryptjs';
+import { hashPassword, verifyPassword } from '../auth/password.js';
 import { CreateUserDto, UpdateUserDto, UpdatePasswordDto, UserQueryDto, UserResponseDto, PaginatedUsersDto } from './dto/user.dto.js';
 import { RoleCode } from '@takt/db';
 
@@ -16,7 +16,7 @@ export class UsersService {
       throw new ConflictException('Cet email est déjà utilisé');
     }
 
-    const passwordHash = await bcrypt.hash(createUserDto.password, 12);
+    const passwordHash = await hashPassword(createUserDto.password);
 
     const user = await this.prisma.user.create({
       data: {
@@ -134,12 +134,12 @@ export class UsersService {
       throw new NotFoundException('Utilisateur non trouvé');
     }
 
-    const isPasswordValid = await bcrypt.compare(updatePasswordDto.currentPassword, user.passwordHash);
+    const isPasswordValid = await verifyPassword(updatePasswordDto.currentPassword, user.passwordHash);
     if (!isPasswordValid) {
       throw new ConflictException('Mot de passe actuel incorrect');
     }
 
-    const passwordHash = await bcrypt.hash(updatePasswordDto.newPassword, 12);
+    const passwordHash = await hashPassword(updatePasswordDto.newPassword);
     await this.prisma.user.update({
       where: { id },
       data: { passwordHash },

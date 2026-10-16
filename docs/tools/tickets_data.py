@@ -47,7 +47,7 @@ t("obs","L0",E,T,"Observabilité de base","Logs pino avec requestId, traces Open
 E = "Authentification & comptes"
 t("login","L0",E,S,"Connexion, refresh et déconnexion","POST /auth/login, /auth/refresh, /auth/logout avec argon2id, JWT 15 min, refresh opaque rotatif 7 jours, lecture des paramètres de sécurité.",
   ["Mots de passe hachés argon2id, longueur minimale issue des paramètres de sécurité (défaut 12)","Le refresh token tourne à chaque usage","La réutilisation d'un jeton révoqué révoque toute la famille","Le refresh est en cookie httpOnly, Secure, SameSite=Strict"],
-  "EX-SEC-01","§5.1, §3.4.1","BACK","Must",8,["prisma"],"L0-09")
+  "EX-SEC-01","§5.1, §3.4.1","BACK","Must",8,["prisma"],"L0-09",statut="Terminé")
 t("lockout","L0",E,S,"Verrouillage de compte et anti-énumération","Verrouillage après le nombre d'échecs configuré, pour la durée configurée.",
   ["Au dépassement du seuil (défaut 5), 401 ACCOUNT_LOCKED avec retryAfter","Le délai de réponse est identique que le compte existe ou non","Le message d'erreur est générique"],
   "EX-SEC-05","§5.1","BACK","Must",3,["login"],"L0-10")

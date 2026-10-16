@@ -75,6 +75,10 @@ jobs:
 
       - name: Run tests
         run: pnpm test --if-present
+        env:
+          # Factice : Prisma se construit avec l'adapter pg sans se connecter ;
+          # les tests unitaires mockent PrismaService et ne queryent jamais la base.
+          DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/takt'
 
   # =========================================================================
   # Test: Integration Tests (Testcontainers PostgreSQL)
