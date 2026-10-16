@@ -3,6 +3,9 @@ import { registerAs } from '@nestjs/config';
 export default registerAs('app', () => ({
   port: parseInt(process.env.PORT || '3000', 10),
   nodeEnv: process.env.NODE_ENV || 'development',
+  cors: {
+    origin: process.env.CORS_ORIGIN ?? '*',
+  },
   jwt: {
     secret: process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production',
     expiration: process.env.JWT_EXPIRATION || '15m',
