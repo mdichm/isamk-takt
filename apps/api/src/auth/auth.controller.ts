@@ -19,6 +19,7 @@ import { ResetPasswordConfirmDto } from './dto/password-reset.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Public } from '../common/decorators/public.decorator.js';
+import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { MfaService } from './mfa.service.js';
 import { PasswordResetService } from './password-reset.service.js';
 
@@ -119,6 +120,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Permissions('auth:logout')
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
@@ -143,6 +145,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Permissions('auth:me')
   @Get('me')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Obtenir le profil de l\'utilisateur connecté' })
@@ -152,6 +155,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Permissions('mfa:manage')
   @Post('mfa/enroll')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
@@ -164,6 +168,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Permissions('mfa:manage')
   @Post('mfa/verify')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
@@ -178,6 +183,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Permissions('mfa:manage')
   @Post('mfa/disable')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()

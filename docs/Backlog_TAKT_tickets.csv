@@ -73,7 +73,7 @@ L0-18;L0;E0.3;Authentification & comptes;Story;Journal de sécurité;"Table Secu
 L0-19;L0;E0.4;RBAC avec portée;Story;Module policy RBAC avec portée;Permissions ressource:action, CASL, ScopeGuard par département, quatre rôles.;"- Toute route sans décorateur de permission est refusée
 - Un objet hors portée renvoie 404
 - L'ImmutabilityGuard s'applique aussi à l'Administrateur
-- Le Gestionnaire ne modifie pas la répartition ; la Direction n'a aucun droit d'écriture";EX-SEC-08, EX-ROL-03, EX-ROL-05, EX-PRI-05;§5.2;BACK;Must;8;L0-10;À faire;
+- Le Gestionnaire ne modifie pas la répartition ; la Direction n'a aucun droit d'écriture";EX-SEC-08, EX-ROL-03, EX-ROL-05, EX-PRI-05;§5.2;BACK;Must;8;L0-10;Terminé;
 L0-20;L0;E0.4;RBAC avec portée;Test;Matrice RBAC automatisée;Test rôle × endpoint déduit de la matrice des permissions (4 rôles).;"- Un test parcourt le routeur et échoue si une route n'est pas déclarée
 - Chaque cellule de la matrice (ST §5.2) est vérifiée
 - Les cas négatifs (Responsable hors département, Direction en écriture) sont couverts";EX-SEC-08, EX-ROL-04;§5.2, §5.5;QA;Must;5;L0-19;À faire;

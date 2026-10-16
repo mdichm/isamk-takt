@@ -75,7 +75,7 @@ t("securite_journal","L0",E,S,"Journal de sécurité","Table SecurityEvent disti
 E = "RBAC avec portée"
 t("rbac","L0",E,S,"Module policy RBAC avec portée","Permissions ressource:action, CASL, ScopeGuard par département, quatre rôles.",
   ["Toute route sans décorateur de permission est refusée","Un objet hors portée renvoie 404","L'ImmutabilityGuard s'applique aussi à l'Administrateur","Le Gestionnaire ne modifie pas la répartition ; la Direction n'a aucun droit d'écriture"],
-  "EX-SEC-08, EX-ROL-03, EX-ROL-05, EX-PRI-05","§5.2","BACK","Must",8,["login"],"L0-15")
+  "EX-SEC-08, EX-ROL-03, EX-ROL-05, EX-PRI-05","§5.2","BACK","Must",8,["login"],"L0-15",statut="Terminé")
 t("rbac_test","L0",E,TT,"Matrice RBAC automatisée","Test rôle × endpoint déduit de la matrice des permissions (4 rôles).",
   ["Un test parcourt le routeur et échoue si une route n'est pas déclarée","Chaque cellule de la matrice (ST §5.2) est vérifiée","Les cas négatifs (Responsable hors département, Direction en écriture) sont couverts"],
   "EX-SEC-08, EX-ROL-04","§5.2, §5.5","QA","Must",5,["rbac"],"L0-16")

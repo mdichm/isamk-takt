@@ -2,6 +2,7 @@
 // TAKT - Endpoint de santé /health pour Docker healthcheck et Prometheus
 
 import { Controller, Get } from '@nestjs/common';
+import { Public } from '../common/decorators/public.decorator.js';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { PrismaService } from '../prisma/prisma.service.js';
 
@@ -20,6 +21,7 @@ export class HealthController {
   constructor(private readonly prisma: PrismaService) {}
 
   @Get()
+  @Public()
   @ApiOperation({
     summary: "État de santé de l’API",
     description:

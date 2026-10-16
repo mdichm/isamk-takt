@@ -8,6 +8,7 @@ import { Roles } from '../common/decorators/roles.decorator.js';
 import { UserRole } from '@takt/db';
 import { PasswordResetService } from '../auth/password-reset.service.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
 @ApiTags('Utilisateurs')
 @Controller('users')
@@ -21,6 +22,7 @@ export class UsersController {
 
   @Post()
   @Roles(UserRole.ADMIN)
+  @Permissions('user:manage')
   @ApiOperation({ summary: 'Créer un nouvel utilisateur (Admin seulement)' })
   @ApiResponse({ status: 201, description: 'Utilisateur créé', type: UserResponseDto })
   @ApiResponse({ status: 409, description: 'Email déjà utilisé' })
@@ -31,6 +33,7 @@ export class UsersController {
 
   @Get()
   @Roles(UserRole.ADMIN, UserRole.MANAGER)
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Lister les utilisateurs avec pagination et filtres' })
   @ApiResponse({ status: 200, description: 'Liste paginée des utilisateurs', type: PaginatedUsersDto })
   async findAll(@Query() query: UserQueryDto): Promise<PaginatedUsersDto> {
@@ -39,6 +42,7 @@ export class UsersController {
 
   @Get(':id')
   @Roles(UserRole.ADMIN, UserRole.MANAGER)
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Obtenir un utilisateur par ID' })
   @ApiParam({ name: 'id', description: 'ID de l\'utilisateur (UUID)' })
   @ApiResponse({ status: 200, description: 'Utilisateur trouvé', type: UserResponseDto })
@@ -49,6 +53,7 @@ export class UsersController {
 
   @Patch(':id')
   @Roles(UserRole.ADMIN)
+  @Permissions('user:manage')
   @ApiOperation({ summary: 'Mettre à jour un utilisateur (Admin seulement)' })
   @ApiParam({ name: 'id', description: 'ID de l\'utilisateur (UUID)' })
   @ApiResponse({ status: 200, description: 'Utilisateur mis à jour', type: UserResponseDto })
@@ -60,6 +65,7 @@ export class UsersController {
 
   @Patch(':id/password')
   @Roles(UserRole.ADMIN)
+  @Permissions('user:manage')
   @ApiOperation({ summary: 'Changer le mot de passe d\'un utilisateur (Admin seulement)' })
   @ApiParam({ name: 'id', description: 'ID de l\'utilisateur (UUID)' })
   @ApiResponse({ status: 200, description: 'Mot de passe mis à jour' })
@@ -72,6 +78,7 @@ export class UsersController {
 
   @Post(':id/reset-password')
   @Roles(UserRole.ADMIN)
+  @Permissions('user:manage')
   @HttpCode(HttpStatus.ACCEPTED)
   @ApiOperation({ summary: 'Déclencher une réinitialisation de mot de passe par l\'Administrateur (lien à usage unique par e-mail)' })
   @ApiParam({ name: 'id', description: 'ID de l\'utilisateur (UUID)' })
@@ -88,6 +95,7 @@ export class UsersController {
   @Delete(':id')
   @Roles(UserRole.ADMIN)
   @HttpCode(HttpStatus.NO_CONTENT)
+  @Permissions('user:manage')
   @ApiOperation({ summary: 'Supprimer un utilisateur (Admin seulement)' })
   @ApiParam({ name: 'id', description: 'ID de l\'utilisateur (UUID)' })
   @ApiResponse({ status: 204, description: 'Utilisateur supprimé' })
