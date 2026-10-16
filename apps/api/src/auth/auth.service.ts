@@ -81,21 +81,61 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto): Promise<AuthResult> {
+    const params = await this.prisma.parametreSecurite.findUnique({
+      where: { id: 1 },
+    });
+    const maxEchecs = params?.maxEchecs ?? 5;
+    const verrouillageMinutes = params?.verrouillageMinutes ?? 15;
+
     const user = await this.prisma.user.findUnique({
       where: { email: loginDto.email },
       include: { roles: true },
     });
+
+    // Anti-énumération : le coût argon2 est toujours payé, même si le compte
+    // n'existe pas, pour que le délai de réponse soit identique dans les deux cas.
+    const passwordHash = user?.passwordHash ?? (await hashPassword('__inconnu__'));
+    const isPasswordValid = user ? await verifyPassword(loginDto.password, passwordHash) : false;
+
     if (!user) {
+      // Compte inconnu : même délai, message générique, aucune tentative enregistrée.
       throw new UnauthorizedException('Identifiants invalides');
     }
 
-    const isPasswordValid = await verifyPassword(loginDto.password, user.passwordHash);
+    // Compte verrouillé : rejet avant toute vérification de mot de passe.
+    if (user.lockedUntil && user.lockedUntil > new Date()) {
+      const retryAfter = Math.ceil((user.lockedUntil.getTime() - Date.now()) / 1000);
+      throw new UnauthorizedException({
+        detail: 'Compte verrouillé. Réessayez plus tard.',
+        errorCode: 'ACCOUNT_LOCKED',
+        retryAfter,
+      });
+    }
+
     if (!isPasswordValid) {
+      // Échec d'authentification : incrémenter le compteur et verrouiller si le seuil est atteint.
+      const nouveauCompteur = (user.failedAttempts ?? 0) + 1;
+      const data: Record<string, unknown> = { failedAttempts: nouveauCompteur };
+      if (nouveauCompteur >= maxEchecs) {
+        data.lockedUntil = new Date(Date.now() + verrouillageMinutes * 60 * 1000);
+      }
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data,
+      });
       throw new UnauthorizedException('Identifiants invalides');
     }
 
     if (!user.isActive) {
       throw new UnauthorizedException('Compte désactivé');
+    }
+
+    // Mot de passe valide : réinitialiser le compteur d'échecs et le verrouillage.
+    if ((user.failedAttempts ?? 0) > 0 || user.lockedUntil) {
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data: { failedAttempts: 0, lockedUntil: null },
+      });
     }
 
     await this.prisma.user.update({

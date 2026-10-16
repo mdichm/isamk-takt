@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { ConflictException, BadRequestException } from '@nestjs/common';
+import { ConflictException, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuthService } from './auth.service.js';
@@ -280,6 +280,97 @@ describe('AuthService', () => {
     expect(prismaMock.refreshToken.updateMany).toHaveBeenCalledWith({
       where: { userId, tokenHash: 'refresh-token-1' },
       data: { revokedAt: expect.any(Date) },
+    });
+  });
+
+  it('login : verrouille le compte après le seuil et renvoie ACCOUNT_LOCKED avec retryAfter', async () => {
+    const prismaMock = buildPrismaMock();
+    const hash = await hashPassword(password);
+    prismaMock.parametreSecurite.findUnique.mockResolvedValue({ maxEchecs: 2, verrouillageMinutes: 15 } as any);
+
+    // 1ère tentative (mauvais mot de passe) : failedAttempts 1 -> 2, seuil atteint → verrouillage
+    prismaMock.user.findUnique.mockResolvedValueOnce({ ...baseUser, passwordHash: hash, failedAttempts: 1 } as any);
+    prismaMock.user.update.mockResolvedValue({} as any);
+
+    const { module } = buildModule(prismaMock);
+    const service = (await module.compile()).get(AuthService);
+
+    await expect(
+      service.login({ email, password: 'MauvaisMotDePasse12!' }),
+    ).rejects.toThrow('Identifiants invalides');
+    expect(prismaMock.user.update).toHaveBeenCalledWith({
+      where: { id: userId },
+      data: { failedAttempts: 2, lockedUntil: expect.any(Date) },
+    });
+
+    // 2ème tentative : compte verrouillé, rejet avant vérification du mot de passe
+    const lockedUntil = new Date(Date.now() + 15 * 60 * 1000);
+    prismaMock.user.findUnique.mockResolvedValueOnce({
+      ...baseUser,
+      passwordHash: hash,
+      failedAttempts: 2,
+      lockedUntil,
+    } as any);
+    let err: unknown;
+    try {
+      await service.login({ email, password });
+    } catch (e) {
+      err = e;
+    }
+    expect(err).toBeInstanceOf(UnauthorizedException);
+    expect((err as any).getResponse()).toMatchObject({
+      errorCode: 'ACCOUNT_LOCKED',
+      retryAfter: expect.any(Number),
+    });
+  });
+
+  it('login : rejette un compte verrouillé même avec le bon mot de passe', async () => {
+    const prismaMock = buildPrismaMock();
+    const hash = await hashPassword(password);
+    prismaMock.parametreSecurite.findUnique.mockResolvedValue(null);
+    const lockedUntil = new Date(Date.now() + 15 * 60 * 1000);
+    prismaMock.user.findUnique.mockResolvedValue({
+      ...baseUser,
+      passwordHash: hash,
+      lockedUntil,
+    } as any);
+
+    const { module } = buildModule(prismaMock);
+    const service = (await module.compile()).get(AuthService);
+
+    let err: unknown;
+    try {
+      await service.login({ email, password });
+    } catch (e) {
+      err = e;
+    }
+    expect(err).toBeInstanceOf(UnauthorizedException);
+    expect((err as any).getResponse()).toMatchObject({
+      errorCode: 'ACCOUNT_LOCKED',
+    });
+    expect(prismaMock.user.update).not.toHaveBeenCalled();
+  });
+
+  it('login : réinitialise le compteur d’échecs après une connexion réussie', async () => {
+    const prismaMock = buildPrismaMock();
+    const hash = await hashPassword(password);
+    prismaMock.parametreSecurite.findUnique.mockResolvedValue(null);
+    prismaMock.user.findUnique.mockResolvedValue({
+      ...baseUser,
+      passwordHash: hash,
+      failedAttempts: 3,
+      lockedUntil: new Date(),
+    } as any);
+    prismaMock.refreshToken.create.mockResolvedValue({ id: 'rt-1', familyId });
+    prismaMock.user.update.mockResolvedValue({} as any);
+
+    const { module } = buildModule(prismaMock);
+    const service = (await module.compile()).get(AuthService);
+
+    await service.login({ email, password });
+    expect(prismaMock.user.update).toHaveBeenCalledWith({
+      where: { id: userId },
+      data: { failedAttempts: 0, lockedUntil: null },
     });
   });
   });
