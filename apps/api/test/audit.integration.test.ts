@@ -22,7 +22,7 @@ vi.mock('@takt/db', () => {
 
 // Import the generated PrismaClient dynamically to avoid typecheck issues
 const { PrismaClient: GeneratedPrismaClient } = await import(
-  '../../../packages/db/node_modules/.prisma/client/index.js'
+  '../../../packages/db/.generated/prisma/client/index.js'
 );
 
 describe('AuditService Integration (EX-AUD-01, ST §2.4, §0.5)', () => {
