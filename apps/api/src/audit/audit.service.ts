@@ -3,7 +3,7 @@
 // Écriture de l'audit dans la même transaction que l'action métier (atomicité).
 
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@takt/db';
+import { Prisma, RoleCode } from '@takt/db';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { WriteAuditDto, AuditEntryDto } from './dto/audit.dto.js';
 
@@ -86,6 +86,70 @@ export class AuditService {
       motif: audit.motif,
       requestId: audit.requestId,
       ip: audit.ip,
+    };
+  }
+
+  /**
+   * Récupère les entrées d'audit avec filtres et pagination par curseur.
+   * Le filtrage par périmètre s'applique selon le rôle de l'utilisateur :
+   * - ADMINISTRATEUR : tout l'audit
+   * - GESTIONNAIRE / RESPONSABLE_DEPARTEMENT : uniquement ses propres actions (userId)
+   * - DIRECTION : lecture seule, tout l'audit (pas de restriction de périmètre métier)
+   *
+   * @param query Filtres et pagination
+   * @param currentUser Utilisateur connecté (id, role, departments)
+   * @returns Entrées d'audit paginées
+   */
+  async findAll(
+    query: { objetType?: string; objetId?: string; userId?: string; from?: string; to?: string; limit?: number; cursor?: string },
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<{ data: AuditEntryDto[]; nextCursor: string | null }> {
+    const limit = Math.min(query.limit ?? 50, 100);
+    const take = limit + 1; // on récupère un élément de plus pour détecter la page suivante
+
+    const where: Prisma.AuditLogWhereInput = {};
+
+    // Filtres métier
+    if (query.objetType) where.objetType = query.objetType;
+    if (query.objetId) where.objetId = query.objetId;
+    if (query.userId) where.userId = query.userId;
+    if (query.from || query.to) {
+      where.at = {};
+      if (query.from) where.at.gte = new Date(query.from);
+      if (query.to) where.at.lte = new Date(query.to);
+    }
+
+    // Filtrage par périmètre selon le rôle (ST §5.3)
+    const isAdmin = currentUser.role === RoleCode.ADMINISTRATEUR;
+    const isDirection = currentUser.role === RoleCode.DIRECTION;
+
+    if (!isAdmin && !isDirection) {
+      // GESTIONNAIRE et RESPONSABLE_DEPARTEMENT ne voient que leurs propres actions
+      where.userId = currentUser.id;
+    }
+
+    // Pagination par curseur
+    const cursor = query.cursor ? { id: BigInt(query.cursor) } : undefined;
+    const skip = cursor ? 1 : 0;
+
+    const [audits, totalCount] = await Promise.all([
+      this.prisma.auditLog.findMany({
+        where,
+        take,
+        skip,
+        cursor,
+        orderBy: { at: 'desc' },
+      }),
+      this.prisma.auditLog.count({ where }),
+    ]);
+
+    const hasNextPage = audits.length > limit;
+    const data = hasNextPage ? audits.slice(0, -1) : audits;
+    const nextCursor = hasNextPage ? data[data.length - 1]?.id.toString() ?? null : null;
+
+    return {
+      data: data.map((a) => this.toDto(a)),
+      nextCursor,
     };
   }
 }

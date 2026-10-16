@@ -91,7 +91,7 @@ t("audit_service","L0",E,S,"AuditService append-only","Écriture de l'audit dans
   "EX-AUD-01","§2.4, §0.5","BACK","Must",5,["prisma"],"L0-17",statut="Terminé")
 t("audit_read","L0",E,S,"Consultation de l'audit","GET /audit avec filtres, complet pour l'Administrateur, limité pour Gestionnaire et Responsable, consultation pour la Direction.",
   ["Filtres objetType, objetId, userId, from, to opérationnels","Gestionnaire et Responsable ne voient que leurs actions et leur périmètre","La Direction consulte l'audit métier en lecture seule","Pagination par curseur"],
-  "EX-AUD-01, EX-ROL-04","§3.3, §5.3","BACK","Should",3,["audit_service","rbac"],"L0-18",statut="À faire")
+  "EX-AUD-01, EX-ROL-04","§3.3, §5.3","BACK","Should",3,["audit_service","rbac"],"L0-18",statut="En cours")
 t("audit_purge","L0",E,S,"Conservation et purge des journaux","Fonction purge_journaux (rôle audit_purge), durées configurables, purge tracée.",
   ["La durée de conservation de l'audit et du journal de sécurité est configurable (défauts : audit sans purge, sécurité 12 mois)","La purge passe uniquement par la fonction dédiée et écrit un audit de purge","app_rw ne peut ni supprimer ni modifier les journaux"],
   "EX-AUD-02","§2.4, §5.3","BACK","Should",3,["params_secu","audit_service"])
