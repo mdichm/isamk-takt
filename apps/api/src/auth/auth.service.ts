@@ -10,6 +10,7 @@ import { RegisterDto, LoginDto } from './dto/auth.dto.js';
 import { User, RoleCode } from '@takt/db';
 import { hashPassword, verifyPassword } from './password.js';
 import { randomUUID } from 'crypto';
+import { MfaService } from './mfa.service.js';
 
 // Get primary system role from user's roles
 export function getUserPrimaryRole(user: User & { roles?: { role: RoleCode }[] }): RoleCode {
@@ -45,6 +46,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private mfaService: MfaService,
   ) {}
 
   async register(registerDto: RegisterDto): Promise<AuthResult> {
@@ -86,6 +88,7 @@ export class AuthService {
     });
     const maxEchecs = params?.maxEchecs ?? 5;
     const verrouillageMinutes = params?.verrouillageMinutes ?? 15;
+    const mfaRoles: RoleCode[] = (params?.mfaRoles as RoleCode[]) ?? [RoleCode.ADMINISTRATEUR];
 
     const user = await this.prisma.user.findUnique({
       where: { email: loginDto.email },
@@ -128,6 +131,20 @@ export class AuthService {
 
     if (!user.isActive) {
       throw new UnauthorizedException('Compte désactivé');
+    }
+
+    // MFA : si MFA activé et rôle dans mfaRoles, exiger un code TOTP valide.
+    // Message générique pour ne pas révéler si le compte a le MFA activé (anti-énumération).
+    const role = user.roles?.[0]?.role;
+    if (user.mfaActive && role && this.mfaService.isMfaRequiredRole(role, mfaRoles)) {
+      const totp = loginDto.totp;
+      if (!totp || !user.mfaSecret) {
+        throw new UnauthorizedException('Identifiants invalides');
+      }
+      const isTotpValid = this.mfaService.verifyCode(user.mfaSecret, totp);
+      if (!isTotpValid) {
+        throw new UnauthorizedException('Identifiants invalides');
+      }
     }
 
     // Mot de passe valide : réinitialiser le compteur d'échecs et le verrouillage.
