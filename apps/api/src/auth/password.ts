@@ -10,10 +10,14 @@ export async function hashPassword(password: string): Promise<string> {
 
 /**
  * Vérifie qu'un mot de passe en clair correspond à son hash argon2id.
+ * Retourne `false` si aucun hash n'est enregistré (compte tiers OIDC/LDAP).
  */
 export async function verifyPassword(
   password: string,
-  hash: string,
+  hash: string | null,
 ): Promise<boolean> {
+  if (!hash) {
+    return false;
+  }
   return argonVerify(hash, password);
 }

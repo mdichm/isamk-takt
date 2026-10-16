@@ -68,7 +68,7 @@ t("reset","L0",E,S,"Réinitialisation du mot de passe par l'Administrateur","POS
   "EX-SEC-03","§5.1, §3.4.21","BACK","Must",5,["params_secu","comptes","securite_journal"],"L0-13",statut="Terminé")
 t("authprovider","L0",E,T,"Interface AuthProvider","Abstraction permettant un futur SSO (OIDC, LDAP/AD) sans toucher au RBAC.",
   ["L'authentification locale passe par l'interface AuthProvider","Le RBAC est indépendant du fournisseur"],
-  "EX-SEC-01","§5.1","BACK","Could",2,["login"],"L0-14")
+  "EX-SEC-01","§5.1","BACK","Could",2,["login"],"L0-14",statut="Terminé")
 t("securite_journal","L0",E,S,"Journal de sécurité","Table SecurityEvent distincte de l'audit, écriture des connexions, verrouillages, réutilisation de jeton, usage de lien, MFA, accès aux exports ; consultation Administrateur.",
   ["Connexions réussies et échouées, verrouillages et réutilisations de jeton sont enregistrés","GET /security-events réservé à l'Administrateur avec filtres et pagination par curseur","Aucune connexion n'est écrite dans l'audit métier","Aucun mot de passe ni jeton en clair dans le journal"],
   "EX-SEC-09","§5.3, §2.2, §2.4","BACK","Must",5,["login","prisma"])

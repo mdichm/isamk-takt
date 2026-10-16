@@ -16,12 +16,12 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| Points réalisés | 76 |
+| Points réalisés | 78 |
 | Jours écoulés depuis le début | 4 |
-| Débit journalier moyen | 19.00 pts/j |
-| Débit hebdomadaire moyen | 133.00 pts/sem |
-| Points restants | 996 |
-| Prévision débit continu | 07/12/2026 (~7.5 semaines restants) |
+| Débit journalier moyen | 19.50 pts/j |
+| Débit hebdomadaire moyen | 136.50 pts/sem |
+| Points restants | 994 |
+| Prévision débit continu | 06/12/2026 (~7.3 semaines restants) |
 
 ---
 
@@ -30,11 +30,11 @@
 | Métrique | Valeur |
 |----------|--------|
 | Tickets total | 208 |
-| ✅ Terminés | 15 (7.2%) |
+| ✅ Terminés | 16 (7.7%) |
 | 🔄 En cours | 0 |
-| ⏳ À faire | 193 |
+| ⏳ À faire | 192 |
 | Points total | 1072 |
-| Points réalisés | 76 (7.1%) |
+| Points réalisés | 78 (7.3%) |
 | Points fonctionnels | 884 |
 | Points techniques | 188 |
 | Ratio Tech/Func | 0.21 |
@@ -53,7 +53,7 @@ Sprint,Points restants,Points idéaux
 
 ## 🔮 Prévision de Fin
 
-> **Date estimée de fin : 07/12/2026 (~7.5 semaines restants)**
+> **Date estimée de fin : 06/12/2026 (~7.3 semaines restants)**
 
 *Basé sur la vélocité moyenne des 5 derniers sprints (14 jours/sprint).
 
@@ -63,7 +63,7 @@ Sprint,Points restants,Points idéaux
 
 | Lot | Tickets | Points | Terminés | % |
 |-----|--------:|-------:|---------:|---:|
-| L0 | 37 | 169 | 15 | 40.5% |
+| L0 | 37 | 169 | 16 | 43.2% |
 | L1 | 27 | 122 | 0 | 0.0% |
 | L2 | 19 | 94 | 0 | 0.0% |
 | L3 | 45 | 225 | 0 | 0.0% |
