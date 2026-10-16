@@ -4,6 +4,7 @@ import { CommentsService } from './comments.service.js';
 import { CreateCommentDto, UpdateCommentDto, CommentResponseDto } from './dto/comment.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
 @ApiTags('Commentaires')
 @Controller('projects/:projectId/tasks/:taskId/comments')
@@ -13,6 +14,7 @@ export class CommentsController {
   constructor(private commentsService: CommentsService) {}
 
   @Post()
+  @Permissions('comment:write')
   @ApiOperation({ summary: 'Ajouter un commentaire à une tâche' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'taskId', description: 'ID de la tâche (UUID)' })
@@ -27,6 +29,7 @@ export class CommentsController {
   }
 
   @Get()
+  @Permissions('comment:read')
   @ApiOperation({ summary: 'Lister les commentaires d\'une tâche' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'taskId', description: 'ID de la tâche (UUID)' })
@@ -40,6 +43,7 @@ export class CommentsController {
   }
 
   @Patch(':id')
+  @Permissions('comment:write')
   @ApiOperation({ summary: 'Mettre à jour un commentaire' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'taskId', description: 'ID de la tâche (UUID)' })
@@ -58,6 +62,7 @@ export class CommentsController {
   }
 
   @Delete(':id')
+  @Permissions('comment:write')
   @ApiOperation({ summary: 'Supprimer un commentaire' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'taskId', description: 'ID de la tâche (UUID)' })

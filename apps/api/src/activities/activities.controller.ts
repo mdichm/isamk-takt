@@ -4,6 +4,7 @@ import { ActivitiesService } from './activities.service.js';
 import { ActivityQueryDto, ActivityResponseDto } from './dto/activity.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
 @ApiTags('Activités')
 @Controller('projects/:projectId/tasks/:taskId/activities')
@@ -12,6 +13,7 @@ import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 export class ActivitiesController {
   constructor(private activitiesService: ActivitiesService) {}
 
+  @Permissions('activity:read')
   @Get()
   @ApiOperation({ summary: 'Obtenir l\'historique des activités d\'une tâche' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })

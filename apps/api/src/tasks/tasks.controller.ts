@@ -4,6 +4,7 @@ import { TasksService } from './tasks.service.js';
 import { CreateTaskDto, UpdateTaskDto, MoveTaskDto, TaskQueryDto, TaskResponseDto, PaginatedTasksDto, BulkUpdateTasksDto } from './dto/task.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
 @ApiTags('Tâches')
 @Controller('projects/:projectId/tasks')
@@ -13,6 +14,7 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Post()
+  @Permissions('task:write')
   @ApiOperation({ summary: 'Créer une nouvelle tâche' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 201, description: 'Tâche créée', type: TaskResponseDto })
@@ -25,6 +27,7 @@ export class TasksController {
   }
 
   @Get()
+  @Permissions('task:read')
   @ApiOperation({ summary: 'Lister les tâches d\'un projet avec pagination et filtres' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Liste paginée des tâches', type: PaginatedTasksDto })
@@ -37,6 +40,7 @@ export class TasksController {
   }
 
   @Get(':id')
+  @Permissions('task:read')
   @ApiOperation({ summary: 'Obtenir une tâche par ID' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID de la tâche (UUID)' })
@@ -51,6 +55,7 @@ export class TasksController {
   }
 
   @Patch(':id')
+  @Permissions('task:write')
   @ApiOperation({ summary: 'Mettre à jour une tâche' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID de la tâche (UUID)' })
@@ -66,6 +71,7 @@ export class TasksController {
   }
 
   @Patch(':id/move')
+  @Permissions('task:write')
   @ApiOperation({ summary: 'Déplacer une tâche (changer de colonne/statut)' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID de la tâche (UUID)' })
@@ -81,6 +87,7 @@ export class TasksController {
   }
 
   @Delete(':id')
+  @Permissions('task:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer une tâche' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
@@ -96,6 +103,7 @@ export class TasksController {
   }
 
   @Patch('bulk')
+  @Permissions('task:write')
   @ApiOperation({ summary: 'Mise à jour en masse de plusieurs tâches' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Tâches mises à jour' })

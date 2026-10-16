@@ -43,6 +43,7 @@ export class PolicyService {
           'version:create','generation:launch','seance:edit','verrou:write','avertissement:accept',
           'version:read','version:submit','version:abandon','version:validate','version:publish',
           'parametre:write','export:create','export-view:write','audit:read',
+          'project:read','project:write','task:read','task:write','sprint:read','sprint:write','comment:read','comment:write','activity:read','tag:read','tag:write',
           'demande:create','demande:handle','notification:read','tableau-de-bord:read',
           ...AUTH_ME_LOGOUT_MFA,
         ],
@@ -58,6 +59,7 @@ export class PolicyService {
           'version:create','generation:launch','verrou:write','avertissement:accept',
           'version:read','version:submit','version:abandon','version:publish',
           'export:create','export-view:write','demande:create',
+          'project:read','project:write','task:read','task:write','sprint:read','sprint:write','comment:read','comment:write','activity:read','tag:read','tag:write',
           'notification:read','tableau-de-bord:read',
           ...AUTH_ME_LOGOUT_MFA,
         ],
@@ -69,7 +71,9 @@ export class PolicyService {
         permissions: [
           'referentiel:read','enseignant:write','repartition:read','repartition:write',
           'repartition:validate','charges:read','version:read','version:validate',
-          'demande:handle','notification:read','tableau-de-bord:read',
+          'demande:handle',
+          'project:read','project:write','task:read','task:write','sprint:read','sprint:write','comment:read','comment:write','activity:read','tag:read','tag:write',
+          'notification:read','tableau-de-bord:read',
           ...AUTH_ME_LOGOUT_MFA,
         ],
       },
@@ -79,6 +83,7 @@ export class PolicyService {
       {
         permissions: [
           'referentiel:read','repartition:read','charges:read','version:read',
+          'project:read','task:read','sprint:read','comment:read','activity:read','tag:read',
           'export:create','notification:read','tableau-de-bord:read',
           ...AUTH_ME_LOGOUT_MFA,
         ],

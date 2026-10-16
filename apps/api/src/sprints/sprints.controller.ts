@@ -4,6 +4,7 @@ import { SprintsService } from './sprints.service.js';
 import { CreateSprintDto, UpdateSprintDto, SprintQueryDto, SprintResponseDto, PaginatedSprintsDto, AddSprintMemberDto } from './dto/sprint.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
 @ApiTags('Sprints')
 @Controller('projects/:projectId/sprints')
@@ -13,6 +14,7 @@ export class SprintsController {
   constructor(private sprintsService: SprintsService) {}
 
   @Post()
+  @Permissions('sprint:write')
   @ApiOperation({ summary: 'Créer un nouveau sprint' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 201, description: 'Sprint créé', type: SprintResponseDto })
@@ -25,6 +27,7 @@ export class SprintsController {
   }
 
   @Get()
+  @Permissions('sprint:read')
   @ApiOperation({ summary: 'Lister les sprints d\'un projet avec pagination et filtres' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Liste paginée des sprints', type: PaginatedSprintsDto })
@@ -37,6 +40,7 @@ export class SprintsController {
   }
 
   @Get(':id')
+  @Permissions('sprint:read')
   @ApiOperation({ summary: 'Obtenir un sprint par ID' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du sprint (UUID)' })
@@ -51,6 +55,7 @@ export class SprintsController {
   }
 
   @Patch(':id')
+  @Permissions('sprint:write')
   @ApiOperation({ summary: 'Mettre à jour un sprint' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du sprint (UUID)' })
@@ -66,6 +71,7 @@ export class SprintsController {
   }
 
   @Post(':id/start')
+  @Permissions('sprint:write')
   @ApiOperation({ summary: 'Démarrer un sprint' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du sprint (UUID)' })
@@ -80,6 +86,7 @@ export class SprintsController {
   }
 
   @Post(':id/complete')
+  @Permissions('sprint:write')
   @ApiOperation({ summary: 'Terminer un sprint' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du sprint (UUID)' })
@@ -94,6 +101,7 @@ export class SprintsController {
   }
 
   @Delete(':id')
+  @Permissions('sprint:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer un sprint' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
@@ -110,6 +118,7 @@ export class SprintsController {
   }
 
   @Get(':id/members')
+  @Permissions('sprint:read')
   @ApiOperation({ summary: 'Obtenir les membres d\'un sprint' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du sprint (UUID)' })
@@ -123,6 +132,7 @@ export class SprintsController {
   }
 
   @Post(':id/members')
+  @Permissions('sprint:write')
   @ApiOperation({ summary: 'Ajouter un membre au sprint' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du sprint (UUID)' })
@@ -138,6 +148,7 @@ export class SprintsController {
   }
 
   @Delete(':id/members/:memberId')
+  @Permissions('sprint:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Retirer un membre du sprint' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
