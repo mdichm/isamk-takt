@@ -63,7 +63,7 @@ L0-16;L0;E0.3;Authentification & comptes;Story;Réinitialisation du mot de passe
 - Le lien ne fonctionne qu'une fois et expire après la durée configurée
 - L'Administrateur ne voit jamais un mot de passe
 - Le nouveau mot de passe respecte la politique et l'historique (422 PASSWORD_POLICY)
-- Déclenchement et usage journalisés dans le journal de sécurité";EX-SEC-03;§5.1, §3.4.21;BACK;Must;5;L0-13, L0-15, L0-18;À faire;
+- Déclenchement et usage journalisés dans le journal de sécurité";EX-SEC-03;§5.1, §3.4.21;BACK;Must;5;L0-13, L0-15, L0-18;Terminé;
 L0-17;L0;E0.3;Authentification & comptes;Tâche technique;Interface AuthProvider;Abstraction permettant un futur SSO (OIDC, LDAP/AD) sans toucher au RBAC.;"- L'authentification locale passe par l'interface AuthProvider
 - Le RBAC est indépendant du fournisseur";EX-SEC-01;§5.1;BACK;Could;2;L0-10;À faire;
 L0-18;L0;E0.3;Authentification & comptes;Story;Journal de sécurité;"Table SecurityEvent distincte de l'audit, écriture des connexions, verrouillages, réutilisation de jeton, usage de lien, MFA, accès aux exports ; consultation Administrateur.";"- Connexions réussies et échouées, verrouillages et réutilisations de jeton sont enregistrés

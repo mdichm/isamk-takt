@@ -65,7 +65,7 @@ t("comptes","L0",E,S,"Gestion des comptes et des rôles","CRUD utilisateurs, PUT
   "EX-SEC-02, EX-ROL-01","§3.3, §5.2","BACK","Must",5,["login","rbac"],"L0-12")
 t("reset","L0",E,S,"Réinitialisation du mot de passe par l'Administrateur","POST /users/{id}/reset-password, lien à usage unique, POST /auth/reset/confirm, POST /auth/password pour le changement personnel, politique et historique.",
   ["Seul l'Administrateur déclenche une réinitialisation ; le lien est envoyé par e-mail à l'adresse du compte","Le lien ne fonctionne qu'une fois et expire après la durée configurée","L'Administrateur ne voit jamais un mot de passe","Le nouveau mot de passe respecte la politique et l'historique (422 PASSWORD_POLICY)","Déclenchement et usage journalisés dans le journal de sécurité"],
-  "EX-SEC-03","§5.1, §3.4.21","BACK","Must",5,["params_secu","comptes","securite_journal"],"L0-13")
+  "EX-SEC-03","§5.1, §3.4.21","BACK","Must",5,["params_secu","comptes","securite_journal"],"L0-13",statut="Terminé")
 t("authprovider","L0",E,T,"Interface AuthProvider","Abstraction permettant un futur SSO (OIDC, LDAP/AD) sans toucher au RBAC.",
   ["L'authentification locale passe par l'interface AuthProvider","Le RBAC est indépendant du fournisseur"],
   "EX-SEC-01","§5.1","BACK","Could",2,["login"],"L0-14")
