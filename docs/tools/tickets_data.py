@@ -78,7 +78,7 @@ t("rbac","L0",E,S,"Module policy RBAC avec portée","Permissions ressource:actio
   "EX-SEC-08, EX-ROL-03, EX-ROL-05, EX-PRI-05","§5.2","BACK","Must",8,["login"],"L0-15",statut="Terminé")
 t("rbac_test","L0",E,TT,"Matrice RBAC automatisée","Test rôle × endpoint déduit de la matrice des permissions (4 rôles).",
   ["Un test parcourt le routeur et échoue si une route n'est pas déclarée","Chaque cellule de la matrice (ST §5.2) est vérifiée","Les cas négatifs (Responsable hors département, Direction en écriture) sont couverts"],
-  "EX-SEC-08, EX-ROL-04","§5.2, §5.5","QA","Must",5,["rbac"],"L0-16")
+  "EX-SEC-08, EX-ROL-04","§5.2, §5.5","QA","Must",5,["rbac"],"L0-16",statut="En cours")
 t("admin_perm","L0",E,S,"Droits étendus de l'Administrateur et séparation des tâches","L'Administrateur détient l'union des droits du Gestionnaire, écrit la répartition de tout département et valide par département ; garde de séparation des tâches.",
   ["L'Administrateur accède à toutes les routes du Gestionnaire","Il peut écrire et valider la répartition d'un département en le nommant","Une personne ne peut pas valider un cycle qu'elle a soumis (403 SEGREGATION_OF_DUTIES)","Tests de non-régression sur la matrice"],
   "EX-ROL-02, EX-ROL-06","§5.2, §4.1.1","BACK","Must",3,["rbac"])
