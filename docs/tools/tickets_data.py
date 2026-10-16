@@ -108,7 +108,7 @@ t("openapi","L0",E,T,"OpenAPI 3.1 généré","Documentation exposée sur /api/do
 E = "Socle web"
 t("shell","L0",E,S,"Shell web, navigation par rôle et connexion","Layout, login, MFA, changement de mot de passe, refresh transparent, React Query, shadcn, i18n français (textes externalisés), libellés d'états du glossaire.",
   ["Le menu affiche uniquement les entrées autorisées au rôle (quatre rôles)","Le jeton expiré est rafraîchi sans perte de saisie","Les textes sont externalisés (i18n) et aucun code d'état technique n'est affiché","Dates JJ/MM/AAAA et heures sur 24 h"],
-  "EX-NFR-08, EX-EXP-01","§0.1, §5.1","FRONT","Must",8,["login","tokens"],"L0-22",statut="En cours")
+  "EX-NFR-08, EX-EXP-01","§0.1, §5.1","FRONT","Must",8,["login","tokens"],"L0-22",statut="Terminé")
 t("admin_ui","L0",E,S,"Écran d'administration des utilisateurs","Liste, création, rôles et portées, activation, désactivation, déclenchement de réinitialisation, MFA.",
   ["L'Administrateur crée un compte et affecte rôle et département","Il déclenche une réinitialisation sans voir de mot de passe","Les erreurs API sont affichées de façon lisible"],
   "EX-SEC-02, EX-SEC-03","§3.3","FRONT","Must",5,["shell","comptes","reset"],"L0-23",statut="À faire")
