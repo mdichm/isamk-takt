@@ -134,5 +134,25 @@ export class PolicyService {
       throw new ForbiddenException('Permissions insuffisantes');
     }
   }
+
+  /**
+   * Verifie la separation des taches (EX-ROL-06, ST §4.1.2).
+   *
+   * Une personne ne peut pas prendre une decision de validation sur un cycle
+   * qu elle a elle-meme soumise.
+   *
+   * - submitterId et userId definis et egaux => 403 SEGREGATION_OF_DUTIES.
+   * - l un des deux IDs est indefini => aucune contrainte (pas de contexte de
+   *   soumission connu).
+   * - IDs differents => autorise.
+   */
+  checkSegregationOfDuties(
+    submitterId: string | undefined,
+    userId: string | undefined,
+  ): void {
+    if (submitterId && userId && submitterId === userId) {
+      throw new ForbiddenException('SEGREGATION_OF_DUTIES');
+    }
+  }
 }
 

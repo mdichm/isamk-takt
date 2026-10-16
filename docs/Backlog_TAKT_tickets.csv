@@ -106,7 +106,7 @@ L0-28;L0;E0.6;Socle API;Tâche technique;OpenAPI 3.1 généré;Documentation exp
 L0-29;L0;E0.7;Socle web;Story;Shell web, navigation par rôle et connexion;Layout, login, MFA, changement de mot de passe, refresh transparent, React Query, shadcn, i18n français (textes externalisés), libellés d'états du glossaire.;"- Le menu affiche uniquement les entrées autorisées au rôle (quatre rôles)
 - Le jeton expiré est rafraîchi sans perte de saisie
 - Les textes sont externalisés (i18n) et aucun code d'état technique n'est affiché
-- Dates JJ/MM/AAAA et heures sur 24 h";EX-NFR-08, EX-EXP-01;§0.1, §5.1;FRONT;Must;8;L0-10, L0-05;À faire;
+- Dates JJ/MM/AAAA et heures sur 24 h";EX-NFR-08, EX-EXP-01;§0.1, §5.1;FRONT;Must;8;L0-10, L0-05;En cours;
 L0-30;L0;E0.7;Socle web;Story;Écran d'administration des utilisateurs;Liste, création, rôles et portées, activation, désactivation, déclenchement de réinitialisation, MFA.;"- L'Administrateur crée un compte et affecte rôle et département
 - Il déclenche une réinitialisation sans voir de mot de passe
 - Les erreurs API sont affichées de façon lisible";EX-SEC-02, EX-SEC-03;§3.3;FRONT;Must;5;L0-29, L0-15, L0-16;À faire;
