@@ -36,7 +36,7 @@ L0-08;L0;E0.2;Infrastructure sur site;Tâche technique;Calcul et environnements 
 L0-09;L0;E0.2;Infrastructure sur site;Tâche technique;Observabilité de base;Logs pino avec requestId, traces OpenTelemetry, Prometheus et Grafana, alertes.;"- Chaque requête porte un requestId présent dans les logs
 - Une trace relie API, base et worker
 - Alertes Grafana sur file d'échecs non vide et 5xx
-- Les journaux techniques sont séparés de l'audit métier";EX-NFR-05;§5.4;DEVOPS;Should;5;L0-08;À faire;
+- Les journaux techniques sont séparés de l'audit métier";EX-NFR-05;§5.4;DEVOPS;Should;5;L0-08;Terminé;
 L0-10;L0;E0.3;Authentification & comptes;Story;Connexion, refresh et déconnexion;POST /auth/login, /auth/refresh, /auth/logout avec argon2id, JWT 15 min, refresh opaque rotatif 7 jours, lecture des paramètres de sécurité.;"- Mots de passe hachés argon2id, longueur minimale issue des paramètres de sécurité (défaut 12)
 - Le refresh token tourne à chaque usage
 - La réutilisation d'un jeton révoqué révoque toute la famille

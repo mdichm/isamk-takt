@@ -13,11 +13,18 @@ import { SprintsModule } from './sprints/sprints.module.js';
 import { TagsModule } from './tags/tags.module.js';
 import { CommentsModule } from './comments/comments.module.js';
 import { ActivitiesModule } from './activities/activities.module.js';
+import { HealthModule } from './health/health.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
 import { RolesGuard } from './common/guards/roles.guard.js';
 import appConfig from './config/app.config.js';
+import { MetricsController } from './common/metrics/metrics.controller.js';
+import { MetricsService } from './common/metrics/metrics.service.js';
+import { PinoLoggerService } from './common/logging/pino-logger.service.js';
+import { AuditLoggerService } from './common/logging/audit-logger.service.js';
+import { TracingInterceptor } from './common/interceptors/tracing.interceptor.js';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -48,7 +55,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     TagsModule,
     CommentsModule,
     ActivitiesModule,
+    HealthModule,
   ],
+  controllers: [MetricsController],
   providers: [
     {
       provide: APP_FILTER,
@@ -70,6 +79,13 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       provide: APP_GUARD,
       useClass: RolesGuard,
     },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TracingInterceptor,
+    },
+    PinoLoggerService,
+    AuditLoggerService,
+    MetricsService,
   ],
 })
 export class AppModule {}

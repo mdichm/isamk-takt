@@ -1,0 +1,129 @@
+{
+  "id": null,
+  "title": "TAKT - Overview",
+  "tags": ["takt", "observability"],
+  "style": "dark",
+  "timezone": "Europe/Paris",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Requêtes HTTP /s",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(takt_http_requests_total[1m])",
+          "legendPath": "{{method}} {{route}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "decimals": 1
+        }
+      },
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 4 }
+    },
+    {
+      "type": "stat",
+      "title": "Taux d'erreur 5xx",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(takt_http_requests_total{status_code=~\"5..\"}[5m])",
+          "legendFormat": "5xx error rate"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "decimals": 3,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": 0 },
+              { "color": "orange", "value": 0.01 },
+              { "color": "red", "value": 0.05 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 4 }
+    },
+    {
+      "type": "graph",
+      "title": "Latence p95 par route",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, rate(takt_http_request_duration_seconds_bucket[5m]))",
+          "legendPath": "{{route}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "decimals": 3
+        }
+      },
+      "gridPos": { "x": 0, "y": 4, "w": 24, "h": 6 }
+    },
+    {
+      "type": "graph",
+      "title": "Taille des files de jobs",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "takt_job_queue_size",
+          "legendPath": "{{queue}}"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 10, "w": 12, "h": 5 }
+    },
+    {
+      "type": "stat",
+      "title": "File d'échecs",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "takt_failed_queue_size",
+          "legendFormat": "failed jobs"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": 0 },
+              { "color": "red", "value": 1 }
+            ]
+          }
+        }
+      },
+      "gridPos": { "x": 12, "y": 10, "w": 12, "h": 5 }
+    },
+    {
+      "type": "graph",
+      "title": "Durée des générations FET",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "takt_generation_duration_seconds",
+          "legendFormat": "generation duration"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      },
+      "gridPos": { "x": 0, "y": 15, "w": 24, "h": 5 }
+    }
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "refresh": "30s"
+}

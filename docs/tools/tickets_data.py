@@ -43,7 +43,7 @@ t("compose","L0",E,T,"Calcul et environnements sur site","Docker Compose pour we
   "EX-NFR-02","§1.8, §5.5","DEVOPS","Must",8,["donnees"],"L0-07",statut="Terminé")
 t("obs","L0",E,T,"Observabilité de base","Logs pino avec requestId, traces OpenTelemetry, Prometheus et Grafana, alertes.",
   ["Chaque requête porte un requestId présent dans les logs","Une trace relie API, base et worker","Alertes Grafana sur file d'échecs non vide et 5xx","Les journaux techniques sont séparés de l'audit métier"],
-  "EX-NFR-05","§5.4","DEVOPS","Should",5,["compose"],"L0-08")
+  "EX-NFR-05","§5.4","DEVOPS","Should",5,["compose"],"L0-08",statut="Terminé")
 E = "Authentification & comptes"
 t("login","L0",E,S,"Connexion, refresh et déconnexion","POST /auth/login, /auth/refresh, /auth/logout avec argon2id, JWT 15 min, refresh opaque rotatif 7 jours, lecture des paramètres de sécurité.",
   ["Mots de passe hachés argon2id, longueur minimale issue des paramètres de sécurité (défaut 12)","Le refresh token tourne à chaque usage","La réutilisation d'un jeton révoqué révoque toute la famille","Le refresh est en cookie httpOnly, Secure, SameSite=Strict"],
