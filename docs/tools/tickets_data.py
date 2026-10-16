@@ -111,7 +111,7 @@ t("shell","L0",E,S,"Shell web, navigation par rôle et connexion","Layout, login
   "EX-NFR-08, EX-EXP-01","§0.1, §5.1","FRONT","Must",8,["login","tokens"],"L0-22",statut="Terminé")
 t("admin_ui","L0",E,S,"Écran d'administration des utilisateurs","Liste, création, rôles et portées, activation, désactivation, déclenchement de réinitialisation, MFA.",
   ["L'Administrateur crée un compte et affecte rôle et département","Il déclenche une réinitialisation sans voir de mot de passe","Les erreurs API sont affichées de façon lisible"],
-  "EX-SEC-02, EX-SEC-03","§3.3","FRONT","Must",5,["shell","comptes","reset"],"L0-23",statut="En cours")
+  "EX-SEC-02, EX-SEC-03","§3.3","FRONT","Must",5,["shell","comptes","reset"],"L0-23",statut="Terminé")
 t("secu_ui","L0",E,S,"Écrans des paramètres de sécurité et du journal","Paramètres de sécurité, conservation, journal de sécurité (Administrateur).",
   ["Tous les paramètres sont modifiables avec leurs valeurs courantes et par défaut","Le journal est filtrable par type, utilisateur et période","Accès réservé à l'Administrateur"],
   "EX-SEC-04, EX-SEC-09","§3.3","FRONT","Should",5,["shell","params_secu","securite_journal"])
