@@ -38,6 +38,23 @@ export type paths = {
         patch?: never;
         trace?: never;
     };
+    "/audit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+        /** Consulter les entrées d'audit métier avec filtres et pagination */
+        get: operations["listAudit"];
+    };
 };
 export type webhooks = Record<string, never>;
 export type components = {
@@ -95,6 +112,26 @@ export type components = {
         };
         PaginatedUsersResponse: {
             data: components["schemas"]["UserDto"][];
+            nextCursor: string | null;
+        };
+        AuditEntry: {
+            /** Format: uuid */
+            id: string;
+            /** Format: date-time */
+            at: string;
+            userId: string | null;
+            action: string;
+            objetType: string;
+            objetId: string;
+            ancienneValeur: unknown | null;
+            nouvelleValeur: unknown | null;
+            versionId: string | null;
+            motif: string | null;
+            requestId: string | null;
+            ip: string | null;
+        };
+        PaginatedAuditResponse: {
+            data: components["schemas"]["AuditEntry"][];
             nextCursor: string | null;
         };
         ProblemDetails: {
@@ -196,4 +233,50 @@ export interface operations {
             };
         };
     };
-}
+    listAudit: {
+        parameters: {
+            query?: {
+                objetType?: string;
+                objetId?: string;
+                userId?: string;
+                from?: string;
+                to?: string;
+                limit?: number;
+                cursor?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Liste paginée des entrées d'audit */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedAuditResponse"];
+                };
+            };
+            /** @description Non authentifié */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDetails"];
+                };
+            };
+            /** @description Permissions insuffisantes */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDetails"];
+                };
+            };
+        };
+    };
+};

@@ -81,6 +81,53 @@
           }
         }
       }
+    },
+    "/audit": {
+      "get": {
+        "operationId": "listAudit",
+        "summary": "Consulter les entrées d'audit métier avec filtres et pagination",
+        "parameters": [
+          {"name": "objetType", "in": "query", "schema": {"type": "string"}, "description": "Filtre par type d'objet audité"},
+          {"name": "objetId", "in": "query", "schema": {"type": "string", "format": "uuid"}, "description": "Filtre par identifiant d'objet audité (UUID)"},
+          {"name": "userId", "in": "query", "schema": {"type": "string", "format": "uuid"}, "description": "Filtre par utilisateur ayant déclenché l'action"},
+          {"name": "from", "in": "query", "schema": {"type": "string", "format": "date-time"}, "description": "Date/heure de début (ISO 8601)"},
+          {"name": "to", "in": "query", "schema": {"type": "string", "format": "date-time"}, "description": "Date/heure de fin (ISO 8601)"},
+          {"name": "limit", "in": "query", "schema": {"type": "integer", "default": 50, "maximum": 100}, "description": "Nombre d'entrées par page"},
+          {"name": "cursor", "in": "query", "schema": {"type": "string"}, "description": "Curseur de pagination (ID de la dernière entrée vue)"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste paginée des entrées d'audit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedAuditResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non authentifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permissions insuffisantes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -160,6 +207,32 @@
         "required": ["data", "nextCursor"],
         "properties": {
           "data": {"type": "array", "items": {"$ref": "#/components/schemas/UserDto"}},
+          "nextCursor": {"type": "string", "nullable": true}
+        }
+      },
+      "AuditEntry": {
+        "type": "object",
+        "required": ["id", "at", "userId", "action", "objetType", "objetId"],
+        "properties": {
+          "id": {"type": "string", "format": "uuid"},
+          "at": {"type": "string", "format": "date-time"},
+          "userId": {"type": "string", "format": "uuid", "nullable": true},
+          "action": {"type": "string"},
+          "objetType": {"type": "string"},
+          "objetId": {"type": "string"},
+          "ancienneValeur": {"type": "object", "nullable": true},
+          "nouvelleValeur": {"type": "object", "nullable": true},
+          "versionId": {"type": "string", "format": "uuid", "nullable": true},
+          "motif": {"type": "string", "nullable": true},
+          "requestId": {"type": "string", "nullable": true},
+          "ip": {"type": "string", "nullable": true}
+        }
+      },
+      "PaginatedAuditResponse": {
+        "type": "object",
+        "required": ["data", "nextCursor"],
+        "properties": {
+          "data": {"type": "array", "items": {"$ref": "#/components/schemas/AuditEntry"}},
           "nextCursor": {"type": "string", "nullable": true}
         }
       },
