@@ -108,4 +108,29 @@ describe('PolicyService (matrice RBAC ST §5.2)', () => {
       policy.requirePermission(adm, ['user:manage']),
     ).not.toThrow();
   });
+
+  it('checkSegregationOfDuties: meme utilisateur soumet et valide (EX-ROL-06)', () => {
+    const sameUser = 'user-1';
+    expect(() =>
+      policy.checkSegregationOfDuties(sameUser, sameUser),
+    ).toThrow(/SEGREGATION_OF_DUTIES/);
+  });
+
+  it('checkSegregationOfDuties: utilisateurs differents est autorise', () => {
+    expect(() =>
+      policy.checkSegregationOfDuties('user-submitter', 'user-validator'),
+    ).not.toThrow();
+  });
+
+  it('checkSegregationOfDuties: submitter indefini => aucune contrainte', () => {
+    expect(() =>
+      policy.checkSegregationOfDuties(undefined, 'user-validator'),
+    ).not.toThrow();
+  });
+
+  it('checkSegregationOfDuties: user indefini => aucune contrainte', () => {
+    expect(() =>
+      policy.checkSegregationOfDuties('user-submitter', undefined),
+    ).not.toThrow();
+  });
 });
