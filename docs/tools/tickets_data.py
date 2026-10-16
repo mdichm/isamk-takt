@@ -101,7 +101,7 @@ t("erreurs","L0",E,T,"Erreurs RFC 9457 et catalogue de codes","Format problem+js
   "—","§3.2, §2.4","BACK","Must",5,["repo"],"L0-19",statut="Terminé")
 t("http","L0",E,T,"Conventions HTTP transverses","ETag et If-Match, pagination par curseur, Idempotency-Key, throttling, Helmet, CORS.",
   ["If-Match absent ou périmé renvoie 412","Pagination limit et cursor opérationnelle","Rate limiting renforcé sur /auth/*"],
-  "—","§3.1, §5.3","BACK","Must",5,["erreurs"],"L0-20",statut="À faire")
+  "—","§3.1, §5.3","BACK","Must",5,["erreurs"],"L0-20",statut="En cours")
 t("openapi","L0",E,T,"OpenAPI 3.1 généré","Documentation exposée sur /api/docs, désactivable en production publique.",
   ["Le contrat est généré depuis le code","/api/docs est désactivé en production publique"],
   "—","§3.1","BACK","Should",2,["http"],"L0-21",statut="À faire")
