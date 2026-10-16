@@ -7,11 +7,30 @@ import { UserFormDialog } from '@/components/admin/user-form-dialog';
 import { messages } from '@/lib/messages/fr';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
+import { getCurrentUserRole, isAdmin } from '@/lib/auth';
 
 const queryClient = new QueryClient();
 
 export default function AdminUsersPage() {
   const [createOpen, setCreateOpen] = useState(false);
+  const role = getCurrentUserRole();
+
+  if (role === undefined) {
+    return (
+      <div className="p-4">
+        <p>{messages.loading}</p>
+      </div>
+    );
+  }
+
+  if (!isAdmin(role)) {
+    return (
+      <div className="p-4">
+        <h1 className="text-lg font-semibold">{messages.error}</h1>
+        <p className="text-muted-foreground">{messages.errorForbidden}</p>
+      </div>
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
