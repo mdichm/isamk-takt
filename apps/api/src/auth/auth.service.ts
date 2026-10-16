@@ -8,9 +8,10 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { RegisterDto, LoginDto } from './dto/auth.dto.js';
 import { User, RoleCode } from '@takt/db';
-import { hashPassword, verifyPassword } from './password.js';
+import { hashPassword } from './password.js';
 import { randomUUID } from 'crypto';
 import { MfaService } from './mfa.service.js';
+import { LocalAuthProvider } from './providers/local-auth-provider.service.js';
 
 // Get primary system role from user's roles
 export function getUserPrimaryRole(user: User & { roles?: { role: RoleCode }[] }): RoleCode {
@@ -47,6 +48,7 @@ export class AuthService {
     private prisma: PrismaService,
     private jwtService: JwtService,
     private mfaService: MfaService,
+    private localAuthProvider: LocalAuthProvider,
   ) {}
 
   async register(registerDto: RegisterDto): Promise<AuthResult> {
@@ -70,6 +72,7 @@ export class AuthService {
       data: {
         email: registerDto.email,
         passwordHash,
+        provider: 'LOCAL',
         firstName: registerDto.firstName,
         lastName: registerDto.lastName,
         roles: {
@@ -95,17 +98,50 @@ export class AuthService {
       include: { roles: true },
     });
 
-    // Anti-énumération : le coût argon2 est toujours payé, même si le compte
-    // n'existe pas, pour que le délai de réponse soit identique dans les deux cas.
-    const passwordHash = user?.passwordHash ?? (await hashPassword('__inconnu__'));
-    const isPasswordValid = user ? await verifyPassword(loginDto.password, passwordHash) : false;
-
-    if (!user) {
-      // Compte inconnu : même délai, message générique, aucune tentative enregistrée.
+    // Vérification des identifiants via le fournisseur d'authentification
+    // local (L0-14). Même quand le compte est inconnu, le fournisseur paie
+    // le coût argon2 (anti-énumération).
+    let authenticated = false;
+    if (user) {
+      try {
+        await this.localAuthProvider.authenticate({
+          email: loginDto.email,
+          password: loginDto.password,
+        });
+        authenticated = true;
+      } catch {
+        // Mot de passe invalide : incrémenter le compteur et verrouiller si seuil.
+        const nouveauCompteur = (user.failedAttempts ?? 0) + 1;
+        const data: Record<string, unknown> = { failedAttempts: nouveauCompteur };
+        if (nouveauCompteur >= maxEchecs) {
+          data.lockedUntil = new Date(Date.now() + verrouillageMinutes * 60 * 1000);
+        }
+        await this.prisma.user.update({
+          where: { id: user.id },
+          data,
+        });
+        throw new UnauthorizedException('Identifiants invalides');
+      }
+    } else {
+      // Compte inconnu : même coût argon2 payé par le fournisseur, message
+      // générique, aucune tentative enregistrée (anti-énumération).
+      try {
+        await this.localAuthProvider.authenticate({
+          email: loginDto.email,
+          password: loginDto.password,
+        });
+      } catch {
+        // Ignoré : le fournisseur a déjà levé l'exception générique.
+      }
       throw new UnauthorizedException('Identifiants invalides');
     }
 
-    // Compte verrouillé : rejet avant toute vérification de mot de passe.
+    if (!authenticated) {
+      throw new UnauthorizedException('Identifiants invalides');
+    }
+
+    // Compte verrouillé : rejet après vérification du mot de passe pour garder
+    // un temps de réponse constant (anti-énumération).
     if (user.lockedUntil && user.lockedUntil > new Date()) {
       const retryAfter = Math.ceil((user.lockedUntil.getTime() - Date.now()) / 1000);
       throw new UnauthorizedException({
@@ -113,20 +149,6 @@ export class AuthService {
         errorCode: 'ACCOUNT_LOCKED',
         retryAfter,
       });
-    }
-
-    if (!isPasswordValid) {
-      // Échec d'authentification : incrémenter le compteur et verrouiller si le seuil est atteint.
-      const nouveauCompteur = (user.failedAttempts ?? 0) + 1;
-      const data: Record<string, unknown> = { failedAttempts: nouveauCompteur };
-      if (nouveauCompteur >= maxEchecs) {
-        data.lockedUntil = new Date(Date.now() + verrouillageMinutes * 60 * 1000);
-      }
-      await this.prisma.user.update({
-        where: { id: user.id },
-        data,
-      });
-      throw new UnauthorizedException('Identifiants invalides');
     }
 
     if (!user.isActive) {

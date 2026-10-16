@@ -134,7 +134,10 @@ export class UsersService {
       throw new NotFoundException('Utilisateur non trouvé');
     }
 
-    const isPasswordValid = await verifyPassword(updatePasswordDto.currentPassword, user.passwordHash);
+    const isPasswordValid = await verifyPassword(
+      updatePasswordDto.currentPassword,
+      user.passwordHash,
+    );
     if (!isPasswordValid) {
       throw new ConflictException('Mot de passe actuel incorrect');
     }

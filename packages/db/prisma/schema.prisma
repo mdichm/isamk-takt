@@ -20,6 +20,15 @@ enum RoleCode {
   ETUDIANT
 }
 
+// Fournisseur d'authentification — L0-14 Interface AuthProvider
+// Permet d'authentifier via le fournisseur LOCAL (mot de passe hashé) ou un
+// fournisseur externe futur (OIDC, LDAP/AD) sans impacter le RBAC.
+enum AuthProvider {
+  LOCAL
+  OIDC
+  LDAP
+}
+
 enum UserRole {
   ADMIN
   MANAGER
@@ -74,7 +83,9 @@ enum ActivityType {
 model User {
   id                 String    @id @default(uuid()) @db.Uuid
   email              String    @unique
-  passwordHash       String
+  // Optionnel : un compte authentifié via un fournisseur externe (OIDC/LDAP)
+  // n'a pas de mot de passe local.
+  passwordHash       String?
   firstName          String    @map("nom")
   lastName           String    @map("prenom")
   isActive           Boolean   @default(true) @map("actif")
@@ -86,6 +97,10 @@ model User {
   mustChangePassword Boolean   @default(false)
   passwordChangedAt  DateTime  @default(now())
   lastLoginAt        DateTime?
+  // Fournisseur d'authentification (LOCAL par défaut, OIDC/LDAP pour le SSO futur) — L0-14
+  provider           AuthProvider @default(LOCAL)
+  // Identifiant sujet du fournisseur externe (ex. sub OIDC), unique par fournisseur — L0-14
+  providerSubject    String?    @unique
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
