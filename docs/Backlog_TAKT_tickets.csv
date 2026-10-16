@@ -100,7 +100,7 @@ L0-26;L0;E0.6;Socle API;Tâche technique;Erreurs RFC 9457 et catalogue de codes;
 - requestId présent dans chaque erreur";—;§3.2, §2.4;BACK;Must;5;L0-01;Terminé;
 L0-27;L0;E0.6;Socle API;Tâche technique;Conventions HTTP transverses;ETag et If-Match, pagination par curseur, Idempotency-Key, throttling, Helmet, CORS.;"- If-Match absent ou périmé renvoie 412
 - Pagination limit et cursor opérationnelle
-- Rate limiting renforcé sur /auth/*";—;§3.1, §5.3;BACK;Must;5;L0-26;À faire;
+- Rate limiting renforcé sur /auth/*";—;§3.1, §5.3;BACK;Must;5;L0-26;Terminé;
 L0-28;L0;E0.6;Socle API;Tâche technique;OpenAPI 3.1 généré;Documentation exposée sur /api/docs, désactivable en production publique.;"- Le contrat est généré depuis le code
 - /api/docs est désactivé en production publique";—;§3.1;BACK;Should;2;L0-27;À faire;
 L0-29;L0;E0.7;Socle web;Story;Shell web, navigation par rôle et connexion;Layout, login, MFA, changement de mot de passe, refresh transparent, React Query, shadcn, i18n français (textes externalisés), libellés d'états du glossaire.;"- Le menu affiche uniquement les entrées autorisées au rôle (quatre rôles)

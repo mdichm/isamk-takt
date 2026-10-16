@@ -17,6 +17,8 @@ import {
 import { context } from '@opentelemetry/api';
 import { Request, Response, NextFunction } from 'express';
 import { randomUUID } from 'crypto';
+import helmet from 'helmet';
+import { ConfigService } from '@nestjs/config';
 
 // ---------------------------------------------------------------------------
 // Initialisation OpenTelemetry (traces uniquement ; métriques via /metrics + prom-client)
@@ -78,6 +80,28 @@ async function bootstrap() {
         next();
       },
     );
+  });
+
+  // Helmet : en-têtes de sécurité (ST §5.3)
+  app.use(helmet());
+  app.use(helmet.crossOriginEmbedderPolicy({ policy: 'credentialless' }));
+
+  // CORS en liste blanche (ST §5.3)
+  const configService = app.get(ConfigService);
+  const corsOrigin = configService.get<string>('app.cors.origin') ?? '*';
+  app.enableCors({
+    origin: corsOrigin === '*' ? '*' : corsOrigin.split(',').map((o: string) => o.trim()),
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'If-Match',
+      'Idempotency-Key',
+      'X-Request-Id',
+      'X-Requested-With',
+    ],
+    exposedHeaders: ['X-Request-Id', 'Link', 'ETag'],
   });
 
   // Global validation pipe (class-validator)

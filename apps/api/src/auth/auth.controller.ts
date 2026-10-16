@@ -10,6 +10,7 @@ import {
   UseGuards,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import type { Request, Response } from 'express';
 import { AuthService } from './auth.service.js';
@@ -52,6 +53,7 @@ export class AuthController {
   ) {}
 
   @Public()
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Inscription d\'un nouvel utilisateur' })
@@ -68,6 +70,7 @@ export class AuthController {
   }
 
   @Public()
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Connexion utilisateur' })
@@ -88,6 +91,7 @@ export class AuthController {
   }
 
   @Public()
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Rafraîchir le token d\'accès' })
@@ -107,6 +111,7 @@ export class AuthController {
   }
 
   @Public()
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('reset/confirm')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Confirmer la réinitialisation de mot de passe (lien à usage unique)' })
