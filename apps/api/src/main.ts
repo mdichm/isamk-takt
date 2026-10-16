@@ -4,6 +4,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe as NestValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 import { AppModule, ObserveInstrument } from './app.module.js';
 import { PinoLoggerService } from './common/logging/pino-logger.service.js';
 import { runWithRequestContext } from './common/logging/pino-logger.service.js';
@@ -57,6 +58,11 @@ async function bootstrap() {
     logger: new PinoLoggerService(),
   });
 
+  const configService = app.get(ConfigService);
+  const nodeEnv = configService.get<string>('app.nodeEnv');
+  const openapiEnabled = configService.get<boolean>('app.openapi.enabled');
+  const openapiPath = configService.get<string>('app.openapi.path');
+
   // Middleware : requestId + propagation du contexte via AsyncLocalStorage
   app.use((req: Request, res: Response, next: NextFunction) => {
     const requestId =
@@ -89,25 +95,29 @@ async function bootstrap() {
     }),
   );
 
-  // Swagger/OpenAPI setup
-  const config = new DocumentBuilder()
-    .setTitle('TAKT API')
-    .setDescription('API TAKT - Gestion de projets et sprints')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .addTag('Auth', 'Authentification')
-    .addTag('Projects', 'Projets')
-    .addTag('Tasks', 'Tâches')
-    .addTag('Sprints', 'Sprints')
-    .addTag('Users', 'Utilisateurs')
-    .addTag('Tags', 'Tags')
-    .addTag('Comments', 'Commentaires')
-    .addTag('Activities', 'Activités')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document, {
-    swaggerOptions: { persistAuthorization: true },
-  });
+  // Swagger/OpenAPI setup — désactivé en production publique
+  if (openapiEnabled && nodeEnv !== 'production') {
+    const documentConfig = new DocumentBuilder()
+      .setTitle('TAKT API')
+      .setDescription('API TAKT - Gestion de projets et sprints')
+      .setVersion('1.0')
+      .addBearerAuth()
+      .addTag('Auth', 'Authentification')
+      .addTag('Projects', 'Projets')
+      .addTag('Tasks', 'Tâches')
+      .addTag('Sprints', 'Sprints')
+      .addTag('Users', 'Utilisateurs')
+      .addTag('Tags', 'Tags')
+      .addTag('Comments', 'Commentaires')
+      .addTag('Activities', 'Activités')
+      .build();
+    const document = SwaggerModule.createDocument(app, documentConfig);
+    // Forcer OpenAPI 3.1.0 (par défaut @nestjs/swagger génère du 3.0.x)
+    (document as unknown as Record<string, unknown>).openapi = '3.1.0';
+    SwaggerModule.setup(openapiPath ?? 'api/docs', app, document, {
+      swaggerOptions: { persistAuthorization: true },
+    });
+  }
 
   await app.listen(process.env.PORT ?? 3000);
 }

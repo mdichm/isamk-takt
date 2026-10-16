@@ -104,7 +104,7 @@ t("http","L0",E,T,"Conventions HTTP transverses","ETag et If-Match, pagination p
   "—","§3.1, §5.3","BACK","Must",5,["erreurs"],"L0-20",statut="En cours")
 t("openapi","L0",E,T,"OpenAPI 3.1 généré","Documentation exposée sur /api/docs, désactivable en production publique.",
   ["Le contrat est généré depuis le code","/api/docs est désactivé en production publique"],
-  "—","§3.1","BACK","Should",2,["http"],"L0-21",statut="À faire")
+  "—","§3.1","BACK","Should",2,["http"],"L0-21",statut="En cours")
 E = "Socle web"
 t("shell","L0",E,S,"Shell web, navigation par rôle et connexion","Layout, login, MFA, changement de mot de passe, refresh transparent, React Query, shadcn, i18n français (textes externalisés), libellés d'états du glossaire.",
   ["Le menu affiche uniquement les entrées autorisées au rôle (quatre rôles)","Le jeton expiré est rafraîchi sans perte de saisie","Les textes sont externalisés (i18n) et aucun code d'état technique n'est affiché","Dates JJ/MM/AAAA et heures sur 24 h"],

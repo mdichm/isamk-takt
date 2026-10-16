@@ -17,4 +17,8 @@ export default registerAs('app', () => ({
   database: {
     url: process.env.DATABASE_URL,
   },
+  openapi: {
+    enabled: process.env.OPENAPI_ENABLED !== 'false',
+    path: process.env.OPENAPI_PATH || 'api/docs',
+  },
 }));
