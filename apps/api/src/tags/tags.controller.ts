@@ -4,6 +4,7 @@ import { TagsService } from './tags.service.js';
 import { CreateTagDto, UpdateTagDto, TagResponseDto } from './dto/tag.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
 @ApiTags('Tags')
 @Controller('projects/:projectId/tags')
@@ -13,6 +14,7 @@ export class TagsController {
   constructor(private tagsService: TagsService) {}
 
   @Post()
+  @Permissions('tag:write')
   @ApiOperation({ summary: 'Créer un nouveau tag' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 201, description: 'Tag créé', type: TagResponseDto })
@@ -26,6 +28,7 @@ export class TagsController {
   }
 
   @Get()
+  @Permissions('tag:read')
   @ApiOperation({ summary: 'Lister les tags d\'un projet' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Liste des tags', type: [TagResponseDto] })
@@ -37,6 +40,7 @@ export class TagsController {
   }
 
   @Get(':id')
+  @Permissions('tag:read')
   @ApiOperation({ summary: 'Obtenir un tag par ID' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du tag (UUID)' })
@@ -51,6 +55,7 @@ export class TagsController {
   }
 
   @Patch(':id')
+  @Permissions('tag:write')
   @ApiOperation({ summary: 'Mettre à jour un tag' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du tag (UUID)' })
@@ -67,6 +72,7 @@ export class TagsController {
   }
 
   @Delete(':id')
+  @Permissions('tag:write')
   @ApiOperation({ summary: 'Supprimer un tag' })
   @ApiParam({ name: 'projectId', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'id', description: 'ID du tag (UUID)' })

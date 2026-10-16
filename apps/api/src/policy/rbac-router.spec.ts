@@ -22,27 +22,40 @@ import { PERMISSIONS_KEY } from './decorators/permissions.decorator.js';
 import { IS_PUBLIC_KEY } from '../common/decorators/public.decorator.js';
 import { AuthController } from '../auth/auth.controller.js';
 import { UsersController } from '../users/users.controller.js';
+import { ProjectsController } from '../projects/projects.controller.js';
+import { TasksController } from '../tasks/tasks.controller.js';
+import { SprintsController } from '../sprints/sprints.controller.js';
+import { CommentsController } from '../comments/comments.controller.js';
+import { ActivitiesController } from '../activities/activities.controller.js';
+import { TagsController } from '../tags/tags.controller.js';
 
 /**
  * Controles couverts par la matrice RBAC (ST §5.2).
  * Toute methode publique de ces controles doit declarer @Permissions
  * (ou etre marquee @Public pour les routes d'authentification ouverte).
+ *
+ * Les domaines du referentiel TAKT (annees, referentiel, creneaux, repartition,
+ * versions, ...) sont portes par AuthController et UsersController.
+ * Les controles generiques (projects, tasks, tags, comments, sprints, activities)
+ * sont desormais declares avec @Permissions et inclus dans la matrice (ticket L0-38).
  */
-const CONTROLES_COUVERTS_PAR_MATRICE = [AuthController, UsersController];
+const CONTROLES_COUVERTS_PAR_MATRICE = [
+  AuthController,
+  UsersController,
+  ProjectsController,
+  TasksController,
+  SprintsController,
+  CommentsController,
+  ActivitiesController,
+  TagsController,
+];
 
 /**
- * Controles hors matrice RBAC (domaine generique sans permission ST §5.2
- * defini a ce jour) : projects, tasks, tags, comments, sprints, activities.
- * Exclus de ce test de matrice (ticket de suivi).
+ * Controles hors matrice RBAC : vide. Tous les controles de l'API sont desormais
+ * declares avec @Permissions (ou @Public) et couverts par la matrice ST §5.2.
+ * Toute route non declaree fait echouer le test ci-dessus.
  */
-const CONTROLES_HORS_MATRICE = [
-  'projects',
-  'tasks',
-  'tags',
-  'comments',
-  'sprints',
-  'activities',
-];
+const CONTROLES_HORS_MATRICE: string[] = [];
 
 interface MethodeControle {
   controle: string;
@@ -112,14 +125,7 @@ describe('Matrice RBAC - parcours du routeur (L0-16)', () => {
     ].join('\n')).toEqual([]);
   });
 
-  it('recense les controles hors matrice (suivi, non bloquant)', () => {
-    expect(CONTROLES_HORS_MATRICE).toEqual([
-      'projects',
-      'tasks',
-      'tags',
-      'comments',
-      'sprints',
-      'activities',
-    ]);
+  it('ne recense plus aucun controle hors matrice (tous declares)', () => {
+    expect(CONTROLES_HORS_MATRICE).toEqual([]);
   });
 });

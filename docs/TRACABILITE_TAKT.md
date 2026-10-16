@@ -2,7 +2,7 @@
 
 Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main.
 
-- 124 exigences, 208 tickets, 1072 points.
+- 124 exigences, 209 tickets, 1077 points.
 
 ## Exigences → tickets
 
@@ -16,21 +16,21 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | EX-PRI-06 | L3-01 | L3 |
 | EX-PRI-07 | L5-12 | L5 |
 | EX-ROL-01 | L0-15 | L0 |
-| EX-ROL-02 | L0-21 | L0 |
+| EX-ROL-02 | L0-22 | L0 |
 | EX-ROL-03 | L0-19, L2-07 | L0, L2 |
-| EX-ROL-04 | L0-20, L0-23, L3-11, L5-29 | L0, L3, L5 |
+| EX-ROL-04 | L0-20, L0-21, L0-24, L3-11, L5-29 | L0, L3, L5 |
 | EX-ROL-05 | L0-19, L2-15, L3-22, L7-06 | L0, L2, L3, L7 |
-| EX-ROL-06 | L0-21, L2-12, L5-04 | L0, L2, L5 |
+| EX-ROL-06 | L0-22, L2-12, L5-04 | L0, L2, L5 |
 | EX-ROL-07 | L2-18, L2-19 | L2 |
-| EX-SEC-01 | L0-10, L0-17, L0-31, L0-32, L0-37 | L0 |
-| EX-SEC-02 | L0-15, L0-29, L0-33 | L0 |
-| EX-SEC-03 | L0-16, L0-29 | L0 |
-| EX-SEC-04 | L0-13, L0-30 | L0 |
+| EX-SEC-01 | L0-10, L0-17, L0-32, L0-33, L0-38 | L0 |
+| EX-SEC-02 | L0-15, L0-30, L0-34 | L0 |
+| EX-SEC-03 | L0-16, L0-30 | L0 |
+| EX-SEC-04 | L0-13, L0-31 | L0 |
 | EX-SEC-05 | L0-11 | L0 |
 | EX-SEC-06 | L0-12 | L0 |
 | EX-SEC-07 | L0-14 | L0 |
-| EX-SEC-08 | L0-19, L0-20, L7-05, L7-06 | L0, L7 |
-| EX-SEC-09 | L0-18, L0-30 | L0 |
+| EX-SEC-08 | L0-19, L0-20, L0-21, L7-05, L7-06 | L0, L7 |
+| EX-SEC-09 | L0-18, L0-31 | L0 |
 | EX-CAL-01 | L1-01, L1-02 | L1 |
 | EX-CAL-02 | L1-17, L1-18, L1-21 | L1 |
 | EX-CAL-03 | L1-18, L1-19 | L1 |
@@ -106,12 +106,12 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | EX-NOT-01 | L5-21, L5-23, L5-24 | L5 |
 | EX-NOT-02 | L5-22, L5-25 | L5 |
 | EX-NOT-03 | L5-21, L5-25 | L5 |
-| EX-AUD-01 | L0-22, L0-23 | L0 |
-| EX-AUD-02 | L0-24, L7-12 | L0, L7 |
+| EX-AUD-01 | L0-23, L0-24 | L0 |
+| EX-AUD-02 | L0-25, L7-12 | L0, L7 |
 | EX-IMP-01 | L1-26, L1-27, L3-45 | L1, L3 |
 | EX-IMP-02 | L1-24, L1-25 | L1 |
 | EX-IMP-03 | L1-26, L1-27 | L1 |
-| EX-EXP-01 | L0-28, L6-03, L6-08 | L0, L6 |
+| EX-EXP-01 | L0-29, L6-03, L6-08 | L0, L6 |
 | EX-EXP-02 | L6-01, L6-07 | L6 |
 | EX-EXP-03 | L6-06 | L6 |
 | EX-EXP-04 | L6-02, L6-03, L6-10 | L6 |
@@ -122,12 +122,12 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | EX-NFR-01 | L0-06, L0-07 | L0 |
 | EX-NFR-02 | L0-02, L0-08, L7-07, L7-17 | L0, L7 |
 | EX-NFR-03 | L7-10 | L7 |
-| EX-NFR-04 | L0-35, L3-11, L3-17, L3-23, L6-07, L7-08, L7-09 | L0, L3, L6, L7 |
-| EX-NFR-05 | L0-09, L0-34, L7-11 | L0, L7 |
+| EX-NFR-04 | L0-36, L3-11, L3-17, L3-23, L6-07, L7-08, L7-09 | L0, L3, L6, L7 |
+| EX-NFR-05 | L0-09, L0-35, L7-11 | L0, L7 |
 | EX-NFR-06 | L0-07, L7-12 | L0, L7 |
 | EX-NFR-07 | L3-18, L5-16, L7-14, L7-15, L7-16 | L3, L5, L7 |
-| EX-NFR-08 | L0-28 | L0 |
-| EX-NFR-09 | L0-01, L0-36 | L0 |
+| EX-NFR-08 | L0-29 | L0 |
+| EX-NFR-09 | L0-01, L0-37 | L0 |
 | EX-NFR-10 | L0-05 | L0 |
 | EX-DAT-01 | L0-04 | L0 |
 | EX-DAT-02 | L5-12 | L5 |
@@ -138,9 +138,9 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | Ticket | Titre | Réf. ST |
 |---|---|---|
 | L0-03 | Paquet contracts (Zod + types OpenAPI) | §3.1, §5.3 |
-| L0-25 | Erreurs RFC 9457 et catalogue de codes | §3.2, §2.4 |
-| L0-26 | Conventions HTTP transverses | §3.1, §5.3 |
-| L0-27 | OpenAPI 3.1 généré | §3.1 |
+| L0-26 | Erreurs RFC 9457 et catalogue de codes | §3.2, §2.4 |
+| L0-27 | Conventions HTTP transverses | §3.1, §5.3 |
+| L0-28 | OpenAPI 3.1 généré | §3.1 |
 
 ## Correspondance des anciens numéros de tickets
 
@@ -162,20 +162,21 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | L0-14 | L0-17 |
 | L0-15 | L0-19 |
 | L0-16 | L0-20 |
-| L0-17 | L0-22 |
-| L0-18 | L0-23 |
-| L0-19 | L0-25 |
-| L0-20 | L0-26 |
-| L0-21 | L0-27 |
-| L0-22 | L0-28 |
-| L0-23 | L0-29 |
-| L0-31 | L0-31 |
-| L0-32 | L0-32 |
-| L0-33 | L0-33 |
-| L0-34 | L0-34 |
-| L0-35 | L0-35 |
-| L0-36 | L0-36 |
-| L0-37 | L0-37 |
+| L0-17 | L0-23 |
+| L0-18 | L0-24 |
+| L0-19 | L0-26 |
+| L0-20 | L0-27 |
+| L0-21 | L0-28 |
+| L0-22 | L0-29 |
+| L0-23 | L0-30 |
+| L0-31 | L0-32 |
+| L0-32 | L0-33 |
+| L0-33 | L0-34 |
+| L0-34 | L0-35 |
+| L0-35 | L0-36 |
+| L0-36 | L0-37 |
+| L0-37 | L0-38 |
+| L0-38 | L0-21 |
 | L1-01 | L1-01 |
 | L1-02 | L1-02 |
 | L1-03 | L1-03 |

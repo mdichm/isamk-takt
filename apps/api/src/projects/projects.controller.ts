@@ -4,6 +4,7 @@ import { ProjectsService } from './projects.service.js';
 import { CreateProjectDto, UpdateProjectDto, ProjectQueryDto, ProjectResponseDto, PaginatedProjectsDto, AddMemberDto, UpdateMemberRoleDto } from './dto/project.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
 @ApiTags('Projets')
 @Controller('projects')
@@ -13,6 +14,7 @@ export class ProjectsController {
   constructor(private projectsService: ProjectsService) {}
 
   @Post()
+  @Permissions('project:write')
   @ApiOperation({ summary: 'Créer un nouveau projet' })
   @ApiResponse({ status: 201, description: 'Projet créé', type: ProjectResponseDto })
   @ApiResponse({ status: 409, description: 'Clé de projet déjà utilisée' })
@@ -21,6 +23,7 @@ export class ProjectsController {
   }
 
   @Get()
+  @Permissions('project:read')
   @ApiOperation({ summary: 'Lister les projets de l\'utilisateur avec pagination et filtres' })
   @ApiResponse({ status: 200, description: 'Liste paginée des projets', type: PaginatedProjectsDto })
   async findAll(@Query() query: ProjectQueryDto, @CurrentUser('id') userId: string): Promise<PaginatedProjectsDto> {
@@ -28,6 +31,7 @@ export class ProjectsController {
   }
 
   @Get(':id')
+  @Permissions('project:read')
   @ApiOperation({ summary: 'Obtenir un projet par ID' })
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Projet trouvé', type: ProjectResponseDto })
@@ -37,6 +41,7 @@ export class ProjectsController {
   }
 
   @Patch(':id')
+  @Permissions('project:write')
   @ApiOperation({ summary: 'Mettre à jour un projet' })
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Projet mis à jour', type: ProjectResponseDto })
@@ -46,6 +51,7 @@ export class ProjectsController {
   }
 
   @Delete(':id')
+  @Permissions('project:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer un projet' })
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
@@ -56,6 +62,7 @@ export class ProjectsController {
   }
 
   @Get(':id/members')
+  @Permissions('project:read')
   @ApiOperation({ summary: 'Obtenir les membres d\'un projet' })
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Liste des membres' })
@@ -64,6 +71,7 @@ export class ProjectsController {
   }
 
   @Post(':id/members')
+  @Permissions('project:write')
   @ApiOperation({ summary: 'Ajouter un membre au projet' })
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 201, description: 'Membre ajouté' })
@@ -72,6 +80,7 @@ export class ProjectsController {
     return this.projectsService.addMember(id, addMemberDto, userId);
   }
 
+  @Permissions('project:write')
   @Patch(':id/members/:memberId')
   @ApiOperation({ summary: 'Mettre à jour le rôle d\'un membre' })
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
@@ -82,6 +91,7 @@ export class ProjectsController {
   }
 
   @Delete(':id/members/:memberId')
+  @Permissions('project:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Retirer un membre du projet' })
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })

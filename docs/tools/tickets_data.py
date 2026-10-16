@@ -79,6 +79,9 @@ t("rbac","L0",E,S,"Module policy RBAC avec portée","Permissions ressource:actio
 t("rbac_test","L0",E,TT,"Matrice RBAC automatisée","Test rôle × endpoint déduit de la matrice des permissions (4 rôles).",
   ["Un test parcourt le routeur et échoue si une route n'est pas déclarée","Chaque cellule de la matrice (ST §5.2) est vérifiée","Les cas négatifs (Responsable hors département, Direction en écriture) sont couverts"],
   "EX-SEC-08, EX-ROL-04","§5.2, §5.5","QA","Must",5,["rbac"],"L0-16",statut="Terminé")
+t("controleurs_generiques_permissions","L0",E,S,"Permissions ressource:action sur les contrôleurs génériques (projects, tasks, sprints, comments, activities)","Déclarer @Permissions(...) sur chaque méthode publique des contrôleurs génériques (projects, tasks, sprints, comments, activities) et définir les permissions ressource:action associées dans PolicyService (matrice ST §5.2), afin qu'elles soient couvertes par le test de matrice L0-16.",
+  ["Chaque méthode publique des 6 contrôleurs déclare @Permissions(...) (ou @Public si pertinent)","Les nouvelles permissions sont ajoutées à PolicyService pour les 4 rôles","Le test rbac-router.spec.ts (L0-16) les inclut et passe","Cas négatifs : Direction en écriture refusé, défaut = refus"],
+  "EX-SEC-08, EX-ROL-04","§5.2, §5.5","BACK","Must",5,["rbac_test"],"L0-38",statut="Terminé")
 t("admin_perm","L0",E,S,"Droits étendus de l'Administrateur et séparation des tâches","L'Administrateur détient l'union des droits du Gestionnaire, écrit la répartition de tout département et valide par département ; garde de séparation des tâches.",
   ["L'Administrateur accède à toutes les routes du Gestionnaire","Il peut écrire et valider la répartition d'un département en le nommant","Une personne ne peut pas valider un cycle qu'elle a soumis (403 SEGREGATION_OF_DUTIES)","Tests de non-régression sur la matrice"],
   "EX-ROL-02, EX-ROL-06","§5.2, §4.1.1","BACK","Must",3,["rbac"])
