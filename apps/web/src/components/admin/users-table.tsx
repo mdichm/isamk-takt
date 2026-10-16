@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useUsers, useToggleUserActive } from '@/hooks/use-users';
+import { useState, useEffect, useRef } from 'react';
+import { useUsers, useToggleUserActive, useResetUserPassword } from '@/hooks/use-users';
 import { useToast } from '@/components/ui/use-toast';
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
@@ -16,6 +16,14 @@ import {
 } from '@/components/ui/select';
 import { messages } from '@/lib/messages/fr';
 import { UserDto, UserQuery } from '@/lib/api/users';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 const ROLE_OPTIONS = [
   { value: 'ADMINISTRATEUR', label: messages.roleAdmin },
@@ -34,7 +42,10 @@ export function UsersTable() {
   const [query, setQuery] = useState<UserQuery>({ page: 1, limit: 10 });
   const { data, isPending, error } = useUsers(query);
   const toggleMutation = useToggleUserActive();
+  const resetMutation = useResetUserPassword();
   const { toast } = useToast();
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetTargetId, setResetTargetId] = useState<string | null>(null);
 
   if (error) {
     toast({
@@ -50,6 +61,39 @@ export function UsersTable() {
 
   const handleToggle = (u: UserDto) =>
     toggleMutation.mutate({ id: u.id, isActive: !u.actif });
+
+  const handleResetPassword = (u: UserDto) => {
+    setResetTargetId(u.id);
+    setResetOpen(true);
+  };
+
+  const handleConfirmReset = () => {
+    if (!resetTargetId) return;
+    resetMutation.mutate(resetTargetId);
+    setResetOpen(false);
+    setResetTargetId(null);
+  };
+
+  const resetSuccessShown = useRef(false);
+  useEffect(() => {
+    if (resetMutation.isSuccess && !resetSuccessShown.current) {
+      resetSuccessShown.current = true;
+      toast({
+        title: messages.success,
+        description: messages.passwordResetTriggered,
+      });
+    }
+    if (resetMutation.isError) {
+      toast({
+        title: messages.error,
+        description: messages.errorResetPassword,
+        variant: 'destructive',
+      });
+    }
+    if (!resetMutation.isSuccess && !resetMutation.isError) {
+      resetSuccessShown.current = false;
+    }
+  }, [resetMutation.isSuccess, resetMutation.isError, resetMutation.error, toast]);
 
   return (
     <div className="space-y-6">
@@ -156,8 +200,17 @@ export function UsersTable() {
                       size="sm"
                       onClick={() => handleToggle(u)}
                       variant="outline"
+                      disabled={resetMutation.isPending}
                     >
                       {u.actif ? messages.btnDeactivate : messages.btnActivate}
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={() => handleResetPassword(u)}
+                      variant="outline"
+                      disabled={resetMutation.isPending}
+                    >
+                      {messages.btnResetPassword}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -187,6 +240,27 @@ export function UsersTable() {
           </div>
         </div>
       )}
+
+      <Dialog open={resetOpen} onOpenChange={setResetOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{messages.resetPassword}</DialogTitle>
+            <DialogDescription>{messages.resetPasswordConfirm}</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={() => setResetOpen(false)}>
+              {messages.cancel}
+            </Button>
+            <Button
+              type="button"
+              onClick={handleConfirmReset}
+              disabled={resetMutation.isPending}
+            >
+              {resetMutation.isPending ? messages.loading : messages.btnResetPassword}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
