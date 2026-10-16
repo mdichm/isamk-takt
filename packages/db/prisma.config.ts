@@ -7,7 +7,7 @@ export default defineConfig({
   
   // Output directory for generated client (resolved via @prisma/client import)
   client: {
-    output: '../../.generated/prisma/client',
+    output: '../src/generated/prisma/client',
   },
   
   // Database connection for migrations
