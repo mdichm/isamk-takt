@@ -50,7 +50,7 @@ t("login","L0",E,S,"Connexion, refresh et déconnexion","POST /auth/login, /auth
   "EX-SEC-01","§5.1, §3.4.1","BACK","Must",8,["prisma"],"L0-09",statut="Terminé")
 t("lockout","L0",E,S,"Verrouillage de compte et anti-énumération","Verrouillage après le nombre d'échecs configuré, pour la durée configurée.",
   ["Au dépassement du seuil (défaut 5), 401 ACCOUNT_LOCKED avec retryAfter","Le délai de réponse est identique que le compte existe ou non","Le message d'erreur est générique"],
-  "EX-SEC-05","§5.1","BACK","Must",3,["login"],"L0-10")
+  "EX-SEC-05","§5.1","BACK","Must",3,["login"],"L0-10",statut="Terminé")
 t("mfa","L0",E,S,"MFA TOTP","Enrôlement et vérification TOTP, activable par rôle.",
   ["Un rôle listé dans mfaRoles ne peut pas finaliser sa connexion sans MFA (défaut : Administrateur)","Le code TOTP est vérifié à la connexion","MFA facultative pour les autres rôles, activable par l'Administrateur"],
   "EX-SEC-06","§5.1","BACK","Must",5,["login"],"L0-11")

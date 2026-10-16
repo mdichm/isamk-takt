@@ -64,7 +64,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Connexion utilisateur' })
   @ApiResponse({ status: 200, description: 'Connexion réussie', type: AuthResponseDto })
-  @ApiResponse({ status: 401, description: 'Identifiants invalides' })
+  @ApiResponse({
+    status: 401,
+    description:
+      'Identifiants invalides, ou compte verrouillé (ACCOUNT_LOCKED avec en-tête Retry-After)',
+  })
   async login(
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) res: Response,

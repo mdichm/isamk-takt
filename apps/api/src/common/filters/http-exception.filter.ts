@@ -134,5 +134,20 @@ export class ProblemJsonFilter implements ExceptionFilter {
 
     response.setHeader('Content-Type', 'application/problem+json');
     response.status(problem.status).json(problem);
+
+    // En-tête Retry-After transmis par l'exception (ex. compte verrouillé).
+    if (exception instanceof HttpException) {
+      const responseBody = exception.getResponse();
+      if (
+        typeof responseBody === 'object' &&
+        responseBody !== null &&
+        (responseBody as Record<string, unknown>).retryAfter !== undefined
+      ) {
+        response.setHeader(
+          'Retry-After',
+          String((responseBody as Record<string, unknown>).retryAfter),
+        );
+      }
+    }
   }
 }
