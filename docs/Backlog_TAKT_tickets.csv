@@ -91,7 +91,7 @@ L0-23;L0;E0.5;Audit append-only;Story;AuditService append-only;Écriture de l'au
 L0-24;L0;E0.5;Audit append-only;Story;Consultation de l'audit;GET /audit avec filtres, complet pour l'Administrateur, limité pour Gestionnaire et Responsable, consultation pour la Direction.;"- Filtres objetType, objetId, userId, from, to opérationnels
 - Gestionnaire et Responsable ne voient que leurs actions et leur périmètre
 - La Direction consulte l'audit métier en lecture seule
-- Pagination par curseur";EX-AUD-01, EX-ROL-04;§3.3, §5.3;BACK;Should;3;L0-23, L0-19;À faire;
+- Pagination par curseur";EX-AUD-01, EX-ROL-04;§3.3, §5.3;BACK;Should;3;L0-23, L0-19;En cours;
 L0-25;L0;E0.5;Audit append-only;Story;Conservation et purge des journaux;Fonction purge_journaux (rôle audit_purge), durées configurables, purge tracée.;"- La durée de conservation de l'audit et du journal de sécurité est configurable (défauts : audit sans purge, sécurité 12 mois)
 - La purge passe uniquement par la fonction dédiée et écrit un audit de purge
 - app_rw ne peut ni supprimer ni modifier les journaux";EX-AUD-02;§2.4, §5.3;BACK;Should;3;L0-13, L0-23;À faire;
