@@ -1,6 +1,6 @@
 # 📊 Dashboard Vélocité TAKT
 
-*Généré le 16/10/2026 par `velocity_tracker.py` — Ne pas éditer à la main.*
+*Généré le 17/10/2026 par `velocity_tracker.py` — Ne pas éditer à la main.*
 
 ---
 
@@ -16,12 +16,12 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| Points réalisés | 119 |
-| Jours écoulés depuis le début | 4 |
-| Débit journalier moyen | 29.75 pts/j |
-| Débit hebdomadaire moyen | 208.25 pts/sem |
-| Points restants | 958 |
-| Prévision débit continu | 18/11/2026 (~4.6 semaines restants) |
+| Points réalisés | 129 |
+| Jours écoulés depuis le début | 5 |
+| Débit journalier moyen | 25.80 pts/j |
+| Débit hebdomadaire moyen | 180.60 pts/sem |
+| Points restants | 948 |
+| Prévision débit continu | 22/11/2026 (~5.2 semaines restants) |
 
 ---
 
@@ -30,11 +30,11 @@
 | Métrique | Valeur |
 |----------|--------|
 | Tickets total | 209 |
-| ✅ Terminés | 24 (11.5%) |
+| ✅ Terminés | 26 (12.4%) |
 | 🔄 En cours | 1 |
-| ⏳ À faire | 184 |
+| ⏳ À faire | 182 |
 | Points total | 1077 |
-| Points réalisés | 119 (11.0%) |
+| Points réalisés | 129 (12.0%) |
 | Points fonctionnels | 889 |
 | Points techniques | 188 |
 | Ratio Tech/Func | 0.21 |
@@ -53,7 +53,7 @@ Sprint,Points restants,Points idéaux
 
 ## 🔮 Prévision de Fin
 
-> **Date estimée de fin : 18/11/2026 (~4.6 semaines restants)**
+> **Date estimée de fin : 22/11/2026 (~5.2 semaines restants)**
 
 *Basé sur la vélocité moyenne des 5 derniers sprints (14 jours/sprint).
 
@@ -63,7 +63,7 @@ Sprint,Points restants,Points idéaux
 
 | Lot | Tickets | Points | Terminés | % |
 |-----|--------:|-------:|---------:|---:|
-| L0 | 38 | 174 | 24 | 63.2% |
+| L0 | 38 | 174 | 26 | 68.4% |
 | L1 | 27 | 122 | 0 | 0.0% |
 | L2 | 19 | 94 | 0 | 0.0% |
 | L3 | 45 | 225 | 0 | 0.0% |

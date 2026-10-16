@@ -58,7 +58,7 @@ L0-15;L0;E0.3;Authentification & comptes;Story;Gestion des comptes et des rôles
 - Les quatre rôles existent (Administrateur, Gestionnaire, Responsable de département, Direction)
 - Un rôle Responsable exige un departementCode
 - La désactivation révoque immédiatement les refresh tokens et conserve l'identité dans l'audit
-- Aucune suppression physique d'un compte";EX-SEC-02, EX-ROL-01;§3.3, §5.2;BACK;Must;5;L0-10, L0-19;À faire;
+- Aucune suppression physique d'un compte";EX-SEC-02, EX-ROL-01;§3.3, §5.2;BACK;Must;5;L0-10, L0-19;Terminé;
 L0-16;L0;E0.3;Authentification & comptes;Story;Réinitialisation du mot de passe par l'Administrateur;POST /users/{id}/reset-password, lien à usage unique, POST /auth/reset/confirm, POST /auth/password pour le changement personnel, politique et historique.;"- Seul l'Administrateur déclenche une réinitialisation ; le lien est envoyé par e-mail à l'adresse du compte
 - Le lien ne fonctionne qu'une fois et expire après la durée configurée
 - L'Administrateur ne voit jamais un mot de passe
@@ -109,7 +109,7 @@ L0-29;L0;E0.7;Socle web;Story;Shell web, navigation par rôle et connexion;Layou
 - Dates JJ/MM/AAAA et heures sur 24 h";EX-NFR-08, EX-EXP-01;§0.1, §5.1;FRONT;Must;8;L0-10, L0-05;Terminé;
 L0-30;L0;E0.7;Socle web;Story;Écran d'administration des utilisateurs;Liste, création, rôles et portées, activation, désactivation, déclenchement de réinitialisation, MFA.;"- L'Administrateur crée un compte et affecte rôle et département
 - Il déclenche une réinitialisation sans voir de mot de passe
-- Les erreurs API sont affichées de façon lisible";EX-SEC-02, EX-SEC-03;§3.3;FRONT;Must;5;L0-29, L0-15, L0-16;À faire;
+- Les erreurs API sont affichées de façon lisible";EX-SEC-02, EX-SEC-03;§3.3;FRONT;Must;5;L0-29, L0-15, L0-16;Terminé;
 L0-31;L0;E0.7;Socle web;Story;Écrans des paramètres de sécurité et du journal;Paramètres de sécurité, conservation, journal de sécurité (Administrateur).;"- Tous les paramètres sont modifiables avec leurs valeurs courantes et par défaut
 - Le journal est filtrable par type, utilisateur et période
 - Accès réservé à l'Administrateur";EX-SEC-04, EX-SEC-09;§3.3;FRONT;Should;5;L0-29, L0-13, L0-18;À faire;

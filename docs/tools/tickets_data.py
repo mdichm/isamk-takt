@@ -62,7 +62,7 @@ t("inactivite","L0",E,S,"Déconnexion après inactivité","Suivi de lastActivity
   "EX-SEC-07","§5.1","FULL","Must",3,["params_secu"])
 t("comptes","L0",E,S,"Gestion des comptes et des rôles","CRUD utilisateurs, PUT /users/{id}/roles avec portée par département, désactivation logique et réactivation.",
   ["Seul l'Administrateur gère les comptes","Les quatre rôles existent (Administrateur, Gestionnaire, Responsable de département, Direction)","Un rôle Responsable exige un departementCode","La désactivation révoque immédiatement les refresh tokens et conserve l'identité dans l'audit","Aucune suppression physique d'un compte"],
-  "EX-SEC-02, EX-ROL-01","§3.3, §5.2","BACK","Must",5,["login","rbac"],"L0-12")
+  "EX-SEC-02, EX-ROL-01","§3.3, §5.2","BACK","Must",5,["login","rbac"],"L0-12",statut="Terminé")
 t("reset","L0",E,S,"Réinitialisation du mot de passe par l'Administrateur","POST /users/{id}/reset-password, lien à usage unique, POST /auth/reset/confirm, POST /auth/password pour le changement personnel, politique et historique.",
   ["Seul l'Administrateur déclenche une réinitialisation ; le lien est envoyé par e-mail à l'adresse du compte","Le lien ne fonctionne qu'une fois et expire après la durée configurée","L'Administrateur ne voit jamais un mot de passe","Le nouveau mot de passe respecte la politique et l'historique (422 PASSWORD_POLICY)","Déclenchement et usage journalisés dans le journal de sécurité"],
   "EX-SEC-03","§5.1, §3.4.21","BACK","Must",5,["params_secu","comptes","securite_journal"],"L0-13",statut="Terminé")
@@ -111,7 +111,7 @@ t("shell","L0",E,S,"Shell web, navigation par rôle et connexion","Layout, login
   "EX-NFR-08, EX-EXP-01","§0.1, §5.1","FRONT","Must",8,["login","tokens"],"L0-22",statut="Terminé")
 t("admin_ui","L0",E,S,"Écran d'administration des utilisateurs","Liste, création, rôles et portées, activation, désactivation, déclenchement de réinitialisation, MFA.",
   ["L'Administrateur crée un compte et affecte rôle et département","Il déclenche une réinitialisation sans voir de mot de passe","Les erreurs API sont affichées de façon lisible"],
-  "EX-SEC-02, EX-SEC-03","§3.3","FRONT","Must",5,["shell","comptes","reset"],"L0-23",statut="À faire")
+  "EX-SEC-02, EX-SEC-03","§3.3","FRONT","Must",5,["shell","comptes","reset"],"L0-23",statut="Terminé")
 t("secu_ui","L0",E,S,"Écrans des paramètres de sécurité et du journal","Paramètres de sécurité, conservation, journal de sécurité (Administrateur).",
   ["Tous les paramètres sont modifiables avec leurs valeurs courantes et par défaut","Le journal est filtrable par type, utilisateur et période","Accès réservé à l'Administrateur"],
   "EX-SEC-04, EX-SEC-09","§3.3","FRONT","Should",5,["shell","params_secu","securite_journal"])
