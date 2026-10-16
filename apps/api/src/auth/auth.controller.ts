@@ -18,6 +18,7 @@ import { RegisterDto, LoginDto, AuthResponseDto } from './dto/auth.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Public } from '../common/decorators/public.decorator.js';
+import { MfaService } from './mfa.service.js';
 
 const REFRESH_TOKEN_COOKIE = 'refreshToken';
 
@@ -41,7 +42,7 @@ function extractRefreshToken(req: Request): string | undefined {
 @ApiTags('Authentification')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private mfaService: MfaService) {}
 
   @Public()
   @Post('register')
@@ -129,5 +130,42 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Profil utilisateur' })
   async getProfile(@CurrentUser() user: AuthResult['user']): Promise<AuthResult['user']> {
     return user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('mfa/enroll')
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Enrôler l\'utilisateur connecté au MFA TOTP' })
+  @ApiResponse({ status: 200, description: 'Secret et URI QR code générés', schema: { example: { secret: 'JBSWY3DPEHPK3PXP', qrCodeUri: 'otpauth://totp/TAKT:alice@example.fr?secret=JBSWY3DPEHPK3PXP&issuer=TAKT' } } })
+  @ApiResponse({ status: 400, description: 'MFA déjà activé' })
+  @ApiResponse({ status: 401, description: 'Non authentifié' })
+  async enroll(@CurrentUser('id') userId: string): Promise<{ secret: string; qrCodeUri: string }> {
+    return this.mfaService.enroll(userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('mfa/verify')
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Vérifier le code TOTP et activer le MFA' })
+  @ApiResponse({ status: 200, description: 'MFA activé', schema: { example: { success: true, mfaActive: true } } })
+  @ApiResponse({ status: 401, description: 'Code TOTP invalide ou non authentifié' })
+  async verify(
+    @CurrentUser('id') userId: string,
+    @Body() body: { totp: string },
+  ): Promise<{ success: boolean; mfaActive: boolean }> {
+    return this.mfaService.verify(userId, body.totp);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('mfa/disable')
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Désactiver le MFA pour l\'utilisateur connecté' })
+  @ApiResponse({ status: 200, description: 'MFA désactivé', schema: { example: { success: true, mfaActive: false } } })
+  @ApiResponse({ status: 401, description: 'Non authentifié' })
+  async disable(@CurrentUser('id') userId: string): Promise<{ success: boolean; mfaActive: boolean }> {
+    return this.mfaService.disable(userId);
   }
 }

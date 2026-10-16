@@ -34,6 +34,12 @@ export class LoginDto {
   @IsString()
   @MinLength(1, { message: 'Le mot de passe est requis' })
   password: string;
+
+  @ApiProperty({ example: '123456', required: false })
+  @IsString()
+  @MinLength(6, { message: 'Le code TOTP doit contenir 6 chiffres' })
+  @MaxLength(6, { message: 'Le code TOTP doit contenir 6 chiffres' })
+  totp?: string;
 }
 
 export class RefreshTokenDto {

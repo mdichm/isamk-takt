@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { AuthService } from './auth.service.js';
 import { hashPassword, verifyPassword } from './password.js';
 import type { RoleCode } from '@takt/db';
+import { MfaService } from './mfa.service.js';
 
 // ---------------------------------------------------------------------------
 // Doublon PrismaService minimal (mocks des méthodes utilisées par AuthService)
@@ -24,6 +25,9 @@ type PrismaMock = {
   parametreSecurite: {
     findUnique: ReturnType<typeof vi.fn>;
   };
+  securityEvent: {
+    create: ReturnType<typeof vi.fn>;
+  };
 };
 
 function buildPrismaMock(): PrismaMock {
@@ -42,6 +46,9 @@ function buildPrismaMock(): PrismaMock {
     parametreSecurite: {
       findUnique: vi.fn(),
     },
+    securityEvent: {
+      create: vi.fn(),
+    },
   } as unknown as PrismaMock;
 }
 
@@ -56,6 +63,7 @@ function buildModule(prismaMock: PrismaMock) {
         AuthService,
         { provide: PrismaService, useValue: prismaMock },
         { provide: JwtService, useValue: jwtService },
+        MfaService,
       ],
     }),
     jwtService,
@@ -372,5 +380,48 @@ describe('AuthService', () => {
       where: { id: userId },
       data: { failedAttempts: 0, lockedUntil: null },
     });
+  });
+
+  it('login : MFA activé + rôle ADMINISTRATEUR, sans totp → 401', async () => {
+    const prismaMock = buildPrismaMock();
+    const hash = await hashPassword(password);
+    prismaMock.parametreSecurite.findUnique.mockResolvedValue({
+      mfaRoles: ['ADMINISTRATEUR'],
+    } as any);
+    prismaMock.user.findUnique.mockResolvedValue({
+      ...baseUser,
+      passwordHash: hash,
+      mfaActive: true,
+      mfaSecret: 'JBSWY3DPEHPK3PXP',
+    } as any);
+
+    const { module } = buildModule(prismaMock);
+    const service = (await module.compile()).get(AuthService);
+
+    await expect(service.login({ email, password })).rejects.toThrow(
+      'Identifiants invalides',
+    );
+  });
+
+  it('login : MFA activé + rôle GESTIONNAIRE (hors mfaRoles) → succès sans totp', async () => {
+    const prismaMock = buildPrismaMock();
+    const hash = await hashPassword(password);
+    prismaMock.parametreSecurite.findUnique.mockResolvedValue({
+      mfaRoles: ['ADMINISTRATEUR'],
+    } as any);
+    prismaMock.user.findUnique.mockResolvedValue({
+      ...baseUser,
+      passwordHash: hash,
+      mfaActive: true,
+      mfaSecret: 'JBSWY3DPEHPK3PXP',
+      roles: [{ role: 'GESTIONNAIRE' as RoleCode }],
+    } as any);
+    prismaMock.refreshToken.create.mockResolvedValue({ id: 'rt-1', familyId });
+    prismaMock.user.update.mockResolvedValue({} as any);
+    const { module } = buildModule(prismaMock);
+    const service = (await module.compile()).get(AuthService);
+
+    const result = await service.login({ email, password });
+    expect(result.accessToken).toBe(`token-${userId}`);
   });
   });

@@ -53,7 +53,7 @@ t("lockout","L0",E,S,"Verrouillage de compte et anti-énumération","Verrouillag
   "EX-SEC-05","§5.1","BACK","Must",3,["login"],"L0-10",statut="Terminé")
 t("mfa","L0",E,S,"MFA TOTP","Enrôlement et vérification TOTP, activable par rôle.",
   ["Un rôle listé dans mfaRoles ne peut pas finaliser sa connexion sans MFA (défaut : Administrateur)","Le code TOTP est vérifié à la connexion","MFA facultative pour les autres rôles, activable par l'Administrateur"],
-  "EX-SEC-06","§5.1","BACK","Must",5,["login"],"L0-11")
+  "EX-SEC-06","§5.1","BACK","Must",5,["login"],"L0-11",statut="Terminé")
 t("params_secu","L0",E,S,"Paramètres de sécurité configurables","Modèle ParametreSecurite (ligne unique) et API GET/PATCH /parametres/securite.",
   ["Longueur minimale, composition, expiration, historique, verrouillage, inactivité, MFA par rôle et conservation des journaux sont modifiables par l'Administrateur","Longueur minimale inférieure à 8 refusée (422)","Chaque modification écrit un audit (ancienne et nouvelle valeur)","Valeurs par défaut conformes à ST §5.1"],
   "EX-SEC-04","§5.1, §3.4.21, §2.2","BACK","Must",5,["login","audit_service"])

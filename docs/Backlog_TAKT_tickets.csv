@@ -46,7 +46,7 @@ L0-11;L0;E0.3;Authentification & comptes;Story;Verrouillage de compte et anti-é
 - Le message d'erreur est générique";EX-SEC-05;§5.1;BACK;Must;3;L0-10;Terminé;
 L0-12;L0;E0.3;Authentification & comptes;Story;MFA TOTP;Enrôlement et vérification TOTP, activable par rôle.;"- Un rôle listé dans mfaRoles ne peut pas finaliser sa connexion sans MFA (défaut : Administrateur)
 - Le code TOTP est vérifié à la connexion
-- MFA facultative pour les autres rôles, activable par l'Administrateur";EX-SEC-06;§5.1;BACK;Must;5;L0-10;À faire;
+- MFA facultative pour les autres rôles, activable par l'Administrateur";EX-SEC-06;§5.1;BACK;Must;5;L0-10;Terminé;
 L0-13;L0;E0.3;Authentification & comptes;Story;Paramètres de sécurité configurables;Modèle ParametreSecurite (ligne unique) et API GET/PATCH /parametres/securite.;"- Longueur minimale, composition, expiration, historique, verrouillage, inactivité, MFA par rôle et conservation des journaux sont modifiables par l'Administrateur
 - Longueur minimale inférieure à 8 refusée (422)
 - Chaque modification écrit un audit (ancienne et nouvelle valeur)
