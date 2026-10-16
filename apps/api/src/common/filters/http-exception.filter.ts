@@ -71,10 +71,11 @@ function getErrorDetails(exception: unknown, request: Request): ProblemDetails {
       detail = exception.message;
     }
   } else if (isPrismaKnown) {
-    status = HttpStatus.BAD_REQUEST;
+    const prismaResult = handlePrismaError(exception);
+    status = prismaResult.status;
     title = getStatusTitle(status);
-    detail = handlePrismaError(exception);
-    code = exception.code;
+    detail = prismaResult.detail;
+    code = prismaResult.code ?? exception.code;
   } else if (isPrismaVal) {
     status = HttpStatus.BAD_REQUEST;
     title = getStatusTitle(status);
@@ -101,18 +102,46 @@ function getErrorDetails(exception: unknown, request: Request): ProblemDetails {
   };
 }
 
-function handlePrismaError(exception: Prisma.PrismaClientKnownRequestError): string {
-  switch (exception.code) {
-    case 'P2002': {
-      const target = exception.meta?.target as string[] | undefined;
-      return `Une entrée avec cette valeur existe déjà${target ? ` (${target.join(', ')})` : ''}`;
+interface PrismaErrorResult {
+  status: number;
+  detail: string;
+  code?: string;
+}
+
+export function handlePrismaError(exception: Prisma.PrismaClientKnownRequestError): PrismaErrorResult {
+  // SQLSTATE 23505 = violation d'unicité (Prisma P2002) -> 409 DUPLICATE_RESOURCE
+  if (exception.code === 'P2002') {
+    const target = exception.meta?.target as string[] | undefined;
+    return {
+      status: HttpStatus.CONFLICT,
+      detail: `Une entrée avec cette valeur existe déjà${target ? ` (${target.join(', ')})` : ''}`,
+      code: 'DUPLICATE_RESOURCE',
+    };
+  }
+  // SQLSTATE P0001 = erreurs métier PL/pgSQL levées par les triggers -> 423 ou 409
+  if (exception.code === 'P0001') {
+    switch (exception.message) {
+      case 'IMMUTABLE_VERSION':
+        return { status: HttpStatus.LOCKED, detail: 'La version est immuable', code: 'VERSION_IMMUTABLE' };
+      case 'YEAR_CLOSED':
+        return { status: HttpStatus.LOCKED, detail: "L'année universitaire est clôturée", code: 'YEAR_CLOSED' };
+      case 'APPEND_ONLY_TABLE':
+        return { status: HttpStatus.LOCKED, detail: 'Cette table est en mode append-only', code: 'APPEND_ONLY_TABLE' };
+      case 'CHARGE_RULESET_PUBLISHED':
+        return { status: HttpStatus.LOCKED, detail: 'Le jeu de règles de charge est publié et immuable', code: 'CHARGE_RULESET_PUBLISHED' };
+      case 'CONFIG_IN_USE':
+        return { status: HttpStatus.LOCKED, detail: 'Cette configuration est déjà utilisée', code: 'CONFIG_IN_USE' };
+      default:
+        return { status: HttpStatus.BAD_REQUEST, detail: 'Erreur de base de données', code: exception.code };
     }
+  }
+  switch (exception.code) {
     case 'P2025':
-      return 'Enregistrement non trouvé';
+      return { status: HttpStatus.NOT_FOUND, detail: 'Enregistrement non trouvé', code: 'NOT_FOUND' };
     case 'P2003':
-      return 'Violation de contrainte de clé étrangère';
+      return { status: HttpStatus.BAD_REQUEST, detail: 'Violation de contrainte de clé étrangère', code: 'FOREIGN_KEY_VIOLATION' };
     default:
-      return 'Erreur de base de données';
+      return { status: HttpStatus.BAD_REQUEST, detail: 'Erreur de base de données', code: exception.code };
   }
 }
 

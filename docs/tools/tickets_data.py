@@ -98,7 +98,7 @@ t("audit_purge","L0",E,S,"Conservation et purge des journaux","Fonction purge_jo
 E = "Socle API"
 t("erreurs","L0",E,T,"Erreurs RFC 9457 et catalogue de codes","Format problem+json, codes métier, traduction SQLSTATE P0001 et 23505.",
   ["Toutes les erreurs suivent le format ST §3.2","IMMUTABLE_VERSION, YEAR_CLOSED, APPEND_ONLY_TABLE, CHARGE_RULESET_PUBLISHED, CONFIG_IN_USE et 23505 sont traduits en 409 ou 423","requestId présent dans chaque erreur"],
-  "—","§3.2, §2.4","BACK","Must",5,["repo"],"L0-19",statut="À faire")
+  "—","§3.2, §2.4","BACK","Must",5,["repo"],"L0-19",statut="Terminé")
 t("http","L0",E,T,"Conventions HTTP transverses","ETag et If-Match, pagination par curseur, Idempotency-Key, throttling, Helmet, CORS.",
   ["If-Match absent ou périmé renvoie 412","Pagination limit et cursor opérationnelle","Rate limiting renforcé sur /auth/*"],
   "—","§3.1, §5.3","BACK","Must",5,["erreurs"],"L0-20",statut="À faire")
