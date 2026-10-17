@@ -140,7 +140,7 @@ t("security_event","L0",E,T,"Enregistrement d'événements de sécurité","Servi
   "EX-SEC-01","§5.1","BACK","Must",3,["jwt_guard","audit_service"],"L0-37",statut="Terminé")
 t("security_event_auth_hook","L0",E,T,"Brancher l'interceptor SecurityEvent sur l'authentification","Appliquer SecurityEventInterceptor sur les contrôleurs d'authentification (login, register, refresh, logout) pour capturer les événements de sécurité réels (succès).",
   ["Login, register, refresh et logout génèrent un SecurityEvent","Les événements MFA restent gérés par MfaService (pas de doublon)","L'email est capturé depuis le corps de requête sur les routes publiques"],
-  "EX-SEC-01","§5.1","BACK","Must",2,["security_event","jwt_guard"],"L0-38",statut="En cours")
+  "EX-SEC-01","§5.1","BACK","Must",2,["security_event","jwt_guard"],"L0-38",statut="Terminé")
 
 # ============================== L1 ==============================
 E = "Années & semestres"
