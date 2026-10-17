@@ -2,7 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import prettierConfig from "eslint-config-prettier";
-import reactHooks from "eslint-plugin-react-hooks";
+import * as reactHooks from "eslint-plugin-react-hooks";
 
 const eslintConfig = defineConfig(
   ...nextVitals,
@@ -12,7 +12,9 @@ const eslintConfig = defineConfig(
   // called inside async functions invoked by useEffect. Local ESLint does not
   // even resolve this rule, so disabling it globally is safe.
   {
-    ...reactHooks.configs.recommended,
+    plugins: {
+      "react-hooks": reactHooks,
+    },
     rules: {
       ...reactHooks.configs.recommended.rules,
       "react-hooks/rules-of-hooks": "off",
