@@ -20,6 +20,7 @@ import { StructureModule } from './structure/structure.module.js';
 import { GroupesModule } from './groupes/groupes.module.js';
 import { ModulesModule } from './modules/modules.module.js';
 import { ActivityTagsModule } from './activity-tags/activity-tags.module.js';
+import { EnseignantsModule } from './enseignants/enseignants.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -80,6 +81,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     GroupesModule,
     ModulesModule,
     ActivityTagsModule,
+    EnseignantsModule,
     PolicyModule,
   ],
   controllers: [MetricsController, SecurityEventController],

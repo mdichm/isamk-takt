@@ -95,40 +95,40 @@ enum GroupeType {
 // ============================================
 
 model User {
-  id                 String    @id @default(uuid()) @db.Uuid
-  email              String    @unique
+  id                 String       @id @default(uuid()) @db.Uuid
+  email              String       @unique
   // Optionnel : un compte authentifié via un fournisseur externe (OIDC/LDAP)
   // n'a pas de mot de passe local.
   passwordHash       String?
-  firstName          String    @map("nom")
-  lastName           String    @map("prenom")
-  isActive           Boolean   @default(true) @map("actif")
+  firstName          String       @map("nom")
+  lastName           String       @map("prenom")
+  isActive           Boolean      @default(true) @map("actif")
   desactiveLe        DateTime?
-  failedAttempts     Int       @default(0)
+  failedAttempts     Int          @default(0)
   lockedUntil        DateTime?
   mfaSecret          String?
-  mfaActive          Boolean   @default(false)
-  mustChangePassword Boolean   @default(false)
-  passwordChangedAt  DateTime  @default(now())
+  mfaActive          Boolean      @default(false)
+  mustChangePassword Boolean      @default(false)
+  passwordChangedAt  DateTime     @default(now())
   lastLoginAt        DateTime?
   // Fournisseur d'authentification (LOCAL par défaut, OIDC/LDAP pour le SSO futur) — L0-14
   provider           AuthProvider @default(LOCAL)
   // Identifiant sujet du fournisseur externe (ex. sub OIDC), unique par fournisseur — L0-14
-  providerSubject    String?    @unique
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  providerSubject    String?      @unique
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
 
   // Relations
-  roles             UserSystemRole[]
-  assignedTasks     Task[]        @relation("AssignedTasks")
-  createdTasks      Task[]        @relation("CreatedTasks")
-  comments          Comment[]
-  activities        Activity[]
-  projectMembers    ProjectMember[]
-  sprintMembers     SprintMember[]
-  refreshTokens     RefreshToken[]
-  passwordHistory   PasswordHistory[]
-  resetTokens       PasswordResetToken[]
+  roles           UserSystemRole[]
+  assignedTasks   Task[]               @relation("AssignedTasks")
+  createdTasks    Task[]               @relation("CreatedTasks")
+  comments        Comment[]
+  activities      Activity[]
+  projectMembers  ProjectMember[]
+  sprintMembers   SprintMember[]
+  refreshTokens   RefreshToken[]
+  passwordHistory PasswordHistory[]
+  resetTokens     PasswordResetToken[]
 
   @@index([email])
   @@index([isActive])
@@ -178,13 +178,13 @@ model PasswordHistory {
 }
 
 model PasswordResetToken {
-  id          String    @id @default(uuid()) @db.Uuid
-  userId      String    @db.Uuid
-  tokenHash   String    @unique
-  expiresAt   DateTime
-  usedAt      DateTime?
-  demandePar  String    @db.Uuid
-  createdAt   DateTime  @default(now())
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @db.Uuid
+  tokenHash  String    @unique
+  expiresAt  DateTime
+  usedAt     DateTime?
+  demandePar String    @db.Uuid
+  createdAt  DateTime  @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -202,10 +202,10 @@ model Project {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
-  members    ProjectMember[]
-  tasks      Task[]
-  sprints    Sprint[]
-  columns    BoardColumn[]
+  members ProjectMember[]
+  tasks   Task[]
+  sprints Sprint[]
+  columns BoardColumn[]
 
   @@index([key])
   @@index([status])
@@ -247,32 +247,32 @@ model BoardColumn {
 }
 
 model Task {
-  id          String      @id @default(uuid()) @db.Uuid
-  projectId   String      @db.Uuid
-  columnId    String?     @db.Uuid
+  id          String       @id @default(uuid()) @db.Uuid
+  projectId   String       @db.Uuid
+  columnId    String?      @db.Uuid
   title       String
   description String?
-  status      TaskStatus  @default(TODO)
+  status      TaskStatus   @default(TODO)
   priority    TaskPriority @default(MEDIUM)
   storyPoints Int?
-  position    Int         @default(0)
+  position    Int          @default(0)
   dueDate     DateTime?
   startedAt   DateTime?
   completedAt DateTime?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
-  project      Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  column       BoardColumn?  @relation(fields: [columnId], references: [id], onDelete: SetNull)
-  assignee     User?         @relation("AssignedTasks", fields: [assigneeId], references: [id], onDelete: SetNull)
-  assigneeId   String?       @db.Uuid
-  creator      User          @relation("CreatedTasks", fields: [creatorId], references: [id], onDelete: Restrict)
-  creatorId    String        @db.Uuid
-  sprint       Sprint?       @relation(fields: [sprintId], references: [id], onDelete: SetNull)
-  sprintId     String?       @db.Uuid
-  parentTask   Task?         @relation("Subtasks", fields: [parentTaskId], references: [id], onDelete: SetNull)
-  parentTaskId String?       @db.Uuid
-  subtasks     Task[]        @relation("Subtasks")
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  column       BoardColumn? @relation(fields: [columnId], references: [id], onDelete: SetNull)
+  assignee     User?        @relation("AssignedTasks", fields: [assigneeId], references: [id], onDelete: SetNull)
+  assigneeId   String?      @db.Uuid
+  creator      User         @relation("CreatedTasks", fields: [creatorId], references: [id], onDelete: Restrict)
+  creatorId    String       @db.Uuid
+  sprint       Sprint?      @relation(fields: [sprintId], references: [id], onDelete: SetNull)
+  sprintId     String?      @db.Uuid
+  parentTask   Task?        @relation("Subtasks", fields: [parentTaskId], references: [id], onDelete: SetNull)
+  parentTaskId String?      @db.Uuid
+  subtasks     Task[]       @relation("Subtasks")
   comments     Comment[]
   activities   Activity[]
   tags         TaskTag[]
@@ -287,19 +287,19 @@ model Task {
 }
 
 model Sprint {
-  id          String       @id @default(uuid()) @db.Uuid
-  projectId   String       @db.Uuid
-  name        String
-  goal        String?
-  status      SprintStatus @default(PLANNING)
-  startDate   DateTime
-  endDate     DateTime
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id        String       @id @default(uuid()) @db.Uuid
+  projectId String       @db.Uuid
+  name      String
+  goal      String?
+  status    SprintStatus @default(PLANNING)
+  startDate DateTime
+  endDate   DateTime
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 
-  project    Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  tasks      Task[]
-  members    SprintMember[]
+  project Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+  members SprintMember[]
 
   @@index([projectId])
   @@index([status])
@@ -307,9 +307,9 @@ model Sprint {
 }
 
 model SprintMember {
-  id       String   @id @default(uuid()) @db.Uuid
-  sprintId String   @db.Uuid
-  userId   String   @db.Uuid
+  id       String @id @default(uuid()) @db.Uuid
+  sprintId String @db.Uuid
+  userId   String @db.Uuid
 
   sprint Sprint @relation(fields: [sprintId], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -348,8 +348,8 @@ model Tag {
 }
 
 model TaskTag {
-  taskId String   @db.Uuid
-  tagId  String   @db.Uuid
+  taskId String @db.Uuid
+  tagId  String @db.Uuid
 
   task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
   tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
@@ -452,16 +452,17 @@ model AuditLog {
 // ============================================
 
 model Annee {
-  id        String   @id @default(uuid()) @db.Uuid
-  numero    Int      // ex: 2026
-  code      String   // ex: "2026-2027"
-  nbSemaines Int     @default(14)
-  statut    AnneeStatut @default(PREPARATION)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String      @id @default(uuid()) @db.Uuid
+  numero     Int // ex: 2026
+  code       String // ex: "2026-2027"
+  nbSemaines Int         @default(14)
+  statut     AnneeStatut @default(PREPARATION)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
-  semestres   Semestre[]
+  semestres    Semestre[]
   departements Departement[]
+  enseignants  Enseignant[]
 
   @@unique([code])
   @@unique([numero])
@@ -469,13 +470,13 @@ model Annee {
 }
 
 model Semestre {
-  id        String   @id @default(uuid()) @db.Uuid
-  numero    Int      // 1 ou 2
-  anneeId   String   @db.Uuid
-  annee     Annee    @relation(fields: [anneeId], references: [id], onDelete: Cascade)
-  nbSemaines Int     @default(14)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid()) @db.Uuid
+  numero     Int // 1 ou 2
+  anneeId    String   @db.Uuid
+  annee      Annee    @relation(fields: [anneeId], references: [id], onDelete: Cascade)
+  nbSemaines Int      @default(14)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   groupes Groupe[]
 
@@ -491,13 +492,14 @@ model Departement {
   id        String   @id @default(uuid()) @db.Uuid
   anneeId   String   @db.Uuid
   annee     Annee    @relation(fields: [anneeId], references: [id], onDelete: Cascade)
-  code      String   // ex: "INFO", "MATH"
-  libelle   String   // ex: "Informatique", "Mathématiques"
-  originId  String?  // ID d'origine externe (synchronisation)
+  code      String // ex: "INFO", "MATH"
+  libelle   String // ex: "Informatique", "Mathématiques"
+  originId  String? // ID d'origine externe (synchronisation)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  formations Formation[]
+  formations  Formation[]
+  enseignants Enseignant[]
 
   @@unique([anneeId, code])
   @@index([anneeId])
@@ -505,14 +507,14 @@ model Departement {
 }
 
 model Formation {
-  id          String   @id @default(uuid()) @db.Uuid
-  departementId String  @db.Uuid
-  departement Departement @relation(fields: [departementId], references: [id], onDelete: Cascade)
-  code        String   // ex: "L3-INFO"
-  libelle     String   // ex: "Licence 3 Informatique"
-  originId    String?  // ID d'origine externe (synchronisation)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String      @id @default(uuid()) @db.Uuid
+  departementId String      @db.Uuid
+  departement   Departement @relation(fields: [departementId], references: [id], onDelete: Cascade)
+  code          String // ex: "L3-INFO"
+  libelle       String // ex: "Licence 3 Informatique"
+  originId      String? // ID d'origine externe (synchronisation)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   niveaux Niveau[]
 
@@ -522,14 +524,14 @@ model Formation {
 }
 
 model Niveau {
-  id          String   @id @default(uuid()) @db.Uuid
-  formationId String   @db.Uuid
+  id          String    @id @default(uuid()) @db.Uuid
+  formationId String    @db.Uuid
   formation   Formation @relation(fields: [formationId], references: [id], onDelete: Cascade)
-  code        String   // ex: "L3"
-  libelle     String   // ex: "Licence 3"
-  originId    String?  // ID d'origine externe (synchronisation)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  code        String // ex: "L3"
+  libelle     String // ex: "Licence 3"
+  originId    String? // ID d'origine externe (synchronisation)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   groupes Groupe[]
   modules Module[]
@@ -544,21 +546,21 @@ model Niveau {
 // ============================================
 
 model Groupe {
-  id        String   @id @default(uuid()) @db.Uuid
-  niveauId  String   @db.Uuid
-  niveau    Niveau   @relation(fields: [niveauId], references: [id], onDelete: Cascade)
-  semestreId String  @db.Uuid
-  semestre  Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  parentId  String?  @db.Uuid
-  parent    Groupe?  @relation("GroupesHierarchie", fields: [parentId], references: [id])
-  enfants   Groupe[] @relation("GroupesHierarchie")
-  type      GroupeType
-  code      String   // ex: "INFO-L3-S1"
-  libelle   String   // ex: "L3 Informatique Semestre 1"
-  effectif  Int      @default(0)
-  originId  String?  // ID d'origine externe (synchronisation)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String     @id @default(uuid()) @db.Uuid
+  niveauId   String     @db.Uuid
+  niveau     Niveau     @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  semestreId String     @db.Uuid
+  semestre   Semestre   @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  parentId   String?    @db.Uuid
+  parent     Groupe?    @relation("GroupesHierarchie", fields: [parentId], references: [id])
+  enfants    Groupe[]   @relation("GroupesHierarchie")
+  type       GroupeType
+  code       String // ex: "INFO-L3-S1"
+  libelle    String // ex: "L3 Informatique Semestre 1"
+  effectif   Int        @default(0)
+  originId   String? // ID d'origine externe (synchronisation)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
   @@unique([niveauId, semestreId, code])
   @@index([niveauId])
@@ -580,15 +582,15 @@ enum TypeEnseignementCode {
 }
 
 model TypeEnseignement {
-  id               String               @id @default(uuid()) @db.Uuid
-  code             TypeEnseignementCode
-  libelle          String
-  activityTagId    String?              @db.Uuid
-  activityTag      ActivityTag?         @relation(fields: [activityTagId], references: [id], onDelete: SetNull)
-  createdAt        DateTime             @default(now())
-  updatedAt        DateTime             @updatedAt
+  id            String               @id @default(uuid()) @db.Uuid
+  code          TypeEnseignementCode
+  libelle       String
+  activityTagId String?              @db.Uuid
+  activityTag   ActivityTag?         @relation(fields: [activityTagId], references: [id], onDelete: SetNull)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
 
-  modules          Module[]
+  modules Module[]
 
   @@unique([code])
   @@map("types_enseignement")
@@ -603,34 +605,36 @@ enum GradeCode {
 }
 
 model Grade {
-  id        String   @id @default(uuid()) @db.Uuid
+  id        String    @id @default(uuid()) @db.Uuid
   code      GradeCode
   libelle   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
-  modules   Module[]
+  modules     Module[]
+  enseignants Enseignant[]
 
   @@unique([code])
   @@map("grades")
 }
 
 model Module {
-  id            String      @id @default(uuid()) @db.Uuid
-  niveauId      String      @db.Uuid
-  niveau        Niveau      @relation(fields: [niveauId], references: [id], onDelete: Cascade)
-  typeId        String      @db.Uuid
-  type          TypeEnseignement @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  gradeId       String?     @db.Uuid
-  grade         Grade?      @relation(fields: [gradeId], references: [id], onDelete: SetNull)
-  code          String      // ex: "INFO301"
-  libelle       String      // ex: "Algorithmique avancée"
-  semestreNumero Int        // 1 ou 2
-  credits       Int?        @default(6)
-  effectifMax   Int?        // capacité max du module
-  originId      String?     // ID d'origine externe (synchronisation)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id                String             @id @default(uuid()) @db.Uuid
+  niveauId          String             @db.Uuid
+  niveau            Niveau             @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  typeId            String             @db.Uuid
+  type              TypeEnseignement   @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  gradeId           String?            @db.Uuid
+  grade             Grade?             @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+  code              String // ex: "INFO301"
+  libelle           String // ex: "Algorithmique avancée"
+  semestreNumero    Int // 1 ou 2
+  credits           Int?               @default(6)
+  effectifMax       Int? // capacité max du module
+  originId          String? // ID d'origine externe (synchronisation)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  enseignantModules EnseignantModule[]
 
   @@unique([niveauId, code, semestreNumero])
   @@index([niveauId])
@@ -656,4 +660,39 @@ model ActivityTag {
   @@index([code])
   @@index([isActive])
   @@map("activity_tags")
+}
+
+model Enseignant {
+  id                String             @id @default(uuid()) @db.Uuid
+  matricule         String
+  nom               String
+  prenom            String
+  email             String             @unique
+  telephone         String?
+  isActive          Boolean            @default(true)
+  anneeId           String             @db.Uuid
+  annee             Annee              @relation(fields: [anneeId], references: [id], onDelete: Cascade)
+  departementId     String             @db.Uuid
+  departement       Departement        @relation(fields: [departementId], references: [id], onDelete: Cascade)
+  gradeId           String?            @db.Uuid
+  grade             Grade?             @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+  enseignantModules EnseignantModule[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@unique([anneeId, matricule])
+  @@index([departementId])
+  @@index([gradeId])
+  @@index([email])
+  @@map("enseignants")
+}
+
+model EnseignantModule {
+  enseignantId String     @db.Uuid
+  moduleId     String     @db.Uuid
+  enseignant   Enseignant @relation(fields: [enseignantId], references: [id], onDelete: Cascade)
+  module       Module     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@id([enseignantId, moduleId])
+  @@map("enseignant_modules")
 }
