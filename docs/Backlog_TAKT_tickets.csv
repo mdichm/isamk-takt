@@ -159,7 +159,7 @@ L1-05;L1;E1.2;Structure académique;Story;CRUD modules, types d'enseignement et 
 - Types et grades paramétrables par l'Administrateur";EX-REF-01, EX-REF-02;§2.2;BACK;Must;5;L1-03;Terminé;
 L1-06;L1;E1.2;Structure académique;Story;Référentiel des Activity Tags;CRUD des FET Activity Tags, tag par défaut d'un type d'enseignement.;"- Un tag est distinct d'un type d'enseignement
 - Chaque type porte un tag par défaut
-- Un tag référencé ne peut pas être supprimé (désactivation)";EX-REF-05;§2.2, §0.1;BACK;Must;3;L1-05;À faire;
+- Un tag référencé ne peut pas être supprimé (désactivation)";EX-REF-05;§2.2, §0.1;BACK;Must;3;L1-05;En cours;
 L1-07;L1;E1.2;Structure académique;Story;Nomenclature normalisée des groupes;Code {niveau}-{abréviation}-{groupe} validé partout.;"- Regex configurable ^(L1|L2|L3|M1|M2)-[A-Z0-9]{2,8}-[A-Z0-9]{1,4}$
 - Segment 2 = abréviation de la formation, unique par année
 - GET /groupes/code-suggestion propose le prochain identifiant libre
