@@ -118,6 +118,21 @@ export type Annee = $Result.DefaultSelection<Prisma.$AnneePayload>
  * 
  */
 export type Semestre = $Result.DefaultSelection<Prisma.$SemestrePayload>
+/**
+ * Model Departement
+ * 
+ */
+export type Departement = $Result.DefaultSelection<Prisma.$DepartementPayload>
+/**
+ * Model Formation
+ * 
+ */
+export type Formation = $Result.DefaultSelection<Prisma.$FormationPayload>
+/**
+ * Model Niveau
+ * 
+ */
+export type Niveau = $Result.DefaultSelection<Prisma.$NiveauPayload>
 
 /**
  * Enums
@@ -572,6 +587,36 @@ export class PrismaClient<
     * ```
     */
   get semestre(): Prisma.SemestreDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.departement`: Exposes CRUD operations for the **Departement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Departements
+    * const departements = await prisma.departement.findMany()
+    * ```
+    */
+  get departement(): Prisma.DepartementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.formation`: Exposes CRUD operations for the **Formation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Formations
+    * const formations = await prisma.formation.findMany()
+    * ```
+    */
+  get formation(): Prisma.FormationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.niveau`: Exposes CRUD operations for the **Niveau** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Niveaus
+    * const niveaus = await prisma.niveau.findMany()
+    * ```
+    */
+  get niveau(): Prisma.NiveauDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1039,7 +1084,10 @@ export namespace Prisma {
     SecurityEvent: 'SecurityEvent',
     AuditLog: 'AuditLog',
     Annee: 'Annee',
-    Semestre: 'Semestre'
+    Semestre: 'Semestre',
+    Departement: 'Departement',
+    Formation: 'Formation',
+    Niveau: 'Niveau'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1055,7 +1103,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2613,6 +2661,228 @@ export namespace Prisma {
           }
         }
       }
+      Departement: {
+        payload: Prisma.$DepartementPayload<ExtArgs>
+        fields: Prisma.DepartementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DepartementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DepartementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>
+          }
+          findFirst: {
+            args: Prisma.DepartementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DepartementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>
+          }
+          findMany: {
+            args: Prisma.DepartementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>[]
+          }
+          create: {
+            args: Prisma.DepartementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>
+          }
+          createMany: {
+            args: Prisma.DepartementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DepartementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>[]
+          }
+          delete: {
+            args: Prisma.DepartementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>
+          }
+          update: {
+            args: Prisma.DepartementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>
+          }
+          deleteMany: {
+            args: Prisma.DepartementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DepartementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DepartementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>[]
+          }
+          upsert: {
+            args: Prisma.DepartementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartementPayload>
+          }
+          aggregate: {
+            args: Prisma.DepartementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDepartement>
+          }
+          groupBy: {
+            args: Prisma.DepartementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DepartementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DepartementCountArgs<ExtArgs>
+            result: $Utils.Optional<DepartementCountAggregateOutputType> | number
+          }
+        }
+      }
+      Formation: {
+        payload: Prisma.$FormationPayload<ExtArgs>
+        fields: Prisma.FormationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FormationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FormationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>
+          }
+          findFirst: {
+            args: Prisma.FormationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FormationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>
+          }
+          findMany: {
+            args: Prisma.FormationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>[]
+          }
+          create: {
+            args: Prisma.FormationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>
+          }
+          createMany: {
+            args: Prisma.FormationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FormationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>[]
+          }
+          delete: {
+            args: Prisma.FormationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>
+          }
+          update: {
+            args: Prisma.FormationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>
+          }
+          deleteMany: {
+            args: Prisma.FormationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FormationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FormationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>[]
+          }
+          upsert: {
+            args: Prisma.FormationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FormationPayload>
+          }
+          aggregate: {
+            args: Prisma.FormationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFormation>
+          }
+          groupBy: {
+            args: Prisma.FormationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FormationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FormationCountArgs<ExtArgs>
+            result: $Utils.Optional<FormationCountAggregateOutputType> | number
+          }
+        }
+      }
+      Niveau: {
+        payload: Prisma.$NiveauPayload<ExtArgs>
+        fields: Prisma.NiveauFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NiveauFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NiveauFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>
+          }
+          findFirst: {
+            args: Prisma.NiveauFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NiveauFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>
+          }
+          findMany: {
+            args: Prisma.NiveauFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>[]
+          }
+          create: {
+            args: Prisma.NiveauCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>
+          }
+          createMany: {
+            args: Prisma.NiveauCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NiveauCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>[]
+          }
+          delete: {
+            args: Prisma.NiveauDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>
+          }
+          update: {
+            args: Prisma.NiveauUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>
+          }
+          deleteMany: {
+            args: Prisma.NiveauDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NiveauUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NiveauUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>[]
+          }
+          upsert: {
+            args: Prisma.NiveauUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NiveauPayload>
+          }
+          aggregate: {
+            args: Prisma.NiveauAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNiveau>
+          }
+          groupBy: {
+            args: Prisma.NiveauGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NiveauGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NiveauCountArgs<ExtArgs>
+            result: $Utils.Optional<NiveauCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2757,6 +3027,9 @@ export namespace Prisma {
     auditLog?: AuditLogOmit
     annee?: AnneeOmit
     semestre?: SemestreOmit
+    departement?: DepartementOmit
+    formation?: FormationOmit
+    niveau?: NiveauOmit
   }
 
   /* Types for Logging */
@@ -3168,10 +3441,12 @@ export namespace Prisma {
 
   export type AnneeCountOutputType = {
     semestres: number
+    departements: number
   }
 
   export type AnneeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestres?: boolean | AnneeCountOutputTypeCountSemestresArgs
+    departements?: boolean | AnneeCountOutputTypeCountDepartementsArgs
   }
 
   // Custom InputTypes
@@ -3190,6 +3465,75 @@ export namespace Prisma {
    */
   export type AnneeCountOutputTypeCountSemestresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SemestreWhereInput
+  }
+
+  /**
+   * AnneeCountOutputType without action
+   */
+  export type AnneeCountOutputTypeCountDepartementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DepartementWhereInput
+  }
+
+
+  /**
+   * Count Type DepartementCountOutputType
+   */
+
+  export type DepartementCountOutputType = {
+    formations: number
+  }
+
+  export type DepartementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    formations?: boolean | DepartementCountOutputTypeCountFormationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DepartementCountOutputType without action
+   */
+  export type DepartementCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DepartementCountOutputType
+     */
+    select?: DepartementCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DepartementCountOutputType without action
+   */
+  export type DepartementCountOutputTypeCountFormationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FormationWhereInput
+  }
+
+
+  /**
+   * Count Type FormationCountOutputType
+   */
+
+  export type FormationCountOutputType = {
+    niveaux: number
+  }
+
+  export type FormationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    niveaux?: boolean | FormationCountOutputTypeCountNiveauxArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FormationCountOutputType without action
+   */
+  export type FormationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FormationCountOutputType
+     */
+    select?: FormationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FormationCountOutputType without action
+   */
+  export type FormationCountOutputTypeCountNiveauxArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NiveauWhereInput
   }
 
 
@@ -25140,6 +25484,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     semestres?: boolean | Annee$semestresArgs<ExtArgs>
+    departements?: boolean | Annee$departementsArgs<ExtArgs>
     _count?: boolean | AnneeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["annee"]>
 
@@ -25176,6 +25521,7 @@ export namespace Prisma {
   export type AnneeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "code" | "nbSemaines" | "actif" | "createdAt" | "updatedAt", ExtArgs["result"]["annee"]>
   export type AnneeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestres?: boolean | Annee$semestresArgs<ExtArgs>
+    departements?: boolean | Annee$departementsArgs<ExtArgs>
     _count?: boolean | AnneeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AnneeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -25185,6 +25531,7 @@ export namespace Prisma {
     name: "Annee"
     objects: {
       semestres: Prisma.$SemestrePayload<ExtArgs>[]
+      departements: Prisma.$DepartementPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -25589,6 +25936,7 @@ export namespace Prisma {
   export interface Prisma__AnneeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestres<T extends Annee$semestresArgs<ExtArgs> = {}>(args?: Subset<T, Annee$semestresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    departements<T extends Annee$departementsArgs<ExtArgs> = {}>(args?: Subset<T, Annee$departementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -26039,6 +26387,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SemestreScalarFieldEnum | SemestreScalarFieldEnum[]
+  }
+
+  /**
+   * Annee.departements
+   */
+  export type Annee$departementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    where?: DepartementWhereInput
+    orderBy?: DepartementOrderByWithRelationInput | DepartementOrderByWithRelationInput[]
+    cursor?: DepartementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DepartementScalarFieldEnum | DepartementScalarFieldEnum[]
   }
 
   /**
@@ -27175,6 +27547,3333 @@ export namespace Prisma {
 
 
   /**
+   * Model Departement
+   */
+
+  export type AggregateDepartement = {
+    _count: DepartementCountAggregateOutputType | null
+    _min: DepartementMinAggregateOutputType | null
+    _max: DepartementMaxAggregateOutputType | null
+  }
+
+  export type DepartementMinAggregateOutputType = {
+    id: string | null
+    anneeId: string | null
+    code: string | null
+    libelle: string | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DepartementMaxAggregateOutputType = {
+    id: string | null
+    anneeId: string | null
+    code: string | null
+    libelle: string | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DepartementCountAggregateOutputType = {
+    id: number
+    anneeId: number
+    code: number
+    libelle: number
+    originId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DepartementMinAggregateInputType = {
+    id?: true
+    anneeId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DepartementMaxAggregateInputType = {
+    id?: true
+    anneeId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DepartementCountAggregateInputType = {
+    id?: true
+    anneeId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DepartementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Departement to aggregate.
+     */
+    where?: DepartementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departements to fetch.
+     */
+    orderBy?: DepartementOrderByWithRelationInput | DepartementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DepartementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Departements
+    **/
+    _count?: true | DepartementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DepartementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DepartementMaxAggregateInputType
+  }
+
+  export type GetDepartementAggregateType<T extends DepartementAggregateArgs> = {
+        [P in keyof T & keyof AggregateDepartement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDepartement[P]>
+      : GetScalarType<T[P], AggregateDepartement[P]>
+  }
+
+
+
+
+  export type DepartementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DepartementWhereInput
+    orderBy?: DepartementOrderByWithAggregationInput | DepartementOrderByWithAggregationInput[]
+    by: DepartementScalarFieldEnum[] | DepartementScalarFieldEnum
+    having?: DepartementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DepartementCountAggregateInputType | true
+    _min?: DepartementMinAggregateInputType
+    _max?: DepartementMaxAggregateInputType
+  }
+
+  export type DepartementGroupByOutputType = {
+    id: string
+    anneeId: string
+    code: string
+    libelle: string
+    originId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DepartementCountAggregateOutputType | null
+    _min: DepartementMinAggregateOutputType | null
+    _max: DepartementMaxAggregateOutputType | null
+  }
+
+  type GetDepartementGroupByPayload<T extends DepartementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DepartementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DepartementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DepartementGroupByOutputType[P]>
+            : GetScalarType<T[P], DepartementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DepartementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    anneeId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    formations?: boolean | Departement$formationsArgs<ExtArgs>
+    _count?: boolean | DepartementCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["departement"]>
+
+  export type DepartementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    anneeId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["departement"]>
+
+  export type DepartementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    anneeId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["departement"]>
+
+  export type DepartementSelectScalar = {
+    id?: boolean
+    anneeId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DepartementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "anneeId" | "code" | "libelle" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["departement"]>
+  export type DepartementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    formations?: boolean | Departement$formationsArgs<ExtArgs>
+    _count?: boolean | DepartementCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DepartementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }
+  export type DepartementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }
+
+  export type $DepartementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Departement"
+    objects: {
+      annee: Prisma.$AnneePayload<ExtArgs>
+      formations: Prisma.$FormationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      anneeId: string
+      code: string
+      libelle: string
+      originId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["departement"]>
+    composites: {}
+  }
+
+  type DepartementGetPayload<S extends boolean | null | undefined | DepartementDefaultArgs> = $Result.GetResult<Prisma.$DepartementPayload, S>
+
+  type DepartementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DepartementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DepartementCountAggregateInputType | true
+    }
+
+  export interface DepartementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Departement'], meta: { name: 'Departement' } }
+    /**
+     * Find zero or one Departement that matches the filter.
+     * @param {DepartementFindUniqueArgs} args - Arguments to find a Departement
+     * @example
+     * // Get one Departement
+     * const departement = await prisma.departement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DepartementFindUniqueArgs>(args: SelectSubset<T, DepartementFindUniqueArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Departement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DepartementFindUniqueOrThrowArgs} args - Arguments to find a Departement
+     * @example
+     * // Get one Departement
+     * const departement = await prisma.departement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DepartementFindUniqueOrThrowArgs>(args: SelectSubset<T, DepartementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Departement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartementFindFirstArgs} args - Arguments to find a Departement
+     * @example
+     * // Get one Departement
+     * const departement = await prisma.departement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DepartementFindFirstArgs>(args?: SelectSubset<T, DepartementFindFirstArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Departement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartementFindFirstOrThrowArgs} args - Arguments to find a Departement
+     * @example
+     * // Get one Departement
+     * const departement = await prisma.departement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DepartementFindFirstOrThrowArgs>(args?: SelectSubset<T, DepartementFindFirstOrThrowArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Departements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Departements
+     * const departements = await prisma.departement.findMany()
+     * 
+     * // Get first 10 Departements
+     * const departements = await prisma.departement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const departementWithIdOnly = await prisma.departement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DepartementFindManyArgs>(args?: SelectSubset<T, DepartementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Departement.
+     * @param {DepartementCreateArgs} args - Arguments to create a Departement.
+     * @example
+     * // Create one Departement
+     * const Departement = await prisma.departement.create({
+     *   data: {
+     *     // ... data to create a Departement
+     *   }
+     * })
+     * 
+     */
+    create<T extends DepartementCreateArgs>(args: SelectSubset<T, DepartementCreateArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Departements.
+     * @param {DepartementCreateManyArgs} args - Arguments to create many Departements.
+     * @example
+     * // Create many Departements
+     * const departement = await prisma.departement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DepartementCreateManyArgs>(args?: SelectSubset<T, DepartementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Departements and returns the data saved in the database.
+     * @param {DepartementCreateManyAndReturnArgs} args - Arguments to create many Departements.
+     * @example
+     * // Create many Departements
+     * const departement = await prisma.departement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Departements and only return the `id`
+     * const departementWithIdOnly = await prisma.departement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DepartementCreateManyAndReturnArgs>(args?: SelectSubset<T, DepartementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Departement.
+     * @param {DepartementDeleteArgs} args - Arguments to delete one Departement.
+     * @example
+     * // Delete one Departement
+     * const Departement = await prisma.departement.delete({
+     *   where: {
+     *     // ... filter to delete one Departement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DepartementDeleteArgs>(args: SelectSubset<T, DepartementDeleteArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Departement.
+     * @param {DepartementUpdateArgs} args - Arguments to update one Departement.
+     * @example
+     * // Update one Departement
+     * const departement = await prisma.departement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DepartementUpdateArgs>(args: SelectSubset<T, DepartementUpdateArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Departements.
+     * @param {DepartementDeleteManyArgs} args - Arguments to filter Departements to delete.
+     * @example
+     * // Delete a few Departements
+     * const { count } = await prisma.departement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DepartementDeleteManyArgs>(args?: SelectSubset<T, DepartementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Departements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Departements
+     * const departement = await prisma.departement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DepartementUpdateManyArgs>(args: SelectSubset<T, DepartementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Departements and returns the data updated in the database.
+     * @param {DepartementUpdateManyAndReturnArgs} args - Arguments to update many Departements.
+     * @example
+     * // Update many Departements
+     * const departement = await prisma.departement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Departements and only return the `id`
+     * const departementWithIdOnly = await prisma.departement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DepartementUpdateManyAndReturnArgs>(args: SelectSubset<T, DepartementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Departement.
+     * @param {DepartementUpsertArgs} args - Arguments to update or create a Departement.
+     * @example
+     * // Update or create a Departement
+     * const departement = await prisma.departement.upsert({
+     *   create: {
+     *     // ... data to create a Departement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Departement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DepartementUpsertArgs>(args: SelectSubset<T, DepartementUpsertArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Departements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartementCountArgs} args - Arguments to filter Departements to count.
+     * @example
+     * // Count the number of Departements
+     * const count = await prisma.departement.count({
+     *   where: {
+     *     // ... the filter for the Departements we want to count
+     *   }
+     * })
+    **/
+    count<T extends DepartementCountArgs>(
+      args?: Subset<T, DepartementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DepartementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Departement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DepartementAggregateArgs>(args: Subset<T, DepartementAggregateArgs>): Prisma.PrismaPromise<GetDepartementAggregateType<T>>
+
+    /**
+     * Group by Departement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DepartementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DepartementGroupByArgs['orderBy'] }
+        : { orderBy?: DepartementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DepartementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDepartementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Departement model
+   */
+  readonly fields: DepartementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Departement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DepartementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    annee<T extends AnneeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnneeDefaultArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    formations<T extends Departement$formationsArgs<ExtArgs> = {}>(args?: Subset<T, Departement$formationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Departement model
+   */
+  interface DepartementFieldRefs {
+    readonly id: FieldRef<"Departement", 'String'>
+    readonly anneeId: FieldRef<"Departement", 'String'>
+    readonly code: FieldRef<"Departement", 'String'>
+    readonly libelle: FieldRef<"Departement", 'String'>
+    readonly originId: FieldRef<"Departement", 'String'>
+    readonly createdAt: FieldRef<"Departement", 'DateTime'>
+    readonly updatedAt: FieldRef<"Departement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Departement findUnique
+   */
+  export type DepartementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * Filter, which Departement to fetch.
+     */
+    where: DepartementWhereUniqueInput
+  }
+
+  /**
+   * Departement findUniqueOrThrow
+   */
+  export type DepartementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * Filter, which Departement to fetch.
+     */
+    where: DepartementWhereUniqueInput
+  }
+
+  /**
+   * Departement findFirst
+   */
+  export type DepartementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * Filter, which Departement to fetch.
+     */
+    where?: DepartementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departements to fetch.
+     */
+    orderBy?: DepartementOrderByWithRelationInput | DepartementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Departements.
+     */
+    cursor?: DepartementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Departements.
+     */
+    distinct?: DepartementScalarFieldEnum | DepartementScalarFieldEnum[]
+  }
+
+  /**
+   * Departement findFirstOrThrow
+   */
+  export type DepartementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * Filter, which Departement to fetch.
+     */
+    where?: DepartementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departements to fetch.
+     */
+    orderBy?: DepartementOrderByWithRelationInput | DepartementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Departements.
+     */
+    cursor?: DepartementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Departements.
+     */
+    distinct?: DepartementScalarFieldEnum | DepartementScalarFieldEnum[]
+  }
+
+  /**
+   * Departement findMany
+   */
+  export type DepartementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * Filter, which Departements to fetch.
+     */
+    where?: DepartementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departements to fetch.
+     */
+    orderBy?: DepartementOrderByWithRelationInput | DepartementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Departements.
+     */
+    cursor?: DepartementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Departements.
+     */
+    distinct?: DepartementScalarFieldEnum | DepartementScalarFieldEnum[]
+  }
+
+  /**
+   * Departement create
+   */
+  export type DepartementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Departement.
+     */
+    data: XOR<DepartementCreateInput, DepartementUncheckedCreateInput>
+  }
+
+  /**
+   * Departement createMany
+   */
+  export type DepartementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Departements.
+     */
+    data: DepartementCreateManyInput | DepartementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Departement createManyAndReturn
+   */
+  export type DepartementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * The data used to create many Departements.
+     */
+    data: DepartementCreateManyInput | DepartementCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Departement update
+   */
+  export type DepartementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Departement.
+     */
+    data: XOR<DepartementUpdateInput, DepartementUncheckedUpdateInput>
+    /**
+     * Choose, which Departement to update.
+     */
+    where: DepartementWhereUniqueInput
+  }
+
+  /**
+   * Departement updateMany
+   */
+  export type DepartementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Departements.
+     */
+    data: XOR<DepartementUpdateManyMutationInput, DepartementUncheckedUpdateManyInput>
+    /**
+     * Filter which Departements to update
+     */
+    where?: DepartementWhereInput
+    /**
+     * Limit how many Departements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Departement updateManyAndReturn
+   */
+  export type DepartementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * The data used to update Departements.
+     */
+    data: XOR<DepartementUpdateManyMutationInput, DepartementUncheckedUpdateManyInput>
+    /**
+     * Filter which Departements to update
+     */
+    where?: DepartementWhereInput
+    /**
+     * Limit how many Departements to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Departement upsert
+   */
+  export type DepartementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Departement to update in case it exists.
+     */
+    where: DepartementWhereUniqueInput
+    /**
+     * In case the Departement found by the `where` argument doesn't exist, create a new Departement with this data.
+     */
+    create: XOR<DepartementCreateInput, DepartementUncheckedCreateInput>
+    /**
+     * In case the Departement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DepartementUpdateInput, DepartementUncheckedUpdateInput>
+  }
+
+  /**
+   * Departement delete
+   */
+  export type DepartementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    /**
+     * Filter which Departement to delete.
+     */
+    where: DepartementWhereUniqueInput
+  }
+
+  /**
+   * Departement deleteMany
+   */
+  export type DepartementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Departements to delete
+     */
+    where?: DepartementWhereInput
+    /**
+     * Limit how many Departements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Departement.formations
+   */
+  export type Departement$formationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    where?: FormationWhereInput
+    orderBy?: FormationOrderByWithRelationInput | FormationOrderByWithRelationInput[]
+    cursor?: FormationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FormationScalarFieldEnum | FormationScalarFieldEnum[]
+  }
+
+  /**
+   * Departement without action
+   */
+  export type DepartementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Formation
+   */
+
+  export type AggregateFormation = {
+    _count: FormationCountAggregateOutputType | null
+    _min: FormationMinAggregateOutputType | null
+    _max: FormationMaxAggregateOutputType | null
+  }
+
+  export type FormationMinAggregateOutputType = {
+    id: string | null
+    departementId: string | null
+    code: string | null
+    libelle: string | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FormationMaxAggregateOutputType = {
+    id: string | null
+    departementId: string | null
+    code: string | null
+    libelle: string | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FormationCountAggregateOutputType = {
+    id: number
+    departementId: number
+    code: number
+    libelle: number
+    originId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FormationMinAggregateInputType = {
+    id?: true
+    departementId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FormationMaxAggregateInputType = {
+    id?: true
+    departementId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FormationCountAggregateInputType = {
+    id?: true
+    departementId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FormationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Formation to aggregate.
+     */
+    where?: FormationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Formations to fetch.
+     */
+    orderBy?: FormationOrderByWithRelationInput | FormationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FormationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Formations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Formations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Formations
+    **/
+    _count?: true | FormationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FormationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FormationMaxAggregateInputType
+  }
+
+  export type GetFormationAggregateType<T extends FormationAggregateArgs> = {
+        [P in keyof T & keyof AggregateFormation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFormation[P]>
+      : GetScalarType<T[P], AggregateFormation[P]>
+  }
+
+
+
+
+  export type FormationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FormationWhereInput
+    orderBy?: FormationOrderByWithAggregationInput | FormationOrderByWithAggregationInput[]
+    by: FormationScalarFieldEnum[] | FormationScalarFieldEnum
+    having?: FormationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FormationCountAggregateInputType | true
+    _min?: FormationMinAggregateInputType
+    _max?: FormationMaxAggregateInputType
+  }
+
+  export type FormationGroupByOutputType = {
+    id: string
+    departementId: string
+    code: string
+    libelle: string
+    originId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: FormationCountAggregateOutputType | null
+    _min: FormationMinAggregateOutputType | null
+    _max: FormationMaxAggregateOutputType | null
+  }
+
+  type GetFormationGroupByPayload<T extends FormationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FormationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FormationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FormationGroupByOutputType[P]>
+            : GetScalarType<T[P], FormationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FormationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    departementId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    niveaux?: boolean | Formation$niveauxArgs<ExtArgs>
+    _count?: boolean | FormationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["formation"]>
+
+  export type FormationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    departementId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["formation"]>
+
+  export type FormationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    departementId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["formation"]>
+
+  export type FormationSelectScalar = {
+    id?: boolean
+    departementId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FormationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "departementId" | "code" | "libelle" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["formation"]>
+  export type FormationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    niveaux?: boolean | Formation$niveauxArgs<ExtArgs>
+    _count?: boolean | FormationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FormationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }
+  export type FormationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }
+
+  export type $FormationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Formation"
+    objects: {
+      departement: Prisma.$DepartementPayload<ExtArgs>
+      niveaux: Prisma.$NiveauPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      departementId: string
+      code: string
+      libelle: string
+      originId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["formation"]>
+    composites: {}
+  }
+
+  type FormationGetPayload<S extends boolean | null | undefined | FormationDefaultArgs> = $Result.GetResult<Prisma.$FormationPayload, S>
+
+  type FormationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FormationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FormationCountAggregateInputType | true
+    }
+
+  export interface FormationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Formation'], meta: { name: 'Formation' } }
+    /**
+     * Find zero or one Formation that matches the filter.
+     * @param {FormationFindUniqueArgs} args - Arguments to find a Formation
+     * @example
+     * // Get one Formation
+     * const formation = await prisma.formation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FormationFindUniqueArgs>(args: SelectSubset<T, FormationFindUniqueArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Formation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FormationFindUniqueOrThrowArgs} args - Arguments to find a Formation
+     * @example
+     * // Get one Formation
+     * const formation = await prisma.formation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FormationFindUniqueOrThrowArgs>(args: SelectSubset<T, FormationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Formation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormationFindFirstArgs} args - Arguments to find a Formation
+     * @example
+     * // Get one Formation
+     * const formation = await prisma.formation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FormationFindFirstArgs>(args?: SelectSubset<T, FormationFindFirstArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Formation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormationFindFirstOrThrowArgs} args - Arguments to find a Formation
+     * @example
+     * // Get one Formation
+     * const formation = await prisma.formation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FormationFindFirstOrThrowArgs>(args?: SelectSubset<T, FormationFindFirstOrThrowArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Formations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Formations
+     * const formations = await prisma.formation.findMany()
+     * 
+     * // Get first 10 Formations
+     * const formations = await prisma.formation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const formationWithIdOnly = await prisma.formation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FormationFindManyArgs>(args?: SelectSubset<T, FormationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Formation.
+     * @param {FormationCreateArgs} args - Arguments to create a Formation.
+     * @example
+     * // Create one Formation
+     * const Formation = await prisma.formation.create({
+     *   data: {
+     *     // ... data to create a Formation
+     *   }
+     * })
+     * 
+     */
+    create<T extends FormationCreateArgs>(args: SelectSubset<T, FormationCreateArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Formations.
+     * @param {FormationCreateManyArgs} args - Arguments to create many Formations.
+     * @example
+     * // Create many Formations
+     * const formation = await prisma.formation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FormationCreateManyArgs>(args?: SelectSubset<T, FormationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Formations and returns the data saved in the database.
+     * @param {FormationCreateManyAndReturnArgs} args - Arguments to create many Formations.
+     * @example
+     * // Create many Formations
+     * const formation = await prisma.formation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Formations and only return the `id`
+     * const formationWithIdOnly = await prisma.formation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FormationCreateManyAndReturnArgs>(args?: SelectSubset<T, FormationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Formation.
+     * @param {FormationDeleteArgs} args - Arguments to delete one Formation.
+     * @example
+     * // Delete one Formation
+     * const Formation = await prisma.formation.delete({
+     *   where: {
+     *     // ... filter to delete one Formation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FormationDeleteArgs>(args: SelectSubset<T, FormationDeleteArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Formation.
+     * @param {FormationUpdateArgs} args - Arguments to update one Formation.
+     * @example
+     * // Update one Formation
+     * const formation = await prisma.formation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FormationUpdateArgs>(args: SelectSubset<T, FormationUpdateArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Formations.
+     * @param {FormationDeleteManyArgs} args - Arguments to filter Formations to delete.
+     * @example
+     * // Delete a few Formations
+     * const { count } = await prisma.formation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FormationDeleteManyArgs>(args?: SelectSubset<T, FormationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Formations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Formations
+     * const formation = await prisma.formation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FormationUpdateManyArgs>(args: SelectSubset<T, FormationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Formations and returns the data updated in the database.
+     * @param {FormationUpdateManyAndReturnArgs} args - Arguments to update many Formations.
+     * @example
+     * // Update many Formations
+     * const formation = await prisma.formation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Formations and only return the `id`
+     * const formationWithIdOnly = await prisma.formation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FormationUpdateManyAndReturnArgs>(args: SelectSubset<T, FormationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Formation.
+     * @param {FormationUpsertArgs} args - Arguments to update or create a Formation.
+     * @example
+     * // Update or create a Formation
+     * const formation = await prisma.formation.upsert({
+     *   create: {
+     *     // ... data to create a Formation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Formation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FormationUpsertArgs>(args: SelectSubset<T, FormationUpsertArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Formations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormationCountArgs} args - Arguments to filter Formations to count.
+     * @example
+     * // Count the number of Formations
+     * const count = await prisma.formation.count({
+     *   where: {
+     *     // ... the filter for the Formations we want to count
+     *   }
+     * })
+    **/
+    count<T extends FormationCountArgs>(
+      args?: Subset<T, FormationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FormationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Formation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FormationAggregateArgs>(args: Subset<T, FormationAggregateArgs>): Prisma.PrismaPromise<GetFormationAggregateType<T>>
+
+    /**
+     * Group by Formation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FormationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FormationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FormationGroupByArgs['orderBy'] }
+        : { orderBy?: FormationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FormationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFormationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Formation model
+   */
+  readonly fields: FormationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Formation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FormationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    departement<T extends DepartementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartementDefaultArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    niveaux<T extends Formation$niveauxArgs<ExtArgs> = {}>(args?: Subset<T, Formation$niveauxArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Formation model
+   */
+  interface FormationFieldRefs {
+    readonly id: FieldRef<"Formation", 'String'>
+    readonly departementId: FieldRef<"Formation", 'String'>
+    readonly code: FieldRef<"Formation", 'String'>
+    readonly libelle: FieldRef<"Formation", 'String'>
+    readonly originId: FieldRef<"Formation", 'String'>
+    readonly createdAt: FieldRef<"Formation", 'DateTime'>
+    readonly updatedAt: FieldRef<"Formation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Formation findUnique
+   */
+  export type FormationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * Filter, which Formation to fetch.
+     */
+    where: FormationWhereUniqueInput
+  }
+
+  /**
+   * Formation findUniqueOrThrow
+   */
+  export type FormationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * Filter, which Formation to fetch.
+     */
+    where: FormationWhereUniqueInput
+  }
+
+  /**
+   * Formation findFirst
+   */
+  export type FormationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * Filter, which Formation to fetch.
+     */
+    where?: FormationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Formations to fetch.
+     */
+    orderBy?: FormationOrderByWithRelationInput | FormationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Formations.
+     */
+    cursor?: FormationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Formations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Formations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Formations.
+     */
+    distinct?: FormationScalarFieldEnum | FormationScalarFieldEnum[]
+  }
+
+  /**
+   * Formation findFirstOrThrow
+   */
+  export type FormationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * Filter, which Formation to fetch.
+     */
+    where?: FormationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Formations to fetch.
+     */
+    orderBy?: FormationOrderByWithRelationInput | FormationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Formations.
+     */
+    cursor?: FormationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Formations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Formations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Formations.
+     */
+    distinct?: FormationScalarFieldEnum | FormationScalarFieldEnum[]
+  }
+
+  /**
+   * Formation findMany
+   */
+  export type FormationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * Filter, which Formations to fetch.
+     */
+    where?: FormationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Formations to fetch.
+     */
+    orderBy?: FormationOrderByWithRelationInput | FormationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Formations.
+     */
+    cursor?: FormationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Formations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Formations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Formations.
+     */
+    distinct?: FormationScalarFieldEnum | FormationScalarFieldEnum[]
+  }
+
+  /**
+   * Formation create
+   */
+  export type FormationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Formation.
+     */
+    data: XOR<FormationCreateInput, FormationUncheckedCreateInput>
+  }
+
+  /**
+   * Formation createMany
+   */
+  export type FormationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Formations.
+     */
+    data: FormationCreateManyInput | FormationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Formation createManyAndReturn
+   */
+  export type FormationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Formations.
+     */
+    data: FormationCreateManyInput | FormationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Formation update
+   */
+  export type FormationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Formation.
+     */
+    data: XOR<FormationUpdateInput, FormationUncheckedUpdateInput>
+    /**
+     * Choose, which Formation to update.
+     */
+    where: FormationWhereUniqueInput
+  }
+
+  /**
+   * Formation updateMany
+   */
+  export type FormationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Formations.
+     */
+    data: XOR<FormationUpdateManyMutationInput, FormationUncheckedUpdateManyInput>
+    /**
+     * Filter which Formations to update
+     */
+    where?: FormationWhereInput
+    /**
+     * Limit how many Formations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Formation updateManyAndReturn
+   */
+  export type FormationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * The data used to update Formations.
+     */
+    data: XOR<FormationUpdateManyMutationInput, FormationUncheckedUpdateManyInput>
+    /**
+     * Filter which Formations to update
+     */
+    where?: FormationWhereInput
+    /**
+     * Limit how many Formations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Formation upsert
+   */
+  export type FormationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Formation to update in case it exists.
+     */
+    where: FormationWhereUniqueInput
+    /**
+     * In case the Formation found by the `where` argument doesn't exist, create a new Formation with this data.
+     */
+    create: XOR<FormationCreateInput, FormationUncheckedCreateInput>
+    /**
+     * In case the Formation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FormationUpdateInput, FormationUncheckedUpdateInput>
+  }
+
+  /**
+   * Formation delete
+   */
+  export type FormationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+    /**
+     * Filter which Formation to delete.
+     */
+    where: FormationWhereUniqueInput
+  }
+
+  /**
+   * Formation deleteMany
+   */
+  export type FormationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Formations to delete
+     */
+    where?: FormationWhereInput
+    /**
+     * Limit how many Formations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Formation.niveaux
+   */
+  export type Formation$niveauxArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    where?: NiveauWhereInput
+    orderBy?: NiveauOrderByWithRelationInput | NiveauOrderByWithRelationInput[]
+    cursor?: NiveauWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NiveauScalarFieldEnum | NiveauScalarFieldEnum[]
+  }
+
+  /**
+   * Formation without action
+   */
+  export type FormationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Formation
+     */
+    select?: FormationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Formation
+     */
+    omit?: FormationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FormationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Niveau
+   */
+
+  export type AggregateNiveau = {
+    _count: NiveauCountAggregateOutputType | null
+    _min: NiveauMinAggregateOutputType | null
+    _max: NiveauMaxAggregateOutputType | null
+  }
+
+  export type NiveauMinAggregateOutputType = {
+    id: string | null
+    formationId: string | null
+    code: string | null
+    libelle: string | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NiveauMaxAggregateOutputType = {
+    id: string | null
+    formationId: string | null
+    code: string | null
+    libelle: string | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NiveauCountAggregateOutputType = {
+    id: number
+    formationId: number
+    code: number
+    libelle: number
+    originId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NiveauMinAggregateInputType = {
+    id?: true
+    formationId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NiveauMaxAggregateInputType = {
+    id?: true
+    formationId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NiveauCountAggregateInputType = {
+    id?: true
+    formationId?: true
+    code?: true
+    libelle?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NiveauAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Niveau to aggregate.
+     */
+    where?: NiveauWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Niveaus to fetch.
+     */
+    orderBy?: NiveauOrderByWithRelationInput | NiveauOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NiveauWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Niveaus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Niveaus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Niveaus
+    **/
+    _count?: true | NiveauCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NiveauMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NiveauMaxAggregateInputType
+  }
+
+  export type GetNiveauAggregateType<T extends NiveauAggregateArgs> = {
+        [P in keyof T & keyof AggregateNiveau]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNiveau[P]>
+      : GetScalarType<T[P], AggregateNiveau[P]>
+  }
+
+
+
+
+  export type NiveauGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NiveauWhereInput
+    orderBy?: NiveauOrderByWithAggregationInput | NiveauOrderByWithAggregationInput[]
+    by: NiveauScalarFieldEnum[] | NiveauScalarFieldEnum
+    having?: NiveauScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NiveauCountAggregateInputType | true
+    _min?: NiveauMinAggregateInputType
+    _max?: NiveauMaxAggregateInputType
+  }
+
+  export type NiveauGroupByOutputType = {
+    id: string
+    formationId: string
+    code: string
+    libelle: string
+    originId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: NiveauCountAggregateOutputType | null
+    _min: NiveauMinAggregateOutputType | null
+    _max: NiveauMaxAggregateOutputType | null
+  }
+
+  type GetNiveauGroupByPayload<T extends NiveauGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NiveauGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NiveauGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NiveauGroupByOutputType[P]>
+            : GetScalarType<T[P], NiveauGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NiveauSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formationId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    formation?: boolean | FormationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["niveau"]>
+
+  export type NiveauSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formationId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    formation?: boolean | FormationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["niveau"]>
+
+  export type NiveauSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formationId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    formation?: boolean | FormationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["niveau"]>
+
+  export type NiveauSelectScalar = {
+    id?: boolean
+    formationId?: boolean
+    code?: boolean
+    libelle?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NiveauOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formationId" | "code" | "libelle" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["niveau"]>
+  export type NiveauInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    formation?: boolean | FormationDefaultArgs<ExtArgs>
+  }
+  export type NiveauIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    formation?: boolean | FormationDefaultArgs<ExtArgs>
+  }
+  export type NiveauIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    formation?: boolean | FormationDefaultArgs<ExtArgs>
+  }
+
+  export type $NiveauPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Niveau"
+    objects: {
+      formation: Prisma.$FormationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      formationId: string
+      code: string
+      libelle: string
+      originId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["niveau"]>
+    composites: {}
+  }
+
+  type NiveauGetPayload<S extends boolean | null | undefined | NiveauDefaultArgs> = $Result.GetResult<Prisma.$NiveauPayload, S>
+
+  type NiveauCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NiveauFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NiveauCountAggregateInputType | true
+    }
+
+  export interface NiveauDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Niveau'], meta: { name: 'Niveau' } }
+    /**
+     * Find zero or one Niveau that matches the filter.
+     * @param {NiveauFindUniqueArgs} args - Arguments to find a Niveau
+     * @example
+     * // Get one Niveau
+     * const niveau = await prisma.niveau.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NiveauFindUniqueArgs>(args: SelectSubset<T, NiveauFindUniqueArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Niveau that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NiveauFindUniqueOrThrowArgs} args - Arguments to find a Niveau
+     * @example
+     * // Get one Niveau
+     * const niveau = await prisma.niveau.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NiveauFindUniqueOrThrowArgs>(args: SelectSubset<T, NiveauFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Niveau that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NiveauFindFirstArgs} args - Arguments to find a Niveau
+     * @example
+     * // Get one Niveau
+     * const niveau = await prisma.niveau.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NiveauFindFirstArgs>(args?: SelectSubset<T, NiveauFindFirstArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Niveau that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NiveauFindFirstOrThrowArgs} args - Arguments to find a Niveau
+     * @example
+     * // Get one Niveau
+     * const niveau = await prisma.niveau.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NiveauFindFirstOrThrowArgs>(args?: SelectSubset<T, NiveauFindFirstOrThrowArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Niveaus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NiveauFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Niveaus
+     * const niveaus = await prisma.niveau.findMany()
+     * 
+     * // Get first 10 Niveaus
+     * const niveaus = await prisma.niveau.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const niveauWithIdOnly = await prisma.niveau.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NiveauFindManyArgs>(args?: SelectSubset<T, NiveauFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Niveau.
+     * @param {NiveauCreateArgs} args - Arguments to create a Niveau.
+     * @example
+     * // Create one Niveau
+     * const Niveau = await prisma.niveau.create({
+     *   data: {
+     *     // ... data to create a Niveau
+     *   }
+     * })
+     * 
+     */
+    create<T extends NiveauCreateArgs>(args: SelectSubset<T, NiveauCreateArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Niveaus.
+     * @param {NiveauCreateManyArgs} args - Arguments to create many Niveaus.
+     * @example
+     * // Create many Niveaus
+     * const niveau = await prisma.niveau.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NiveauCreateManyArgs>(args?: SelectSubset<T, NiveauCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Niveaus and returns the data saved in the database.
+     * @param {NiveauCreateManyAndReturnArgs} args - Arguments to create many Niveaus.
+     * @example
+     * // Create many Niveaus
+     * const niveau = await prisma.niveau.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Niveaus and only return the `id`
+     * const niveauWithIdOnly = await prisma.niveau.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NiveauCreateManyAndReturnArgs>(args?: SelectSubset<T, NiveauCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Niveau.
+     * @param {NiveauDeleteArgs} args - Arguments to delete one Niveau.
+     * @example
+     * // Delete one Niveau
+     * const Niveau = await prisma.niveau.delete({
+     *   where: {
+     *     // ... filter to delete one Niveau
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NiveauDeleteArgs>(args: SelectSubset<T, NiveauDeleteArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Niveau.
+     * @param {NiveauUpdateArgs} args - Arguments to update one Niveau.
+     * @example
+     * // Update one Niveau
+     * const niveau = await prisma.niveau.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NiveauUpdateArgs>(args: SelectSubset<T, NiveauUpdateArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Niveaus.
+     * @param {NiveauDeleteManyArgs} args - Arguments to filter Niveaus to delete.
+     * @example
+     * // Delete a few Niveaus
+     * const { count } = await prisma.niveau.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NiveauDeleteManyArgs>(args?: SelectSubset<T, NiveauDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Niveaus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NiveauUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Niveaus
+     * const niveau = await prisma.niveau.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NiveauUpdateManyArgs>(args: SelectSubset<T, NiveauUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Niveaus and returns the data updated in the database.
+     * @param {NiveauUpdateManyAndReturnArgs} args - Arguments to update many Niveaus.
+     * @example
+     * // Update many Niveaus
+     * const niveau = await prisma.niveau.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Niveaus and only return the `id`
+     * const niveauWithIdOnly = await prisma.niveau.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NiveauUpdateManyAndReturnArgs>(args: SelectSubset<T, NiveauUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Niveau.
+     * @param {NiveauUpsertArgs} args - Arguments to update or create a Niveau.
+     * @example
+     * // Update or create a Niveau
+     * const niveau = await prisma.niveau.upsert({
+     *   create: {
+     *     // ... data to create a Niveau
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Niveau we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NiveauUpsertArgs>(args: SelectSubset<T, NiveauUpsertArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Niveaus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NiveauCountArgs} args - Arguments to filter Niveaus to count.
+     * @example
+     * // Count the number of Niveaus
+     * const count = await prisma.niveau.count({
+     *   where: {
+     *     // ... the filter for the Niveaus we want to count
+     *   }
+     * })
+    **/
+    count<T extends NiveauCountArgs>(
+      args?: Subset<T, NiveauCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NiveauCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Niveau.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NiveauAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NiveauAggregateArgs>(args: Subset<T, NiveauAggregateArgs>): Prisma.PrismaPromise<GetNiveauAggregateType<T>>
+
+    /**
+     * Group by Niveau.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NiveauGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NiveauGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NiveauGroupByArgs['orderBy'] }
+        : { orderBy?: NiveauGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NiveauGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNiveauGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Niveau model
+   */
+  readonly fields: NiveauFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Niveau.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NiveauClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    formation<T extends FormationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FormationDefaultArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Niveau model
+   */
+  interface NiveauFieldRefs {
+    readonly id: FieldRef<"Niveau", 'String'>
+    readonly formationId: FieldRef<"Niveau", 'String'>
+    readonly code: FieldRef<"Niveau", 'String'>
+    readonly libelle: FieldRef<"Niveau", 'String'>
+    readonly originId: FieldRef<"Niveau", 'String'>
+    readonly createdAt: FieldRef<"Niveau", 'DateTime'>
+    readonly updatedAt: FieldRef<"Niveau", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Niveau findUnique
+   */
+  export type NiveauFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * Filter, which Niveau to fetch.
+     */
+    where: NiveauWhereUniqueInput
+  }
+
+  /**
+   * Niveau findUniqueOrThrow
+   */
+  export type NiveauFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * Filter, which Niveau to fetch.
+     */
+    where: NiveauWhereUniqueInput
+  }
+
+  /**
+   * Niveau findFirst
+   */
+  export type NiveauFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * Filter, which Niveau to fetch.
+     */
+    where?: NiveauWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Niveaus to fetch.
+     */
+    orderBy?: NiveauOrderByWithRelationInput | NiveauOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Niveaus.
+     */
+    cursor?: NiveauWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Niveaus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Niveaus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Niveaus.
+     */
+    distinct?: NiveauScalarFieldEnum | NiveauScalarFieldEnum[]
+  }
+
+  /**
+   * Niveau findFirstOrThrow
+   */
+  export type NiveauFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * Filter, which Niveau to fetch.
+     */
+    where?: NiveauWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Niveaus to fetch.
+     */
+    orderBy?: NiveauOrderByWithRelationInput | NiveauOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Niveaus.
+     */
+    cursor?: NiveauWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Niveaus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Niveaus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Niveaus.
+     */
+    distinct?: NiveauScalarFieldEnum | NiveauScalarFieldEnum[]
+  }
+
+  /**
+   * Niveau findMany
+   */
+  export type NiveauFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * Filter, which Niveaus to fetch.
+     */
+    where?: NiveauWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Niveaus to fetch.
+     */
+    orderBy?: NiveauOrderByWithRelationInput | NiveauOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Niveaus.
+     */
+    cursor?: NiveauWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Niveaus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Niveaus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Niveaus.
+     */
+    distinct?: NiveauScalarFieldEnum | NiveauScalarFieldEnum[]
+  }
+
+  /**
+   * Niveau create
+   */
+  export type NiveauCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Niveau.
+     */
+    data: XOR<NiveauCreateInput, NiveauUncheckedCreateInput>
+  }
+
+  /**
+   * Niveau createMany
+   */
+  export type NiveauCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Niveaus.
+     */
+    data: NiveauCreateManyInput | NiveauCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Niveau createManyAndReturn
+   */
+  export type NiveauCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * The data used to create many Niveaus.
+     */
+    data: NiveauCreateManyInput | NiveauCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Niveau update
+   */
+  export type NiveauUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Niveau.
+     */
+    data: XOR<NiveauUpdateInput, NiveauUncheckedUpdateInput>
+    /**
+     * Choose, which Niveau to update.
+     */
+    where: NiveauWhereUniqueInput
+  }
+
+  /**
+   * Niveau updateMany
+   */
+  export type NiveauUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Niveaus.
+     */
+    data: XOR<NiveauUpdateManyMutationInput, NiveauUncheckedUpdateManyInput>
+    /**
+     * Filter which Niveaus to update
+     */
+    where?: NiveauWhereInput
+    /**
+     * Limit how many Niveaus to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Niveau updateManyAndReturn
+   */
+  export type NiveauUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * The data used to update Niveaus.
+     */
+    data: XOR<NiveauUpdateManyMutationInput, NiveauUncheckedUpdateManyInput>
+    /**
+     * Filter which Niveaus to update
+     */
+    where?: NiveauWhereInput
+    /**
+     * Limit how many Niveaus to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Niveau upsert
+   */
+  export type NiveauUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Niveau to update in case it exists.
+     */
+    where: NiveauWhereUniqueInput
+    /**
+     * In case the Niveau found by the `where` argument doesn't exist, create a new Niveau with this data.
+     */
+    create: XOR<NiveauCreateInput, NiveauUncheckedCreateInput>
+    /**
+     * In case the Niveau was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NiveauUpdateInput, NiveauUncheckedUpdateInput>
+  }
+
+  /**
+   * Niveau delete
+   */
+  export type NiveauDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+    /**
+     * Filter which Niveau to delete.
+     */
+    where: NiveauWhereUniqueInput
+  }
+
+  /**
+   * Niveau deleteMany
+   */
+  export type NiveauDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Niveaus to delete
+     */
+    where?: NiveauWhereInput
+    /**
+     * Limit how many Niveaus to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Niveau without action
+   */
+  export type NiveauDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Niveau
+     */
+    select?: NiveauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Niveau
+     */
+    omit?: NiveauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NiveauInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -27480,6 +31179,45 @@ export namespace Prisma {
   };
 
   export type SemestreScalarFieldEnum = (typeof SemestreScalarFieldEnum)[keyof typeof SemestreScalarFieldEnum]
+
+
+  export const DepartementScalarFieldEnum: {
+    id: 'id',
+    anneeId: 'anneeId',
+    code: 'code',
+    libelle: 'libelle',
+    originId: 'originId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DepartementScalarFieldEnum = (typeof DepartementScalarFieldEnum)[keyof typeof DepartementScalarFieldEnum]
+
+
+  export const FormationScalarFieldEnum: {
+    id: 'id',
+    departementId: 'departementId',
+    code: 'code',
+    libelle: 'libelle',
+    originId: 'originId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FormationScalarFieldEnum = (typeof FormationScalarFieldEnum)[keyof typeof FormationScalarFieldEnum]
+
+
+  export const NiveauScalarFieldEnum: {
+    id: 'id',
+    formationId: 'formationId',
+    code: 'code',
+    libelle: 'libelle',
+    originId: 'originId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NiveauScalarFieldEnum = (typeof NiveauScalarFieldEnum)[keyof typeof NiveauScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -29191,6 +32929,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Annee"> | Date | string
     updatedAt?: DateTimeFilter<"Annee"> | Date | string
     semestres?: SemestreListRelationFilter
+    departements?: DepartementListRelationFilter
   }
 
   export type AnneeOrderByWithRelationInput = {
@@ -29202,6 +32941,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     semestres?: SemestreOrderByRelationAggregateInput
+    departements?: DepartementOrderByRelationAggregateInput
   }
 
   export type AnneeWhereUniqueInput = Prisma.AtLeast<{
@@ -29216,6 +32956,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Annee"> | Date | string
     updatedAt?: DateTimeFilter<"Annee"> | Date | string
     semestres?: SemestreListRelationFilter
+    departements?: DepartementListRelationFilter
   }, "id" | "code" | "numero">
 
   export type AnneeOrderByWithAggregationInput = {
@@ -29307,6 +33048,210 @@ export namespace Prisma {
     nbSemaines?: IntWithAggregatesFilter<"Semestre"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
+  }
+
+  export type DepartementWhereInput = {
+    AND?: DepartementWhereInput | DepartementWhereInput[]
+    OR?: DepartementWhereInput[]
+    NOT?: DepartementWhereInput | DepartementWhereInput[]
+    id?: UuidFilter<"Departement"> | string
+    anneeId?: UuidFilter<"Departement"> | string
+    code?: StringFilter<"Departement"> | string
+    libelle?: StringFilter<"Departement"> | string
+    originId?: StringNullableFilter<"Departement"> | string | null
+    createdAt?: DateTimeFilter<"Departement"> | Date | string
+    updatedAt?: DateTimeFilter<"Departement"> | Date | string
+    annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
+    formations?: FormationListRelationFilter
+  }
+
+  export type DepartementOrderByWithRelationInput = {
+    id?: SortOrder
+    anneeId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    annee?: AnneeOrderByWithRelationInput
+    formations?: FormationOrderByRelationAggregateInput
+  }
+
+  export type DepartementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    anneeId_code?: DepartementAnneeIdCodeCompoundUniqueInput
+    AND?: DepartementWhereInput | DepartementWhereInput[]
+    OR?: DepartementWhereInput[]
+    NOT?: DepartementWhereInput | DepartementWhereInput[]
+    anneeId?: UuidFilter<"Departement"> | string
+    code?: StringFilter<"Departement"> | string
+    libelle?: StringFilter<"Departement"> | string
+    originId?: StringNullableFilter<"Departement"> | string | null
+    createdAt?: DateTimeFilter<"Departement"> | Date | string
+    updatedAt?: DateTimeFilter<"Departement"> | Date | string
+    annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
+    formations?: FormationListRelationFilter
+  }, "id" | "anneeId_code">
+
+  export type DepartementOrderByWithAggregationInput = {
+    id?: SortOrder
+    anneeId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DepartementCountOrderByAggregateInput
+    _max?: DepartementMaxOrderByAggregateInput
+    _min?: DepartementMinOrderByAggregateInput
+  }
+
+  export type DepartementScalarWhereWithAggregatesInput = {
+    AND?: DepartementScalarWhereWithAggregatesInput | DepartementScalarWhereWithAggregatesInput[]
+    OR?: DepartementScalarWhereWithAggregatesInput[]
+    NOT?: DepartementScalarWhereWithAggregatesInput | DepartementScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Departement"> | string
+    anneeId?: UuidWithAggregatesFilter<"Departement"> | string
+    code?: StringWithAggregatesFilter<"Departement"> | string
+    libelle?: StringWithAggregatesFilter<"Departement"> | string
+    originId?: StringNullableWithAggregatesFilter<"Departement"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Departement"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Departement"> | Date | string
+  }
+
+  export type FormationWhereInput = {
+    AND?: FormationWhereInput | FormationWhereInput[]
+    OR?: FormationWhereInput[]
+    NOT?: FormationWhereInput | FormationWhereInput[]
+    id?: UuidFilter<"Formation"> | string
+    departementId?: UuidFilter<"Formation"> | string
+    code?: StringFilter<"Formation"> | string
+    libelle?: StringFilter<"Formation"> | string
+    originId?: StringNullableFilter<"Formation"> | string | null
+    createdAt?: DateTimeFilter<"Formation"> | Date | string
+    updatedAt?: DateTimeFilter<"Formation"> | Date | string
+    departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
+    niveaux?: NiveauListRelationFilter
+  }
+
+  export type FormationOrderByWithRelationInput = {
+    id?: SortOrder
+    departementId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    departement?: DepartementOrderByWithRelationInput
+    niveaux?: NiveauOrderByRelationAggregateInput
+  }
+
+  export type FormationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    departementId_code?: FormationDepartementIdCodeCompoundUniqueInput
+    AND?: FormationWhereInput | FormationWhereInput[]
+    OR?: FormationWhereInput[]
+    NOT?: FormationWhereInput | FormationWhereInput[]
+    departementId?: UuidFilter<"Formation"> | string
+    code?: StringFilter<"Formation"> | string
+    libelle?: StringFilter<"Formation"> | string
+    originId?: StringNullableFilter<"Formation"> | string | null
+    createdAt?: DateTimeFilter<"Formation"> | Date | string
+    updatedAt?: DateTimeFilter<"Formation"> | Date | string
+    departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
+    niveaux?: NiveauListRelationFilter
+  }, "id" | "departementId_code">
+
+  export type FormationOrderByWithAggregationInput = {
+    id?: SortOrder
+    departementId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FormationCountOrderByAggregateInput
+    _max?: FormationMaxOrderByAggregateInput
+    _min?: FormationMinOrderByAggregateInput
+  }
+
+  export type FormationScalarWhereWithAggregatesInput = {
+    AND?: FormationScalarWhereWithAggregatesInput | FormationScalarWhereWithAggregatesInput[]
+    OR?: FormationScalarWhereWithAggregatesInput[]
+    NOT?: FormationScalarWhereWithAggregatesInput | FormationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Formation"> | string
+    departementId?: UuidWithAggregatesFilter<"Formation"> | string
+    code?: StringWithAggregatesFilter<"Formation"> | string
+    libelle?: StringWithAggregatesFilter<"Formation"> | string
+    originId?: StringNullableWithAggregatesFilter<"Formation"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Formation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Formation"> | Date | string
+  }
+
+  export type NiveauWhereInput = {
+    AND?: NiveauWhereInput | NiveauWhereInput[]
+    OR?: NiveauWhereInput[]
+    NOT?: NiveauWhereInput | NiveauWhereInput[]
+    id?: UuidFilter<"Niveau"> | string
+    formationId?: UuidFilter<"Niveau"> | string
+    code?: StringFilter<"Niveau"> | string
+    libelle?: StringFilter<"Niveau"> | string
+    originId?: StringNullableFilter<"Niveau"> | string | null
+    createdAt?: DateTimeFilter<"Niveau"> | Date | string
+    updatedAt?: DateTimeFilter<"Niveau"> | Date | string
+    formation?: XOR<FormationScalarRelationFilter, FormationWhereInput>
+  }
+
+  export type NiveauOrderByWithRelationInput = {
+    id?: SortOrder
+    formationId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    formation?: FormationOrderByWithRelationInput
+  }
+
+  export type NiveauWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    formationId_code?: NiveauFormationIdCodeCompoundUniqueInput
+    AND?: NiveauWhereInput | NiveauWhereInput[]
+    OR?: NiveauWhereInput[]
+    NOT?: NiveauWhereInput | NiveauWhereInput[]
+    formationId?: UuidFilter<"Niveau"> | string
+    code?: StringFilter<"Niveau"> | string
+    libelle?: StringFilter<"Niveau"> | string
+    originId?: StringNullableFilter<"Niveau"> | string | null
+    createdAt?: DateTimeFilter<"Niveau"> | Date | string
+    updatedAt?: DateTimeFilter<"Niveau"> | Date | string
+    formation?: XOR<FormationScalarRelationFilter, FormationWhereInput>
+  }, "id" | "formationId_code">
+
+  export type NiveauOrderByWithAggregationInput = {
+    id?: SortOrder
+    formationId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NiveauCountOrderByAggregateInput
+    _max?: NiveauMaxOrderByAggregateInput
+    _min?: NiveauMinOrderByAggregateInput
+  }
+
+  export type NiveauScalarWhereWithAggregatesInput = {
+    AND?: NiveauScalarWhereWithAggregatesInput | NiveauScalarWhereWithAggregatesInput[]
+    OR?: NiveauScalarWhereWithAggregatesInput[]
+    NOT?: NiveauScalarWhereWithAggregatesInput | NiveauScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Niveau"> | string
+    formationId?: UuidWithAggregatesFilter<"Niveau"> | string
+    code?: StringWithAggregatesFilter<"Niveau"> | string
+    libelle?: StringWithAggregatesFilter<"Niveau"> | string
+    originId?: StringNullableWithAggregatesFilter<"Niveau"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Niveau"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Niveau"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -30869,6 +34814,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     semestres?: SemestreCreateNestedManyWithoutAnneeInput
+    departements?: DepartementCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateInput = {
@@ -30880,6 +34826,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
+    departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUpdateInput = {
@@ -30891,6 +34838,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUpdateManyWithoutAnneeNestedInput
+    departements?: DepartementUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateInput = {
@@ -30902,6 +34850,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
+    departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeCreateManyInput = {
@@ -30992,6 +34941,221 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     anneeId?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DepartementCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutDepartementsInput
+    formations?: FormationCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementUncheckedCreateInput = {
+    id?: string
+    anneeId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
+    formations?: FormationUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type DepartementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    anneeId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type DepartementCreateManyInput = {
+    id?: string
+    anneeId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DepartementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DepartementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    anneeId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FormationCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement: DepartementCreateNestedOneWithoutFormationsInput
+    niveaux?: NiveauCreateNestedManyWithoutFormationInput
+  }
+
+  export type FormationUncheckedCreateInput = {
+    id?: string
+    departementId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveaux?: NiveauUncheckedCreateNestedManyWithoutFormationInput
+  }
+
+  export type FormationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneRequiredWithoutFormationsNestedInput
+    niveaux?: NiveauUpdateManyWithoutFormationNestedInput
+  }
+
+  export type FormationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveaux?: NiveauUncheckedUpdateManyWithoutFormationNestedInput
+  }
+
+  export type FormationCreateManyInput = {
+    id?: string
+    departementId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FormationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FormationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NiveauCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formation: FormationCreateNestedOneWithoutNiveauxInput
+  }
+
+  export type NiveauUncheckedCreateInput = {
+    id?: string
+    formationId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NiveauUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formation?: FormationUpdateOneRequiredWithoutNiveauxNestedInput
+  }
+
+  export type NiveauUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formationId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NiveauCreateManyInput = {
+    id?: string
+    formationId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NiveauUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NiveauUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formationId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32397,7 +36561,17 @@ export namespace Prisma {
     none?: SemestreWhereInput
   }
 
+  export type DepartementListRelationFilter = {
+    every?: DepartementWhereInput
+    some?: DepartementWhereInput
+    none?: DepartementWhereInput
+  }
+
   export type SemestreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DepartementOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -32486,6 +36660,141 @@ export namespace Prisma {
   export type SemestreSumOrderByAggregateInput = {
     numero?: SortOrder
     nbSemaines?: SortOrder
+  }
+
+  export type FormationListRelationFilter = {
+    every?: FormationWhereInput
+    some?: FormationWhereInput
+    none?: FormationWhereInput
+  }
+
+  export type FormationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DepartementAnneeIdCodeCompoundUniqueInput = {
+    anneeId: string
+    code: string
+  }
+
+  export type DepartementCountOrderByAggregateInput = {
+    id?: SortOrder
+    anneeId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    anneeId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartementMinOrderByAggregateInput = {
+    id?: SortOrder
+    anneeId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartementScalarRelationFilter = {
+    is?: DepartementWhereInput
+    isNot?: DepartementWhereInput
+  }
+
+  export type NiveauListRelationFilter = {
+    every?: NiveauWhereInput
+    some?: NiveauWhereInput
+    none?: NiveauWhereInput
+  }
+
+  export type NiveauOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FormationDepartementIdCodeCompoundUniqueInput = {
+    departementId: string
+    code: string
+  }
+
+  export type FormationCountOrderByAggregateInput = {
+    id?: SortOrder
+    departementId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FormationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    departementId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FormationMinOrderByAggregateInput = {
+    id?: SortOrder
+    departementId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FormationScalarRelationFilter = {
+    is?: FormationWhereInput
+    isNot?: FormationWhereInput
+  }
+
+  export type NiveauFormationIdCodeCompoundUniqueInput = {
+    formationId: string
+    code: string
+  }
+
+  export type NiveauCountOrderByAggregateInput = {
+    id?: SortOrder
+    formationId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NiveauMaxOrderByAggregateInput = {
+    id?: SortOrder
+    formationId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NiveauMinOrderByAggregateInput = {
+    id?: SortOrder
+    formationId?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -33822,11 +38131,25 @@ export namespace Prisma {
     connect?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
   }
 
+  export type DepartementCreateNestedManyWithoutAnneeInput = {
+    create?: XOR<DepartementCreateWithoutAnneeInput, DepartementUncheckedCreateWithoutAnneeInput> | DepartementCreateWithoutAnneeInput[] | DepartementUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: DepartementCreateOrConnectWithoutAnneeInput | DepartementCreateOrConnectWithoutAnneeInput[]
+    createMany?: DepartementCreateManyAnneeInputEnvelope
+    connect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+  }
+
   export type SemestreUncheckedCreateNestedManyWithoutAnneeInput = {
     create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
     connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
     createMany?: SemestreCreateManyAnneeInputEnvelope
     connect?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+  }
+
+  export type DepartementUncheckedCreateNestedManyWithoutAnneeInput = {
+    create?: XOR<DepartementCreateWithoutAnneeInput, DepartementUncheckedCreateWithoutAnneeInput> | DepartementCreateWithoutAnneeInput[] | DepartementUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: DepartementCreateOrConnectWithoutAnneeInput | DepartementCreateOrConnectWithoutAnneeInput[]
+    createMany?: DepartementCreateManyAnneeInputEnvelope
+    connect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
   }
 
   export type SemestreUpdateManyWithoutAnneeNestedInput = {
@@ -33843,6 +38166,20 @@ export namespace Prisma {
     deleteMany?: SemestreScalarWhereInput | SemestreScalarWhereInput[]
   }
 
+  export type DepartementUpdateManyWithoutAnneeNestedInput = {
+    create?: XOR<DepartementCreateWithoutAnneeInput, DepartementUncheckedCreateWithoutAnneeInput> | DepartementCreateWithoutAnneeInput[] | DepartementUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: DepartementCreateOrConnectWithoutAnneeInput | DepartementCreateOrConnectWithoutAnneeInput[]
+    upsert?: DepartementUpsertWithWhereUniqueWithoutAnneeInput | DepartementUpsertWithWhereUniqueWithoutAnneeInput[]
+    createMany?: DepartementCreateManyAnneeInputEnvelope
+    set?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+    disconnect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+    delete?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+    connect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+    update?: DepartementUpdateWithWhereUniqueWithoutAnneeInput | DepartementUpdateWithWhereUniqueWithoutAnneeInput[]
+    updateMany?: DepartementUpdateManyWithWhereWithoutAnneeInput | DepartementUpdateManyWithWhereWithoutAnneeInput[]
+    deleteMany?: DepartementScalarWhereInput | DepartementScalarWhereInput[]
+  }
+
   export type SemestreUncheckedUpdateManyWithoutAnneeNestedInput = {
     create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
     connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
@@ -33857,6 +38194,20 @@ export namespace Prisma {
     deleteMany?: SemestreScalarWhereInput | SemestreScalarWhereInput[]
   }
 
+  export type DepartementUncheckedUpdateManyWithoutAnneeNestedInput = {
+    create?: XOR<DepartementCreateWithoutAnneeInput, DepartementUncheckedCreateWithoutAnneeInput> | DepartementCreateWithoutAnneeInput[] | DepartementUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: DepartementCreateOrConnectWithoutAnneeInput | DepartementCreateOrConnectWithoutAnneeInput[]
+    upsert?: DepartementUpsertWithWhereUniqueWithoutAnneeInput | DepartementUpsertWithWhereUniqueWithoutAnneeInput[]
+    createMany?: DepartementCreateManyAnneeInputEnvelope
+    set?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+    disconnect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+    delete?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+    connect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+    update?: DepartementUpdateWithWhereUniqueWithoutAnneeInput | DepartementUpdateWithWhereUniqueWithoutAnneeInput[]
+    updateMany?: DepartementUpdateManyWithWhereWithoutAnneeInput | DepartementUpdateManyWithWhereWithoutAnneeInput[]
+    deleteMany?: DepartementScalarWhereInput | DepartementScalarWhereInput[]
+  }
+
   export type AnneeCreateNestedOneWithoutSemestresInput = {
     create?: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
     connectOrCreate?: AnneeCreateOrConnectWithoutSemestresInput
@@ -33869,6 +38220,132 @@ export namespace Prisma {
     upsert?: AnneeUpsertWithoutSemestresInput
     connect?: AnneeWhereUniqueInput
     update?: XOR<XOR<AnneeUpdateToOneWithWhereWithoutSemestresInput, AnneeUpdateWithoutSemestresInput>, AnneeUncheckedUpdateWithoutSemestresInput>
+  }
+
+  export type AnneeCreateNestedOneWithoutDepartementsInput = {
+    create?: XOR<AnneeCreateWithoutDepartementsInput, AnneeUncheckedCreateWithoutDepartementsInput>
+    connectOrCreate?: AnneeCreateOrConnectWithoutDepartementsInput
+    connect?: AnneeWhereUniqueInput
+  }
+
+  export type FormationCreateNestedManyWithoutDepartementInput = {
+    create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
+    createMany?: FormationCreateManyDepartementInputEnvelope
+    connect?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+  }
+
+  export type FormationUncheckedCreateNestedManyWithoutDepartementInput = {
+    create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
+    createMany?: FormationCreateManyDepartementInputEnvelope
+    connect?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+  }
+
+  export type AnneeUpdateOneRequiredWithoutDepartementsNestedInput = {
+    create?: XOR<AnneeCreateWithoutDepartementsInput, AnneeUncheckedCreateWithoutDepartementsInput>
+    connectOrCreate?: AnneeCreateOrConnectWithoutDepartementsInput
+    upsert?: AnneeUpsertWithoutDepartementsInput
+    connect?: AnneeWhereUniqueInput
+    update?: XOR<XOR<AnneeUpdateToOneWithWhereWithoutDepartementsInput, AnneeUpdateWithoutDepartementsInput>, AnneeUncheckedUpdateWithoutDepartementsInput>
+  }
+
+  export type FormationUpdateManyWithoutDepartementNestedInput = {
+    create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
+    upsert?: FormationUpsertWithWhereUniqueWithoutDepartementInput | FormationUpsertWithWhereUniqueWithoutDepartementInput[]
+    createMany?: FormationCreateManyDepartementInputEnvelope
+    set?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+    disconnect?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+    delete?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+    connect?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+    update?: FormationUpdateWithWhereUniqueWithoutDepartementInput | FormationUpdateWithWhereUniqueWithoutDepartementInput[]
+    updateMany?: FormationUpdateManyWithWhereWithoutDepartementInput | FormationUpdateManyWithWhereWithoutDepartementInput[]
+    deleteMany?: FormationScalarWhereInput | FormationScalarWhereInput[]
+  }
+
+  export type FormationUncheckedUpdateManyWithoutDepartementNestedInput = {
+    create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
+    upsert?: FormationUpsertWithWhereUniqueWithoutDepartementInput | FormationUpsertWithWhereUniqueWithoutDepartementInput[]
+    createMany?: FormationCreateManyDepartementInputEnvelope
+    set?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+    disconnect?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+    delete?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+    connect?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+    update?: FormationUpdateWithWhereUniqueWithoutDepartementInput | FormationUpdateWithWhereUniqueWithoutDepartementInput[]
+    updateMany?: FormationUpdateManyWithWhereWithoutDepartementInput | FormationUpdateManyWithWhereWithoutDepartementInput[]
+    deleteMany?: FormationScalarWhereInput | FormationScalarWhereInput[]
+  }
+
+  export type DepartementCreateNestedOneWithoutFormationsInput = {
+    create?: XOR<DepartementCreateWithoutFormationsInput, DepartementUncheckedCreateWithoutFormationsInput>
+    connectOrCreate?: DepartementCreateOrConnectWithoutFormationsInput
+    connect?: DepartementWhereUniqueInput
+  }
+
+  export type NiveauCreateNestedManyWithoutFormationInput = {
+    create?: XOR<NiveauCreateWithoutFormationInput, NiveauUncheckedCreateWithoutFormationInput> | NiveauCreateWithoutFormationInput[] | NiveauUncheckedCreateWithoutFormationInput[]
+    connectOrCreate?: NiveauCreateOrConnectWithoutFormationInput | NiveauCreateOrConnectWithoutFormationInput[]
+    createMany?: NiveauCreateManyFormationInputEnvelope
+    connect?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+  }
+
+  export type NiveauUncheckedCreateNestedManyWithoutFormationInput = {
+    create?: XOR<NiveauCreateWithoutFormationInput, NiveauUncheckedCreateWithoutFormationInput> | NiveauCreateWithoutFormationInput[] | NiveauUncheckedCreateWithoutFormationInput[]
+    connectOrCreate?: NiveauCreateOrConnectWithoutFormationInput | NiveauCreateOrConnectWithoutFormationInput[]
+    createMany?: NiveauCreateManyFormationInputEnvelope
+    connect?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+  }
+
+  export type DepartementUpdateOneRequiredWithoutFormationsNestedInput = {
+    create?: XOR<DepartementCreateWithoutFormationsInput, DepartementUncheckedCreateWithoutFormationsInput>
+    connectOrCreate?: DepartementCreateOrConnectWithoutFormationsInput
+    upsert?: DepartementUpsertWithoutFormationsInput
+    connect?: DepartementWhereUniqueInput
+    update?: XOR<XOR<DepartementUpdateToOneWithWhereWithoutFormationsInput, DepartementUpdateWithoutFormationsInput>, DepartementUncheckedUpdateWithoutFormationsInput>
+  }
+
+  export type NiveauUpdateManyWithoutFormationNestedInput = {
+    create?: XOR<NiveauCreateWithoutFormationInput, NiveauUncheckedCreateWithoutFormationInput> | NiveauCreateWithoutFormationInput[] | NiveauUncheckedCreateWithoutFormationInput[]
+    connectOrCreate?: NiveauCreateOrConnectWithoutFormationInput | NiveauCreateOrConnectWithoutFormationInput[]
+    upsert?: NiveauUpsertWithWhereUniqueWithoutFormationInput | NiveauUpsertWithWhereUniqueWithoutFormationInput[]
+    createMany?: NiveauCreateManyFormationInputEnvelope
+    set?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+    disconnect?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+    delete?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+    connect?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+    update?: NiveauUpdateWithWhereUniqueWithoutFormationInput | NiveauUpdateWithWhereUniqueWithoutFormationInput[]
+    updateMany?: NiveauUpdateManyWithWhereWithoutFormationInput | NiveauUpdateManyWithWhereWithoutFormationInput[]
+    deleteMany?: NiveauScalarWhereInput | NiveauScalarWhereInput[]
+  }
+
+  export type NiveauUncheckedUpdateManyWithoutFormationNestedInput = {
+    create?: XOR<NiveauCreateWithoutFormationInput, NiveauUncheckedCreateWithoutFormationInput> | NiveauCreateWithoutFormationInput[] | NiveauUncheckedCreateWithoutFormationInput[]
+    connectOrCreate?: NiveauCreateOrConnectWithoutFormationInput | NiveauCreateOrConnectWithoutFormationInput[]
+    upsert?: NiveauUpsertWithWhereUniqueWithoutFormationInput | NiveauUpsertWithWhereUniqueWithoutFormationInput[]
+    createMany?: NiveauCreateManyFormationInputEnvelope
+    set?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+    disconnect?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+    delete?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+    connect?: NiveauWhereUniqueInput | NiveauWhereUniqueInput[]
+    update?: NiveauUpdateWithWhereUniqueWithoutFormationInput | NiveauUpdateWithWhereUniqueWithoutFormationInput[]
+    updateMany?: NiveauUpdateManyWithWhereWithoutFormationInput | NiveauUpdateManyWithWhereWithoutFormationInput[]
+    deleteMany?: NiveauScalarWhereInput | NiveauScalarWhereInput[]
+  }
+
+  export type FormationCreateNestedOneWithoutNiveauxInput = {
+    create?: XOR<FormationCreateWithoutNiveauxInput, FormationUncheckedCreateWithoutNiveauxInput>
+    connectOrCreate?: FormationCreateOrConnectWithoutNiveauxInput
+    connect?: FormationWhereUniqueInput
+  }
+
+  export type FormationUpdateOneRequiredWithoutNiveauxNestedInput = {
+    create?: XOR<FormationCreateWithoutNiveauxInput, FormationUncheckedCreateWithoutNiveauxInput>
+    connectOrCreate?: FormationCreateOrConnectWithoutNiveauxInput
+    upsert?: FormationUpsertWithoutNiveauxInput
+    connect?: FormationWhereUniqueInput
+    update?: XOR<XOR<FormationUpdateToOneWithWhereWithoutNiveauxInput, FormationUpdateWithoutNiveauxInput>, FormationUncheckedUpdateWithoutNiveauxInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -37980,6 +42457,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DepartementCreateWithoutAnneeInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formations?: FormationCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementUncheckedCreateWithoutAnneeInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementCreateOrConnectWithoutAnneeInput = {
+    where: DepartementWhereUniqueInput
+    create: XOR<DepartementCreateWithoutAnneeInput, DepartementUncheckedCreateWithoutAnneeInput>
+  }
+
+  export type DepartementCreateManyAnneeInputEnvelope = {
+    data: DepartementCreateManyAnneeInput | DepartementCreateManyAnneeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithWhereUniqueWithoutAnneeInput = {
     where: SemestreWhereUniqueInput
     update: XOR<SemestreUpdateWithoutAnneeInput, SemestreUncheckedUpdateWithoutAnneeInput>
@@ -38008,6 +42515,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Semestre"> | Date | string
   }
 
+  export type DepartementUpsertWithWhereUniqueWithoutAnneeInput = {
+    where: DepartementWhereUniqueInput
+    update: XOR<DepartementUpdateWithoutAnneeInput, DepartementUncheckedUpdateWithoutAnneeInput>
+    create: XOR<DepartementCreateWithoutAnneeInput, DepartementUncheckedCreateWithoutAnneeInput>
+  }
+
+  export type DepartementUpdateWithWhereUniqueWithoutAnneeInput = {
+    where: DepartementWhereUniqueInput
+    data: XOR<DepartementUpdateWithoutAnneeInput, DepartementUncheckedUpdateWithoutAnneeInput>
+  }
+
+  export type DepartementUpdateManyWithWhereWithoutAnneeInput = {
+    where: DepartementScalarWhereInput
+    data: XOR<DepartementUpdateManyMutationInput, DepartementUncheckedUpdateManyWithoutAnneeInput>
+  }
+
+  export type DepartementScalarWhereInput = {
+    AND?: DepartementScalarWhereInput | DepartementScalarWhereInput[]
+    OR?: DepartementScalarWhereInput[]
+    NOT?: DepartementScalarWhereInput | DepartementScalarWhereInput[]
+    id?: UuidFilter<"Departement"> | string
+    anneeId?: UuidFilter<"Departement"> | string
+    code?: StringFilter<"Departement"> | string
+    libelle?: StringFilter<"Departement"> | string
+    originId?: StringNullableFilter<"Departement"> | string | null
+    createdAt?: DateTimeFilter<"Departement"> | Date | string
+    updatedAt?: DateTimeFilter<"Departement"> | Date | string
+  }
+
   export type AnneeCreateWithoutSemestresInput = {
     id?: string
     numero: number
@@ -38016,6 +42552,7 @@ export namespace Prisma {
     actif?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    departements?: DepartementCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateWithoutSemestresInput = {
@@ -38026,6 +42563,7 @@ export namespace Prisma {
     actif?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeCreateOrConnectWithoutSemestresInput = {
@@ -38052,6 +42590,7 @@ export namespace Prisma {
     actif?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departements?: DepartementUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateWithoutSemestresInput = {
@@ -38060,6 +42599,295 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
     actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type AnneeCreateWithoutDepartementsInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    actif?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestres?: SemestreCreateNestedManyWithoutAnneeInput
+  }
+
+  export type AnneeUncheckedCreateWithoutDepartementsInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    actif?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
+  }
+
+  export type AnneeCreateOrConnectWithoutDepartementsInput = {
+    where: AnneeWhereUniqueInput
+    create: XOR<AnneeCreateWithoutDepartementsInput, AnneeUncheckedCreateWithoutDepartementsInput>
+  }
+
+  export type FormationCreateWithoutDepartementInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveaux?: NiveauCreateNestedManyWithoutFormationInput
+  }
+
+  export type FormationUncheckedCreateWithoutDepartementInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveaux?: NiveauUncheckedCreateNestedManyWithoutFormationInput
+  }
+
+  export type FormationCreateOrConnectWithoutDepartementInput = {
+    where: FormationWhereUniqueInput
+    create: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput>
+  }
+
+  export type FormationCreateManyDepartementInputEnvelope = {
+    data: FormationCreateManyDepartementInput | FormationCreateManyDepartementInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AnneeUpsertWithoutDepartementsInput = {
+    update: XOR<AnneeUpdateWithoutDepartementsInput, AnneeUncheckedUpdateWithoutDepartementsInput>
+    create: XOR<AnneeCreateWithoutDepartementsInput, AnneeUncheckedCreateWithoutDepartementsInput>
+    where?: AnneeWhereInput
+  }
+
+  export type AnneeUpdateToOneWithWhereWithoutDepartementsInput = {
+    where?: AnneeWhereInput
+    data: XOR<AnneeUpdateWithoutDepartementsInput, AnneeUncheckedUpdateWithoutDepartementsInput>
+  }
+
+  export type AnneeUpdateWithoutDepartementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestres?: SemestreUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type AnneeUncheckedUpdateWithoutDepartementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type FormationUpsertWithWhereUniqueWithoutDepartementInput = {
+    where: FormationWhereUniqueInput
+    update: XOR<FormationUpdateWithoutDepartementInput, FormationUncheckedUpdateWithoutDepartementInput>
+    create: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput>
+  }
+
+  export type FormationUpdateWithWhereUniqueWithoutDepartementInput = {
+    where: FormationWhereUniqueInput
+    data: XOR<FormationUpdateWithoutDepartementInput, FormationUncheckedUpdateWithoutDepartementInput>
+  }
+
+  export type FormationUpdateManyWithWhereWithoutDepartementInput = {
+    where: FormationScalarWhereInput
+    data: XOR<FormationUpdateManyMutationInput, FormationUncheckedUpdateManyWithoutDepartementInput>
+  }
+
+  export type FormationScalarWhereInput = {
+    AND?: FormationScalarWhereInput | FormationScalarWhereInput[]
+    OR?: FormationScalarWhereInput[]
+    NOT?: FormationScalarWhereInput | FormationScalarWhereInput[]
+    id?: UuidFilter<"Formation"> | string
+    departementId?: UuidFilter<"Formation"> | string
+    code?: StringFilter<"Formation"> | string
+    libelle?: StringFilter<"Formation"> | string
+    originId?: StringNullableFilter<"Formation"> | string | null
+    createdAt?: DateTimeFilter<"Formation"> | Date | string
+    updatedAt?: DateTimeFilter<"Formation"> | Date | string
+  }
+
+  export type DepartementCreateWithoutFormationsInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutDepartementsInput
+  }
+
+  export type DepartementUncheckedCreateWithoutFormationsInput = {
+    id?: string
+    anneeId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DepartementCreateOrConnectWithoutFormationsInput = {
+    where: DepartementWhereUniqueInput
+    create: XOR<DepartementCreateWithoutFormationsInput, DepartementUncheckedCreateWithoutFormationsInput>
+  }
+
+  export type NiveauCreateWithoutFormationInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NiveauUncheckedCreateWithoutFormationInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NiveauCreateOrConnectWithoutFormationInput = {
+    where: NiveauWhereUniqueInput
+    create: XOR<NiveauCreateWithoutFormationInput, NiveauUncheckedCreateWithoutFormationInput>
+  }
+
+  export type NiveauCreateManyFormationInputEnvelope = {
+    data: NiveauCreateManyFormationInput | NiveauCreateManyFormationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DepartementUpsertWithoutFormationsInput = {
+    update: XOR<DepartementUpdateWithoutFormationsInput, DepartementUncheckedUpdateWithoutFormationsInput>
+    create: XOR<DepartementCreateWithoutFormationsInput, DepartementUncheckedCreateWithoutFormationsInput>
+    where?: DepartementWhereInput
+  }
+
+  export type DepartementUpdateToOneWithWhereWithoutFormationsInput = {
+    where?: DepartementWhereInput
+    data: XOR<DepartementUpdateWithoutFormationsInput, DepartementUncheckedUpdateWithoutFormationsInput>
+  }
+
+  export type DepartementUpdateWithoutFormationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
+  }
+
+  export type DepartementUncheckedUpdateWithoutFormationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    anneeId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NiveauUpsertWithWhereUniqueWithoutFormationInput = {
+    where: NiveauWhereUniqueInput
+    update: XOR<NiveauUpdateWithoutFormationInput, NiveauUncheckedUpdateWithoutFormationInput>
+    create: XOR<NiveauCreateWithoutFormationInput, NiveauUncheckedCreateWithoutFormationInput>
+  }
+
+  export type NiveauUpdateWithWhereUniqueWithoutFormationInput = {
+    where: NiveauWhereUniqueInput
+    data: XOR<NiveauUpdateWithoutFormationInput, NiveauUncheckedUpdateWithoutFormationInput>
+  }
+
+  export type NiveauUpdateManyWithWhereWithoutFormationInput = {
+    where: NiveauScalarWhereInput
+    data: XOR<NiveauUpdateManyMutationInput, NiveauUncheckedUpdateManyWithoutFormationInput>
+  }
+
+  export type NiveauScalarWhereInput = {
+    AND?: NiveauScalarWhereInput | NiveauScalarWhereInput[]
+    OR?: NiveauScalarWhereInput[]
+    NOT?: NiveauScalarWhereInput | NiveauScalarWhereInput[]
+    id?: UuidFilter<"Niveau"> | string
+    formationId?: UuidFilter<"Niveau"> | string
+    code?: StringFilter<"Niveau"> | string
+    libelle?: StringFilter<"Niveau"> | string
+    originId?: StringNullableFilter<"Niveau"> | string | null
+    createdAt?: DateTimeFilter<"Niveau"> | Date | string
+    updatedAt?: DateTimeFilter<"Niveau"> | Date | string
+  }
+
+  export type FormationCreateWithoutNiveauxInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement: DepartementCreateNestedOneWithoutFormationsInput
+  }
+
+  export type FormationUncheckedCreateWithoutNiveauxInput = {
+    id?: string
+    departementId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FormationCreateOrConnectWithoutNiveauxInput = {
+    where: FormationWhereUniqueInput
+    create: XOR<FormationCreateWithoutNiveauxInput, FormationUncheckedCreateWithoutNiveauxInput>
+  }
+
+  export type FormationUpsertWithoutNiveauxInput = {
+    update: XOR<FormationUpdateWithoutNiveauxInput, FormationUncheckedUpdateWithoutNiveauxInput>
+    create: XOR<FormationCreateWithoutNiveauxInput, FormationUncheckedCreateWithoutNiveauxInput>
+    where?: FormationWhereInput
+  }
+
+  export type FormationUpdateToOneWithWhereWithoutNiveauxInput = {
+    where?: FormationWhereInput
+    data: XOR<FormationUpdateWithoutNiveauxInput, FormationUncheckedUpdateWithoutNiveauxInput>
+  }
+
+  export type FormationUpdateWithoutNiveauxInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneRequiredWithoutFormationsNestedInput
+  }
+
+  export type FormationUncheckedUpdateWithoutNiveauxInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39102,6 +43930,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DepartementCreateManyAnneeInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SemestreUpdateWithoutAnneeInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
@@ -39122,6 +43959,109 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DepartementUpdateWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formations?: FormationUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type DepartementUncheckedUpdateWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type DepartementUncheckedUpdateManyWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FormationCreateManyDepartementInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FormationUpdateWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveaux?: NiveauUpdateManyWithoutFormationNestedInput
+  }
+
+  export type FormationUncheckedUpdateWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveaux?: NiveauUncheckedUpdateManyWithoutFormationNestedInput
+  }
+
+  export type FormationUncheckedUpdateManyWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NiveauCreateManyFormationInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NiveauUpdateWithoutFormationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NiveauUncheckedUpdateWithoutFormationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NiveauUncheckedUpdateManyWithoutFormationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

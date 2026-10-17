@@ -16,6 +16,7 @@ import { CommentsModule } from './comments/comments.module.js';
 import { ActivitiesModule } from './activities/activities.module.js';
 import { HealthModule } from './health/health.module.js';
 import { AnneesModule } from './annees/annees.module.js';
+import { StructureModule } from './structure/structure.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -72,6 +73,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     ActivitiesModule,
     HealthModule,
     AnneesModule,
+    StructureModule,
     PolicyModule,
   ],
   controllers: [MetricsController, SecurityEventController],
