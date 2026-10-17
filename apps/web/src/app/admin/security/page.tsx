@@ -15,19 +15,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export default function SecurityPage() {
   const role = getCurrentUserRole();
 
-  if (role === undefined) {
-    return <div className="p-4"><p>{messages.loading}</p></div>;
-  }
-
-  if (!isAdmin(role)) {
-    return (
-      <div className="p-4">
-        <h1 className="text-lg font-semibold">{messages.error}</h1>
-        <p className="text-muted-foreground">{messages.errorForbidden}</p>
-      </div>
-    );
-  }
-
+  // Tous les hooks doivent être appelés inconditionnellement avant tout early return
   const [config, setConfig] = useState<SecurityConfigDto | null>(null);
   const [form, setForm] = useState<SecurityConfigDto | null>(null);
   const [loading, setLoading] = useState(true);
@@ -71,6 +59,19 @@ export default function SecurityPage() {
       setSaving(false);
     }
   };
+
+  if (role === undefined) {
+    return <div className="p-4"><p>{messages.loading}</p></div>;
+  }
+
+  if (!isAdmin(role)) {
+    return (
+      <div className="p-4">
+        <h1 className="text-lg font-semibold">{messages.error}</h1>
+        <p className="text-muted-foreground">{messages.errorForbidden}</p>
+      </div>
+    );
+  }
 
   if (loading || !config) {
     return <div className="p-4"><p>{messages.loading}</p></div>;
