@@ -2,7 +2,7 @@
 
 Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main.
 
-- 124 exigences, 209 tickets, 1077 points.
+- 124 exigences, 210 tickets, 1079 points.
 
 ## Exigences → tickets
 
@@ -22,7 +22,7 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | EX-ROL-05 | L0-19, L2-15, L3-22, L7-06 | L0, L2, L3, L7 |
 | EX-ROL-06 | L0-22, L2-12, L5-04 | L0, L2, L5 |
 | EX-ROL-07 | L2-18, L2-19 | L2 |
-| EX-SEC-01 | L0-10, L0-17, L0-32, L0-33, L0-38 | L0 |
+| EX-SEC-01 | L0-10, L0-17, L0-32, L0-33, L0-38, L0-39 | L0 |
 | EX-SEC-02 | L0-15, L0-30, L0-34 | L0 |
 | EX-SEC-03 | L0-16, L0-30 | L0 |
 | EX-SEC-04 | L0-13, L0-31 | L0 |
@@ -176,7 +176,7 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | L0-35 | L0-36 |
 | L0-36 | L0-37 |
 | L0-37 | L0-38 |
-| L0-38 | L0-21 |
+| L0-38 | L0-39 |
 | L1-01 | L1-01 |
 | L1-02 | L1-02 |
 | L1-03 | L1-03 |

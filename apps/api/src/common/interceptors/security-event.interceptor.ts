@@ -45,12 +45,19 @@ export class SecurityEventInterceptor implements NestInterceptor {
       | { id?: string; email?: string }
       | undefined;
 
+    // Fallback : lire l'email depuis le corps de la requête pour les routes
+    // publiques (ex: login, register) où request.user n'est pas défini.
+    const bodyEmail =
+      typeof request.body === 'object' && request.body !== null
+        ? (request.body as { email?: string }).email
+        : undefined;
+
     return next.handle().pipe(
       tap(async () => {
         await this.securityEvent.log({
           type: eventType as any,
           userId: user?.id,
-          email: user?.email,
+          email: user?.email ?? bodyEmail,
           ip: request.ip ?? request.socket?.remoteAddress ?? undefined,
           userAgent: request.headers['user-agent'],
           requestId:

@@ -10,7 +10,10 @@ import { PrismaService } from '../../prisma/prisma.service.js';
 export type SecurityEventType =
   | 'LOGIN_SUCCESS'
   | 'LOGIN_FAILURE'
+  | 'REGISTER_SUCCESS'
+  | 'REGISTER_FAILURE'
   | 'TOKEN_REUSE'
+  | 'TOKEN_REFRESH'
   | 'ACCOUNT_LOCKED'
   | 'MFA_ENABLE'
   | 'MFA_DISABLE'
@@ -19,7 +22,8 @@ export type SecurityEventType =
   | 'EXPORT_ACCESS'
   | 'ROLE_CHANGE'
   | 'SECURITY_ALERT'
-  | 'SECURITY_READ';
+  | 'SECURITY_READ'
+  | 'LOGOUT';
 
 export interface SecurityEventInput {
   type: SecurityEventType;

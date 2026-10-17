@@ -8,6 +8,7 @@ import {
   Req,
   Res,
   UseGuards,
+  UseInterceptors,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
@@ -21,6 +22,8 @@ import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Public } from '../common/decorators/public.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
+import { SecurityEventInterceptor } from '../common/interceptors/security-event.interceptor.js';
+import { SecurityEvent } from '../common/decorators/security-event.decorator.js';
 import { MfaService } from './mfa.service.js';
 import { PasswordResetService } from './password-reset.service.js';
 
@@ -54,6 +57,8 @@ export class AuthController {
 
   @Public()
   @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @UseInterceptors(SecurityEventInterceptor)
+  @SecurityEvent('REGISTER_SUCCESS')
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Inscription d\'un nouvel utilisateur' })
@@ -71,6 +76,8 @@ export class AuthController {
 
   @Public()
   @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @UseInterceptors(SecurityEventInterceptor)
+  @SecurityEvent('LOGIN_SUCCESS')
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Connexion utilisateur' })
@@ -92,6 +99,8 @@ export class AuthController {
 
   @Public()
   @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @UseInterceptors(SecurityEventInterceptor)
+  @SecurityEvent('TOKEN_REFRESH')
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Rafraîchir le token d\'accès' })
@@ -126,6 +135,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Permissions('auth:logout')
+  @UseInterceptors(SecurityEventInterceptor)
+  @SecurityEvent('LOGOUT')
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
