@@ -456,6 +456,15 @@ exports.Prisma.EnseignantModuleScalarFieldEnum = {
   moduleId: 'moduleId'
 };
 
+exports.Prisma.DechargeScalarFieldEnum = {
+  id: 'id',
+  heures: 'heures',
+  enseignantId: 'enseignantId',
+  semestreId: 'semestreId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -606,7 +615,8 @@ exports.Prisma.ModelName = {
   Module: 'Module',
   ActivityTag: 'ActivityTag',
   Enseignant: 'Enseignant',
-  EnseignantModule: 'EnseignantModule'
+  EnseignantModule: 'EnseignantModule',
+  Decharge: 'Decharge'
 };
 
 /**

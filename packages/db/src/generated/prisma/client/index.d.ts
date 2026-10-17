@@ -168,6 +168,11 @@ export type Enseignant = $Result.DefaultSelection<Prisma.$EnseignantPayload>
  * 
  */
 export type EnseignantModule = $Result.DefaultSelection<Prisma.$EnseignantModulePayload>
+/**
+ * Model Decharge
+ * 
+ */
+export type Decharge = $Result.DefaultSelection<Prisma.$DechargePayload>
 
 /**
  * Enums
@@ -778,6 +783,16 @@ export class PrismaClient<
     * ```
     */
   get enseignantModule(): Prisma.EnseignantModuleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.decharge`: Exposes CRUD operations for the **Decharge** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Decharges
+    * const decharges = await prisma.decharge.findMany()
+    * ```
+    */
+  get decharge(): Prisma.DechargeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1255,7 +1270,8 @@ export namespace Prisma {
     Module: 'Module',
     ActivityTag: 'ActivityTag',
     Enseignant: 'Enseignant',
-    EnseignantModule: 'EnseignantModule'
+    EnseignantModule: 'EnseignantModule',
+    Decharge: 'Decharge'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1271,7 +1287,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3569,6 +3585,80 @@ export namespace Prisma {
           }
         }
       }
+      Decharge: {
+        payload: Prisma.$DechargePayload<ExtArgs>
+        fields: Prisma.DechargeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DechargeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DechargeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>
+          }
+          findFirst: {
+            args: Prisma.DechargeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DechargeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>
+          }
+          findMany: {
+            args: Prisma.DechargeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>[]
+          }
+          create: {
+            args: Prisma.DechargeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>
+          }
+          createMany: {
+            args: Prisma.DechargeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DechargeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>[]
+          }
+          delete: {
+            args: Prisma.DechargeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>
+          }
+          update: {
+            args: Prisma.DechargeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>
+          }
+          deleteMany: {
+            args: Prisma.DechargeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DechargeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DechargeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>[]
+          }
+          upsert: {
+            args: Prisma.DechargeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DechargePayload>
+          }
+          aggregate: {
+            args: Prisma.DechargeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDecharge>
+          }
+          groupBy: {
+            args: Prisma.DechargeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DechargeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DechargeCountArgs<ExtArgs>
+            result: $Utils.Optional<DechargeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3723,6 +3813,7 @@ export namespace Prisma {
     activityTag?: ActivityTagOmit
     enseignant?: EnseignantOmit
     enseignantModule?: EnseignantModuleOmit
+    decharge?: DechargeOmit
   }
 
   /* Types for Logging */
@@ -4183,10 +4274,12 @@ export namespace Prisma {
 
   export type SemestreCountOutputType = {
     groupes: number
+    decharges: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     groupes?: boolean | SemestreCountOutputTypeCountGroupesArgs
+    decharges?: boolean | SemestreCountOutputTypeCountDechargesArgs
   }
 
   // Custom InputTypes
@@ -4205,6 +4298,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountGroupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GroupeWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountDechargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DechargeWhereInput
   }
 
 
@@ -4489,10 +4589,12 @@ export namespace Prisma {
 
   export type EnseignantCountOutputType = {
     enseignantModules: number
+    decharges: number
   }
 
   export type EnseignantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enseignantModules?: boolean | EnseignantCountOutputTypeCountEnseignantModulesArgs
+    decharges?: boolean | EnseignantCountOutputTypeCountDechargesArgs
   }
 
   // Custom InputTypes
@@ -4511,6 +4613,13 @@ export namespace Prisma {
    */
   export type EnseignantCountOutputTypeCountEnseignantModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnseignantModuleWhereInput
+  }
+
+  /**
+   * EnseignantCountOutputType without action
+   */
+  export type EnseignantCountOutputTypeCountDechargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DechargeWhereInput
   }
 
 
@@ -27649,6 +27758,7 @@ export namespace Prisma {
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     groupes?: boolean | Semestre$groupesArgs<ExtArgs>
+    decharges?: boolean | Semestre$dechargesArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -27685,6 +27795,7 @@ export namespace Prisma {
   export type SemestreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     groupes?: boolean | Semestre$groupesArgs<ExtArgs>
+    decharges?: boolean | Semestre$dechargesArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27699,6 +27810,7 @@ export namespace Prisma {
     objects: {
       annee: Prisma.$AnneePayload<ExtArgs>
       groupes: Prisma.$GroupePayload<ExtArgs>[]
+      decharges: Prisma.$DechargePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -28103,6 +28215,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     annee<T extends AnneeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnneeDefaultArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     groupes<T extends Semestre$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    decharges<T extends Semestre$dechargesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$dechargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -28560,6 +28673,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GroupeScalarFieldEnum | GroupeScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.decharges
+   */
+  export type Semestre$dechargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    where?: DechargeWhereInput
+    orderBy?: DechargeOrderByWithRelationInput | DechargeOrderByWithRelationInput[]
+    cursor?: DechargeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DechargeScalarFieldEnum | DechargeScalarFieldEnum[]
   }
 
   /**
@@ -38035,6 +38172,7 @@ export namespace Prisma {
     departement?: boolean | DepartementDefaultArgs<ExtArgs>
     grade?: boolean | Enseignant$gradeArgs<ExtArgs>
     enseignantModules?: boolean | Enseignant$enseignantModulesArgs<ExtArgs>
+    decharges?: boolean | Enseignant$dechargesArgs<ExtArgs>
     _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enseignant"]>
 
@@ -38095,6 +38233,7 @@ export namespace Prisma {
     departement?: boolean | DepartementDefaultArgs<ExtArgs>
     grade?: boolean | Enseignant$gradeArgs<ExtArgs>
     enseignantModules?: boolean | Enseignant$enseignantModulesArgs<ExtArgs>
+    decharges?: boolean | Enseignant$dechargesArgs<ExtArgs>
     _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EnseignantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38115,6 +38254,7 @@ export namespace Prisma {
       departement: Prisma.$DepartementPayload<ExtArgs>
       grade: Prisma.$GradePayload<ExtArgs> | null
       enseignantModules: Prisma.$EnseignantModulePayload<ExtArgs>[]
+      decharges: Prisma.$DechargePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -38527,6 +38667,7 @@ export namespace Prisma {
     departement<T extends DepartementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartementDefaultArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     grade<T extends Enseignant$gradeArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$gradeArgs<ExtArgs>>): Prisma__GradeClient<$Result.GetResult<Prisma.$GradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     enseignantModules<T extends Enseignant$enseignantModulesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$enseignantModulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    decharges<T extends Enseignant$dechargesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$dechargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39009,6 +39150,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EnseignantModuleScalarFieldEnum | EnseignantModuleScalarFieldEnum[]
+  }
+
+  /**
+   * Enseignant.decharges
+   */
+  export type Enseignant$dechargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    where?: DechargeWhereInput
+    orderBy?: DechargeOrderByWithRelationInput | DechargeOrderByWithRelationInput[]
+    cursor?: DechargeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DechargeScalarFieldEnum | DechargeScalarFieldEnum[]
   }
 
   /**
@@ -40063,6 +40228,1124 @@ export namespace Prisma {
 
 
   /**
+   * Model Decharge
+   */
+
+  export type AggregateDecharge = {
+    _count: DechargeCountAggregateOutputType | null
+    _avg: DechargeAvgAggregateOutputType | null
+    _sum: DechargeSumAggregateOutputType | null
+    _min: DechargeMinAggregateOutputType | null
+    _max: DechargeMaxAggregateOutputType | null
+  }
+
+  export type DechargeAvgAggregateOutputType = {
+    heures: number | null
+  }
+
+  export type DechargeSumAggregateOutputType = {
+    heures: number | null
+  }
+
+  export type DechargeMinAggregateOutputType = {
+    id: string | null
+    heures: number | null
+    enseignantId: string | null
+    semestreId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DechargeMaxAggregateOutputType = {
+    id: string | null
+    heures: number | null
+    enseignantId: string | null
+    semestreId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DechargeCountAggregateOutputType = {
+    id: number
+    heures: number
+    enseignantId: number
+    semestreId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DechargeAvgAggregateInputType = {
+    heures?: true
+  }
+
+  export type DechargeSumAggregateInputType = {
+    heures?: true
+  }
+
+  export type DechargeMinAggregateInputType = {
+    id?: true
+    heures?: true
+    enseignantId?: true
+    semestreId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DechargeMaxAggregateInputType = {
+    id?: true
+    heures?: true
+    enseignantId?: true
+    semestreId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DechargeCountAggregateInputType = {
+    id?: true
+    heures?: true
+    enseignantId?: true
+    semestreId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DechargeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Decharge to aggregate.
+     */
+    where?: DechargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Decharges to fetch.
+     */
+    orderBy?: DechargeOrderByWithRelationInput | DechargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DechargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Decharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Decharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Decharges
+    **/
+    _count?: true | DechargeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DechargeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DechargeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DechargeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DechargeMaxAggregateInputType
+  }
+
+  export type GetDechargeAggregateType<T extends DechargeAggregateArgs> = {
+        [P in keyof T & keyof AggregateDecharge]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDecharge[P]>
+      : GetScalarType<T[P], AggregateDecharge[P]>
+  }
+
+
+
+
+  export type DechargeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DechargeWhereInput
+    orderBy?: DechargeOrderByWithAggregationInput | DechargeOrderByWithAggregationInput[]
+    by: DechargeScalarFieldEnum[] | DechargeScalarFieldEnum
+    having?: DechargeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DechargeCountAggregateInputType | true
+    _avg?: DechargeAvgAggregateInputType
+    _sum?: DechargeSumAggregateInputType
+    _min?: DechargeMinAggregateInputType
+    _max?: DechargeMaxAggregateInputType
+  }
+
+  export type DechargeGroupByOutputType = {
+    id: string
+    heures: number
+    enseignantId: string
+    semestreId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DechargeCountAggregateOutputType | null
+    _avg: DechargeAvgAggregateOutputType | null
+    _sum: DechargeSumAggregateOutputType | null
+    _min: DechargeMinAggregateOutputType | null
+    _max: DechargeMaxAggregateOutputType | null
+  }
+
+  type GetDechargeGroupByPayload<T extends DechargeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DechargeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DechargeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DechargeGroupByOutputType[P]>
+            : GetScalarType<T[P], DechargeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DechargeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    heures?: boolean
+    enseignantId?: boolean
+    semestreId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["decharge"]>
+
+  export type DechargeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    heures?: boolean
+    enseignantId?: boolean
+    semestreId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["decharge"]>
+
+  export type DechargeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    heures?: boolean
+    enseignantId?: boolean
+    semestreId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["decharge"]>
+
+  export type DechargeSelectScalar = {
+    id?: boolean
+    heures?: boolean
+    enseignantId?: boolean
+    semestreId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DechargeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "heures" | "enseignantId" | "semestreId" | "createdAt" | "updatedAt", ExtArgs["result"]["decharge"]>
+  export type DechargeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type DechargeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type DechargeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+
+  export type $DechargePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Decharge"
+    objects: {
+      enseignant: Prisma.$EnseignantPayload<ExtArgs>
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      heures: number
+      enseignantId: string
+      semestreId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["decharge"]>
+    composites: {}
+  }
+
+  type DechargeGetPayload<S extends boolean | null | undefined | DechargeDefaultArgs> = $Result.GetResult<Prisma.$DechargePayload, S>
+
+  type DechargeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DechargeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DechargeCountAggregateInputType | true
+    }
+
+  export interface DechargeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Decharge'], meta: { name: 'Decharge' } }
+    /**
+     * Find zero or one Decharge that matches the filter.
+     * @param {DechargeFindUniqueArgs} args - Arguments to find a Decharge
+     * @example
+     * // Get one Decharge
+     * const decharge = await prisma.decharge.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DechargeFindUniqueArgs>(args: SelectSubset<T, DechargeFindUniqueArgs<ExtArgs>>): Prisma__DechargeClient<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Decharge that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DechargeFindUniqueOrThrowArgs} args - Arguments to find a Decharge
+     * @example
+     * // Get one Decharge
+     * const decharge = await prisma.decharge.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DechargeFindUniqueOrThrowArgs>(args: SelectSubset<T, DechargeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DechargeClient<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Decharge that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DechargeFindFirstArgs} args - Arguments to find a Decharge
+     * @example
+     * // Get one Decharge
+     * const decharge = await prisma.decharge.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DechargeFindFirstArgs>(args?: SelectSubset<T, DechargeFindFirstArgs<ExtArgs>>): Prisma__DechargeClient<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Decharge that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DechargeFindFirstOrThrowArgs} args - Arguments to find a Decharge
+     * @example
+     * // Get one Decharge
+     * const decharge = await prisma.decharge.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DechargeFindFirstOrThrowArgs>(args?: SelectSubset<T, DechargeFindFirstOrThrowArgs<ExtArgs>>): Prisma__DechargeClient<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Decharges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DechargeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Decharges
+     * const decharges = await prisma.decharge.findMany()
+     * 
+     * // Get first 10 Decharges
+     * const decharges = await prisma.decharge.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dechargeWithIdOnly = await prisma.decharge.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DechargeFindManyArgs>(args?: SelectSubset<T, DechargeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Decharge.
+     * @param {DechargeCreateArgs} args - Arguments to create a Decharge.
+     * @example
+     * // Create one Decharge
+     * const Decharge = await prisma.decharge.create({
+     *   data: {
+     *     // ... data to create a Decharge
+     *   }
+     * })
+     * 
+     */
+    create<T extends DechargeCreateArgs>(args: SelectSubset<T, DechargeCreateArgs<ExtArgs>>): Prisma__DechargeClient<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Decharges.
+     * @param {DechargeCreateManyArgs} args - Arguments to create many Decharges.
+     * @example
+     * // Create many Decharges
+     * const decharge = await prisma.decharge.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DechargeCreateManyArgs>(args?: SelectSubset<T, DechargeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Decharges and returns the data saved in the database.
+     * @param {DechargeCreateManyAndReturnArgs} args - Arguments to create many Decharges.
+     * @example
+     * // Create many Decharges
+     * const decharge = await prisma.decharge.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Decharges and only return the `id`
+     * const dechargeWithIdOnly = await prisma.decharge.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DechargeCreateManyAndReturnArgs>(args?: SelectSubset<T, DechargeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Decharge.
+     * @param {DechargeDeleteArgs} args - Arguments to delete one Decharge.
+     * @example
+     * // Delete one Decharge
+     * const Decharge = await prisma.decharge.delete({
+     *   where: {
+     *     // ... filter to delete one Decharge
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DechargeDeleteArgs>(args: SelectSubset<T, DechargeDeleteArgs<ExtArgs>>): Prisma__DechargeClient<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Decharge.
+     * @param {DechargeUpdateArgs} args - Arguments to update one Decharge.
+     * @example
+     * // Update one Decharge
+     * const decharge = await prisma.decharge.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DechargeUpdateArgs>(args: SelectSubset<T, DechargeUpdateArgs<ExtArgs>>): Prisma__DechargeClient<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Decharges.
+     * @param {DechargeDeleteManyArgs} args - Arguments to filter Decharges to delete.
+     * @example
+     * // Delete a few Decharges
+     * const { count } = await prisma.decharge.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DechargeDeleteManyArgs>(args?: SelectSubset<T, DechargeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Decharges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DechargeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Decharges
+     * const decharge = await prisma.decharge.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DechargeUpdateManyArgs>(args: SelectSubset<T, DechargeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Decharges and returns the data updated in the database.
+     * @param {DechargeUpdateManyAndReturnArgs} args - Arguments to update many Decharges.
+     * @example
+     * // Update many Decharges
+     * const decharge = await prisma.decharge.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Decharges and only return the `id`
+     * const dechargeWithIdOnly = await prisma.decharge.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DechargeUpdateManyAndReturnArgs>(args: SelectSubset<T, DechargeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Decharge.
+     * @param {DechargeUpsertArgs} args - Arguments to update or create a Decharge.
+     * @example
+     * // Update or create a Decharge
+     * const decharge = await prisma.decharge.upsert({
+     *   create: {
+     *     // ... data to create a Decharge
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Decharge we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DechargeUpsertArgs>(args: SelectSubset<T, DechargeUpsertArgs<ExtArgs>>): Prisma__DechargeClient<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Decharges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DechargeCountArgs} args - Arguments to filter Decharges to count.
+     * @example
+     * // Count the number of Decharges
+     * const count = await prisma.decharge.count({
+     *   where: {
+     *     // ... the filter for the Decharges we want to count
+     *   }
+     * })
+    **/
+    count<T extends DechargeCountArgs>(
+      args?: Subset<T, DechargeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DechargeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Decharge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DechargeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DechargeAggregateArgs>(args: Subset<T, DechargeAggregateArgs>): Prisma.PrismaPromise<GetDechargeAggregateType<T>>
+
+    /**
+     * Group by Decharge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DechargeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DechargeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DechargeGroupByArgs['orderBy'] }
+        : { orderBy?: DechargeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DechargeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDechargeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Decharge model
+   */
+  readonly fields: DechargeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Decharge.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DechargeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    enseignant<T extends EnseignantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EnseignantDefaultArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Decharge model
+   */
+  interface DechargeFieldRefs {
+    readonly id: FieldRef<"Decharge", 'String'>
+    readonly heures: FieldRef<"Decharge", 'Float'>
+    readonly enseignantId: FieldRef<"Decharge", 'String'>
+    readonly semestreId: FieldRef<"Decharge", 'String'>
+    readonly createdAt: FieldRef<"Decharge", 'DateTime'>
+    readonly updatedAt: FieldRef<"Decharge", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Decharge findUnique
+   */
+  export type DechargeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * Filter, which Decharge to fetch.
+     */
+    where: DechargeWhereUniqueInput
+  }
+
+  /**
+   * Decharge findUniqueOrThrow
+   */
+  export type DechargeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * Filter, which Decharge to fetch.
+     */
+    where: DechargeWhereUniqueInput
+  }
+
+  /**
+   * Decharge findFirst
+   */
+  export type DechargeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * Filter, which Decharge to fetch.
+     */
+    where?: DechargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Decharges to fetch.
+     */
+    orderBy?: DechargeOrderByWithRelationInput | DechargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Decharges.
+     */
+    cursor?: DechargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Decharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Decharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Decharges.
+     */
+    distinct?: DechargeScalarFieldEnum | DechargeScalarFieldEnum[]
+  }
+
+  /**
+   * Decharge findFirstOrThrow
+   */
+  export type DechargeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * Filter, which Decharge to fetch.
+     */
+    where?: DechargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Decharges to fetch.
+     */
+    orderBy?: DechargeOrderByWithRelationInput | DechargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Decharges.
+     */
+    cursor?: DechargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Decharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Decharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Decharges.
+     */
+    distinct?: DechargeScalarFieldEnum | DechargeScalarFieldEnum[]
+  }
+
+  /**
+   * Decharge findMany
+   */
+  export type DechargeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * Filter, which Decharges to fetch.
+     */
+    where?: DechargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Decharges to fetch.
+     */
+    orderBy?: DechargeOrderByWithRelationInput | DechargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Decharges.
+     */
+    cursor?: DechargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Decharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Decharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Decharges.
+     */
+    distinct?: DechargeScalarFieldEnum | DechargeScalarFieldEnum[]
+  }
+
+  /**
+   * Decharge create
+   */
+  export type DechargeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Decharge.
+     */
+    data: XOR<DechargeCreateInput, DechargeUncheckedCreateInput>
+  }
+
+  /**
+   * Decharge createMany
+   */
+  export type DechargeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Decharges.
+     */
+    data: DechargeCreateManyInput | DechargeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Decharge createManyAndReturn
+   */
+  export type DechargeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Decharges.
+     */
+    data: DechargeCreateManyInput | DechargeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Decharge update
+   */
+  export type DechargeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Decharge.
+     */
+    data: XOR<DechargeUpdateInput, DechargeUncheckedUpdateInput>
+    /**
+     * Choose, which Decharge to update.
+     */
+    where: DechargeWhereUniqueInput
+  }
+
+  /**
+   * Decharge updateMany
+   */
+  export type DechargeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Decharges.
+     */
+    data: XOR<DechargeUpdateManyMutationInput, DechargeUncheckedUpdateManyInput>
+    /**
+     * Filter which Decharges to update
+     */
+    where?: DechargeWhereInput
+    /**
+     * Limit how many Decharges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Decharge updateManyAndReturn
+   */
+  export type DechargeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * The data used to update Decharges.
+     */
+    data: XOR<DechargeUpdateManyMutationInput, DechargeUncheckedUpdateManyInput>
+    /**
+     * Filter which Decharges to update
+     */
+    where?: DechargeWhereInput
+    /**
+     * Limit how many Decharges to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Decharge upsert
+   */
+  export type DechargeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Decharge to update in case it exists.
+     */
+    where: DechargeWhereUniqueInput
+    /**
+     * In case the Decharge found by the `where` argument doesn't exist, create a new Decharge with this data.
+     */
+    create: XOR<DechargeCreateInput, DechargeUncheckedCreateInput>
+    /**
+     * In case the Decharge was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DechargeUpdateInput, DechargeUncheckedUpdateInput>
+  }
+
+  /**
+   * Decharge delete
+   */
+  export type DechargeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+    /**
+     * Filter which Decharge to delete.
+     */
+    where: DechargeWhereUniqueInput
+  }
+
+  /**
+   * Decharge deleteMany
+   */
+  export type DechargeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Decharges to delete
+     */
+    where?: DechargeWhereInput
+    /**
+     * Limit how many Decharges to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Decharge without action
+   */
+  export type DechargeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Decharge
+     */
+    select?: DechargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Decharge
+     */
+    omit?: DechargeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DechargeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -40503,6 +41786,18 @@ export namespace Prisma {
   };
 
   export type EnseignantModuleScalarFieldEnum = (typeof EnseignantModuleScalarFieldEnum)[keyof typeof EnseignantModuleScalarFieldEnum]
+
+
+  export const DechargeScalarFieldEnum: {
+    id: 'id',
+    heures: 'heures',
+    enseignantId: 'enseignantId',
+    semestreId: 'semestreId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DechargeScalarFieldEnum = (typeof DechargeScalarFieldEnum)[keyof typeof DechargeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -42343,6 +43638,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Semestre"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     groupes?: GroupeListRelationFilter
+    decharges?: DechargeListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -42354,6 +43650,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     annee?: AnneeOrderByWithRelationInput
     groupes?: GroupeOrderByRelationAggregateInput
+    decharges?: DechargeOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -42369,6 +43666,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Semestre"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     groupes?: GroupeListRelationFilter
+    decharges?: DechargeListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -43010,6 +44308,7 @@ export namespace Prisma {
     departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
     grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
     enseignantModules?: EnseignantModuleListRelationFilter
+    decharges?: DechargeListRelationFilter
   }
 
   export type EnseignantOrderByWithRelationInput = {
@@ -43029,6 +44328,7 @@ export namespace Prisma {
     departement?: DepartementOrderByWithRelationInput
     grade?: GradeOrderByWithRelationInput
     enseignantModules?: EnseignantModuleOrderByRelationAggregateInput
+    decharges?: DechargeOrderByRelationAggregateInput
   }
 
   export type EnseignantWhereUniqueInput = Prisma.AtLeast<{
@@ -43052,6 +44352,7 @@ export namespace Prisma {
     departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
     grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
     enseignantModules?: EnseignantModuleListRelationFilter
+    decharges?: DechargeListRelationFilter
   }, "id" | "email" | "anneeId_matricule">
 
   export type EnseignantOrderByWithAggregationInput = {
@@ -43132,6 +44433,72 @@ export namespace Prisma {
     NOT?: EnseignantModuleScalarWhereWithAggregatesInput | EnseignantModuleScalarWhereWithAggregatesInput[]
     enseignantId?: UuidWithAggregatesFilter<"EnseignantModule"> | string
     moduleId?: UuidWithAggregatesFilter<"EnseignantModule"> | string
+  }
+
+  export type DechargeWhereInput = {
+    AND?: DechargeWhereInput | DechargeWhereInput[]
+    OR?: DechargeWhereInput[]
+    NOT?: DechargeWhereInput | DechargeWhereInput[]
+    id?: UuidFilter<"Decharge"> | string
+    heures?: FloatFilter<"Decharge"> | number
+    enseignantId?: UuidFilter<"Decharge"> | string
+    semestreId?: UuidFilter<"Decharge"> | string
+    createdAt?: DateTimeFilter<"Decharge"> | Date | string
+    updatedAt?: DateTimeFilter<"Decharge"> | Date | string
+    enseignant?: XOR<EnseignantScalarRelationFilter, EnseignantWhereInput>
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+  }
+
+  export type DechargeOrderByWithRelationInput = {
+    id?: SortOrder
+    heures?: SortOrder
+    enseignantId?: SortOrder
+    semestreId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    enseignant?: EnseignantOrderByWithRelationInput
+    semestre?: SemestreOrderByWithRelationInput
+  }
+
+  export type DechargeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    enseignantId_semestreId?: DechargeEnseignantIdSemestreIdCompoundUniqueInput
+    AND?: DechargeWhereInput | DechargeWhereInput[]
+    OR?: DechargeWhereInput[]
+    NOT?: DechargeWhereInput | DechargeWhereInput[]
+    heures?: FloatFilter<"Decharge"> | number
+    enseignantId?: UuidFilter<"Decharge"> | string
+    semestreId?: UuidFilter<"Decharge"> | string
+    createdAt?: DateTimeFilter<"Decharge"> | Date | string
+    updatedAt?: DateTimeFilter<"Decharge"> | Date | string
+    enseignant?: XOR<EnseignantScalarRelationFilter, EnseignantWhereInput>
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+  }, "id" | "enseignantId_semestreId">
+
+  export type DechargeOrderByWithAggregationInput = {
+    id?: SortOrder
+    heures?: SortOrder
+    enseignantId?: SortOrder
+    semestreId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DechargeCountOrderByAggregateInput
+    _avg?: DechargeAvgOrderByAggregateInput
+    _max?: DechargeMaxOrderByAggregateInput
+    _min?: DechargeMinOrderByAggregateInput
+    _sum?: DechargeSumOrderByAggregateInput
+  }
+
+  export type DechargeScalarWhereWithAggregatesInput = {
+    AND?: DechargeScalarWhereWithAggregatesInput | DechargeScalarWhereWithAggregatesInput[]
+    OR?: DechargeScalarWhereWithAggregatesInput[]
+    NOT?: DechargeScalarWhereWithAggregatesInput | DechargeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Decharge"> | string
+    heures?: FloatWithAggregatesFilter<"Decharge"> | number
+    enseignantId?: UuidWithAggregatesFilter<"Decharge"> | string
+    semestreId?: UuidWithAggregatesFilter<"Decharge"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Decharge"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Decharge"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -44775,6 +46142,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -44785,6 +46153,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -44795,6 +46164,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -44805,6 +46175,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -45476,6 +46847,7 @@ export namespace Prisma {
     departement: DepartementCreateNestedOneWithoutEnseignantsInput
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateInput = {
@@ -45492,6 +46864,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUpdateInput = {
@@ -45508,6 +46881,7 @@ export namespace Prisma {
     departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateInput = {
@@ -45524,6 +46898,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantCreateManyInput = {
@@ -45600,6 +46975,67 @@ export namespace Prisma {
   export type EnseignantModuleUncheckedUpdateManyInput = {
     enseignantId?: StringFieldUpdateOperationsInput | string
     moduleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DechargeCreateInput = {
+    id?: string
+    heures: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignant: EnseignantCreateNestedOneWithoutDechargesInput
+    semestre: SemestreCreateNestedOneWithoutDechargesInput
+  }
+
+  export type DechargeUncheckedCreateInput = {
+    id?: string
+    heures: number
+    enseignantId: string
+    semestreId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DechargeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignant?: EnseignantUpdateOneRequiredWithoutDechargesNestedInput
+    semestre?: SemestreUpdateOneRequiredWithoutDechargesNestedInput
+  }
+
+  export type DechargeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DechargeCreateManyInput = {
+    id?: string
+    heures: number
+    enseignantId: string
+    semestreId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DechargeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DechargeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -47095,7 +48531,17 @@ export namespace Prisma {
     none?: GroupeWhereInput
   }
 
+  export type DechargeListRelationFilter = {
+    every?: DechargeWhereInput
+    some?: DechargeWhereInput
+    none?: DechargeWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DechargeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -47662,6 +49108,73 @@ export namespace Prisma {
   export type EnseignantModuleMinOrderByAggregateInput = {
     enseignantId?: SortOrder
     moduleId?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type DechargeEnseignantIdSemestreIdCompoundUniqueInput = {
+    enseignantId: string
+    semestreId: string
+  }
+
+  export type DechargeCountOrderByAggregateInput = {
+    id?: SortOrder
+    heures?: SortOrder
+    enseignantId?: SortOrder
+    semestreId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DechargeAvgOrderByAggregateInput = {
+    heures?: SortOrder
+  }
+
+  export type DechargeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    heures?: SortOrder
+    enseignantId?: SortOrder
+    semestreId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DechargeMinOrderByAggregateInput = {
+    id?: SortOrder
+    heures?: SortOrder
+    enseignantId?: SortOrder
+    semestreId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DechargeSumOrderByAggregateInput = {
+    heures?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -49134,11 +50647,25 @@ export namespace Prisma {
     connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
   }
 
+  export type DechargeCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<DechargeCreateWithoutSemestreInput, DechargeUncheckedCreateWithoutSemestreInput> | DechargeCreateWithoutSemestreInput[] | DechargeUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: DechargeCreateOrConnectWithoutSemestreInput | DechargeCreateOrConnectWithoutSemestreInput[]
+    createMany?: DechargeCreateManySemestreInputEnvelope
+    connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
     createMany?: GroupeCreateManySemestreInputEnvelope
     connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+  }
+
+  export type DechargeUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<DechargeCreateWithoutSemestreInput, DechargeUncheckedCreateWithoutSemestreInput> | DechargeCreateWithoutSemestreInput[] | DechargeUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: DechargeCreateOrConnectWithoutSemestreInput | DechargeCreateOrConnectWithoutSemestreInput[]
+    createMany?: DechargeCreateManySemestreInputEnvelope
+    connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -49163,6 +50690,20 @@ export namespace Prisma {
     deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
   }
 
+  export type DechargeUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<DechargeCreateWithoutSemestreInput, DechargeUncheckedCreateWithoutSemestreInput> | DechargeCreateWithoutSemestreInput[] | DechargeUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: DechargeCreateOrConnectWithoutSemestreInput | DechargeCreateOrConnectWithoutSemestreInput[]
+    upsert?: DechargeUpsertWithWhereUniqueWithoutSemestreInput | DechargeUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: DechargeCreateManySemestreInputEnvelope
+    set?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    disconnect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    delete?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    update?: DechargeUpdateWithWhereUniqueWithoutSemestreInput | DechargeUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: DechargeUpdateManyWithWhereWithoutSemestreInput | DechargeUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -49175,6 +50716,20 @@ export namespace Prisma {
     update?: GroupeUpdateWithWhereUniqueWithoutSemestreInput | GroupeUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: GroupeUpdateManyWithWhereWithoutSemestreInput | GroupeUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
+  }
+
+  export type DechargeUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<DechargeCreateWithoutSemestreInput, DechargeUncheckedCreateWithoutSemestreInput> | DechargeCreateWithoutSemestreInput[] | DechargeUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: DechargeCreateOrConnectWithoutSemestreInput | DechargeCreateOrConnectWithoutSemestreInput[]
+    upsert?: DechargeUpsertWithWhereUniqueWithoutSemestreInput | DechargeUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: DechargeCreateManySemestreInputEnvelope
+    set?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    disconnect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    delete?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    update?: DechargeUpdateWithWhereUniqueWithoutSemestreInput | DechargeUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: DechargeUpdateManyWithWhereWithoutSemestreInput | DechargeUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
   }
 
   export type AnneeCreateNestedOneWithoutDepartementsInput = {
@@ -49822,11 +51377,25 @@ export namespace Prisma {
     connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
   }
 
+  export type DechargeCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<DechargeCreateWithoutEnseignantInput, DechargeUncheckedCreateWithoutEnseignantInput> | DechargeCreateWithoutEnseignantInput[] | DechargeUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: DechargeCreateOrConnectWithoutEnseignantInput | DechargeCreateOrConnectWithoutEnseignantInput[]
+    createMany?: DechargeCreateManyEnseignantInputEnvelope
+    connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+  }
+
   export type EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput = {
     create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
     createMany?: EnseignantModuleCreateManyEnseignantInputEnvelope
     connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+  }
+
+  export type DechargeUncheckedCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<DechargeCreateWithoutEnseignantInput, DechargeUncheckedCreateWithoutEnseignantInput> | DechargeCreateWithoutEnseignantInput[] | DechargeUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: DechargeCreateOrConnectWithoutEnseignantInput | DechargeCreateOrConnectWithoutEnseignantInput[]
+    createMany?: DechargeCreateManyEnseignantInputEnvelope
+    connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutEnseignantsNestedInput = {
@@ -49869,6 +51438,20 @@ export namespace Prisma {
     deleteMany?: EnseignantModuleScalarWhereInput | EnseignantModuleScalarWhereInput[]
   }
 
+  export type DechargeUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<DechargeCreateWithoutEnseignantInput, DechargeUncheckedCreateWithoutEnseignantInput> | DechargeCreateWithoutEnseignantInput[] | DechargeUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: DechargeCreateOrConnectWithoutEnseignantInput | DechargeCreateOrConnectWithoutEnseignantInput[]
+    upsert?: DechargeUpsertWithWhereUniqueWithoutEnseignantInput | DechargeUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: DechargeCreateManyEnseignantInputEnvelope
+    set?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    disconnect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    delete?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    update?: DechargeUpdateWithWhereUniqueWithoutEnseignantInput | DechargeUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: DechargeUpdateManyWithWhereWithoutEnseignantInput | DechargeUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
+  }
+
   export type EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput = {
     create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
@@ -49881,6 +51464,20 @@ export namespace Prisma {
     update?: EnseignantModuleUpdateWithWhereUniqueWithoutEnseignantInput | EnseignantModuleUpdateWithWhereUniqueWithoutEnseignantInput[]
     updateMany?: EnseignantModuleUpdateManyWithWhereWithoutEnseignantInput | EnseignantModuleUpdateManyWithWhereWithoutEnseignantInput[]
     deleteMany?: EnseignantModuleScalarWhereInput | EnseignantModuleScalarWhereInput[]
+  }
+
+  export type DechargeUncheckedUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<DechargeCreateWithoutEnseignantInput, DechargeUncheckedCreateWithoutEnseignantInput> | DechargeCreateWithoutEnseignantInput[] | DechargeUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: DechargeCreateOrConnectWithoutEnseignantInput | DechargeCreateOrConnectWithoutEnseignantInput[]
+    upsert?: DechargeUpsertWithWhereUniqueWithoutEnseignantInput | DechargeUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: DechargeCreateManyEnseignantInputEnvelope
+    set?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    disconnect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    delete?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+    update?: DechargeUpdateWithWhereUniqueWithoutEnseignantInput | DechargeUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: DechargeUpdateManyWithWhereWithoutEnseignantInput | DechargeUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
   }
 
   export type EnseignantCreateNestedOneWithoutEnseignantModulesInput = {
@@ -49909,6 +51506,42 @@ export namespace Prisma {
     upsert?: ModuleUpsertWithoutEnseignantModulesInput
     connect?: ModuleWhereUniqueInput
     update?: XOR<XOR<ModuleUpdateToOneWithWhereWithoutEnseignantModulesInput, ModuleUpdateWithoutEnseignantModulesInput>, ModuleUncheckedUpdateWithoutEnseignantModulesInput>
+  }
+
+  export type EnseignantCreateNestedOneWithoutDechargesInput = {
+    create?: XOR<EnseignantCreateWithoutDechargesInput, EnseignantUncheckedCreateWithoutDechargesInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutDechargesInput
+    connect?: EnseignantWhereUniqueInput
+  }
+
+  export type SemestreCreateNestedOneWithoutDechargesInput = {
+    create?: XOR<SemestreCreateWithoutDechargesInput, SemestreUncheckedCreateWithoutDechargesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutDechargesInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnseignantUpdateOneRequiredWithoutDechargesNestedInput = {
+    create?: XOR<EnseignantCreateWithoutDechargesInput, EnseignantUncheckedCreateWithoutDechargesInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutDechargesInput
+    upsert?: EnseignantUpsertWithoutDechargesInput
+    connect?: EnseignantWhereUniqueInput
+    update?: XOR<XOR<EnseignantUpdateToOneWithWhereWithoutDechargesInput, EnseignantUpdateWithoutDechargesInput>, EnseignantUncheckedUpdateWithoutDechargesInput>
+  }
+
+  export type SemestreUpdateOneRequiredWithoutDechargesNestedInput = {
+    create?: XOR<SemestreCreateWithoutDechargesInput, SemestreUncheckedCreateWithoutDechargesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutDechargesInput
+    upsert?: SemestreUpsertWithoutDechargesInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutDechargesInput, SemestreUpdateWithoutDechargesInput>, SemestreUncheckedUpdateWithoutDechargesInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -50437,6 +52070,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGradeCodeFilter<$PrismaModel>
     _max?: NestedEnumGradeCodeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateWithoutUserInput = {
@@ -54069,6 +55718,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -54078,6 +55728,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -54135,6 +55786,7 @@ export namespace Prisma {
     departement: DepartementCreateNestedOneWithoutEnseignantsInput
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutAnneeInput = {
@@ -54150,6 +55802,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutAnneeInput = {
@@ -54320,6 +55973,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DechargeCreateWithoutSemestreInput = {
+    id?: string
+    heures: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignant: EnseignantCreateNestedOneWithoutDechargesInput
+  }
+
+  export type DechargeUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    heures: number
+    enseignantId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DechargeCreateOrConnectWithoutSemestreInput = {
+    where: DechargeWhereUniqueInput
+    create: XOR<DechargeCreateWithoutSemestreInput, DechargeUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type DechargeCreateManySemestreInputEnvelope = {
+    data: DechargeCreateManySemestreInput | DechargeCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -54386,6 +56065,34 @@ export namespace Prisma {
     originId?: StringNullableFilter<"Groupe"> | string | null
     createdAt?: DateTimeFilter<"Groupe"> | Date | string
     updatedAt?: DateTimeFilter<"Groupe"> | Date | string
+  }
+
+  export type DechargeUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: DechargeWhereUniqueInput
+    update: XOR<DechargeUpdateWithoutSemestreInput, DechargeUncheckedUpdateWithoutSemestreInput>
+    create: XOR<DechargeCreateWithoutSemestreInput, DechargeUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type DechargeUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: DechargeWhereUniqueInput
+    data: XOR<DechargeUpdateWithoutSemestreInput, DechargeUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type DechargeUpdateManyWithWhereWithoutSemestreInput = {
+    where: DechargeScalarWhereInput
+    data: XOR<DechargeUpdateManyMutationInput, DechargeUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type DechargeScalarWhereInput = {
+    AND?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
+    OR?: DechargeScalarWhereInput[]
+    NOT?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
+    id?: UuidFilter<"Decharge"> | string
+    heures?: FloatFilter<"Decharge"> | number
+    enseignantId?: UuidFilter<"Decharge"> | string
+    semestreId?: UuidFilter<"Decharge"> | string
+    createdAt?: DateTimeFilter<"Decharge"> | Date | string
+    updatedAt?: DateTimeFilter<"Decharge"> | Date | string
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -54460,6 +56167,7 @@ export namespace Prisma {
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutDepartementInput = {
@@ -54475,6 +56183,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutDepartementInput = {
@@ -54906,6 +56615,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -54915,6 +56625,7 @@ export namespace Prisma {
     nbSemaines?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -55044,6 +56755,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -55053,6 +56765,7 @@ export namespace Prisma {
     nbSemaines?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -55271,6 +56984,7 @@ export namespace Prisma {
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
     departement: DepartementCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutGradeInput = {
@@ -55286,6 +57000,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutGradeInput = {
@@ -55689,6 +57404,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DechargeCreateWithoutEnseignantInput = {
+    id?: string
+    heures: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutDechargesInput
+  }
+
+  export type DechargeUncheckedCreateWithoutEnseignantInput = {
+    id?: string
+    heures: number
+    semestreId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DechargeCreateOrConnectWithoutEnseignantInput = {
+    where: DechargeWhereUniqueInput
+    create: XOR<DechargeCreateWithoutEnseignantInput, DechargeUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type DechargeCreateManyEnseignantInputEnvelope = {
+    data: DechargeCreateManyEnseignantInput | DechargeCreateManyEnseignantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutEnseignantsInput = {
     update: XOR<AnneeUpdateWithoutEnseignantsInput, AnneeUncheckedUpdateWithoutEnseignantsInput>
     create: XOR<AnneeCreateWithoutEnseignantsInput, AnneeUncheckedCreateWithoutEnseignantsInput>
@@ -55802,6 +57543,22 @@ export namespace Prisma {
     data: XOR<EnseignantModuleUpdateManyMutationInput, EnseignantModuleUncheckedUpdateManyWithoutEnseignantInput>
   }
 
+  export type DechargeUpsertWithWhereUniqueWithoutEnseignantInput = {
+    where: DechargeWhereUniqueInput
+    update: XOR<DechargeUpdateWithoutEnseignantInput, DechargeUncheckedUpdateWithoutEnseignantInput>
+    create: XOR<DechargeCreateWithoutEnseignantInput, DechargeUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type DechargeUpdateWithWhereUniqueWithoutEnseignantInput = {
+    where: DechargeWhereUniqueInput
+    data: XOR<DechargeUpdateWithoutEnseignantInput, DechargeUncheckedUpdateWithoutEnseignantInput>
+  }
+
+  export type DechargeUpdateManyWithWhereWithoutEnseignantInput = {
+    where: DechargeScalarWhereInput
+    data: XOR<DechargeUpdateManyMutationInput, DechargeUncheckedUpdateManyWithoutEnseignantInput>
+  }
+
   export type EnseignantCreateWithoutEnseignantModulesInput = {
     id?: string
     matricule: string
@@ -55815,6 +57572,7 @@ export namespace Prisma {
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
     departement: DepartementCreateNestedOneWithoutEnseignantsInput
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
+    decharges?: DechargeCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutEnseignantModulesInput = {
@@ -55830,6 +57588,7 @@ export namespace Prisma {
     gradeId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutEnseignantModulesInput = {
@@ -55896,6 +57655,7 @@ export namespace Prisma {
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
     departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+    decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutEnseignantModulesInput = {
@@ -55911,6 +57671,7 @@ export namespace Prisma {
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type ModuleUpsertWithoutEnseignantModulesInput = {
@@ -55952,6 +57713,142 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantCreateWithoutDechargesInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutEnseignantsInput
+    departement: DepartementCreateNestedOneWithoutEnseignantsInput
+    grade?: GradeCreateNestedOneWithoutEnseignantsInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUncheckedCreateWithoutDechargesInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantCreateOrConnectWithoutDechargesInput = {
+    where: EnseignantWhereUniqueInput
+    create: XOR<EnseignantCreateWithoutDechargesInput, EnseignantUncheckedCreateWithoutDechargesInput>
+  }
+
+  export type SemestreCreateWithoutDechargesInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutDechargesInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutDechargesInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutDechargesInput, SemestreUncheckedCreateWithoutDechargesInput>
+  }
+
+  export type EnseignantUpsertWithoutDechargesInput = {
+    update: XOR<EnseignantUpdateWithoutDechargesInput, EnseignantUncheckedUpdateWithoutDechargesInput>
+    create: XOR<EnseignantCreateWithoutDechargesInput, EnseignantUncheckedCreateWithoutDechargesInput>
+    where?: EnseignantWhereInput
+  }
+
+  export type EnseignantUpdateToOneWithWhereWithoutDechargesInput = {
+    where?: EnseignantWhereInput
+    data: XOR<EnseignantUpdateWithoutDechargesInput, EnseignantUncheckedUpdateWithoutDechargesInput>
+  }
+
+  export type EnseignantUpdateWithoutDechargesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
+    grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateWithoutDechargesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type SemestreUpsertWithoutDechargesInput = {
+    update: XOR<SemestreUpdateWithoutDechargesInput, SemestreUncheckedUpdateWithoutDechargesInput>
+    create: XOR<SemestreCreateWithoutDechargesInput, SemestreUncheckedCreateWithoutDechargesInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutDechargesInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutDechargesInput, SemestreUncheckedUpdateWithoutDechargesInput>
+  }
+
+  export type SemestreUpdateWithoutDechargesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutDechargesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -57022,6 +58919,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -57031,6 +58929,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -57085,6 +58984,7 @@ export namespace Prisma {
     departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutAnneeInput = {
@@ -57100,6 +59000,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutAnneeInput = {
@@ -57125,6 +59026,14 @@ export namespace Prisma {
     libelle: string
     effectif?: number
     originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DechargeCreateManySemestreInput = {
+    id?: string
+    heures: number
+    enseignantId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -57166,6 +59075,30 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DechargeUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignant?: EnseignantUpdateOneRequiredWithoutDechargesNestedInput
+  }
+
+  export type DechargeUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DechargeUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    enseignantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57235,6 +59168,7 @@ export namespace Prisma {
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutDepartementInput = {
@@ -57250,6 +59184,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutDepartementInput = {
@@ -57615,6 +59550,7 @@ export namespace Prisma {
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
     departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutGradeInput = {
@@ -57630,6 +59566,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutGradeInput = {
@@ -57700,6 +59637,14 @@ export namespace Prisma {
     moduleId: string
   }
 
+  export type DechargeCreateManyEnseignantInput = {
+    id?: string
+    heures: number
+    semestreId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EnseignantModuleUpdateWithoutEnseignantInput = {
     module?: ModuleUpdateOneRequiredWithoutEnseignantModulesNestedInput
   }
@@ -57710,6 +59655,30 @@ export namespace Prisma {
 
   export type EnseignantModuleUncheckedUpdateManyWithoutEnseignantInput = {
     moduleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DechargeUpdateWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutDechargesNestedInput
+  }
+
+  export type DechargeUncheckedUpdateWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    semestreId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DechargeUncheckedUpdateManyWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    heures?: FloatFieldUpdateOperationsInput | number
+    semestreId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
