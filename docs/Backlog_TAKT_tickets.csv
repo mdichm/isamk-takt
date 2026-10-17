@@ -176,7 +176,7 @@ L1-10;L1;E1.3;Enseignants, grades & décharges;Story;CRUD enseignants et modules
 - Le Responsable modifie les modules enseignables de son département uniquement
 - Toutes les routes du contrôleur enseignants sont protégées par @Permissions('enseignant:read')/@Permissions('enseignant:write') ; toute route non décorée est refusée par défaut (403)";EX-REF-03;§4.19, §3.3;BACK;Must;5;L1-05, L0-19;Terminé;
 L1-11;L1;E1.3;Enseignants, grades & décharges;Story;Décharges enseignant;Décharges par semestre en heures équivalentes.;"- CRUD réservé à l'Administrateur
-- Les décharges sont prises en compte par le calcul de charge (L2)";EX-REF-07;§2.2, §4.2;BACK;Must;3;L1-10;À faire;
+- Les décharges sont prises en compte par le calcul de charge (L2)";EX-REF-07;§2.2, §4.2;BACK;Must;3;L1-10;En cours;
 L1-12;L1;E1.3;Enseignants, grades & décharges;Story;UI enseignants;Liste, fiche, modules enseignables, décharges.;"- Filtres par département et grade
 - Le Responsable voit uniquement son département en écriture";EX-REF-03, EX-REF-07;§3.3;FRONT;Must;5;L1-10, L0-29;À faire;
 L1-13;L1;E1.4;Salles & équipements;Story;CRUD salles, types de salle et équipements;Capacité maximale et recommandée, accessibilité PMR, commentaire, site, rattachement département optionnel.;"- CHECK capacité > 0 et capacité recommandée inférieure ou égale à la maximale
