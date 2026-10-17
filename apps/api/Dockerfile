@@ -36,7 +36,7 @@ COPY packages/contracts/package.json ./packages/contracts/package.json
 COPY packages/db/package.json ./packages/db/package.json
 # Disable supply-chain policy (minimumReleaseAge) for CI builds
 RUN pnpm config set minimumReleaseAge 0
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 COPY . .
 # Generate Prisma Client (required for build)
 RUN pnpm --filter=@takt/db run db:generate
