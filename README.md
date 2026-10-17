@@ -14,7 +14,7 @@ TAKT est une application de planification et d'ordonnancement conçue pour ISAMK
 | Backend | NestJS | 10+ |
 | Frontend | Next.js | 15 (App Router) |
 | Base de données | PostgreSQL | 16 |
-| ORM | Prisma | 6.x |
+| ORM | Prisma | 7.x |
 | Gestion de paquets | pnpm | 9.x |
 | Build system | Turbo | 2.x |
 | Tests | Vitest | 4.x |
