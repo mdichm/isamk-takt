@@ -149,7 +149,7 @@ t("annees","L1",E,S,"CRUD années et semestres","Années universitaires et semes
   "EX-CAL-01","§2.2","BACK","Must",3,["rbac","audit_service"],"L1-01",statut="Terminé")
 t("annee_activer","L1",E,S,"Activation d'une année","Transition ACTIVER avec gardes (une seule année active).",
   ["Une seule année ACTIVE (index unique partiel)","Activation refusée sans jeu de règles de charge affecté (garde branchée en L2)","Les statuts sont PREPARATION, ACTIVE et CLOTUREE uniquement"],
-  "EX-CAL-01, EX-CAL-05","§4.1.3, §3.4.15","BACK","Must",3,["annees"],"L1-02",statut="En cours")
+  "EX-CAL-01, EX-CAL-05","§4.1.3, §3.4.15","BACK","Must",3,["annees"],"L1-02",statut="Terminé")
 E = "Structure académique"
 t("structure","L1",E,S,"CRUD départements, formations, niveaux","Structure académique rattachée à l'année avec originId.",
   ["Unicité par (année, code), (département, code), (formation, code)","Suppression refusée si référencé (RESTRICT) avec liste des références"],
