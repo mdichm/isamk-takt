@@ -7,7 +7,7 @@
 # =============================================================================
 FROM node:24-alpine AS base
 WORKDIR /app
-RUN apk add --no-cache dumb-init
+RUN apk add --no-cache dumb-init openssl libc6-compat
 RUN corepack enable pnpm
 
 # =============================================================================
