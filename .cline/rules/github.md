@@ -28,11 +28,17 @@ You must use the GitHub CLI (`gh`) for all GitHub interactions.
 - **PR Configuration:** Always create it as a Draft (`--draft`) if work is ongoing, or standard if ready. Provide a clear, structured title and markdown description detailing the changes.
 - **Fallback:** Only if `gh` is completely unavailable on the system, fallback to standard `git push` and explicitly ask the user to create the PR manually.
 
-### Un seul push par ticket
+### Un seul push par ticket (évite les doubles runs de CI)
 
 - **Commitez tout en local avant de pousser** : implémentation, tests, documentation, mise à jour du backlog et de la vélocité doivent tous être committés en local avant le premier `git push`.
-- **Un seul `git push -u origin <branche>` par ticket** : chaque push sur la branche d'une Pull Request ouverte déclenche un nouveau run de CI. Évitez les pushes intermédiaires.
-- **Créez la PR uniquement après le push final** avec `gh pr create`.
+- **Un seul `git push -u origin <branche>` par ticket** : chaque push sur la branche d'une Pull Request ouverte déclenche un nouveau run de CI. Ne faites **pas** un push pour le code puis un second push pour la documentation/backlog — cela lancerait la CI deux fois pour le même ticket.
+- **Ordre de travail pour un ticket :**
+  1. Implémentez le code et les tests → commit local (`feat: ...`)
+  2. Mettez à jour la documentation → commit local (`docs: ...`)
+  3. Mettez à jour le backlog et la vélocité → commit local (`docs: ...`)
+  4. Validez localement (lint, typecheck, tests, build)
+  5. **Un seul** `git push -u origin <branche>` (tous les commits locaux sont poussés d'un coup)
+  6. Créez la PR avec `gh pr create` uniquement après ce push unique
 - Si des corrections sont nécessaires après revue, un push supplémentaire est inévitable — mais il doit rester exceptionnel.
 
 ## 4. Conflict Resolution
@@ -133,7 +139,7 @@ After local validation, documentation, backlog, and velocity updates are complet
    git push -u origin <branch-name>
    ```
 
-   Chaque push sur la branche d'une Pull Request ouverte déclenche un nouveau run de CI. Évitez les pushes intermédiaires.
+   Ne faites **pas** un push pour le code puis un second push pour la documentation/backlog : cela lancerait la CI deux fois pour le même ticket. Tous les commits doivent être poussés d'un coup.
 
 2. Create a pull request with `gh pr create`.
 3. Use a clear conventional title, for example: `feat: add document transfer workflow`.
