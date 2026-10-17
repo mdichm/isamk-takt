@@ -175,7 +175,7 @@ t("structure_ui","L1",E,S,"UI structure académique","Arbre département > forma
 E = "Enseignants, grades & décharges"
 t("ens","L1",E,S,"CRUD enseignants et modules enseignables","Enseignant (matricule, grade, département, téléphone facultatif), modules enseignables.",
   ["Unicité (année, matricule)","Désactivation refusée (409) si présent dans une répartition d'une année non clôturée","Le Responsable modifie les modules enseignables de son département uniquement","Toutes les routes du contrôleur enseignants sont protégées par @Permissions('enseignant:read')/@Permissions('enseignant:write') ; toute route non décorée est refusée par défaut (403)"],
-  "EX-REF-03","§4.19, §3.3","BACK","Must",5,["modules","rbac"],"L1-07")
+  "EX-REF-03","§4.19, §3.3","BACK","Must",5,["modules","rbac"],"L1-07",statut="En cours")
 t("decharges","L1",E,S,"Décharges enseignant","Décharges par semestre en heures équivalentes.",
   ["CRUD réservé à l'Administrateur","Les décharges sont prises en compte par le calcul de charge (L2)"],
   "EX-REF-07","§2.2, §4.2","BACK","Must",3,["ens"],"L1-08")
