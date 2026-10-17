@@ -47,7 +47,7 @@ export class ProjectsController {
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Projet mis à jour', type: ProjectResponseDto })
   @ApiResponse({ status: 404, description: 'Projet non trouvé' })
-  async update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto, @CurrentUser('id') userId: string, @IfMatch() ifMatch: string): Promise<ProjectResponseDto> {
+  async update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto, @CurrentUser('id') userId: string, @IfMatch() _ifMatch: string): Promise<ProjectResponseDto> {
     return this.projectsService.update(id, updateProjectDto, userId);
   }
 

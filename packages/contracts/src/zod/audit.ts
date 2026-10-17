@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { uuidSchema, isoDateTimeSchema, paginationQuerySchema } from './common.js';
+import { isoDateTimeSchema, paginationQuerySchema } from './common.js';
 
 // ============================================================
 // Audit — Schémas Zod
