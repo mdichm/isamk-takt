@@ -178,7 +178,7 @@ t("ens","L1",E,S,"CRUD enseignants et modules enseignables","Enseignant (matricu
   "EX-REF-03","§4.19, §3.3","BACK","Must",5,["modules","rbac"],"L1-07",statut="Terminé")
 t("decharges","L1",E,S,"Décharges enseignant","Décharges par semestre en heures équivalentes.",
   ["CRUD réservé à l'Administrateur","Les décharges sont prises en compte par le calcul de charge (L2)"],
-  "EX-REF-07","§2.2, §4.2","BACK","Must",3,["ens"],"L1-08",statut="En cours")
+  "EX-REF-07","§2.2, §4.2","BACK","Must",3,["ens"],"L1-08",statut="Terminé")
 t("ens_ui","L1",E,S,"UI enseignants","Liste, fiche, modules enseignables, décharges.",
   ["Filtres par département et grade","Le Responsable voit uniquement son département en écriture"],
   "EX-REF-03, EX-REF-07","§3.3","FRONT","Must",5,["ens","shell"],"L1-09")
