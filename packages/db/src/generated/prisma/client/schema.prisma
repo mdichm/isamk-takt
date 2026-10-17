@@ -532,6 +532,7 @@ model Niveau {
   updatedAt   DateTime  @updatedAt
 
   groupes Groupe[]
+  modules Module[]
 
   @@unique([formationId, code])
   @@index([formationId])
@@ -564,4 +565,95 @@ model Groupe {
   @@index([semestreId])
   @@index([parentId])
   @@map("groupes")
+}
+
+// ============================================
+// Modules, types d'enseignement et grades (L1-05)
+// ============================================
+
+enum TypeEnseignementCode {
+  CM
+  TD
+  TP
+  CI
+  AUTRE
+}
+
+model TypeEnseignement {
+  id            String               @id @default(uuid()) @db.Uuid
+  code          TypeEnseignementCode
+  libelle       String
+  activityTagId String?              @db.Uuid
+  activityTag   ActivityTag?         @relation(fields: [activityTagId], references: [id], onDelete: SetNull)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  modules Module[]
+
+  @@unique([code])
+  @@map("types_enseignement")
+}
+
+enum GradeCode {
+  MC
+  MCF
+  PR
+  ATER
+  AUTRE
+}
+
+model Grade {
+  id        String    @id @default(uuid()) @db.Uuid
+  code      GradeCode
+  libelle   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  modules Module[]
+
+  @@unique([code])
+  @@map("grades")
+}
+
+model Module {
+  id             String           @id @default(uuid()) @db.Uuid
+  niveauId       String           @db.Uuid
+  niveau         Niveau           @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  typeId         String           @db.Uuid
+  type           TypeEnseignement @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  gradeId        String?          @db.Uuid
+  grade          Grade?           @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+  code           String // ex: "INFO301"
+  libelle        String // ex: "Algorithmique avancée"
+  semestreNumero Int // 1 ou 2
+  credits        Int?             @default(6)
+  effectifMax    Int? // capacité max du module
+  originId       String? // ID d'origine externe (synchronisation)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@unique([niveauId, code, semestreNumero])
+  @@index([niveauId])
+  @@index([typeId])
+  @@index([gradeId])
+  @@map("modules")
+}
+
+// ============================================
+// Activity Tags (L1-06)
+// ============================================
+
+model ActivityTag {
+  id        String   @id @default(uuid()) @db.Uuid
+  code      String   @unique
+  libelle   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  typesEnseignement TypeEnseignement[]
+
+  @@index([code])
+  @@index([isActive])
+  @@map("activity_tags")
 }

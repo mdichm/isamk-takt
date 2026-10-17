@@ -159,10 +159,10 @@ t("groupes","L1",E,S,"CRUD groupes hiérarchiques par semestre","SECTION, GROUPE
   "EX-ORG-02","§2.2, §4.3","BACK","Must",5,["structure"],"L1-04",statut="Terminé")
 t("modules","L1",E,S,"CRUD modules, types d'enseignement et grades","Modules par niveau, types (CM, TD, TP, CI, Autre) et grades paramétrables.",
   ["Module rattaché à un niveau avec semestreNumero","Types et grades paramétrables par l'Administrateur"],
-  "EX-REF-01, EX-REF-02","§2.2","BACK","Must",5,["structure"],"L1-05",statut="En cours")
+  "EX-REF-01, EX-REF-02","§2.2","BACK","Must",5,["structure"],"L1-05",statut="Terminé")
 t("tags","L1",E,S,"Référentiel des Activity Tags","CRUD des FET Activity Tags, tag par défaut d'un type d'enseignement.",
   ["Un tag est distinct d'un type d'enseignement","Chaque type porte un tag par défaut","Un tag référencé ne peut pas être supprimé (désactivation)"],
-  "EX-REF-05","§2.2, §0.1","BACK","Must",3,["modules"])
+  "EX-REF-05","§2.2, §0.1","BACK","Must",3,["modules"],statut="Terminé")
 t("nomenclature","L1",E,S,"Nomenclature normalisée des groupes","Code {niveau}-{abréviation}-{groupe} validé partout.",
   ["Regex configurable ^(L1|L2|L3|M1|M2)-[A-Z0-9]{2,8}-[A-Z0-9]{1,4}$","Segment 2 = abréviation de la formation, unique par année","GET /groupes/code-suggestion propose le prochain identifiant libre","Code non conforme refusé (422 GROUP_CODE_INVALID), y compris à l'import","Segment 3 = identifiant du groupe dans le niveau (1, 2, 3 ou A, B)"],
   "EX-ORG-03","§4.10","BACK","Must",5,["groupes"],"L1-22")

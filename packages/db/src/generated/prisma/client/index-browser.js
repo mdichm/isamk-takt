@@ -395,6 +395,47 @@ exports.Prisma.GroupeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TypeEnseignementScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  libelle: 'libelle',
+  activityTagId: 'activityTagId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GradeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  libelle: 'libelle',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ModuleScalarFieldEnum = {
+  id: 'id',
+  niveauId: 'niveauId',
+  typeId: 'typeId',
+  gradeId: 'gradeId',
+  code: 'code',
+  libelle: 'libelle',
+  semestreNumero: 'semestreNumero',
+  credits: 'credits',
+  effectifMax: 'effectifMax',
+  originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ActivityTagScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  libelle: 'libelle',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -498,6 +539,22 @@ exports.GroupeType = exports.$Enums.GroupeType = {
   SOUS_GROUPE: 'SOUS_GROUPE'
 };
 
+exports.TypeEnseignementCode = exports.$Enums.TypeEnseignementCode = {
+  CM: 'CM',
+  TD: 'TD',
+  TP: 'TP',
+  CI: 'CI',
+  AUTRE: 'AUTRE'
+};
+
+exports.GradeCode = exports.$Enums.GradeCode = {
+  MC: 'MC',
+  MCF: 'MCF',
+  PR: 'PR',
+  ATER: 'ATER',
+  AUTRE: 'AUTRE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserSystemRole: 'UserSystemRole',
@@ -523,7 +580,11 @@ exports.Prisma.ModelName = {
   Departement: 'Departement',
   Formation: 'Formation',
   Niveau: 'Niveau',
-  Groupe: 'Groupe'
+  Groupe: 'Groupe',
+  TypeEnseignement: 'TypeEnseignement',
+  Grade: 'Grade',
+  Module: 'Module',
+  ActivityTag: 'ActivityTag'
 };
 
 /**
