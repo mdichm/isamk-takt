@@ -38,7 +38,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Generate Prisma Client
+      - name: Generate Prisma Client (db package)
+        run: pnpm prisma generate
+        working-directory: ./packages/db
+        env:
+          DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/takt'
+
+      - name: Generate Prisma Client (api package)
         run: pnpm db:generate
         working-directory: ./apps/api
 

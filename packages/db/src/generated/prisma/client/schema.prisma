@@ -462,6 +462,7 @@ model Annee {
 
   semestres    Semestre[]
   departements Departement[]
+  enseignants  Enseignant[]
 
   @@unique([code])
   @@unique([numero])
@@ -497,7 +498,8 @@ model Departement {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  formations Formation[]
+  formations  Formation[]
+  enseignants Enseignant[]
 
   @@unique([anneeId, code])
   @@index([anneeId])
@@ -609,28 +611,30 @@ model Grade {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
-  modules Module[]
+  modules     Module[]
+  enseignants Enseignant[]
 
   @@unique([code])
   @@map("grades")
 }
 
 model Module {
-  id             String           @id @default(uuid()) @db.Uuid
-  niveauId       String           @db.Uuid
-  niveau         Niveau           @relation(fields: [niveauId], references: [id], onDelete: Cascade)
-  typeId         String           @db.Uuid
-  type           TypeEnseignement @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  gradeId        String?          @db.Uuid
-  grade          Grade?           @relation(fields: [gradeId], references: [id], onDelete: SetNull)
-  code           String // ex: "INFO301"
-  libelle        String // ex: "Algorithmique avancée"
-  semestreNumero Int // 1 ou 2
-  credits        Int?             @default(6)
-  effectifMax    Int? // capacité max du module
-  originId       String? // ID d'origine externe (synchronisation)
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  id                String             @id @default(uuid()) @db.Uuid
+  niveauId          String             @db.Uuid
+  niveau            Niveau             @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  typeId            String             @db.Uuid
+  type              TypeEnseignement   @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  gradeId           String?            @db.Uuid
+  grade             Grade?             @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+  code              String // ex: "INFO301"
+  libelle           String // ex: "Algorithmique avancée"
+  semestreNumero    Int // 1 ou 2
+  credits           Int?               @default(6)
+  effectifMax       Int? // capacité max du module
+  originId          String? // ID d'origine externe (synchronisation)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  enseignantModules EnseignantModule[]
 
   @@unique([niveauId, code, semestreNumero])
   @@index([niveauId])
@@ -656,4 +660,39 @@ model ActivityTag {
   @@index([code])
   @@index([isActive])
   @@map("activity_tags")
+}
+
+model Enseignant {
+  id                String             @id @default(uuid()) @db.Uuid
+  matricule         String
+  nom               String
+  prenom            String
+  email             String             @unique
+  telephone         String?
+  isActive          Boolean            @default(true)
+  anneeId           String             @db.Uuid
+  annee             Annee              @relation(fields: [anneeId], references: [id], onDelete: Cascade)
+  departementId     String             @db.Uuid
+  departement       Departement        @relation(fields: [departementId], references: [id], onDelete: Cascade)
+  gradeId           String?            @db.Uuid
+  grade             Grade?             @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+  enseignantModules EnseignantModule[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@unique([anneeId, matricule])
+  @@index([departementId])
+  @@index([gradeId])
+  @@index([email])
+  @@map("enseignants")
+}
+
+model EnseignantModule {
+  enseignantId String     @db.Uuid
+  moduleId     String     @db.Uuid
+  enseignant   Enseignant @relation(fields: [enseignantId], references: [id], onDelete: Cascade)
+  module       Module     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@id([enseignantId, moduleId])
+  @@map("enseignant_modules")
 }

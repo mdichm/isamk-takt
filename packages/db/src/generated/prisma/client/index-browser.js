@@ -436,6 +436,26 @@ exports.Prisma.ActivityTagScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.EnseignantScalarFieldEnum = {
+  id: 'id',
+  matricule: 'matricule',
+  nom: 'nom',
+  prenom: 'prenom',
+  email: 'email',
+  telephone: 'telephone',
+  isActive: 'isActive',
+  anneeId: 'anneeId',
+  departementId: 'departementId',
+  gradeId: 'gradeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EnseignantModuleScalarFieldEnum = {
+  enseignantId: 'enseignantId',
+  moduleId: 'moduleId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -584,7 +604,9 @@ exports.Prisma.ModelName = {
   TypeEnseignement: 'TypeEnseignement',
   Grade: 'Grade',
   Module: 'Module',
-  ActivityTag: 'ActivityTag'
+  ActivityTag: 'ActivityTag',
+  Enseignant: 'Enseignant',
+  EnseignantModule: 'EnseignantModule'
 };
 
 /**

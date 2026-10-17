@@ -158,6 +158,16 @@ export type Module = $Result.DefaultSelection<Prisma.$ModulePayload>
  * 
  */
 export type ActivityTag = $Result.DefaultSelection<Prisma.$ActivityTagPayload>
+/**
+ * Model Enseignant
+ * 
+ */
+export type Enseignant = $Result.DefaultSelection<Prisma.$EnseignantPayload>
+/**
+ * Model EnseignantModule
+ * 
+ */
+export type EnseignantModule = $Result.DefaultSelection<Prisma.$EnseignantModulePayload>
 
 /**
  * Enums
@@ -748,6 +758,26 @@ export class PrismaClient<
     * ```
     */
   get activityTag(): Prisma.ActivityTagDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.enseignant`: Exposes CRUD operations for the **Enseignant** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Enseignants
+    * const enseignants = await prisma.enseignant.findMany()
+    * ```
+    */
+  get enseignant(): Prisma.EnseignantDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.enseignantModule`: Exposes CRUD operations for the **EnseignantModule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EnseignantModules
+    * const enseignantModules = await prisma.enseignantModule.findMany()
+    * ```
+    */
+  get enseignantModule(): Prisma.EnseignantModuleDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1223,7 +1253,9 @@ export namespace Prisma {
     TypeEnseignement: 'TypeEnseignement',
     Grade: 'Grade',
     Module: 'Module',
-    ActivityTag: 'ActivityTag'
+    ActivityTag: 'ActivityTag',
+    Enseignant: 'Enseignant',
+    EnseignantModule: 'EnseignantModule'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1239,7 +1271,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3389,6 +3421,154 @@ export namespace Prisma {
           }
         }
       }
+      Enseignant: {
+        payload: Prisma.$EnseignantPayload<ExtArgs>
+        fields: Prisma.EnseignantFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EnseignantFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EnseignantFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>
+          }
+          findFirst: {
+            args: Prisma.EnseignantFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EnseignantFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>
+          }
+          findMany: {
+            args: Prisma.EnseignantFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>[]
+          }
+          create: {
+            args: Prisma.EnseignantCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>
+          }
+          createMany: {
+            args: Prisma.EnseignantCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EnseignantCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>[]
+          }
+          delete: {
+            args: Prisma.EnseignantDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>
+          }
+          update: {
+            args: Prisma.EnseignantUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>
+          }
+          deleteMany: {
+            args: Prisma.EnseignantDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EnseignantUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EnseignantUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>[]
+          }
+          upsert: {
+            args: Prisma.EnseignantUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantPayload>
+          }
+          aggregate: {
+            args: Prisma.EnseignantAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEnseignant>
+          }
+          groupBy: {
+            args: Prisma.EnseignantGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EnseignantGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EnseignantCountArgs<ExtArgs>
+            result: $Utils.Optional<EnseignantCountAggregateOutputType> | number
+          }
+        }
+      }
+      EnseignantModule: {
+        payload: Prisma.$EnseignantModulePayload<ExtArgs>
+        fields: Prisma.EnseignantModuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EnseignantModuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EnseignantModuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>
+          }
+          findFirst: {
+            args: Prisma.EnseignantModuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EnseignantModuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>
+          }
+          findMany: {
+            args: Prisma.EnseignantModuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>[]
+          }
+          create: {
+            args: Prisma.EnseignantModuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>
+          }
+          createMany: {
+            args: Prisma.EnseignantModuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EnseignantModuleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>[]
+          }
+          delete: {
+            args: Prisma.EnseignantModuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>
+          }
+          update: {
+            args: Prisma.EnseignantModuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>
+          }
+          deleteMany: {
+            args: Prisma.EnseignantModuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EnseignantModuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EnseignantModuleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>[]
+          }
+          upsert: {
+            args: Prisma.EnseignantModuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EnseignantModulePayload>
+          }
+          aggregate: {
+            args: Prisma.EnseignantModuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEnseignantModule>
+          }
+          groupBy: {
+            args: Prisma.EnseignantModuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EnseignantModuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EnseignantModuleCountArgs<ExtArgs>
+            result: $Utils.Optional<EnseignantModuleCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3541,6 +3721,8 @@ export namespace Prisma {
     grade?: GradeOmit
     module?: ModuleOmit
     activityTag?: ActivityTagOmit
+    enseignant?: EnseignantOmit
+    enseignantModule?: EnseignantModuleOmit
   }
 
   /* Types for Logging */
@@ -3953,11 +4135,13 @@ export namespace Prisma {
   export type AnneeCountOutputType = {
     semestres: number
     departements: number
+    enseignants: number
   }
 
   export type AnneeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestres?: boolean | AnneeCountOutputTypeCountSemestresArgs
     departements?: boolean | AnneeCountOutputTypeCountDepartementsArgs
+    enseignants?: boolean | AnneeCountOutputTypeCountEnseignantsArgs
   }
 
   // Custom InputTypes
@@ -3983,6 +4167,13 @@ export namespace Prisma {
    */
   export type AnneeCountOutputTypeCountDepartementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DepartementWhereInput
+  }
+
+  /**
+   * AnneeCountOutputType without action
+   */
+  export type AnneeCountOutputTypeCountEnseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnseignantWhereInput
   }
 
 
@@ -4023,10 +4214,12 @@ export namespace Prisma {
 
   export type DepartementCountOutputType = {
     formations: number
+    enseignants: number
   }
 
   export type DepartementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     formations?: boolean | DepartementCountOutputTypeCountFormationsArgs
+    enseignants?: boolean | DepartementCountOutputTypeCountEnseignantsArgs
   }
 
   // Custom InputTypes
@@ -4045,6 +4238,13 @@ export namespace Prisma {
    */
   export type DepartementCountOutputTypeCountFormationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FormationWhereInput
+  }
+
+  /**
+   * DepartementCountOutputType without action
+   */
+  export type DepartementCountOutputTypeCountEnseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnseignantWhereInput
   }
 
 
@@ -4187,10 +4387,12 @@ export namespace Prisma {
 
   export type GradeCountOutputType = {
     modules: number
+    enseignants: number
   }
 
   export type GradeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | GradeCountOutputTypeCountModulesArgs
+    enseignants?: boolean | GradeCountOutputTypeCountEnseignantsArgs
   }
 
   // Custom InputTypes
@@ -4209,6 +4411,44 @@ export namespace Prisma {
    */
   export type GradeCountOutputTypeCountModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ModuleWhereInput
+  }
+
+  /**
+   * GradeCountOutputType without action
+   */
+  export type GradeCountOutputTypeCountEnseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnseignantWhereInput
+  }
+
+
+  /**
+   * Count Type ModuleCountOutputType
+   */
+
+  export type ModuleCountOutputType = {
+    enseignantModules: number
+  }
+
+  export type ModuleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enseignantModules?: boolean | ModuleCountOutputTypeCountEnseignantModulesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ModuleCountOutputType without action
+   */
+  export type ModuleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleCountOutputType
+     */
+    select?: ModuleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ModuleCountOutputType without action
+   */
+  export type ModuleCountOutputTypeCountEnseignantModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnseignantModuleWhereInput
   }
 
 
@@ -4240,6 +4480,37 @@ export namespace Prisma {
    */
   export type ActivityTagCountOutputTypeCountTypesEnseignementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TypeEnseignementWhereInput
+  }
+
+
+  /**
+   * Count Type EnseignantCountOutputType
+   */
+
+  export type EnseignantCountOutputType = {
+    enseignantModules: number
+  }
+
+  export type EnseignantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enseignantModules?: boolean | EnseignantCountOutputTypeCountEnseignantModulesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EnseignantCountOutputType without action
+   */
+  export type EnseignantCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantCountOutputType
+     */
+    select?: EnseignantCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EnseignantCountOutputType without action
+   */
+  export type EnseignantCountOutputTypeCountEnseignantModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnseignantModuleWhereInput
   }
 
 
@@ -26191,6 +26462,7 @@ export namespace Prisma {
     updatedAt?: boolean
     semestres?: boolean | Annee$semestresArgs<ExtArgs>
     departements?: boolean | Annee$departementsArgs<ExtArgs>
+    enseignants?: boolean | Annee$enseignantsArgs<ExtArgs>
     _count?: boolean | AnneeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["annee"]>
 
@@ -26228,6 +26500,7 @@ export namespace Prisma {
   export type AnneeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestres?: boolean | Annee$semestresArgs<ExtArgs>
     departements?: boolean | Annee$departementsArgs<ExtArgs>
+    enseignants?: boolean | Annee$enseignantsArgs<ExtArgs>
     _count?: boolean | AnneeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AnneeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -26238,6 +26511,7 @@ export namespace Prisma {
     objects: {
       semestres: Prisma.$SemestrePayload<ExtArgs>[]
       departements: Prisma.$DepartementPayload<ExtArgs>[]
+      enseignants: Prisma.$EnseignantPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -26643,6 +26917,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestres<T extends Annee$semestresArgs<ExtArgs> = {}>(args?: Subset<T, Annee$semestresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     departements<T extends Annee$departementsArgs<ExtArgs> = {}>(args?: Subset<T, Annee$departementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    enseignants<T extends Annee$enseignantsArgs<ExtArgs> = {}>(args?: Subset<T, Annee$enseignantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27117,6 +27392,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DepartementScalarFieldEnum | DepartementScalarFieldEnum[]
+  }
+
+  /**
+   * Annee.enseignants
+   */
+  export type Annee$enseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    where?: EnseignantWhereInput
+    orderBy?: EnseignantOrderByWithRelationInput | EnseignantOrderByWithRelationInput[]
+    cursor?: EnseignantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
   }
 
   /**
@@ -28464,6 +28763,7 @@ export namespace Prisma {
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     formations?: boolean | Departement$formationsArgs<ExtArgs>
+    enseignants?: boolean | Departement$enseignantsArgs<ExtArgs>
     _count?: boolean | DepartementCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["departement"]>
 
@@ -28503,6 +28803,7 @@ export namespace Prisma {
   export type DepartementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     formations?: boolean | Departement$formationsArgs<ExtArgs>
+    enseignants?: boolean | Departement$enseignantsArgs<ExtArgs>
     _count?: boolean | DepartementCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DepartementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28517,6 +28818,7 @@ export namespace Prisma {
     objects: {
       annee: Prisma.$AnneePayload<ExtArgs>
       formations: Prisma.$FormationPayload<ExtArgs>[]
+      enseignants: Prisma.$EnseignantPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -28922,6 +29224,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     annee<T extends AnneeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnneeDefaultArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     formations<T extends Departement$formationsArgs<ExtArgs> = {}>(args?: Subset<T, Departement$formationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    enseignants<T extends Departement$enseignantsArgs<ExtArgs> = {}>(args?: Subset<T, Departement$enseignantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29380,6 +29683,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FormationScalarFieldEnum | FormationScalarFieldEnum[]
+  }
+
+  /**
+   * Departement.enseignants
+   */
+  export type Departement$enseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    where?: EnseignantWhereInput
+    orderBy?: EnseignantOrderByWithRelationInput | EnseignantOrderByWithRelationInput[]
+    cursor?: EnseignantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
   }
 
   /**
@@ -34197,6 +34524,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     modules?: boolean | Grade$modulesArgs<ExtArgs>
+    enseignants?: boolean | Grade$enseignantsArgs<ExtArgs>
     _count?: boolean | GradeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["grade"]>
 
@@ -34227,6 +34555,7 @@ export namespace Prisma {
   export type GradeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "createdAt" | "updatedAt", ExtArgs["result"]["grade"]>
   export type GradeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | Grade$modulesArgs<ExtArgs>
+    enseignants?: boolean | Grade$enseignantsArgs<ExtArgs>
     _count?: boolean | GradeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GradeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -34236,6 +34565,7 @@ export namespace Prisma {
     name: "Grade"
     objects: {
       modules: Prisma.$ModulePayload<ExtArgs>[]
+      enseignants: Prisma.$EnseignantPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -34638,6 +34968,7 @@ export namespace Prisma {
   export interface Prisma__GradeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     modules<T extends Grade$modulesArgs<ExtArgs> = {}>(args?: Subset<T, Grade$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    enseignants<T extends Grade$enseignantsArgs<ExtArgs> = {}>(args?: Subset<T, Grade$enseignantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35089,6 +35420,30 @@ export namespace Prisma {
   }
 
   /**
+   * Grade.enseignants
+   */
+  export type Grade$enseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    where?: EnseignantWhereInput
+    orderBy?: EnseignantOrderByWithRelationInput | EnseignantOrderByWithRelationInput[]
+    cursor?: EnseignantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
+  }
+
+  /**
    * Grade without action
    */
   export type GradeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -35372,6 +35727,8 @@ export namespace Prisma {
     niveau?: boolean | NiveauDefaultArgs<ExtArgs>
     type?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
     grade?: boolean | Module$gradeArgs<ExtArgs>
+    enseignantModules?: boolean | Module$enseignantModulesArgs<ExtArgs>
+    _count?: boolean | ModuleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["module"]>
 
   export type ModuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -35430,6 +35787,8 @@ export namespace Prisma {
     niveau?: boolean | NiveauDefaultArgs<ExtArgs>
     type?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
     grade?: boolean | Module$gradeArgs<ExtArgs>
+    enseignantModules?: boolean | Module$enseignantModulesArgs<ExtArgs>
+    _count?: boolean | ModuleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ModuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     niveau?: boolean | NiveauDefaultArgs<ExtArgs>
@@ -35448,6 +35807,7 @@ export namespace Prisma {
       niveau: Prisma.$NiveauPayload<ExtArgs>
       type: Prisma.$TypeEnseignementPayload<ExtArgs>
       grade: Prisma.$GradePayload<ExtArgs> | null
+      enseignantModules: Prisma.$EnseignantModulePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -35859,6 +36219,7 @@ export namespace Prisma {
     niveau<T extends NiveauDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NiveauDefaultArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     type<T extends TypeEnseignementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignementDefaultArgs<ExtArgs>>): Prisma__TypeEnseignementClient<$Result.GetResult<Prisma.$TypeEnseignementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     grade<T extends Module$gradeArgs<ExtArgs> = {}>(args?: Subset<T, Module$gradeArgs<ExtArgs>>): Prisma__GradeClient<$Result.GetResult<Prisma.$GradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    enseignantModules<T extends Module$enseignantModulesArgs<ExtArgs> = {}>(args?: Subset<T, Module$enseignantModulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -36317,6 +36678,30 @@ export namespace Prisma {
      */
     include?: GradeInclude<ExtArgs> | null
     where?: GradeWhereInput
+  }
+
+  /**
+   * Module.enseignantModules
+   */
+  export type Module$enseignantModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    where?: EnseignantModuleWhereInput
+    orderBy?: EnseignantModuleOrderByWithRelationInput | EnseignantModuleOrderByWithRelationInput[]
+    cursor?: EnseignantModuleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EnseignantModuleScalarFieldEnum | EnseignantModuleScalarFieldEnum[]
   }
 
   /**
@@ -37427,6 +37812,2257 @@ export namespace Prisma {
 
 
   /**
+   * Model Enseignant
+   */
+
+  export type AggregateEnseignant = {
+    _count: EnseignantCountAggregateOutputType | null
+    _min: EnseignantMinAggregateOutputType | null
+    _max: EnseignantMaxAggregateOutputType | null
+  }
+
+  export type EnseignantMinAggregateOutputType = {
+    id: string | null
+    matricule: string | null
+    nom: string | null
+    prenom: string | null
+    email: string | null
+    telephone: string | null
+    isActive: boolean | null
+    anneeId: string | null
+    departementId: string | null
+    gradeId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EnseignantMaxAggregateOutputType = {
+    id: string | null
+    matricule: string | null
+    nom: string | null
+    prenom: string | null
+    email: string | null
+    telephone: string | null
+    isActive: boolean | null
+    anneeId: string | null
+    departementId: string | null
+    gradeId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EnseignantCountAggregateOutputType = {
+    id: number
+    matricule: number
+    nom: number
+    prenom: number
+    email: number
+    telephone: number
+    isActive: number
+    anneeId: number
+    departementId: number
+    gradeId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EnseignantMinAggregateInputType = {
+    id?: true
+    matricule?: true
+    nom?: true
+    prenom?: true
+    email?: true
+    telephone?: true
+    isActive?: true
+    anneeId?: true
+    departementId?: true
+    gradeId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EnseignantMaxAggregateInputType = {
+    id?: true
+    matricule?: true
+    nom?: true
+    prenom?: true
+    email?: true
+    telephone?: true
+    isActive?: true
+    anneeId?: true
+    departementId?: true
+    gradeId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EnseignantCountAggregateInputType = {
+    id?: true
+    matricule?: true
+    nom?: true
+    prenom?: true
+    email?: true
+    telephone?: true
+    isActive?: true
+    anneeId?: true
+    departementId?: true
+    gradeId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EnseignantAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Enseignant to aggregate.
+     */
+    where?: EnseignantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Enseignants to fetch.
+     */
+    orderBy?: EnseignantOrderByWithRelationInput | EnseignantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EnseignantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Enseignants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Enseignants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Enseignants
+    **/
+    _count?: true | EnseignantCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EnseignantMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EnseignantMaxAggregateInputType
+  }
+
+  export type GetEnseignantAggregateType<T extends EnseignantAggregateArgs> = {
+        [P in keyof T & keyof AggregateEnseignant]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEnseignant[P]>
+      : GetScalarType<T[P], AggregateEnseignant[P]>
+  }
+
+
+
+
+  export type EnseignantGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnseignantWhereInput
+    orderBy?: EnseignantOrderByWithAggregationInput | EnseignantOrderByWithAggregationInput[]
+    by: EnseignantScalarFieldEnum[] | EnseignantScalarFieldEnum
+    having?: EnseignantScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EnseignantCountAggregateInputType | true
+    _min?: EnseignantMinAggregateInputType
+    _max?: EnseignantMaxAggregateInputType
+  }
+
+  export type EnseignantGroupByOutputType = {
+    id: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone: string | null
+    isActive: boolean
+    anneeId: string
+    departementId: string
+    gradeId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EnseignantCountAggregateOutputType | null
+    _min: EnseignantMinAggregateOutputType | null
+    _max: EnseignantMaxAggregateOutputType | null
+  }
+
+  type GetEnseignantGroupByPayload<T extends EnseignantGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EnseignantGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EnseignantGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EnseignantGroupByOutputType[P]>
+            : GetScalarType<T[P], EnseignantGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EnseignantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    matricule?: boolean
+    nom?: boolean
+    prenom?: boolean
+    email?: boolean
+    telephone?: boolean
+    isActive?: boolean
+    anneeId?: boolean
+    departementId?: boolean
+    gradeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    grade?: boolean | Enseignant$gradeArgs<ExtArgs>
+    enseignantModules?: boolean | Enseignant$enseignantModulesArgs<ExtArgs>
+    _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["enseignant"]>
+
+  export type EnseignantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    matricule?: boolean
+    nom?: boolean
+    prenom?: boolean
+    email?: boolean
+    telephone?: boolean
+    isActive?: boolean
+    anneeId?: boolean
+    departementId?: boolean
+    gradeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    grade?: boolean | Enseignant$gradeArgs<ExtArgs>
+  }, ExtArgs["result"]["enseignant"]>
+
+  export type EnseignantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    matricule?: boolean
+    nom?: boolean
+    prenom?: boolean
+    email?: boolean
+    telephone?: boolean
+    isActive?: boolean
+    anneeId?: boolean
+    departementId?: boolean
+    gradeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    grade?: boolean | Enseignant$gradeArgs<ExtArgs>
+  }, ExtArgs["result"]["enseignant"]>
+
+  export type EnseignantSelectScalar = {
+    id?: boolean
+    matricule?: boolean
+    nom?: boolean
+    prenom?: boolean
+    email?: boolean
+    telephone?: boolean
+    isActive?: boolean
+    anneeId?: boolean
+    departementId?: boolean
+    gradeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EnseignantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "matricule" | "nom" | "prenom" | "email" | "telephone" | "isActive" | "anneeId" | "departementId" | "gradeId" | "createdAt" | "updatedAt", ExtArgs["result"]["enseignant"]>
+  export type EnseignantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    grade?: boolean | Enseignant$gradeArgs<ExtArgs>
+    enseignantModules?: boolean | Enseignant$enseignantModulesArgs<ExtArgs>
+    _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EnseignantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    grade?: boolean | Enseignant$gradeArgs<ExtArgs>
+  }
+  export type EnseignantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    grade?: boolean | Enseignant$gradeArgs<ExtArgs>
+  }
+
+  export type $EnseignantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Enseignant"
+    objects: {
+      annee: Prisma.$AnneePayload<ExtArgs>
+      departement: Prisma.$DepartementPayload<ExtArgs>
+      grade: Prisma.$GradePayload<ExtArgs> | null
+      enseignantModules: Prisma.$EnseignantModulePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      matricule: string
+      nom: string
+      prenom: string
+      email: string
+      telephone: string | null
+      isActive: boolean
+      anneeId: string
+      departementId: string
+      gradeId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["enseignant"]>
+    composites: {}
+  }
+
+  type EnseignantGetPayload<S extends boolean | null | undefined | EnseignantDefaultArgs> = $Result.GetResult<Prisma.$EnseignantPayload, S>
+
+  type EnseignantCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EnseignantFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EnseignantCountAggregateInputType | true
+    }
+
+  export interface EnseignantDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Enseignant'], meta: { name: 'Enseignant' } }
+    /**
+     * Find zero or one Enseignant that matches the filter.
+     * @param {EnseignantFindUniqueArgs} args - Arguments to find a Enseignant
+     * @example
+     * // Get one Enseignant
+     * const enseignant = await prisma.enseignant.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EnseignantFindUniqueArgs>(args: SelectSubset<T, EnseignantFindUniqueArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Enseignant that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EnseignantFindUniqueOrThrowArgs} args - Arguments to find a Enseignant
+     * @example
+     * // Get one Enseignant
+     * const enseignant = await prisma.enseignant.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EnseignantFindUniqueOrThrowArgs>(args: SelectSubset<T, EnseignantFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Enseignant that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantFindFirstArgs} args - Arguments to find a Enseignant
+     * @example
+     * // Get one Enseignant
+     * const enseignant = await prisma.enseignant.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EnseignantFindFirstArgs>(args?: SelectSubset<T, EnseignantFindFirstArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Enseignant that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantFindFirstOrThrowArgs} args - Arguments to find a Enseignant
+     * @example
+     * // Get one Enseignant
+     * const enseignant = await prisma.enseignant.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EnseignantFindFirstOrThrowArgs>(args?: SelectSubset<T, EnseignantFindFirstOrThrowArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Enseignants that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Enseignants
+     * const enseignants = await prisma.enseignant.findMany()
+     * 
+     * // Get first 10 Enseignants
+     * const enseignants = await prisma.enseignant.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const enseignantWithIdOnly = await prisma.enseignant.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EnseignantFindManyArgs>(args?: SelectSubset<T, EnseignantFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Enseignant.
+     * @param {EnseignantCreateArgs} args - Arguments to create a Enseignant.
+     * @example
+     * // Create one Enseignant
+     * const Enseignant = await prisma.enseignant.create({
+     *   data: {
+     *     // ... data to create a Enseignant
+     *   }
+     * })
+     * 
+     */
+    create<T extends EnseignantCreateArgs>(args: SelectSubset<T, EnseignantCreateArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Enseignants.
+     * @param {EnseignantCreateManyArgs} args - Arguments to create many Enseignants.
+     * @example
+     * // Create many Enseignants
+     * const enseignant = await prisma.enseignant.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EnseignantCreateManyArgs>(args?: SelectSubset<T, EnseignantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Enseignants and returns the data saved in the database.
+     * @param {EnseignantCreateManyAndReturnArgs} args - Arguments to create many Enseignants.
+     * @example
+     * // Create many Enseignants
+     * const enseignant = await prisma.enseignant.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Enseignants and only return the `id`
+     * const enseignantWithIdOnly = await prisma.enseignant.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EnseignantCreateManyAndReturnArgs>(args?: SelectSubset<T, EnseignantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Enseignant.
+     * @param {EnseignantDeleteArgs} args - Arguments to delete one Enseignant.
+     * @example
+     * // Delete one Enseignant
+     * const Enseignant = await prisma.enseignant.delete({
+     *   where: {
+     *     // ... filter to delete one Enseignant
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EnseignantDeleteArgs>(args: SelectSubset<T, EnseignantDeleteArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Enseignant.
+     * @param {EnseignantUpdateArgs} args - Arguments to update one Enseignant.
+     * @example
+     * // Update one Enseignant
+     * const enseignant = await prisma.enseignant.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EnseignantUpdateArgs>(args: SelectSubset<T, EnseignantUpdateArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Enseignants.
+     * @param {EnseignantDeleteManyArgs} args - Arguments to filter Enseignants to delete.
+     * @example
+     * // Delete a few Enseignants
+     * const { count } = await prisma.enseignant.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EnseignantDeleteManyArgs>(args?: SelectSubset<T, EnseignantDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Enseignants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Enseignants
+     * const enseignant = await prisma.enseignant.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EnseignantUpdateManyArgs>(args: SelectSubset<T, EnseignantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Enseignants and returns the data updated in the database.
+     * @param {EnseignantUpdateManyAndReturnArgs} args - Arguments to update many Enseignants.
+     * @example
+     * // Update many Enseignants
+     * const enseignant = await prisma.enseignant.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Enseignants and only return the `id`
+     * const enseignantWithIdOnly = await prisma.enseignant.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EnseignantUpdateManyAndReturnArgs>(args: SelectSubset<T, EnseignantUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Enseignant.
+     * @param {EnseignantUpsertArgs} args - Arguments to update or create a Enseignant.
+     * @example
+     * // Update or create a Enseignant
+     * const enseignant = await prisma.enseignant.upsert({
+     *   create: {
+     *     // ... data to create a Enseignant
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Enseignant we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EnseignantUpsertArgs>(args: SelectSubset<T, EnseignantUpsertArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Enseignants.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantCountArgs} args - Arguments to filter Enseignants to count.
+     * @example
+     * // Count the number of Enseignants
+     * const count = await prisma.enseignant.count({
+     *   where: {
+     *     // ... the filter for the Enseignants we want to count
+     *   }
+     * })
+    **/
+    count<T extends EnseignantCountArgs>(
+      args?: Subset<T, EnseignantCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EnseignantCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Enseignant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EnseignantAggregateArgs>(args: Subset<T, EnseignantAggregateArgs>): Prisma.PrismaPromise<GetEnseignantAggregateType<T>>
+
+    /**
+     * Group by Enseignant.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EnseignantGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EnseignantGroupByArgs['orderBy'] }
+        : { orderBy?: EnseignantGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EnseignantGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEnseignantGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Enseignant model
+   */
+  readonly fields: EnseignantFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Enseignant.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EnseignantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    annee<T extends AnneeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnneeDefaultArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    departement<T extends DepartementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartementDefaultArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    grade<T extends Enseignant$gradeArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$gradeArgs<ExtArgs>>): Prisma__GradeClient<$Result.GetResult<Prisma.$GradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    enseignantModules<T extends Enseignant$enseignantModulesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$enseignantModulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Enseignant model
+   */
+  interface EnseignantFieldRefs {
+    readonly id: FieldRef<"Enseignant", 'String'>
+    readonly matricule: FieldRef<"Enseignant", 'String'>
+    readonly nom: FieldRef<"Enseignant", 'String'>
+    readonly prenom: FieldRef<"Enseignant", 'String'>
+    readonly email: FieldRef<"Enseignant", 'String'>
+    readonly telephone: FieldRef<"Enseignant", 'String'>
+    readonly isActive: FieldRef<"Enseignant", 'Boolean'>
+    readonly anneeId: FieldRef<"Enseignant", 'String'>
+    readonly departementId: FieldRef<"Enseignant", 'String'>
+    readonly gradeId: FieldRef<"Enseignant", 'String'>
+    readonly createdAt: FieldRef<"Enseignant", 'DateTime'>
+    readonly updatedAt: FieldRef<"Enseignant", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Enseignant findUnique
+   */
+  export type EnseignantFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * Filter, which Enseignant to fetch.
+     */
+    where: EnseignantWhereUniqueInput
+  }
+
+  /**
+   * Enseignant findUniqueOrThrow
+   */
+  export type EnseignantFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * Filter, which Enseignant to fetch.
+     */
+    where: EnseignantWhereUniqueInput
+  }
+
+  /**
+   * Enseignant findFirst
+   */
+  export type EnseignantFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * Filter, which Enseignant to fetch.
+     */
+    where?: EnseignantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Enseignants to fetch.
+     */
+    orderBy?: EnseignantOrderByWithRelationInput | EnseignantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Enseignants.
+     */
+    cursor?: EnseignantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Enseignants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Enseignants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Enseignants.
+     */
+    distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
+  }
+
+  /**
+   * Enseignant findFirstOrThrow
+   */
+  export type EnseignantFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * Filter, which Enseignant to fetch.
+     */
+    where?: EnseignantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Enseignants to fetch.
+     */
+    orderBy?: EnseignantOrderByWithRelationInput | EnseignantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Enseignants.
+     */
+    cursor?: EnseignantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Enseignants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Enseignants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Enseignants.
+     */
+    distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
+  }
+
+  /**
+   * Enseignant findMany
+   */
+  export type EnseignantFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * Filter, which Enseignants to fetch.
+     */
+    where?: EnseignantWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Enseignants to fetch.
+     */
+    orderBy?: EnseignantOrderByWithRelationInput | EnseignantOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Enseignants.
+     */
+    cursor?: EnseignantWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Enseignants from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Enseignants.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Enseignants.
+     */
+    distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
+  }
+
+  /**
+   * Enseignant create
+   */
+  export type EnseignantCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Enseignant.
+     */
+    data: XOR<EnseignantCreateInput, EnseignantUncheckedCreateInput>
+  }
+
+  /**
+   * Enseignant createMany
+   */
+  export type EnseignantCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Enseignants.
+     */
+    data: EnseignantCreateManyInput | EnseignantCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Enseignant createManyAndReturn
+   */
+  export type EnseignantCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * The data used to create many Enseignants.
+     */
+    data: EnseignantCreateManyInput | EnseignantCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Enseignant update
+   */
+  export type EnseignantUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Enseignant.
+     */
+    data: XOR<EnseignantUpdateInput, EnseignantUncheckedUpdateInput>
+    /**
+     * Choose, which Enseignant to update.
+     */
+    where: EnseignantWhereUniqueInput
+  }
+
+  /**
+   * Enseignant updateMany
+   */
+  export type EnseignantUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Enseignants.
+     */
+    data: XOR<EnseignantUpdateManyMutationInput, EnseignantUncheckedUpdateManyInput>
+    /**
+     * Filter which Enseignants to update
+     */
+    where?: EnseignantWhereInput
+    /**
+     * Limit how many Enseignants to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Enseignant updateManyAndReturn
+   */
+  export type EnseignantUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * The data used to update Enseignants.
+     */
+    data: XOR<EnseignantUpdateManyMutationInput, EnseignantUncheckedUpdateManyInput>
+    /**
+     * Filter which Enseignants to update
+     */
+    where?: EnseignantWhereInput
+    /**
+     * Limit how many Enseignants to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Enseignant upsert
+   */
+  export type EnseignantUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Enseignant to update in case it exists.
+     */
+    where: EnseignantWhereUniqueInput
+    /**
+     * In case the Enseignant found by the `where` argument doesn't exist, create a new Enseignant with this data.
+     */
+    create: XOR<EnseignantCreateInput, EnseignantUncheckedCreateInput>
+    /**
+     * In case the Enseignant was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EnseignantUpdateInput, EnseignantUncheckedUpdateInput>
+  }
+
+  /**
+   * Enseignant delete
+   */
+  export type EnseignantDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    /**
+     * Filter which Enseignant to delete.
+     */
+    where: EnseignantWhereUniqueInput
+  }
+
+  /**
+   * Enseignant deleteMany
+   */
+  export type EnseignantDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Enseignants to delete
+     */
+    where?: EnseignantWhereInput
+    /**
+     * Limit how many Enseignants to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Enseignant.grade
+   */
+  export type Enseignant$gradeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grade
+     */
+    select?: GradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grade
+     */
+    omit?: GradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradeInclude<ExtArgs> | null
+    where?: GradeWhereInput
+  }
+
+  /**
+   * Enseignant.enseignantModules
+   */
+  export type Enseignant$enseignantModulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    where?: EnseignantModuleWhereInput
+    orderBy?: EnseignantModuleOrderByWithRelationInput | EnseignantModuleOrderByWithRelationInput[]
+    cursor?: EnseignantModuleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EnseignantModuleScalarFieldEnum | EnseignantModuleScalarFieldEnum[]
+  }
+
+  /**
+   * Enseignant without action
+   */
+  export type EnseignantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EnseignantModule
+   */
+
+  export type AggregateEnseignantModule = {
+    _count: EnseignantModuleCountAggregateOutputType | null
+    _min: EnseignantModuleMinAggregateOutputType | null
+    _max: EnseignantModuleMaxAggregateOutputType | null
+  }
+
+  export type EnseignantModuleMinAggregateOutputType = {
+    enseignantId: string | null
+    moduleId: string | null
+  }
+
+  export type EnseignantModuleMaxAggregateOutputType = {
+    enseignantId: string | null
+    moduleId: string | null
+  }
+
+  export type EnseignantModuleCountAggregateOutputType = {
+    enseignantId: number
+    moduleId: number
+    _all: number
+  }
+
+
+  export type EnseignantModuleMinAggregateInputType = {
+    enseignantId?: true
+    moduleId?: true
+  }
+
+  export type EnseignantModuleMaxAggregateInputType = {
+    enseignantId?: true
+    moduleId?: true
+  }
+
+  export type EnseignantModuleCountAggregateInputType = {
+    enseignantId?: true
+    moduleId?: true
+    _all?: true
+  }
+
+  export type EnseignantModuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EnseignantModule to aggregate.
+     */
+    where?: EnseignantModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EnseignantModules to fetch.
+     */
+    orderBy?: EnseignantModuleOrderByWithRelationInput | EnseignantModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EnseignantModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EnseignantModules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EnseignantModules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EnseignantModules
+    **/
+    _count?: true | EnseignantModuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EnseignantModuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EnseignantModuleMaxAggregateInputType
+  }
+
+  export type GetEnseignantModuleAggregateType<T extends EnseignantModuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateEnseignantModule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEnseignantModule[P]>
+      : GetScalarType<T[P], AggregateEnseignantModule[P]>
+  }
+
+
+
+
+  export type EnseignantModuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EnseignantModuleWhereInput
+    orderBy?: EnseignantModuleOrderByWithAggregationInput | EnseignantModuleOrderByWithAggregationInput[]
+    by: EnseignantModuleScalarFieldEnum[] | EnseignantModuleScalarFieldEnum
+    having?: EnseignantModuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EnseignantModuleCountAggregateInputType | true
+    _min?: EnseignantModuleMinAggregateInputType
+    _max?: EnseignantModuleMaxAggregateInputType
+  }
+
+  export type EnseignantModuleGroupByOutputType = {
+    enseignantId: string
+    moduleId: string
+    _count: EnseignantModuleCountAggregateOutputType | null
+    _min: EnseignantModuleMinAggregateOutputType | null
+    _max: EnseignantModuleMaxAggregateOutputType | null
+  }
+
+  type GetEnseignantModuleGroupByPayload<T extends EnseignantModuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EnseignantModuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EnseignantModuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EnseignantModuleGroupByOutputType[P]>
+            : GetScalarType<T[P], EnseignantModuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EnseignantModuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    enseignantId?: boolean
+    moduleId?: boolean
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["enseignantModule"]>
+
+  export type EnseignantModuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    enseignantId?: boolean
+    moduleId?: boolean
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["enseignantModule"]>
+
+  export type EnseignantModuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    enseignantId?: boolean
+    moduleId?: boolean
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["enseignantModule"]>
+
+  export type EnseignantModuleSelectScalar = {
+    enseignantId?: boolean
+    moduleId?: boolean
+  }
+
+  export type EnseignantModuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"enseignantId" | "moduleId", ExtArgs["result"]["enseignantModule"]>
+  export type EnseignantModuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }
+  export type EnseignantModuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }
+  export type EnseignantModuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }
+
+  export type $EnseignantModulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EnseignantModule"
+    objects: {
+      enseignant: Prisma.$EnseignantPayload<ExtArgs>
+      module: Prisma.$ModulePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      enseignantId: string
+      moduleId: string
+    }, ExtArgs["result"]["enseignantModule"]>
+    composites: {}
+  }
+
+  type EnseignantModuleGetPayload<S extends boolean | null | undefined | EnseignantModuleDefaultArgs> = $Result.GetResult<Prisma.$EnseignantModulePayload, S>
+
+  type EnseignantModuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EnseignantModuleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EnseignantModuleCountAggregateInputType | true
+    }
+
+  export interface EnseignantModuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EnseignantModule'], meta: { name: 'EnseignantModule' } }
+    /**
+     * Find zero or one EnseignantModule that matches the filter.
+     * @param {EnseignantModuleFindUniqueArgs} args - Arguments to find a EnseignantModule
+     * @example
+     * // Get one EnseignantModule
+     * const enseignantModule = await prisma.enseignantModule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EnseignantModuleFindUniqueArgs>(args: SelectSubset<T, EnseignantModuleFindUniqueArgs<ExtArgs>>): Prisma__EnseignantModuleClient<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EnseignantModule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EnseignantModuleFindUniqueOrThrowArgs} args - Arguments to find a EnseignantModule
+     * @example
+     * // Get one EnseignantModule
+     * const enseignantModule = await prisma.enseignantModule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EnseignantModuleFindUniqueOrThrowArgs>(args: SelectSubset<T, EnseignantModuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EnseignantModuleClient<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EnseignantModule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantModuleFindFirstArgs} args - Arguments to find a EnseignantModule
+     * @example
+     * // Get one EnseignantModule
+     * const enseignantModule = await prisma.enseignantModule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EnseignantModuleFindFirstArgs>(args?: SelectSubset<T, EnseignantModuleFindFirstArgs<ExtArgs>>): Prisma__EnseignantModuleClient<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EnseignantModule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantModuleFindFirstOrThrowArgs} args - Arguments to find a EnseignantModule
+     * @example
+     * // Get one EnseignantModule
+     * const enseignantModule = await prisma.enseignantModule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EnseignantModuleFindFirstOrThrowArgs>(args?: SelectSubset<T, EnseignantModuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__EnseignantModuleClient<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EnseignantModules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantModuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EnseignantModules
+     * const enseignantModules = await prisma.enseignantModule.findMany()
+     * 
+     * // Get first 10 EnseignantModules
+     * const enseignantModules = await prisma.enseignantModule.findMany({ take: 10 })
+     * 
+     * // Only select the `enseignantId`
+     * const enseignantModuleWithEnseignantIdOnly = await prisma.enseignantModule.findMany({ select: { enseignantId: true } })
+     * 
+     */
+    findMany<T extends EnseignantModuleFindManyArgs>(args?: SelectSubset<T, EnseignantModuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EnseignantModule.
+     * @param {EnseignantModuleCreateArgs} args - Arguments to create a EnseignantModule.
+     * @example
+     * // Create one EnseignantModule
+     * const EnseignantModule = await prisma.enseignantModule.create({
+     *   data: {
+     *     // ... data to create a EnseignantModule
+     *   }
+     * })
+     * 
+     */
+    create<T extends EnseignantModuleCreateArgs>(args: SelectSubset<T, EnseignantModuleCreateArgs<ExtArgs>>): Prisma__EnseignantModuleClient<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EnseignantModules.
+     * @param {EnseignantModuleCreateManyArgs} args - Arguments to create many EnseignantModules.
+     * @example
+     * // Create many EnseignantModules
+     * const enseignantModule = await prisma.enseignantModule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EnseignantModuleCreateManyArgs>(args?: SelectSubset<T, EnseignantModuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EnseignantModules and returns the data saved in the database.
+     * @param {EnseignantModuleCreateManyAndReturnArgs} args - Arguments to create many EnseignantModules.
+     * @example
+     * // Create many EnseignantModules
+     * const enseignantModule = await prisma.enseignantModule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EnseignantModules and only return the `enseignantId`
+     * const enseignantModuleWithEnseignantIdOnly = await prisma.enseignantModule.createManyAndReturn({
+     *   select: { enseignantId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EnseignantModuleCreateManyAndReturnArgs>(args?: SelectSubset<T, EnseignantModuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EnseignantModule.
+     * @param {EnseignantModuleDeleteArgs} args - Arguments to delete one EnseignantModule.
+     * @example
+     * // Delete one EnseignantModule
+     * const EnseignantModule = await prisma.enseignantModule.delete({
+     *   where: {
+     *     // ... filter to delete one EnseignantModule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EnseignantModuleDeleteArgs>(args: SelectSubset<T, EnseignantModuleDeleteArgs<ExtArgs>>): Prisma__EnseignantModuleClient<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EnseignantModule.
+     * @param {EnseignantModuleUpdateArgs} args - Arguments to update one EnseignantModule.
+     * @example
+     * // Update one EnseignantModule
+     * const enseignantModule = await prisma.enseignantModule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EnseignantModuleUpdateArgs>(args: SelectSubset<T, EnseignantModuleUpdateArgs<ExtArgs>>): Prisma__EnseignantModuleClient<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EnseignantModules.
+     * @param {EnseignantModuleDeleteManyArgs} args - Arguments to filter EnseignantModules to delete.
+     * @example
+     * // Delete a few EnseignantModules
+     * const { count } = await prisma.enseignantModule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EnseignantModuleDeleteManyArgs>(args?: SelectSubset<T, EnseignantModuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EnseignantModules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantModuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EnseignantModules
+     * const enseignantModule = await prisma.enseignantModule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EnseignantModuleUpdateManyArgs>(args: SelectSubset<T, EnseignantModuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EnseignantModules and returns the data updated in the database.
+     * @param {EnseignantModuleUpdateManyAndReturnArgs} args - Arguments to update many EnseignantModules.
+     * @example
+     * // Update many EnseignantModules
+     * const enseignantModule = await prisma.enseignantModule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EnseignantModules and only return the `enseignantId`
+     * const enseignantModuleWithEnseignantIdOnly = await prisma.enseignantModule.updateManyAndReturn({
+     *   select: { enseignantId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EnseignantModuleUpdateManyAndReturnArgs>(args: SelectSubset<T, EnseignantModuleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EnseignantModule.
+     * @param {EnseignantModuleUpsertArgs} args - Arguments to update or create a EnseignantModule.
+     * @example
+     * // Update or create a EnseignantModule
+     * const enseignantModule = await prisma.enseignantModule.upsert({
+     *   create: {
+     *     // ... data to create a EnseignantModule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EnseignantModule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EnseignantModuleUpsertArgs>(args: SelectSubset<T, EnseignantModuleUpsertArgs<ExtArgs>>): Prisma__EnseignantModuleClient<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EnseignantModules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantModuleCountArgs} args - Arguments to filter EnseignantModules to count.
+     * @example
+     * // Count the number of EnseignantModules
+     * const count = await prisma.enseignantModule.count({
+     *   where: {
+     *     // ... the filter for the EnseignantModules we want to count
+     *   }
+     * })
+    **/
+    count<T extends EnseignantModuleCountArgs>(
+      args?: Subset<T, EnseignantModuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EnseignantModuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EnseignantModule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantModuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EnseignantModuleAggregateArgs>(args: Subset<T, EnseignantModuleAggregateArgs>): Prisma.PrismaPromise<GetEnseignantModuleAggregateType<T>>
+
+    /**
+     * Group by EnseignantModule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EnseignantModuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EnseignantModuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EnseignantModuleGroupByArgs['orderBy'] }
+        : { orderBy?: EnseignantModuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EnseignantModuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEnseignantModuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EnseignantModule model
+   */
+  readonly fields: EnseignantModuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EnseignantModule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EnseignantModuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    enseignant<T extends EnseignantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EnseignantDefaultArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    module<T extends ModuleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ModuleDefaultArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EnseignantModule model
+   */
+  interface EnseignantModuleFieldRefs {
+    readonly enseignantId: FieldRef<"EnseignantModule", 'String'>
+    readonly moduleId: FieldRef<"EnseignantModule", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EnseignantModule findUnique
+   */
+  export type EnseignantModuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which EnseignantModule to fetch.
+     */
+    where: EnseignantModuleWhereUniqueInput
+  }
+
+  /**
+   * EnseignantModule findUniqueOrThrow
+   */
+  export type EnseignantModuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which EnseignantModule to fetch.
+     */
+    where: EnseignantModuleWhereUniqueInput
+  }
+
+  /**
+   * EnseignantModule findFirst
+   */
+  export type EnseignantModuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which EnseignantModule to fetch.
+     */
+    where?: EnseignantModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EnseignantModules to fetch.
+     */
+    orderBy?: EnseignantModuleOrderByWithRelationInput | EnseignantModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EnseignantModules.
+     */
+    cursor?: EnseignantModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EnseignantModules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EnseignantModules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EnseignantModules.
+     */
+    distinct?: EnseignantModuleScalarFieldEnum | EnseignantModuleScalarFieldEnum[]
+  }
+
+  /**
+   * EnseignantModule findFirstOrThrow
+   */
+  export type EnseignantModuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which EnseignantModule to fetch.
+     */
+    where?: EnseignantModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EnseignantModules to fetch.
+     */
+    orderBy?: EnseignantModuleOrderByWithRelationInput | EnseignantModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EnseignantModules.
+     */
+    cursor?: EnseignantModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EnseignantModules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EnseignantModules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EnseignantModules.
+     */
+    distinct?: EnseignantModuleScalarFieldEnum | EnseignantModuleScalarFieldEnum[]
+  }
+
+  /**
+   * EnseignantModule findMany
+   */
+  export type EnseignantModuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which EnseignantModules to fetch.
+     */
+    where?: EnseignantModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EnseignantModules to fetch.
+     */
+    orderBy?: EnseignantModuleOrderByWithRelationInput | EnseignantModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EnseignantModules.
+     */
+    cursor?: EnseignantModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EnseignantModules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EnseignantModules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EnseignantModules.
+     */
+    distinct?: EnseignantModuleScalarFieldEnum | EnseignantModuleScalarFieldEnum[]
+  }
+
+  /**
+   * EnseignantModule create
+   */
+  export type EnseignantModuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EnseignantModule.
+     */
+    data: XOR<EnseignantModuleCreateInput, EnseignantModuleUncheckedCreateInput>
+  }
+
+  /**
+   * EnseignantModule createMany
+   */
+  export type EnseignantModuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EnseignantModules.
+     */
+    data: EnseignantModuleCreateManyInput | EnseignantModuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EnseignantModule createManyAndReturn
+   */
+  export type EnseignantModuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * The data used to create many EnseignantModules.
+     */
+    data: EnseignantModuleCreateManyInput | EnseignantModuleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EnseignantModule update
+   */
+  export type EnseignantModuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EnseignantModule.
+     */
+    data: XOR<EnseignantModuleUpdateInput, EnseignantModuleUncheckedUpdateInput>
+    /**
+     * Choose, which EnseignantModule to update.
+     */
+    where: EnseignantModuleWhereUniqueInput
+  }
+
+  /**
+   * EnseignantModule updateMany
+   */
+  export type EnseignantModuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EnseignantModules.
+     */
+    data: XOR<EnseignantModuleUpdateManyMutationInput, EnseignantModuleUncheckedUpdateManyInput>
+    /**
+     * Filter which EnseignantModules to update
+     */
+    where?: EnseignantModuleWhereInput
+    /**
+     * Limit how many EnseignantModules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EnseignantModule updateManyAndReturn
+   */
+  export type EnseignantModuleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * The data used to update EnseignantModules.
+     */
+    data: XOR<EnseignantModuleUpdateManyMutationInput, EnseignantModuleUncheckedUpdateManyInput>
+    /**
+     * Filter which EnseignantModules to update
+     */
+    where?: EnseignantModuleWhereInput
+    /**
+     * Limit how many EnseignantModules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EnseignantModule upsert
+   */
+  export type EnseignantModuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EnseignantModule to update in case it exists.
+     */
+    where: EnseignantModuleWhereUniqueInput
+    /**
+     * In case the EnseignantModule found by the `where` argument doesn't exist, create a new EnseignantModule with this data.
+     */
+    create: XOR<EnseignantModuleCreateInput, EnseignantModuleUncheckedCreateInput>
+    /**
+     * In case the EnseignantModule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EnseignantModuleUpdateInput, EnseignantModuleUncheckedUpdateInput>
+  }
+
+  /**
+   * EnseignantModule delete
+   */
+  export type EnseignantModuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+    /**
+     * Filter which EnseignantModule to delete.
+     */
+    where: EnseignantModuleWhereUniqueInput
+  }
+
+  /**
+   * EnseignantModule deleteMany
+   */
+  export type EnseignantModuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EnseignantModules to delete
+     */
+    where?: EnseignantModuleWhereInput
+    /**
+     * Limit how many EnseignantModules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EnseignantModule without action
+   */
+  export type EnseignantModuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EnseignantModule
+     */
+    select?: EnseignantModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EnseignantModule
+     */
+    omit?: EnseignantModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantModuleInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -37841,6 +40477,32 @@ export namespace Prisma {
   };
 
   export type ActivityTagScalarFieldEnum = (typeof ActivityTagScalarFieldEnum)[keyof typeof ActivityTagScalarFieldEnum]
+
+
+  export const EnseignantScalarFieldEnum: {
+    id: 'id',
+    matricule: 'matricule',
+    nom: 'nom',
+    prenom: 'prenom',
+    email: 'email',
+    telephone: 'telephone',
+    isActive: 'isActive',
+    anneeId: 'anneeId',
+    departementId: 'departementId',
+    gradeId: 'gradeId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EnseignantScalarFieldEnum = (typeof EnseignantScalarFieldEnum)[keyof typeof EnseignantScalarFieldEnum]
+
+
+  export const EnseignantModuleScalarFieldEnum: {
+    enseignantId: 'enseignantId',
+    moduleId: 'moduleId'
+  };
+
+  export type EnseignantModuleScalarFieldEnum = (typeof EnseignantModuleScalarFieldEnum)[keyof typeof EnseignantModuleScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -39609,6 +42271,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Annee"> | Date | string
     semestres?: SemestreListRelationFilter
     departements?: DepartementListRelationFilter
+    enseignants?: EnseignantListRelationFilter
   }
 
   export type AnneeOrderByWithRelationInput = {
@@ -39621,6 +42284,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     semestres?: SemestreOrderByRelationAggregateInput
     departements?: DepartementOrderByRelationAggregateInput
+    enseignants?: EnseignantOrderByRelationAggregateInput
   }
 
   export type AnneeWhereUniqueInput = Prisma.AtLeast<{
@@ -39636,6 +42300,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Annee"> | Date | string
     semestres?: SemestreListRelationFilter
     departements?: DepartementListRelationFilter
+    enseignants?: EnseignantListRelationFilter
   }, "id" | "code" | "numero">
 
   export type AnneeOrderByWithAggregationInput = {
@@ -39745,6 +42410,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Departement"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     formations?: FormationListRelationFilter
+    enseignants?: EnseignantListRelationFilter
   }
 
   export type DepartementOrderByWithRelationInput = {
@@ -39757,6 +42423,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     annee?: AnneeOrderByWithRelationInput
     formations?: FormationOrderByRelationAggregateInput
+    enseignants?: EnseignantOrderByRelationAggregateInput
   }
 
   export type DepartementWhereUniqueInput = Prisma.AtLeast<{
@@ -39773,6 +42440,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Departement"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     formations?: FormationListRelationFilter
+    enseignants?: EnseignantListRelationFilter
   }, "id" | "anneeId_code">
 
   export type DepartementOrderByWithAggregationInput = {
@@ -40112,6 +42780,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Grade"> | Date | string
     updatedAt?: DateTimeFilter<"Grade"> | Date | string
     modules?: ModuleListRelationFilter
+    enseignants?: EnseignantListRelationFilter
   }
 
   export type GradeOrderByWithRelationInput = {
@@ -40121,6 +42790,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     modules?: ModuleOrderByRelationAggregateInput
+    enseignants?: EnseignantOrderByRelationAggregateInput
   }
 
   export type GradeWhereUniqueInput = Prisma.AtLeast<{
@@ -40133,6 +42803,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Grade"> | Date | string
     updatedAt?: DateTimeFilter<"Grade"> | Date | string
     modules?: ModuleListRelationFilter
+    enseignants?: EnseignantListRelationFilter
   }, "id" | "code">
 
   export type GradeOrderByWithAggregationInput = {
@@ -40176,6 +42847,7 @@ export namespace Prisma {
     niveau?: XOR<NiveauScalarRelationFilter, NiveauWhereInput>
     type?: XOR<TypeEnseignementScalarRelationFilter, TypeEnseignementWhereInput>
     grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
+    enseignantModules?: EnseignantModuleListRelationFilter
   }
 
   export type ModuleOrderByWithRelationInput = {
@@ -40194,6 +42866,7 @@ export namespace Prisma {
     niveau?: NiveauOrderByWithRelationInput
     type?: TypeEnseignementOrderByWithRelationInput
     grade?: GradeOrderByWithRelationInput
+    enseignantModules?: EnseignantModuleOrderByRelationAggregateInput
   }
 
   export type ModuleWhereUniqueInput = Prisma.AtLeast<{
@@ -40216,6 +42889,7 @@ export namespace Prisma {
     niveau?: XOR<NiveauScalarRelationFilter, NiveauWhereInput>
     type?: XOR<TypeEnseignementScalarRelationFilter, TypeEnseignementWhereInput>
     grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
+    enseignantModules?: EnseignantModuleListRelationFilter
   }, "id" | "niveauId_code_semestreNumero">
 
   export type ModuleOrderByWithAggregationInput = {
@@ -40314,6 +42988,150 @@ export namespace Prisma {
     isActive?: BoolWithAggregatesFilter<"ActivityTag"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"ActivityTag"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ActivityTag"> | Date | string
+  }
+
+  export type EnseignantWhereInput = {
+    AND?: EnseignantWhereInput | EnseignantWhereInput[]
+    OR?: EnseignantWhereInput[]
+    NOT?: EnseignantWhereInput | EnseignantWhereInput[]
+    id?: UuidFilter<"Enseignant"> | string
+    matricule?: StringFilter<"Enseignant"> | string
+    nom?: StringFilter<"Enseignant"> | string
+    prenom?: StringFilter<"Enseignant"> | string
+    email?: StringFilter<"Enseignant"> | string
+    telephone?: StringNullableFilter<"Enseignant"> | string | null
+    isActive?: BoolFilter<"Enseignant"> | boolean
+    anneeId?: UuidFilter<"Enseignant"> | string
+    departementId?: UuidFilter<"Enseignant"> | string
+    gradeId?: UuidNullableFilter<"Enseignant"> | string | null
+    createdAt?: DateTimeFilter<"Enseignant"> | Date | string
+    updatedAt?: DateTimeFilter<"Enseignant"> | Date | string
+    annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
+    departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
+    grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
+    enseignantModules?: EnseignantModuleListRelationFilter
+  }
+
+  export type EnseignantOrderByWithRelationInput = {
+    id?: SortOrder
+    matricule?: SortOrder
+    nom?: SortOrder
+    prenom?: SortOrder
+    email?: SortOrder
+    telephone?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    anneeId?: SortOrder
+    departementId?: SortOrder
+    gradeId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    annee?: AnneeOrderByWithRelationInput
+    departement?: DepartementOrderByWithRelationInput
+    grade?: GradeOrderByWithRelationInput
+    enseignantModules?: EnseignantModuleOrderByRelationAggregateInput
+  }
+
+  export type EnseignantWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email?: string
+    anneeId_matricule?: EnseignantAnneeIdMatriculeCompoundUniqueInput
+    AND?: EnseignantWhereInput | EnseignantWhereInput[]
+    OR?: EnseignantWhereInput[]
+    NOT?: EnseignantWhereInput | EnseignantWhereInput[]
+    matricule?: StringFilter<"Enseignant"> | string
+    nom?: StringFilter<"Enseignant"> | string
+    prenom?: StringFilter<"Enseignant"> | string
+    telephone?: StringNullableFilter<"Enseignant"> | string | null
+    isActive?: BoolFilter<"Enseignant"> | boolean
+    anneeId?: UuidFilter<"Enseignant"> | string
+    departementId?: UuidFilter<"Enseignant"> | string
+    gradeId?: UuidNullableFilter<"Enseignant"> | string | null
+    createdAt?: DateTimeFilter<"Enseignant"> | Date | string
+    updatedAt?: DateTimeFilter<"Enseignant"> | Date | string
+    annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
+    departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
+    grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
+    enseignantModules?: EnseignantModuleListRelationFilter
+  }, "id" | "email" | "anneeId_matricule">
+
+  export type EnseignantOrderByWithAggregationInput = {
+    id?: SortOrder
+    matricule?: SortOrder
+    nom?: SortOrder
+    prenom?: SortOrder
+    email?: SortOrder
+    telephone?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    anneeId?: SortOrder
+    departementId?: SortOrder
+    gradeId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EnseignantCountOrderByAggregateInput
+    _max?: EnseignantMaxOrderByAggregateInput
+    _min?: EnseignantMinOrderByAggregateInput
+  }
+
+  export type EnseignantScalarWhereWithAggregatesInput = {
+    AND?: EnseignantScalarWhereWithAggregatesInput | EnseignantScalarWhereWithAggregatesInput[]
+    OR?: EnseignantScalarWhereWithAggregatesInput[]
+    NOT?: EnseignantScalarWhereWithAggregatesInput | EnseignantScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Enseignant"> | string
+    matricule?: StringWithAggregatesFilter<"Enseignant"> | string
+    nom?: StringWithAggregatesFilter<"Enseignant"> | string
+    prenom?: StringWithAggregatesFilter<"Enseignant"> | string
+    email?: StringWithAggregatesFilter<"Enseignant"> | string
+    telephone?: StringNullableWithAggregatesFilter<"Enseignant"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Enseignant"> | boolean
+    anneeId?: UuidWithAggregatesFilter<"Enseignant"> | string
+    departementId?: UuidWithAggregatesFilter<"Enseignant"> | string
+    gradeId?: UuidNullableWithAggregatesFilter<"Enseignant"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Enseignant"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Enseignant"> | Date | string
+  }
+
+  export type EnseignantModuleWhereInput = {
+    AND?: EnseignantModuleWhereInput | EnseignantModuleWhereInput[]
+    OR?: EnseignantModuleWhereInput[]
+    NOT?: EnseignantModuleWhereInput | EnseignantModuleWhereInput[]
+    enseignantId?: UuidFilter<"EnseignantModule"> | string
+    moduleId?: UuidFilter<"EnseignantModule"> | string
+    enseignant?: XOR<EnseignantScalarRelationFilter, EnseignantWhereInput>
+    module?: XOR<ModuleScalarRelationFilter, ModuleWhereInput>
+  }
+
+  export type EnseignantModuleOrderByWithRelationInput = {
+    enseignantId?: SortOrder
+    moduleId?: SortOrder
+    enseignant?: EnseignantOrderByWithRelationInput
+    module?: ModuleOrderByWithRelationInput
+  }
+
+  export type EnseignantModuleWhereUniqueInput = Prisma.AtLeast<{
+    enseignantId_moduleId?: EnseignantModuleEnseignantIdModuleIdCompoundUniqueInput
+    AND?: EnseignantModuleWhereInput | EnseignantModuleWhereInput[]
+    OR?: EnseignantModuleWhereInput[]
+    NOT?: EnseignantModuleWhereInput | EnseignantModuleWhereInput[]
+    enseignantId?: UuidFilter<"EnseignantModule"> | string
+    moduleId?: UuidFilter<"EnseignantModule"> | string
+    enseignant?: XOR<EnseignantScalarRelationFilter, EnseignantWhereInput>
+    module?: XOR<ModuleScalarRelationFilter, ModuleWhereInput>
+  }, "enseignantId_moduleId">
+
+  export type EnseignantModuleOrderByWithAggregationInput = {
+    enseignantId?: SortOrder
+    moduleId?: SortOrder
+    _count?: EnseignantModuleCountOrderByAggregateInput
+    _max?: EnseignantModuleMaxOrderByAggregateInput
+    _min?: EnseignantModuleMinOrderByAggregateInput
+  }
+
+  export type EnseignantModuleScalarWhereWithAggregatesInput = {
+    AND?: EnseignantModuleScalarWhereWithAggregatesInput | EnseignantModuleScalarWhereWithAggregatesInput[]
+    OR?: EnseignantModuleScalarWhereWithAggregatesInput[]
+    NOT?: EnseignantModuleScalarWhereWithAggregatesInput | EnseignantModuleScalarWhereWithAggregatesInput[]
+    enseignantId?: UuidWithAggregatesFilter<"EnseignantModule"> | string
+    moduleId?: UuidWithAggregatesFilter<"EnseignantModule"> | string
   }
 
   export type UserCreateInput = {
@@ -41877,6 +44695,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestres?: SemestreCreateNestedManyWithoutAnneeInput
     departements?: DepartementCreateNestedManyWithoutAnneeInput
+    enseignants?: EnseignantCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateInput = {
@@ -41889,6 +44708,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
     departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUpdateInput = {
@@ -41901,6 +44721,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUpdateManyWithoutAnneeNestedInput
     departements?: DepartementUpdateManyWithoutAnneeNestedInput
+    enseignants?: EnseignantUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateInput = {
@@ -41913,6 +44734,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
     departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeCreateManyInput = {
@@ -42020,6 +44842,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutDepartementsInput
     formations?: FormationCreateNestedManyWithoutDepartementInput
+    enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateInput = {
@@ -42031,6 +44854,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUpdateInput = {
@@ -42042,6 +44866,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
     formations?: FormationUpdateManyWithoutDepartementNestedInput
+    enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateInput = {
@@ -42053,6 +44878,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementCreateManyInput = {
@@ -42406,6 +45232,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     modules?: ModuleCreateNestedManyWithoutGradeInput
+    enseignants?: EnseignantCreateNestedManyWithoutGradeInput
   }
 
   export type GradeUncheckedCreateInput = {
@@ -42415,6 +45242,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     modules?: ModuleUncheckedCreateNestedManyWithoutGradeInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutGradeInput
   }
 
   export type GradeUpdateInput = {
@@ -42424,6 +45252,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUpdateManyWithoutGradeNestedInput
+    enseignants?: EnseignantUpdateManyWithoutGradeNestedInput
   }
 
   export type GradeUncheckedUpdateInput = {
@@ -42433,6 +45262,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUncheckedUpdateManyWithoutGradeNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutGradeNestedInput
   }
 
   export type GradeCreateManyInput = {
@@ -42472,6 +45302,7 @@ export namespace Prisma {
     niveau: NiveauCreateNestedOneWithoutModulesInput
     type: TypeEnseignementCreateNestedOneWithoutModulesInput
     grade?: GradeCreateNestedOneWithoutModulesInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateInput = {
@@ -42487,6 +45318,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUpdateInput = {
@@ -42502,6 +45334,7 @@ export namespace Prisma {
     niveau?: NiveauUpdateOneRequiredWithoutModulesNestedInput
     type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
     grade?: GradeUpdateOneWithoutModulesNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateInput = {
@@ -42517,6 +45350,7 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleCreateManyInput = {
@@ -42626,6 +45460,146 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantCreateInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutEnseignantsInput
+    departement: DepartementCreateNestedOneWithoutEnseignantsInput
+    grade?: GradeCreateNestedOneWithoutEnseignantsInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUncheckedCreateInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
+    grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantCreateManyInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EnseignantUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantModuleCreateInput = {
+    enseignant: EnseignantCreateNestedOneWithoutEnseignantModulesInput
+    module: ModuleCreateNestedOneWithoutEnseignantModulesInput
+  }
+
+  export type EnseignantModuleUncheckedCreateInput = {
+    enseignantId: string
+    moduleId: string
+  }
+
+  export type EnseignantModuleUpdateInput = {
+    enseignant?: EnseignantUpdateOneRequiredWithoutEnseignantModulesNestedInput
+    module?: ModuleUpdateOneRequiredWithoutEnseignantModulesNestedInput
+  }
+
+  export type EnseignantModuleUncheckedUpdateInput = {
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    moduleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EnseignantModuleCreateManyInput = {
+    enseignantId: string
+    moduleId: string
+  }
+
+  export type EnseignantModuleUpdateManyMutationInput = {
+
+  }
+
+  export type EnseignantModuleUncheckedUpdateManyInput = {
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    moduleId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -44042,11 +47016,21 @@ export namespace Prisma {
     none?: DepartementWhereInput
   }
 
+  export type EnseignantListRelationFilter = {
+    every?: EnseignantWhereInput
+    some?: EnseignantWhereInput
+    none?: EnseignantWhereInput
+  }
+
   export type SemestreOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type DepartementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EnseignantOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -44490,6 +47474,16 @@ export namespace Prisma {
     isNot?: GradeWhereInput | null
   }
 
+  export type EnseignantModuleListRelationFilter = {
+    every?: EnseignantModuleWhereInput
+    some?: EnseignantModuleWhereInput
+    none?: EnseignantModuleWhereInput
+  }
+
+  export type EnseignantModuleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ModuleNiveauIdCodeSemestreNumeroCompoundUniqueInput = {
     niveauId: string
     code: string
@@ -44588,6 +47582,86 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnseignantAnneeIdMatriculeCompoundUniqueInput = {
+    anneeId: string
+    matricule: string
+  }
+
+  export type EnseignantCountOrderByAggregateInput = {
+    id?: SortOrder
+    matricule?: SortOrder
+    nom?: SortOrder
+    prenom?: SortOrder
+    email?: SortOrder
+    telephone?: SortOrder
+    isActive?: SortOrder
+    anneeId?: SortOrder
+    departementId?: SortOrder
+    gradeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnseignantMaxOrderByAggregateInput = {
+    id?: SortOrder
+    matricule?: SortOrder
+    nom?: SortOrder
+    prenom?: SortOrder
+    email?: SortOrder
+    telephone?: SortOrder
+    isActive?: SortOrder
+    anneeId?: SortOrder
+    departementId?: SortOrder
+    gradeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnseignantMinOrderByAggregateInput = {
+    id?: SortOrder
+    matricule?: SortOrder
+    nom?: SortOrder
+    prenom?: SortOrder
+    email?: SortOrder
+    telephone?: SortOrder
+    isActive?: SortOrder
+    anneeId?: SortOrder
+    departementId?: SortOrder
+    gradeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnseignantScalarRelationFilter = {
+    is?: EnseignantWhereInput
+    isNot?: EnseignantWhereInput
+  }
+
+  export type ModuleScalarRelationFilter = {
+    is?: ModuleWhereInput
+    isNot?: ModuleWhereInput
+  }
+
+  export type EnseignantModuleEnseignantIdModuleIdCompoundUniqueInput = {
+    enseignantId: string
+    moduleId: string
+  }
+
+  export type EnseignantModuleCountOrderByAggregateInput = {
+    enseignantId?: SortOrder
+    moduleId?: SortOrder
+  }
+
+  export type EnseignantModuleMaxOrderByAggregateInput = {
+    enseignantId?: SortOrder
+    moduleId?: SortOrder
+  }
+
+  export type EnseignantModuleMinOrderByAggregateInput = {
+    enseignantId?: SortOrder
+    moduleId?: SortOrder
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -45931,6 +49005,13 @@ export namespace Prisma {
     connect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
   }
 
+  export type EnseignantCreateNestedManyWithoutAnneeInput = {
+    create?: XOR<EnseignantCreateWithoutAnneeInput, EnseignantUncheckedCreateWithoutAnneeInput> | EnseignantCreateWithoutAnneeInput[] | EnseignantUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutAnneeInput | EnseignantCreateOrConnectWithoutAnneeInput[]
+    createMany?: EnseignantCreateManyAnneeInputEnvelope
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+  }
+
   export type SemestreUncheckedCreateNestedManyWithoutAnneeInput = {
     create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
     connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
@@ -45943,6 +49024,13 @@ export namespace Prisma {
     connectOrCreate?: DepartementCreateOrConnectWithoutAnneeInput | DepartementCreateOrConnectWithoutAnneeInput[]
     createMany?: DepartementCreateManyAnneeInputEnvelope
     connect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
+  }
+
+  export type EnseignantUncheckedCreateNestedManyWithoutAnneeInput = {
+    create?: XOR<EnseignantCreateWithoutAnneeInput, EnseignantUncheckedCreateWithoutAnneeInput> | EnseignantCreateWithoutAnneeInput[] | EnseignantUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutAnneeInput | EnseignantCreateOrConnectWithoutAnneeInput[]
+    createMany?: EnseignantCreateManyAnneeInputEnvelope
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
   }
 
   export type EnumAnneeStatutFieldUpdateOperationsInput = {
@@ -45977,6 +49065,20 @@ export namespace Prisma {
     deleteMany?: DepartementScalarWhereInput | DepartementScalarWhereInput[]
   }
 
+  export type EnseignantUpdateManyWithoutAnneeNestedInput = {
+    create?: XOR<EnseignantCreateWithoutAnneeInput, EnseignantUncheckedCreateWithoutAnneeInput> | EnseignantCreateWithoutAnneeInput[] | EnseignantUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutAnneeInput | EnseignantCreateOrConnectWithoutAnneeInput[]
+    upsert?: EnseignantUpsertWithWhereUniqueWithoutAnneeInput | EnseignantUpsertWithWhereUniqueWithoutAnneeInput[]
+    createMany?: EnseignantCreateManyAnneeInputEnvelope
+    set?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    disconnect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    delete?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    update?: EnseignantUpdateWithWhereUniqueWithoutAnneeInput | EnseignantUpdateWithWhereUniqueWithoutAnneeInput[]
+    updateMany?: EnseignantUpdateManyWithWhereWithoutAnneeInput | EnseignantUpdateManyWithWhereWithoutAnneeInput[]
+    deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
+  }
+
   export type SemestreUncheckedUpdateManyWithoutAnneeNestedInput = {
     create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
     connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
@@ -46003,6 +49105,20 @@ export namespace Prisma {
     update?: DepartementUpdateWithWhereUniqueWithoutAnneeInput | DepartementUpdateWithWhereUniqueWithoutAnneeInput[]
     updateMany?: DepartementUpdateManyWithWhereWithoutAnneeInput | DepartementUpdateManyWithWhereWithoutAnneeInput[]
     deleteMany?: DepartementScalarWhereInput | DepartementScalarWhereInput[]
+  }
+
+  export type EnseignantUncheckedUpdateManyWithoutAnneeNestedInput = {
+    create?: XOR<EnseignantCreateWithoutAnneeInput, EnseignantUncheckedCreateWithoutAnneeInput> | EnseignantCreateWithoutAnneeInput[] | EnseignantUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutAnneeInput | EnseignantCreateOrConnectWithoutAnneeInput[]
+    upsert?: EnseignantUpsertWithWhereUniqueWithoutAnneeInput | EnseignantUpsertWithWhereUniqueWithoutAnneeInput[]
+    createMany?: EnseignantCreateManyAnneeInputEnvelope
+    set?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    disconnect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    delete?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    update?: EnseignantUpdateWithWhereUniqueWithoutAnneeInput | EnseignantUpdateWithWhereUniqueWithoutAnneeInput[]
+    updateMany?: EnseignantUpdateManyWithWhereWithoutAnneeInput | EnseignantUpdateManyWithWhereWithoutAnneeInput[]
+    deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
   }
 
   export type AnneeCreateNestedOneWithoutSemestresInput = {
@@ -46074,11 +49190,25 @@ export namespace Prisma {
     connect?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
   }
 
+  export type EnseignantCreateNestedManyWithoutDepartementInput = {
+    create?: XOR<EnseignantCreateWithoutDepartementInput, EnseignantUncheckedCreateWithoutDepartementInput> | EnseignantCreateWithoutDepartementInput[] | EnseignantUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutDepartementInput | EnseignantCreateOrConnectWithoutDepartementInput[]
+    createMany?: EnseignantCreateManyDepartementInputEnvelope
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+  }
+
   export type FormationUncheckedCreateNestedManyWithoutDepartementInput = {
     create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
     connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
     createMany?: FormationCreateManyDepartementInputEnvelope
     connect?: FormationWhereUniqueInput | FormationWhereUniqueInput[]
+  }
+
+  export type EnseignantUncheckedCreateNestedManyWithoutDepartementInput = {
+    create?: XOR<EnseignantCreateWithoutDepartementInput, EnseignantUncheckedCreateWithoutDepartementInput> | EnseignantCreateWithoutDepartementInput[] | EnseignantUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutDepartementInput | EnseignantCreateOrConnectWithoutDepartementInput[]
+    createMany?: EnseignantCreateManyDepartementInputEnvelope
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutDepartementsNestedInput = {
@@ -46103,6 +49233,20 @@ export namespace Prisma {
     deleteMany?: FormationScalarWhereInput | FormationScalarWhereInput[]
   }
 
+  export type EnseignantUpdateManyWithoutDepartementNestedInput = {
+    create?: XOR<EnseignantCreateWithoutDepartementInput, EnseignantUncheckedCreateWithoutDepartementInput> | EnseignantCreateWithoutDepartementInput[] | EnseignantUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutDepartementInput | EnseignantCreateOrConnectWithoutDepartementInput[]
+    upsert?: EnseignantUpsertWithWhereUniqueWithoutDepartementInput | EnseignantUpsertWithWhereUniqueWithoutDepartementInput[]
+    createMany?: EnseignantCreateManyDepartementInputEnvelope
+    set?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    disconnect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    delete?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    update?: EnseignantUpdateWithWhereUniqueWithoutDepartementInput | EnseignantUpdateWithWhereUniqueWithoutDepartementInput[]
+    updateMany?: EnseignantUpdateManyWithWhereWithoutDepartementInput | EnseignantUpdateManyWithWhereWithoutDepartementInput[]
+    deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
+  }
+
   export type FormationUncheckedUpdateManyWithoutDepartementNestedInput = {
     create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
     connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
@@ -46115,6 +49259,20 @@ export namespace Prisma {
     update?: FormationUpdateWithWhereUniqueWithoutDepartementInput | FormationUpdateWithWhereUniqueWithoutDepartementInput[]
     updateMany?: FormationUpdateManyWithWhereWithoutDepartementInput | FormationUpdateManyWithWhereWithoutDepartementInput[]
     deleteMany?: FormationScalarWhereInput | FormationScalarWhereInput[]
+  }
+
+  export type EnseignantUncheckedUpdateManyWithoutDepartementNestedInput = {
+    create?: XOR<EnseignantCreateWithoutDepartementInput, EnseignantUncheckedCreateWithoutDepartementInput> | EnseignantCreateWithoutDepartementInput[] | EnseignantUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutDepartementInput | EnseignantCreateOrConnectWithoutDepartementInput[]
+    upsert?: EnseignantUpsertWithWhereUniqueWithoutDepartementInput | EnseignantUpsertWithWhereUniqueWithoutDepartementInput[]
+    createMany?: EnseignantCreateManyDepartementInputEnvelope
+    set?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    disconnect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    delete?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    update?: EnseignantUpdateWithWhereUniqueWithoutDepartementInput | EnseignantUpdateWithWhereUniqueWithoutDepartementInput[]
+    updateMany?: EnseignantUpdateManyWithWhereWithoutDepartementInput | EnseignantUpdateManyWithWhereWithoutDepartementInput[]
+    deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
   }
 
   export type DepartementCreateNestedOneWithoutFormationsInput = {
@@ -46430,11 +49588,25 @@ export namespace Prisma {
     connect?: ModuleWhereUniqueInput | ModuleWhereUniqueInput[]
   }
 
+  export type EnseignantCreateNestedManyWithoutGradeInput = {
+    create?: XOR<EnseignantCreateWithoutGradeInput, EnseignantUncheckedCreateWithoutGradeInput> | EnseignantCreateWithoutGradeInput[] | EnseignantUncheckedCreateWithoutGradeInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutGradeInput | EnseignantCreateOrConnectWithoutGradeInput[]
+    createMany?: EnseignantCreateManyGradeInputEnvelope
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+  }
+
   export type ModuleUncheckedCreateNestedManyWithoutGradeInput = {
     create?: XOR<ModuleCreateWithoutGradeInput, ModuleUncheckedCreateWithoutGradeInput> | ModuleCreateWithoutGradeInput[] | ModuleUncheckedCreateWithoutGradeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutGradeInput | ModuleCreateOrConnectWithoutGradeInput[]
     createMany?: ModuleCreateManyGradeInputEnvelope
     connect?: ModuleWhereUniqueInput | ModuleWhereUniqueInput[]
+  }
+
+  export type EnseignantUncheckedCreateNestedManyWithoutGradeInput = {
+    create?: XOR<EnseignantCreateWithoutGradeInput, EnseignantUncheckedCreateWithoutGradeInput> | EnseignantCreateWithoutGradeInput[] | EnseignantUncheckedCreateWithoutGradeInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutGradeInput | EnseignantCreateOrConnectWithoutGradeInput[]
+    createMany?: EnseignantCreateManyGradeInputEnvelope
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
   }
 
   export type EnumGradeCodeFieldUpdateOperationsInput = {
@@ -46455,6 +49627,20 @@ export namespace Prisma {
     deleteMany?: ModuleScalarWhereInput | ModuleScalarWhereInput[]
   }
 
+  export type EnseignantUpdateManyWithoutGradeNestedInput = {
+    create?: XOR<EnseignantCreateWithoutGradeInput, EnseignantUncheckedCreateWithoutGradeInput> | EnseignantCreateWithoutGradeInput[] | EnseignantUncheckedCreateWithoutGradeInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutGradeInput | EnseignantCreateOrConnectWithoutGradeInput[]
+    upsert?: EnseignantUpsertWithWhereUniqueWithoutGradeInput | EnseignantUpsertWithWhereUniqueWithoutGradeInput[]
+    createMany?: EnseignantCreateManyGradeInputEnvelope
+    set?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    disconnect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    delete?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    update?: EnseignantUpdateWithWhereUniqueWithoutGradeInput | EnseignantUpdateWithWhereUniqueWithoutGradeInput[]
+    updateMany?: EnseignantUpdateManyWithWhereWithoutGradeInput | EnseignantUpdateManyWithWhereWithoutGradeInput[]
+    deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
+  }
+
   export type ModuleUncheckedUpdateManyWithoutGradeNestedInput = {
     create?: XOR<ModuleCreateWithoutGradeInput, ModuleUncheckedCreateWithoutGradeInput> | ModuleCreateWithoutGradeInput[] | ModuleUncheckedCreateWithoutGradeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutGradeInput | ModuleCreateOrConnectWithoutGradeInput[]
@@ -46467,6 +49653,20 @@ export namespace Prisma {
     update?: ModuleUpdateWithWhereUniqueWithoutGradeInput | ModuleUpdateWithWhereUniqueWithoutGradeInput[]
     updateMany?: ModuleUpdateManyWithWhereWithoutGradeInput | ModuleUpdateManyWithWhereWithoutGradeInput[]
     deleteMany?: ModuleScalarWhereInput | ModuleScalarWhereInput[]
+  }
+
+  export type EnseignantUncheckedUpdateManyWithoutGradeNestedInput = {
+    create?: XOR<EnseignantCreateWithoutGradeInput, EnseignantUncheckedCreateWithoutGradeInput> | EnseignantCreateWithoutGradeInput[] | EnseignantUncheckedCreateWithoutGradeInput[]
+    connectOrCreate?: EnseignantCreateOrConnectWithoutGradeInput | EnseignantCreateOrConnectWithoutGradeInput[]
+    upsert?: EnseignantUpsertWithWhereUniqueWithoutGradeInput | EnseignantUpsertWithWhereUniqueWithoutGradeInput[]
+    createMany?: EnseignantCreateManyGradeInputEnvelope
+    set?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    disconnect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    delete?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+    update?: EnseignantUpdateWithWhereUniqueWithoutGradeInput | EnseignantUpdateWithWhereUniqueWithoutGradeInput[]
+    updateMany?: EnseignantUpdateManyWithWhereWithoutGradeInput | EnseignantUpdateManyWithWhereWithoutGradeInput[]
+    deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
   }
 
   export type NiveauCreateNestedOneWithoutModulesInput = {
@@ -46485,6 +49685,20 @@ export namespace Prisma {
     create?: XOR<GradeCreateWithoutModulesInput, GradeUncheckedCreateWithoutModulesInput>
     connectOrCreate?: GradeCreateOrConnectWithoutModulesInput
     connect?: GradeWhereUniqueInput
+  }
+
+  export type EnseignantModuleCreateNestedManyWithoutModuleInput = {
+    create?: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput> | EnseignantModuleCreateWithoutModuleInput[] | EnseignantModuleUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: EnseignantModuleCreateOrConnectWithoutModuleInput | EnseignantModuleCreateOrConnectWithoutModuleInput[]
+    createMany?: EnseignantModuleCreateManyModuleInputEnvelope
+    connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+  }
+
+  export type EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput = {
+    create?: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput> | EnseignantModuleCreateWithoutModuleInput[] | EnseignantModuleUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: EnseignantModuleCreateOrConnectWithoutModuleInput | EnseignantModuleCreateOrConnectWithoutModuleInput[]
+    createMany?: EnseignantModuleCreateManyModuleInputEnvelope
+    connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
   }
 
   export type NiveauUpdateOneRequiredWithoutModulesNestedInput = {
@@ -46511,6 +49725,34 @@ export namespace Prisma {
     delete?: GradeWhereInput | boolean
     connect?: GradeWhereUniqueInput
     update?: XOR<XOR<GradeUpdateToOneWithWhereWithoutModulesInput, GradeUpdateWithoutModulesInput>, GradeUncheckedUpdateWithoutModulesInput>
+  }
+
+  export type EnseignantModuleUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput> | EnseignantModuleCreateWithoutModuleInput[] | EnseignantModuleUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: EnseignantModuleCreateOrConnectWithoutModuleInput | EnseignantModuleCreateOrConnectWithoutModuleInput[]
+    upsert?: EnseignantModuleUpsertWithWhereUniqueWithoutModuleInput | EnseignantModuleUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: EnseignantModuleCreateManyModuleInputEnvelope
+    set?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    disconnect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    delete?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    update?: EnseignantModuleUpdateWithWhereUniqueWithoutModuleInput | EnseignantModuleUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: EnseignantModuleUpdateManyWithWhereWithoutModuleInput | EnseignantModuleUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: EnseignantModuleScalarWhereInput | EnseignantModuleScalarWhereInput[]
+  }
+
+  export type EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput> | EnseignantModuleCreateWithoutModuleInput[] | EnseignantModuleUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: EnseignantModuleCreateOrConnectWithoutModuleInput | EnseignantModuleCreateOrConnectWithoutModuleInput[]
+    upsert?: EnseignantModuleUpsertWithWhereUniqueWithoutModuleInput | EnseignantModuleUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: EnseignantModuleCreateManyModuleInputEnvelope
+    set?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    disconnect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    delete?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    update?: EnseignantModuleUpdateWithWhereUniqueWithoutModuleInput | EnseignantModuleUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: EnseignantModuleUpdateManyWithWhereWithoutModuleInput | EnseignantModuleUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: EnseignantModuleScalarWhereInput | EnseignantModuleScalarWhereInput[]
   }
 
   export type TypeEnseignementCreateNestedManyWithoutActivityTagInput = {
@@ -46553,6 +49795,120 @@ export namespace Prisma {
     update?: TypeEnseignementUpdateWithWhereUniqueWithoutActivityTagInput | TypeEnseignementUpdateWithWhereUniqueWithoutActivityTagInput[]
     updateMany?: TypeEnseignementUpdateManyWithWhereWithoutActivityTagInput | TypeEnseignementUpdateManyWithWhereWithoutActivityTagInput[]
     deleteMany?: TypeEnseignementScalarWhereInput | TypeEnseignementScalarWhereInput[]
+  }
+
+  export type AnneeCreateNestedOneWithoutEnseignantsInput = {
+    create?: XOR<AnneeCreateWithoutEnseignantsInput, AnneeUncheckedCreateWithoutEnseignantsInput>
+    connectOrCreate?: AnneeCreateOrConnectWithoutEnseignantsInput
+    connect?: AnneeWhereUniqueInput
+  }
+
+  export type DepartementCreateNestedOneWithoutEnseignantsInput = {
+    create?: XOR<DepartementCreateWithoutEnseignantsInput, DepartementUncheckedCreateWithoutEnseignantsInput>
+    connectOrCreate?: DepartementCreateOrConnectWithoutEnseignantsInput
+    connect?: DepartementWhereUniqueInput
+  }
+
+  export type GradeCreateNestedOneWithoutEnseignantsInput = {
+    create?: XOR<GradeCreateWithoutEnseignantsInput, GradeUncheckedCreateWithoutEnseignantsInput>
+    connectOrCreate?: GradeCreateOrConnectWithoutEnseignantsInput
+    connect?: GradeWhereUniqueInput
+  }
+
+  export type EnseignantModuleCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
+    createMany?: EnseignantModuleCreateManyEnseignantInputEnvelope
+    connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+  }
+
+  export type EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
+    createMany?: EnseignantModuleCreateManyEnseignantInputEnvelope
+    connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+  }
+
+  export type AnneeUpdateOneRequiredWithoutEnseignantsNestedInput = {
+    create?: XOR<AnneeCreateWithoutEnseignantsInput, AnneeUncheckedCreateWithoutEnseignantsInput>
+    connectOrCreate?: AnneeCreateOrConnectWithoutEnseignantsInput
+    upsert?: AnneeUpsertWithoutEnseignantsInput
+    connect?: AnneeWhereUniqueInput
+    update?: XOR<XOR<AnneeUpdateToOneWithWhereWithoutEnseignantsInput, AnneeUpdateWithoutEnseignantsInput>, AnneeUncheckedUpdateWithoutEnseignantsInput>
+  }
+
+  export type DepartementUpdateOneRequiredWithoutEnseignantsNestedInput = {
+    create?: XOR<DepartementCreateWithoutEnseignantsInput, DepartementUncheckedCreateWithoutEnseignantsInput>
+    connectOrCreate?: DepartementCreateOrConnectWithoutEnseignantsInput
+    upsert?: DepartementUpsertWithoutEnseignantsInput
+    connect?: DepartementWhereUniqueInput
+    update?: XOR<XOR<DepartementUpdateToOneWithWhereWithoutEnseignantsInput, DepartementUpdateWithoutEnseignantsInput>, DepartementUncheckedUpdateWithoutEnseignantsInput>
+  }
+
+  export type GradeUpdateOneWithoutEnseignantsNestedInput = {
+    create?: XOR<GradeCreateWithoutEnseignantsInput, GradeUncheckedCreateWithoutEnseignantsInput>
+    connectOrCreate?: GradeCreateOrConnectWithoutEnseignantsInput
+    upsert?: GradeUpsertWithoutEnseignantsInput
+    disconnect?: GradeWhereInput | boolean
+    delete?: GradeWhereInput | boolean
+    connect?: GradeWhereUniqueInput
+    update?: XOR<XOR<GradeUpdateToOneWithWhereWithoutEnseignantsInput, GradeUpdateWithoutEnseignantsInput>, GradeUncheckedUpdateWithoutEnseignantsInput>
+  }
+
+  export type EnseignantModuleUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
+    upsert?: EnseignantModuleUpsertWithWhereUniqueWithoutEnseignantInput | EnseignantModuleUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: EnseignantModuleCreateManyEnseignantInputEnvelope
+    set?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    disconnect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    delete?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    update?: EnseignantModuleUpdateWithWhereUniqueWithoutEnseignantInput | EnseignantModuleUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: EnseignantModuleUpdateManyWithWhereWithoutEnseignantInput | EnseignantModuleUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: EnseignantModuleScalarWhereInput | EnseignantModuleScalarWhereInput[]
+  }
+
+  export type EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
+    upsert?: EnseignantModuleUpsertWithWhereUniqueWithoutEnseignantInput | EnseignantModuleUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: EnseignantModuleCreateManyEnseignantInputEnvelope
+    set?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    disconnect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    delete?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    connect?: EnseignantModuleWhereUniqueInput | EnseignantModuleWhereUniqueInput[]
+    update?: EnseignantModuleUpdateWithWhereUniqueWithoutEnseignantInput | EnseignantModuleUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: EnseignantModuleUpdateManyWithWhereWithoutEnseignantInput | EnseignantModuleUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: EnseignantModuleScalarWhereInput | EnseignantModuleScalarWhereInput[]
+  }
+
+  export type EnseignantCreateNestedOneWithoutEnseignantModulesInput = {
+    create?: XOR<EnseignantCreateWithoutEnseignantModulesInput, EnseignantUncheckedCreateWithoutEnseignantModulesInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutEnseignantModulesInput
+    connect?: EnseignantWhereUniqueInput
+  }
+
+  export type ModuleCreateNestedOneWithoutEnseignantModulesInput = {
+    create?: XOR<ModuleCreateWithoutEnseignantModulesInput, ModuleUncheckedCreateWithoutEnseignantModulesInput>
+    connectOrCreate?: ModuleCreateOrConnectWithoutEnseignantModulesInput
+    connect?: ModuleWhereUniqueInput
+  }
+
+  export type EnseignantUpdateOneRequiredWithoutEnseignantModulesNestedInput = {
+    create?: XOR<EnseignantCreateWithoutEnseignantModulesInput, EnseignantUncheckedCreateWithoutEnseignantModulesInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutEnseignantModulesInput
+    upsert?: EnseignantUpsertWithoutEnseignantModulesInput
+    connect?: EnseignantWhereUniqueInput
+    update?: XOR<XOR<EnseignantUpdateToOneWithWhereWithoutEnseignantModulesInput, EnseignantUpdateWithoutEnseignantModulesInput>, EnseignantUncheckedUpdateWithoutEnseignantModulesInput>
+  }
+
+  export type ModuleUpdateOneRequiredWithoutEnseignantModulesNestedInput = {
+    create?: XOR<ModuleCreateWithoutEnseignantModulesInput, ModuleUncheckedCreateWithoutEnseignantModulesInput>
+    connectOrCreate?: ModuleCreateOrConnectWithoutEnseignantModulesInput
+    upsert?: ModuleUpsertWithoutEnseignantModulesInput
+    connect?: ModuleWhereUniqueInput
+    update?: XOR<XOR<ModuleUpdateToOneWithWhereWithoutEnseignantModulesInput, ModuleUpdateWithoutEnseignantModulesInput>, ModuleUncheckedUpdateWithoutEnseignantModulesInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -50742,6 +54098,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     formations?: FormationCreateNestedManyWithoutDepartementInput
+    enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutAnneeInput = {
@@ -50752,6 +54109,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutAnneeInput = {
@@ -50761,6 +54119,46 @@ export namespace Prisma {
 
   export type DepartementCreateManyAnneeInputEnvelope = {
     data: DepartementCreateManyAnneeInput | DepartementCreateManyAnneeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EnseignantCreateWithoutAnneeInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement: DepartementCreateNestedOneWithoutEnseignantsInput
+    grade?: GradeCreateNestedOneWithoutEnseignantsInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUncheckedCreateWithoutAnneeInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    departementId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantCreateOrConnectWithoutAnneeInput = {
+    where: EnseignantWhereUniqueInput
+    create: XOR<EnseignantCreateWithoutAnneeInput, EnseignantUncheckedCreateWithoutAnneeInput>
+  }
+
+  export type EnseignantCreateManyAnneeInputEnvelope = {
+    data: EnseignantCreateManyAnneeInput | EnseignantCreateManyAnneeInput[]
     skipDuplicates?: boolean
   }
 
@@ -50821,6 +54219,40 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Departement"> | Date | string
   }
 
+  export type EnseignantUpsertWithWhereUniqueWithoutAnneeInput = {
+    where: EnseignantWhereUniqueInput
+    update: XOR<EnseignantUpdateWithoutAnneeInput, EnseignantUncheckedUpdateWithoutAnneeInput>
+    create: XOR<EnseignantCreateWithoutAnneeInput, EnseignantUncheckedCreateWithoutAnneeInput>
+  }
+
+  export type EnseignantUpdateWithWhereUniqueWithoutAnneeInput = {
+    where: EnseignantWhereUniqueInput
+    data: XOR<EnseignantUpdateWithoutAnneeInput, EnseignantUncheckedUpdateWithoutAnneeInput>
+  }
+
+  export type EnseignantUpdateManyWithWhereWithoutAnneeInput = {
+    where: EnseignantScalarWhereInput
+    data: XOR<EnseignantUpdateManyMutationInput, EnseignantUncheckedUpdateManyWithoutAnneeInput>
+  }
+
+  export type EnseignantScalarWhereInput = {
+    AND?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
+    OR?: EnseignantScalarWhereInput[]
+    NOT?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
+    id?: UuidFilter<"Enseignant"> | string
+    matricule?: StringFilter<"Enseignant"> | string
+    nom?: StringFilter<"Enseignant"> | string
+    prenom?: StringFilter<"Enseignant"> | string
+    email?: StringFilter<"Enseignant"> | string
+    telephone?: StringNullableFilter<"Enseignant"> | string | null
+    isActive?: BoolFilter<"Enseignant"> | boolean
+    anneeId?: UuidFilter<"Enseignant"> | string
+    departementId?: UuidFilter<"Enseignant"> | string
+    gradeId?: UuidNullableFilter<"Enseignant"> | string | null
+    createdAt?: DateTimeFilter<"Enseignant"> | Date | string
+    updatedAt?: DateTimeFilter<"Enseignant"> | Date | string
+  }
+
   export type AnneeCreateWithoutSemestresInput = {
     id?: string
     numero: number
@@ -50830,6 +54262,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     departements?: DepartementCreateNestedManyWithoutAnneeInput
+    enseignants?: EnseignantCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateWithoutSemestresInput = {
@@ -50841,6 +54274,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeCreateOrConnectWithoutSemestresInput = {
@@ -50906,6 +54340,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departements?: DepartementUpdateManyWithoutAnneeNestedInput
+    enseignants?: EnseignantUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateWithoutSemestresInput = {
@@ -50917,6 +54352,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutAnneeNestedInput
   }
 
   export type GroupeUpsertWithWhereUniqueWithoutSemestreInput = {
@@ -50961,6 +54397,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     semestres?: SemestreCreateNestedManyWithoutAnneeInput
+    enseignants?: EnseignantCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateWithoutDepartementsInput = {
@@ -50972,6 +54409,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeCreateOrConnectWithoutDepartementsInput = {
@@ -51009,6 +54447,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EnseignantCreateWithoutDepartementInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutEnseignantsInput
+    grade?: GradeCreateNestedOneWithoutEnseignantsInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUncheckedCreateWithoutDepartementInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantCreateOrConnectWithoutDepartementInput = {
+    where: EnseignantWhereUniqueInput
+    create: XOR<EnseignantCreateWithoutDepartementInput, EnseignantUncheckedCreateWithoutDepartementInput>
+  }
+
+  export type EnseignantCreateManyDepartementInputEnvelope = {
+    data: EnseignantCreateManyDepartementInput | EnseignantCreateManyDepartementInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutDepartementsInput = {
     update: XOR<AnneeUpdateWithoutDepartementsInput, AnneeUncheckedUpdateWithoutDepartementsInput>
     create: XOR<AnneeCreateWithoutDepartementsInput, AnneeUncheckedCreateWithoutDepartementsInput>
@@ -51029,6 +54507,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUpdateManyWithoutAnneeNestedInput
+    enseignants?: EnseignantUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateWithoutDepartementsInput = {
@@ -51040,6 +54519,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutAnneeNestedInput
   }
 
   export type FormationUpsertWithWhereUniqueWithoutDepartementInput = {
@@ -51071,6 +54551,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Formation"> | Date | string
   }
 
+  export type EnseignantUpsertWithWhereUniqueWithoutDepartementInput = {
+    where: EnseignantWhereUniqueInput
+    update: XOR<EnseignantUpdateWithoutDepartementInput, EnseignantUncheckedUpdateWithoutDepartementInput>
+    create: XOR<EnseignantCreateWithoutDepartementInput, EnseignantUncheckedCreateWithoutDepartementInput>
+  }
+
+  export type EnseignantUpdateWithWhereUniqueWithoutDepartementInput = {
+    where: EnseignantWhereUniqueInput
+    data: XOR<EnseignantUpdateWithoutDepartementInput, EnseignantUncheckedUpdateWithoutDepartementInput>
+  }
+
+  export type EnseignantUpdateManyWithWhereWithoutDepartementInput = {
+    where: EnseignantScalarWhereInput
+    data: XOR<EnseignantUpdateManyMutationInput, EnseignantUncheckedUpdateManyWithoutDepartementInput>
+  }
+
   export type DepartementCreateWithoutFormationsInput = {
     id?: string
     code: string
@@ -51079,6 +54575,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutDepartementsInput
+    enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutFormationsInput = {
@@ -51089,6 +54586,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutFormationsInput = {
@@ -51147,6 +54645,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
+    enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutFormationsInput = {
@@ -51157,6 +54656,7 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type NiveauUpsertWithWhereUniqueWithoutFormationInput = {
@@ -51263,6 +54763,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     type: TypeEnseignementCreateNestedOneWithoutModulesInput
     grade?: GradeCreateNestedOneWithoutModulesInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutNiveauInput = {
@@ -51277,6 +54778,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutNiveauInput = {
@@ -51643,6 +55145,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     niveau: NiveauCreateNestedOneWithoutModulesInput
     grade?: GradeCreateNestedOneWithoutModulesInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutTypeInput = {
@@ -51657,6 +55160,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutTypeInput = {
@@ -51726,6 +55230,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     niveau: NiveauCreateNestedOneWithoutModulesInput
     type: TypeEnseignementCreateNestedOneWithoutModulesInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutGradeInput = {
@@ -51740,6 +55245,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutGradeInput = {
@@ -51749,6 +55255,46 @@ export namespace Prisma {
 
   export type ModuleCreateManyGradeInputEnvelope = {
     data: ModuleCreateManyGradeInput | ModuleCreateManyGradeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EnseignantCreateWithoutGradeInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutEnseignantsInput
+    departement: DepartementCreateNestedOneWithoutEnseignantsInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUncheckedCreateWithoutGradeInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantCreateOrConnectWithoutGradeInput = {
+    where: EnseignantWhereUniqueInput
+    create: XOR<EnseignantCreateWithoutGradeInput, EnseignantUncheckedCreateWithoutGradeInput>
+  }
+
+  export type EnseignantCreateManyGradeInputEnvelope = {
+    data: EnseignantCreateManyGradeInput | EnseignantCreateManyGradeInput[]
     skipDuplicates?: boolean
   }
 
@@ -51766,6 +55312,22 @@ export namespace Prisma {
   export type ModuleUpdateManyWithWhereWithoutGradeInput = {
     where: ModuleScalarWhereInput
     data: XOR<ModuleUpdateManyMutationInput, ModuleUncheckedUpdateManyWithoutGradeInput>
+  }
+
+  export type EnseignantUpsertWithWhereUniqueWithoutGradeInput = {
+    where: EnseignantWhereUniqueInput
+    update: XOR<EnseignantUpdateWithoutGradeInput, EnseignantUncheckedUpdateWithoutGradeInput>
+    create: XOR<EnseignantCreateWithoutGradeInput, EnseignantUncheckedCreateWithoutGradeInput>
+  }
+
+  export type EnseignantUpdateWithWhereUniqueWithoutGradeInput = {
+    where: EnseignantWhereUniqueInput
+    data: XOR<EnseignantUpdateWithoutGradeInput, EnseignantUncheckedUpdateWithoutGradeInput>
+  }
+
+  export type EnseignantUpdateManyWithWhereWithoutGradeInput = {
+    where: EnseignantScalarWhereInput
+    data: XOR<EnseignantUpdateManyMutationInput, EnseignantUncheckedUpdateManyWithoutGradeInput>
   }
 
   export type NiveauCreateWithoutModulesInput = {
@@ -51824,6 +55386,7 @@ export namespace Prisma {
     libelle: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    enseignants?: EnseignantCreateNestedManyWithoutGradeInput
   }
 
   export type GradeUncheckedCreateWithoutModulesInput = {
@@ -51832,11 +55395,30 @@ export namespace Prisma {
     libelle: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutGradeInput
   }
 
   export type GradeCreateOrConnectWithoutModulesInput = {
     where: GradeWhereUniqueInput
     create: XOR<GradeCreateWithoutModulesInput, GradeUncheckedCreateWithoutModulesInput>
+  }
+
+  export type EnseignantModuleCreateWithoutModuleInput = {
+    enseignant: EnseignantCreateNestedOneWithoutEnseignantModulesInput
+  }
+
+  export type EnseignantModuleUncheckedCreateWithoutModuleInput = {
+    enseignantId: string
+  }
+
+  export type EnseignantModuleCreateOrConnectWithoutModuleInput = {
+    where: EnseignantModuleWhereUniqueInput
+    create: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput>
+  }
+
+  export type EnseignantModuleCreateManyModuleInputEnvelope = {
+    data: EnseignantModuleCreateManyModuleInput | EnseignantModuleCreateManyModuleInput[]
+    skipDuplicates?: boolean
   }
 
   export type NiveauUpsertWithoutModulesInput = {
@@ -51918,6 +55500,7 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignants?: EnseignantUpdateManyWithoutGradeNestedInput
   }
 
   export type GradeUncheckedUpdateWithoutModulesInput = {
@@ -51926,6 +55509,31 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignants?: EnseignantUncheckedUpdateManyWithoutGradeNestedInput
+  }
+
+  export type EnseignantModuleUpsertWithWhereUniqueWithoutModuleInput = {
+    where: EnseignantModuleWhereUniqueInput
+    update: XOR<EnseignantModuleUpdateWithoutModuleInput, EnseignantModuleUncheckedUpdateWithoutModuleInput>
+    create: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput>
+  }
+
+  export type EnseignantModuleUpdateWithWhereUniqueWithoutModuleInput = {
+    where: EnseignantModuleWhereUniqueInput
+    data: XOR<EnseignantModuleUpdateWithoutModuleInput, EnseignantModuleUncheckedUpdateWithoutModuleInput>
+  }
+
+  export type EnseignantModuleUpdateManyWithWhereWithoutModuleInput = {
+    where: EnseignantModuleScalarWhereInput
+    data: XOR<EnseignantModuleUpdateManyMutationInput, EnseignantModuleUncheckedUpdateManyWithoutModuleInput>
+  }
+
+  export type EnseignantModuleScalarWhereInput = {
+    AND?: EnseignantModuleScalarWhereInput | EnseignantModuleScalarWhereInput[]
+    OR?: EnseignantModuleScalarWhereInput[]
+    NOT?: EnseignantModuleScalarWhereInput | EnseignantModuleScalarWhereInput[]
+    enseignantId?: UuidFilter<"EnseignantModule"> | string
+    moduleId?: UuidFilter<"EnseignantModule"> | string
   }
 
   export type TypeEnseignementCreateWithoutActivityTagInput = {
@@ -51982,6 +55590,368 @@ export namespace Prisma {
     activityTagId?: UuidNullableFilter<"TypeEnseignement"> | string | null
     createdAt?: DateTimeFilter<"TypeEnseignement"> | Date | string
     updatedAt?: DateTimeFilter<"TypeEnseignement"> | Date | string
+  }
+
+  export type AnneeCreateWithoutEnseignantsInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    statut?: $Enums.AnneeStatut
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestres?: SemestreCreateNestedManyWithoutAnneeInput
+    departements?: DepartementCreateNestedManyWithoutAnneeInput
+  }
+
+  export type AnneeUncheckedCreateWithoutEnseignantsInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    statut?: $Enums.AnneeStatut
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
+    departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
+  }
+
+  export type AnneeCreateOrConnectWithoutEnseignantsInput = {
+    where: AnneeWhereUniqueInput
+    create: XOR<AnneeCreateWithoutEnseignantsInput, AnneeUncheckedCreateWithoutEnseignantsInput>
+  }
+
+  export type DepartementCreateWithoutEnseignantsInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutDepartementsInput
+    formations?: FormationCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementUncheckedCreateWithoutEnseignantsInput = {
+    id?: string
+    anneeId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementCreateOrConnectWithoutEnseignantsInput = {
+    where: DepartementWhereUniqueInput
+    create: XOR<DepartementCreateWithoutEnseignantsInput, DepartementUncheckedCreateWithoutEnseignantsInput>
+  }
+
+  export type GradeCreateWithoutEnseignantsInput = {
+    id?: string
+    code: $Enums.GradeCode
+    libelle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modules?: ModuleCreateNestedManyWithoutGradeInput
+  }
+
+  export type GradeUncheckedCreateWithoutEnseignantsInput = {
+    id?: string
+    code: $Enums.GradeCode
+    libelle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modules?: ModuleUncheckedCreateNestedManyWithoutGradeInput
+  }
+
+  export type GradeCreateOrConnectWithoutEnseignantsInput = {
+    where: GradeWhereUniqueInput
+    create: XOR<GradeCreateWithoutEnseignantsInput, GradeUncheckedCreateWithoutEnseignantsInput>
+  }
+
+  export type EnseignantModuleCreateWithoutEnseignantInput = {
+    module: ModuleCreateNestedOneWithoutEnseignantModulesInput
+  }
+
+  export type EnseignantModuleUncheckedCreateWithoutEnseignantInput = {
+    moduleId: string
+  }
+
+  export type EnseignantModuleCreateOrConnectWithoutEnseignantInput = {
+    where: EnseignantModuleWhereUniqueInput
+    create: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type EnseignantModuleCreateManyEnseignantInputEnvelope = {
+    data: EnseignantModuleCreateManyEnseignantInput | EnseignantModuleCreateManyEnseignantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AnneeUpsertWithoutEnseignantsInput = {
+    update: XOR<AnneeUpdateWithoutEnseignantsInput, AnneeUncheckedUpdateWithoutEnseignantsInput>
+    create: XOR<AnneeCreateWithoutEnseignantsInput, AnneeUncheckedCreateWithoutEnseignantsInput>
+    where?: AnneeWhereInput
+  }
+
+  export type AnneeUpdateToOneWithWhereWithoutEnseignantsInput = {
+    where?: AnneeWhereInput
+    data: XOR<AnneeUpdateWithoutEnseignantsInput, AnneeUncheckedUpdateWithoutEnseignantsInput>
+  }
+
+  export type AnneeUpdateWithoutEnseignantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestres?: SemestreUpdateManyWithoutAnneeNestedInput
+    departements?: DepartementUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type AnneeUncheckedUpdateWithoutEnseignantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
+    departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type DepartementUpsertWithoutEnseignantsInput = {
+    update: XOR<DepartementUpdateWithoutEnseignantsInput, DepartementUncheckedUpdateWithoutEnseignantsInput>
+    create: XOR<DepartementCreateWithoutEnseignantsInput, DepartementUncheckedCreateWithoutEnseignantsInput>
+    where?: DepartementWhereInput
+  }
+
+  export type DepartementUpdateToOneWithWhereWithoutEnseignantsInput = {
+    where?: DepartementWhereInput
+    data: XOR<DepartementUpdateWithoutEnseignantsInput, DepartementUncheckedUpdateWithoutEnseignantsInput>
+  }
+
+  export type DepartementUpdateWithoutEnseignantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
+    formations?: FormationUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type DepartementUncheckedUpdateWithoutEnseignantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    anneeId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type GradeUpsertWithoutEnseignantsInput = {
+    update: XOR<GradeUpdateWithoutEnseignantsInput, GradeUncheckedUpdateWithoutEnseignantsInput>
+    create: XOR<GradeCreateWithoutEnseignantsInput, GradeUncheckedCreateWithoutEnseignantsInput>
+    where?: GradeWhereInput
+  }
+
+  export type GradeUpdateToOneWithWhereWithoutEnseignantsInput = {
+    where?: GradeWhereInput
+    data: XOR<GradeUpdateWithoutEnseignantsInput, GradeUncheckedUpdateWithoutEnseignantsInput>
+  }
+
+  export type GradeUpdateWithoutEnseignantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: EnumGradeCodeFieldUpdateOperationsInput | $Enums.GradeCode
+    libelle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modules?: ModuleUpdateManyWithoutGradeNestedInput
+  }
+
+  export type GradeUncheckedUpdateWithoutEnseignantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: EnumGradeCodeFieldUpdateOperationsInput | $Enums.GradeCode
+    libelle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modules?: ModuleUncheckedUpdateManyWithoutGradeNestedInput
+  }
+
+  export type EnseignantModuleUpsertWithWhereUniqueWithoutEnseignantInput = {
+    where: EnseignantModuleWhereUniqueInput
+    update: XOR<EnseignantModuleUpdateWithoutEnseignantInput, EnseignantModuleUncheckedUpdateWithoutEnseignantInput>
+    create: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type EnseignantModuleUpdateWithWhereUniqueWithoutEnseignantInput = {
+    where: EnseignantModuleWhereUniqueInput
+    data: XOR<EnseignantModuleUpdateWithoutEnseignantInput, EnseignantModuleUncheckedUpdateWithoutEnseignantInput>
+  }
+
+  export type EnseignantModuleUpdateManyWithWhereWithoutEnseignantInput = {
+    where: EnseignantModuleScalarWhereInput
+    data: XOR<EnseignantModuleUpdateManyMutationInput, EnseignantModuleUncheckedUpdateManyWithoutEnseignantInput>
+  }
+
+  export type EnseignantCreateWithoutEnseignantModulesInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutEnseignantsInput
+    departement: DepartementCreateNestedOneWithoutEnseignantsInput
+    grade?: GradeCreateNestedOneWithoutEnseignantsInput
+  }
+
+  export type EnseignantUncheckedCreateWithoutEnseignantModulesInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EnseignantCreateOrConnectWithoutEnseignantModulesInput = {
+    where: EnseignantWhereUniqueInput
+    create: XOR<EnseignantCreateWithoutEnseignantModulesInput, EnseignantUncheckedCreateWithoutEnseignantModulesInput>
+  }
+
+  export type ModuleCreateWithoutEnseignantModulesInput = {
+    id?: string
+    code: string
+    libelle: string
+    semestreNumero: number
+    credits?: number | null
+    effectifMax?: number | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutModulesInput
+    type: TypeEnseignementCreateNestedOneWithoutModulesInput
+    grade?: GradeCreateNestedOneWithoutModulesInput
+  }
+
+  export type ModuleUncheckedCreateWithoutEnseignantModulesInput = {
+    id?: string
+    niveauId: string
+    typeId: string
+    gradeId?: string | null
+    code: string
+    libelle: string
+    semestreNumero: number
+    credits?: number | null
+    effectifMax?: number | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModuleCreateOrConnectWithoutEnseignantModulesInput = {
+    where: ModuleWhereUniqueInput
+    create: XOR<ModuleCreateWithoutEnseignantModulesInput, ModuleUncheckedCreateWithoutEnseignantModulesInput>
+  }
+
+  export type EnseignantUpsertWithoutEnseignantModulesInput = {
+    update: XOR<EnseignantUpdateWithoutEnseignantModulesInput, EnseignantUncheckedUpdateWithoutEnseignantModulesInput>
+    create: XOR<EnseignantCreateWithoutEnseignantModulesInput, EnseignantUncheckedCreateWithoutEnseignantModulesInput>
+    where?: EnseignantWhereInput
+  }
+
+  export type EnseignantUpdateToOneWithWhereWithoutEnseignantModulesInput = {
+    where?: EnseignantWhereInput
+    data: XOR<EnseignantUpdateWithoutEnseignantModulesInput, EnseignantUncheckedUpdateWithoutEnseignantModulesInput>
+  }
+
+  export type EnseignantUpdateWithoutEnseignantModulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
+    grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateWithoutEnseignantModulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleUpsertWithoutEnseignantModulesInput = {
+    update: XOR<ModuleUpdateWithoutEnseignantModulesInput, ModuleUncheckedUpdateWithoutEnseignantModulesInput>
+    create: XOR<ModuleCreateWithoutEnseignantModulesInput, ModuleUncheckedCreateWithoutEnseignantModulesInput>
+    where?: ModuleWhereInput
+  }
+
+  export type ModuleUpdateToOneWithWhereWithoutEnseignantModulesInput = {
+    where?: ModuleWhereInput
+    data: XOR<ModuleUpdateWithoutEnseignantModulesInput, ModuleUncheckedUpdateWithoutEnseignantModulesInput>
+  }
+
+  export type ModuleUpdateWithoutEnseignantModulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    semestreNumero?: IntFieldUpdateOperationsInput | number
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    effectifMax?: NullableIntFieldUpdateOperationsInput | number | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutModulesNestedInput
+    type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
+    grade?: GradeUpdateOneWithoutModulesNestedInput
+  }
+
+  export type ModuleUncheckedUpdateWithoutEnseignantModulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    typeId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    semestreNumero?: IntFieldUpdateOperationsInput | number
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    effectifMax?: NullableIntFieldUpdateOperationsInput | number | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -53031,6 +57001,20 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type EnseignantCreateManyAnneeInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    departementId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SemestreUpdateWithoutAnneeInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
@@ -53065,6 +57049,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUpdateManyWithoutDepartementNestedInput
+    enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutAnneeInput = {
@@ -53075,6 +57060,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateManyWithoutAnneeInput = {
@@ -53082,6 +57068,50 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
     originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantUpdateWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
+    grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateManyWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -53149,6 +57179,20 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type EnseignantCreateManyDepartementInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type FormationUpdateWithoutDepartementInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -53174,6 +57218,50 @@ export namespace Prisma {
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
     originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantUpdateWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
+    grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateManyWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -53298,6 +57386,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
     grade?: GradeUpdateOneWithoutModulesNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutNiveauInput = {
@@ -53312,6 +57401,7 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutNiveauInput = {
@@ -53408,6 +57498,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     niveau?: NiveauUpdateOneRequiredWithoutModulesNestedInput
     grade?: GradeUpdateOneWithoutModulesNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutTypeInput = {
@@ -53422,6 +57513,7 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutTypeInput = {
@@ -53452,6 +57544,20 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type EnseignantCreateManyGradeInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ModuleUpdateWithoutGradeInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -53464,6 +57570,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     niveau?: NiveauUpdateOneRequiredWithoutModulesNestedInput
     type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutGradeInput = {
@@ -53478,6 +57585,7 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutGradeInput = {
@@ -53492,6 +57600,66 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantUpdateWithoutGradeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateWithoutGradeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateManyWithoutGradeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantModuleCreateManyModuleInput = {
+    enseignantId: string
+  }
+
+  export type EnseignantModuleUpdateWithoutModuleInput = {
+    enseignant?: EnseignantUpdateOneRequiredWithoutEnseignantModulesNestedInput
+  }
+
+  export type EnseignantModuleUncheckedUpdateWithoutModuleInput = {
+    enseignantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EnseignantModuleUncheckedUpdateManyWithoutModuleInput = {
+    enseignantId?: StringFieldUpdateOperationsInput | string
   }
 
   export type TypeEnseignementCreateManyActivityTagInput = {
@@ -53526,6 +57694,22 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantModuleCreateManyEnseignantInput = {
+    moduleId: string
+  }
+
+  export type EnseignantModuleUpdateWithoutEnseignantInput = {
+    module?: ModuleUpdateOneRequiredWithoutEnseignantModulesNestedInput
+  }
+
+  export type EnseignantModuleUncheckedUpdateWithoutEnseignantInput = {
+    moduleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EnseignantModuleUncheckedUpdateManyWithoutEnseignantInput = {
+    moduleId?: StringFieldUpdateOperationsInput | string
   }
 
 
