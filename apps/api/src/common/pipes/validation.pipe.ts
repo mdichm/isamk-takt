@@ -17,7 +17,7 @@ export class ValidationPipe implements PipeTransform<any> {
     const errors = await validate(object, { whitelist: true, forbidNonWhitelisted: true });
     if (errors.length > 0) {
       const validationErrors: ValidationErrorItem[] = errors.flatMap((err) =>
-        Object.entries(err.constraints || {}).map(([code, message]) => ({
+        Object.entries(err.constraints || {}).map(([_code, message]) => ({
           field: err.property,
           message,
         }))

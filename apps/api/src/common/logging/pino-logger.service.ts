@@ -95,22 +95,22 @@ export class PinoLoggerService implements LoggerService {
     };
   }
 
-  log(message: string, ...optionalParams: unknown[]): void {
+  log(message: string, ..._optionalParams: unknown[]): void {
     this.logger.info(this.enrich(message));
   }
 
-  error(message: string, trace?: string, ...optionalParams: unknown[]): void {
+  error(message: string, trace?: string, ..._optionalParams: unknown[]): void {
     this.logger.error({
       ...this.enrich(message),
       ...(trace ? { stack: trace } : {}),
     });
   }
 
-  warn(message: string, ...optionalParams: unknown[]): void {
+  warn(message: string, ..._optionalParams: unknown[]): void {
     this.logger.warn(this.enrich(message));
   }
 
-  debug(message: string, ...optionalParams: unknown[]): void {
+  debug(message: string, ..._optionalParams: unknown[]): void {
     this.logger.debug(this.enrich(message));
   }
 
