@@ -28,7 +28,7 @@ export class AuditService {
         userId: data.userId ?? null,
         action: data.action,
         objetType: data.objetType,
-        objetId: data.objetId,
+        objetId: data.objetId ?? '',
         ancienneValeur: (data.ancienneValeur as
           | Prisma.InputJsonValue
           | Prisma.NullableJsonNullValueInput) ?? Prisma.JsonNull,

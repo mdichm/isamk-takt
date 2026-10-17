@@ -332,6 +332,25 @@ exports.Prisma.AuditLogScalarFieldEnum = {
   ip: 'ip'
 };
 
+exports.Prisma.AnneeScalarFieldEnum = {
+  id: 'id',
+  numero: 'numero',
+  code: 'code',
+  nbSemaines: 'nbSemaines',
+  actif: 'actif',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SemestreScalarFieldEnum = {
+  id: 'id',
+  numero: 'numero',
+  anneeId: 'anneeId',
+  nbSemaines: 'nbSemaines',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -442,7 +461,9 @@ exports.Prisma.ModelName = {
   ParametreSecurite: 'ParametreSecurite',
   ParametreWorkflow: 'ParametreWorkflow',
   SecurityEvent: 'SecurityEvent',
-  AuditLog: 'AuditLog'
+  AuditLog: 'AuditLog',
+  Annee: 'Annee',
+  Semestre: 'Semestre'
 };
 
 /**

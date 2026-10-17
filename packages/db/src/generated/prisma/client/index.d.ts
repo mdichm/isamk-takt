@@ -108,6 +108,16 @@ export type SecurityEvent = $Result.DefaultSelection<Prisma.$SecurityEventPayloa
  * 
  */
 export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
+/**
+ * Model Annee
+ * 
+ */
+export type Annee = $Result.DefaultSelection<Prisma.$AnneePayload>
+/**
+ * Model Semestre
+ * 
+ */
+export type Semestre = $Result.DefaultSelection<Prisma.$SemestrePayload>
 
 /**
  * Enums
@@ -542,6 +552,26 @@ export class PrismaClient<
     * ```
     */
   get auditLog(): Prisma.AuditLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.annee`: Exposes CRUD operations for the **Annee** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Annees
+    * const annees = await prisma.annee.findMany()
+    * ```
+    */
+  get annee(): Prisma.AnneeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.semestre`: Exposes CRUD operations for the **Semestre** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Semestres
+    * const semestres = await prisma.semestre.findMany()
+    * ```
+    */
+  get semestre(): Prisma.SemestreDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1007,7 +1037,9 @@ export namespace Prisma {
     ParametreSecurite: 'ParametreSecurite',
     ParametreWorkflow: 'ParametreWorkflow',
     SecurityEvent: 'SecurityEvent',
-    AuditLog: 'AuditLog'
+    AuditLog: 'AuditLog',
+    Annee: 'Annee',
+    Semestre: 'Semestre'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1023,7 +1055,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2433,6 +2465,154 @@ export namespace Prisma {
           }
         }
       }
+      Annee: {
+        payload: Prisma.$AnneePayload<ExtArgs>
+        fields: Prisma.AnneeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AnneeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AnneeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>
+          }
+          findFirst: {
+            args: Prisma.AnneeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AnneeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>
+          }
+          findMany: {
+            args: Prisma.AnneeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>[]
+          }
+          create: {
+            args: Prisma.AnneeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>
+          }
+          createMany: {
+            args: Prisma.AnneeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AnneeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>[]
+          }
+          delete: {
+            args: Prisma.AnneeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>
+          }
+          update: {
+            args: Prisma.AnneeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>
+          }
+          deleteMany: {
+            args: Prisma.AnneeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AnneeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AnneeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>[]
+          }
+          upsert: {
+            args: Prisma.AnneeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnneePayload>
+          }
+          aggregate: {
+            args: Prisma.AnneeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAnnee>
+          }
+          groupBy: {
+            args: Prisma.AnneeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AnneeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AnneeCountArgs<ExtArgs>
+            result: $Utils.Optional<AnneeCountAggregateOutputType> | number
+          }
+        }
+      }
+      Semestre: {
+        payload: Prisma.$SemestrePayload<ExtArgs>
+        fields: Prisma.SemestreFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SemestreFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SemestreFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>
+          }
+          findFirst: {
+            args: Prisma.SemestreFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SemestreFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>
+          }
+          findMany: {
+            args: Prisma.SemestreFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>[]
+          }
+          create: {
+            args: Prisma.SemestreCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>
+          }
+          createMany: {
+            args: Prisma.SemestreCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SemestreCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>[]
+          }
+          delete: {
+            args: Prisma.SemestreDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>
+          }
+          update: {
+            args: Prisma.SemestreUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>
+          }
+          deleteMany: {
+            args: Prisma.SemestreDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SemestreUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SemestreUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>[]
+          }
+          upsert: {
+            args: Prisma.SemestreUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SemestrePayload>
+          }
+          aggregate: {
+            args: Prisma.SemestreAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSemestre>
+          }
+          groupBy: {
+            args: Prisma.SemestreGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SemestreGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SemestreCountArgs<ExtArgs>
+            result: $Utils.Optional<SemestreCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2575,6 +2755,8 @@ export namespace Prisma {
     parametreWorkflow?: ParametreWorkflowOmit
     securityEvent?: SecurityEventOmit
     auditLog?: AuditLogOmit
+    annee?: AnneeOmit
+    semestre?: SemestreOmit
   }
 
   /* Types for Logging */
@@ -2977,6 +3159,37 @@ export namespace Prisma {
    */
   export type TagCountOutputTypeCountTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TaskTagWhereInput
+  }
+
+
+  /**
+   * Count Type AnneeCountOutputType
+   */
+
+  export type AnneeCountOutputType = {
+    semestres: number
+  }
+
+  export type AnneeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestres?: boolean | AnneeCountOutputTypeCountSemestresArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AnneeCountOutputType without action
+   */
+  export type AnneeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AnneeCountOutputType
+     */
+    select?: AnneeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AnneeCountOutputType without action
+   */
+  export type AnneeCountOutputTypeCountSemestresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SemestreWhereInput
   }
 
 
@@ -24709,6 +24922,2259 @@ export namespace Prisma {
 
 
   /**
+   * Model Annee
+   */
+
+  export type AggregateAnnee = {
+    _count: AnneeCountAggregateOutputType | null
+    _avg: AnneeAvgAggregateOutputType | null
+    _sum: AnneeSumAggregateOutputType | null
+    _min: AnneeMinAggregateOutputType | null
+    _max: AnneeMaxAggregateOutputType | null
+  }
+
+  export type AnneeAvgAggregateOutputType = {
+    numero: number | null
+    nbSemaines: number | null
+  }
+
+  export type AnneeSumAggregateOutputType = {
+    numero: number | null
+    nbSemaines: number | null
+  }
+
+  export type AnneeMinAggregateOutputType = {
+    id: string | null
+    numero: number | null
+    code: string | null
+    nbSemaines: number | null
+    actif: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AnneeMaxAggregateOutputType = {
+    id: string | null
+    numero: number | null
+    code: string | null
+    nbSemaines: number | null
+    actif: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AnneeCountAggregateOutputType = {
+    id: number
+    numero: number
+    code: number
+    nbSemaines: number
+    actif: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AnneeAvgAggregateInputType = {
+    numero?: true
+    nbSemaines?: true
+  }
+
+  export type AnneeSumAggregateInputType = {
+    numero?: true
+    nbSemaines?: true
+  }
+
+  export type AnneeMinAggregateInputType = {
+    id?: true
+    numero?: true
+    code?: true
+    nbSemaines?: true
+    actif?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AnneeMaxAggregateInputType = {
+    id?: true
+    numero?: true
+    code?: true
+    nbSemaines?: true
+    actif?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AnneeCountAggregateInputType = {
+    id?: true
+    numero?: true
+    code?: true
+    nbSemaines?: true
+    actif?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AnneeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Annee to aggregate.
+     */
+    where?: AnneeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Annees to fetch.
+     */
+    orderBy?: AnneeOrderByWithRelationInput | AnneeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AnneeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Annees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Annees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Annees
+    **/
+    _count?: true | AnneeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AnneeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AnneeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AnneeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AnneeMaxAggregateInputType
+  }
+
+  export type GetAnneeAggregateType<T extends AnneeAggregateArgs> = {
+        [P in keyof T & keyof AggregateAnnee]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAnnee[P]>
+      : GetScalarType<T[P], AggregateAnnee[P]>
+  }
+
+
+
+
+  export type AnneeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnneeWhereInput
+    orderBy?: AnneeOrderByWithAggregationInput | AnneeOrderByWithAggregationInput[]
+    by: AnneeScalarFieldEnum[] | AnneeScalarFieldEnum
+    having?: AnneeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AnneeCountAggregateInputType | true
+    _avg?: AnneeAvgAggregateInputType
+    _sum?: AnneeSumAggregateInputType
+    _min?: AnneeMinAggregateInputType
+    _max?: AnneeMaxAggregateInputType
+  }
+
+  export type AnneeGroupByOutputType = {
+    id: string
+    numero: number
+    code: string
+    nbSemaines: number
+    actif: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: AnneeCountAggregateOutputType | null
+    _avg: AnneeAvgAggregateOutputType | null
+    _sum: AnneeSumAggregateOutputType | null
+    _min: AnneeMinAggregateOutputType | null
+    _max: AnneeMaxAggregateOutputType | null
+  }
+
+  type GetAnneeGroupByPayload<T extends AnneeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AnneeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AnneeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AnneeGroupByOutputType[P]>
+            : GetScalarType<T[P], AnneeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AnneeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    code?: boolean
+    nbSemaines?: boolean
+    actif?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestres?: boolean | Annee$semestresArgs<ExtArgs>
+    _count?: boolean | AnneeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["annee"]>
+
+  export type AnneeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    code?: boolean
+    nbSemaines?: boolean
+    actif?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["annee"]>
+
+  export type AnneeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    code?: boolean
+    nbSemaines?: boolean
+    actif?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["annee"]>
+
+  export type AnneeSelectScalar = {
+    id?: boolean
+    numero?: boolean
+    code?: boolean
+    nbSemaines?: boolean
+    actif?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AnneeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "code" | "nbSemaines" | "actif" | "createdAt" | "updatedAt", ExtArgs["result"]["annee"]>
+  export type AnneeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestres?: boolean | Annee$semestresArgs<ExtArgs>
+    _count?: boolean | AnneeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AnneeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type AnneeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $AnneePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Annee"
+    objects: {
+      semestres: Prisma.$SemestrePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      numero: number
+      code: string
+      nbSemaines: number
+      actif: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["annee"]>
+    composites: {}
+  }
+
+  type AnneeGetPayload<S extends boolean | null | undefined | AnneeDefaultArgs> = $Result.GetResult<Prisma.$AnneePayload, S>
+
+  type AnneeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AnneeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AnneeCountAggregateInputType | true
+    }
+
+  export interface AnneeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Annee'], meta: { name: 'Annee' } }
+    /**
+     * Find zero or one Annee that matches the filter.
+     * @param {AnneeFindUniqueArgs} args - Arguments to find a Annee
+     * @example
+     * // Get one Annee
+     * const annee = await prisma.annee.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AnneeFindUniqueArgs>(args: SelectSubset<T, AnneeFindUniqueArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Annee that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AnneeFindUniqueOrThrowArgs} args - Arguments to find a Annee
+     * @example
+     * // Get one Annee
+     * const annee = await prisma.annee.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AnneeFindUniqueOrThrowArgs>(args: SelectSubset<T, AnneeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Annee that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnneeFindFirstArgs} args - Arguments to find a Annee
+     * @example
+     * // Get one Annee
+     * const annee = await prisma.annee.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AnneeFindFirstArgs>(args?: SelectSubset<T, AnneeFindFirstArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Annee that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnneeFindFirstOrThrowArgs} args - Arguments to find a Annee
+     * @example
+     * // Get one Annee
+     * const annee = await prisma.annee.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AnneeFindFirstOrThrowArgs>(args?: SelectSubset<T, AnneeFindFirstOrThrowArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Annees that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnneeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Annees
+     * const annees = await prisma.annee.findMany()
+     * 
+     * // Get first 10 Annees
+     * const annees = await prisma.annee.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const anneeWithIdOnly = await prisma.annee.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AnneeFindManyArgs>(args?: SelectSubset<T, AnneeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Annee.
+     * @param {AnneeCreateArgs} args - Arguments to create a Annee.
+     * @example
+     * // Create one Annee
+     * const Annee = await prisma.annee.create({
+     *   data: {
+     *     // ... data to create a Annee
+     *   }
+     * })
+     * 
+     */
+    create<T extends AnneeCreateArgs>(args: SelectSubset<T, AnneeCreateArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Annees.
+     * @param {AnneeCreateManyArgs} args - Arguments to create many Annees.
+     * @example
+     * // Create many Annees
+     * const annee = await prisma.annee.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AnneeCreateManyArgs>(args?: SelectSubset<T, AnneeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Annees and returns the data saved in the database.
+     * @param {AnneeCreateManyAndReturnArgs} args - Arguments to create many Annees.
+     * @example
+     * // Create many Annees
+     * const annee = await prisma.annee.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Annees and only return the `id`
+     * const anneeWithIdOnly = await prisma.annee.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AnneeCreateManyAndReturnArgs>(args?: SelectSubset<T, AnneeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Annee.
+     * @param {AnneeDeleteArgs} args - Arguments to delete one Annee.
+     * @example
+     * // Delete one Annee
+     * const Annee = await prisma.annee.delete({
+     *   where: {
+     *     // ... filter to delete one Annee
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AnneeDeleteArgs>(args: SelectSubset<T, AnneeDeleteArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Annee.
+     * @param {AnneeUpdateArgs} args - Arguments to update one Annee.
+     * @example
+     * // Update one Annee
+     * const annee = await prisma.annee.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AnneeUpdateArgs>(args: SelectSubset<T, AnneeUpdateArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Annees.
+     * @param {AnneeDeleteManyArgs} args - Arguments to filter Annees to delete.
+     * @example
+     * // Delete a few Annees
+     * const { count } = await prisma.annee.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AnneeDeleteManyArgs>(args?: SelectSubset<T, AnneeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Annees.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnneeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Annees
+     * const annee = await prisma.annee.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AnneeUpdateManyArgs>(args: SelectSubset<T, AnneeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Annees and returns the data updated in the database.
+     * @param {AnneeUpdateManyAndReturnArgs} args - Arguments to update many Annees.
+     * @example
+     * // Update many Annees
+     * const annee = await prisma.annee.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Annees and only return the `id`
+     * const anneeWithIdOnly = await prisma.annee.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AnneeUpdateManyAndReturnArgs>(args: SelectSubset<T, AnneeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Annee.
+     * @param {AnneeUpsertArgs} args - Arguments to update or create a Annee.
+     * @example
+     * // Update or create a Annee
+     * const annee = await prisma.annee.upsert({
+     *   create: {
+     *     // ... data to create a Annee
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Annee we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AnneeUpsertArgs>(args: SelectSubset<T, AnneeUpsertArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Annees.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnneeCountArgs} args - Arguments to filter Annees to count.
+     * @example
+     * // Count the number of Annees
+     * const count = await prisma.annee.count({
+     *   where: {
+     *     // ... the filter for the Annees we want to count
+     *   }
+     * })
+    **/
+    count<T extends AnneeCountArgs>(
+      args?: Subset<T, AnneeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AnneeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Annee.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnneeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AnneeAggregateArgs>(args: Subset<T, AnneeAggregateArgs>): Prisma.PrismaPromise<GetAnneeAggregateType<T>>
+
+    /**
+     * Group by Annee.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnneeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AnneeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AnneeGroupByArgs['orderBy'] }
+        : { orderBy?: AnneeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AnneeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAnneeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Annee model
+   */
+  readonly fields: AnneeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Annee.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AnneeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestres<T extends Annee$semestresArgs<ExtArgs> = {}>(args?: Subset<T, Annee$semestresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Annee model
+   */
+  interface AnneeFieldRefs {
+    readonly id: FieldRef<"Annee", 'String'>
+    readonly numero: FieldRef<"Annee", 'Int'>
+    readonly code: FieldRef<"Annee", 'String'>
+    readonly nbSemaines: FieldRef<"Annee", 'Int'>
+    readonly actif: FieldRef<"Annee", 'Boolean'>
+    readonly createdAt: FieldRef<"Annee", 'DateTime'>
+    readonly updatedAt: FieldRef<"Annee", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Annee findUnique
+   */
+  export type AnneeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * Filter, which Annee to fetch.
+     */
+    where: AnneeWhereUniqueInput
+  }
+
+  /**
+   * Annee findUniqueOrThrow
+   */
+  export type AnneeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * Filter, which Annee to fetch.
+     */
+    where: AnneeWhereUniqueInput
+  }
+
+  /**
+   * Annee findFirst
+   */
+  export type AnneeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * Filter, which Annee to fetch.
+     */
+    where?: AnneeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Annees to fetch.
+     */
+    orderBy?: AnneeOrderByWithRelationInput | AnneeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Annees.
+     */
+    cursor?: AnneeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Annees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Annees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Annees.
+     */
+    distinct?: AnneeScalarFieldEnum | AnneeScalarFieldEnum[]
+  }
+
+  /**
+   * Annee findFirstOrThrow
+   */
+  export type AnneeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * Filter, which Annee to fetch.
+     */
+    where?: AnneeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Annees to fetch.
+     */
+    orderBy?: AnneeOrderByWithRelationInput | AnneeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Annees.
+     */
+    cursor?: AnneeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Annees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Annees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Annees.
+     */
+    distinct?: AnneeScalarFieldEnum | AnneeScalarFieldEnum[]
+  }
+
+  /**
+   * Annee findMany
+   */
+  export type AnneeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * Filter, which Annees to fetch.
+     */
+    where?: AnneeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Annees to fetch.
+     */
+    orderBy?: AnneeOrderByWithRelationInput | AnneeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Annees.
+     */
+    cursor?: AnneeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Annees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Annees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Annees.
+     */
+    distinct?: AnneeScalarFieldEnum | AnneeScalarFieldEnum[]
+  }
+
+  /**
+   * Annee create
+   */
+  export type AnneeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Annee.
+     */
+    data: XOR<AnneeCreateInput, AnneeUncheckedCreateInput>
+  }
+
+  /**
+   * Annee createMany
+   */
+  export type AnneeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Annees.
+     */
+    data: AnneeCreateManyInput | AnneeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Annee createManyAndReturn
+   */
+  export type AnneeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Annees.
+     */
+    data: AnneeCreateManyInput | AnneeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Annee update
+   */
+  export type AnneeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Annee.
+     */
+    data: XOR<AnneeUpdateInput, AnneeUncheckedUpdateInput>
+    /**
+     * Choose, which Annee to update.
+     */
+    where: AnneeWhereUniqueInput
+  }
+
+  /**
+   * Annee updateMany
+   */
+  export type AnneeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Annees.
+     */
+    data: XOR<AnneeUpdateManyMutationInput, AnneeUncheckedUpdateManyInput>
+    /**
+     * Filter which Annees to update
+     */
+    where?: AnneeWhereInput
+    /**
+     * Limit how many Annees to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Annee updateManyAndReturn
+   */
+  export type AnneeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * The data used to update Annees.
+     */
+    data: XOR<AnneeUpdateManyMutationInput, AnneeUncheckedUpdateManyInput>
+    /**
+     * Filter which Annees to update
+     */
+    where?: AnneeWhereInput
+    /**
+     * Limit how many Annees to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Annee upsert
+   */
+  export type AnneeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Annee to update in case it exists.
+     */
+    where: AnneeWhereUniqueInput
+    /**
+     * In case the Annee found by the `where` argument doesn't exist, create a new Annee with this data.
+     */
+    create: XOR<AnneeCreateInput, AnneeUncheckedCreateInput>
+    /**
+     * In case the Annee was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AnneeUpdateInput, AnneeUncheckedUpdateInput>
+  }
+
+  /**
+   * Annee delete
+   */
+  export type AnneeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    /**
+     * Filter which Annee to delete.
+     */
+    where: AnneeWhereUniqueInput
+  }
+
+  /**
+   * Annee deleteMany
+   */
+  export type AnneeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Annees to delete
+     */
+    where?: AnneeWhereInput
+    /**
+     * Limit how many Annees to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Annee.semestres
+   */
+  export type Annee$semestresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    where?: SemestreWhereInput
+    orderBy?: SemestreOrderByWithRelationInput | SemestreOrderByWithRelationInput[]
+    cursor?: SemestreWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SemestreScalarFieldEnum | SemestreScalarFieldEnum[]
+  }
+
+  /**
+   * Annee without action
+   */
+  export type AnneeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Semestre
+   */
+
+  export type AggregateSemestre = {
+    _count: SemestreCountAggregateOutputType | null
+    _avg: SemestreAvgAggregateOutputType | null
+    _sum: SemestreSumAggregateOutputType | null
+    _min: SemestreMinAggregateOutputType | null
+    _max: SemestreMaxAggregateOutputType | null
+  }
+
+  export type SemestreAvgAggregateOutputType = {
+    numero: number | null
+    nbSemaines: number | null
+  }
+
+  export type SemestreSumAggregateOutputType = {
+    numero: number | null
+    nbSemaines: number | null
+  }
+
+  export type SemestreMinAggregateOutputType = {
+    id: string | null
+    numero: number | null
+    anneeId: string | null
+    nbSemaines: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SemestreMaxAggregateOutputType = {
+    id: string | null
+    numero: number | null
+    anneeId: string | null
+    nbSemaines: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SemestreCountAggregateOutputType = {
+    id: number
+    numero: number
+    anneeId: number
+    nbSemaines: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SemestreAvgAggregateInputType = {
+    numero?: true
+    nbSemaines?: true
+  }
+
+  export type SemestreSumAggregateInputType = {
+    numero?: true
+    nbSemaines?: true
+  }
+
+  export type SemestreMinAggregateInputType = {
+    id?: true
+    numero?: true
+    anneeId?: true
+    nbSemaines?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SemestreMaxAggregateInputType = {
+    id?: true
+    numero?: true
+    anneeId?: true
+    nbSemaines?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SemestreCountAggregateInputType = {
+    id?: true
+    numero?: true
+    anneeId?: true
+    nbSemaines?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SemestreAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Semestre to aggregate.
+     */
+    where?: SemestreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Semestres to fetch.
+     */
+    orderBy?: SemestreOrderByWithRelationInput | SemestreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SemestreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Semestres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Semestres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Semestres
+    **/
+    _count?: true | SemestreCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SemestreAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SemestreSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SemestreMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SemestreMaxAggregateInputType
+  }
+
+  export type GetSemestreAggregateType<T extends SemestreAggregateArgs> = {
+        [P in keyof T & keyof AggregateSemestre]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSemestre[P]>
+      : GetScalarType<T[P], AggregateSemestre[P]>
+  }
+
+
+
+
+  export type SemestreGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SemestreWhereInput
+    orderBy?: SemestreOrderByWithAggregationInput | SemestreOrderByWithAggregationInput[]
+    by: SemestreScalarFieldEnum[] | SemestreScalarFieldEnum
+    having?: SemestreScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SemestreCountAggregateInputType | true
+    _avg?: SemestreAvgAggregateInputType
+    _sum?: SemestreSumAggregateInputType
+    _min?: SemestreMinAggregateInputType
+    _max?: SemestreMaxAggregateInputType
+  }
+
+  export type SemestreGroupByOutputType = {
+    id: string
+    numero: number
+    anneeId: string
+    nbSemaines: number
+    createdAt: Date
+    updatedAt: Date
+    _count: SemestreCountAggregateOutputType | null
+    _avg: SemestreAvgAggregateOutputType | null
+    _sum: SemestreSumAggregateOutputType | null
+    _min: SemestreMinAggregateOutputType | null
+    _max: SemestreMaxAggregateOutputType | null
+  }
+
+  type GetSemestreGroupByPayload<T extends SemestreGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SemestreGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SemestreGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SemestreGroupByOutputType[P]>
+            : GetScalarType<T[P], SemestreGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SemestreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    anneeId?: boolean
+    nbSemaines?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["semestre"]>
+
+  export type SemestreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    anneeId?: boolean
+    nbSemaines?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["semestre"]>
+
+  export type SemestreSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    anneeId?: boolean
+    nbSemaines?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["semestre"]>
+
+  export type SemestreSelectScalar = {
+    id?: boolean
+    numero?: boolean
+    anneeId?: boolean
+    nbSemaines?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SemestreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "anneeId" | "nbSemaines" | "createdAt" | "updatedAt", ExtArgs["result"]["semestre"]>
+  export type SemestreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }
+  export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }
+  export type SemestreIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | AnneeDefaultArgs<ExtArgs>
+  }
+
+  export type $SemestrePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Semestre"
+    objects: {
+      annee: Prisma.$AnneePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      numero: number
+      anneeId: string
+      nbSemaines: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["semestre"]>
+    composites: {}
+  }
+
+  type SemestreGetPayload<S extends boolean | null | undefined | SemestreDefaultArgs> = $Result.GetResult<Prisma.$SemestrePayload, S>
+
+  type SemestreCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SemestreFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SemestreCountAggregateInputType | true
+    }
+
+  export interface SemestreDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Semestre'], meta: { name: 'Semestre' } }
+    /**
+     * Find zero or one Semestre that matches the filter.
+     * @param {SemestreFindUniqueArgs} args - Arguments to find a Semestre
+     * @example
+     * // Get one Semestre
+     * const semestre = await prisma.semestre.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SemestreFindUniqueArgs>(args: SelectSubset<T, SemestreFindUniqueArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Semestre that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SemestreFindUniqueOrThrowArgs} args - Arguments to find a Semestre
+     * @example
+     * // Get one Semestre
+     * const semestre = await prisma.semestre.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SemestreFindUniqueOrThrowArgs>(args: SelectSubset<T, SemestreFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Semestre that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemestreFindFirstArgs} args - Arguments to find a Semestre
+     * @example
+     * // Get one Semestre
+     * const semestre = await prisma.semestre.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SemestreFindFirstArgs>(args?: SelectSubset<T, SemestreFindFirstArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Semestre that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemestreFindFirstOrThrowArgs} args - Arguments to find a Semestre
+     * @example
+     * // Get one Semestre
+     * const semestre = await prisma.semestre.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SemestreFindFirstOrThrowArgs>(args?: SelectSubset<T, SemestreFindFirstOrThrowArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Semestres that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemestreFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Semestres
+     * const semestres = await prisma.semestre.findMany()
+     * 
+     * // Get first 10 Semestres
+     * const semestres = await prisma.semestre.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const semestreWithIdOnly = await prisma.semestre.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SemestreFindManyArgs>(args?: SelectSubset<T, SemestreFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Semestre.
+     * @param {SemestreCreateArgs} args - Arguments to create a Semestre.
+     * @example
+     * // Create one Semestre
+     * const Semestre = await prisma.semestre.create({
+     *   data: {
+     *     // ... data to create a Semestre
+     *   }
+     * })
+     * 
+     */
+    create<T extends SemestreCreateArgs>(args: SelectSubset<T, SemestreCreateArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Semestres.
+     * @param {SemestreCreateManyArgs} args - Arguments to create many Semestres.
+     * @example
+     * // Create many Semestres
+     * const semestre = await prisma.semestre.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SemestreCreateManyArgs>(args?: SelectSubset<T, SemestreCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Semestres and returns the data saved in the database.
+     * @param {SemestreCreateManyAndReturnArgs} args - Arguments to create many Semestres.
+     * @example
+     * // Create many Semestres
+     * const semestre = await prisma.semestre.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Semestres and only return the `id`
+     * const semestreWithIdOnly = await prisma.semestre.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SemestreCreateManyAndReturnArgs>(args?: SelectSubset<T, SemestreCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Semestre.
+     * @param {SemestreDeleteArgs} args - Arguments to delete one Semestre.
+     * @example
+     * // Delete one Semestre
+     * const Semestre = await prisma.semestre.delete({
+     *   where: {
+     *     // ... filter to delete one Semestre
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SemestreDeleteArgs>(args: SelectSubset<T, SemestreDeleteArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Semestre.
+     * @param {SemestreUpdateArgs} args - Arguments to update one Semestre.
+     * @example
+     * // Update one Semestre
+     * const semestre = await prisma.semestre.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SemestreUpdateArgs>(args: SelectSubset<T, SemestreUpdateArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Semestres.
+     * @param {SemestreDeleteManyArgs} args - Arguments to filter Semestres to delete.
+     * @example
+     * // Delete a few Semestres
+     * const { count } = await prisma.semestre.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SemestreDeleteManyArgs>(args?: SelectSubset<T, SemestreDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Semestres.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemestreUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Semestres
+     * const semestre = await prisma.semestre.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SemestreUpdateManyArgs>(args: SelectSubset<T, SemestreUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Semestres and returns the data updated in the database.
+     * @param {SemestreUpdateManyAndReturnArgs} args - Arguments to update many Semestres.
+     * @example
+     * // Update many Semestres
+     * const semestre = await prisma.semestre.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Semestres and only return the `id`
+     * const semestreWithIdOnly = await prisma.semestre.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SemestreUpdateManyAndReturnArgs>(args: SelectSubset<T, SemestreUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Semestre.
+     * @param {SemestreUpsertArgs} args - Arguments to update or create a Semestre.
+     * @example
+     * // Update or create a Semestre
+     * const semestre = await prisma.semestre.upsert({
+     *   create: {
+     *     // ... data to create a Semestre
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Semestre we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SemestreUpsertArgs>(args: SelectSubset<T, SemestreUpsertArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Semestres.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemestreCountArgs} args - Arguments to filter Semestres to count.
+     * @example
+     * // Count the number of Semestres
+     * const count = await prisma.semestre.count({
+     *   where: {
+     *     // ... the filter for the Semestres we want to count
+     *   }
+     * })
+    **/
+    count<T extends SemestreCountArgs>(
+      args?: Subset<T, SemestreCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SemestreCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Semestre.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemestreAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SemestreAggregateArgs>(args: Subset<T, SemestreAggregateArgs>): Prisma.PrismaPromise<GetSemestreAggregateType<T>>
+
+    /**
+     * Group by Semestre.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SemestreGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SemestreGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SemestreGroupByArgs['orderBy'] }
+        : { orderBy?: SemestreGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SemestreGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSemestreGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Semestre model
+   */
+  readonly fields: SemestreFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Semestre.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SemestreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    annee<T extends AnneeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnneeDefaultArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Semestre model
+   */
+  interface SemestreFieldRefs {
+    readonly id: FieldRef<"Semestre", 'String'>
+    readonly numero: FieldRef<"Semestre", 'Int'>
+    readonly anneeId: FieldRef<"Semestre", 'String'>
+    readonly nbSemaines: FieldRef<"Semestre", 'Int'>
+    readonly createdAt: FieldRef<"Semestre", 'DateTime'>
+    readonly updatedAt: FieldRef<"Semestre", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Semestre findUnique
+   */
+  export type SemestreFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which Semestre to fetch.
+     */
+    where: SemestreWhereUniqueInput
+  }
+
+  /**
+   * Semestre findUniqueOrThrow
+   */
+  export type SemestreFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which Semestre to fetch.
+     */
+    where: SemestreWhereUniqueInput
+  }
+
+  /**
+   * Semestre findFirst
+   */
+  export type SemestreFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which Semestre to fetch.
+     */
+    where?: SemestreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Semestres to fetch.
+     */
+    orderBy?: SemestreOrderByWithRelationInput | SemestreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Semestres.
+     */
+    cursor?: SemestreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Semestres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Semestres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Semestres.
+     */
+    distinct?: SemestreScalarFieldEnum | SemestreScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre findFirstOrThrow
+   */
+  export type SemestreFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which Semestre to fetch.
+     */
+    where?: SemestreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Semestres to fetch.
+     */
+    orderBy?: SemestreOrderByWithRelationInput | SemestreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Semestres.
+     */
+    cursor?: SemestreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Semestres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Semestres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Semestres.
+     */
+    distinct?: SemestreScalarFieldEnum | SemestreScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre findMany
+   */
+  export type SemestreFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * Filter, which Semestres to fetch.
+     */
+    where?: SemestreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Semestres to fetch.
+     */
+    orderBy?: SemestreOrderByWithRelationInput | SemestreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Semestres.
+     */
+    cursor?: SemestreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Semestres from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Semestres.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Semestres.
+     */
+    distinct?: SemestreScalarFieldEnum | SemestreScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre create
+   */
+  export type SemestreCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Semestre.
+     */
+    data: XOR<SemestreCreateInput, SemestreUncheckedCreateInput>
+  }
+
+  /**
+   * Semestre createMany
+   */
+  export type SemestreCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Semestres.
+     */
+    data: SemestreCreateManyInput | SemestreCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Semestre createManyAndReturn
+   */
+  export type SemestreCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * The data used to create many Semestres.
+     */
+    data: SemestreCreateManyInput | SemestreCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Semestre update
+   */
+  export type SemestreUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Semestre.
+     */
+    data: XOR<SemestreUpdateInput, SemestreUncheckedUpdateInput>
+    /**
+     * Choose, which Semestre to update.
+     */
+    where: SemestreWhereUniqueInput
+  }
+
+  /**
+   * Semestre updateMany
+   */
+  export type SemestreUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Semestres.
+     */
+    data: XOR<SemestreUpdateManyMutationInput, SemestreUncheckedUpdateManyInput>
+    /**
+     * Filter which Semestres to update
+     */
+    where?: SemestreWhereInput
+    /**
+     * Limit how many Semestres to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Semestre updateManyAndReturn
+   */
+  export type SemestreUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * The data used to update Semestres.
+     */
+    data: XOR<SemestreUpdateManyMutationInput, SemestreUncheckedUpdateManyInput>
+    /**
+     * Filter which Semestres to update
+     */
+    where?: SemestreWhereInput
+    /**
+     * Limit how many Semestres to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Semestre upsert
+   */
+  export type SemestreUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Semestre to update in case it exists.
+     */
+    where: SemestreWhereUniqueInput
+    /**
+     * In case the Semestre found by the `where` argument doesn't exist, create a new Semestre with this data.
+     */
+    create: XOR<SemestreCreateInput, SemestreUncheckedCreateInput>
+    /**
+     * In case the Semestre was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SemestreUpdateInput, SemestreUncheckedUpdateInput>
+  }
+
+  /**
+   * Semestre delete
+   */
+  export type SemestreDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+    /**
+     * Filter which Semestre to delete.
+     */
+    where: SemestreWhereUniqueInput
+  }
+
+  /**
+   * Semestre deleteMany
+   */
+  export type SemestreDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Semestres to delete
+     */
+    where?: SemestreWhereInput
+    /**
+     * Limit how many Semestres to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Semestre without action
+   */
+  export type SemestreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Semestre
+     */
+    select?: SemestreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Semestre
+     */
+    omit?: SemestreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SemestreInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -24989,6 +27455,31 @@ export namespace Prisma {
   };
 
   export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+  export const AnneeScalarFieldEnum: {
+    id: 'id',
+    numero: 'numero',
+    code: 'code',
+    nbSemaines: 'nbSemaines',
+    actif: 'actif',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AnneeScalarFieldEnum = (typeof AnneeScalarFieldEnum)[keyof typeof AnneeScalarFieldEnum]
+
+
+  export const SemestreScalarFieldEnum: {
+    id: 'id',
+    numero: 'numero',
+    anneeId: 'anneeId',
+    nbSemaines: 'nbSemaines',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SemestreScalarFieldEnum = (typeof SemestreScalarFieldEnum)[keyof typeof SemestreScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -26688,6 +29179,136 @@ export namespace Prisma {
     ip?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
   }
 
+  export type AnneeWhereInput = {
+    AND?: AnneeWhereInput | AnneeWhereInput[]
+    OR?: AnneeWhereInput[]
+    NOT?: AnneeWhereInput | AnneeWhereInput[]
+    id?: UuidFilter<"Annee"> | string
+    numero?: IntFilter<"Annee"> | number
+    code?: StringFilter<"Annee"> | string
+    nbSemaines?: IntFilter<"Annee"> | number
+    actif?: BoolFilter<"Annee"> | boolean
+    createdAt?: DateTimeFilter<"Annee"> | Date | string
+    updatedAt?: DateTimeFilter<"Annee"> | Date | string
+    semestres?: SemestreListRelationFilter
+  }
+
+  export type AnneeOrderByWithRelationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    code?: SortOrder
+    nbSemaines?: SortOrder
+    actif?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestres?: SemestreOrderByRelationAggregateInput
+  }
+
+  export type AnneeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    numero?: number
+    code?: string
+    AND?: AnneeWhereInput | AnneeWhereInput[]
+    OR?: AnneeWhereInput[]
+    NOT?: AnneeWhereInput | AnneeWhereInput[]
+    nbSemaines?: IntFilter<"Annee"> | number
+    actif?: BoolFilter<"Annee"> | boolean
+    createdAt?: DateTimeFilter<"Annee"> | Date | string
+    updatedAt?: DateTimeFilter<"Annee"> | Date | string
+    semestres?: SemestreListRelationFilter
+  }, "id" | "code" | "numero">
+
+  export type AnneeOrderByWithAggregationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    code?: SortOrder
+    nbSemaines?: SortOrder
+    actif?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AnneeCountOrderByAggregateInput
+    _avg?: AnneeAvgOrderByAggregateInput
+    _max?: AnneeMaxOrderByAggregateInput
+    _min?: AnneeMinOrderByAggregateInput
+    _sum?: AnneeSumOrderByAggregateInput
+  }
+
+  export type AnneeScalarWhereWithAggregatesInput = {
+    AND?: AnneeScalarWhereWithAggregatesInput | AnneeScalarWhereWithAggregatesInput[]
+    OR?: AnneeScalarWhereWithAggregatesInput[]
+    NOT?: AnneeScalarWhereWithAggregatesInput | AnneeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Annee"> | string
+    numero?: IntWithAggregatesFilter<"Annee"> | number
+    code?: StringWithAggregatesFilter<"Annee"> | string
+    nbSemaines?: IntWithAggregatesFilter<"Annee"> | number
+    actif?: BoolWithAggregatesFilter<"Annee"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Annee"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Annee"> | Date | string
+  }
+
+  export type SemestreWhereInput = {
+    AND?: SemestreWhereInput | SemestreWhereInput[]
+    OR?: SemestreWhereInput[]
+    NOT?: SemestreWhereInput | SemestreWhereInput[]
+    id?: UuidFilter<"Semestre"> | string
+    numero?: IntFilter<"Semestre"> | number
+    anneeId?: UuidFilter<"Semestre"> | string
+    nbSemaines?: IntFilter<"Semestre"> | number
+    createdAt?: DateTimeFilter<"Semestre"> | Date | string
+    updatedAt?: DateTimeFilter<"Semestre"> | Date | string
+    annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
+  }
+
+  export type SemestreOrderByWithRelationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    anneeId?: SortOrder
+    nbSemaines?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    annee?: AnneeOrderByWithRelationInput
+  }
+
+  export type SemestreWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    anneeId_numero?: SemestreAnneeIdNumeroCompoundUniqueInput
+    AND?: SemestreWhereInput | SemestreWhereInput[]
+    OR?: SemestreWhereInput[]
+    NOT?: SemestreWhereInput | SemestreWhereInput[]
+    numero?: IntFilter<"Semestre"> | number
+    anneeId?: UuidFilter<"Semestre"> | string
+    nbSemaines?: IntFilter<"Semestre"> | number
+    createdAt?: DateTimeFilter<"Semestre"> | Date | string
+    updatedAt?: DateTimeFilter<"Semestre"> | Date | string
+    annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
+  }, "id" | "anneeId_numero">
+
+  export type SemestreOrderByWithAggregationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    anneeId?: SortOrder
+    nbSemaines?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SemestreCountOrderByAggregateInput
+    _avg?: SemestreAvgOrderByAggregateInput
+    _max?: SemestreMaxOrderByAggregateInput
+    _min?: SemestreMinOrderByAggregateInput
+    _sum?: SemestreSumOrderByAggregateInput
+  }
+
+  export type SemestreScalarWhereWithAggregatesInput = {
+    AND?: SemestreScalarWhereWithAggregatesInput | SemestreScalarWhereWithAggregatesInput[]
+    OR?: SemestreScalarWhereWithAggregatesInput[]
+    NOT?: SemestreScalarWhereWithAggregatesInput | SemestreScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Semestre"> | string
+    numero?: IntWithAggregatesFilter<"Semestre"> | number
+    anneeId?: UuidWithAggregatesFilter<"Semestre"> | string
+    nbSemaines?: IntWithAggregatesFilter<"Semestre"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -28239,6 +30860,142 @@ export namespace Prisma {
     ip?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type AnneeCreateInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    actif?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestres?: SemestreCreateNestedManyWithoutAnneeInput
+  }
+
+  export type AnneeUncheckedCreateInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    actif?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
+  }
+
+  export type AnneeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestres?: SemestreUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type AnneeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type AnneeCreateManyInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    actif?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AnneeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnneeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemestreCreateInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+  }
+
+  export type SemestreUncheckedCreateInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SemestreUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+  }
+
+  export type SemestreUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemestreCreateManyInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SemestreUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemestreUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -29634,6 +32391,103 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type SemestreListRelationFilter = {
+    every?: SemestreWhereInput
+    some?: SemestreWhereInput
+    none?: SemestreWhereInput
+  }
+
+  export type SemestreOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AnneeCountOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    code?: SortOrder
+    nbSemaines?: SortOrder
+    actif?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AnneeAvgOrderByAggregateInput = {
+    numero?: SortOrder
+    nbSemaines?: SortOrder
+  }
+
+  export type AnneeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    code?: SortOrder
+    nbSemaines?: SortOrder
+    actif?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AnneeMinOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    code?: SortOrder
+    nbSemaines?: SortOrder
+    actif?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AnneeSumOrderByAggregateInput = {
+    numero?: SortOrder
+    nbSemaines?: SortOrder
+  }
+
+  export type AnneeScalarRelationFilter = {
+    is?: AnneeWhereInput
+    isNot?: AnneeWhereInput
+  }
+
+  export type SemestreAnneeIdNumeroCompoundUniqueInput = {
+    anneeId: string
+    numero: number
+  }
+
+  export type SemestreCountOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    anneeId?: SortOrder
+    nbSemaines?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SemestreAvgOrderByAggregateInput = {
+    numero?: SortOrder
+    nbSemaines?: SortOrder
+  }
+
+  export type SemestreMaxOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    anneeId?: SortOrder
+    nbSemaines?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SemestreMinOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    anneeId?: SortOrder
+    nbSemaines?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SemestreSumOrderByAggregateInput = {
+    numero?: SortOrder
+    nbSemaines?: SortOrder
+  }
+
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSystemRoleCreateWithoutUserInput, UserSystemRoleUncheckedCreateWithoutUserInput> | UserSystemRoleCreateWithoutUserInput[] | UserSystemRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSystemRoleCreateOrConnectWithoutUserInput | UserSystemRoleCreateOrConnectWithoutUserInput[]
@@ -30959,6 +33813,62 @@ export namespace Prisma {
     decrement?: bigint | number
     multiply?: bigint | number
     divide?: bigint | number
+  }
+
+  export type SemestreCreateNestedManyWithoutAnneeInput = {
+    create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
+    createMany?: SemestreCreateManyAnneeInputEnvelope
+    connect?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+  }
+
+  export type SemestreUncheckedCreateNestedManyWithoutAnneeInput = {
+    create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
+    createMany?: SemestreCreateManyAnneeInputEnvelope
+    connect?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+  }
+
+  export type SemestreUpdateManyWithoutAnneeNestedInput = {
+    create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
+    upsert?: SemestreUpsertWithWhereUniqueWithoutAnneeInput | SemestreUpsertWithWhereUniqueWithoutAnneeInput[]
+    createMany?: SemestreCreateManyAnneeInputEnvelope
+    set?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+    disconnect?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+    delete?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+    connect?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+    update?: SemestreUpdateWithWhereUniqueWithoutAnneeInput | SemestreUpdateWithWhereUniqueWithoutAnneeInput[]
+    updateMany?: SemestreUpdateManyWithWhereWithoutAnneeInput | SemestreUpdateManyWithWhereWithoutAnneeInput[]
+    deleteMany?: SemestreScalarWhereInput | SemestreScalarWhereInput[]
+  }
+
+  export type SemestreUncheckedUpdateManyWithoutAnneeNestedInput = {
+    create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
+    upsert?: SemestreUpsertWithWhereUniqueWithoutAnneeInput | SemestreUpsertWithWhereUniqueWithoutAnneeInput[]
+    createMany?: SemestreCreateManyAnneeInputEnvelope
+    set?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+    disconnect?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+    delete?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+    connect?: SemestreWhereUniqueInput | SemestreWhereUniqueInput[]
+    update?: SemestreUpdateWithWhereUniqueWithoutAnneeInput | SemestreUpdateWithWhereUniqueWithoutAnneeInput[]
+    updateMany?: SemestreUpdateManyWithWhereWithoutAnneeInput | SemestreUpdateManyWithWhereWithoutAnneeInput[]
+    deleteMany?: SemestreScalarWhereInput | SemestreScalarWhereInput[]
+  }
+
+  export type AnneeCreateNestedOneWithoutSemestresInput = {
+    create?: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
+    connectOrCreate?: AnneeCreateOrConnectWithoutSemestresInput
+    connect?: AnneeWhereUniqueInput
+  }
+
+  export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
+    create?: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
+    connectOrCreate?: AnneeCreateOrConnectWithoutSemestresInput
+    upsert?: AnneeUpsertWithoutSemestresInput
+    connect?: AnneeWhereUniqueInput
+    update?: XOR<XOR<AnneeUpdateToOneWithWhereWithoutSemestresInput, AnneeUpdateWithoutSemestresInput>, AnneeUncheckedUpdateWithoutSemestresInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -35044,6 +37954,116 @@ export namespace Prisma {
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type SemestreCreateWithoutAnneeInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SemestreUncheckedCreateWithoutAnneeInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SemestreCreateOrConnectWithoutAnneeInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput>
+  }
+
+  export type SemestreCreateManyAnneeInputEnvelope = {
+    data: SemestreCreateManyAnneeInput | SemestreCreateManyAnneeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SemestreUpsertWithWhereUniqueWithoutAnneeInput = {
+    where: SemestreWhereUniqueInput
+    update: XOR<SemestreUpdateWithoutAnneeInput, SemestreUncheckedUpdateWithoutAnneeInput>
+    create: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput>
+  }
+
+  export type SemestreUpdateWithWhereUniqueWithoutAnneeInput = {
+    where: SemestreWhereUniqueInput
+    data: XOR<SemestreUpdateWithoutAnneeInput, SemestreUncheckedUpdateWithoutAnneeInput>
+  }
+
+  export type SemestreUpdateManyWithWhereWithoutAnneeInput = {
+    where: SemestreScalarWhereInput
+    data: XOR<SemestreUpdateManyMutationInput, SemestreUncheckedUpdateManyWithoutAnneeInput>
+  }
+
+  export type SemestreScalarWhereInput = {
+    AND?: SemestreScalarWhereInput | SemestreScalarWhereInput[]
+    OR?: SemestreScalarWhereInput[]
+    NOT?: SemestreScalarWhereInput | SemestreScalarWhereInput[]
+    id?: UuidFilter<"Semestre"> | string
+    numero?: IntFilter<"Semestre"> | number
+    anneeId?: UuidFilter<"Semestre"> | string
+    nbSemaines?: IntFilter<"Semestre"> | number
+    createdAt?: DateTimeFilter<"Semestre"> | Date | string
+    updatedAt?: DateTimeFilter<"Semestre"> | Date | string
+  }
+
+  export type AnneeCreateWithoutSemestresInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    actif?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AnneeUncheckedCreateWithoutSemestresInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    actif?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AnneeCreateOrConnectWithoutSemestresInput = {
+    where: AnneeWhereUniqueInput
+    create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
+  }
+
+  export type AnneeUpsertWithoutSemestresInput = {
+    update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
+    create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
+    where?: AnneeWhereInput
+  }
+
+  export type AnneeUpdateToOneWithWhereWithoutSemestresInput = {
+    where?: AnneeWhereInput
+    data: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
+  }
+
+  export type AnneeUpdateWithoutSemestresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnneeUncheckedUpdateWithoutSemestresInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserSystemRoleCreateManyUserInput = {
     id?: string
     role: $Enums.RoleCode
@@ -36072,6 +39092,38 @@ export namespace Prisma {
 
   export type TaskTagUncheckedUpdateManyWithoutTagInput = {
     taskId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SemestreCreateManyAnneeInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SemestreUpdateWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemestreUncheckedUpdateWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

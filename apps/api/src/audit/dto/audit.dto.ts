@@ -36,12 +36,13 @@ export class WriteAuditDto {
   @IsString()
   objetType: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: '550e8400-e29b-41d4-a716-446655440000',
-    description: 'Identifiant de l\'objet concerné',
+    description: 'Identifiant de l\'objet concerné (optionnel à la création)',
   })
+  @IsOptional()
   @IsUUID()
-  objetId: string;
+  objetId?: string;
 
   @ApiPropertyOptional({
     example: { email: 'old@example.com' },
