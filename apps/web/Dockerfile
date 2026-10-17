@@ -38,7 +38,7 @@ COPY packages/design-tokens/package.json ./packages/design-tokens/package.json
 COPY packages/db/package.json ./packages/db/package.json
 # Disable supply-chain policy (minimumReleaseAge) for CI builds
 RUN pnpm config set minimumReleaseAge 0
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 COPY . .
 # Build design-tokens first (generates CSS)
 RUN pnpm --filter=@takt/design-tokens run build

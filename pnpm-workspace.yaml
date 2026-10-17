@@ -1,6 +1,13 @@
 packages:
   - apps/*
   - packages/*
+overrides:
+  undici: ^8.12.1
+  tmp: ^0.2.7
+  mysql2: ^3.24.0
+  deepmerge-ts: ^8.0.0
+  braces: ^3.0.3
+  esbuild@>=0.27.3 <0.28.1: '>=0.28.1'
 allowBuilds:
   '@prisma/adapter-pg@7.10.1': true
   '@prisma/client@7.10.1': true
