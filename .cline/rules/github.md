@@ -28,6 +28,13 @@ You must use the GitHub CLI (`gh`) for all GitHub interactions.
 - **PR Configuration:** Always create it as a Draft (`--draft`) if work is ongoing, or standard if ready. Provide a clear, structured title and markdown description detailing the changes.
 - **Fallback:** Only if `gh` is completely unavailable on the system, fallback to standard `git push` and explicitly ask the user to create the PR manually.
 
+### Un seul push par ticket
+
+- **Commitez tout en local avant de pousser** : implémentation, tests, documentation, mise à jour du backlog et de la vélocité doivent tous être committés en local avant le premier `git push`.
+- **Un seul `git push -u origin <branche>` par ticket** : chaque push sur la branche d'une Pull Request ouverte déclenche un nouveau run de CI. Évitez les pushes intermédiaires.
+- **Créez la PR uniquement après le push final** avec `gh pr create`.
+- Si des corrections sont nécessaires après revue, un push supplémentaire est inévitable — mais il doit rester exceptionnel.
+
 ## 4. Conflict Resolution
 - **Analyze and resolve:** If a merge conflict occurs, analyze the conflicting files, resolve the issues keeping the latest valid logic.
 - **Communicate:** Explain the resolution to the user clearly before finalizing the commit.
@@ -120,11 +127,13 @@ git commit -m "docs: update backlog & velocity (ticket <TICKET-ID> → Terminé)
 
 After local validation, documentation, backlog, and velocity updates are complete:
 
-1. Push the feature branch:
+1. **Un seul push** : assurez-vous que tous les commits (code, tests, documentation, backlog, vélocité) sont déjà faits en local, puis poussez une seule fois :
 
    ```bash
    git push -u origin <branch-name>
    ```
+
+   Chaque push sur la branche d'une Pull Request ouverte déclenche un nouveau run de CI. Évitez les pushes intermédiaires.
 
 2. Create a pull request with `gh pr create`.
 3. Use a clear conventional title, for example: `feat: add document transfer workflow`.
