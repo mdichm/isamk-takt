@@ -30,6 +30,7 @@ import { PinoLoggerService } from './common/logging/pino-logger.service.js';
 import { AuditLoggerService } from './common/logging/audit-logger.service.js';
 import { TracingInterceptor } from './common/interceptors/tracing.interceptor.js';
 import { IdempotencyInterceptor } from './common/interceptors/idempotency.interceptor.js';
+import { ETagInterceptor } from './common/interceptors/etag.interceptor.js';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
@@ -106,6 +107,10 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     {
       provide: APP_INTERCEPTOR,
       useClass: IdempotencyInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ETagInterceptor,
     },
     PinoLoggerService,
     AuditLoggerService,

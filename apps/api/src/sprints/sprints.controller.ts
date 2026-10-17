@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Ht
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { SprintsService } from './sprints.service.js';
 import { CreateSprintDto, UpdateSprintDto, SprintQueryDto, SprintResponseDto, PaginatedSprintsDto, AddSprintMemberDto } from './dto/sprint.dto.js';
+import { IfMatch } from '../common/decorators/if-match.decorator.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -66,6 +67,7 @@ export class SprintsController {
     @Param('id') id: string,
     @Body() updateSprintDto: UpdateSprintDto,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<SprintResponseDto> {
     return this.sprintsService.update(projectId, id, updateSprintDto, userId);
   }
@@ -81,6 +83,7 @@ export class SprintsController {
     @Param('projectId') projectId: string,
     @Param('id') id: string,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<SprintResponseDto> {
     return this.sprintsService.start(projectId, id, userId);
   }
@@ -96,6 +99,7 @@ export class SprintsController {
     @Param('projectId') projectId: string,
     @Param('id') id: string,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<SprintResponseDto> {
     return this.sprintsService.complete(projectId, id, userId);
   }
@@ -113,6 +117,7 @@ export class SprintsController {
     @Param('projectId') projectId: string,
     @Param('id') id: string,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<void> {
     return this.sprintsService.remove(projectId, id, userId);
   }
@@ -143,6 +148,7 @@ export class SprintsController {
     @Param('id') id: string,
     @Body() addMemberDto: AddSprintMemberDto,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<void> {
     return this.sprintsService.addMember(projectId, id, addMemberDto, userId);
   }
@@ -160,6 +166,7 @@ export class SprintsController {
     @Param('id') id: string,
     @Param('memberId') memberId: string,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<void> {
     return this.sprintsService.removeMember(projectId, id, memberId, userId);
   }

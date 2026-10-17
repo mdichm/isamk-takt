@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { TagsService } from './tags.service.js';
 import { CreateTagDto, UpdateTagDto, TagResponseDto } from './dto/tag.dto.js';
+import { IfMatch } from '../common/decorators/if-match.decorator.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -67,6 +68,7 @@ export class TagsController {
     @Param('id') id: string,
     @Body() updateTagDto: UpdateTagDto,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<TagResponseDto> {
     return this.tagsService.update(projectId, id, updateTagDto, userId);
   }
@@ -82,6 +84,7 @@ export class TagsController {
     @Param('projectId') projectId: string,
     @Param('id') id: string,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<void> {
     return this.tagsService.remove(projectId, id, userId);
   }

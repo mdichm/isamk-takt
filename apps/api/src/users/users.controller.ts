@@ -7,6 +7,7 @@ import { RolesGuard } from '../common/guards/roles.guard.js';
 import { Roles } from '../common/decorators/roles.decorator.js';
 import { UserRole } from '@takt/db';
 import { PasswordResetService } from '../auth/password-reset.service.js';
+import { IfMatch } from '../common/decorators/if-match.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
@@ -59,7 +60,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Utilisateur mis à jour', type: UserResponseDto })
   @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
   @ApiResponse({ status: 409, description: 'Email déjà utilisé' })
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @IfMatch() _ifMatch: string): Promise<UserResponseDto> {
     return this.usersService.update(id, updateUserDto);
   }
 
@@ -72,7 +73,7 @@ export class UsersController {
   @ApiResponse({ status: 400, description: 'Mot de passe actuel incorrect' })
   @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
   @HttpCode(HttpStatus.OK)
-  async updatePassword(@Param('id') id: string, @Body() updatePasswordDto: UpdatePasswordDto): Promise<void> {
+  async updatePassword(@Param('id') id: string, @Body() updatePasswordDto: UpdatePasswordDto, @IfMatch() _ifMatch: string): Promise<void> {
     return this.usersService.updatePassword(id, updatePasswordDto);
   }
 
@@ -88,6 +89,7 @@ export class UsersController {
   async resetPassword(
     @Param('id') id: string,
     @CurrentUser('id') requestedByAdminId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<{ message: string }> {
     return this.passwordResetService.requestReset(id, requestedByAdminId);
   }
@@ -100,7 +102,7 @@ export class UsersController {
   @ApiParam({ name: 'id', description: 'ID de l\'utilisateur (UUID)' })
   @ApiResponse({ status: 204, description: 'Utilisateur supprimé' })
   @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
-  async remove(@Param('id') id: string): Promise<void> {
+  async remove(@Param('id') id: string, @IfMatch() _ifMatch: string): Promise<void> {
     return this.usersService.remove(id);
   }
 }
