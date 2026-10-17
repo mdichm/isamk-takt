@@ -137,7 +137,10 @@ L0-37;L0;E0.7;Socle web;Tâche technique;Configuration Swagger UI à /api/docs;I
 L0-38;L0;E0.7;Socle web;Tâche technique;Enregistrement d'événements de sécurité;Service d'audit pour tracer les événements de sécurité (connexion, échec, MFA, changements de rôle, etc.) et les exposer via API.;"- Les événements sont écrits de façon asynchrone
 - Chaque événement contient: type, userId, ip, userAgent, timestamp, détails
 - L'API permet de lister/filtrer les événements (admin only)
-- Intégré au guard JWT et au service d'audit futur";EX-SEC-01;§5.1;BACK;Must;3;L0-32, L0-23;À faire;
+- Intégré au guard JWT et au service d'audit futur";EX-SEC-01;§5.1;BACK;Must;3;L0-32, L0-23;Terminé;
+L0-39;L0;E0.7;Socle web;Tâche technique;Brancher l'interceptor SecurityEvent sur l'authentification;Appliquer SecurityEventInterceptor sur les contrôleurs d'authentification (login, register, refresh, logout) pour capturer les événements de sécurité réels (succès).;"- Login, register, refresh et logout génèrent un SecurityEvent
+- Les événements MFA restent gérés par MfaService (pas de doublon)
+- L'email est capturé depuis le corps de requête sur les routes publiques";EX-SEC-01;§5.1;BACK;Must;2;L0-38, L0-32;En cours;
 L1-01;L1;E1.1;Années & semestres;Story;CRUD années et semestres;Années universitaires et semestres (numéro, code, nbSemaines).;"- Unicité du code d'année et du couple (année, numéro)
 - Seul l'Administrateur écrit ; les autres rôles lisent
 - Un semestre compte 14 semaines par défaut

@@ -32,6 +32,10 @@ import { TracingInterceptor } from './common/interceptors/tracing.interceptor.js
 import { IdempotencyInterceptor } from './common/interceptors/idempotency.interceptor.js';
 import { ETagInterceptor } from './common/interceptors/etag.interceptor.js';
 import { LinkInterceptor } from './common/interceptors/link.interceptor.js';
+import { SecurityEventInterceptor } from './common/interceptors/security-event.interceptor.js';
+import { SecurityEventService } from './common/services/security-event.service.js';
+import { SecurityEventController } from './common/controllers/security-event.controller.js';
+import { AdminGuard } from './common/guards/admin.guard.js';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
@@ -67,7 +71,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     HealthModule,
     PolicyModule,
   ],
-  controllers: [MetricsController],
+  controllers: [MetricsController, SecurityEventController],
   providers: [
     {
       provide: APP_FILTER,
@@ -119,6 +123,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     },
     PinoLoggerService,
     AuditLoggerService,
+    SecurityEventService,
+    SecurityEventInterceptor,
+    AdminGuard,
     MetricsService,
   ],
 })
