@@ -156,7 +156,7 @@ t("structure","L1",E,S,"CRUD départements, formations, niveaux","Structure acad
   "EX-ORG-01","§2.2, §4.19","BACK","Must",5,["annees"],"L1-03",statut="Terminé")
 t("groupes","L1",E,S,"CRUD groupes hiérarchiques par semestre","SECTION, GROUPE, SOUS_GROUPE, effectif, parent, semestre.",
   ["Hiérarchie sans cycle","Effectif supérieur ou égal à 0","La fermeture {soi, ancêtres, descendants} est calculable","Un enfant partage le semestre de son parent (trigger SQL)","Unicité (niveau, semestre, code)"],
-  "EX-ORG-02","§2.2, §4.3","BACK","Must",5,["structure"],"L1-04")
+  "EX-ORG-02","§2.2, §4.3","BACK","Must",5,["structure"],"L1-04",statut="En cours")
 t("modules","L1",E,S,"CRUD modules, types d'enseignement et grades","Modules par niveau, types (CM, TD, TP, CI, Autre) et grades paramétrables.",
   ["Module rattaché à un niveau avec semestreNumero","Types et grades paramétrables par l'Administrateur"],
   "EX-REF-01, EX-REF-02","§2.2","BACK","Must",5,["structure"],"L1-05")
