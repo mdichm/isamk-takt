@@ -1,3 +1,18 @@
 packages:
   - apps/*
   - packages/*
+allowBuilds:
+  '@prisma/adapter-pg@7.10.1': true
+  '@prisma/client@7.10.1': true
+  '@prisma/engines': set this to true or false
+  '@prisma/engines@7.10.1': true
+  '@scarf/scarf': true
+  argon2: set this to true or false
+  argon2@0.41.1: true
+  cpu-features: true
+  esbuild: true
+  prisma: set this to true or false
+  prisma@7.10.1: true
+  protobufjs: true
+  ssh2: true
+  unrs-resolver: true
