@@ -177,6 +177,10 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | L0-36 | L0-37 |
 | L0-37 | L0-38 |
 | L0-38 | L0-39 |
+| L0-39 | L0-18 |
+| L0-40 | L0-22 |
+| L0-41 | L0-25 |
+| L0-42 | L0-31 |
 | L1-01 | L1-01 |
 | L1-02 | L1-02 |
 | L1-03 | L1-03 |

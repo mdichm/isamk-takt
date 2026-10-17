@@ -7,6 +7,7 @@ import { hashPassword, verifyPassword } from './password.js';
 import type { RoleCode } from '@takt/db';
 import { MfaService } from './mfa.service.js';
 import { LocalAuthProvider } from './providers/local-auth-provider.service.js';
+import { SecurityEventService } from '../common/services/security-event.service.js';
 
 // ---------------------------------------------------------------------------
 // Doublon PrismaService minimal (mocks des méthodes utilisées par AuthService)
@@ -61,6 +62,10 @@ function buildModule(prismaMock: PrismaMock) {
     authenticate: vi.fn(),
   };
 
+  const securityEventService = {
+    log: vi.fn(),
+  };
+
   return {
     module: Test.createTestingModule({
       providers: [
@@ -68,11 +73,13 @@ function buildModule(prismaMock: PrismaMock) {
         { provide: PrismaService, useValue: prismaMock },
         { provide: JwtService, useValue: jwtService },
         { provide: LocalAuthProvider, useValue: localAuthProvider },
+        { provide: SecurityEventService, useValue: securityEventService },
         MfaService,
       ],
     }),
     jwtService,
     localAuthProvider,
+    securityEventService,
   };
 }
 
