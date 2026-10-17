@@ -432,3 +432,36 @@ model AuditLog {
   @@index([userId, at])
   @@map("audit_logs")
 }
+
+// ============================================
+// Calendrier scolaire (L1-01 : années & semestres)
+// ============================================
+
+model Annee {
+  id        String   @id @default(uuid()) @db.Uuid
+  numero    Int      // ex: 2026
+  code      String   // ex: "2026-2027"
+  nbSemaines Int     @default(14)
+  actif     Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  semestres Semestre[]
+
+  @@unique([code])
+  @@unique([numero])
+  @@map("annees")
+}
+
+model Semestre {
+  id        String   @id @default(uuid()) @db.Uuid
+  numero    Int      // 1 ou 2
+  anneeId   String   @db.Uuid
+  annee     Annee    @relation(fields: [anneeId], references: [id], onDelete: Cascade)
+  nbSemaines Int     @default(14)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([anneeId, numero])
+  @@map("semestres")
+}
