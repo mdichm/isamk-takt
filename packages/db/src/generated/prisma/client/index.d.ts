@@ -223,6 +223,15 @@ export const ActivityType: {
 
 export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
 
+
+export const AnneeStatut: {
+  PREPARATION: 'PREPARATION',
+  ACTIVE: 'ACTIVE',
+  CLOTUREE: 'CLOTUREE'
+};
+
+export type AnneeStatut = (typeof AnneeStatut)[keyof typeof AnneeStatut]
+
 }
 
 export type RoleCode = $Enums.RoleCode
@@ -256,6 +265,10 @@ export const SprintStatus: typeof $Enums.SprintStatus
 export type ActivityType = $Enums.ActivityType
 
 export const ActivityType: typeof $Enums.ActivityType
+
+export type AnneeStatut = $Enums.AnneeStatut
+
+export const AnneeStatut: typeof $Enums.AnneeStatut
 
 /**
  * ##  Prisma Client ʲˢ
@@ -25292,7 +25305,7 @@ export namespace Prisma {
     numero: number | null
     code: string | null
     nbSemaines: number | null
-    actif: boolean | null
+    statut: $Enums.AnneeStatut | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -25302,7 +25315,7 @@ export namespace Prisma {
     numero: number | null
     code: string | null
     nbSemaines: number | null
-    actif: boolean | null
+    statut: $Enums.AnneeStatut | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -25312,7 +25325,7 @@ export namespace Prisma {
     numero: number
     code: number
     nbSemaines: number
-    actif: number
+    statut: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -25334,7 +25347,7 @@ export namespace Prisma {
     numero?: true
     code?: true
     nbSemaines?: true
-    actif?: true
+    statut?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -25344,7 +25357,7 @@ export namespace Prisma {
     numero?: true
     code?: true
     nbSemaines?: true
-    actif?: true
+    statut?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -25354,7 +25367,7 @@ export namespace Prisma {
     numero?: true
     code?: true
     nbSemaines?: true
-    actif?: true
+    statut?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -25451,7 +25464,7 @@ export namespace Prisma {
     numero: number
     code: string
     nbSemaines: number
-    actif: boolean
+    statut: $Enums.AnneeStatut
     createdAt: Date
     updatedAt: Date
     _count: AnneeCountAggregateOutputType | null
@@ -25480,7 +25493,7 @@ export namespace Prisma {
     numero?: boolean
     code?: boolean
     nbSemaines?: boolean
-    actif?: boolean
+    statut?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     semestres?: boolean | Annee$semestresArgs<ExtArgs>
@@ -25493,7 +25506,7 @@ export namespace Prisma {
     numero?: boolean
     code?: boolean
     nbSemaines?: boolean
-    actif?: boolean
+    statut?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["annee"]>
@@ -25503,7 +25516,7 @@ export namespace Prisma {
     numero?: boolean
     code?: boolean
     nbSemaines?: boolean
-    actif?: boolean
+    statut?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["annee"]>
@@ -25513,12 +25526,12 @@ export namespace Prisma {
     numero?: boolean
     code?: boolean
     nbSemaines?: boolean
-    actif?: boolean
+    statut?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AnneeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "code" | "nbSemaines" | "actif" | "createdAt" | "updatedAt", ExtArgs["result"]["annee"]>
+  export type AnneeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "code" | "nbSemaines" | "statut" | "createdAt" | "updatedAt", ExtArgs["result"]["annee"]>
   export type AnneeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestres?: boolean | Annee$semestresArgs<ExtArgs>
     departements?: boolean | Annee$departementsArgs<ExtArgs>
@@ -25538,7 +25551,7 @@ export namespace Prisma {
       numero: number
       code: string
       nbSemaines: number
-      actif: boolean
+      statut: $Enums.AnneeStatut
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["annee"]>
@@ -25970,7 +25983,7 @@ export namespace Prisma {
     readonly numero: FieldRef<"Annee", 'Int'>
     readonly code: FieldRef<"Annee", 'String'>
     readonly nbSemaines: FieldRef<"Annee", 'Int'>
-    readonly actif: FieldRef<"Annee", 'Boolean'>
+    readonly statut: FieldRef<"Annee", 'AnneeStatut'>
     readonly createdAt: FieldRef<"Annee", 'DateTime'>
     readonly updatedAt: FieldRef<"Annee", 'DateTime'>
   }
@@ -31161,7 +31174,7 @@ export namespace Prisma {
     numero: 'numero',
     code: 'code',
     nbSemaines: 'nbSemaines',
-    actif: 'actif',
+    statut: 'statut',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -31459,6 +31472,20 @@ export namespace Prisma {
    * Reference to a field of type 'BigInt[]'
    */
   export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AnneeStatut'
+   */
+  export type EnumAnneeStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnneeStatut'>
+    
+
+
+  /**
+   * Reference to a field of type 'AnneeStatut[]'
+   */
+  export type ListEnumAnneeStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnneeStatut[]'>
     
 
 
@@ -32925,7 +32952,7 @@ export namespace Prisma {
     numero?: IntFilter<"Annee"> | number
     code?: StringFilter<"Annee"> | string
     nbSemaines?: IntFilter<"Annee"> | number
-    actif?: BoolFilter<"Annee"> | boolean
+    statut?: EnumAnneeStatutFilter<"Annee"> | $Enums.AnneeStatut
     createdAt?: DateTimeFilter<"Annee"> | Date | string
     updatedAt?: DateTimeFilter<"Annee"> | Date | string
     semestres?: SemestreListRelationFilter
@@ -32937,7 +32964,7 @@ export namespace Prisma {
     numero?: SortOrder
     code?: SortOrder
     nbSemaines?: SortOrder
-    actif?: SortOrder
+    statut?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     semestres?: SemestreOrderByRelationAggregateInput
@@ -32952,7 +32979,7 @@ export namespace Prisma {
     OR?: AnneeWhereInput[]
     NOT?: AnneeWhereInput | AnneeWhereInput[]
     nbSemaines?: IntFilter<"Annee"> | number
-    actif?: BoolFilter<"Annee"> | boolean
+    statut?: EnumAnneeStatutFilter<"Annee"> | $Enums.AnneeStatut
     createdAt?: DateTimeFilter<"Annee"> | Date | string
     updatedAt?: DateTimeFilter<"Annee"> | Date | string
     semestres?: SemestreListRelationFilter
@@ -32964,7 +32991,7 @@ export namespace Prisma {
     numero?: SortOrder
     code?: SortOrder
     nbSemaines?: SortOrder
-    actif?: SortOrder
+    statut?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AnneeCountOrderByAggregateInput
@@ -32982,7 +33009,7 @@ export namespace Prisma {
     numero?: IntWithAggregatesFilter<"Annee"> | number
     code?: StringWithAggregatesFilter<"Annee"> | string
     nbSemaines?: IntWithAggregatesFilter<"Annee"> | number
-    actif?: BoolWithAggregatesFilter<"Annee"> | boolean
+    statut?: EnumAnneeStatutWithAggregatesFilter<"Annee"> | $Enums.AnneeStatut
     createdAt?: DateTimeWithAggregatesFilter<"Annee"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Annee"> | Date | string
   }
@@ -34810,7 +34837,7 @@ export namespace Prisma {
     numero: number
     code: string
     nbSemaines?: number
-    actif?: boolean
+    statut?: $Enums.AnneeStatut
     createdAt?: Date | string
     updatedAt?: Date | string
     semestres?: SemestreCreateNestedManyWithoutAnneeInput
@@ -34822,7 +34849,7 @@ export namespace Prisma {
     numero: number
     code: string
     nbSemaines?: number
-    actif?: boolean
+    statut?: $Enums.AnneeStatut
     createdAt?: Date | string
     updatedAt?: Date | string
     semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
@@ -34834,7 +34861,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUpdateManyWithoutAnneeNestedInput
@@ -34846,7 +34873,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
@@ -34858,7 +34885,7 @@ export namespace Prisma {
     numero: number
     code: string
     nbSemaines?: number
-    actif?: boolean
+    statut?: $Enums.AnneeStatut
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -34868,7 +34895,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34878,7 +34905,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -36555,6 +36582,13 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type EnumAnneeStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnneeStatut | EnumAnneeStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.AnneeStatut[] | ListEnumAnneeStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnneeStatut[] | ListEnumAnneeStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnneeStatutFilter<$PrismaModel> | $Enums.AnneeStatut
+  }
+
   export type SemestreListRelationFilter = {
     every?: SemestreWhereInput
     some?: SemestreWhereInput
@@ -36580,7 +36614,7 @@ export namespace Prisma {
     numero?: SortOrder
     code?: SortOrder
     nbSemaines?: SortOrder
-    actif?: SortOrder
+    statut?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -36595,7 +36629,7 @@ export namespace Prisma {
     numero?: SortOrder
     code?: SortOrder
     nbSemaines?: SortOrder
-    actif?: SortOrder
+    statut?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -36605,7 +36639,7 @@ export namespace Prisma {
     numero?: SortOrder
     code?: SortOrder
     nbSemaines?: SortOrder
-    actif?: SortOrder
+    statut?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -36613,6 +36647,16 @@ export namespace Prisma {
   export type AnneeSumOrderByAggregateInput = {
     numero?: SortOrder
     nbSemaines?: SortOrder
+  }
+
+  export type EnumAnneeStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnneeStatut | EnumAnneeStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.AnneeStatut[] | ListEnumAnneeStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnneeStatut[] | ListEnumAnneeStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnneeStatutWithAggregatesFilter<$PrismaModel> | $Enums.AnneeStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAnneeStatutFilter<$PrismaModel>
+    _max?: NestedEnumAnneeStatutFilter<$PrismaModel>
   }
 
   export type AnneeScalarRelationFilter = {
@@ -38152,6 +38196,10 @@ export namespace Prisma {
     connect?: DepartementWhereUniqueInput | DepartementWhereUniqueInput[]
   }
 
+  export type EnumAnneeStatutFieldUpdateOperationsInput = {
+    set?: $Enums.AnneeStatut
+  }
+
   export type SemestreUpdateManyWithoutAnneeNestedInput = {
     create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
     connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
@@ -38806,6 +38854,23 @@ export namespace Prisma {
     _sum?: NestedBigIntFilter<$PrismaModel>
     _min?: NestedBigIntFilter<$PrismaModel>
     _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAnneeStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnneeStatut | EnumAnneeStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.AnneeStatut[] | ListEnumAnneeStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnneeStatut[] | ListEnumAnneeStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnneeStatutFilter<$PrismaModel> | $Enums.AnneeStatut
+  }
+
+  export type NestedEnumAnneeStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AnneeStatut | EnumAnneeStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.AnneeStatut[] | ListEnumAnneeStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AnneeStatut[] | ListEnumAnneeStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumAnneeStatutWithAggregatesFilter<$PrismaModel> | $Enums.AnneeStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAnneeStatutFilter<$PrismaModel>
+    _max?: NestedEnumAnneeStatutFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateWithoutUserInput = {
@@ -42549,7 +42614,7 @@ export namespace Prisma {
     numero: number
     code: string
     nbSemaines?: number
-    actif?: boolean
+    statut?: $Enums.AnneeStatut
     createdAt?: Date | string
     updatedAt?: Date | string
     departements?: DepartementCreateNestedManyWithoutAnneeInput
@@ -42560,7 +42625,7 @@ export namespace Prisma {
     numero: number
     code: string
     nbSemaines?: number
-    actif?: boolean
+    statut?: $Enums.AnneeStatut
     createdAt?: Date | string
     updatedAt?: Date | string
     departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
@@ -42587,7 +42652,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departements?: DepartementUpdateManyWithoutAnneeNestedInput
@@ -42598,7 +42663,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
@@ -42609,7 +42674,7 @@ export namespace Prisma {
     numero: number
     code: string
     nbSemaines?: number
-    actif?: boolean
+    statut?: $Enums.AnneeStatut
     createdAt?: Date | string
     updatedAt?: Date | string
     semestres?: SemestreCreateNestedManyWithoutAnneeInput
@@ -42620,7 +42685,7 @@ export namespace Prisma {
     numero: number
     code: string
     nbSemaines?: number
-    actif?: boolean
+    statut?: $Enums.AnneeStatut
     createdAt?: Date | string
     updatedAt?: Date | string
     semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
@@ -42677,7 +42742,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUpdateManyWithoutAnneeNestedInput
@@ -42688,7 +42753,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     code?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput

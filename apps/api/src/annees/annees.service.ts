@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 import {
@@ -12,6 +12,8 @@ import {
   SemestreResponseDto,
   PaginatedSemestresDto,
   SemestreQueryDto,
+  AnneeStatut,
+  TransitionAnneeDto,
 } from './dto/annee.dto.js';
 
 @Injectable()
@@ -36,14 +38,14 @@ export class AnneesService {
       throw new ConflictException(`Le numéro d'année ${dto.numero} existe déjà`);
     }
 
-    const annee = await this.audit.auditTransaction<{ id: string; numero: number; code: string; nbSemaines: number; actif: boolean; createdAt: Date; updatedAt: Date }>(
+    const annee = await this.audit.auditTransaction<{ id: string; numero: number; code: string; nbSemaines: number; statut: AnneeStatut; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.annee.create({
           data: {
             numero: dto.numero,
             code: dto.code,
             nbSemaines: dto.nbSemaines ?? 14,
-            actif: false,
+            statut: 'PREPARATION',
           },
         });
       },
@@ -72,8 +74,8 @@ export class AnneesService {
       ];
     }
 
-    if (query.actif !== undefined) {
-      where.actif = query.actif === 'true';
+    if (query.statut !== undefined) {
+      where.statut = query.statut;
     }
 
     const [annees, total] = await Promise.all([
@@ -123,7 +125,7 @@ export class AnneesService {
       }
     }
 
-    const annee = await this.audit.auditTransaction<{ id: string; numero: number; code: string; nbSemaines: number; actif: boolean; createdAt: Date; updatedAt: Date }>(
+    const annee = await this.audit.auditTransaction<{ id: string; numero: number; code: string; nbSemaines: number; statut: AnneeStatut; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.annee.update({
           where: { id },
@@ -131,7 +133,7 @@ export class AnneesService {
             ...(dto.code !== undefined && { code: dto.code }),
             ...(dto.numero !== undefined && { numero: dto.numero }),
             ...(dto.nbSemaines !== undefined && { nbSemaines: dto.nbSemaines }),
-            ...(dto.actif !== undefined && { actif: dto.actif === 'true' }),
+            ...(dto.statut !== undefined && { statut: dto.statut as AnneeStatut }),
           },
         });
       },
@@ -176,16 +178,89 @@ export class AnneesService {
     );
   }
 
-  private toAnneeDto(annee: { id: string; numero: number; code: string; nbSemaines: number; actif: boolean; createdAt: Date; updatedAt: Date }): AnneeResponseDto {
+  private toAnneeDto(annee: { id: string; numero: number; code: string; nbSemaines: number; statut: AnneeStatut; createdAt: Date; updatedAt: Date }): AnneeResponseDto {
     return {
       id: annee.id,
       numero: annee.numero,
       code: annee.code,
       nbSemaines: annee.nbSemaines,
-      actif: annee.actif,
+      statut: annee.statut,
       createdAt: annee.createdAt,
       updatedAt: annee.updatedAt,
     };
+  }
+
+  // ============================================
+  // Transitions (activation / clôture) — L1-02
+  // ============================================
+
+  async activerAnnee(
+    id: string,
+    dto: TransitionAnneeDto,
+    userId: string,
+  ): Promise<AnneeResponseDto> {
+    const existing = await this.prisma.annee.findUnique({ where: { id } });
+    if (!existing) {
+      throw new NotFoundException('Année non trouvée');
+    }
+
+    if (dto.action === 'ACTIVER') {
+      if (existing.statut === 'ACTIVE') {
+        throw new ConflictException(`L'année "${existing.code}" est déjà active`);
+      }
+      // Double sécurité : une seule année ACTIVE à la fois (index unique partiel en DB également)
+      const activeAnnee = await this.prisma.annee.findFirst({ where: { statut: 'ACTIVE' } });
+      if (activeAnnee) {
+        throw new ConflictException(
+          `L'année "${activeAnnee.code}" est déjà active. Une seule année peut être active à la fois.`,
+        );
+      }
+
+      const annee = await this.audit.auditTransaction<{ id: string; numero: number; code: string; nbSemaines: number; statut: AnneeStatut; createdAt: Date; updatedAt: Date }>(
+        async (tx) => {
+          return tx.annee.update({
+            where: { id },
+            data: { statut: 'ACTIVE' },
+          });
+        },
+        {
+          userId,
+          action: 'STATUS_CHANGED',
+          objetType: 'Annee',
+          objetId: id,
+          motif: `Activation année ${existing.code}`,
+        },
+      );
+      return this.toAnneeDto(annee);
+    }
+
+    // CLOTURER
+    if (!dto.confirmation) {
+      throw new BadRequestException('La clôture d\'une année nécessite une confirmation explicite.');
+    }
+    if (existing.statut === 'CLOTUREE') {
+      throw new ConflictException(`L'année "${existing.code}" est déjà clôturée`);
+    }
+    if (existing.statut === 'PREPARATION') {
+      throw new ConflictException(`Impossible de clôturer une année en préparation. Activez-la d'abord.`);
+    }
+
+    const annee = await this.audit.auditTransaction<{ id: string; numero: number; code: string; nbSemaines: number; statut: AnneeStatut; createdAt: Date; updatedAt: Date }>(
+      async (tx) => {
+        return tx.annee.update({
+          where: { id },
+          data: { statut: 'CLOTUREE' },
+        });
+      },
+      {
+        userId,
+        action: 'STATUS_CHANGED',
+        objetType: 'Annee',
+        objetId: id,
+        motif: `Clôture année ${existing.code}`,
+      },
+    );
+    return this.toAnneeDto(annee);
   }
 
   // ============================================

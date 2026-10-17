@@ -1,6 +1,14 @@
-import { IsString, IsOptional, MinLength, MaxLength, IsInt, Min, Max, IsUUID, IsBooleanString } from 'class-validator';
+import { IsString, IsOptional, MinLength, MaxLength, IsInt, Min, Max, IsUUID, IsIn } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+
+export type AnneeStatut = 'PREPARATION' | 'ACTIVE' | 'CLOTUREE';
+
+export const AnneeStatut = {
+  PREPARATION: 'PREPARATION' as const,
+  ACTIVE: 'ACTIVE' as const,
+  CLOTUREE: 'CLOTUREE' as const,
+} as const;
 
 export class CreateAnneeDto {
   @ApiProperty({ example: 2026, description: 'Numéro de l\'année universitaire' })
@@ -48,10 +56,10 @@ export class UpdateAnneeDto {
   @Max(52)
   nbSemaines?: number;
 
-  @ApiPropertyOptional({ example: false })
+  @ApiPropertyOptional({ example: 'ACTIVE', enum: ['PREPARATION', 'ACTIVE', 'CLOTUREE'] })
   @IsOptional()
-  @IsBooleanString()
-  actif?: string;
+  @IsIn(['PREPARATION', 'ACTIVE', 'CLOTUREE'])
+  statut?: string;
 }
 
 export class AnneeResponseDto {
@@ -67,8 +75,8 @@ export class AnneeResponseDto {
   @ApiProperty()
   nbSemaines: number;
 
-  @ApiProperty()
-  actif: boolean;
+  @ApiProperty({ enum: ['PREPARATION', 'ACTIVE', 'CLOTUREE'] })
+  statut: AnneeStatut;
 
   @ApiProperty()
   createdAt: Date;
@@ -115,10 +123,21 @@ export class AnneeQueryDto {
   @IsString()
   search?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ enum: ['PREPARATION', 'ACTIVE', 'CLOTUREE'] })
   @IsOptional()
-  @IsBooleanString()
-  actif?: string;
+  @IsIn(['PREPARATION', 'ACTIVE', 'CLOTUREE'])
+  statut?: string;
+}
+
+export class TransitionAnneeDto {
+  @ApiProperty({ enum: ['ACTIVER', 'CLOTURER'] })
+  @IsIn(['ACTIVER', 'CLOTURER'])
+  action: 'ACTIVER' | 'CLOTURER';
+
+  @ApiPropertyOptional({ default: false, description: 'Confirmer la transition (requis pour CLOTURER)' })
+  @IsOptional()
+  @Type(() => Boolean)
+  confirmation?: boolean;
 }
 
 export class CreateSemestreDto {

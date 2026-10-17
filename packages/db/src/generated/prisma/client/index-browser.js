@@ -337,7 +337,7 @@ exports.Prisma.AnneeScalarFieldEnum = {
   numero: 'numero',
   code: 'code',
   nbSemaines: 'nbSemaines',
-  actif: 'actif',
+  statut: 'statut',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -470,6 +470,12 @@ exports.ActivityType = exports.$Enums.ActivityType = {
   ASSIGNED: 'ASSIGNED',
   COMMENTED: 'COMMENTED',
   MOVED: 'MOVED'
+};
+
+exports.AnneeStatut = exports.$Enums.AnneeStatut = {
+  PREPARATION: 'PREPARATION',
+  ACTIVE: 'ACTIVE',
+  CLOTUREE: 'CLOTUREE'
 };
 
 exports.Prisma.ModelName = {
