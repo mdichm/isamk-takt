@@ -150,7 +150,7 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | L0-02 | L0-02 |
 | L0-03 | L0-03 |
 | L0-04 | L0-04 |
-| L0-05 | L0-06 |
+| L0-05 | L0-05 |
 | L0-06 | L0-07 |
 | L0-07 | L0-08 |
 | L0-08 | L0-09 |

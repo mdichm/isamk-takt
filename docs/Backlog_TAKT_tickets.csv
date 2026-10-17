@@ -120,11 +120,11 @@ L0-32;L0;E0.7;Socle web;Tâche technique;JWT Auth Guard (JwtAuthGuard);Implémen
 L0-33;L0;E0.7;Socle web;Tâche technique;RolesGuard et décorateur @Roles();"Guard RolesGuard vérifiant les rôles requis et la portée département ; décorateur @Roles() pour déclarer les rôles attendus sur les contrôleurs.";"- Le guard lit les rôles depuis le payload JWT
 - Vérifie l'appartenance au département de l'utilisateur
 - Le décorateur accepte un ou plusieurs rôles
-- Retourne 403 ProblemJson si insuffisant";EX-SEC-01;§5.1;BACK;Must;3;L0-32;À faire;
+- Retourne 403 ProblemJson si insuffisant";EX-SEC-01;§5.1;BACK;Must;3;L0-32;Terminé;
 L0-34;L0;E0.7;Socle web;Story;UsersModule (CRUD + reset‑pwd);Module Users complet : création, lecture, mise à jour, suppression (soft‑delete) d'utilisateurs, changement de mot de passe par l'utilisateur, réinitialisation par l'administrateur avec lien à usage unique.;"- Seul l'Administrateur peut créer/supprimer
 - L'utilisateur peut modifier son propre profil et mot de passe
 - L'administrateur génère un lien de réinitialisation (token opaque, TTL court)
-- Tous les endpoints documentés OpenAPI";EX-SEC-02;§5.1, §3.4.21;BACK;Must;5;L0-33;À faire;
+- Tous les endpoints documentés OpenAPI";EX-SEC-02;§5.1, §3.4.21;BACK;Must;5;L0-33;Terminé;
 L0-35;L0;E0.7;Socle web;Tâche technique;Filtre global ProblemJson (RFC 9457);Filtre d'exception global transformant toute erreur en réponse application/problem+json (type, title, status, detail, instance, errors).;"- Toutes les HttpException et erreurs imprévues passent par le filtre
 - Le format respecte RFC 9457
 - Le type d'erreur contient une URI stable https://takt.example.fr/errors/{status}";EX-NFR-05;§5.4;BACK;Must;3;L0-32;Terminé;

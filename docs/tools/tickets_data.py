@@ -34,7 +34,7 @@ t("tokens","L0",E,T,"Intégration des tokens de conception",
 E = "Infrastructure sur site"
 t("reseau","L0",E,T,"Réseau et périmètre sur site","Nginx en reverse proxy (TLS, limitation de débit), pare-feu, réseau de conteneurs interne, route sortante unique de l'API vers le SMTP.",
   ["Seul le port 443 de Nginx est exposé sur le réseau interne","API, worker et base accessibles uniquement depuis le réseau de conteneurs","La limitation de débit par IP est active","Le worker n'a aucune route sortante ; l'API n'a que la route vers l'hôte et le port SMTP"],
-  "EX-NFR-01","§5.3, §1.8","DEVOPS","Must",8,["repo"],"L0-05",statut="Terminé")
+  "EX-NFR-01","§5.3, §1.8","DEVOPS","Must",8,["repo"],"",statut="Terminé")
 t("donnees","L0",E,T,"Données, fichiers et secrets sur site","PostgreSQL 16, volume de fichiers derrière le port FileStore sur disque chiffré, file de jobs pg-boss (generation, export, email), secrets en fichiers, rôles de base.",
   ["Disques et volumes de fichiers chiffrés (LUKS)","Rôles app_rw, worker_rw, audit_ro et audit_purge créés avec droits minimaux","Les secrets sont montés en fichiers en lecture seule, absents des images","File d'échecs configurée avec reprise après 3 tentatives","Le port FileStore est la seule interface d'accès aux fichiers"],
   "EX-NFR-01, EX-NFR-06","§1.8, §5.3, §4.19","DEVOPS","Must",8,["reseau"],"L0-06",statut="Terminé")
@@ -121,10 +121,10 @@ t("jwt_guard","L0",E,T,"JWT Auth Guard (JwtAuthGuard)","Implémentation du guard
   "EX-SEC-01","§5.1","BACK","Must",3,["login"],"L0-31",statut="Terminé")
 t("roles_guard","L0",E,T,"RolesGuard et décorateur @Roles()","Guard RolesGuard vérifiant les rôles requis et la portée département ; décorateur @Roles() pour déclarer les rôles attendus sur les contrôleurs.",
   ["Le guard lit les rôles depuis le payload JWT","Vérifie l'appartenance au département de l'utilisateur","Le décorateur accepte un ou plusieurs rôles","Retourne 403 ProblemJson si insuffisant"],
-  "EX-SEC-01","§5.1","BACK","Must",3,["jwt_guard"],"L0-32",statut="À faire")
+  "EX-SEC-01","§5.1","BACK","Must",3,["jwt_guard"],"L0-32",statut="Terminé")
 t("users_module","L0",E,S,"UsersModule (CRUD + reset‑pwd)","Module Users complet : création, lecture, mise à jour, suppression (soft‑delete) d'utilisateurs, changement de mot de passe par l'utilisateur, réinitialisation par l'administrateur avec lien à usage unique.",
   ["Seul l'Administrateur peut créer/supprimer","L'utilisateur peut modifier son propre profil et mot de passe","L'administrateur génère un lien de réinitialisation (token opaque, TTL court)","Tous les endpoints documentés OpenAPI"],
-  "EX-SEC-02","§5.1, §3.4.21","BACK","Must",5,["roles_guard"],"L0-33",statut="À faire")
+  "EX-SEC-02","§5.1, §3.4.21","BACK","Must",5,["roles_guard"],"L0-33",statut="Terminé")
 t("problem_json_filter","L0",E,T,"Filtre global ProblemJson (RFC 9457)","Filtre d'exception global transformant toute erreur en réponse application/problem+json (type, title, status, detail, instance, errors).",
   ["Toutes les HttpException et erreurs imprévues passent par le filtre","Le format respecte RFC 9457","Le type d'erreur contient une URI stable https://takt.example.fr/errors/{status}"],
   "EX-NFR-05","§5.4","BACK","Must",3,["jwt_guard"],"L0-34",statut="Terminé")
