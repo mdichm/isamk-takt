@@ -71,7 +71,7 @@ t("authprovider","L0",E,T,"Interface AuthProvider","Abstraction permettant un fu
   "EX-SEC-01","§5.1","BACK","Could",2,["login"],"L0-14",statut="Terminé")
 t("securite_journal","L0",E,S,"Journal de sécurité","Table SecurityEvent distincte de l'audit, écriture des connexions, verrouillages, réutilisation de jeton, usage de lien, MFA, accès aux exports ; consultation Administrateur.",
   ["Connexions réussies et échouées, verrouillages et réutilisations de jeton sont enregistrés","GET /security-events réservé à l'Administrateur avec filtres et pagination par curseur","Aucune connexion n'est écrite dans l'audit métier","Aucun mot de passe ni jeton en clair dans le journal"],
-  "EX-SEC-09","§5.3, §2.2, §2.4","BACK","Must",5,["login","prisma"])
+  "EX-SEC-09","§5.3, §2.2, §2.4","BACK","Must",5,["login","prisma"],"L0-39",statut="À faire")
 E = "RBAC avec portée"
 t("rbac","L0",E,S,"Module policy RBAC avec portée","Permissions ressource:action, CASL, ScopeGuard par département, quatre rôles.",
   ["Toute route sans décorateur de permission est refusée","Un objet hors portée renvoie 404","L'ImmutabilityGuard s'applique aussi à l'Administrateur","Le Gestionnaire ne modifie pas la répartition ; la Direction n'a aucun droit d'écriture"],
@@ -84,7 +84,7 @@ t("controleurs_generiques_permissions","L0",E,S,"Permissions ressource:action su
   "EX-SEC-08, EX-ROL-04","§5.2, §5.5","BACK","Must",5,["rbac_test"],"L0-38",statut="Terminé")
 t("admin_perm","L0",E,S,"Droits étendus de l'Administrateur et séparation des tâches","L'Administrateur détient l'union des droits du Gestionnaire, écrit la répartition de tout département et valide par département ; garde de séparation des tâches.",
   ["L'Administrateur accède à toutes les routes du Gestionnaire","Il peut écrire et valider la répartition d'un département en le nommant","Une personne ne peut pas valider un cycle qu'elle a soumis (403 SEGREGATION_OF_DUTIES)","Tests de non-régression sur la matrice"],
-  "EX-ROL-02, EX-ROL-06","§5.2, §4.1.1","BACK","Must",3,["rbac"])
+  "EX-ROL-02, EX-ROL-06","§5.2, §4.1.1","BACK","Must",3,["rbac"],"L0-40",statut="À faire")
 E = "Audit append-only"
 t("audit_service","L0",E,S,"AuditService append-only","Écriture de l'audit dans la même transaction que l'écriture métier.",
   ["Une action métier et son audit sont atomiques","UPDATE et DELETE sur AuditLog sont refusés (trigger et REVOKE)","L'audit contient ancienne et nouvelle valeur"],
@@ -94,7 +94,7 @@ t("audit_read","L0",E,S,"Consultation de l'audit","GET /audit avec filtres, comp
   "EX-AUD-01, EX-ROL-04","§3.3, §5.3","BACK","Should",3,["audit_service","rbac"],"L0-18",statut="Terminé")
 t("audit_purge","L0",E,S,"Conservation et purge des journaux","Fonction purge_journaux (rôle audit_purge), durées configurables, purge tracée.",
   ["La durée de conservation de l'audit et du journal de sécurité est configurable (défauts : audit sans purge, sécurité 12 mois)","La purge passe uniquement par la fonction dédiée et écrit un audit de purge","app_rw ne peut ni supprimer ni modifier les journaux"],
-  "EX-AUD-02","§2.4, §5.3","BACK","Should",3,["params_secu","audit_service"])
+  "EX-AUD-02","§2.4, §5.3","BACK","Should",3,["params_secu","audit_service"],"L0-41",statut="À faire")
 E = "Socle API"
 t("erreurs","L0",E,T,"Erreurs RFC 9457 et catalogue de codes","Format problem+json, codes métier, traduction SQLSTATE P0001 et 23505.",
   ["Toutes les erreurs suivent le format ST §3.2","IMMUTABLE_VERSION, YEAR_CLOSED, APPEND_ONLY_TABLE, CHARGE_RULESET_PUBLISHED, CONFIG_IN_USE et 23505 sont traduits en 409 ou 423","requestId présent dans chaque erreur"],
@@ -114,7 +114,7 @@ t("admin_ui","L0",E,S,"Écran d'administration des utilisateurs","Liste, créati
   "EX-SEC-02, EX-SEC-03","§3.3","FRONT","Must",5,["shell","comptes","reset"],"L0-23",statut="Terminé")
 t("secu_ui","L0",E,S,"Écrans des paramètres de sécurité et du journal","Paramètres de sécurité, conservation, journal de sécurité (Administrateur).",
   ["Tous les paramètres sont modifiables avec leurs valeurs courantes et par défaut","Le journal est filtrable par type, utilisateur et période","Accès réservé à l'Administrateur"],
-  "EX-SEC-04, EX-SEC-09","§3.3","FRONT","Should",5,["shell","params_secu","securite_journal"])
+  "EX-SEC-04, EX-SEC-09","§3.3","FRONT","Should",5,["shell","params_secu","securite_journal"],"L0-42",statut="À faire")
 
 t("jwt_guard","L0",E,T,"JWT Auth Guard (JwtAuthGuard)","Implémentation du guard JwtAuthGuard pour protéger les routes avec vérification du JWT d'accès (signature, expiration, revocation via refresh token family).",
   ["Le guard extrait le token du header Authorization Bearer","Valide la signature et l'expiration","Vérifie la non-révocation via la famille de refresh tokens","Retourne 401 avec ProblemJson RFC 9457 en cas d'échec"],
