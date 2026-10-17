@@ -56,10 +56,10 @@ t("mfa","L0",E,S,"MFA TOTP","Enrôlement et vérification TOTP, activable par r�
   "EX-SEC-06","§5.1","BACK","Must",5,["login"],"L0-11",statut="Terminé")
 t("params_secu","L0",E,S,"Paramètres de sécurité configurables","Modèle ParametreSecurite (ligne unique) et API GET/PATCH /parametres/securite.",
   ["Longueur minimale, composition, expiration, historique, verrouillage, inactivité, MFA par rôle et conservation des journaux sont modifiables par l'Administrateur","Longueur minimale inférieure à 8 refusée (422)","Chaque modification écrit un audit (ancienne et nouvelle valeur)","Valeurs par défaut conformes à ST §5.1"],
-  "EX-SEC-04","§5.1, §3.4.21, §2.2","BACK","Must",5,["login","audit_service"])
+  "EX-SEC-04","§5.1, §3.4.21, §2.2","BACK","Must",5,["login","audit_service"],"L0-24",statut="Terminé")
 t("inactivite","L0",E,S,"Déconnexion après inactivité","Suivi de lastActivityAt, refus du refresh au-delà du délai configuré.",
   ["Le refresh est refusé (401 SESSION_INACTIVE) au-delà du délai d'inactivité","Les requêtes automatiques (heartbeat, SSE) ne comptent pas comme une activité","L'interface déconnecte à l'expiration du délai"],
-  "EX-SEC-07","§5.1","FULL","Must",3,["params_secu"])
+  "EX-SEC-07","§5.1","FULL","Must",3,["params_secu"],"L0-30",statut="Terminé")
 t("comptes","L0",E,S,"Gestion des comptes et des rôles","CRUD utilisateurs, PUT /users/{id}/roles avec portée par département, désactivation logique et réactivation.",
   ["Seul l'Administrateur gère les comptes","Les quatre rôles existent (Administrateur, Gestionnaire, Responsable de département, Direction)","Un rôle Responsable exige un departementCode","La désactivation révoque immédiatement les refresh tokens et conserve l'identité dans l'audit","Aucune suppression physique d'un compte"],
   "EX-SEC-02, EX-ROL-01","§3.3, §5.2","BACK","Must",5,["login","rbac"],"L0-12",statut="Terminé")

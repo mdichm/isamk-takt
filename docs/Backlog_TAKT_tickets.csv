@@ -50,10 +50,10 @@ L0-12;L0;E0.3;Authentification & comptes;Story;MFA TOTP;Enrôlement et vérifica
 L0-13;L0;E0.3;Authentification & comptes;Story;Paramètres de sécurité configurables;Modèle ParametreSecurite (ligne unique) et API GET/PATCH /parametres/securite.;"- Longueur minimale, composition, expiration, historique, verrouillage, inactivité, MFA par rôle et conservation des journaux sont modifiables par l'Administrateur
 - Longueur minimale inférieure à 8 refusée (422)
 - Chaque modification écrit un audit (ancienne et nouvelle valeur)
-- Valeurs par défaut conformes à ST §5.1";EX-SEC-04;§5.1, §3.4.21, §2.2;BACK;Must;5;L0-10, L0-23;À faire;
+- Valeurs par défaut conformes à ST §5.1";EX-SEC-04;§5.1, §3.4.21, §2.2;BACK;Must;5;L0-10, L0-23;Terminé;
 L0-14;L0;E0.3;Authentification & comptes;Story;Déconnexion après inactivité;Suivi de lastActivityAt, refus du refresh au-delà du délai configuré.;"- Le refresh est refusé (401 SESSION_INACTIVE) au-delà du délai d'inactivité
 - Les requêtes automatiques (heartbeat, SSE) ne comptent pas comme une activité
-- L'interface déconnecte à l'expiration du délai";EX-SEC-07;§5.1;FULL;Must;3;L0-13;À faire;
+- L'interface déconnecte à l'expiration du délai";EX-SEC-07;§5.1;FULL;Must;3;L0-13;Terminé;
 L0-15;L0;E0.3;Authentification & comptes;Story;Gestion des comptes et des rôles;CRUD utilisateurs, PUT /users/{id}/roles avec portée par département, désactivation logique et réactivation.;"- Seul l'Administrateur gère les comptes
 - Les quatre rôles existent (Administrateur, Gestionnaire, Responsable de département, Direction)
 - Un rôle Responsable exige un departementCode

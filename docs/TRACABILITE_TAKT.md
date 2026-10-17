@@ -169,6 +169,8 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | L0-21 | L0-28 |
 | L0-22 | L0-29 |
 | L0-23 | L0-30 |
+| L0-24 | L0-13 |
+| L0-30 | L0-14 |
 | L0-31 | L0-32 |
 | L0-32 | L0-33 |
 | L0-33 | L0-34 |
