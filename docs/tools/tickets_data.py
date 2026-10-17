@@ -130,7 +130,7 @@ t("problem_json_filter","L0",E,T,"Filtre global ProblemJson (RFC 9457)","Filtr
   "EX-NFR-05","§5.4","BACK","Must",3,["jwt_guard"],"L0-34",statut="Terminé")
 t("link_header","L0",E,T,"Intercepteur de réponse avec en‑tête Link (pagination curseur)","ResponseInterceptor ajoutant l'en‑tête Link RFC 5988 (rel=next) lorsque le payload paginé contient nextCursor.",
   ["L'en‑tête Link n'est ajouté que si nextCursor présent","L'URL construida conserve les paramètres de requête existants","Conforme à la pagination curseur définie dans ST §3.1"],
-  "EX-NFR-04","§3.1, §5.4","BACK","Must",2,["problem_json_filter"],"L0-35",statut="À faire")
+  "EX-NFR-04","§3.1, §5.4","BACK","Must",2,["problem_json_filter"],"L0-35",statut="Terminé")
 t("swagger_ui","L0",E,T,"Configuration Swagger UI à /api/docs","Initialisation de SwaggerModule avec DocumentBuilder (BearerAuth, tags, version) et exposition de l'UI à /api/docs.",
   ["L'UI est accessible sans authentification","Les schémas DTO sont inclus via @ApiProperty","Le document OpenAPI 3.1 est généré au démarrage"],
   "EX-NFR-09","§5.3","BACK","Must",2,["problem_json_filter"],"L0-36",statut="Terminé")
