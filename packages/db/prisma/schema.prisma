@@ -76,6 +76,13 @@ enum ActivityType {
   MOVED
 }
 
+// Statut d'une année universitaire — L1-02
+enum AnneeStatut {
+  PREPARATION
+  ACTIVE
+  CLOTUREE
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -442,7 +449,7 @@ model Annee {
   numero    Int      // ex: 2026
   code      String   // ex: "2026-2027"
   nbSemaines Int     @default(14)
-  actif     Boolean  @default(false)
+  statut    AnneeStatut @default(PREPARATION)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

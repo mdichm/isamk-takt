@@ -76,6 +76,13 @@ enum ActivityType {
   MOVED
 }
 
+// Statut d'une année universitaire — L1-02
+enum AnneeStatut {
+  PREPARATION
+  ACTIVE
+  CLOTUREE
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -438,13 +445,13 @@ model AuditLog {
 // ============================================
 
 model Annee {
-  id         String   @id @default(uuid()) @db.Uuid
+  id         String      @id @default(uuid()) @db.Uuid
   numero     Int // ex: 2026
   code       String // ex: "2026-2027"
-  nbSemaines Int      @default(14)
-  actif      Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  nbSemaines Int         @default(14)
+  statut     AnneeStatut @default(PREPARATION)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
   semestres    Semestre[]
   departements Departement[]

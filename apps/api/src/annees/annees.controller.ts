@@ -24,6 +24,7 @@ import {
   SemestreResponseDto,
   PaginatedSemestresDto,
   SemestreQueryDto,
+  TransitionAnneeDto,
 } from './dto/annee.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -90,6 +91,22 @@ export class AnneesController {
   @ApiResponse({ status: 409, description: 'L\'année contient des semestres' })
   async removeAnnee(@Param('id') id: string): Promise<void> {
     return this.anneesService.removeAnnee(id, 'system');
+  }
+
+  @Post(':id/transitions')
+  @Permissions('annee:write')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Activer ou clôturer une année universitaire' })
+  @ApiParam({ name: 'id', description: 'ID de l\'année (UUID)' })
+  @ApiResponse({ status: 200, description: 'Année après transition', type: AnneeResponseDto })
+  @ApiResponse({ status: 400, description: 'Confirmation requise pour la clôture' })
+  @ApiResponse({ status: 404, description: 'Année non trouvée' })
+  @ApiResponse({ status: 409, description: 'Conflit de statut (déjà active / déjà clôturée / impossible de clôturer une année en préparation)' })
+  async transitionAnnee(
+    @Param('id') id: string,
+    @Body() dto: TransitionAnneeDto,
+  ): Promise<AnneeResponseDto> {
+    return this.anneesService.activerAnnee(id, dto, 'system');
   }
 
   // ============================================
