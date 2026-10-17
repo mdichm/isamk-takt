@@ -17,7 +17,7 @@ export default function SecurityEventsPage() {
     filters,
     setFilters,
     message,
-    loadEvents,
+    loadMore,
     handlePurge,
   } = useSecurityEvents();
 
@@ -115,7 +115,7 @@ export default function SecurityEventsPage() {
           {nextCursor && (
             <Button
               type="button"
-              onClick={() => loadEvents(nextCursor)}
+              onClick={() => loadMore()}
               disabled={loading}
               className="w-full"
             >

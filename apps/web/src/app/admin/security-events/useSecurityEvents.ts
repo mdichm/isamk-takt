@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   listSecurityEvents,
   purgeJournals,
@@ -10,29 +11,41 @@ import {
 import { messages } from '@/lib/messages/fr';
 
 export function useSecurityEvents() {
-  const [events, setEvents] = useState<SecurityEventDto[]>([]);
-  const [nextCursor, setNextCursor] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
+
   const [purging, setPurging] = useState(false);
   const [filters, setFilters] = useState<SecurityEventQuery>({});
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [allEvents, setAllEvents] = useState<SecurityEventDto[]>([]);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
 
-  async function loadEvents(cursor?: string) {
+  const { data: queryData, isLoading: queryLoading } = useQuery({
+    queryKey: ['securityEvents', filters],
+    queryFn: async () => {
+      const result = await listSecurityEvents({ ...filters, limit: 50 });
+      return result;
+    },
+  });
+
+  // Seed local state from initial query result (runs once)
+  if (queryData && allEvents.length === 0) {
+    setAllEvents(queryData.data);
+    setNextCursor(queryData.nextCursor);
+  }
+
+  const events = allEvents;
+  const loading = queryLoading && allEvents.length === 0;
+
+  const loadMore = async () => {
+    if (!nextCursor) return;
     try {
-      setLoading(true);
-      const result = await listSecurityEvents({ ...filters, cursor, limit: 50 });
-      setEvents((prev) => (cursor ? [...prev, ...result.data] : result.data));
+      const result = await listSecurityEvents({ ...filters, cursor: nextCursor, limit: 50 });
+      setAllEvents((prev) => [...prev, ...result.data]);
       setNextCursor(result.nextCursor);
     } catch {
       setMessage({ type: 'error', text: messages.errorLoadSecurityEvents });
-    } finally {
-      setLoading(false);
     }
-  }
-
-  useEffect(() => {
-    loadEvents();
-  }, [filters]);
+  };
 
   async function handlePurge() {
     if (!window.confirm(messages.purgeConfirmMessage)) return;
@@ -41,9 +54,9 @@ export function useSecurityEvents() {
     try {
       await purgeJournals();
       setMessage({ type: 'success', text: messages.purgeSuccess });
-      setEvents([]);
+      setAllEvents([]);
       setNextCursor(null);
-      await loadEvents();
+      queryClient.invalidateQueries({ queryKey: ['securityEvents'] });
     } catch {
       setMessage({ type: 'error', text: messages.purgeError });
     } finally {
@@ -59,7 +72,7 @@ export function useSecurityEvents() {
     filters,
     setFilters,
     message,
-    loadEvents,
+    loadMore,
     handlePurge,
   };
 }
