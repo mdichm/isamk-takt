@@ -137,7 +137,7 @@ t("swagger_ui","L0",E,T,"Configuration Swagger UI à /api/docs","Initialisation 
 
 t("security_event","L0",E,T,"Enregistrement d'événements de sécurité","Service d'audit pour tracer les événements de sécurité (connexion, échec, MFA, changements de rôle, etc.) et les exposer via API.",
   ["Les événements sont écrits de façon asynchrone","Chaque événement contient: type, userId, ip, userAgent, timestamp, détails","L'API permet de lister/filtrer les événements (admin only)","Intégré au guard JWT et au service d'audit futur"],
-  "EX-SEC-01","§5.1","BACK","Must",3,["jwt_guard","audit_service"],"L0-37",statut="À faire")
+  "EX-SEC-01","§5.1","BACK","Must",3,["jwt_guard","audit_service"],"L0-37",statut="Terminé")
 
 # ============================== L1 ==============================
 E = "Années & semestres"
