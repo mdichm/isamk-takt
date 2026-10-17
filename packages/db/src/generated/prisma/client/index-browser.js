@@ -351,6 +351,36 @@ exports.Prisma.SemestreScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DepartementScalarFieldEnum = {
+  id: 'id',
+  anneeId: 'anneeId',
+  code: 'code',
+  libelle: 'libelle',
+  originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FormationScalarFieldEnum = {
+  id: 'id',
+  departementId: 'departementId',
+  code: 'code',
+  libelle: 'libelle',
+  originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NiveauScalarFieldEnum = {
+  id: 'id',
+  formationId: 'formationId',
+  code: 'code',
+  libelle: 'libelle',
+  originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -463,7 +493,10 @@ exports.Prisma.ModelName = {
   SecurityEvent: 'SecurityEvent',
   AuditLog: 'AuditLog',
   Annee: 'Annee',
-  Semestre: 'Semestre'
+  Semestre: 'Semestre',
+  Departement: 'Departement',
+  Formation: 'Formation',
+  Niveau: 'Niveau'
 };
 
 /**

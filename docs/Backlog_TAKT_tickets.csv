@@ -149,7 +149,7 @@ L1-02;L1;E1.1;Années & semestres;Story;Activation d'une année;Transition ACTIV
 - Activation refusée sans jeu de règles de charge affecté (garde branchée en L2)
 - Les statuts sont PREPARATION, ACTIVE et CLOTUREE uniquement";EX-CAL-01, EX-CAL-05;§4.1.3, §3.4.15;BACK;Must;3;L1-01;À faire;
 L1-03;L1;E1.2;Structure académique;Story;CRUD départements, formations, niveaux;Structure académique rattachée à l'année avec originId.;"- Unicité par (année, code), (département, code), (formation, code)
-- Suppression refusée si référencé (RESTRICT) avec liste des références";EX-ORG-01;§2.2, §4.19;BACK;Must;5;L1-01;À faire;
+- Suppression refusée si référencé (RESTRICT) avec liste des références";EX-ORG-01;§2.2, §4.19;BACK;Must;5;L1-01;En cours;
 L1-04;L1;E1.2;Structure académique;Story;CRUD groupes hiérarchiques par semestre;SECTION, GROUPE, SOUS_GROUPE, effectif, parent, semestre.;"- Hiérarchie sans cycle
 - Effectif supérieur ou égal à 0
 - La fermeture {soi, ancêtres, descendants} est calculable

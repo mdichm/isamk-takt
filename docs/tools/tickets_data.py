@@ -153,7 +153,7 @@ t("annee_activer","L1",E,S,"Activation d'une année","Transition ACTIVER avec ga
 E = "Structure académique"
 t("structure","L1",E,S,"CRUD départements, formations, niveaux","Structure académique rattachée à l'année avec originId.",
   ["Unicité par (année, code), (département, code), (formation, code)","Suppression refusée si référencé (RESTRICT) avec liste des références"],
-  "EX-ORG-01","§2.2, §4.19","BACK","Must",5,["annees"],"L1-03")
+  "EX-ORG-01","§2.2, §4.19","BACK","Must",5,["annees"],"L1-03",statut="En cours")
 t("groupes","L1",E,S,"CRUD groupes hiérarchiques par semestre","SECTION, GROUPE, SOUS_GROUPE, effectif, parent, semestre.",
   ["Hiérarchie sans cycle","Effectif supérieur ou égal à 0","La fermeture {soi, ancêtres, descendants} est calculable","Un enfant partage le semestre de son parent (trigger SQL)","Unicité (niveau, semestre, code)"],
   "EX-ORG-02","§2.2, §4.3","BACK","Must",5,["structure"],"L1-04")

@@ -31,8 +31,8 @@
 |----------|--------|
 | Tickets total | 210 |
 | ✅ Terminés | 40 (19.0%) |
-| 🔄 En cours | 0 |
-| ⏳ À faire | 170 |
+| 🔄 En cours | 1 |
+| ⏳ À faire | 169 |
 | Points total | 1079 |
 | Points réalisés | 179 (16.6%) |
 | Points fonctionnels | 889 |
