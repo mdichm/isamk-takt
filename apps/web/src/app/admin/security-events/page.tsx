@@ -5,7 +5,6 @@ import {
   listSecurityEvents,
   purgeJournals,
   type SecurityEventDto,
-  type PaginatedSecurityEventsResponse,
   type SecurityEventQuery,
 } from '@/lib/api/security';
 import { messages } from '@/lib/messages/fr';
@@ -17,19 +16,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 export default function SecurityEventsPage() {
   const role = getCurrentUserRole();
 
-  if (role === undefined) {
-    return <div className="p-4"><p>{messages.loading}</p></div>;
-  }
-
-  if (!isAdmin(role)) {
-    return (
-      <div className="p-4">
-        <h1 className="text-lg font-semibold">{messages.error}</h1>
-        <p className="text-muted-foreground">{messages.errorForbidden}</p>
-      </div>
-    );
-  }
-
+  // Tous les hooks doivent être appelés inconditionnellement avant tout early return
   const [events, setEvents] = useState<SecurityEventDto[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,6 +57,19 @@ export default function SecurityEventsPage() {
       setPurging(false);
     }
   };
+
+  if (role === undefined) {
+    return <div className="p-4"><p>{messages.loading}</p></div>;
+  }
+
+  if (!isAdmin(role)) {
+    return (
+      <div className="p-4">
+        <h1 className="text-lg font-semibold">{messages.error}</h1>
+        <p className="text-muted-foreground">{messages.errorForbidden}</p>
+      </div>
+    );
+  }
 
   if (loading) {
     return <div className="p-4"><p>{messages.loading}</p></div>;
