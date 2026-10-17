@@ -118,7 +118,7 @@ t("secu_ui","L0",E,S,"Écrans des paramètres de sécurité et du journal","Para
 
 t("jwt_guard","L0",E,T,"JWT Auth Guard (JwtAuthGuard)","Implémentation du guard JwtAuthGuard pour protéger les routes avec vérification du JWT d'accès (signature, expiration, revocation via refresh token family).",
   ["Le guard extrait le token du header Authorization Bearer","Valide la signature et l'expiration","Vérifie la non-révocation via la famille de refresh tokens","Retourne 401 avec ProblemJson RFC 9457 en cas d'échec"],
-  "EX-SEC-01","§5.1","BACK","Must",3,["login"],"L0-31",statut="À faire")
+  "EX-SEC-01","§5.1","BACK","Must",3,["login"],"L0-31",statut="En cours")
 t("roles_guard","L0",E,T,"RolesGuard et décorateur @Roles()","Guard RolesGuard vérifiant les rôles requis et la portée département ; décorateur @Roles() pour déclarer les rôles attendus sur les contrôleurs.",
   ["Le guard lit les rôles depuis le payload JWT","Vérifie l'appartenance au département de l'utilisateur","Le décorateur accepte un ou plusieurs rôles","Retourne 403 ProblemJson si insuffisant"],
   "EX-SEC-01","§5.1","BACK","Must",3,["jwt_guard"],"L0-32",statut="À faire")
