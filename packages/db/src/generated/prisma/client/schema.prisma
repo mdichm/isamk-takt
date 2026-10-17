@@ -83,6 +83,13 @@ enum AnneeStatut {
   CLOTUREE
 }
 
+// Type de groupe hiérarchique — L1-04
+enum GroupeType {
+  SECTION
+  GROUPE
+  SOUS_GROUPE
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -470,6 +477,8 @@ model Semestre {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  groupes Groupe[]
+
   @@unique([anneeId, numero])
   @@map("semestres")
 }
@@ -522,7 +531,37 @@ model Niveau {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  groupes Groupe[]
+
   @@unique([formationId, code])
   @@index([formationId])
   @@map("niveaux")
+}
+
+// ============================================
+// Groupes hiérarchiques (L1-04)
+// ============================================
+
+model Groupe {
+  id         String     @id @default(uuid()) @db.Uuid
+  niveauId   String     @db.Uuid
+  niveau     Niveau     @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  semestreId String     @db.Uuid
+  semestre   Semestre   @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  parentId   String?    @db.Uuid
+  parent     Groupe?    @relation("GroupesHierarchie", fields: [parentId], references: [id])
+  enfants    Groupe[]   @relation("GroupesHierarchie")
+  type       GroupeType
+  code       String // ex: "INFO-L3-S1"
+  libelle    String // ex: "L3 Informatique Semestre 1"
+  effectif   Int        @default(0)
+  originId   String? // ID d'origine externe (synchronisation)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@unique([niveauId, semestreId, code])
+  @@index([niveauId])
+  @@index([semestreId])
+  @@index([parentId])
+  @@map("groupes")
 }

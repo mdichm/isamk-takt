@@ -133,6 +133,11 @@ export type Formation = $Result.DefaultSelection<Prisma.$FormationPayload>
  * 
  */
 export type Niveau = $Result.DefaultSelection<Prisma.$NiveauPayload>
+/**
+ * Model Groupe
+ * 
+ */
+export type Groupe = $Result.DefaultSelection<Prisma.$GroupePayload>
 
 /**
  * Enums
@@ -232,6 +237,15 @@ export const AnneeStatut: {
 
 export type AnneeStatut = (typeof AnneeStatut)[keyof typeof AnneeStatut]
 
+
+export const GroupeType: {
+  SECTION: 'SECTION',
+  GROUPE: 'GROUPE',
+  SOUS_GROUPE: 'SOUS_GROUPE'
+};
+
+export type GroupeType = (typeof GroupeType)[keyof typeof GroupeType]
+
 }
 
 export type RoleCode = $Enums.RoleCode
@@ -269,6 +283,10 @@ export const ActivityType: typeof $Enums.ActivityType
 export type AnneeStatut = $Enums.AnneeStatut
 
 export const AnneeStatut: typeof $Enums.AnneeStatut
+
+export type GroupeType = $Enums.GroupeType
+
+export const GroupeType: typeof $Enums.GroupeType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -630,6 +648,16 @@ export class PrismaClient<
     * ```
     */
   get niveau(): Prisma.NiveauDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.groupe`: Exposes CRUD operations for the **Groupe** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Groupes
+    * const groupes = await prisma.groupe.findMany()
+    * ```
+    */
+  get groupe(): Prisma.GroupeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1100,7 +1128,8 @@ export namespace Prisma {
     Semestre: 'Semestre',
     Departement: 'Departement',
     Formation: 'Formation',
-    Niveau: 'Niveau'
+    Niveau: 'Niveau',
+    Groupe: 'Groupe'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1116,7 +1145,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2896,6 +2925,80 @@ export namespace Prisma {
           }
         }
       }
+      Groupe: {
+        payload: Prisma.$GroupePayload<ExtArgs>
+        fields: Prisma.GroupeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroupeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroupeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>
+          }
+          findFirst: {
+            args: Prisma.GroupeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroupeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>
+          }
+          findMany: {
+            args: Prisma.GroupeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>[]
+          }
+          create: {
+            args: Prisma.GroupeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>
+          }
+          createMany: {
+            args: Prisma.GroupeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroupeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>[]
+          }
+          delete: {
+            args: Prisma.GroupeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>
+          }
+          update: {
+            args: Prisma.GroupeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>
+          }
+          deleteMany: {
+            args: Prisma.GroupeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroupeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GroupeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>[]
+          }
+          upsert: {
+            args: Prisma.GroupeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupePayload>
+          }
+          aggregate: {
+            args: Prisma.GroupeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroupe>
+          }
+          groupBy: {
+            args: Prisma.GroupeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroupeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroupeCountArgs<ExtArgs>
+            result: $Utils.Optional<GroupeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3043,6 +3146,7 @@ export namespace Prisma {
     departement?: DepartementOmit
     formation?: FormationOmit
     niveau?: NiveauOmit
+    groupe?: GroupeOmit
   }
 
   /* Types for Logging */
@@ -3489,6 +3593,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type SemestreCountOutputType
+   */
+
+  export type SemestreCountOutputType = {
+    groupes: number
+  }
+
+  export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    groupes?: boolean | SemestreCountOutputTypeCountGroupesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SemestreCountOutputType
+     */
+    select?: SemestreCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountGroupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupeWhereInput
+  }
+
+
+  /**
    * Count Type DepartementCountOutputType
    */
 
@@ -3547,6 +3682,68 @@ export namespace Prisma {
    */
   export type FormationCountOutputTypeCountNiveauxArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NiveauWhereInput
+  }
+
+
+  /**
+   * Count Type NiveauCountOutputType
+   */
+
+  export type NiveauCountOutputType = {
+    groupes: number
+  }
+
+  export type NiveauCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    groupes?: boolean | NiveauCountOutputTypeCountGroupesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * NiveauCountOutputType without action
+   */
+  export type NiveauCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NiveauCountOutputType
+     */
+    select?: NiveauCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * NiveauCountOutputType without action
+   */
+  export type NiveauCountOutputTypeCountGroupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupeWhereInput
+  }
+
+
+  /**
+   * Count Type GroupeCountOutputType
+   */
+
+  export type GroupeCountOutputType = {
+    enfants: number
+  }
+
+  export type GroupeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    enfants?: boolean | GroupeCountOutputTypeCountEnfantsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GroupeCountOutputType without action
+   */
+  export type GroupeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCountOutputType
+     */
+    select?: GroupeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GroupeCountOutputType without action
+   */
+  export type GroupeCountOutputTypeCountEnfantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupeWhereInput
   }
 
 
@@ -26656,6 +26853,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    groupes?: boolean | Semestre$groupesArgs<ExtArgs>
+    _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
   export type SemestreSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -26690,6 +26889,8 @@ export namespace Prisma {
   export type SemestreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "anneeId" | "nbSemaines" | "createdAt" | "updatedAt", ExtArgs["result"]["semestre"]>
   export type SemestreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
+    groupes?: boolean | Semestre$groupesArgs<ExtArgs>
+    _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
@@ -26702,6 +26903,7 @@ export namespace Prisma {
     name: "Semestre"
     objects: {
       annee: Prisma.$AnneePayload<ExtArgs>
+      groupes: Prisma.$GroupePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -27105,6 +27307,7 @@ export namespace Prisma {
   export interface Prisma__SemestreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     annee<T extends AnneeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnneeDefaultArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    groupes<T extends Semestre$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27538,6 +27741,30 @@ export namespace Prisma {
      * Limit how many Semestres to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Semestre.groupes
+   */
+  export type Semestre$groupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    where?: GroupeWhereInput
+    orderBy?: GroupeOrderByWithRelationInput | GroupeOrderByWithRelationInput[]
+    cursor?: GroupeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupeScalarFieldEnum | GroupeScalarFieldEnum[]
   }
 
   /**
@@ -29978,6 +30205,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     formation?: boolean | FormationDefaultArgs<ExtArgs>
+    groupes?: boolean | Niveau$groupesArgs<ExtArgs>
+    _count?: boolean | NiveauCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["niveau"]>
 
   export type NiveauSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -30015,6 +30244,8 @@ export namespace Prisma {
   export type NiveauOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formationId" | "code" | "libelle" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["niveau"]>
   export type NiveauInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     formation?: boolean | FormationDefaultArgs<ExtArgs>
+    groupes?: boolean | Niveau$groupesArgs<ExtArgs>
+    _count?: boolean | NiveauCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type NiveauIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     formation?: boolean | FormationDefaultArgs<ExtArgs>
@@ -30027,6 +30258,7 @@ export namespace Prisma {
     name: "Niveau"
     objects: {
       formation: Prisma.$FormationPayload<ExtArgs>
+      groupes: Prisma.$GroupePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30431,6 +30663,7 @@ export namespace Prisma {
   export interface Prisma__NiveauClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     formation<T extends FormationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FormationDefaultArgs<ExtArgs>>): Prisma__FormationClient<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    groupes<T extends Niveau$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Niveau$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30868,6 +31101,30 @@ export namespace Prisma {
   }
 
   /**
+   * Niveau.groupes
+   */
+  export type Niveau$groupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    where?: GroupeWhereInput
+    orderBy?: GroupeOrderByWithRelationInput | GroupeOrderByWithRelationInput[]
+    cursor?: GroupeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupeScalarFieldEnum | GroupeScalarFieldEnum[]
+  }
+
+  /**
    * Niveau without action
    */
   export type NiveauDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30883,6 +31140,1246 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: NiveauInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Groupe
+   */
+
+  export type AggregateGroupe = {
+    _count: GroupeCountAggregateOutputType | null
+    _avg: GroupeAvgAggregateOutputType | null
+    _sum: GroupeSumAggregateOutputType | null
+    _min: GroupeMinAggregateOutputType | null
+    _max: GroupeMaxAggregateOutputType | null
+  }
+
+  export type GroupeAvgAggregateOutputType = {
+    effectif: number | null
+  }
+
+  export type GroupeSumAggregateOutputType = {
+    effectif: number | null
+  }
+
+  export type GroupeMinAggregateOutputType = {
+    id: string | null
+    niveauId: string | null
+    semestreId: string | null
+    parentId: string | null
+    type: $Enums.GroupeType | null
+    code: string | null
+    libelle: string | null
+    effectif: number | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GroupeMaxAggregateOutputType = {
+    id: string | null
+    niveauId: string | null
+    semestreId: string | null
+    parentId: string | null
+    type: $Enums.GroupeType | null
+    code: string | null
+    libelle: string | null
+    effectif: number | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type GroupeCountAggregateOutputType = {
+    id: number
+    niveauId: number
+    semestreId: number
+    parentId: number
+    type: number
+    code: number
+    libelle: number
+    effectif: number
+    originId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type GroupeAvgAggregateInputType = {
+    effectif?: true
+  }
+
+  export type GroupeSumAggregateInputType = {
+    effectif?: true
+  }
+
+  export type GroupeMinAggregateInputType = {
+    id?: true
+    niveauId?: true
+    semestreId?: true
+    parentId?: true
+    type?: true
+    code?: true
+    libelle?: true
+    effectif?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GroupeMaxAggregateInputType = {
+    id?: true
+    niveauId?: true
+    semestreId?: true
+    parentId?: true
+    type?: true
+    code?: true
+    libelle?: true
+    effectif?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type GroupeCountAggregateInputType = {
+    id?: true
+    niveauId?: true
+    semestreId?: true
+    parentId?: true
+    type?: true
+    code?: true
+    libelle?: true
+    effectif?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type GroupeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Groupe to aggregate.
+     */
+    where?: GroupeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groupes to fetch.
+     */
+    orderBy?: GroupeOrderByWithRelationInput | GroupeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groupes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groupes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Groupes
+    **/
+    _count?: true | GroupeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GroupeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GroupeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupeMaxAggregateInputType
+  }
+
+  export type GetGroupeAggregateType<T extends GroupeAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroupe]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroupe[P]>
+      : GetScalarType<T[P], AggregateGroupe[P]>
+  }
+
+
+
+
+  export type GroupeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupeWhereInput
+    orderBy?: GroupeOrderByWithAggregationInput | GroupeOrderByWithAggregationInput[]
+    by: GroupeScalarFieldEnum[] | GroupeScalarFieldEnum
+    having?: GroupeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupeCountAggregateInputType | true
+    _avg?: GroupeAvgAggregateInputType
+    _sum?: GroupeSumAggregateInputType
+    _min?: GroupeMinAggregateInputType
+    _max?: GroupeMaxAggregateInputType
+  }
+
+  export type GroupeGroupByOutputType = {
+    id: string
+    niveauId: string
+    semestreId: string
+    parentId: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif: number
+    originId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: GroupeCountAggregateOutputType | null
+    _avg: GroupeAvgAggregateOutputType | null
+    _sum: GroupeSumAggregateOutputType | null
+    _min: GroupeMinAggregateOutputType | null
+    _max: GroupeMaxAggregateOutputType | null
+  }
+
+  type GetGroupeGroupByPayload<T extends GroupeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroupeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupeGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    niveauId?: boolean
+    semestreId?: boolean
+    parentId?: boolean
+    type?: boolean
+    code?: boolean
+    libelle?: boolean
+    effectif?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    niveau?: boolean | NiveauDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    parent?: boolean | Groupe$parentArgs<ExtArgs>
+    enfants?: boolean | Groupe$enfantsArgs<ExtArgs>
+    _count?: boolean | GroupeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groupe"]>
+
+  export type GroupeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    niveauId?: boolean
+    semestreId?: boolean
+    parentId?: boolean
+    type?: boolean
+    code?: boolean
+    libelle?: boolean
+    effectif?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    niveau?: boolean | NiveauDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    parent?: boolean | Groupe$parentArgs<ExtArgs>
+  }, ExtArgs["result"]["groupe"]>
+
+  export type GroupeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    niveauId?: boolean
+    semestreId?: boolean
+    parentId?: boolean
+    type?: boolean
+    code?: boolean
+    libelle?: boolean
+    effectif?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    niveau?: boolean | NiveauDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    parent?: boolean | Groupe$parentArgs<ExtArgs>
+  }, ExtArgs["result"]["groupe"]>
+
+  export type GroupeSelectScalar = {
+    id?: boolean
+    niveauId?: boolean
+    semestreId?: boolean
+    parentId?: boolean
+    type?: boolean
+    code?: boolean
+    libelle?: boolean
+    effectif?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type GroupeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "niveauId" | "semestreId" | "parentId" | "type" | "code" | "libelle" | "effectif" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["groupe"]>
+  export type GroupeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    niveau?: boolean | NiveauDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    parent?: boolean | Groupe$parentArgs<ExtArgs>
+    enfants?: boolean | Groupe$enfantsArgs<ExtArgs>
+    _count?: boolean | GroupeCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GroupeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    niveau?: boolean | NiveauDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    parent?: boolean | Groupe$parentArgs<ExtArgs>
+  }
+  export type GroupeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    niveau?: boolean | NiveauDefaultArgs<ExtArgs>
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    parent?: boolean | Groupe$parentArgs<ExtArgs>
+  }
+
+  export type $GroupePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Groupe"
+    objects: {
+      niveau: Prisma.$NiveauPayload<ExtArgs>
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      parent: Prisma.$GroupePayload<ExtArgs> | null
+      enfants: Prisma.$GroupePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      niveauId: string
+      semestreId: string
+      parentId: string | null
+      type: $Enums.GroupeType
+      code: string
+      libelle: string
+      effectif: number
+      originId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["groupe"]>
+    composites: {}
+  }
+
+  type GroupeGetPayload<S extends boolean | null | undefined | GroupeDefaultArgs> = $Result.GetResult<Prisma.$GroupePayload, S>
+
+  type GroupeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GroupeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GroupeCountAggregateInputType | true
+    }
+
+  export interface GroupeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Groupe'], meta: { name: 'Groupe' } }
+    /**
+     * Find zero or one Groupe that matches the filter.
+     * @param {GroupeFindUniqueArgs} args - Arguments to find a Groupe
+     * @example
+     * // Get one Groupe
+     * const groupe = await prisma.groupe.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroupeFindUniqueArgs>(args: SelectSubset<T, GroupeFindUniqueArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Groupe that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GroupeFindUniqueOrThrowArgs} args - Arguments to find a Groupe
+     * @example
+     * // Get one Groupe
+     * const groupe = await prisma.groupe.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroupeFindUniqueOrThrowArgs>(args: SelectSubset<T, GroupeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Groupe that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeFindFirstArgs} args - Arguments to find a Groupe
+     * @example
+     * // Get one Groupe
+     * const groupe = await prisma.groupe.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroupeFindFirstArgs>(args?: SelectSubset<T, GroupeFindFirstArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Groupe that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeFindFirstOrThrowArgs} args - Arguments to find a Groupe
+     * @example
+     * // Get one Groupe
+     * const groupe = await prisma.groupe.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroupeFindFirstOrThrowArgs>(args?: SelectSubset<T, GroupeFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Groupes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Groupes
+     * const groupes = await prisma.groupe.findMany()
+     * 
+     * // Get first 10 Groupes
+     * const groupes = await prisma.groupe.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groupeWithIdOnly = await prisma.groupe.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GroupeFindManyArgs>(args?: SelectSubset<T, GroupeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Groupe.
+     * @param {GroupeCreateArgs} args - Arguments to create a Groupe.
+     * @example
+     * // Create one Groupe
+     * const Groupe = await prisma.groupe.create({
+     *   data: {
+     *     // ... data to create a Groupe
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroupeCreateArgs>(args: SelectSubset<T, GroupeCreateArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Groupes.
+     * @param {GroupeCreateManyArgs} args - Arguments to create many Groupes.
+     * @example
+     * // Create many Groupes
+     * const groupe = await prisma.groupe.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroupeCreateManyArgs>(args?: SelectSubset<T, GroupeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Groupes and returns the data saved in the database.
+     * @param {GroupeCreateManyAndReturnArgs} args - Arguments to create many Groupes.
+     * @example
+     * // Create many Groupes
+     * const groupe = await prisma.groupe.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Groupes and only return the `id`
+     * const groupeWithIdOnly = await prisma.groupe.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroupeCreateManyAndReturnArgs>(args?: SelectSubset<T, GroupeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Groupe.
+     * @param {GroupeDeleteArgs} args - Arguments to delete one Groupe.
+     * @example
+     * // Delete one Groupe
+     * const Groupe = await prisma.groupe.delete({
+     *   where: {
+     *     // ... filter to delete one Groupe
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroupeDeleteArgs>(args: SelectSubset<T, GroupeDeleteArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Groupe.
+     * @param {GroupeUpdateArgs} args - Arguments to update one Groupe.
+     * @example
+     * // Update one Groupe
+     * const groupe = await prisma.groupe.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroupeUpdateArgs>(args: SelectSubset<T, GroupeUpdateArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Groupes.
+     * @param {GroupeDeleteManyArgs} args - Arguments to filter Groupes to delete.
+     * @example
+     * // Delete a few Groupes
+     * const { count } = await prisma.groupe.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroupeDeleteManyArgs>(args?: SelectSubset<T, GroupeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Groupes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Groupes
+     * const groupe = await prisma.groupe.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroupeUpdateManyArgs>(args: SelectSubset<T, GroupeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Groupes and returns the data updated in the database.
+     * @param {GroupeUpdateManyAndReturnArgs} args - Arguments to update many Groupes.
+     * @example
+     * // Update many Groupes
+     * const groupe = await prisma.groupe.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Groupes and only return the `id`
+     * const groupeWithIdOnly = await prisma.groupe.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GroupeUpdateManyAndReturnArgs>(args: SelectSubset<T, GroupeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Groupe.
+     * @param {GroupeUpsertArgs} args - Arguments to update or create a Groupe.
+     * @example
+     * // Update or create a Groupe
+     * const groupe = await prisma.groupe.upsert({
+     *   create: {
+     *     // ... data to create a Groupe
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Groupe we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroupeUpsertArgs>(args: SelectSubset<T, GroupeUpsertArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Groupes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeCountArgs} args - Arguments to filter Groupes to count.
+     * @example
+     * // Count the number of Groupes
+     * const count = await prisma.groupe.count({
+     *   where: {
+     *     // ... the filter for the Groupes we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupeCountArgs>(
+      args?: Subset<T, GroupeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Groupe.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupeAggregateArgs>(args: Subset<T, GroupeAggregateArgs>): Prisma.PrismaPromise<GetGroupeAggregateType<T>>
+
+    /**
+     * Group by Groupe.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupeGroupByArgs['orderBy'] }
+        : { orderBy?: GroupeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Groupe model
+   */
+  readonly fields: GroupeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Groupe.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroupeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    niveau<T extends NiveauDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NiveauDefaultArgs<ExtArgs>>): Prisma__NiveauClient<$Result.GetResult<Prisma.$NiveauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    parent<T extends Groupe$parentArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$parentArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    enfants<T extends Groupe$enfantsArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$enfantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Groupe model
+   */
+  interface GroupeFieldRefs {
+    readonly id: FieldRef<"Groupe", 'String'>
+    readonly niveauId: FieldRef<"Groupe", 'String'>
+    readonly semestreId: FieldRef<"Groupe", 'String'>
+    readonly parentId: FieldRef<"Groupe", 'String'>
+    readonly type: FieldRef<"Groupe", 'GroupeType'>
+    readonly code: FieldRef<"Groupe", 'String'>
+    readonly libelle: FieldRef<"Groupe", 'String'>
+    readonly effectif: FieldRef<"Groupe", 'Int'>
+    readonly originId: FieldRef<"Groupe", 'String'>
+    readonly createdAt: FieldRef<"Groupe", 'DateTime'>
+    readonly updatedAt: FieldRef<"Groupe", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Groupe findUnique
+   */
+  export type GroupeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which Groupe to fetch.
+     */
+    where: GroupeWhereUniqueInput
+  }
+
+  /**
+   * Groupe findUniqueOrThrow
+   */
+  export type GroupeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which Groupe to fetch.
+     */
+    where: GroupeWhereUniqueInput
+  }
+
+  /**
+   * Groupe findFirst
+   */
+  export type GroupeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which Groupe to fetch.
+     */
+    where?: GroupeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groupes to fetch.
+     */
+    orderBy?: GroupeOrderByWithRelationInput | GroupeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Groupes.
+     */
+    cursor?: GroupeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groupes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groupes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groupes.
+     */
+    distinct?: GroupeScalarFieldEnum | GroupeScalarFieldEnum[]
+  }
+
+  /**
+   * Groupe findFirstOrThrow
+   */
+  export type GroupeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which Groupe to fetch.
+     */
+    where?: GroupeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groupes to fetch.
+     */
+    orderBy?: GroupeOrderByWithRelationInput | GroupeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Groupes.
+     */
+    cursor?: GroupeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groupes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groupes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groupes.
+     */
+    distinct?: GroupeScalarFieldEnum | GroupeScalarFieldEnum[]
+  }
+
+  /**
+   * Groupe findMany
+   */
+  export type GroupeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which Groupes to fetch.
+     */
+    where?: GroupeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groupes to fetch.
+     */
+    orderBy?: GroupeOrderByWithRelationInput | GroupeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Groupes.
+     */
+    cursor?: GroupeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groupes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groupes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groupes.
+     */
+    distinct?: GroupeScalarFieldEnum | GroupeScalarFieldEnum[]
+  }
+
+  /**
+   * Groupe create
+   */
+  export type GroupeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Groupe.
+     */
+    data: XOR<GroupeCreateInput, GroupeUncheckedCreateInput>
+  }
+
+  /**
+   * Groupe createMany
+   */
+  export type GroupeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Groupes.
+     */
+    data: GroupeCreateManyInput | GroupeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Groupe createManyAndReturn
+   */
+  export type GroupeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Groupes.
+     */
+    data: GroupeCreateManyInput | GroupeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Groupe update
+   */
+  export type GroupeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Groupe.
+     */
+    data: XOR<GroupeUpdateInput, GroupeUncheckedUpdateInput>
+    /**
+     * Choose, which Groupe to update.
+     */
+    where: GroupeWhereUniqueInput
+  }
+
+  /**
+   * Groupe updateMany
+   */
+  export type GroupeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Groupes.
+     */
+    data: XOR<GroupeUpdateManyMutationInput, GroupeUncheckedUpdateManyInput>
+    /**
+     * Filter which Groupes to update
+     */
+    where?: GroupeWhereInput
+    /**
+     * Limit how many Groupes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Groupe updateManyAndReturn
+   */
+  export type GroupeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * The data used to update Groupes.
+     */
+    data: XOR<GroupeUpdateManyMutationInput, GroupeUncheckedUpdateManyInput>
+    /**
+     * Filter which Groupes to update
+     */
+    where?: GroupeWhereInput
+    /**
+     * Limit how many Groupes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Groupe upsert
+   */
+  export type GroupeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Groupe to update in case it exists.
+     */
+    where: GroupeWhereUniqueInput
+    /**
+     * In case the Groupe found by the `where` argument doesn't exist, create a new Groupe with this data.
+     */
+    create: XOR<GroupeCreateInput, GroupeUncheckedCreateInput>
+    /**
+     * In case the Groupe was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupeUpdateInput, GroupeUncheckedUpdateInput>
+  }
+
+  /**
+   * Groupe delete
+   */
+  export type GroupeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    /**
+     * Filter which Groupe to delete.
+     */
+    where: GroupeWhereUniqueInput
+  }
+
+  /**
+   * Groupe deleteMany
+   */
+  export type GroupeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Groupes to delete
+     */
+    where?: GroupeWhereInput
+    /**
+     * Limit how many Groupes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Groupe.parent
+   */
+  export type Groupe$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    where?: GroupeWhereInput
+  }
+
+  /**
+   * Groupe.enfants
+   */
+  export type Groupe$enfantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    where?: GroupeWhereInput
+    orderBy?: GroupeOrderByWithRelationInput | GroupeOrderByWithRelationInput[]
+    cursor?: GroupeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupeScalarFieldEnum | GroupeScalarFieldEnum[]
+  }
+
+  /**
+   * Groupe without action
+   */
+  export type GroupeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
   }
 
 
@@ -31233,6 +32730,23 @@ export namespace Prisma {
   export type NiveauScalarFieldEnum = (typeof NiveauScalarFieldEnum)[keyof typeof NiveauScalarFieldEnum]
 
 
+  export const GroupeScalarFieldEnum: {
+    id: 'id',
+    niveauId: 'niveauId',
+    semestreId: 'semestreId',
+    parentId: 'parentId',
+    type: 'type',
+    code: 'code',
+    libelle: 'libelle',
+    effectif: 'effectif',
+    originId: 'originId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type GroupeScalarFieldEnum = (typeof GroupeScalarFieldEnum)[keyof typeof GroupeScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -31486,6 +33000,20 @@ export namespace Prisma {
    * Reference to a field of type 'AnneeStatut[]'
    */
   export type ListEnumAnneeStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnneeStatut[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'GroupeType'
+   */
+  export type EnumGroupeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GroupeType'>
+    
+
+
+  /**
+   * Reference to a field of type 'GroupeType[]'
+   */
+  export type ListEnumGroupeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GroupeType[]'>
     
 
 
@@ -33025,6 +34553,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Semestre"> | Date | string
     updatedAt?: DateTimeFilter<"Semestre"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
+    groupes?: GroupeListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -33035,6 +34564,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     annee?: AnneeOrderByWithRelationInput
+    groupes?: GroupeOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -33049,6 +34579,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Semestre"> | Date | string
     updatedAt?: DateTimeFilter<"Semestre"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
+    groupes?: GroupeListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -33227,6 +34758,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Niveau"> | Date | string
     updatedAt?: DateTimeFilter<"Niveau"> | Date | string
     formation?: XOR<FormationScalarRelationFilter, FormationWhereInput>
+    groupes?: GroupeListRelationFilter
   }
 
   export type NiveauOrderByWithRelationInput = {
@@ -33238,6 +34770,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     formation?: FormationOrderByWithRelationInput
+    groupes?: GroupeOrderByRelationAggregateInput
   }
 
   export type NiveauWhereUniqueInput = Prisma.AtLeast<{
@@ -33253,6 +34786,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Niveau"> | Date | string
     updatedAt?: DateTimeFilter<"Niveau"> | Date | string
     formation?: XOR<FormationScalarRelationFilter, FormationWhereInput>
+    groupes?: GroupeListRelationFilter
   }, "id" | "formationId_code">
 
   export type NiveauOrderByWithAggregationInput = {
@@ -33279,6 +34813,103 @@ export namespace Prisma {
     originId?: StringNullableWithAggregatesFilter<"Niveau"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Niveau"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Niveau"> | Date | string
+  }
+
+  export type GroupeWhereInput = {
+    AND?: GroupeWhereInput | GroupeWhereInput[]
+    OR?: GroupeWhereInput[]
+    NOT?: GroupeWhereInput | GroupeWhereInput[]
+    id?: UuidFilter<"Groupe"> | string
+    niveauId?: UuidFilter<"Groupe"> | string
+    semestreId?: UuidFilter<"Groupe"> | string
+    parentId?: UuidNullableFilter<"Groupe"> | string | null
+    type?: EnumGroupeTypeFilter<"Groupe"> | $Enums.GroupeType
+    code?: StringFilter<"Groupe"> | string
+    libelle?: StringFilter<"Groupe"> | string
+    effectif?: IntFilter<"Groupe"> | number
+    originId?: StringNullableFilter<"Groupe"> | string | null
+    createdAt?: DateTimeFilter<"Groupe"> | Date | string
+    updatedAt?: DateTimeFilter<"Groupe"> | Date | string
+    niveau?: XOR<NiveauScalarRelationFilter, NiveauWhereInput>
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    parent?: XOR<GroupeNullableScalarRelationFilter, GroupeWhereInput> | null
+    enfants?: GroupeListRelationFilter
+  }
+
+  export type GroupeOrderByWithRelationInput = {
+    id?: SortOrder
+    niveauId?: SortOrder
+    semestreId?: SortOrder
+    parentId?: SortOrderInput | SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    effectif?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    niveau?: NiveauOrderByWithRelationInput
+    semestre?: SemestreOrderByWithRelationInput
+    parent?: GroupeOrderByWithRelationInput
+    enfants?: GroupeOrderByRelationAggregateInput
+  }
+
+  export type GroupeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    niveauId_semestreId_code?: GroupeNiveauIdSemestreIdCodeCompoundUniqueInput
+    AND?: GroupeWhereInput | GroupeWhereInput[]
+    OR?: GroupeWhereInput[]
+    NOT?: GroupeWhereInput | GroupeWhereInput[]
+    niveauId?: UuidFilter<"Groupe"> | string
+    semestreId?: UuidFilter<"Groupe"> | string
+    parentId?: UuidNullableFilter<"Groupe"> | string | null
+    type?: EnumGroupeTypeFilter<"Groupe"> | $Enums.GroupeType
+    code?: StringFilter<"Groupe"> | string
+    libelle?: StringFilter<"Groupe"> | string
+    effectif?: IntFilter<"Groupe"> | number
+    originId?: StringNullableFilter<"Groupe"> | string | null
+    createdAt?: DateTimeFilter<"Groupe"> | Date | string
+    updatedAt?: DateTimeFilter<"Groupe"> | Date | string
+    niveau?: XOR<NiveauScalarRelationFilter, NiveauWhereInput>
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    parent?: XOR<GroupeNullableScalarRelationFilter, GroupeWhereInput> | null
+    enfants?: GroupeListRelationFilter
+  }, "id" | "niveauId_semestreId_code">
+
+  export type GroupeOrderByWithAggregationInput = {
+    id?: SortOrder
+    niveauId?: SortOrder
+    semestreId?: SortOrder
+    parentId?: SortOrderInput | SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    effectif?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: GroupeCountOrderByAggregateInput
+    _avg?: GroupeAvgOrderByAggregateInput
+    _max?: GroupeMaxOrderByAggregateInput
+    _min?: GroupeMinOrderByAggregateInput
+    _sum?: GroupeSumOrderByAggregateInput
+  }
+
+  export type GroupeScalarWhereWithAggregatesInput = {
+    AND?: GroupeScalarWhereWithAggregatesInput | GroupeScalarWhereWithAggregatesInput[]
+    OR?: GroupeScalarWhereWithAggregatesInput[]
+    NOT?: GroupeScalarWhereWithAggregatesInput | GroupeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Groupe"> | string
+    niveauId?: UuidWithAggregatesFilter<"Groupe"> | string
+    semestreId?: UuidWithAggregatesFilter<"Groupe"> | string
+    parentId?: UuidNullableWithAggregatesFilter<"Groupe"> | string | null
+    type?: EnumGroupeTypeWithAggregatesFilter<"Groupe"> | $Enums.GroupeType
+    code?: StringWithAggregatesFilter<"Groupe"> | string
+    libelle?: StringWithAggregatesFilter<"Groupe"> | string
+    effectif?: IntWithAggregatesFilter<"Groupe"> | number
+    originId?: StringNullableWithAggregatesFilter<"Groupe"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Groupe"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Groupe"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -34917,6 +36548,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -34926,6 +36558,7 @@ export namespace Prisma {
     nbSemaines?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -34935,6 +36568,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -34944,6 +36578,7 @@ export namespace Prisma {
     nbSemaines?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -35126,6 +36761,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     formation: FormationCreateNestedOneWithoutNiveauxInput
+    groupes?: GroupeCreateNestedManyWithoutNiveauInput
   }
 
   export type NiveauUncheckedCreateInput = {
@@ -35136,6 +36772,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutNiveauInput
   }
 
   export type NiveauUpdateInput = {
@@ -35146,6 +36783,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formation?: FormationUpdateOneRequiredWithoutNiveauxNestedInput
+    groupes?: GroupeUpdateManyWithoutNiveauNestedInput
   }
 
   export type NiveauUncheckedUpdateInput = {
@@ -35156,6 +36794,7 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutNiveauNestedInput
   }
 
   export type NiveauCreateManyInput = {
@@ -35182,6 +36821,105 @@ export namespace Prisma {
     formationId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCreateInput = {
+    id?: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutGroupesInput
+    semestre: SemestreCreateNestedOneWithoutGroupesInput
+    parent?: GroupeCreateNestedOneWithoutEnfantsInput
+    enfants?: GroupeCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeUncheckedCreateInput = {
+    id?: string
+    niveauId: string
+    semestreId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
+    semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
+    parent?: GroupeUpdateOneWithoutEnfantsNestedInput
+    enfants?: GroupeUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeCreateManyInput = {
+    id?: string
+    niveauId: string
+    semestreId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GroupeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36664,6 +38402,16 @@ export namespace Prisma {
     isNot?: AnneeWhereInput
   }
 
+  export type GroupeListRelationFilter = {
+    every?: GroupeWhereInput
+    some?: GroupeWhereInput
+    none?: GroupeWhereInput
+  }
+
+  export type GroupeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type SemestreAnneeIdNumeroCompoundUniqueInput = {
     anneeId: string
     numero: number
@@ -36839,6 +38587,94 @@ export namespace Prisma {
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumGroupeTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.GroupeType | EnumGroupeTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.GroupeType[] | ListEnumGroupeTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GroupeType[] | ListEnumGroupeTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGroupeTypeFilter<$PrismaModel> | $Enums.GroupeType
+  }
+
+  export type NiveauScalarRelationFilter = {
+    is?: NiveauWhereInput
+    isNot?: NiveauWhereInput
+  }
+
+  export type SemestreScalarRelationFilter = {
+    is?: SemestreWhereInput
+    isNot?: SemestreWhereInput
+  }
+
+  export type GroupeNullableScalarRelationFilter = {
+    is?: GroupeWhereInput | null
+    isNot?: GroupeWhereInput | null
+  }
+
+  export type GroupeNiveauIdSemestreIdCodeCompoundUniqueInput = {
+    niveauId: string
+    semestreId: string
+    code: string
+  }
+
+  export type GroupeCountOrderByAggregateInput = {
+    id?: SortOrder
+    niveauId?: SortOrder
+    semestreId?: SortOrder
+    parentId?: SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    effectif?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GroupeAvgOrderByAggregateInput = {
+    effectif?: SortOrder
+  }
+
+  export type GroupeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    niveauId?: SortOrder
+    semestreId?: SortOrder
+    parentId?: SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    effectif?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GroupeMinOrderByAggregateInput = {
+    id?: SortOrder
+    niveauId?: SortOrder
+    semestreId?: SortOrder
+    parentId?: SortOrder
+    type?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    effectif?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type GroupeSumOrderByAggregateInput = {
+    effectif?: SortOrder
+  }
+
+  export type EnumGroupeTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GroupeType | EnumGroupeTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.GroupeType[] | ListEnumGroupeTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GroupeType[] | ListEnumGroupeTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGroupeTypeWithAggregatesFilter<$PrismaModel> | $Enums.GroupeType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGroupeTypeFilter<$PrismaModel>
+    _max?: NestedEnumGroupeTypeFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -38262,12 +40098,54 @@ export namespace Prisma {
     connect?: AnneeWhereUniqueInput
   }
 
+  export type GroupeCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
+    createMany?: GroupeCreateManySemestreInputEnvelope
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+  }
+
+  export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
+    createMany?: GroupeCreateManySemestreInputEnvelope
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+  }
+
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
     create?: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
     connectOrCreate?: AnneeCreateOrConnectWithoutSemestresInput
     upsert?: AnneeUpsertWithoutSemestresInput
     connect?: AnneeWhereUniqueInput
     update?: XOR<XOR<AnneeUpdateToOneWithWhereWithoutSemestresInput, AnneeUpdateWithoutSemestresInput>, AnneeUncheckedUpdateWithoutSemestresInput>
+  }
+
+  export type GroupeUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
+    upsert?: GroupeUpsertWithWhereUniqueWithoutSemestreInput | GroupeUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: GroupeCreateManySemestreInputEnvelope
+    set?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    disconnect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    delete?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    update?: GroupeUpdateWithWhereUniqueWithoutSemestreInput | GroupeUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: GroupeUpdateManyWithWhereWithoutSemestreInput | GroupeUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
+  }
+
+  export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
+    upsert?: GroupeUpsertWithWhereUniqueWithoutSemestreInput | GroupeUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: GroupeCreateManySemestreInputEnvelope
+    set?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    disconnect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    delete?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    update?: GroupeUpdateWithWhereUniqueWithoutSemestreInput | GroupeUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: GroupeUpdateManyWithWhereWithoutSemestreInput | GroupeUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
   }
 
   export type AnneeCreateNestedOneWithoutDepartementsInput = {
@@ -38388,12 +40266,144 @@ export namespace Prisma {
     connect?: FormationWhereUniqueInput
   }
 
+  export type GroupeCreateNestedManyWithoutNiveauInput = {
+    create?: XOR<GroupeCreateWithoutNiveauInput, GroupeUncheckedCreateWithoutNiveauInput> | GroupeCreateWithoutNiveauInput[] | GroupeUncheckedCreateWithoutNiveauInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutNiveauInput | GroupeCreateOrConnectWithoutNiveauInput[]
+    createMany?: GroupeCreateManyNiveauInputEnvelope
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+  }
+
+  export type GroupeUncheckedCreateNestedManyWithoutNiveauInput = {
+    create?: XOR<GroupeCreateWithoutNiveauInput, GroupeUncheckedCreateWithoutNiveauInput> | GroupeCreateWithoutNiveauInput[] | GroupeUncheckedCreateWithoutNiveauInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutNiveauInput | GroupeCreateOrConnectWithoutNiveauInput[]
+    createMany?: GroupeCreateManyNiveauInputEnvelope
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+  }
+
   export type FormationUpdateOneRequiredWithoutNiveauxNestedInput = {
     create?: XOR<FormationCreateWithoutNiveauxInput, FormationUncheckedCreateWithoutNiveauxInput>
     connectOrCreate?: FormationCreateOrConnectWithoutNiveauxInput
     upsert?: FormationUpsertWithoutNiveauxInput
     connect?: FormationWhereUniqueInput
     update?: XOR<XOR<FormationUpdateToOneWithWhereWithoutNiveauxInput, FormationUpdateWithoutNiveauxInput>, FormationUncheckedUpdateWithoutNiveauxInput>
+  }
+
+  export type GroupeUpdateManyWithoutNiveauNestedInput = {
+    create?: XOR<GroupeCreateWithoutNiveauInput, GroupeUncheckedCreateWithoutNiveauInput> | GroupeCreateWithoutNiveauInput[] | GroupeUncheckedCreateWithoutNiveauInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutNiveauInput | GroupeCreateOrConnectWithoutNiveauInput[]
+    upsert?: GroupeUpsertWithWhereUniqueWithoutNiveauInput | GroupeUpsertWithWhereUniqueWithoutNiveauInput[]
+    createMany?: GroupeCreateManyNiveauInputEnvelope
+    set?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    disconnect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    delete?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    update?: GroupeUpdateWithWhereUniqueWithoutNiveauInput | GroupeUpdateWithWhereUniqueWithoutNiveauInput[]
+    updateMany?: GroupeUpdateManyWithWhereWithoutNiveauInput | GroupeUpdateManyWithWhereWithoutNiveauInput[]
+    deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
+  }
+
+  export type GroupeUncheckedUpdateManyWithoutNiveauNestedInput = {
+    create?: XOR<GroupeCreateWithoutNiveauInput, GroupeUncheckedCreateWithoutNiveauInput> | GroupeCreateWithoutNiveauInput[] | GroupeUncheckedCreateWithoutNiveauInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutNiveauInput | GroupeCreateOrConnectWithoutNiveauInput[]
+    upsert?: GroupeUpsertWithWhereUniqueWithoutNiveauInput | GroupeUpsertWithWhereUniqueWithoutNiveauInput[]
+    createMany?: GroupeCreateManyNiveauInputEnvelope
+    set?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    disconnect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    delete?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    update?: GroupeUpdateWithWhereUniqueWithoutNiveauInput | GroupeUpdateWithWhereUniqueWithoutNiveauInput[]
+    updateMany?: GroupeUpdateManyWithWhereWithoutNiveauInput | GroupeUpdateManyWithWhereWithoutNiveauInput[]
+    deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
+  }
+
+  export type NiveauCreateNestedOneWithoutGroupesInput = {
+    create?: XOR<NiveauCreateWithoutGroupesInput, NiveauUncheckedCreateWithoutGroupesInput>
+    connectOrCreate?: NiveauCreateOrConnectWithoutGroupesInput
+    connect?: NiveauWhereUniqueInput
+  }
+
+  export type SemestreCreateNestedOneWithoutGroupesInput = {
+    create?: XOR<SemestreCreateWithoutGroupesInput, SemestreUncheckedCreateWithoutGroupesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutGroupesInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type GroupeCreateNestedOneWithoutEnfantsInput = {
+    create?: XOR<GroupeCreateWithoutEnfantsInput, GroupeUncheckedCreateWithoutEnfantsInput>
+    connectOrCreate?: GroupeCreateOrConnectWithoutEnfantsInput
+    connect?: GroupeWhereUniqueInput
+  }
+
+  export type GroupeCreateNestedManyWithoutParentInput = {
+    create?: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput> | GroupeCreateWithoutParentInput[] | GroupeUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutParentInput | GroupeCreateOrConnectWithoutParentInput[]
+    createMany?: GroupeCreateManyParentInputEnvelope
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+  }
+
+  export type GroupeUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput> | GroupeCreateWithoutParentInput[] | GroupeUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutParentInput | GroupeCreateOrConnectWithoutParentInput[]
+    createMany?: GroupeCreateManyParentInputEnvelope
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+  }
+
+  export type EnumGroupeTypeFieldUpdateOperationsInput = {
+    set?: $Enums.GroupeType
+  }
+
+  export type NiveauUpdateOneRequiredWithoutGroupesNestedInput = {
+    create?: XOR<NiveauCreateWithoutGroupesInput, NiveauUncheckedCreateWithoutGroupesInput>
+    connectOrCreate?: NiveauCreateOrConnectWithoutGroupesInput
+    upsert?: NiveauUpsertWithoutGroupesInput
+    connect?: NiveauWhereUniqueInput
+    update?: XOR<XOR<NiveauUpdateToOneWithWhereWithoutGroupesInput, NiveauUpdateWithoutGroupesInput>, NiveauUncheckedUpdateWithoutGroupesInput>
+  }
+
+  export type SemestreUpdateOneRequiredWithoutGroupesNestedInput = {
+    create?: XOR<SemestreCreateWithoutGroupesInput, SemestreUncheckedCreateWithoutGroupesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutGroupesInput
+    upsert?: SemestreUpsertWithoutGroupesInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutGroupesInput, SemestreUpdateWithoutGroupesInput>, SemestreUncheckedUpdateWithoutGroupesInput>
+  }
+
+  export type GroupeUpdateOneWithoutEnfantsNestedInput = {
+    create?: XOR<GroupeCreateWithoutEnfantsInput, GroupeUncheckedCreateWithoutEnfantsInput>
+    connectOrCreate?: GroupeCreateOrConnectWithoutEnfantsInput
+    upsert?: GroupeUpsertWithoutEnfantsInput
+    disconnect?: GroupeWhereInput | boolean
+    delete?: GroupeWhereInput | boolean
+    connect?: GroupeWhereUniqueInput
+    update?: XOR<XOR<GroupeUpdateToOneWithWhereWithoutEnfantsInput, GroupeUpdateWithoutEnfantsInput>, GroupeUncheckedUpdateWithoutEnfantsInput>
+  }
+
+  export type GroupeUpdateManyWithoutParentNestedInput = {
+    create?: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput> | GroupeCreateWithoutParentInput[] | GroupeUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutParentInput | GroupeCreateOrConnectWithoutParentInput[]
+    upsert?: GroupeUpsertWithWhereUniqueWithoutParentInput | GroupeUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: GroupeCreateManyParentInputEnvelope
+    set?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    disconnect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    delete?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    update?: GroupeUpdateWithWhereUniqueWithoutParentInput | GroupeUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: GroupeUpdateManyWithWhereWithoutParentInput | GroupeUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
+  }
+
+  export type GroupeUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput> | GroupeCreateWithoutParentInput[] | GroupeUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: GroupeCreateOrConnectWithoutParentInput | GroupeCreateOrConnectWithoutParentInput[]
+    upsert?: GroupeUpsertWithWhereUniqueWithoutParentInput | GroupeUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: GroupeCreateManyParentInputEnvelope
+    set?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    disconnect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    delete?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+    update?: GroupeUpdateWithWhereUniqueWithoutParentInput | GroupeUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: GroupeUpdateManyWithWhereWithoutParentInput | GroupeUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -38871,6 +40881,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAnneeStatutFilter<$PrismaModel>
     _max?: NestedEnumAnneeStatutFilter<$PrismaModel>
+  }
+
+  export type NestedEnumGroupeTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.GroupeType | EnumGroupeTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.GroupeType[] | ListEnumGroupeTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GroupeType[] | ListEnumGroupeTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGroupeTypeFilter<$PrismaModel> | $Enums.GroupeType
+  }
+
+  export type NestedEnumGroupeTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GroupeType | EnumGroupeTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.GroupeType[] | ListEnumGroupeTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GroupeType[] | ListEnumGroupeTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGroupeTypeWithAggregatesFilter<$PrismaModel> | $Enums.GroupeType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGroupeTypeFilter<$PrismaModel>
+    _max?: NestedEnumGroupeTypeFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateWithoutUserInput = {
@@ -42502,6 +44529,7 @@ export namespace Prisma {
     nbSemaines?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -42510,6 +44538,7 @@ export namespace Prisma {
     nbSemaines?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -42636,6 +44665,44 @@ export namespace Prisma {
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
   }
 
+  export type GroupeCreateWithoutSemestreInput = {
+    id?: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutGroupesInput
+    parent?: GroupeCreateNestedOneWithoutEnfantsInput
+    enfants?: GroupeCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    niveauId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeCreateOrConnectWithoutSemestreInput = {
+    where: GroupeWhereUniqueInput
+    create: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type GroupeCreateManySemestreInputEnvelope = {
+    data: GroupeCreateManySemestreInput | GroupeCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -42667,6 +44734,39 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type GroupeUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: GroupeWhereUniqueInput
+    update: XOR<GroupeUpdateWithoutSemestreInput, GroupeUncheckedUpdateWithoutSemestreInput>
+    create: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type GroupeUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: GroupeWhereUniqueInput
+    data: XOR<GroupeUpdateWithoutSemestreInput, GroupeUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type GroupeUpdateManyWithWhereWithoutSemestreInput = {
+    where: GroupeScalarWhereInput
+    data: XOR<GroupeUpdateManyMutationInput, GroupeUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type GroupeScalarWhereInput = {
+    AND?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
+    OR?: GroupeScalarWhereInput[]
+    NOT?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
+    id?: UuidFilter<"Groupe"> | string
+    niveauId?: UuidFilter<"Groupe"> | string
+    semestreId?: UuidFilter<"Groupe"> | string
+    parentId?: UuidNullableFilter<"Groupe"> | string | null
+    type?: EnumGroupeTypeFilter<"Groupe"> | $Enums.GroupeType
+    code?: StringFilter<"Groupe"> | string
+    libelle?: StringFilter<"Groupe"> | string
+    effectif?: IntFilter<"Groupe"> | number
+    originId?: StringNullableFilter<"Groupe"> | string | null
+    createdAt?: DateTimeFilter<"Groupe"> | Date | string
+    updatedAt?: DateTimeFilter<"Groupe"> | Date | string
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -42820,6 +44920,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    groupes?: GroupeCreateNestedManyWithoutNiveauInput
   }
 
   export type NiveauUncheckedCreateWithoutFormationInput = {
@@ -42829,6 +44930,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutNiveauInput
   }
 
   export type NiveauCreateOrConnectWithoutFormationInput = {
@@ -42926,6 +45028,44 @@ export namespace Prisma {
     create: XOR<FormationCreateWithoutNiveauxInput, FormationUncheckedCreateWithoutNiveauxInput>
   }
 
+  export type GroupeCreateWithoutNiveauInput = {
+    id?: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutGroupesInput
+    parent?: GroupeCreateNestedOneWithoutEnfantsInput
+    enfants?: GroupeCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeUncheckedCreateWithoutNiveauInput = {
+    id?: string
+    semestreId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeCreateOrConnectWithoutNiveauInput = {
+    where: GroupeWhereUniqueInput
+    create: XOR<GroupeCreateWithoutNiveauInput, GroupeUncheckedCreateWithoutNiveauInput>
+  }
+
+  export type GroupeCreateManyNiveauInputEnvelope = {
+    data: GroupeCreateManyNiveauInput | GroupeCreateManyNiveauInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FormationUpsertWithoutNiveauxInput = {
     update: XOR<FormationUpdateWithoutNiveauxInput, FormationUncheckedUpdateWithoutNiveauxInput>
     create: XOR<FormationCreateWithoutNiveauxInput, FormationUncheckedCreateWithoutNiveauxInput>
@@ -42955,6 +45095,256 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeUpsertWithWhereUniqueWithoutNiveauInput = {
+    where: GroupeWhereUniqueInput
+    update: XOR<GroupeUpdateWithoutNiveauInput, GroupeUncheckedUpdateWithoutNiveauInput>
+    create: XOR<GroupeCreateWithoutNiveauInput, GroupeUncheckedCreateWithoutNiveauInput>
+  }
+
+  export type GroupeUpdateWithWhereUniqueWithoutNiveauInput = {
+    where: GroupeWhereUniqueInput
+    data: XOR<GroupeUpdateWithoutNiveauInput, GroupeUncheckedUpdateWithoutNiveauInput>
+  }
+
+  export type GroupeUpdateManyWithWhereWithoutNiveauInput = {
+    where: GroupeScalarWhereInput
+    data: XOR<GroupeUpdateManyMutationInput, GroupeUncheckedUpdateManyWithoutNiveauInput>
+  }
+
+  export type NiveauCreateWithoutGroupesInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formation: FormationCreateNestedOneWithoutNiveauxInput
+  }
+
+  export type NiveauUncheckedCreateWithoutGroupesInput = {
+    id?: string
+    formationId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NiveauCreateOrConnectWithoutGroupesInput = {
+    where: NiveauWhereUniqueInput
+    create: XOR<NiveauCreateWithoutGroupesInput, NiveauUncheckedCreateWithoutGroupesInput>
+  }
+
+  export type SemestreCreateWithoutGroupesInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+  }
+
+  export type SemestreUncheckedCreateWithoutGroupesInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SemestreCreateOrConnectWithoutGroupesInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutGroupesInput, SemestreUncheckedCreateWithoutGroupesInput>
+  }
+
+  export type GroupeCreateWithoutEnfantsInput = {
+    id?: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutGroupesInput
+    semestre: SemestreCreateNestedOneWithoutGroupesInput
+    parent?: GroupeCreateNestedOneWithoutEnfantsInput
+  }
+
+  export type GroupeUncheckedCreateWithoutEnfantsInput = {
+    id?: string
+    niveauId: string
+    semestreId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GroupeCreateOrConnectWithoutEnfantsInput = {
+    where: GroupeWhereUniqueInput
+    create: XOR<GroupeCreateWithoutEnfantsInput, GroupeUncheckedCreateWithoutEnfantsInput>
+  }
+
+  export type GroupeCreateWithoutParentInput = {
+    id?: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutGroupesInput
+    semestre: SemestreCreateNestedOneWithoutGroupesInput
+    enfants?: GroupeCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeUncheckedCreateWithoutParentInput = {
+    id?: string
+    niveauId: string
+    semestreId: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeCreateOrConnectWithoutParentInput = {
+    where: GroupeWhereUniqueInput
+    create: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput>
+  }
+
+  export type GroupeCreateManyParentInputEnvelope = {
+    data: GroupeCreateManyParentInput | GroupeCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NiveauUpsertWithoutGroupesInput = {
+    update: XOR<NiveauUpdateWithoutGroupesInput, NiveauUncheckedUpdateWithoutGroupesInput>
+    create: XOR<NiveauCreateWithoutGroupesInput, NiveauUncheckedCreateWithoutGroupesInput>
+    where?: NiveauWhereInput
+  }
+
+  export type NiveauUpdateToOneWithWhereWithoutGroupesInput = {
+    where?: NiveauWhereInput
+    data: XOR<NiveauUpdateWithoutGroupesInput, NiveauUncheckedUpdateWithoutGroupesInput>
+  }
+
+  export type NiveauUpdateWithoutGroupesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formation?: FormationUpdateOneRequiredWithoutNiveauxNestedInput
+  }
+
+  export type NiveauUncheckedUpdateWithoutGroupesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formationId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SemestreUpsertWithoutGroupesInput = {
+    update: XOR<SemestreUpdateWithoutGroupesInput, SemestreUncheckedUpdateWithoutGroupesInput>
+    create: XOR<SemestreCreateWithoutGroupesInput, SemestreUncheckedCreateWithoutGroupesInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutGroupesInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutGroupesInput, SemestreUncheckedUpdateWithoutGroupesInput>
+  }
+
+  export type SemestreUpdateWithoutGroupesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutGroupesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeUpsertWithoutEnfantsInput = {
+    update: XOR<GroupeUpdateWithoutEnfantsInput, GroupeUncheckedUpdateWithoutEnfantsInput>
+    create: XOR<GroupeCreateWithoutEnfantsInput, GroupeUncheckedCreateWithoutEnfantsInput>
+    where?: GroupeWhereInput
+  }
+
+  export type GroupeUpdateToOneWithWhereWithoutEnfantsInput = {
+    where?: GroupeWhereInput
+    data: XOR<GroupeUpdateWithoutEnfantsInput, GroupeUncheckedUpdateWithoutEnfantsInput>
+  }
+
+  export type GroupeUpdateWithoutEnfantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
+    semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
+    parent?: GroupeUpdateOneWithoutEnfantsNestedInput
+  }
+
+  export type GroupeUncheckedUpdateWithoutEnfantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeUpsertWithWhereUniqueWithoutParentInput = {
+    where: GroupeWhereUniqueInput
+    update: XOR<GroupeUpdateWithoutParentInput, GroupeUncheckedUpdateWithoutParentInput>
+    create: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput>
+  }
+
+  export type GroupeUpdateWithWhereUniqueWithoutParentInput = {
+    where: GroupeWhereUniqueInput
+    data: XOR<GroupeUpdateWithoutParentInput, GroupeUncheckedUpdateWithoutParentInput>
+  }
+
+  export type GroupeUpdateManyWithWhereWithoutParentInput = {
+    where: GroupeScalarWhereInput
+    data: XOR<GroupeUpdateManyMutationInput, GroupeUncheckedUpdateManyWithoutParentInput>
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -44010,6 +46400,7 @@ export namespace Prisma {
     nbSemaines?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -44018,6 +46409,7 @@ export namespace Prisma {
     nbSemaines?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -44052,6 +46444,60 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCreateManySemestreInput = {
+    id?: string
+    niveauId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GroupeUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
+    parent?: GroupeUpdateOneWithoutEnfantsNestedInput
+    enfants?: GroupeUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44111,6 +46557,7 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUpdateManyWithoutNiveauNestedInput
   }
 
   export type NiveauUncheckedUpdateWithoutFormationInput = {
@@ -44120,12 +46567,121 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutNiveauNestedInput
   }
 
   export type NiveauUncheckedUpdateManyWithoutFormationInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCreateManyNiveauInput = {
+    id?: string
+    semestreId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GroupeUpdateWithoutNiveauInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
+    parent?: GroupeUpdateOneWithoutEnfantsNestedInput
+    enfants?: GroupeUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeUncheckedUpdateWithoutNiveauInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeUncheckedUpdateManyWithoutNiveauInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCreateManyParentInput = {
+    id?: string
+    niveauId: string
+    semestreId: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GroupeUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
+    semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
+    enfants?: GroupeUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
