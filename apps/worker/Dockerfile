@@ -38,6 +38,8 @@ RUN pnpm install
 COPY . .
 # Generate Prisma Client (required for build)
 RUN pnpm --filter=@takt/db run db:generate
+# Build shared contracts package (required by Worker)
+RUN pnpm --filter=@takt/contracts run build
 RUN pnpm --filter=@takt/worker run build
 
 # =============================================================================
