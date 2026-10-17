@@ -381,6 +381,20 @@ exports.Prisma.NiveauScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.GroupeScalarFieldEnum = {
+  id: 'id',
+  niveauId: 'niveauId',
+  semestreId: 'semestreId',
+  parentId: 'parentId',
+  type: 'type',
+  code: 'code',
+  libelle: 'libelle',
+  effectif: 'effectif',
+  originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -478,6 +492,12 @@ exports.AnneeStatut = exports.$Enums.AnneeStatut = {
   CLOTUREE: 'CLOTUREE'
 };
 
+exports.GroupeType = exports.$Enums.GroupeType = {
+  SECTION: 'SECTION',
+  GROUPE: 'GROUPE',
+  SOUS_GROUPE: 'SOUS_GROUPE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserSystemRole: 'UserSystemRole',
@@ -502,7 +522,8 @@ exports.Prisma.ModelName = {
   Semestre: 'Semestre',
   Departement: 'Departement',
   Formation: 'Formation',
-  Niveau: 'Niveau'
+  Niveau: 'Niveau',
+  Groupe: 'Groupe'
 };
 
 /**
