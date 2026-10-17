@@ -26,6 +26,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user || !user.isActive) {
       throw new UnauthorizedException('Utilisateur non trouvé ou inactif');
     }
+
+    // Vérifie la non-révocation via la famille de refresh tokens :
+    // si un jeton de rafraîchissement de l'utilisateur a été révoqué
+    // (vol/détection de réutilisation), la session est considérée compromise.
+    const revokedToken = await this.prisma.refreshToken.findFirst({
+      where: { userId: user.id, revokedAt: { not: null } },
+    });
+    if (revokedToken) {
+      throw new UnauthorizedException('Session révoquée');
+    }
+
     return {
       id: user.id,
       email: user.email,
