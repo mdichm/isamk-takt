@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Ht
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { TasksService } from './tasks.service.js';
 import { CreateTaskDto, UpdateTaskDto, MoveTaskDto, TaskQueryDto, TaskResponseDto, PaginatedTasksDto, BulkUpdateTasksDto } from './dto/task.dto.js';
+import { IfMatch } from '../common/decorators/if-match.decorator.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -66,6 +67,7 @@ export class TasksController {
     @Param('id') id: string,
     @Body() updateTaskDto: UpdateTaskDto,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<TaskResponseDto> {
     return this.tasksService.update(projectId, id, updateTaskDto, userId);
   }
@@ -82,6 +84,7 @@ export class TasksController {
     @Param('id') id: string,
     @Body() moveTaskDto: MoveTaskDto,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<TaskResponseDto> {
     return this.tasksService.move(projectId, id, moveTaskDto, userId);
   }
@@ -98,6 +101,7 @@ export class TasksController {
     @Param('projectId') projectId: string,
     @Param('id') id: string,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<void> {
     return this.tasksService.remove(projectId, id, userId);
   }
@@ -111,6 +115,7 @@ export class TasksController {
     @Param('projectId') projectId: string,
     @Body() bulkUpdateDto: BulkUpdateTasksDto,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<void> {
     return this.tasksService.bulkUpdate(projectId, bulkUpdateDto, userId);
   }

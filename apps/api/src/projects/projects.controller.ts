@@ -5,6 +5,7 @@ import { CreateProjectDto, UpdateProjectDto, ProjectQueryDto, ProjectResponseDto
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
+import { IfMatch } from '../common/decorators/if-match.decorator.js';
 
 @ApiTags('Projets')
 @Controller('projects')
@@ -46,7 +47,7 @@ export class ProjectsController {
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 200, description: 'Projet mis à jour', type: ProjectResponseDto })
   @ApiResponse({ status: 404, description: 'Projet non trouvé' })
-  async update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto, @CurrentUser('id') userId: string): Promise<ProjectResponseDto> {
+  async update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto, @CurrentUser('id') userId: string, @IfMatch() ifMatch: string): Promise<ProjectResponseDto> {
     return this.projectsService.update(id, updateProjectDto, userId);
   }
 
@@ -57,7 +58,7 @@ export class ProjectsController {
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
   @ApiResponse({ status: 204, description: 'Projet supprimé' })
   @ApiResponse({ status: 404, description: 'Projet non trouvé' })
-  async remove(@Param('id') id: string, @CurrentUser('id') userId: string): Promise<void> {
+  async remove(@Param('id') id: string, @CurrentUser('id') userId: string, @IfMatch() _ifMatch: string): Promise<void> {
     return this.projectsService.remove(id, userId);
   }
 
@@ -86,7 +87,7 @@ export class ProjectsController {
   @ApiParam({ name: 'id', description: 'ID du projet (UUID)' })
   @ApiParam({ name: 'memberId', description: 'ID du membre (UUID)' })
   @ApiResponse({ status: 200, description: 'Rôle mis à jour' })
-  async updateMemberRole(@Param('id') id: string, @Param('memberId') memberId: string, @Body() updateMemberRoleDto: UpdateMemberRoleDto, @CurrentUser('id') userId: string): Promise<void> {
+  async updateMemberRole(@Param('id') id: string, @Param('memberId') memberId: string, @Body() updateMemberRoleDto: UpdateMemberRoleDto, @CurrentUser('id') userId: string, @IfMatch() _ifMatch: string): Promise<void> {
     return this.projectsService.updateMemberRole(id, memberId, updateMemberRoleDto, userId);
   }
 

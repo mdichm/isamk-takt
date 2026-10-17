@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { CommentsService } from './comments.service.js';
 import { CreateCommentDto, UpdateCommentDto, CommentResponseDto } from './dto/comment.dto.js';
+import { IfMatch } from '../common/decorators/if-match.decorator.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -57,6 +58,7 @@ export class CommentsController {
     @Param('id') id: string,
     @Body() updateCommentDto: UpdateCommentDto,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<CommentResponseDto> {
     return this.commentsService.update(projectId, taskId, id, updateCommentDto, userId);
   }
@@ -75,6 +77,7 @@ export class CommentsController {
     @Param('taskId') taskId: string,
     @Param('id') id: string,
     @CurrentUser('id') userId: string,
+    @IfMatch() _ifMatch: string,
   ): Promise<void> {
     return this.commentsService.remove(projectId, taskId, id, userId);
   }
