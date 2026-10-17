@@ -146,7 +146,7 @@ t("security_event_auth_hook","L0",E,T,"Brancher l'interceptor SecurityEvent sur 
 E = "Années & semestres"
 t("annees","L1",E,S,"CRUD années et semestres","Années universitaires et semestres (numéro, code, nbSemaines).",
   ["Unicité du code d'année et du couple (année, numéro)","Seul l'Administrateur écrit ; les autres rôles lisent","Un semestre compte 14 semaines par défaut","Toutes les routes du contrôleur d'années sont protégées par @Permissions('annee:read')/@Permissions('annee:write') ; toute route non décorée est refusée par défaut (403)"],
-  "EX-CAL-01","§2.2","BACK","Must",3,["rbac","audit_service"],"L1-01")
+  "EX-CAL-01","§2.2","BACK","Must",3,["rbac","audit_service"],"L1-01",statut="En cours")
 t("annee_activer","L1",E,S,"Activation d'une année","Transition ACTIVER avec gardes (une seule année active).",
   ["Une seule année ACTIVE (index unique partiel)","Activation refusée sans jeu de règles de charge affecté (garde branchée en L2)","Les statuts sont PREPARATION, ACTIVE et CLOTUREE uniquement"],
   "EX-CAL-01, EX-CAL-05","§4.1.3, §3.4.15","BACK","Must",3,["annees"],"L1-02")

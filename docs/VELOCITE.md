@@ -21,7 +21,7 @@
 | Débit journalier moyen | 30.40 pts/j |
 | Débit hebdomadaire moyen | 212.80 pts/sem |
 | Points restants | 927 |
-| Prévision débit continu | 16/11/2026 (~4.4 semaines restants) |
+| Prévision débit continu | 17/11/2026 (~4.4 semaines restants) |
 
 ---
 
@@ -53,7 +53,7 @@ Sprint,Points restants,Points idéaux
 
 ## 🔮 Prévision de Fin
 
-> **Date estimée de fin : 16/11/2026 (~4.4 semaines restants)**
+> **Date estimée de fin : 17/11/2026 (~4.4 semaines restants)**
 
 *Basé sur la vélocité moyenne des 5 derniers sprints (14 jours/sprint).
 
