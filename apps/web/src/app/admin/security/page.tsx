@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getSecurityConfig,
   updateSecurityConfig,
@@ -14,45 +15,37 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 export default function SecurityPage() {
   const role = getCurrentUserRole();
+  const queryClient = useQueryClient();
 
-  // Tous les hooks doivent être appelés inconditionnellement avant tout early return
-  const [config, setConfig] = useState<SecurityConfigDto | null>(null);
-  const [form, setForm] = useState<SecurityConfigDto | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: config, isLoading: loading } = useQuery({
+    queryKey: ['securityConfig'],
+    queryFn: getSecurityConfig,
+  });
+
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const loadConfig = useCallback(async () => {
-    try {
-      const data = await getSecurityConfig();
-      setConfig(data);
-      setForm({ ...data });
-    } catch {
-      setMessage({ type: 'error', text: messages.errorLoadSecurityConfig });
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    loadConfig();
-  }, [loadConfig]);
+  const onChange = (key: keyof SecurityConfigDto, value: string) => {
+    const numValue = Number(value);
+    queryClient.setQueryData(['securityConfig'], (old: SecurityConfigDto | undefined) =>
+      old ? { ...old, [key]: numValue } : old,
+    );
+  };
 
   const onSubmit = async () => {
-    if (!form) return;
+    if (!config) return;
     setSaving(true);
     setMessage(null);
     try {
       await updateSecurityConfig({
-        longueurMin: form.longueurMin,
-        maxEchecs: form.maxEchecs,
-        verrouillageMinutes: form.verrouillageMinutes,
-        inactiviteMinutes: form.inactiviteMinutes,
-        conservationAuditJours: form.conservationAuditJours,
-        conservationSecuriteJours: form.conservationSecuriteJours,
+        longueurMin: config.longueurMin,
+        maxEchecs: config.maxEchecs,
+        verrouillageMinutes: config.verrouillageMinutes,
+        inactiviteMinutes: config.inactiviteMinutes,
+        conservationAuditJours: config.conservationAuditJours,
+        conservationSecuriteJours: config.conservationSecuriteJours,
       });
       setMessage({ type: 'success', text: messages.saveSuccess });
-      setConfig({ ...form });
     } catch {
       setMessage({ type: 'error', text: messages.saveError });
     } finally {
@@ -88,7 +81,9 @@ export default function SecurityPage() {
 
       {message && (
         <div className={`p-3 rounded-md ${
-          message.type === 'success' ? 'bg-green-50 text-green-900 border border-green-200' : 'bg-red-50 text-red-900 border border-red-200'
+          message.type === 'success'
+            ? 'bg-green-50 text-green-900 border border-green-200'
+            : 'bg-red-50 text-red-900 border border-red-200'
         }`}>{message.text}</div>
       )}
 
@@ -105,48 +100,48 @@ export default function SecurityPage() {
               <label className="block text-sm font-medium text-muted-foreground mb-1">{messages.labelMinPasswordLength}</label>
               <Input
                 type="number"
-                value={form?.longueurMin ?? config.longueurMin}
-                onChange={(e) => setForm((f) => f ? { ...f, longueurMin: Number(e.target.value) } : null)}
+                value={config.longueurMin}
+                onChange={(e) => onChange('longueurMin', e.target.value)}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-muted-foreground mb-1">{messages.labelMaxFailures}</label>
               <Input
                 type="number"
-                value={form?.maxEchecs ?? config.maxEchecs}
-                onChange={(e) => setForm((f) => f ? { ...f, maxEchecs: Number(e.target.value) } : null)}
+                value={config.maxEchecs}
+                onChange={(e) => onChange('maxEchecs', e.target.value)}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-muted-foreground mb-1">{messages.labelLockoutMinutes}</label>
               <Input
                 type="number"
-                value={form?.verrouillageMinutes ?? config.verrouillageMinutes}
-                onChange={(e) => setForm((f) => f ? { ...f, verrouillageMinutes: Number(e.target.value) } : null)}
+                value={config.verrouillageMinutes}
+                onChange={(e) => onChange('verrouillageMinutes', e.target.value)}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-muted-foreground mb-1">{messages.labelInactivityMinutes}</label>
               <Input
                 type="number"
-                value={form?.inactiviteMinutes ?? config.inactiviteMinutes}
-                onChange={(e) => setForm((f) => f ? { ...f, inactiviteMinutes: Number(e.target.value) } : null)}
+                value={config.inactiviteMinutes}
+                onChange={(e) => onChange('inactiviteMinutes', e.target.value)}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-muted-foreground mb-1">{messages.labelAuditRetentionDays}</label>
               <Input
                 type="number"
-                value={form?.conservationAuditJours ?? config.conservationAuditJours ?? ''}
-                onChange={(e) => setForm((f) => f ? { ...f, conservationAuditJours: e.target.value ? Number(e.target.value) : null } : null)}
+                value={config.conservationAuditJours ?? 0}
+                onChange={(e) => onChange('conservationAuditJours', e.target.value)}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-muted-foreground mb-1">{messages.labelSecurityRetentionDays}</label>
               <Input
                 type="number"
-                value={form?.conservationSecuriteJours ?? config.conservationSecuriteJours}
-                onChange={(e) => setForm((f) => f ? { ...f, conservationSecuriteJours: Number(e.target.value) } : null)}
+                value={config.conservationSecuriteJours}
+                onChange={(e) => onChange('conservationSecuriteJours', e.target.value)}
               />
             </div>
           </div>
