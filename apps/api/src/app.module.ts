@@ -23,6 +23,7 @@ import { RolesGuard } from './common/guards/roles.guard.js';
 import { PermissionsGuard } from './policy/guards/permissions.guard.js';
 import { ScopeGuard } from './policy/guards/scope.guard.js';
 import { ImmutabilityGuard } from './policy/guards/immutability.guard.js';
+import { SegregationOfDutiesGuard } from './policy/guards/segregation-of-duties.guard.js';
 import { PolicyModule } from './policy/policy.module.js';
 import appConfig from './config/app.config.js';
 import { MetricsController } from './common/metrics/metrics.controller.js';
@@ -106,6 +107,10 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     {
       provide: APP_GUARD,
       useClass: ImmutabilityGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: SegregationOfDutiesGuard,
     },
     {
       provide: APP_INTERCEPTOR,

@@ -4,4 +4,6 @@ export * from './decorators/permissions.decorator.js';
 export * from './guards/permissions.guard.js';
 export * from './guards/scope.guard.js';
 export * from './guards/immutability.guard.js';
+export * from './guards/segregation-of-duties.guard.js';
+export * from './decorators/segregation-of-duties.decorator.js';
 export * from './scope.registry.js';

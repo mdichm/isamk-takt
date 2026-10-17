@@ -12,6 +12,7 @@ import { hashPassword } from './password.js';
 import { randomUUID } from 'crypto';
 import { MfaService } from './mfa.service.js';
 import { LocalAuthProvider } from './providers/local-auth-provider.service.js';
+import { SecurityEventService } from '../common/services/security-event.service.js';
 
 // Get primary system role from user's roles
 export function getUserPrimaryRole(user: User & { roles?: { role: RoleCode }[] }): RoleCode {
@@ -57,6 +58,7 @@ export class AuthService {
     private jwtService: JwtService,
     private mfaService: MfaService,
     private localAuthProvider: LocalAuthProvider,
+    private securityEvent: SecurityEventService,
   ) {}
 
   async register(registerDto: RegisterDto): Promise<AuthResult> {
@@ -64,6 +66,11 @@ export class AuthService {
       where: { email: registerDto.email },
     });
     if (existingUser) {
+      await this.securityEvent.log({
+        type: 'REGISTER_FAILURE',
+        email: registerDto.email,
+        details: { reason: 'EMAIL_ALREADY_USED' },
+      });
       throw new ConflictException('Cet email est déjà utilisé');
     }
 
@@ -88,6 +95,12 @@ export class AuthService {
         },
       },
       include: { roles: true },
+    });
+
+    await this.securityEvent.log({
+      type: 'REGISTER_SUCCESS',
+      userId: user.id,
+      email: user.email,
     });
 
     return await this.generateAuthResult(user);
@@ -128,6 +141,12 @@ export class AuthService {
           where: { id: user.id },
           data,
         });
+        await this.securityEvent.log({
+          type: 'LOGIN_FAILURE',
+          userId: user.id,
+          email: user.email,
+          details: { reason: 'INVALID_PASSWORD', failedAttempts: nouveauCompteur },
+        });
         throw new UnauthorizedException('Identifiants invalides');
       }
     } else {
@@ -145,6 +164,11 @@ export class AuthService {
     }
 
     if (!authenticated) {
+      await this.securityEvent.log({
+        type: 'LOGIN_FAILURE',
+        email: loginDto.email,
+        details: { reason: 'UNKNOWN_USER' },
+      });
       throw new UnauthorizedException('Identifiants invalides');
     }
 
@@ -152,6 +176,12 @@ export class AuthService {
     // un temps de réponse constant (anti-énumération).
     if (user.lockedUntil && user.lockedUntil > new Date()) {
       const retryAfter = Math.ceil((user.lockedUntil.getTime() - Date.now()) / 1000);
+      await this.securityEvent.log({
+        type: 'ACCOUNT_LOCKED',
+        userId: user.id,
+        email: user.email,
+        details: { retryAfter },
+      });
       throw new UnauthorizedException({
         detail: 'Compte verrouillé. Réessayez plus tard.',
         errorCode: 'ACCOUNT_LOCKED',
@@ -160,6 +190,12 @@ export class AuthService {
     }
 
     if (!user.isActive) {
+      await this.securityEvent.log({
+        type: 'LOGIN_FAILURE',
+        userId: user.id,
+        email: user.email,
+        details: { reason: 'ACCOUNT_INACTIVE' },
+      });
       throw new UnauthorizedException('Compte désactivé');
     }
 
@@ -173,6 +209,11 @@ export class AuthService {
       }
       const isTotpValid = this.mfaService.verifyCode(user.mfaSecret, totp);
       if (!isTotpValid) {
+        await this.securityEvent.log({
+          type: 'MFA_FAILURE',
+          userId: user.id,
+          email: user.email,
+        });
         throw new UnauthorizedException('Identifiants invalides');
       }
     }
@@ -190,6 +231,12 @@ export class AuthService {
       data: { lastLoginAt: new Date() },
     });
 
+    await this.securityEvent.log({
+      type: 'LOGIN_SUCCESS',
+      userId: user.id,
+      email: user.email,
+    });
+
     return await this.generateAuthResult(user);
   }
 
@@ -198,6 +245,10 @@ export class AuthService {
       where: { tokenHash: refreshToken },
     });
     if (!storedToken) {
+      await this.securityEvent.log({
+        type: 'TOKEN_REUSE',
+        details: { reason: 'TOKEN_NOT_FOUND' },
+      });
       throw new UnauthorizedException('Token de rafraîchissement invalide ou expiré');
     }
 
@@ -207,10 +258,20 @@ export class AuthService {
         where: { familyId: storedToken.familyId },
         data: { revokedAt: new Date() },
       });
+      await this.securityEvent.log({
+        type: 'TOKEN_REUSE',
+        userId: storedToken.userId,
+        details: { reason: 'TOKEN_ALREADY_REVOKED', familyId: storedToken.familyId },
+      });
       throw new UnauthorizedException('Token de rafraîchissement invalide ou expiré');
     }
 
     if (storedToken.expiresAt < new Date()) {
+      await this.securityEvent.log({
+        type: 'TOKEN_REUSE',
+        userId: storedToken.userId,
+        details: { reason: 'TOKEN_EXPIRED' },
+      });
       throw new UnauthorizedException('Token de rafraîchissement invalide ou expiré');
     }
 
@@ -253,6 +314,12 @@ export class AuthService {
       },
     });
 
+    await this.securityEvent.log({
+      type: 'TOKEN_REFRESH',
+      userId: user.id,
+      email: user.email,
+    });
+
     return { accessToken, refreshToken: newRefreshToken };
   }
 
@@ -260,6 +327,11 @@ export class AuthService {
     await this.prisma.refreshToken.updateMany({
       where: { userId, tokenHash: refreshToken },
       data: { revokedAt: new Date() },
+    });
+
+    await this.securityEvent.log({
+      type: 'LOGOUT',
+      userId,
     });
   }
 
