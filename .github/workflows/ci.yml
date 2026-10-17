@@ -78,7 +78,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run tests
-        run: pnpm test --if-present
+        run: pnpm test
         env:
           # Factice : Prisma se construit avec l'adapter pg sans se connecter ;
           # les tests unitaires mockent PrismaService et ne queryent jamais la base.
