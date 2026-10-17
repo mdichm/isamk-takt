@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import {
   getSecurityConfig,
   updateSecurityConfig,
@@ -13,10 +13,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function SecurityPage() {
-  const role = getCurrentUserRole();
-  const queryClient = useQueryClient();
+const queryClient = new QueryClient();
 
+function SecurityContent() {
   const { data: config, isLoading: loading } = useQuery({
     queryKey: ['securityConfig'],
     queryFn: getSecurityConfig,
@@ -52,19 +51,6 @@ export default function SecurityPage() {
       setSaving(false);
     }
   };
-
-  if (role === undefined) {
-    return <div className="p-4"><p>{messages.loading}</p></div>;
-  }
-
-  if (!isAdmin(role)) {
-    return (
-      <div className="p-4">
-        <h1 className="text-lg font-semibold">{messages.error}</h1>
-        <p className="text-muted-foreground">{messages.errorForbidden}</p>
-      </div>
-    );
-  }
 
   if (loading || !config) {
     return <div className="p-4"><p>{messages.loading}</p></div>;
@@ -153,5 +139,28 @@ export default function SecurityPage() {
         </CardFooter>
       </Card>
     </div>
+  );
+}
+
+export default function SecurityPage() {
+  const role = getCurrentUserRole();
+
+  if (role === undefined) {
+    return <div className="p-4"><p>{messages.loading}</p></div>;
+  }
+
+  if (!isAdmin(role)) {
+    return (
+      <div className="p-4">
+        <h1 className="text-lg font-semibold">{messages.error}</h1>
+        <p className="text-muted-foreground">{messages.errorForbidden}</p>
+      </div>
+    );
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SecurityContent />
+    </QueryClientProvider>
   );
 }
