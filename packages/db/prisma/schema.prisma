@@ -580,13 +580,15 @@ enum TypeEnseignementCode {
 }
 
 model TypeEnseignement {
-  id        String               @id @default(uuid()) @db.Uuid
-  code      TypeEnseignementCode
-  libelle   String
-  createdAt DateTime             @default(now())
-  updatedAt DateTime             @updatedAt
+  id               String               @id @default(uuid()) @db.Uuid
+  code             TypeEnseignementCode
+  libelle          String
+  activityTagId    String?              @db.Uuid
+  activityTag      ActivityTag?         @relation(fields: [activityTagId], references: [id], onDelete: SetNull)
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
 
-  modules   Module[]
+  modules          Module[]
 
   @@unique([code])
   @@map("types_enseignement")
@@ -635,4 +637,23 @@ model Module {
   @@index([typeId])
   @@index([gradeId])
   @@map("modules")
+}
+
+// ============================================
+// Activity Tags (L1-06)
+// ============================================
+
+model ActivityTag {
+  id        String   @id @default(uuid()) @db.Uuid
+  code      String   @unique
+  libelle   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  typesEnseignement TypeEnseignement[]
+
+  @@index([code])
+  @@index([isActive])
+  @@map("activity_tags")
 }
