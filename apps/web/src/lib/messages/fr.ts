@@ -112,7 +112,6 @@ export const messages = {
   errorLoadSecurityConfig: 'Impossible de charger les paramètres de sécurité.',
   errorLoadSecurityEvents: 'Impossible de charger le journal de sécurité.',
   errorSaveSecurityConfig: 'Impossible d’enregistrer les paramètres de sécurité.',
-  errorForbidden: 'Accès interdit. Réservé à l’Administrateur.',
 } as const;
 
 export type Messages = typeof messages;
