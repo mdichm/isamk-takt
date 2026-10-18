@@ -501,6 +501,7 @@ model Departement {
 
   formations  Formation[]
   enseignants Enseignant[]
+  salles      Salle[]
 
   @@unique([anneeId, code])
   @@index([anneeId])
@@ -717,4 +718,73 @@ model Decharge {
   @@index([enseignantId])
   @@index([semestreId])
   @@map("decharges")
+}
+
+// ============================================
+// Salles (L1-10 : types de salle, salles, équipements)
+// ============================================
+
+model TypeSalle {
+  id        String   @id @default(uuid()) @db.Uuid
+  code      String   // ex: "AMPHI", "TD", "TP", "BUREAU"
+  libelle   String   // ex: "Amphithéâtre", "Salle de TD", "Bureau"
+  estActive Boolean  @default(true)
+  originId  String?  // ID d'origine externe (synchronisation)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  salles Salle[]
+
+  @@unique([code])
+  @@map("types_salle")
+}
+
+model Salle {
+  id                   String     @id @default(uuid()) @db.Uuid
+  code                 String     // ex: "AMPHI-A"
+  libelle              String     // ex: "Amphithéâtre A"
+  site                 String?    // site / bâtiment
+  capaciteMax          Int        // capacité maximale (> 0)
+  capaciteRecommandee  Int?       // capacité recommandée (<= capaciteMax)
+  accesPMR             Boolean    @default(false)
+  commentaire          String?
+  estActive            Boolean    @default(true)
+  departementId        String?    @db.Uuid // null = salle partagée
+  typeSalleId          String?    @db.Uuid
+  originId             String?    // ID d'origine externe (synchronisation)
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+
+  departement Departement? @relation(fields: [departementId], references: [id], onDelete: SetNull)
+  typeSalle   TypeSalle?   @relation(fields: [typeSalleId], references: [id], onDelete: SetNull)
+  equipements SalleEquipement[]
+
+  @@index([departementId])
+  @@index([typeSalleId])
+  @@map("salles")
+}
+
+model Equipement {
+  id        String   @id @default(uuid()) @db.Uuid
+  code      String   // ex: "VIDEOPROJ", "TABLEAU"
+  libelle   String   // ex: "Vidéo projecteur", "Tableau blanc"
+  estActive Boolean  @default(true)
+  originId  String?  // ID d'origine externe (synchronisation)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  salles SalleEquipement[]
+
+  @@unique([code])
+  @@map("equipements")
+}
+
+model SalleEquipement {
+  salleId      String @db.Uuid
+  equipementId String @db.Uuid
+  salle        Salle  @relation(fields: [salleId], references: [id], onDelete: Cascade)
+  equipement   Equipement @relation(fields: [equipementId], references: [id], onDelete: Cascade)
+
+  @@id([salleId, equipementId])
+  @@map("salles_equipements")
 }

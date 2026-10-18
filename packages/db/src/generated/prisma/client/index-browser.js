@@ -465,6 +465,48 @@ exports.Prisma.DechargeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TypeSalleScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  libelle: 'libelle',
+  estActive: 'estActive',
+  originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalleScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  libelle: 'libelle',
+  site: 'site',
+  capaciteMax: 'capaciteMax',
+  capaciteRecommandee: 'capaciteRecommandee',
+  accesPMR: 'accesPMR',
+  commentaire: 'commentaire',
+  estActive: 'estActive',
+  departementId: 'departementId',
+  typeSalleId: 'typeSalleId',
+  originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EquipementScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  libelle: 'libelle',
+  estActive: 'estActive',
+  originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SalleEquipementScalarFieldEnum = {
+  salleId: 'salleId',
+  equipementId: 'equipementId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -616,7 +658,11 @@ exports.Prisma.ModelName = {
   ActivityTag: 'ActivityTag',
   Enseignant: 'Enseignant',
   EnseignantModule: 'EnseignantModule',
-  Decharge: 'Decharge'
+  Decharge: 'Decharge',
+  TypeSalle: 'TypeSalle',
+  Salle: 'Salle',
+  Equipement: 'Equipement',
+  SalleEquipement: 'SalleEquipement'
 };
 
 /**
