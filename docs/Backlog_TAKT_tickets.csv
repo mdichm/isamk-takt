@@ -193,7 +193,7 @@ L1-16;L1;E1.4;Salles & équipements;Story;UI salles;Liste, fiche, équipements, 
 L1-17;L1;E1.5;Grille horaire & indisponibilités;Story;CRUD créneaux et pauses (par semestre);Grille lundi–samedi propre à chaque semestre, ordre consécutif, pauses, pas fixe de 30 minutes.;"- Unicité (semestre, jour, ordre)
 - Durée exacte de 30 minutes (CHECK SQL, constante SLOT_MINUTES)
 - Une pause est non planifiable
-- Les deux semestres d'une année peuvent avoir des grilles différentes";EX-CAL-02;§2.2, §2.4;BACK;Must;5;L1-01;À faire;
+- Les deux semestres d'une année peuvent avoir des grilles différentes";EX-CAL-02;§2.2, §2.4;BACK;Must;5;L1-01;En cours;
 L1-18;L1;E1.5;Grille horaire & indisponibilités;Story;Générateur de grille horaire par semestre;POST /semestres/{id}/creneaux/generate : jours ouvrés, heures de début et de fin par jour, pauses.;"- Entrée par jour : heures de début et de fin (multiples de 30 minutes) et pauses
 - Génération déterministe de créneaux consécutifs, pauses marquées
 - dryRun retourne le décompte par jour sans écriture
