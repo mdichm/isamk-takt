@@ -173,6 +173,26 @@ export type EnseignantModule = $Result.DefaultSelection<Prisma.$EnseignantModule
  * 
  */
 export type Decharge = $Result.DefaultSelection<Prisma.$DechargePayload>
+/**
+ * Model TypeSalle
+ * 
+ */
+export type TypeSalle = $Result.DefaultSelection<Prisma.$TypeSallePayload>
+/**
+ * Model Salle
+ * 
+ */
+export type Salle = $Result.DefaultSelection<Prisma.$SallePayload>
+/**
+ * Model Equipement
+ * 
+ */
+export type Equipement = $Result.DefaultSelection<Prisma.$EquipementPayload>
+/**
+ * Model SalleEquipement
+ * 
+ */
+export type SalleEquipement = $Result.DefaultSelection<Prisma.$SalleEquipementPayload>
 
 /**
  * Enums
@@ -793,6 +813,46 @@ export class PrismaClient<
     * ```
     */
   get decharge(): Prisma.DechargeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.typeSalle`: Exposes CRUD operations for the **TypeSalle** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TypeSalles
+    * const typeSalles = await prisma.typeSalle.findMany()
+    * ```
+    */
+  get typeSalle(): Prisma.TypeSalleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.salle`: Exposes CRUD operations for the **Salle** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Salles
+    * const salles = await prisma.salle.findMany()
+    * ```
+    */
+  get salle(): Prisma.SalleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.equipement`: Exposes CRUD operations for the **Equipement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Equipements
+    * const equipements = await prisma.equipement.findMany()
+    * ```
+    */
+  get equipement(): Prisma.EquipementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.salleEquipement`: Exposes CRUD operations for the **SalleEquipement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SalleEquipements
+    * const salleEquipements = await prisma.salleEquipement.findMany()
+    * ```
+    */
+  get salleEquipement(): Prisma.SalleEquipementDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1271,7 +1331,11 @@ export namespace Prisma {
     ActivityTag: 'ActivityTag',
     Enseignant: 'Enseignant',
     EnseignantModule: 'EnseignantModule',
-    Decharge: 'Decharge'
+    Decharge: 'Decharge',
+    TypeSalle: 'TypeSalle',
+    Salle: 'Salle',
+    Equipement: 'Equipement',
+    SalleEquipement: 'SalleEquipement'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1287,7 +1351,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "salle" | "equipement" | "salleEquipement"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3659,6 +3723,302 @@ export namespace Prisma {
           }
         }
       }
+      TypeSalle: {
+        payload: Prisma.$TypeSallePayload<ExtArgs>
+        fields: Prisma.TypeSalleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TypeSalleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TypeSalleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>
+          }
+          findFirst: {
+            args: Prisma.TypeSalleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TypeSalleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>
+          }
+          findMany: {
+            args: Prisma.TypeSalleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>[]
+          }
+          create: {
+            args: Prisma.TypeSalleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>
+          }
+          createMany: {
+            args: Prisma.TypeSalleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TypeSalleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>[]
+          }
+          delete: {
+            args: Prisma.TypeSalleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>
+          }
+          update: {
+            args: Prisma.TypeSalleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>
+          }
+          deleteMany: {
+            args: Prisma.TypeSalleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TypeSalleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TypeSalleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>[]
+          }
+          upsert: {
+            args: Prisma.TypeSalleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TypeSallePayload>
+          }
+          aggregate: {
+            args: Prisma.TypeSalleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTypeSalle>
+          }
+          groupBy: {
+            args: Prisma.TypeSalleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TypeSalleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TypeSalleCountArgs<ExtArgs>
+            result: $Utils.Optional<TypeSalleCountAggregateOutputType> | number
+          }
+        }
+      }
+      Salle: {
+        payload: Prisma.$SallePayload<ExtArgs>
+        fields: Prisma.SalleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SalleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SalleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>
+          }
+          findFirst: {
+            args: Prisma.SalleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SalleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>
+          }
+          findMany: {
+            args: Prisma.SalleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>[]
+          }
+          create: {
+            args: Prisma.SalleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>
+          }
+          createMany: {
+            args: Prisma.SalleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SalleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>[]
+          }
+          delete: {
+            args: Prisma.SalleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>
+          }
+          update: {
+            args: Prisma.SalleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>
+          }
+          deleteMany: {
+            args: Prisma.SalleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SalleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SalleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>[]
+          }
+          upsert: {
+            args: Prisma.SalleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SallePayload>
+          }
+          aggregate: {
+            args: Prisma.SalleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalle>
+          }
+          groupBy: {
+            args: Prisma.SalleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SalleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SalleCountArgs<ExtArgs>
+            result: $Utils.Optional<SalleCountAggregateOutputType> | number
+          }
+        }
+      }
+      Equipement: {
+        payload: Prisma.$EquipementPayload<ExtArgs>
+        fields: Prisma.EquipementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EquipementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EquipementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>
+          }
+          findFirst: {
+            args: Prisma.EquipementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EquipementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>
+          }
+          findMany: {
+            args: Prisma.EquipementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>[]
+          }
+          create: {
+            args: Prisma.EquipementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>
+          }
+          createMany: {
+            args: Prisma.EquipementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EquipementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>[]
+          }
+          delete: {
+            args: Prisma.EquipementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>
+          }
+          update: {
+            args: Prisma.EquipementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>
+          }
+          deleteMany: {
+            args: Prisma.EquipementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EquipementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EquipementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>[]
+          }
+          upsert: {
+            args: Prisma.EquipementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EquipementPayload>
+          }
+          aggregate: {
+            args: Prisma.EquipementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEquipement>
+          }
+          groupBy: {
+            args: Prisma.EquipementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EquipementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EquipementCountArgs<ExtArgs>
+            result: $Utils.Optional<EquipementCountAggregateOutputType> | number
+          }
+        }
+      }
+      SalleEquipement: {
+        payload: Prisma.$SalleEquipementPayload<ExtArgs>
+        fields: Prisma.SalleEquipementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SalleEquipementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SalleEquipementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>
+          }
+          findFirst: {
+            args: Prisma.SalleEquipementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SalleEquipementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>
+          }
+          findMany: {
+            args: Prisma.SalleEquipementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>[]
+          }
+          create: {
+            args: Prisma.SalleEquipementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>
+          }
+          createMany: {
+            args: Prisma.SalleEquipementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SalleEquipementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>[]
+          }
+          delete: {
+            args: Prisma.SalleEquipementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>
+          }
+          update: {
+            args: Prisma.SalleEquipementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>
+          }
+          deleteMany: {
+            args: Prisma.SalleEquipementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SalleEquipementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SalleEquipementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>[]
+          }
+          upsert: {
+            args: Prisma.SalleEquipementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SalleEquipementPayload>
+          }
+          aggregate: {
+            args: Prisma.SalleEquipementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalleEquipement>
+          }
+          groupBy: {
+            args: Prisma.SalleEquipementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SalleEquipementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SalleEquipementCountArgs<ExtArgs>
+            result: $Utils.Optional<SalleEquipementCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3814,6 +4174,10 @@ export namespace Prisma {
     enseignant?: EnseignantOmit
     enseignantModule?: EnseignantModuleOmit
     decharge?: DechargeOmit
+    typeSalle?: TypeSalleOmit
+    salle?: SalleOmit
+    equipement?: EquipementOmit
+    salleEquipement?: SalleEquipementOmit
   }
 
   /* Types for Logging */
@@ -4315,11 +4679,13 @@ export namespace Prisma {
   export type DepartementCountOutputType = {
     formations: number
     enseignants: number
+    salles: number
   }
 
   export type DepartementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     formations?: boolean | DepartementCountOutputTypeCountFormationsArgs
     enseignants?: boolean | DepartementCountOutputTypeCountEnseignantsArgs
+    salles?: boolean | DepartementCountOutputTypeCountSallesArgs
   }
 
   // Custom InputTypes
@@ -4345,6 +4711,13 @@ export namespace Prisma {
    */
   export type DepartementCountOutputTypeCountEnseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnseignantWhereInput
+  }
+
+  /**
+   * DepartementCountOutputType without action
+   */
+  export type DepartementCountOutputTypeCountSallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalleWhereInput
   }
 
 
@@ -4620,6 +4993,99 @@ export namespace Prisma {
    */
   export type EnseignantCountOutputTypeCountDechargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DechargeWhereInput
+  }
+
+
+  /**
+   * Count Type TypeSalleCountOutputType
+   */
+
+  export type TypeSalleCountOutputType = {
+    salles: number
+  }
+
+  export type TypeSalleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salles?: boolean | TypeSalleCountOutputTypeCountSallesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TypeSalleCountOutputType without action
+   */
+  export type TypeSalleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalleCountOutputType
+     */
+    select?: TypeSalleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TypeSalleCountOutputType without action
+   */
+  export type TypeSalleCountOutputTypeCountSallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalleWhereInput
+  }
+
+
+  /**
+   * Count Type SalleCountOutputType
+   */
+
+  export type SalleCountOutputType = {
+    equipements: number
+  }
+
+  export type SalleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    equipements?: boolean | SalleCountOutputTypeCountEquipementsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SalleCountOutputType without action
+   */
+  export type SalleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleCountOutputType
+     */
+    select?: SalleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SalleCountOutputType without action
+   */
+  export type SalleCountOutputTypeCountEquipementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalleEquipementWhereInput
+  }
+
+
+  /**
+   * Count Type EquipementCountOutputType
+   */
+
+  export type EquipementCountOutputType = {
+    salles: number
+  }
+
+  export type EquipementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salles?: boolean | EquipementCountOutputTypeCountSallesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EquipementCountOutputType without action
+   */
+  export type EquipementCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipementCountOutputType
+     */
+    select?: EquipementCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EquipementCountOutputType without action
+   */
+  export type EquipementCountOutputTypeCountSallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalleEquipementWhereInput
   }
 
 
@@ -28901,6 +29367,7 @@ export namespace Prisma {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     formations?: boolean | Departement$formationsArgs<ExtArgs>
     enseignants?: boolean | Departement$enseignantsArgs<ExtArgs>
+    salles?: boolean | Departement$sallesArgs<ExtArgs>
     _count?: boolean | DepartementCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["departement"]>
 
@@ -28941,6 +29408,7 @@ export namespace Prisma {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     formations?: boolean | Departement$formationsArgs<ExtArgs>
     enseignants?: boolean | Departement$enseignantsArgs<ExtArgs>
+    salles?: boolean | Departement$sallesArgs<ExtArgs>
     _count?: boolean | DepartementCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DepartementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28956,6 +29424,7 @@ export namespace Prisma {
       annee: Prisma.$AnneePayload<ExtArgs>
       formations: Prisma.$FormationPayload<ExtArgs>[]
       enseignants: Prisma.$EnseignantPayload<ExtArgs>[]
+      salles: Prisma.$SallePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -29362,6 +29831,7 @@ export namespace Prisma {
     annee<T extends AnneeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnneeDefaultArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     formations<T extends Departement$formationsArgs<ExtArgs> = {}>(args?: Subset<T, Departement$formationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     enseignants<T extends Departement$enseignantsArgs<ExtArgs> = {}>(args?: Subset<T, Departement$enseignantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    salles<T extends Departement$sallesArgs<ExtArgs> = {}>(args?: Subset<T, Departement$sallesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29844,6 +30314,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
+  }
+
+  /**
+   * Departement.salles
+   */
+  export type Departement$sallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    where?: SalleWhereInput
+    orderBy?: SalleOrderByWithRelationInput | SalleOrderByWithRelationInput[]
+    cursor?: SalleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalleScalarFieldEnum | SalleScalarFieldEnum[]
   }
 
   /**
@@ -41346,6 +41840,4534 @@ export namespace Prisma {
 
 
   /**
+   * Model TypeSalle
+   */
+
+  export type AggregateTypeSalle = {
+    _count: TypeSalleCountAggregateOutputType | null
+    _min: TypeSalleMinAggregateOutputType | null
+    _max: TypeSalleMaxAggregateOutputType | null
+  }
+
+  export type TypeSalleMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    estActive: boolean | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TypeSalleMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    estActive: boolean | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TypeSalleCountAggregateOutputType = {
+    id: number
+    code: number
+    libelle: number
+    estActive: number
+    originId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TypeSalleMinAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estActive?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TypeSalleMaxAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estActive?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TypeSalleCountAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estActive?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TypeSalleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TypeSalle to aggregate.
+     */
+    where?: TypeSalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TypeSalles to fetch.
+     */
+    orderBy?: TypeSalleOrderByWithRelationInput | TypeSalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TypeSalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TypeSalles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TypeSalles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TypeSalles
+    **/
+    _count?: true | TypeSalleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TypeSalleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TypeSalleMaxAggregateInputType
+  }
+
+  export type GetTypeSalleAggregateType<T extends TypeSalleAggregateArgs> = {
+        [P in keyof T & keyof AggregateTypeSalle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTypeSalle[P]>
+      : GetScalarType<T[P], AggregateTypeSalle[P]>
+  }
+
+
+
+
+  export type TypeSalleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TypeSalleWhereInput
+    orderBy?: TypeSalleOrderByWithAggregationInput | TypeSalleOrderByWithAggregationInput[]
+    by: TypeSalleScalarFieldEnum[] | TypeSalleScalarFieldEnum
+    having?: TypeSalleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TypeSalleCountAggregateInputType | true
+    _min?: TypeSalleMinAggregateInputType
+    _max?: TypeSalleMaxAggregateInputType
+  }
+
+  export type TypeSalleGroupByOutputType = {
+    id: string
+    code: string
+    libelle: string
+    estActive: boolean
+    originId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TypeSalleCountAggregateOutputType | null
+    _min: TypeSalleMinAggregateOutputType | null
+    _max: TypeSalleMaxAggregateOutputType | null
+  }
+
+  type GetTypeSalleGroupByPayload<T extends TypeSalleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TypeSalleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TypeSalleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TypeSalleGroupByOutputType[P]>
+            : GetScalarType<T[P], TypeSalleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TypeSalleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estActive?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    salles?: boolean | TypeSalle$sallesArgs<ExtArgs>
+    _count?: boolean | TypeSalleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["typeSalle"]>
+
+  export type TypeSalleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estActive?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["typeSalle"]>
+
+  export type TypeSalleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estActive?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["typeSalle"]>
+
+  export type TypeSalleSelectScalar = {
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estActive?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TypeSalleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "estActive" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["typeSalle"]>
+  export type TypeSalleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salles?: boolean | TypeSalle$sallesArgs<ExtArgs>
+    _count?: boolean | TypeSalleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TypeSalleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TypeSalleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $TypeSallePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TypeSalle"
+    objects: {
+      salles: Prisma.$SallePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      libelle: string
+      estActive: boolean
+      originId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["typeSalle"]>
+    composites: {}
+  }
+
+  type TypeSalleGetPayload<S extends boolean | null | undefined | TypeSalleDefaultArgs> = $Result.GetResult<Prisma.$TypeSallePayload, S>
+
+  type TypeSalleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TypeSalleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TypeSalleCountAggregateInputType | true
+    }
+
+  export interface TypeSalleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TypeSalle'], meta: { name: 'TypeSalle' } }
+    /**
+     * Find zero or one TypeSalle that matches the filter.
+     * @param {TypeSalleFindUniqueArgs} args - Arguments to find a TypeSalle
+     * @example
+     * // Get one TypeSalle
+     * const typeSalle = await prisma.typeSalle.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TypeSalleFindUniqueArgs>(args: SelectSubset<T, TypeSalleFindUniqueArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TypeSalle that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TypeSalleFindUniqueOrThrowArgs} args - Arguments to find a TypeSalle
+     * @example
+     * // Get one TypeSalle
+     * const typeSalle = await prisma.typeSalle.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TypeSalleFindUniqueOrThrowArgs>(args: SelectSubset<T, TypeSalleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TypeSalle that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TypeSalleFindFirstArgs} args - Arguments to find a TypeSalle
+     * @example
+     * // Get one TypeSalle
+     * const typeSalle = await prisma.typeSalle.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TypeSalleFindFirstArgs>(args?: SelectSubset<T, TypeSalleFindFirstArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TypeSalle that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TypeSalleFindFirstOrThrowArgs} args - Arguments to find a TypeSalle
+     * @example
+     * // Get one TypeSalle
+     * const typeSalle = await prisma.typeSalle.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TypeSalleFindFirstOrThrowArgs>(args?: SelectSubset<T, TypeSalleFindFirstOrThrowArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TypeSalles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TypeSalleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TypeSalles
+     * const typeSalles = await prisma.typeSalle.findMany()
+     * 
+     * // Get first 10 TypeSalles
+     * const typeSalles = await prisma.typeSalle.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const typeSalleWithIdOnly = await prisma.typeSalle.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TypeSalleFindManyArgs>(args?: SelectSubset<T, TypeSalleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TypeSalle.
+     * @param {TypeSalleCreateArgs} args - Arguments to create a TypeSalle.
+     * @example
+     * // Create one TypeSalle
+     * const TypeSalle = await prisma.typeSalle.create({
+     *   data: {
+     *     // ... data to create a TypeSalle
+     *   }
+     * })
+     * 
+     */
+    create<T extends TypeSalleCreateArgs>(args: SelectSubset<T, TypeSalleCreateArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TypeSalles.
+     * @param {TypeSalleCreateManyArgs} args - Arguments to create many TypeSalles.
+     * @example
+     * // Create many TypeSalles
+     * const typeSalle = await prisma.typeSalle.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TypeSalleCreateManyArgs>(args?: SelectSubset<T, TypeSalleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TypeSalles and returns the data saved in the database.
+     * @param {TypeSalleCreateManyAndReturnArgs} args - Arguments to create many TypeSalles.
+     * @example
+     * // Create many TypeSalles
+     * const typeSalle = await prisma.typeSalle.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TypeSalles and only return the `id`
+     * const typeSalleWithIdOnly = await prisma.typeSalle.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TypeSalleCreateManyAndReturnArgs>(args?: SelectSubset<T, TypeSalleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TypeSalle.
+     * @param {TypeSalleDeleteArgs} args - Arguments to delete one TypeSalle.
+     * @example
+     * // Delete one TypeSalle
+     * const TypeSalle = await prisma.typeSalle.delete({
+     *   where: {
+     *     // ... filter to delete one TypeSalle
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TypeSalleDeleteArgs>(args: SelectSubset<T, TypeSalleDeleteArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TypeSalle.
+     * @param {TypeSalleUpdateArgs} args - Arguments to update one TypeSalle.
+     * @example
+     * // Update one TypeSalle
+     * const typeSalle = await prisma.typeSalle.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TypeSalleUpdateArgs>(args: SelectSubset<T, TypeSalleUpdateArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TypeSalles.
+     * @param {TypeSalleDeleteManyArgs} args - Arguments to filter TypeSalles to delete.
+     * @example
+     * // Delete a few TypeSalles
+     * const { count } = await prisma.typeSalle.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TypeSalleDeleteManyArgs>(args?: SelectSubset<T, TypeSalleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TypeSalles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TypeSalleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TypeSalles
+     * const typeSalle = await prisma.typeSalle.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TypeSalleUpdateManyArgs>(args: SelectSubset<T, TypeSalleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TypeSalles and returns the data updated in the database.
+     * @param {TypeSalleUpdateManyAndReturnArgs} args - Arguments to update many TypeSalles.
+     * @example
+     * // Update many TypeSalles
+     * const typeSalle = await prisma.typeSalle.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TypeSalles and only return the `id`
+     * const typeSalleWithIdOnly = await prisma.typeSalle.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TypeSalleUpdateManyAndReturnArgs>(args: SelectSubset<T, TypeSalleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TypeSalle.
+     * @param {TypeSalleUpsertArgs} args - Arguments to update or create a TypeSalle.
+     * @example
+     * // Update or create a TypeSalle
+     * const typeSalle = await prisma.typeSalle.upsert({
+     *   create: {
+     *     // ... data to create a TypeSalle
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TypeSalle we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TypeSalleUpsertArgs>(args: SelectSubset<T, TypeSalleUpsertArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TypeSalles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TypeSalleCountArgs} args - Arguments to filter TypeSalles to count.
+     * @example
+     * // Count the number of TypeSalles
+     * const count = await prisma.typeSalle.count({
+     *   where: {
+     *     // ... the filter for the TypeSalles we want to count
+     *   }
+     * })
+    **/
+    count<T extends TypeSalleCountArgs>(
+      args?: Subset<T, TypeSalleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TypeSalleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TypeSalle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TypeSalleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TypeSalleAggregateArgs>(args: Subset<T, TypeSalleAggregateArgs>): Prisma.PrismaPromise<GetTypeSalleAggregateType<T>>
+
+    /**
+     * Group by TypeSalle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TypeSalleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TypeSalleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TypeSalleGroupByArgs['orderBy'] }
+        : { orderBy?: TypeSalleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TypeSalleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTypeSalleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TypeSalle model
+   */
+  readonly fields: TypeSalleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TypeSalle.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TypeSalleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    salles<T extends TypeSalle$sallesArgs<ExtArgs> = {}>(args?: Subset<T, TypeSalle$sallesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TypeSalle model
+   */
+  interface TypeSalleFieldRefs {
+    readonly id: FieldRef<"TypeSalle", 'String'>
+    readonly code: FieldRef<"TypeSalle", 'String'>
+    readonly libelle: FieldRef<"TypeSalle", 'String'>
+    readonly estActive: FieldRef<"TypeSalle", 'Boolean'>
+    readonly originId: FieldRef<"TypeSalle", 'String'>
+    readonly createdAt: FieldRef<"TypeSalle", 'DateTime'>
+    readonly updatedAt: FieldRef<"TypeSalle", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TypeSalle findUnique
+   */
+  export type TypeSalleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * Filter, which TypeSalle to fetch.
+     */
+    where: TypeSalleWhereUniqueInput
+  }
+
+  /**
+   * TypeSalle findUniqueOrThrow
+   */
+  export type TypeSalleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * Filter, which TypeSalle to fetch.
+     */
+    where: TypeSalleWhereUniqueInput
+  }
+
+  /**
+   * TypeSalle findFirst
+   */
+  export type TypeSalleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * Filter, which TypeSalle to fetch.
+     */
+    where?: TypeSalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TypeSalles to fetch.
+     */
+    orderBy?: TypeSalleOrderByWithRelationInput | TypeSalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TypeSalles.
+     */
+    cursor?: TypeSalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TypeSalles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TypeSalles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TypeSalles.
+     */
+    distinct?: TypeSalleScalarFieldEnum | TypeSalleScalarFieldEnum[]
+  }
+
+  /**
+   * TypeSalle findFirstOrThrow
+   */
+  export type TypeSalleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * Filter, which TypeSalle to fetch.
+     */
+    where?: TypeSalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TypeSalles to fetch.
+     */
+    orderBy?: TypeSalleOrderByWithRelationInput | TypeSalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TypeSalles.
+     */
+    cursor?: TypeSalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TypeSalles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TypeSalles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TypeSalles.
+     */
+    distinct?: TypeSalleScalarFieldEnum | TypeSalleScalarFieldEnum[]
+  }
+
+  /**
+   * TypeSalle findMany
+   */
+  export type TypeSalleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * Filter, which TypeSalles to fetch.
+     */
+    where?: TypeSalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TypeSalles to fetch.
+     */
+    orderBy?: TypeSalleOrderByWithRelationInput | TypeSalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TypeSalles.
+     */
+    cursor?: TypeSalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TypeSalles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TypeSalles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TypeSalles.
+     */
+    distinct?: TypeSalleScalarFieldEnum | TypeSalleScalarFieldEnum[]
+  }
+
+  /**
+   * TypeSalle create
+   */
+  export type TypeSalleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TypeSalle.
+     */
+    data: XOR<TypeSalleCreateInput, TypeSalleUncheckedCreateInput>
+  }
+
+  /**
+   * TypeSalle createMany
+   */
+  export type TypeSalleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TypeSalles.
+     */
+    data: TypeSalleCreateManyInput | TypeSalleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TypeSalle createManyAndReturn
+   */
+  export type TypeSalleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * The data used to create many TypeSalles.
+     */
+    data: TypeSalleCreateManyInput | TypeSalleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TypeSalle update
+   */
+  export type TypeSalleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TypeSalle.
+     */
+    data: XOR<TypeSalleUpdateInput, TypeSalleUncheckedUpdateInput>
+    /**
+     * Choose, which TypeSalle to update.
+     */
+    where: TypeSalleWhereUniqueInput
+  }
+
+  /**
+   * TypeSalle updateMany
+   */
+  export type TypeSalleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TypeSalles.
+     */
+    data: XOR<TypeSalleUpdateManyMutationInput, TypeSalleUncheckedUpdateManyInput>
+    /**
+     * Filter which TypeSalles to update
+     */
+    where?: TypeSalleWhereInput
+    /**
+     * Limit how many TypeSalles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TypeSalle updateManyAndReturn
+   */
+  export type TypeSalleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * The data used to update TypeSalles.
+     */
+    data: XOR<TypeSalleUpdateManyMutationInput, TypeSalleUncheckedUpdateManyInput>
+    /**
+     * Filter which TypeSalles to update
+     */
+    where?: TypeSalleWhereInput
+    /**
+     * Limit how many TypeSalles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TypeSalle upsert
+   */
+  export type TypeSalleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TypeSalle to update in case it exists.
+     */
+    where: TypeSalleWhereUniqueInput
+    /**
+     * In case the TypeSalle found by the `where` argument doesn't exist, create a new TypeSalle with this data.
+     */
+    create: XOR<TypeSalleCreateInput, TypeSalleUncheckedCreateInput>
+    /**
+     * In case the TypeSalle was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TypeSalleUpdateInput, TypeSalleUncheckedUpdateInput>
+  }
+
+  /**
+   * TypeSalle delete
+   */
+  export type TypeSalleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    /**
+     * Filter which TypeSalle to delete.
+     */
+    where: TypeSalleWhereUniqueInput
+  }
+
+  /**
+   * TypeSalle deleteMany
+   */
+  export type TypeSalleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TypeSalles to delete
+     */
+    where?: TypeSalleWhereInput
+    /**
+     * Limit how many TypeSalles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TypeSalle.salles
+   */
+  export type TypeSalle$sallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    where?: SalleWhereInput
+    orderBy?: SalleOrderByWithRelationInput | SalleOrderByWithRelationInput[]
+    cursor?: SalleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalleScalarFieldEnum | SalleScalarFieldEnum[]
+  }
+
+  /**
+   * TypeSalle without action
+   */
+  export type TypeSalleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Salle
+   */
+
+  export type AggregateSalle = {
+    _count: SalleCountAggregateOutputType | null
+    _avg: SalleAvgAggregateOutputType | null
+    _sum: SalleSumAggregateOutputType | null
+    _min: SalleMinAggregateOutputType | null
+    _max: SalleMaxAggregateOutputType | null
+  }
+
+  export type SalleAvgAggregateOutputType = {
+    capaciteMax: number | null
+    capaciteRecommandee: number | null
+  }
+
+  export type SalleSumAggregateOutputType = {
+    capaciteMax: number | null
+    capaciteRecommandee: number | null
+  }
+
+  export type SalleMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    site: string | null
+    capaciteMax: number | null
+    capaciteRecommandee: number | null
+    accesPMR: boolean | null
+    commentaire: string | null
+    estActive: boolean | null
+    departementId: string | null
+    typeSalleId: string | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalleMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    site: string | null
+    capaciteMax: number | null
+    capaciteRecommandee: number | null
+    accesPMR: boolean | null
+    commentaire: string | null
+    estActive: boolean | null
+    departementId: string | null
+    typeSalleId: string | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SalleCountAggregateOutputType = {
+    id: number
+    code: number
+    libelle: number
+    site: number
+    capaciteMax: number
+    capaciteRecommandee: number
+    accesPMR: number
+    commentaire: number
+    estActive: number
+    departementId: number
+    typeSalleId: number
+    originId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SalleAvgAggregateInputType = {
+    capaciteMax?: true
+    capaciteRecommandee?: true
+  }
+
+  export type SalleSumAggregateInputType = {
+    capaciteMax?: true
+    capaciteRecommandee?: true
+  }
+
+  export type SalleMinAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    site?: true
+    capaciteMax?: true
+    capaciteRecommandee?: true
+    accesPMR?: true
+    commentaire?: true
+    estActive?: true
+    departementId?: true
+    typeSalleId?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalleMaxAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    site?: true
+    capaciteMax?: true
+    capaciteRecommandee?: true
+    accesPMR?: true
+    commentaire?: true
+    estActive?: true
+    departementId?: true
+    typeSalleId?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SalleCountAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    site?: true
+    capaciteMax?: true
+    capaciteRecommandee?: true
+    accesPMR?: true
+    commentaire?: true
+    estActive?: true
+    departementId?: true
+    typeSalleId?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SalleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Salle to aggregate.
+     */
+    where?: SalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Salles to fetch.
+     */
+    orderBy?: SalleOrderByWithRelationInput | SalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Salles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Salles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Salles
+    **/
+    _count?: true | SalleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SalleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SalleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SalleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SalleMaxAggregateInputType
+  }
+
+  export type GetSalleAggregateType<T extends SalleAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalle[P]>
+      : GetScalarType<T[P], AggregateSalle[P]>
+  }
+
+
+
+
+  export type SalleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalleWhereInput
+    orderBy?: SalleOrderByWithAggregationInput | SalleOrderByWithAggregationInput[]
+    by: SalleScalarFieldEnum[] | SalleScalarFieldEnum
+    having?: SalleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SalleCountAggregateInputType | true
+    _avg?: SalleAvgAggregateInputType
+    _sum?: SalleSumAggregateInputType
+    _min?: SalleMinAggregateInputType
+    _max?: SalleMaxAggregateInputType
+  }
+
+  export type SalleGroupByOutputType = {
+    id: string
+    code: string
+    libelle: string
+    site: string | null
+    capaciteMax: number
+    capaciteRecommandee: number | null
+    accesPMR: boolean
+    commentaire: string | null
+    estActive: boolean
+    departementId: string | null
+    typeSalleId: string | null
+    originId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: SalleCountAggregateOutputType | null
+    _avg: SalleAvgAggregateOutputType | null
+    _sum: SalleSumAggregateOutputType | null
+    _min: SalleMinAggregateOutputType | null
+    _max: SalleMaxAggregateOutputType | null
+  }
+
+  type GetSalleGroupByPayload<T extends SalleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SalleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SalleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SalleGroupByOutputType[P]>
+            : GetScalarType<T[P], SalleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SalleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    site?: boolean
+    capaciteMax?: boolean
+    capaciteRecommandee?: boolean
+    accesPMR?: boolean
+    commentaire?: boolean
+    estActive?: boolean
+    departementId?: boolean
+    typeSalleId?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    departement?: boolean | Salle$departementArgs<ExtArgs>
+    typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+    equipements?: boolean | Salle$equipementsArgs<ExtArgs>
+    _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salle"]>
+
+  export type SalleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    site?: boolean
+    capaciteMax?: boolean
+    capaciteRecommandee?: boolean
+    accesPMR?: boolean
+    commentaire?: boolean
+    estActive?: boolean
+    departementId?: boolean
+    typeSalleId?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    departement?: boolean | Salle$departementArgs<ExtArgs>
+    typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+  }, ExtArgs["result"]["salle"]>
+
+  export type SalleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    site?: boolean
+    capaciteMax?: boolean
+    capaciteRecommandee?: boolean
+    accesPMR?: boolean
+    commentaire?: boolean
+    estActive?: boolean
+    departementId?: boolean
+    typeSalleId?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    departement?: boolean | Salle$departementArgs<ExtArgs>
+    typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+  }, ExtArgs["result"]["salle"]>
+
+  export type SalleSelectScalar = {
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    site?: boolean
+    capaciteMax?: boolean
+    capaciteRecommandee?: boolean
+    accesPMR?: boolean
+    commentaire?: boolean
+    estActive?: boolean
+    departementId?: boolean
+    typeSalleId?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SalleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "site" | "capaciteMax" | "capaciteRecommandee" | "accesPMR" | "commentaire" | "estActive" | "departementId" | "typeSalleId" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["salle"]>
+  export type SalleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    departement?: boolean | Salle$departementArgs<ExtArgs>
+    typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+    equipements?: boolean | Salle$equipementsArgs<ExtArgs>
+    _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SalleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    departement?: boolean | Salle$departementArgs<ExtArgs>
+    typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+  }
+  export type SalleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    departement?: boolean | Salle$departementArgs<ExtArgs>
+    typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+  }
+
+  export type $SallePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Salle"
+    objects: {
+      departement: Prisma.$DepartementPayload<ExtArgs> | null
+      typeSalle: Prisma.$TypeSallePayload<ExtArgs> | null
+      equipements: Prisma.$SalleEquipementPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      libelle: string
+      site: string | null
+      capaciteMax: number
+      capaciteRecommandee: number | null
+      accesPMR: boolean
+      commentaire: string | null
+      estActive: boolean
+      departementId: string | null
+      typeSalleId: string | null
+      originId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["salle"]>
+    composites: {}
+  }
+
+  type SalleGetPayload<S extends boolean | null | undefined | SalleDefaultArgs> = $Result.GetResult<Prisma.$SallePayload, S>
+
+  type SalleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SalleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SalleCountAggregateInputType | true
+    }
+
+  export interface SalleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Salle'], meta: { name: 'Salle' } }
+    /**
+     * Find zero or one Salle that matches the filter.
+     * @param {SalleFindUniqueArgs} args - Arguments to find a Salle
+     * @example
+     * // Get one Salle
+     * const salle = await prisma.salle.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SalleFindUniqueArgs>(args: SelectSubset<T, SalleFindUniqueArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Salle that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SalleFindUniqueOrThrowArgs} args - Arguments to find a Salle
+     * @example
+     * // Get one Salle
+     * const salle = await prisma.salle.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SalleFindUniqueOrThrowArgs>(args: SelectSubset<T, SalleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Salle that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleFindFirstArgs} args - Arguments to find a Salle
+     * @example
+     * // Get one Salle
+     * const salle = await prisma.salle.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SalleFindFirstArgs>(args?: SelectSubset<T, SalleFindFirstArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Salle that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleFindFirstOrThrowArgs} args - Arguments to find a Salle
+     * @example
+     * // Get one Salle
+     * const salle = await prisma.salle.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SalleFindFirstOrThrowArgs>(args?: SelectSubset<T, SalleFindFirstOrThrowArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Salles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Salles
+     * const salles = await prisma.salle.findMany()
+     * 
+     * // Get first 10 Salles
+     * const salles = await prisma.salle.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const salleWithIdOnly = await prisma.salle.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SalleFindManyArgs>(args?: SelectSubset<T, SalleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Salle.
+     * @param {SalleCreateArgs} args - Arguments to create a Salle.
+     * @example
+     * // Create one Salle
+     * const Salle = await prisma.salle.create({
+     *   data: {
+     *     // ... data to create a Salle
+     *   }
+     * })
+     * 
+     */
+    create<T extends SalleCreateArgs>(args: SelectSubset<T, SalleCreateArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Salles.
+     * @param {SalleCreateManyArgs} args - Arguments to create many Salles.
+     * @example
+     * // Create many Salles
+     * const salle = await prisma.salle.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SalleCreateManyArgs>(args?: SelectSubset<T, SalleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Salles and returns the data saved in the database.
+     * @param {SalleCreateManyAndReturnArgs} args - Arguments to create many Salles.
+     * @example
+     * // Create many Salles
+     * const salle = await prisma.salle.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Salles and only return the `id`
+     * const salleWithIdOnly = await prisma.salle.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SalleCreateManyAndReturnArgs>(args?: SelectSubset<T, SalleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Salle.
+     * @param {SalleDeleteArgs} args - Arguments to delete one Salle.
+     * @example
+     * // Delete one Salle
+     * const Salle = await prisma.salle.delete({
+     *   where: {
+     *     // ... filter to delete one Salle
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SalleDeleteArgs>(args: SelectSubset<T, SalleDeleteArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Salle.
+     * @param {SalleUpdateArgs} args - Arguments to update one Salle.
+     * @example
+     * // Update one Salle
+     * const salle = await prisma.salle.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SalleUpdateArgs>(args: SelectSubset<T, SalleUpdateArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Salles.
+     * @param {SalleDeleteManyArgs} args - Arguments to filter Salles to delete.
+     * @example
+     * // Delete a few Salles
+     * const { count } = await prisma.salle.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SalleDeleteManyArgs>(args?: SelectSubset<T, SalleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Salles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Salles
+     * const salle = await prisma.salle.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SalleUpdateManyArgs>(args: SelectSubset<T, SalleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Salles and returns the data updated in the database.
+     * @param {SalleUpdateManyAndReturnArgs} args - Arguments to update many Salles.
+     * @example
+     * // Update many Salles
+     * const salle = await prisma.salle.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Salles and only return the `id`
+     * const salleWithIdOnly = await prisma.salle.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SalleUpdateManyAndReturnArgs>(args: SelectSubset<T, SalleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Salle.
+     * @param {SalleUpsertArgs} args - Arguments to update or create a Salle.
+     * @example
+     * // Update or create a Salle
+     * const salle = await prisma.salle.upsert({
+     *   create: {
+     *     // ... data to create a Salle
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Salle we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SalleUpsertArgs>(args: SelectSubset<T, SalleUpsertArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Salles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleCountArgs} args - Arguments to filter Salles to count.
+     * @example
+     * // Count the number of Salles
+     * const count = await prisma.salle.count({
+     *   where: {
+     *     // ... the filter for the Salles we want to count
+     *   }
+     * })
+    **/
+    count<T extends SalleCountArgs>(
+      args?: Subset<T, SalleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SalleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Salle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SalleAggregateArgs>(args: Subset<T, SalleAggregateArgs>): Prisma.PrismaPromise<GetSalleAggregateType<T>>
+
+    /**
+     * Group by Salle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SalleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SalleGroupByArgs['orderBy'] }
+        : { orderBy?: SalleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SalleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Salle model
+   */
+  readonly fields: SalleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Salle.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SalleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    departement<T extends Salle$departementArgs<ExtArgs> = {}>(args?: Subset<T, Salle$departementArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    typeSalle<T extends Salle$typeSalleArgs<ExtArgs> = {}>(args?: Subset<T, Salle$typeSalleArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    equipements<T extends Salle$equipementsArgs<ExtArgs> = {}>(args?: Subset<T, Salle$equipementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Salle model
+   */
+  interface SalleFieldRefs {
+    readonly id: FieldRef<"Salle", 'String'>
+    readonly code: FieldRef<"Salle", 'String'>
+    readonly libelle: FieldRef<"Salle", 'String'>
+    readonly site: FieldRef<"Salle", 'String'>
+    readonly capaciteMax: FieldRef<"Salle", 'Int'>
+    readonly capaciteRecommandee: FieldRef<"Salle", 'Int'>
+    readonly accesPMR: FieldRef<"Salle", 'Boolean'>
+    readonly commentaire: FieldRef<"Salle", 'String'>
+    readonly estActive: FieldRef<"Salle", 'Boolean'>
+    readonly departementId: FieldRef<"Salle", 'String'>
+    readonly typeSalleId: FieldRef<"Salle", 'String'>
+    readonly originId: FieldRef<"Salle", 'String'>
+    readonly createdAt: FieldRef<"Salle", 'DateTime'>
+    readonly updatedAt: FieldRef<"Salle", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Salle findUnique
+   */
+  export type SalleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * Filter, which Salle to fetch.
+     */
+    where: SalleWhereUniqueInput
+  }
+
+  /**
+   * Salle findUniqueOrThrow
+   */
+  export type SalleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * Filter, which Salle to fetch.
+     */
+    where: SalleWhereUniqueInput
+  }
+
+  /**
+   * Salle findFirst
+   */
+  export type SalleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * Filter, which Salle to fetch.
+     */
+    where?: SalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Salles to fetch.
+     */
+    orderBy?: SalleOrderByWithRelationInput | SalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Salles.
+     */
+    cursor?: SalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Salles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Salles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Salles.
+     */
+    distinct?: SalleScalarFieldEnum | SalleScalarFieldEnum[]
+  }
+
+  /**
+   * Salle findFirstOrThrow
+   */
+  export type SalleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * Filter, which Salle to fetch.
+     */
+    where?: SalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Salles to fetch.
+     */
+    orderBy?: SalleOrderByWithRelationInput | SalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Salles.
+     */
+    cursor?: SalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Salles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Salles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Salles.
+     */
+    distinct?: SalleScalarFieldEnum | SalleScalarFieldEnum[]
+  }
+
+  /**
+   * Salle findMany
+   */
+  export type SalleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * Filter, which Salles to fetch.
+     */
+    where?: SalleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Salles to fetch.
+     */
+    orderBy?: SalleOrderByWithRelationInput | SalleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Salles.
+     */
+    cursor?: SalleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Salles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Salles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Salles.
+     */
+    distinct?: SalleScalarFieldEnum | SalleScalarFieldEnum[]
+  }
+
+  /**
+   * Salle create
+   */
+  export type SalleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Salle.
+     */
+    data: XOR<SalleCreateInput, SalleUncheckedCreateInput>
+  }
+
+  /**
+   * Salle createMany
+   */
+  export type SalleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Salles.
+     */
+    data: SalleCreateManyInput | SalleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Salle createManyAndReturn
+   */
+  export type SalleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Salles.
+     */
+    data: SalleCreateManyInput | SalleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Salle update
+   */
+  export type SalleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Salle.
+     */
+    data: XOR<SalleUpdateInput, SalleUncheckedUpdateInput>
+    /**
+     * Choose, which Salle to update.
+     */
+    where: SalleWhereUniqueInput
+  }
+
+  /**
+   * Salle updateMany
+   */
+  export type SalleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Salles.
+     */
+    data: XOR<SalleUpdateManyMutationInput, SalleUncheckedUpdateManyInput>
+    /**
+     * Filter which Salles to update
+     */
+    where?: SalleWhereInput
+    /**
+     * Limit how many Salles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Salle updateManyAndReturn
+   */
+  export type SalleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * The data used to update Salles.
+     */
+    data: XOR<SalleUpdateManyMutationInput, SalleUncheckedUpdateManyInput>
+    /**
+     * Filter which Salles to update
+     */
+    where?: SalleWhereInput
+    /**
+     * Limit how many Salles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Salle upsert
+   */
+  export type SalleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Salle to update in case it exists.
+     */
+    where: SalleWhereUniqueInput
+    /**
+     * In case the Salle found by the `where` argument doesn't exist, create a new Salle with this data.
+     */
+    create: XOR<SalleCreateInput, SalleUncheckedCreateInput>
+    /**
+     * In case the Salle was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SalleUpdateInput, SalleUncheckedUpdateInput>
+  }
+
+  /**
+   * Salle delete
+   */
+  export type SalleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    /**
+     * Filter which Salle to delete.
+     */
+    where: SalleWhereUniqueInput
+  }
+
+  /**
+   * Salle deleteMany
+   */
+  export type SalleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Salles to delete
+     */
+    where?: SalleWhereInput
+    /**
+     * Limit how many Salles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Salle.departement
+   */
+  export type Salle$departementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Departement
+     */
+    select?: DepartementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Departement
+     */
+    omit?: DepartementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartementInclude<ExtArgs> | null
+    where?: DepartementWhereInput
+  }
+
+  /**
+   * Salle.typeSalle
+   */
+  export type Salle$typeSalleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TypeSalle
+     */
+    select?: TypeSalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TypeSalle
+     */
+    omit?: TypeSalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TypeSalleInclude<ExtArgs> | null
+    where?: TypeSalleWhereInput
+  }
+
+  /**
+   * Salle.equipements
+   */
+  export type Salle$equipementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    where?: SalleEquipementWhereInput
+    orderBy?: SalleEquipementOrderByWithRelationInput | SalleEquipementOrderByWithRelationInput[]
+    cursor?: SalleEquipementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalleEquipementScalarFieldEnum | SalleEquipementScalarFieldEnum[]
+  }
+
+  /**
+   * Salle without action
+   */
+  export type SalleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Equipement
+   */
+
+  export type AggregateEquipement = {
+    _count: EquipementCountAggregateOutputType | null
+    _min: EquipementMinAggregateOutputType | null
+    _max: EquipementMaxAggregateOutputType | null
+  }
+
+  export type EquipementMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    estActive: boolean | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EquipementMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    estActive: boolean | null
+    originId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EquipementCountAggregateOutputType = {
+    id: number
+    code: number
+    libelle: number
+    estActive: number
+    originId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EquipementMinAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estActive?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EquipementMaxAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estActive?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EquipementCountAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estActive?: true
+    originId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EquipementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Equipement to aggregate.
+     */
+    where?: EquipementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Equipements to fetch.
+     */
+    orderBy?: EquipementOrderByWithRelationInput | EquipementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EquipementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Equipements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Equipements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Equipements
+    **/
+    _count?: true | EquipementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EquipementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EquipementMaxAggregateInputType
+  }
+
+  export type GetEquipementAggregateType<T extends EquipementAggregateArgs> = {
+        [P in keyof T & keyof AggregateEquipement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEquipement[P]>
+      : GetScalarType<T[P], AggregateEquipement[P]>
+  }
+
+
+
+
+  export type EquipementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EquipementWhereInput
+    orderBy?: EquipementOrderByWithAggregationInput | EquipementOrderByWithAggregationInput[]
+    by: EquipementScalarFieldEnum[] | EquipementScalarFieldEnum
+    having?: EquipementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EquipementCountAggregateInputType | true
+    _min?: EquipementMinAggregateInputType
+    _max?: EquipementMaxAggregateInputType
+  }
+
+  export type EquipementGroupByOutputType = {
+    id: string
+    code: string
+    libelle: string
+    estActive: boolean
+    originId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EquipementCountAggregateOutputType | null
+    _min: EquipementMinAggregateOutputType | null
+    _max: EquipementMaxAggregateOutputType | null
+  }
+
+  type GetEquipementGroupByPayload<T extends EquipementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EquipementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EquipementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EquipementGroupByOutputType[P]>
+            : GetScalarType<T[P], EquipementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EquipementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estActive?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    salles?: boolean | Equipement$sallesArgs<ExtArgs>
+    _count?: boolean | EquipementCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["equipement"]>
+
+  export type EquipementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estActive?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["equipement"]>
+
+  export type EquipementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estActive?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["equipement"]>
+
+  export type EquipementSelectScalar = {
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estActive?: boolean
+    originId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EquipementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "estActive" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["equipement"]>
+  export type EquipementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salles?: boolean | Equipement$sallesArgs<ExtArgs>
+    _count?: boolean | EquipementCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EquipementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type EquipementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $EquipementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Equipement"
+    objects: {
+      salles: Prisma.$SalleEquipementPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      libelle: string
+      estActive: boolean
+      originId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["equipement"]>
+    composites: {}
+  }
+
+  type EquipementGetPayload<S extends boolean | null | undefined | EquipementDefaultArgs> = $Result.GetResult<Prisma.$EquipementPayload, S>
+
+  type EquipementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EquipementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EquipementCountAggregateInputType | true
+    }
+
+  export interface EquipementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Equipement'], meta: { name: 'Equipement' } }
+    /**
+     * Find zero or one Equipement that matches the filter.
+     * @param {EquipementFindUniqueArgs} args - Arguments to find a Equipement
+     * @example
+     * // Get one Equipement
+     * const equipement = await prisma.equipement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EquipementFindUniqueArgs>(args: SelectSubset<T, EquipementFindUniqueArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Equipement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EquipementFindUniqueOrThrowArgs} args - Arguments to find a Equipement
+     * @example
+     * // Get one Equipement
+     * const equipement = await prisma.equipement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EquipementFindUniqueOrThrowArgs>(args: SelectSubset<T, EquipementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Equipement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipementFindFirstArgs} args - Arguments to find a Equipement
+     * @example
+     * // Get one Equipement
+     * const equipement = await prisma.equipement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EquipementFindFirstArgs>(args?: SelectSubset<T, EquipementFindFirstArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Equipement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipementFindFirstOrThrowArgs} args - Arguments to find a Equipement
+     * @example
+     * // Get one Equipement
+     * const equipement = await prisma.equipement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EquipementFindFirstOrThrowArgs>(args?: SelectSubset<T, EquipementFindFirstOrThrowArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Equipements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Equipements
+     * const equipements = await prisma.equipement.findMany()
+     * 
+     * // Get first 10 Equipements
+     * const equipements = await prisma.equipement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const equipementWithIdOnly = await prisma.equipement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EquipementFindManyArgs>(args?: SelectSubset<T, EquipementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Equipement.
+     * @param {EquipementCreateArgs} args - Arguments to create a Equipement.
+     * @example
+     * // Create one Equipement
+     * const Equipement = await prisma.equipement.create({
+     *   data: {
+     *     // ... data to create a Equipement
+     *   }
+     * })
+     * 
+     */
+    create<T extends EquipementCreateArgs>(args: SelectSubset<T, EquipementCreateArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Equipements.
+     * @param {EquipementCreateManyArgs} args - Arguments to create many Equipements.
+     * @example
+     * // Create many Equipements
+     * const equipement = await prisma.equipement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EquipementCreateManyArgs>(args?: SelectSubset<T, EquipementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Equipements and returns the data saved in the database.
+     * @param {EquipementCreateManyAndReturnArgs} args - Arguments to create many Equipements.
+     * @example
+     * // Create many Equipements
+     * const equipement = await prisma.equipement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Equipements and only return the `id`
+     * const equipementWithIdOnly = await prisma.equipement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EquipementCreateManyAndReturnArgs>(args?: SelectSubset<T, EquipementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Equipement.
+     * @param {EquipementDeleteArgs} args - Arguments to delete one Equipement.
+     * @example
+     * // Delete one Equipement
+     * const Equipement = await prisma.equipement.delete({
+     *   where: {
+     *     // ... filter to delete one Equipement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EquipementDeleteArgs>(args: SelectSubset<T, EquipementDeleteArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Equipement.
+     * @param {EquipementUpdateArgs} args - Arguments to update one Equipement.
+     * @example
+     * // Update one Equipement
+     * const equipement = await prisma.equipement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EquipementUpdateArgs>(args: SelectSubset<T, EquipementUpdateArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Equipements.
+     * @param {EquipementDeleteManyArgs} args - Arguments to filter Equipements to delete.
+     * @example
+     * // Delete a few Equipements
+     * const { count } = await prisma.equipement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EquipementDeleteManyArgs>(args?: SelectSubset<T, EquipementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Equipements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Equipements
+     * const equipement = await prisma.equipement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EquipementUpdateManyArgs>(args: SelectSubset<T, EquipementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Equipements and returns the data updated in the database.
+     * @param {EquipementUpdateManyAndReturnArgs} args - Arguments to update many Equipements.
+     * @example
+     * // Update many Equipements
+     * const equipement = await prisma.equipement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Equipements and only return the `id`
+     * const equipementWithIdOnly = await prisma.equipement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EquipementUpdateManyAndReturnArgs>(args: SelectSubset<T, EquipementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Equipement.
+     * @param {EquipementUpsertArgs} args - Arguments to update or create a Equipement.
+     * @example
+     * // Update or create a Equipement
+     * const equipement = await prisma.equipement.upsert({
+     *   create: {
+     *     // ... data to create a Equipement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Equipement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EquipementUpsertArgs>(args: SelectSubset<T, EquipementUpsertArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Equipements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipementCountArgs} args - Arguments to filter Equipements to count.
+     * @example
+     * // Count the number of Equipements
+     * const count = await prisma.equipement.count({
+     *   where: {
+     *     // ... the filter for the Equipements we want to count
+     *   }
+     * })
+    **/
+    count<T extends EquipementCountArgs>(
+      args?: Subset<T, EquipementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EquipementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Equipement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EquipementAggregateArgs>(args: Subset<T, EquipementAggregateArgs>): Prisma.PrismaPromise<GetEquipementAggregateType<T>>
+
+    /**
+     * Group by Equipement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EquipementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EquipementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EquipementGroupByArgs['orderBy'] }
+        : { orderBy?: EquipementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EquipementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEquipementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Equipement model
+   */
+  readonly fields: EquipementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Equipement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EquipementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    salles<T extends Equipement$sallesArgs<ExtArgs> = {}>(args?: Subset<T, Equipement$sallesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Equipement model
+   */
+  interface EquipementFieldRefs {
+    readonly id: FieldRef<"Equipement", 'String'>
+    readonly code: FieldRef<"Equipement", 'String'>
+    readonly libelle: FieldRef<"Equipement", 'String'>
+    readonly estActive: FieldRef<"Equipement", 'Boolean'>
+    readonly originId: FieldRef<"Equipement", 'String'>
+    readonly createdAt: FieldRef<"Equipement", 'DateTime'>
+    readonly updatedAt: FieldRef<"Equipement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Equipement findUnique
+   */
+  export type EquipementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipement to fetch.
+     */
+    where: EquipementWhereUniqueInput
+  }
+
+  /**
+   * Equipement findUniqueOrThrow
+   */
+  export type EquipementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipement to fetch.
+     */
+    where: EquipementWhereUniqueInput
+  }
+
+  /**
+   * Equipement findFirst
+   */
+  export type EquipementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipement to fetch.
+     */
+    where?: EquipementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Equipements to fetch.
+     */
+    orderBy?: EquipementOrderByWithRelationInput | EquipementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Equipements.
+     */
+    cursor?: EquipementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Equipements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Equipements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Equipements.
+     */
+    distinct?: EquipementScalarFieldEnum | EquipementScalarFieldEnum[]
+  }
+
+  /**
+   * Equipement findFirstOrThrow
+   */
+  export type EquipementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipement to fetch.
+     */
+    where?: EquipementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Equipements to fetch.
+     */
+    orderBy?: EquipementOrderByWithRelationInput | EquipementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Equipements.
+     */
+    cursor?: EquipementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Equipements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Equipements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Equipements.
+     */
+    distinct?: EquipementScalarFieldEnum | EquipementScalarFieldEnum[]
+  }
+
+  /**
+   * Equipement findMany
+   */
+  export type EquipementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which Equipements to fetch.
+     */
+    where?: EquipementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Equipements to fetch.
+     */
+    orderBy?: EquipementOrderByWithRelationInput | EquipementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Equipements.
+     */
+    cursor?: EquipementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Equipements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Equipements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Equipements.
+     */
+    distinct?: EquipementScalarFieldEnum | EquipementScalarFieldEnum[]
+  }
+
+  /**
+   * Equipement create
+   */
+  export type EquipementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Equipement.
+     */
+    data: XOR<EquipementCreateInput, EquipementUncheckedCreateInput>
+  }
+
+  /**
+   * Equipement createMany
+   */
+  export type EquipementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Equipements.
+     */
+    data: EquipementCreateManyInput | EquipementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Equipement createManyAndReturn
+   */
+  export type EquipementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * The data used to create many Equipements.
+     */
+    data: EquipementCreateManyInput | EquipementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Equipement update
+   */
+  export type EquipementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Equipement.
+     */
+    data: XOR<EquipementUpdateInput, EquipementUncheckedUpdateInput>
+    /**
+     * Choose, which Equipement to update.
+     */
+    where: EquipementWhereUniqueInput
+  }
+
+  /**
+   * Equipement updateMany
+   */
+  export type EquipementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Equipements.
+     */
+    data: XOR<EquipementUpdateManyMutationInput, EquipementUncheckedUpdateManyInput>
+    /**
+     * Filter which Equipements to update
+     */
+    where?: EquipementWhereInput
+    /**
+     * Limit how many Equipements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Equipement updateManyAndReturn
+   */
+  export type EquipementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * The data used to update Equipements.
+     */
+    data: XOR<EquipementUpdateManyMutationInput, EquipementUncheckedUpdateManyInput>
+    /**
+     * Filter which Equipements to update
+     */
+    where?: EquipementWhereInput
+    /**
+     * Limit how many Equipements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Equipement upsert
+   */
+  export type EquipementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Equipement to update in case it exists.
+     */
+    where: EquipementWhereUniqueInput
+    /**
+     * In case the Equipement found by the `where` argument doesn't exist, create a new Equipement with this data.
+     */
+    create: XOR<EquipementCreateInput, EquipementUncheckedCreateInput>
+    /**
+     * In case the Equipement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EquipementUpdateInput, EquipementUncheckedUpdateInput>
+  }
+
+  /**
+   * Equipement delete
+   */
+  export type EquipementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+    /**
+     * Filter which Equipement to delete.
+     */
+    where: EquipementWhereUniqueInput
+  }
+
+  /**
+   * Equipement deleteMany
+   */
+  export type EquipementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Equipements to delete
+     */
+    where?: EquipementWhereInput
+    /**
+     * Limit how many Equipements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Equipement.salles
+   */
+  export type Equipement$sallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    where?: SalleEquipementWhereInput
+    orderBy?: SalleEquipementOrderByWithRelationInput | SalleEquipementOrderByWithRelationInput[]
+    cursor?: SalleEquipementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalleEquipementScalarFieldEnum | SalleEquipementScalarFieldEnum[]
+  }
+
+  /**
+   * Equipement without action
+   */
+  export type EquipementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Equipement
+     */
+    select?: EquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Equipement
+     */
+    omit?: EquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipementInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SalleEquipement
+   */
+
+  export type AggregateSalleEquipement = {
+    _count: SalleEquipementCountAggregateOutputType | null
+    _min: SalleEquipementMinAggregateOutputType | null
+    _max: SalleEquipementMaxAggregateOutputType | null
+  }
+
+  export type SalleEquipementMinAggregateOutputType = {
+    salleId: string | null
+    equipementId: string | null
+  }
+
+  export type SalleEquipementMaxAggregateOutputType = {
+    salleId: string | null
+    equipementId: string | null
+  }
+
+  export type SalleEquipementCountAggregateOutputType = {
+    salleId: number
+    equipementId: number
+    _all: number
+  }
+
+
+  export type SalleEquipementMinAggregateInputType = {
+    salleId?: true
+    equipementId?: true
+  }
+
+  export type SalleEquipementMaxAggregateInputType = {
+    salleId?: true
+    equipementId?: true
+  }
+
+  export type SalleEquipementCountAggregateInputType = {
+    salleId?: true
+    equipementId?: true
+    _all?: true
+  }
+
+  export type SalleEquipementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalleEquipement to aggregate.
+     */
+    where?: SalleEquipementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalleEquipements to fetch.
+     */
+    orderBy?: SalleEquipementOrderByWithRelationInput | SalleEquipementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SalleEquipementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalleEquipements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalleEquipements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SalleEquipements
+    **/
+    _count?: true | SalleEquipementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SalleEquipementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SalleEquipementMaxAggregateInputType
+  }
+
+  export type GetSalleEquipementAggregateType<T extends SalleEquipementAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalleEquipement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalleEquipement[P]>
+      : GetScalarType<T[P], AggregateSalleEquipement[P]>
+  }
+
+
+
+
+  export type SalleEquipementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalleEquipementWhereInput
+    orderBy?: SalleEquipementOrderByWithAggregationInput | SalleEquipementOrderByWithAggregationInput[]
+    by: SalleEquipementScalarFieldEnum[] | SalleEquipementScalarFieldEnum
+    having?: SalleEquipementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SalleEquipementCountAggregateInputType | true
+    _min?: SalleEquipementMinAggregateInputType
+    _max?: SalleEquipementMaxAggregateInputType
+  }
+
+  export type SalleEquipementGroupByOutputType = {
+    salleId: string
+    equipementId: string
+    _count: SalleEquipementCountAggregateOutputType | null
+    _min: SalleEquipementMinAggregateOutputType | null
+    _max: SalleEquipementMaxAggregateOutputType | null
+  }
+
+  type GetSalleEquipementGroupByPayload<T extends SalleEquipementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SalleEquipementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SalleEquipementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SalleEquipementGroupByOutputType[P]>
+            : GetScalarType<T[P], SalleEquipementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SalleEquipementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    salleId?: boolean
+    equipementId?: boolean
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+    equipement?: boolean | EquipementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salleEquipement"]>
+
+  export type SalleEquipementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    salleId?: boolean
+    equipementId?: boolean
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+    equipement?: boolean | EquipementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salleEquipement"]>
+
+  export type SalleEquipementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    salleId?: boolean
+    equipementId?: boolean
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+    equipement?: boolean | EquipementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salleEquipement"]>
+
+  export type SalleEquipementSelectScalar = {
+    salleId?: boolean
+    equipementId?: boolean
+  }
+
+  export type SalleEquipementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"salleId" | "equipementId", ExtArgs["result"]["salleEquipement"]>
+  export type SalleEquipementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+    equipement?: boolean | EquipementDefaultArgs<ExtArgs>
+  }
+  export type SalleEquipementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+    equipement?: boolean | EquipementDefaultArgs<ExtArgs>
+  }
+  export type SalleEquipementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+    equipement?: boolean | EquipementDefaultArgs<ExtArgs>
+  }
+
+  export type $SalleEquipementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SalleEquipement"
+    objects: {
+      salle: Prisma.$SallePayload<ExtArgs>
+      equipement: Prisma.$EquipementPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      salleId: string
+      equipementId: string
+    }, ExtArgs["result"]["salleEquipement"]>
+    composites: {}
+  }
+
+  type SalleEquipementGetPayload<S extends boolean | null | undefined | SalleEquipementDefaultArgs> = $Result.GetResult<Prisma.$SalleEquipementPayload, S>
+
+  type SalleEquipementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SalleEquipementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SalleEquipementCountAggregateInputType | true
+    }
+
+  export interface SalleEquipementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SalleEquipement'], meta: { name: 'SalleEquipement' } }
+    /**
+     * Find zero or one SalleEquipement that matches the filter.
+     * @param {SalleEquipementFindUniqueArgs} args - Arguments to find a SalleEquipement
+     * @example
+     * // Get one SalleEquipement
+     * const salleEquipement = await prisma.salleEquipement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SalleEquipementFindUniqueArgs>(args: SelectSubset<T, SalleEquipementFindUniqueArgs<ExtArgs>>): Prisma__SalleEquipementClient<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SalleEquipement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SalleEquipementFindUniqueOrThrowArgs} args - Arguments to find a SalleEquipement
+     * @example
+     * // Get one SalleEquipement
+     * const salleEquipement = await prisma.salleEquipement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SalleEquipementFindUniqueOrThrowArgs>(args: SelectSubset<T, SalleEquipementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SalleEquipementClient<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SalleEquipement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleEquipementFindFirstArgs} args - Arguments to find a SalleEquipement
+     * @example
+     * // Get one SalleEquipement
+     * const salleEquipement = await prisma.salleEquipement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SalleEquipementFindFirstArgs>(args?: SelectSubset<T, SalleEquipementFindFirstArgs<ExtArgs>>): Prisma__SalleEquipementClient<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SalleEquipement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleEquipementFindFirstOrThrowArgs} args - Arguments to find a SalleEquipement
+     * @example
+     * // Get one SalleEquipement
+     * const salleEquipement = await prisma.salleEquipement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SalleEquipementFindFirstOrThrowArgs>(args?: SelectSubset<T, SalleEquipementFindFirstOrThrowArgs<ExtArgs>>): Prisma__SalleEquipementClient<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SalleEquipements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleEquipementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SalleEquipements
+     * const salleEquipements = await prisma.salleEquipement.findMany()
+     * 
+     * // Get first 10 SalleEquipements
+     * const salleEquipements = await prisma.salleEquipement.findMany({ take: 10 })
+     * 
+     * // Only select the `salleId`
+     * const salleEquipementWithSalleIdOnly = await prisma.salleEquipement.findMany({ select: { salleId: true } })
+     * 
+     */
+    findMany<T extends SalleEquipementFindManyArgs>(args?: SelectSubset<T, SalleEquipementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SalleEquipement.
+     * @param {SalleEquipementCreateArgs} args - Arguments to create a SalleEquipement.
+     * @example
+     * // Create one SalleEquipement
+     * const SalleEquipement = await prisma.salleEquipement.create({
+     *   data: {
+     *     // ... data to create a SalleEquipement
+     *   }
+     * })
+     * 
+     */
+    create<T extends SalleEquipementCreateArgs>(args: SelectSubset<T, SalleEquipementCreateArgs<ExtArgs>>): Prisma__SalleEquipementClient<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SalleEquipements.
+     * @param {SalleEquipementCreateManyArgs} args - Arguments to create many SalleEquipements.
+     * @example
+     * // Create many SalleEquipements
+     * const salleEquipement = await prisma.salleEquipement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SalleEquipementCreateManyArgs>(args?: SelectSubset<T, SalleEquipementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SalleEquipements and returns the data saved in the database.
+     * @param {SalleEquipementCreateManyAndReturnArgs} args - Arguments to create many SalleEquipements.
+     * @example
+     * // Create many SalleEquipements
+     * const salleEquipement = await prisma.salleEquipement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SalleEquipements and only return the `salleId`
+     * const salleEquipementWithSalleIdOnly = await prisma.salleEquipement.createManyAndReturn({
+     *   select: { salleId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SalleEquipementCreateManyAndReturnArgs>(args?: SelectSubset<T, SalleEquipementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SalleEquipement.
+     * @param {SalleEquipementDeleteArgs} args - Arguments to delete one SalleEquipement.
+     * @example
+     * // Delete one SalleEquipement
+     * const SalleEquipement = await prisma.salleEquipement.delete({
+     *   where: {
+     *     // ... filter to delete one SalleEquipement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SalleEquipementDeleteArgs>(args: SelectSubset<T, SalleEquipementDeleteArgs<ExtArgs>>): Prisma__SalleEquipementClient<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SalleEquipement.
+     * @param {SalleEquipementUpdateArgs} args - Arguments to update one SalleEquipement.
+     * @example
+     * // Update one SalleEquipement
+     * const salleEquipement = await prisma.salleEquipement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SalleEquipementUpdateArgs>(args: SelectSubset<T, SalleEquipementUpdateArgs<ExtArgs>>): Prisma__SalleEquipementClient<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SalleEquipements.
+     * @param {SalleEquipementDeleteManyArgs} args - Arguments to filter SalleEquipements to delete.
+     * @example
+     * // Delete a few SalleEquipements
+     * const { count } = await prisma.salleEquipement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SalleEquipementDeleteManyArgs>(args?: SelectSubset<T, SalleEquipementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalleEquipements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleEquipementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SalleEquipements
+     * const salleEquipement = await prisma.salleEquipement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SalleEquipementUpdateManyArgs>(args: SelectSubset<T, SalleEquipementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SalleEquipements and returns the data updated in the database.
+     * @param {SalleEquipementUpdateManyAndReturnArgs} args - Arguments to update many SalleEquipements.
+     * @example
+     * // Update many SalleEquipements
+     * const salleEquipement = await prisma.salleEquipement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SalleEquipements and only return the `salleId`
+     * const salleEquipementWithSalleIdOnly = await prisma.salleEquipement.updateManyAndReturn({
+     *   select: { salleId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SalleEquipementUpdateManyAndReturnArgs>(args: SelectSubset<T, SalleEquipementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SalleEquipement.
+     * @param {SalleEquipementUpsertArgs} args - Arguments to update or create a SalleEquipement.
+     * @example
+     * // Update or create a SalleEquipement
+     * const salleEquipement = await prisma.salleEquipement.upsert({
+     *   create: {
+     *     // ... data to create a SalleEquipement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SalleEquipement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SalleEquipementUpsertArgs>(args: SelectSubset<T, SalleEquipementUpsertArgs<ExtArgs>>): Prisma__SalleEquipementClient<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SalleEquipements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleEquipementCountArgs} args - Arguments to filter SalleEquipements to count.
+     * @example
+     * // Count the number of SalleEquipements
+     * const count = await prisma.salleEquipement.count({
+     *   where: {
+     *     // ... the filter for the SalleEquipements we want to count
+     *   }
+     * })
+    **/
+    count<T extends SalleEquipementCountArgs>(
+      args?: Subset<T, SalleEquipementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SalleEquipementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SalleEquipement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleEquipementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SalleEquipementAggregateArgs>(args: Subset<T, SalleEquipementAggregateArgs>): Prisma.PrismaPromise<GetSalleEquipementAggregateType<T>>
+
+    /**
+     * Group by SalleEquipement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SalleEquipementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SalleEquipementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SalleEquipementGroupByArgs['orderBy'] }
+        : { orderBy?: SalleEquipementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SalleEquipementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSalleEquipementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SalleEquipement model
+   */
+  readonly fields: SalleEquipementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SalleEquipement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SalleEquipementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    salle<T extends SalleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SalleDefaultArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    equipement<T extends EquipementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EquipementDefaultArgs<ExtArgs>>): Prisma__EquipementClient<$Result.GetResult<Prisma.$EquipementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SalleEquipement model
+   */
+  interface SalleEquipementFieldRefs {
+    readonly salleId: FieldRef<"SalleEquipement", 'String'>
+    readonly equipementId: FieldRef<"SalleEquipement", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SalleEquipement findUnique
+   */
+  export type SalleEquipementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which SalleEquipement to fetch.
+     */
+    where: SalleEquipementWhereUniqueInput
+  }
+
+  /**
+   * SalleEquipement findUniqueOrThrow
+   */
+  export type SalleEquipementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which SalleEquipement to fetch.
+     */
+    where: SalleEquipementWhereUniqueInput
+  }
+
+  /**
+   * SalleEquipement findFirst
+   */
+  export type SalleEquipementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which SalleEquipement to fetch.
+     */
+    where?: SalleEquipementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalleEquipements to fetch.
+     */
+    orderBy?: SalleEquipementOrderByWithRelationInput | SalleEquipementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalleEquipements.
+     */
+    cursor?: SalleEquipementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalleEquipements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalleEquipements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalleEquipements.
+     */
+    distinct?: SalleEquipementScalarFieldEnum | SalleEquipementScalarFieldEnum[]
+  }
+
+  /**
+   * SalleEquipement findFirstOrThrow
+   */
+  export type SalleEquipementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which SalleEquipement to fetch.
+     */
+    where?: SalleEquipementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalleEquipements to fetch.
+     */
+    orderBy?: SalleEquipementOrderByWithRelationInput | SalleEquipementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SalleEquipements.
+     */
+    cursor?: SalleEquipementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalleEquipements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalleEquipements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalleEquipements.
+     */
+    distinct?: SalleEquipementScalarFieldEnum | SalleEquipementScalarFieldEnum[]
+  }
+
+  /**
+   * SalleEquipement findMany
+   */
+  export type SalleEquipementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * Filter, which SalleEquipements to fetch.
+     */
+    where?: SalleEquipementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SalleEquipements to fetch.
+     */
+    orderBy?: SalleEquipementOrderByWithRelationInput | SalleEquipementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SalleEquipements.
+     */
+    cursor?: SalleEquipementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SalleEquipements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SalleEquipements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SalleEquipements.
+     */
+    distinct?: SalleEquipementScalarFieldEnum | SalleEquipementScalarFieldEnum[]
+  }
+
+  /**
+   * SalleEquipement create
+   */
+  export type SalleEquipementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SalleEquipement.
+     */
+    data: XOR<SalleEquipementCreateInput, SalleEquipementUncheckedCreateInput>
+  }
+
+  /**
+   * SalleEquipement createMany
+   */
+  export type SalleEquipementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SalleEquipements.
+     */
+    data: SalleEquipementCreateManyInput | SalleEquipementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SalleEquipement createManyAndReturn
+   */
+  export type SalleEquipementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * The data used to create many SalleEquipements.
+     */
+    data: SalleEquipementCreateManyInput | SalleEquipementCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SalleEquipement update
+   */
+  export type SalleEquipementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SalleEquipement.
+     */
+    data: XOR<SalleEquipementUpdateInput, SalleEquipementUncheckedUpdateInput>
+    /**
+     * Choose, which SalleEquipement to update.
+     */
+    where: SalleEquipementWhereUniqueInput
+  }
+
+  /**
+   * SalleEquipement updateMany
+   */
+  export type SalleEquipementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SalleEquipements.
+     */
+    data: XOR<SalleEquipementUpdateManyMutationInput, SalleEquipementUncheckedUpdateManyInput>
+    /**
+     * Filter which SalleEquipements to update
+     */
+    where?: SalleEquipementWhereInput
+    /**
+     * Limit how many SalleEquipements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SalleEquipement updateManyAndReturn
+   */
+  export type SalleEquipementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * The data used to update SalleEquipements.
+     */
+    data: XOR<SalleEquipementUpdateManyMutationInput, SalleEquipementUncheckedUpdateManyInput>
+    /**
+     * Filter which SalleEquipements to update
+     */
+    where?: SalleEquipementWhereInput
+    /**
+     * Limit how many SalleEquipements to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SalleEquipement upsert
+   */
+  export type SalleEquipementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SalleEquipement to update in case it exists.
+     */
+    where: SalleEquipementWhereUniqueInput
+    /**
+     * In case the SalleEquipement found by the `where` argument doesn't exist, create a new SalleEquipement with this data.
+     */
+    create: XOR<SalleEquipementCreateInput, SalleEquipementUncheckedCreateInput>
+    /**
+     * In case the SalleEquipement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SalleEquipementUpdateInput, SalleEquipementUncheckedUpdateInput>
+  }
+
+  /**
+   * SalleEquipement delete
+   */
+  export type SalleEquipementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+    /**
+     * Filter which SalleEquipement to delete.
+     */
+    where: SalleEquipementWhereUniqueInput
+  }
+
+  /**
+   * SalleEquipement deleteMany
+   */
+  export type SalleEquipementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SalleEquipements to delete
+     */
+    where?: SalleEquipementWhereInput
+    /**
+     * Limit how many SalleEquipements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SalleEquipement without action
+   */
+  export type SalleEquipementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SalleEquipement
+     */
+    select?: SalleEquipementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SalleEquipement
+     */
+    omit?: SalleEquipementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleEquipementInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -41798,6 +46820,60 @@ export namespace Prisma {
   };
 
   export type DechargeScalarFieldEnum = (typeof DechargeScalarFieldEnum)[keyof typeof DechargeScalarFieldEnum]
+
+
+  export const TypeSalleScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    libelle: 'libelle',
+    estActive: 'estActive',
+    originId: 'originId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TypeSalleScalarFieldEnum = (typeof TypeSalleScalarFieldEnum)[keyof typeof TypeSalleScalarFieldEnum]
+
+
+  export const SalleScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    libelle: 'libelle',
+    site: 'site',
+    capaciteMax: 'capaciteMax',
+    capaciteRecommandee: 'capaciteRecommandee',
+    accesPMR: 'accesPMR',
+    commentaire: 'commentaire',
+    estActive: 'estActive',
+    departementId: 'departementId',
+    typeSalleId: 'typeSalleId',
+    originId: 'originId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SalleScalarFieldEnum = (typeof SalleScalarFieldEnum)[keyof typeof SalleScalarFieldEnum]
+
+
+  export const EquipementScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    libelle: 'libelle',
+    estActive: 'estActive',
+    originId: 'originId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EquipementScalarFieldEnum = (typeof EquipementScalarFieldEnum)[keyof typeof EquipementScalarFieldEnum]
+
+
+  export const SalleEquipementScalarFieldEnum: {
+    salleId: 'salleId',
+    equipementId: 'equipementId'
+  };
+
+  export type SalleEquipementScalarFieldEnum = (typeof SalleEquipementScalarFieldEnum)[keyof typeof SalleEquipementScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -43709,6 +48785,7 @@ export namespace Prisma {
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     formations?: FormationListRelationFilter
     enseignants?: EnseignantListRelationFilter
+    salles?: SalleListRelationFilter
   }
 
   export type DepartementOrderByWithRelationInput = {
@@ -43722,6 +48799,7 @@ export namespace Prisma {
     annee?: AnneeOrderByWithRelationInput
     formations?: FormationOrderByRelationAggregateInput
     enseignants?: EnseignantOrderByRelationAggregateInput
+    salles?: SalleOrderByRelationAggregateInput
   }
 
   export type DepartementWhereUniqueInput = Prisma.AtLeast<{
@@ -43739,6 +48817,7 @@ export namespace Prisma {
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     formations?: FormationListRelationFilter
     enseignants?: EnseignantListRelationFilter
+    salles?: SalleListRelationFilter
   }, "id" | "anneeId_code">
 
   export type DepartementOrderByWithAggregationInput = {
@@ -44499,6 +49578,288 @@ export namespace Prisma {
     semestreId?: UuidWithAggregatesFilter<"Decharge"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Decharge"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Decharge"> | Date | string
+  }
+
+  export type TypeSalleWhereInput = {
+    AND?: TypeSalleWhereInput | TypeSalleWhereInput[]
+    OR?: TypeSalleWhereInput[]
+    NOT?: TypeSalleWhereInput | TypeSalleWhereInput[]
+    id?: UuidFilter<"TypeSalle"> | string
+    code?: StringFilter<"TypeSalle"> | string
+    libelle?: StringFilter<"TypeSalle"> | string
+    estActive?: BoolFilter<"TypeSalle"> | boolean
+    originId?: StringNullableFilter<"TypeSalle"> | string | null
+    createdAt?: DateTimeFilter<"TypeSalle"> | Date | string
+    updatedAt?: DateTimeFilter<"TypeSalle"> | Date | string
+    salles?: SalleListRelationFilter
+  }
+
+  export type TypeSalleOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    salles?: SalleOrderByRelationAggregateInput
+  }
+
+  export type TypeSalleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: TypeSalleWhereInput | TypeSalleWhereInput[]
+    OR?: TypeSalleWhereInput[]
+    NOT?: TypeSalleWhereInput | TypeSalleWhereInput[]
+    libelle?: StringFilter<"TypeSalle"> | string
+    estActive?: BoolFilter<"TypeSalle"> | boolean
+    originId?: StringNullableFilter<"TypeSalle"> | string | null
+    createdAt?: DateTimeFilter<"TypeSalle"> | Date | string
+    updatedAt?: DateTimeFilter<"TypeSalle"> | Date | string
+    salles?: SalleListRelationFilter
+  }, "id" | "code">
+
+  export type TypeSalleOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TypeSalleCountOrderByAggregateInput
+    _max?: TypeSalleMaxOrderByAggregateInput
+    _min?: TypeSalleMinOrderByAggregateInput
+  }
+
+  export type TypeSalleScalarWhereWithAggregatesInput = {
+    AND?: TypeSalleScalarWhereWithAggregatesInput | TypeSalleScalarWhereWithAggregatesInput[]
+    OR?: TypeSalleScalarWhereWithAggregatesInput[]
+    NOT?: TypeSalleScalarWhereWithAggregatesInput | TypeSalleScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"TypeSalle"> | string
+    code?: StringWithAggregatesFilter<"TypeSalle"> | string
+    libelle?: StringWithAggregatesFilter<"TypeSalle"> | string
+    estActive?: BoolWithAggregatesFilter<"TypeSalle"> | boolean
+    originId?: StringNullableWithAggregatesFilter<"TypeSalle"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TypeSalle"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TypeSalle"> | Date | string
+  }
+
+  export type SalleWhereInput = {
+    AND?: SalleWhereInput | SalleWhereInput[]
+    OR?: SalleWhereInput[]
+    NOT?: SalleWhereInput | SalleWhereInput[]
+    id?: UuidFilter<"Salle"> | string
+    code?: StringFilter<"Salle"> | string
+    libelle?: StringFilter<"Salle"> | string
+    site?: StringNullableFilter<"Salle"> | string | null
+    capaciteMax?: IntFilter<"Salle"> | number
+    capaciteRecommandee?: IntNullableFilter<"Salle"> | number | null
+    accesPMR?: BoolFilter<"Salle"> | boolean
+    commentaire?: StringNullableFilter<"Salle"> | string | null
+    estActive?: BoolFilter<"Salle"> | boolean
+    departementId?: UuidNullableFilter<"Salle"> | string | null
+    typeSalleId?: UuidNullableFilter<"Salle"> | string | null
+    originId?: StringNullableFilter<"Salle"> | string | null
+    createdAt?: DateTimeFilter<"Salle"> | Date | string
+    updatedAt?: DateTimeFilter<"Salle"> | Date | string
+    departement?: XOR<DepartementNullableScalarRelationFilter, DepartementWhereInput> | null
+    typeSalle?: XOR<TypeSalleNullableScalarRelationFilter, TypeSalleWhereInput> | null
+    equipements?: SalleEquipementListRelationFilter
+  }
+
+  export type SalleOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    site?: SortOrderInput | SortOrder
+    capaciteMax?: SortOrder
+    capaciteRecommandee?: SortOrderInput | SortOrder
+    accesPMR?: SortOrder
+    commentaire?: SortOrderInput | SortOrder
+    estActive?: SortOrder
+    departementId?: SortOrderInput | SortOrder
+    typeSalleId?: SortOrderInput | SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    departement?: DepartementOrderByWithRelationInput
+    typeSalle?: TypeSalleOrderByWithRelationInput
+    equipements?: SalleEquipementOrderByRelationAggregateInput
+  }
+
+  export type SalleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SalleWhereInput | SalleWhereInput[]
+    OR?: SalleWhereInput[]
+    NOT?: SalleWhereInput | SalleWhereInput[]
+    code?: StringFilter<"Salle"> | string
+    libelle?: StringFilter<"Salle"> | string
+    site?: StringNullableFilter<"Salle"> | string | null
+    capaciteMax?: IntFilter<"Salle"> | number
+    capaciteRecommandee?: IntNullableFilter<"Salle"> | number | null
+    accesPMR?: BoolFilter<"Salle"> | boolean
+    commentaire?: StringNullableFilter<"Salle"> | string | null
+    estActive?: BoolFilter<"Salle"> | boolean
+    departementId?: UuidNullableFilter<"Salle"> | string | null
+    typeSalleId?: UuidNullableFilter<"Salle"> | string | null
+    originId?: StringNullableFilter<"Salle"> | string | null
+    createdAt?: DateTimeFilter<"Salle"> | Date | string
+    updatedAt?: DateTimeFilter<"Salle"> | Date | string
+    departement?: XOR<DepartementNullableScalarRelationFilter, DepartementWhereInput> | null
+    typeSalle?: XOR<TypeSalleNullableScalarRelationFilter, TypeSalleWhereInput> | null
+    equipements?: SalleEquipementListRelationFilter
+  }, "id">
+
+  export type SalleOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    site?: SortOrderInput | SortOrder
+    capaciteMax?: SortOrder
+    capaciteRecommandee?: SortOrderInput | SortOrder
+    accesPMR?: SortOrder
+    commentaire?: SortOrderInput | SortOrder
+    estActive?: SortOrder
+    departementId?: SortOrderInput | SortOrder
+    typeSalleId?: SortOrderInput | SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SalleCountOrderByAggregateInput
+    _avg?: SalleAvgOrderByAggregateInput
+    _max?: SalleMaxOrderByAggregateInput
+    _min?: SalleMinOrderByAggregateInput
+    _sum?: SalleSumOrderByAggregateInput
+  }
+
+  export type SalleScalarWhereWithAggregatesInput = {
+    AND?: SalleScalarWhereWithAggregatesInput | SalleScalarWhereWithAggregatesInput[]
+    OR?: SalleScalarWhereWithAggregatesInput[]
+    NOT?: SalleScalarWhereWithAggregatesInput | SalleScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Salle"> | string
+    code?: StringWithAggregatesFilter<"Salle"> | string
+    libelle?: StringWithAggregatesFilter<"Salle"> | string
+    site?: StringNullableWithAggregatesFilter<"Salle"> | string | null
+    capaciteMax?: IntWithAggregatesFilter<"Salle"> | number
+    capaciteRecommandee?: IntNullableWithAggregatesFilter<"Salle"> | number | null
+    accesPMR?: BoolWithAggregatesFilter<"Salle"> | boolean
+    commentaire?: StringNullableWithAggregatesFilter<"Salle"> | string | null
+    estActive?: BoolWithAggregatesFilter<"Salle"> | boolean
+    departementId?: UuidNullableWithAggregatesFilter<"Salle"> | string | null
+    typeSalleId?: UuidNullableWithAggregatesFilter<"Salle"> | string | null
+    originId?: StringNullableWithAggregatesFilter<"Salle"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Salle"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Salle"> | Date | string
+  }
+
+  export type EquipementWhereInput = {
+    AND?: EquipementWhereInput | EquipementWhereInput[]
+    OR?: EquipementWhereInput[]
+    NOT?: EquipementWhereInput | EquipementWhereInput[]
+    id?: UuidFilter<"Equipement"> | string
+    code?: StringFilter<"Equipement"> | string
+    libelle?: StringFilter<"Equipement"> | string
+    estActive?: BoolFilter<"Equipement"> | boolean
+    originId?: StringNullableFilter<"Equipement"> | string | null
+    createdAt?: DateTimeFilter<"Equipement"> | Date | string
+    updatedAt?: DateTimeFilter<"Equipement"> | Date | string
+    salles?: SalleEquipementListRelationFilter
+  }
+
+  export type EquipementOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    salles?: SalleEquipementOrderByRelationAggregateInput
+  }
+
+  export type EquipementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: EquipementWhereInput | EquipementWhereInput[]
+    OR?: EquipementWhereInput[]
+    NOT?: EquipementWhereInput | EquipementWhereInput[]
+    libelle?: StringFilter<"Equipement"> | string
+    estActive?: BoolFilter<"Equipement"> | boolean
+    originId?: StringNullableFilter<"Equipement"> | string | null
+    createdAt?: DateTimeFilter<"Equipement"> | Date | string
+    updatedAt?: DateTimeFilter<"Equipement"> | Date | string
+    salles?: SalleEquipementListRelationFilter
+  }, "id" | "code">
+
+  export type EquipementOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EquipementCountOrderByAggregateInput
+    _max?: EquipementMaxOrderByAggregateInput
+    _min?: EquipementMinOrderByAggregateInput
+  }
+
+  export type EquipementScalarWhereWithAggregatesInput = {
+    AND?: EquipementScalarWhereWithAggregatesInput | EquipementScalarWhereWithAggregatesInput[]
+    OR?: EquipementScalarWhereWithAggregatesInput[]
+    NOT?: EquipementScalarWhereWithAggregatesInput | EquipementScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Equipement"> | string
+    code?: StringWithAggregatesFilter<"Equipement"> | string
+    libelle?: StringWithAggregatesFilter<"Equipement"> | string
+    estActive?: BoolWithAggregatesFilter<"Equipement"> | boolean
+    originId?: StringNullableWithAggregatesFilter<"Equipement"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Equipement"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Equipement"> | Date | string
+  }
+
+  export type SalleEquipementWhereInput = {
+    AND?: SalleEquipementWhereInput | SalleEquipementWhereInput[]
+    OR?: SalleEquipementWhereInput[]
+    NOT?: SalleEquipementWhereInput | SalleEquipementWhereInput[]
+    salleId?: UuidFilter<"SalleEquipement"> | string
+    equipementId?: UuidFilter<"SalleEquipement"> | string
+    salle?: XOR<SalleScalarRelationFilter, SalleWhereInput>
+    equipement?: XOR<EquipementScalarRelationFilter, EquipementWhereInput>
+  }
+
+  export type SalleEquipementOrderByWithRelationInput = {
+    salleId?: SortOrder
+    equipementId?: SortOrder
+    salle?: SalleOrderByWithRelationInput
+    equipement?: EquipementOrderByWithRelationInput
+  }
+
+  export type SalleEquipementWhereUniqueInput = Prisma.AtLeast<{
+    salleId_equipementId?: SalleEquipementSalleIdEquipementIdCompoundUniqueInput
+    AND?: SalleEquipementWhereInput | SalleEquipementWhereInput[]
+    OR?: SalleEquipementWhereInput[]
+    NOT?: SalleEquipementWhereInput | SalleEquipementWhereInput[]
+    salleId?: UuidFilter<"SalleEquipement"> | string
+    equipementId?: UuidFilter<"SalleEquipement"> | string
+    salle?: XOR<SalleScalarRelationFilter, SalleWhereInput>
+    equipement?: XOR<EquipementScalarRelationFilter, EquipementWhereInput>
+  }, "salleId_equipementId">
+
+  export type SalleEquipementOrderByWithAggregationInput = {
+    salleId?: SortOrder
+    equipementId?: SortOrder
+    _count?: SalleEquipementCountOrderByAggregateInput
+    _max?: SalleEquipementMaxOrderByAggregateInput
+    _min?: SalleEquipementMinOrderByAggregateInput
+  }
+
+  export type SalleEquipementScalarWhereWithAggregatesInput = {
+    AND?: SalleEquipementScalarWhereWithAggregatesInput | SalleEquipementScalarWhereWithAggregatesInput[]
+    OR?: SalleEquipementScalarWhereWithAggregatesInput[]
+    NOT?: SalleEquipementScalarWhereWithAggregatesInput | SalleEquipementScalarWhereWithAggregatesInput[]
+    salleId?: UuidWithAggregatesFilter<"SalleEquipement"> | string
+    equipementId?: UuidWithAggregatesFilter<"SalleEquipement"> | string
   }
 
   export type UserCreateInput = {
@@ -46214,6 +51575,7 @@ export namespace Prisma {
     annee: AnneeCreateNestedOneWithoutDepartementsInput
     formations?: FormationCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
+    salles?: SalleCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateInput = {
@@ -46226,6 +51588,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
+    salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUpdateInput = {
@@ -46238,6 +51601,7 @@ export namespace Prisma {
     annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
     formations?: FormationUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateInput = {
@@ -46250,6 +51614,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementCreateManyInput = {
@@ -47036,6 +52401,309 @@ export namespace Prisma {
     semestreId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TypeSalleCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salles?: SalleCreateNestedManyWithoutTypeSalleInput
+  }
+
+  export type TypeSalleUncheckedCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salles?: SalleUncheckedCreateNestedManyWithoutTypeSalleInput
+  }
+
+  export type TypeSalleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salles?: SalleUpdateManyWithoutTypeSalleNestedInput
+  }
+
+  export type TypeSalleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salles?: SalleUncheckedUpdateManyWithoutTypeSalleNestedInput
+  }
+
+  export type TypeSalleCreateManyInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TypeSalleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TypeSalleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement?: DepartementCreateNestedOneWithoutSallesInput
+    typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleUncheckedCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneWithoutSallesNestedInput
+    typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleCreateManyInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipementCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salles?: SalleEquipementCreateNestedManyWithoutEquipementInput
+  }
+
+  export type EquipementUncheckedCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salles?: SalleEquipementUncheckedCreateNestedManyWithoutEquipementInput
+  }
+
+  export type EquipementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salles?: SalleEquipementUpdateManyWithoutEquipementNestedInput
+  }
+
+  export type EquipementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salles?: SalleEquipementUncheckedUpdateManyWithoutEquipementNestedInput
+  }
+
+  export type EquipementCreateManyInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EquipementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleEquipementCreateInput = {
+    salle: SalleCreateNestedOneWithoutEquipementsInput
+    equipement: EquipementCreateNestedOneWithoutSallesInput
+  }
+
+  export type SalleEquipementUncheckedCreateInput = {
+    salleId: string
+    equipementId: string
+  }
+
+  export type SalleEquipementUpdateInput = {
+    salle?: SalleUpdateOneRequiredWithoutEquipementsNestedInput
+    equipement?: EquipementUpdateOneRequiredWithoutSallesNestedInput
+  }
+
+  export type SalleEquipementUncheckedUpdateInput = {
+    salleId?: StringFieldUpdateOperationsInput | string
+    equipementId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SalleEquipementCreateManyInput = {
+    salleId: string
+    equipementId: string
+  }
+
+  export type SalleEquipementUpdateManyMutationInput = {
+
+  }
+
+  export type SalleEquipementUncheckedUpdateManyInput = {
+    salleId?: StringFieldUpdateOperationsInput | string
+    equipementId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -48593,7 +54261,17 @@ export namespace Prisma {
     none?: FormationWhereInput
   }
 
+  export type SalleListRelationFilter = {
+    every?: SalleWhereInput
+    some?: SalleWhereInput
+    none?: SalleWhereInput
+  }
+
   export type FormationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SalleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -49175,6 +54853,177 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type TypeSalleCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TypeSalleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TypeSalleMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartementNullableScalarRelationFilter = {
+    is?: DepartementWhereInput | null
+    isNot?: DepartementWhereInput | null
+  }
+
+  export type TypeSalleNullableScalarRelationFilter = {
+    is?: TypeSalleWhereInput | null
+    isNot?: TypeSalleWhereInput | null
+  }
+
+  export type SalleEquipementListRelationFilter = {
+    every?: SalleEquipementWhereInput
+    some?: SalleEquipementWhereInput
+    none?: SalleEquipementWhereInput
+  }
+
+  export type SalleEquipementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SalleCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    site?: SortOrder
+    capaciteMax?: SortOrder
+    capaciteRecommandee?: SortOrder
+    accesPMR?: SortOrder
+    commentaire?: SortOrder
+    estActive?: SortOrder
+    departementId?: SortOrder
+    typeSalleId?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalleAvgOrderByAggregateInput = {
+    capaciteMax?: SortOrder
+    capaciteRecommandee?: SortOrder
+  }
+
+  export type SalleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    site?: SortOrder
+    capaciteMax?: SortOrder
+    capaciteRecommandee?: SortOrder
+    accesPMR?: SortOrder
+    commentaire?: SortOrder
+    estActive?: SortOrder
+    departementId?: SortOrder
+    typeSalleId?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalleMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    site?: SortOrder
+    capaciteMax?: SortOrder
+    capaciteRecommandee?: SortOrder
+    accesPMR?: SortOrder
+    commentaire?: SortOrder
+    estActive?: SortOrder
+    departementId?: SortOrder
+    typeSalleId?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalleSumOrderByAggregateInput = {
+    capaciteMax?: SortOrder
+    capaciteRecommandee?: SortOrder
+  }
+
+  export type EquipementCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EquipementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EquipementMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estActive?: SortOrder
+    originId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SalleScalarRelationFilter = {
+    is?: SalleWhereInput
+    isNot?: SalleWhereInput
+  }
+
+  export type EquipementScalarRelationFilter = {
+    is?: EquipementWhereInput
+    isNot?: EquipementWhereInput
+  }
+
+  export type SalleEquipementSalleIdEquipementIdCompoundUniqueInput = {
+    salleId: string
+    equipementId: string
+  }
+
+  export type SalleEquipementCountOrderByAggregateInput = {
+    salleId?: SortOrder
+    equipementId?: SortOrder
+  }
+
+  export type SalleEquipementMaxOrderByAggregateInput = {
+    salleId?: SortOrder
+    equipementId?: SortOrder
+  }
+
+  export type SalleEquipementMinOrderByAggregateInput = {
+    salleId?: SortOrder
+    equipementId?: SortOrder
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -50752,6 +56601,13 @@ export namespace Prisma {
     connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
   }
 
+  export type SalleCreateNestedManyWithoutDepartementInput = {
+    create?: XOR<SalleCreateWithoutDepartementInput, SalleUncheckedCreateWithoutDepartementInput> | SalleCreateWithoutDepartementInput[] | SalleUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutDepartementInput | SalleCreateOrConnectWithoutDepartementInput[]
+    createMany?: SalleCreateManyDepartementInputEnvelope
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+  }
+
   export type FormationUncheckedCreateNestedManyWithoutDepartementInput = {
     create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
     connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
@@ -50764,6 +56620,13 @@ export namespace Prisma {
     connectOrCreate?: EnseignantCreateOrConnectWithoutDepartementInput | EnseignantCreateOrConnectWithoutDepartementInput[]
     createMany?: EnseignantCreateManyDepartementInputEnvelope
     connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+  }
+
+  export type SalleUncheckedCreateNestedManyWithoutDepartementInput = {
+    create?: XOR<SalleCreateWithoutDepartementInput, SalleUncheckedCreateWithoutDepartementInput> | SalleCreateWithoutDepartementInput[] | SalleUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutDepartementInput | SalleCreateOrConnectWithoutDepartementInput[]
+    createMany?: SalleCreateManyDepartementInputEnvelope
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutDepartementsNestedInput = {
@@ -50802,6 +56665,20 @@ export namespace Prisma {
     deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
   }
 
+  export type SalleUpdateManyWithoutDepartementNestedInput = {
+    create?: XOR<SalleCreateWithoutDepartementInput, SalleUncheckedCreateWithoutDepartementInput> | SalleCreateWithoutDepartementInput[] | SalleUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutDepartementInput | SalleCreateOrConnectWithoutDepartementInput[]
+    upsert?: SalleUpsertWithWhereUniqueWithoutDepartementInput | SalleUpsertWithWhereUniqueWithoutDepartementInput[]
+    createMany?: SalleCreateManyDepartementInputEnvelope
+    set?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    disconnect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    delete?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    update?: SalleUpdateWithWhereUniqueWithoutDepartementInput | SalleUpdateWithWhereUniqueWithoutDepartementInput[]
+    updateMany?: SalleUpdateManyWithWhereWithoutDepartementInput | SalleUpdateManyWithWhereWithoutDepartementInput[]
+    deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
+  }
+
   export type FormationUncheckedUpdateManyWithoutDepartementNestedInput = {
     create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
     connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
@@ -50828,6 +56705,20 @@ export namespace Prisma {
     update?: EnseignantUpdateWithWhereUniqueWithoutDepartementInput | EnseignantUpdateWithWhereUniqueWithoutDepartementInput[]
     updateMany?: EnseignantUpdateManyWithWhereWithoutDepartementInput | EnseignantUpdateManyWithWhereWithoutDepartementInput[]
     deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
+  }
+
+  export type SalleUncheckedUpdateManyWithoutDepartementNestedInput = {
+    create?: XOR<SalleCreateWithoutDepartementInput, SalleUncheckedCreateWithoutDepartementInput> | SalleCreateWithoutDepartementInput[] | SalleUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutDepartementInput | SalleCreateOrConnectWithoutDepartementInput[]
+    upsert?: SalleUpsertWithWhereUniqueWithoutDepartementInput | SalleUpsertWithWhereUniqueWithoutDepartementInput[]
+    createMany?: SalleCreateManyDepartementInputEnvelope
+    set?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    disconnect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    delete?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    update?: SalleUpdateWithWhereUniqueWithoutDepartementInput | SalleUpdateWithWhereUniqueWithoutDepartementInput[]
+    updateMany?: SalleUpdateManyWithWhereWithoutDepartementInput | SalleUpdateManyWithWhereWithoutDepartementInput[]
+    deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
   }
 
   export type DepartementCreateNestedOneWithoutFormationsInput = {
@@ -51542,6 +57433,192 @@ export namespace Prisma {
     upsert?: SemestreUpsertWithoutDechargesInput
     connect?: SemestreWhereUniqueInput
     update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutDechargesInput, SemestreUpdateWithoutDechargesInput>, SemestreUncheckedUpdateWithoutDechargesInput>
+  }
+
+  export type SalleCreateNestedManyWithoutTypeSalleInput = {
+    create?: XOR<SalleCreateWithoutTypeSalleInput, SalleUncheckedCreateWithoutTypeSalleInput> | SalleCreateWithoutTypeSalleInput[] | SalleUncheckedCreateWithoutTypeSalleInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutTypeSalleInput | SalleCreateOrConnectWithoutTypeSalleInput[]
+    createMany?: SalleCreateManyTypeSalleInputEnvelope
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+  }
+
+  export type SalleUncheckedCreateNestedManyWithoutTypeSalleInput = {
+    create?: XOR<SalleCreateWithoutTypeSalleInput, SalleUncheckedCreateWithoutTypeSalleInput> | SalleCreateWithoutTypeSalleInput[] | SalleUncheckedCreateWithoutTypeSalleInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutTypeSalleInput | SalleCreateOrConnectWithoutTypeSalleInput[]
+    createMany?: SalleCreateManyTypeSalleInputEnvelope
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+  }
+
+  export type SalleUpdateManyWithoutTypeSalleNestedInput = {
+    create?: XOR<SalleCreateWithoutTypeSalleInput, SalleUncheckedCreateWithoutTypeSalleInput> | SalleCreateWithoutTypeSalleInput[] | SalleUncheckedCreateWithoutTypeSalleInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutTypeSalleInput | SalleCreateOrConnectWithoutTypeSalleInput[]
+    upsert?: SalleUpsertWithWhereUniqueWithoutTypeSalleInput | SalleUpsertWithWhereUniqueWithoutTypeSalleInput[]
+    createMany?: SalleCreateManyTypeSalleInputEnvelope
+    set?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    disconnect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    delete?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    update?: SalleUpdateWithWhereUniqueWithoutTypeSalleInput | SalleUpdateWithWhereUniqueWithoutTypeSalleInput[]
+    updateMany?: SalleUpdateManyWithWhereWithoutTypeSalleInput | SalleUpdateManyWithWhereWithoutTypeSalleInput[]
+    deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
+  }
+
+  export type SalleUncheckedUpdateManyWithoutTypeSalleNestedInput = {
+    create?: XOR<SalleCreateWithoutTypeSalleInput, SalleUncheckedCreateWithoutTypeSalleInput> | SalleCreateWithoutTypeSalleInput[] | SalleUncheckedCreateWithoutTypeSalleInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutTypeSalleInput | SalleCreateOrConnectWithoutTypeSalleInput[]
+    upsert?: SalleUpsertWithWhereUniqueWithoutTypeSalleInput | SalleUpsertWithWhereUniqueWithoutTypeSalleInput[]
+    createMany?: SalleCreateManyTypeSalleInputEnvelope
+    set?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    disconnect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    delete?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    update?: SalleUpdateWithWhereUniqueWithoutTypeSalleInput | SalleUpdateWithWhereUniqueWithoutTypeSalleInput[]
+    updateMany?: SalleUpdateManyWithWhereWithoutTypeSalleInput | SalleUpdateManyWithWhereWithoutTypeSalleInput[]
+    deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
+  }
+
+  export type DepartementCreateNestedOneWithoutSallesInput = {
+    create?: XOR<DepartementCreateWithoutSallesInput, DepartementUncheckedCreateWithoutSallesInput>
+    connectOrCreate?: DepartementCreateOrConnectWithoutSallesInput
+    connect?: DepartementWhereUniqueInput
+  }
+
+  export type TypeSalleCreateNestedOneWithoutSallesInput = {
+    create?: XOR<TypeSalleCreateWithoutSallesInput, TypeSalleUncheckedCreateWithoutSallesInput>
+    connectOrCreate?: TypeSalleCreateOrConnectWithoutSallesInput
+    connect?: TypeSalleWhereUniqueInput
+  }
+
+  export type SalleEquipementCreateNestedManyWithoutSalleInput = {
+    create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
+    createMany?: SalleEquipementCreateManySalleInputEnvelope
+    connect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+  }
+
+  export type SalleEquipementUncheckedCreateNestedManyWithoutSalleInput = {
+    create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
+    createMany?: SalleEquipementCreateManySalleInputEnvelope
+    connect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+  }
+
+  export type DepartementUpdateOneWithoutSallesNestedInput = {
+    create?: XOR<DepartementCreateWithoutSallesInput, DepartementUncheckedCreateWithoutSallesInput>
+    connectOrCreate?: DepartementCreateOrConnectWithoutSallesInput
+    upsert?: DepartementUpsertWithoutSallesInput
+    disconnect?: DepartementWhereInput | boolean
+    delete?: DepartementWhereInput | boolean
+    connect?: DepartementWhereUniqueInput
+    update?: XOR<XOR<DepartementUpdateToOneWithWhereWithoutSallesInput, DepartementUpdateWithoutSallesInput>, DepartementUncheckedUpdateWithoutSallesInput>
+  }
+
+  export type TypeSalleUpdateOneWithoutSallesNestedInput = {
+    create?: XOR<TypeSalleCreateWithoutSallesInput, TypeSalleUncheckedCreateWithoutSallesInput>
+    connectOrCreate?: TypeSalleCreateOrConnectWithoutSallesInput
+    upsert?: TypeSalleUpsertWithoutSallesInput
+    disconnect?: TypeSalleWhereInput | boolean
+    delete?: TypeSalleWhereInput | boolean
+    connect?: TypeSalleWhereUniqueInput
+    update?: XOR<XOR<TypeSalleUpdateToOneWithWhereWithoutSallesInput, TypeSalleUpdateWithoutSallesInput>, TypeSalleUncheckedUpdateWithoutSallesInput>
+  }
+
+  export type SalleEquipementUpdateManyWithoutSalleNestedInput = {
+    create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
+    upsert?: SalleEquipementUpsertWithWhereUniqueWithoutSalleInput | SalleEquipementUpsertWithWhereUniqueWithoutSalleInput[]
+    createMany?: SalleEquipementCreateManySalleInputEnvelope
+    set?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    disconnect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    delete?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    connect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    update?: SalleEquipementUpdateWithWhereUniqueWithoutSalleInput | SalleEquipementUpdateWithWhereUniqueWithoutSalleInput[]
+    updateMany?: SalleEquipementUpdateManyWithWhereWithoutSalleInput | SalleEquipementUpdateManyWithWhereWithoutSalleInput[]
+    deleteMany?: SalleEquipementScalarWhereInput | SalleEquipementScalarWhereInput[]
+  }
+
+  export type SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput = {
+    create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
+    upsert?: SalleEquipementUpsertWithWhereUniqueWithoutSalleInput | SalleEquipementUpsertWithWhereUniqueWithoutSalleInput[]
+    createMany?: SalleEquipementCreateManySalleInputEnvelope
+    set?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    disconnect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    delete?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    connect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    update?: SalleEquipementUpdateWithWhereUniqueWithoutSalleInput | SalleEquipementUpdateWithWhereUniqueWithoutSalleInput[]
+    updateMany?: SalleEquipementUpdateManyWithWhereWithoutSalleInput | SalleEquipementUpdateManyWithWhereWithoutSalleInput[]
+    deleteMany?: SalleEquipementScalarWhereInput | SalleEquipementScalarWhereInput[]
+  }
+
+  export type SalleEquipementCreateNestedManyWithoutEquipementInput = {
+    create?: XOR<SalleEquipementCreateWithoutEquipementInput, SalleEquipementUncheckedCreateWithoutEquipementInput> | SalleEquipementCreateWithoutEquipementInput[] | SalleEquipementUncheckedCreateWithoutEquipementInput[]
+    connectOrCreate?: SalleEquipementCreateOrConnectWithoutEquipementInput | SalleEquipementCreateOrConnectWithoutEquipementInput[]
+    createMany?: SalleEquipementCreateManyEquipementInputEnvelope
+    connect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+  }
+
+  export type SalleEquipementUncheckedCreateNestedManyWithoutEquipementInput = {
+    create?: XOR<SalleEquipementCreateWithoutEquipementInput, SalleEquipementUncheckedCreateWithoutEquipementInput> | SalleEquipementCreateWithoutEquipementInput[] | SalleEquipementUncheckedCreateWithoutEquipementInput[]
+    connectOrCreate?: SalleEquipementCreateOrConnectWithoutEquipementInput | SalleEquipementCreateOrConnectWithoutEquipementInput[]
+    createMany?: SalleEquipementCreateManyEquipementInputEnvelope
+    connect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+  }
+
+  export type SalleEquipementUpdateManyWithoutEquipementNestedInput = {
+    create?: XOR<SalleEquipementCreateWithoutEquipementInput, SalleEquipementUncheckedCreateWithoutEquipementInput> | SalleEquipementCreateWithoutEquipementInput[] | SalleEquipementUncheckedCreateWithoutEquipementInput[]
+    connectOrCreate?: SalleEquipementCreateOrConnectWithoutEquipementInput | SalleEquipementCreateOrConnectWithoutEquipementInput[]
+    upsert?: SalleEquipementUpsertWithWhereUniqueWithoutEquipementInput | SalleEquipementUpsertWithWhereUniqueWithoutEquipementInput[]
+    createMany?: SalleEquipementCreateManyEquipementInputEnvelope
+    set?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    disconnect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    delete?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    connect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    update?: SalleEquipementUpdateWithWhereUniqueWithoutEquipementInput | SalleEquipementUpdateWithWhereUniqueWithoutEquipementInput[]
+    updateMany?: SalleEquipementUpdateManyWithWhereWithoutEquipementInput | SalleEquipementUpdateManyWithWhereWithoutEquipementInput[]
+    deleteMany?: SalleEquipementScalarWhereInput | SalleEquipementScalarWhereInput[]
+  }
+
+  export type SalleEquipementUncheckedUpdateManyWithoutEquipementNestedInput = {
+    create?: XOR<SalleEquipementCreateWithoutEquipementInput, SalleEquipementUncheckedCreateWithoutEquipementInput> | SalleEquipementCreateWithoutEquipementInput[] | SalleEquipementUncheckedCreateWithoutEquipementInput[]
+    connectOrCreate?: SalleEquipementCreateOrConnectWithoutEquipementInput | SalleEquipementCreateOrConnectWithoutEquipementInput[]
+    upsert?: SalleEquipementUpsertWithWhereUniqueWithoutEquipementInput | SalleEquipementUpsertWithWhereUniqueWithoutEquipementInput[]
+    createMany?: SalleEquipementCreateManyEquipementInputEnvelope
+    set?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    disconnect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    delete?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    connect?: SalleEquipementWhereUniqueInput | SalleEquipementWhereUniqueInput[]
+    update?: SalleEquipementUpdateWithWhereUniqueWithoutEquipementInput | SalleEquipementUpdateWithWhereUniqueWithoutEquipementInput[]
+    updateMany?: SalleEquipementUpdateManyWithWhereWithoutEquipementInput | SalleEquipementUpdateManyWithWhereWithoutEquipementInput[]
+    deleteMany?: SalleEquipementScalarWhereInput | SalleEquipementScalarWhereInput[]
+  }
+
+  export type SalleCreateNestedOneWithoutEquipementsInput = {
+    create?: XOR<SalleCreateWithoutEquipementsInput, SalleUncheckedCreateWithoutEquipementsInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutEquipementsInput
+    connect?: SalleWhereUniqueInput
+  }
+
+  export type EquipementCreateNestedOneWithoutSallesInput = {
+    create?: XOR<EquipementCreateWithoutSallesInput, EquipementUncheckedCreateWithoutSallesInput>
+    connectOrCreate?: EquipementCreateOrConnectWithoutSallesInput
+    connect?: EquipementWhereUniqueInput
+  }
+
+  export type SalleUpdateOneRequiredWithoutEquipementsNestedInput = {
+    create?: XOR<SalleCreateWithoutEquipementsInput, SalleUncheckedCreateWithoutEquipementsInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutEquipementsInput
+    upsert?: SalleUpsertWithoutEquipementsInput
+    connect?: SalleWhereUniqueInput
+    update?: XOR<XOR<SalleUpdateToOneWithWhereWithoutEquipementsInput, SalleUpdateWithoutEquipementsInput>, SalleUncheckedUpdateWithoutEquipementsInput>
+  }
+
+  export type EquipementUpdateOneRequiredWithoutSallesNestedInput = {
+    create?: XOR<EquipementCreateWithoutSallesInput, EquipementUncheckedCreateWithoutSallesInput>
+    connectOrCreate?: EquipementCreateOrConnectWithoutSallesInput
+    upsert?: EquipementUpsertWithoutSallesInput
+    connect?: EquipementWhereUniqueInput
+    update?: XOR<XOR<EquipementUpdateToOneWithWhereWithoutSallesInput, EquipementUpdateWithoutSallesInput>, EquipementUncheckedUpdateWithoutSallesInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -55750,6 +61827,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     formations?: FormationCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
+    salles?: SalleCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutAnneeInput = {
@@ -55761,6 +61839,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
+    salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutAnneeInput = {
@@ -56196,6 +62275,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SalleCreateWithoutDepartementInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleUncheckedCreateWithoutDepartementInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleCreateOrConnectWithoutDepartementInput = {
+    where: SalleWhereUniqueInput
+    create: XOR<SalleCreateWithoutDepartementInput, SalleUncheckedCreateWithoutDepartementInput>
+  }
+
+  export type SalleCreateManyDepartementInputEnvelope = {
+    data: SalleCreateManyDepartementInput | SalleCreateManyDepartementInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutDepartementsInput = {
     update: XOR<AnneeUpdateWithoutDepartementsInput, AnneeUncheckedUpdateWithoutDepartementsInput>
     create: XOR<AnneeCreateWithoutDepartementsInput, AnneeUncheckedCreateWithoutDepartementsInput>
@@ -56276,6 +62399,42 @@ export namespace Prisma {
     data: XOR<EnseignantUpdateManyMutationInput, EnseignantUncheckedUpdateManyWithoutDepartementInput>
   }
 
+  export type SalleUpsertWithWhereUniqueWithoutDepartementInput = {
+    where: SalleWhereUniqueInput
+    update: XOR<SalleUpdateWithoutDepartementInput, SalleUncheckedUpdateWithoutDepartementInput>
+    create: XOR<SalleCreateWithoutDepartementInput, SalleUncheckedCreateWithoutDepartementInput>
+  }
+
+  export type SalleUpdateWithWhereUniqueWithoutDepartementInput = {
+    where: SalleWhereUniqueInput
+    data: XOR<SalleUpdateWithoutDepartementInput, SalleUncheckedUpdateWithoutDepartementInput>
+  }
+
+  export type SalleUpdateManyWithWhereWithoutDepartementInput = {
+    where: SalleScalarWhereInput
+    data: XOR<SalleUpdateManyMutationInput, SalleUncheckedUpdateManyWithoutDepartementInput>
+  }
+
+  export type SalleScalarWhereInput = {
+    AND?: SalleScalarWhereInput | SalleScalarWhereInput[]
+    OR?: SalleScalarWhereInput[]
+    NOT?: SalleScalarWhereInput | SalleScalarWhereInput[]
+    id?: UuidFilter<"Salle"> | string
+    code?: StringFilter<"Salle"> | string
+    libelle?: StringFilter<"Salle"> | string
+    site?: StringNullableFilter<"Salle"> | string | null
+    capaciteMax?: IntFilter<"Salle"> | number
+    capaciteRecommandee?: IntNullableFilter<"Salle"> | number | null
+    accesPMR?: BoolFilter<"Salle"> | boolean
+    commentaire?: StringNullableFilter<"Salle"> | string | null
+    estActive?: BoolFilter<"Salle"> | boolean
+    departementId?: UuidNullableFilter<"Salle"> | string | null
+    typeSalleId?: UuidNullableFilter<"Salle"> | string | null
+    originId?: StringNullableFilter<"Salle"> | string | null
+    createdAt?: DateTimeFilter<"Salle"> | Date | string
+    updatedAt?: DateTimeFilter<"Salle"> | Date | string
+  }
+
   export type DepartementCreateWithoutFormationsInput = {
     id?: string
     code: string
@@ -56285,6 +62444,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutDepartementsInput
     enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
+    salles?: SalleCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutFormationsInput = {
@@ -56296,6 +62456,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
+    salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutFormationsInput = {
@@ -56355,6 +62516,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
     enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutFormationsInput = {
@@ -56366,6 +62528,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type NiveauUpsertWithWhereUniqueWithoutFormationInput = {
@@ -57345,6 +63508,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutDepartementsInput
     formations?: FormationCreateNestedManyWithoutDepartementInput
+    salles?: SalleCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutEnseignantsInput = {
@@ -57356,6 +63520,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
+    salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutEnseignantsInput = {
@@ -57485,6 +63650,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
     formations?: FormationUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutEnseignantsInput = {
@@ -57496,6 +63662,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type GradeUpsertWithoutEnseignantsInput = {
@@ -57849,6 +64016,402 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SalleCreateWithoutTypeSalleInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement?: DepartementCreateNestedOneWithoutSallesInput
+    equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleUncheckedCreateWithoutTypeSalleInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleCreateOrConnectWithoutTypeSalleInput = {
+    where: SalleWhereUniqueInput
+    create: XOR<SalleCreateWithoutTypeSalleInput, SalleUncheckedCreateWithoutTypeSalleInput>
+  }
+
+  export type SalleCreateManyTypeSalleInputEnvelope = {
+    data: SalleCreateManyTypeSalleInput | SalleCreateManyTypeSalleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SalleUpsertWithWhereUniqueWithoutTypeSalleInput = {
+    where: SalleWhereUniqueInput
+    update: XOR<SalleUpdateWithoutTypeSalleInput, SalleUncheckedUpdateWithoutTypeSalleInput>
+    create: XOR<SalleCreateWithoutTypeSalleInput, SalleUncheckedCreateWithoutTypeSalleInput>
+  }
+
+  export type SalleUpdateWithWhereUniqueWithoutTypeSalleInput = {
+    where: SalleWhereUniqueInput
+    data: XOR<SalleUpdateWithoutTypeSalleInput, SalleUncheckedUpdateWithoutTypeSalleInput>
+  }
+
+  export type SalleUpdateManyWithWhereWithoutTypeSalleInput = {
+    where: SalleScalarWhereInput
+    data: XOR<SalleUpdateManyMutationInput, SalleUncheckedUpdateManyWithoutTypeSalleInput>
+  }
+
+  export type DepartementCreateWithoutSallesInput = {
+    id?: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutDepartementsInput
+    formations?: FormationCreateNestedManyWithoutDepartementInput
+    enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementUncheckedCreateWithoutSallesInput = {
+    id?: string
+    anneeId: string
+    code: string
+    libelle: string
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementCreateOrConnectWithoutSallesInput = {
+    where: DepartementWhereUniqueInput
+    create: XOR<DepartementCreateWithoutSallesInput, DepartementUncheckedCreateWithoutSallesInput>
+  }
+
+  export type TypeSalleCreateWithoutSallesInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TypeSalleUncheckedCreateWithoutSallesInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TypeSalleCreateOrConnectWithoutSallesInput = {
+    where: TypeSalleWhereUniqueInput
+    create: XOR<TypeSalleCreateWithoutSallesInput, TypeSalleUncheckedCreateWithoutSallesInput>
+  }
+
+  export type SalleEquipementCreateWithoutSalleInput = {
+    equipement: EquipementCreateNestedOneWithoutSallesInput
+  }
+
+  export type SalleEquipementUncheckedCreateWithoutSalleInput = {
+    equipementId: string
+  }
+
+  export type SalleEquipementCreateOrConnectWithoutSalleInput = {
+    where: SalleEquipementWhereUniqueInput
+    create: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput>
+  }
+
+  export type SalleEquipementCreateManySalleInputEnvelope = {
+    data: SalleEquipementCreateManySalleInput | SalleEquipementCreateManySalleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DepartementUpsertWithoutSallesInput = {
+    update: XOR<DepartementUpdateWithoutSallesInput, DepartementUncheckedUpdateWithoutSallesInput>
+    create: XOR<DepartementCreateWithoutSallesInput, DepartementUncheckedCreateWithoutSallesInput>
+    where?: DepartementWhereInput
+  }
+
+  export type DepartementUpdateToOneWithWhereWithoutSallesInput = {
+    where?: DepartementWhereInput
+    data: XOR<DepartementUpdateWithoutSallesInput, DepartementUncheckedUpdateWithoutSallesInput>
+  }
+
+  export type DepartementUpdateWithoutSallesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
+    formations?: FormationUpdateManyWithoutDepartementNestedInput
+    enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type DepartementUncheckedUpdateWithoutSallesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    anneeId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type TypeSalleUpsertWithoutSallesInput = {
+    update: XOR<TypeSalleUpdateWithoutSallesInput, TypeSalleUncheckedUpdateWithoutSallesInput>
+    create: XOR<TypeSalleCreateWithoutSallesInput, TypeSalleUncheckedCreateWithoutSallesInput>
+    where?: TypeSalleWhereInput
+  }
+
+  export type TypeSalleUpdateToOneWithWhereWithoutSallesInput = {
+    where?: TypeSalleWhereInput
+    data: XOR<TypeSalleUpdateWithoutSallesInput, TypeSalleUncheckedUpdateWithoutSallesInput>
+  }
+
+  export type TypeSalleUpdateWithoutSallesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TypeSalleUncheckedUpdateWithoutSallesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleEquipementUpsertWithWhereUniqueWithoutSalleInput = {
+    where: SalleEquipementWhereUniqueInput
+    update: XOR<SalleEquipementUpdateWithoutSalleInput, SalleEquipementUncheckedUpdateWithoutSalleInput>
+    create: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput>
+  }
+
+  export type SalleEquipementUpdateWithWhereUniqueWithoutSalleInput = {
+    where: SalleEquipementWhereUniqueInput
+    data: XOR<SalleEquipementUpdateWithoutSalleInput, SalleEquipementUncheckedUpdateWithoutSalleInput>
+  }
+
+  export type SalleEquipementUpdateManyWithWhereWithoutSalleInput = {
+    where: SalleEquipementScalarWhereInput
+    data: XOR<SalleEquipementUpdateManyMutationInput, SalleEquipementUncheckedUpdateManyWithoutSalleInput>
+  }
+
+  export type SalleEquipementScalarWhereInput = {
+    AND?: SalleEquipementScalarWhereInput | SalleEquipementScalarWhereInput[]
+    OR?: SalleEquipementScalarWhereInput[]
+    NOT?: SalleEquipementScalarWhereInput | SalleEquipementScalarWhereInput[]
+    salleId?: UuidFilter<"SalleEquipement"> | string
+    equipementId?: UuidFilter<"SalleEquipement"> | string
+  }
+
+  export type SalleEquipementCreateWithoutEquipementInput = {
+    salle: SalleCreateNestedOneWithoutEquipementsInput
+  }
+
+  export type SalleEquipementUncheckedCreateWithoutEquipementInput = {
+    salleId: string
+  }
+
+  export type SalleEquipementCreateOrConnectWithoutEquipementInput = {
+    where: SalleEquipementWhereUniqueInput
+    create: XOR<SalleEquipementCreateWithoutEquipementInput, SalleEquipementUncheckedCreateWithoutEquipementInput>
+  }
+
+  export type SalleEquipementCreateManyEquipementInputEnvelope = {
+    data: SalleEquipementCreateManyEquipementInput | SalleEquipementCreateManyEquipementInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SalleEquipementUpsertWithWhereUniqueWithoutEquipementInput = {
+    where: SalleEquipementWhereUniqueInput
+    update: XOR<SalleEquipementUpdateWithoutEquipementInput, SalleEquipementUncheckedUpdateWithoutEquipementInput>
+    create: XOR<SalleEquipementCreateWithoutEquipementInput, SalleEquipementUncheckedCreateWithoutEquipementInput>
+  }
+
+  export type SalleEquipementUpdateWithWhereUniqueWithoutEquipementInput = {
+    where: SalleEquipementWhereUniqueInput
+    data: XOR<SalleEquipementUpdateWithoutEquipementInput, SalleEquipementUncheckedUpdateWithoutEquipementInput>
+  }
+
+  export type SalleEquipementUpdateManyWithWhereWithoutEquipementInput = {
+    where: SalleEquipementScalarWhereInput
+    data: XOR<SalleEquipementUpdateManyMutationInput, SalleEquipementUncheckedUpdateManyWithoutEquipementInput>
+  }
+
+  export type SalleCreateWithoutEquipementsInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement?: DepartementCreateNestedOneWithoutSallesInput
+    typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+  }
+
+  export type SalleUncheckedCreateWithoutEquipementsInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalleCreateOrConnectWithoutEquipementsInput = {
+    where: SalleWhereUniqueInput
+    create: XOR<SalleCreateWithoutEquipementsInput, SalleUncheckedCreateWithoutEquipementsInput>
+  }
+
+  export type EquipementCreateWithoutSallesInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EquipementUncheckedCreateWithoutSallesInput = {
+    id?: string
+    code: string
+    libelle: string
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EquipementCreateOrConnectWithoutSallesInput = {
+    where: EquipementWhereUniqueInput
+    create: XOR<EquipementCreateWithoutSallesInput, EquipementUncheckedCreateWithoutSallesInput>
+  }
+
+  export type SalleUpsertWithoutEquipementsInput = {
+    update: XOR<SalleUpdateWithoutEquipementsInput, SalleUncheckedUpdateWithoutEquipementsInput>
+    create: XOR<SalleCreateWithoutEquipementsInput, SalleUncheckedCreateWithoutEquipementsInput>
+    where?: SalleWhereInput
+  }
+
+  export type SalleUpdateToOneWithWhereWithoutEquipementsInput = {
+    where?: SalleWhereInput
+    data: XOR<SalleUpdateWithoutEquipementsInput, SalleUncheckedUpdateWithoutEquipementsInput>
+  }
+
+  export type SalleUpdateWithoutEquipementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneWithoutSallesNestedInput
+    typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+  }
+
+  export type SalleUncheckedUpdateWithoutEquipementsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipementUpsertWithoutSallesInput = {
+    update: XOR<EquipementUpdateWithoutSallesInput, EquipementUncheckedUpdateWithoutSallesInput>
+    create: XOR<EquipementCreateWithoutSallesInput, EquipementUncheckedCreateWithoutSallesInput>
+    where?: EquipementWhereInput
+  }
+
+  export type EquipementUpdateToOneWithWhereWithoutSallesInput = {
+    where?: EquipementWhereInput
+    data: XOR<EquipementUpdateWithoutSallesInput, EquipementUncheckedUpdateWithoutSallesInput>
+  }
+
+  export type EquipementUpdateWithoutSallesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EquipementUncheckedUpdateWithoutSallesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -58949,6 +65512,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutAnneeInput = {
@@ -58960,6 +65524,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateManyWithoutAnneeInput = {
@@ -59126,6 +65691,22 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SalleCreateManyDepartementInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type FormationUpdateWithoutDepartementInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -59197,6 +65778,56 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     anneeId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleUpdateWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateManyWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -59679,6 +66310,104 @@ export namespace Prisma {
     semestreId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleCreateManyTypeSalleInput = {
+    id?: string
+    code: string
+    libelle: string
+    site?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalleUpdateWithoutTypeSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneWithoutSallesNestedInput
+    equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateWithoutTypeSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateManyWithoutTypeSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    site?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleEquipementCreateManySalleInput = {
+    equipementId: string
+  }
+
+  export type SalleEquipementUpdateWithoutSalleInput = {
+    equipement?: EquipementUpdateOneRequiredWithoutSallesNestedInput
+  }
+
+  export type SalleEquipementUncheckedUpdateWithoutSalleInput = {
+    equipementId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SalleEquipementUncheckedUpdateManyWithoutSalleInput = {
+    equipementId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SalleEquipementCreateManyEquipementInput = {
+    salleId: string
+  }
+
+  export type SalleEquipementUpdateWithoutEquipementInput = {
+    salle?: SalleUpdateOneRequiredWithoutEquipementsNestedInput
+  }
+
+  export type SalleEquipementUncheckedUpdateWithoutEquipementInput = {
+    salleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SalleEquipementUncheckedUpdateManyWithoutEquipementInput = {
+    salleId?: StringFieldUpdateOperationsInput | string
   }
 
 

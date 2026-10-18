@@ -35,7 +35,7 @@ export class PolicyService {
           'user:manage','role:manage','securite:write','security-event:read',
           'annee:manage','annee:transition','annee:read','annee:write',
           'referentiel:write','creneau:write','charge-ruleset:write','export-style:write','referentiel:read',
-          'enseignant:write','salle:write',
+          'enseignant:write','salle:read','salle:write',
           'creneau-affichage:write','indisponibilite:write',
           'repartition:read','repartition:write','repartition:validate',
           'charges:read',
@@ -53,7 +53,7 @@ export class PolicyService {
       RoleCode.GESTIONNAIRE,
       {
         permissions: [
-          'referentiel:read','creneau-affichage:write','indisponibilite:write',
+          'referentiel:read','salle:read','salle:write','creneau-affichage:write','indisponibilite:write',
           'repartition:read','charges:read','annee:read',
           'contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
           'version:create','generation:launch','verrou:write','avertissement:accept',
@@ -70,7 +70,7 @@ export class PolicyService {
       RoleCode.RESPONSABLE_DEPARTEMENT,
       {
         permissions: [
-          'referentiel:read','enseignant:write','repartition:read','repartition:write',
+          'referentiel:read','salle:read','salle:write','enseignant:write','repartition:read','repartition:write',
           'repartition:validate','charges:read','version:read','version:validate','annee:read',
           'demande:handle',
           'project:read','project:write','task:read','task:write','sprint:read','sprint:write','comment:read','comment:write','activity:read','tag:read','tag:write',
@@ -84,7 +84,7 @@ export class PolicyService {
       RoleCode.DIRECTION,
       {
         permissions: [
-          'referentiel:read','repartition:read','charges:read','version:read','annee:read',
+          'referentiel:read','salle:read','repartition:read','charges:read','version:read','annee:read',
           'project:read','task:read','sprint:read','comment:read','activity:read','tag:read',
           'export:create','notification:read','tableau-de-bord:read',
           'audit:read',
