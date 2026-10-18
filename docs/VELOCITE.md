@@ -8,13 +8,13 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| Tickets total | 210 |
-| ✅ Terminés | 52 (24.8%) |
+| Tickets total | 212 |
+| ✅ Terminés | 52 (24.5%) |
 | 🔄 En cours | 0 |
-| ⏳ À faire | 158 |
-| Points total | 1079 |
-| Points réalisés | 234 (21.7%) |
-| Points restants | 845 |
+| ⏳ À faire | 160 |
+| Points total | 1092 |
+| Points réalisés | 234 (21.4%) |
+| Points restants | 858 |
 | Débit journalier moyen | 39.00 pts/j |
 | Jours écoulés depuis le début | 6 |
 
@@ -40,7 +40,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 | Points réalisés | 234 |
 | Débit journalier moyen | 39.00 pts/j |
 | Débit hebdomadaire moyen | 273.00 pts/sem |
-| Points restants | 845 |
+| Points restants | 858 |
 | Prévision débit continu | 09/11/2026 (~3.1 semaines restants) |
 
 ---
@@ -55,7 +55,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 | L4 | 148 | 0.85 | 4.5 j | 23/10/2026 |
 | L5 | 150 | 0.9 | 4.3 j | 22/10/2026 |
 | L6 | 64 | 1.0 | 1.6 j | 20/10/2026 |
-| L7 | 100 | 0.85 | 3.0 j | 21/10/2026 |
+| L7 | 113 | 0.85 | 3.4 j | 22/10/2026 |
 
 *Le lot le plus long détermine la date de fin globale du projet.*
 
@@ -73,9 +73,9 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Métrique | Valeur |
 |----------|--------|
-| Points fonctionnels | 889 |
-| Points techniques | 190 |
-| Ratio Tech/Func | 0.21 |
+| Points fonctionnels | 897 |
+| Points techniques | 195 |
+| Ratio Tech/Func | 0.22 |
 
 ---
 
@@ -100,7 +100,7 @@ Sprint,Points restants,Points idéaux
 | L4 | 24 | 148 | 0 | 0.0% |
 | L5 | 29 | 150 | 0 | 0.0% |
 | L6 | 10 | 64 | 0 | 0.0% |
-| L7 | 17 | 100 | 0 | 0.0% |
+| L7 | 19 | 113 | 0 | 0.0% |
 
 ---
 

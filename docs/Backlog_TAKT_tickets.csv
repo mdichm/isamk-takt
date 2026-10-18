@@ -726,3 +726,13 @@ L7-16;L7;E7.5;Recette & mise en production;Story;Recette sur données réelles d
 L7-17;L7;E7.5;Recette & mise en production;Tâche technique;Mise en production et hypercare;Bascule, surveillance renforcée.;"- Production déployée via pipeline
 - Période d'hypercare avec points quotidiens
 - Plan de retour arrière documenté";EX-NFR-02;§5.5, §1.8;DEVOPS;Must;5;L7-16, L7-10, L7-11;À faire;
+L7-18;L7;E7.6;Arborescence de structure;Story;Champ ordre et réordonnancement dnd-kit de l'arbre de structure;"Ajouter le champ ordre aux modèles Departement, Formation, Niveau, Groupe ; endpoints de réordonnancement backend ; intégration dnd-kit dans StructureTree avec optimistic UI et rollback ; tri par ordre puis code.";"- Ajout du champ ordre Int @default(0) aux 4 modèles Prisma avec index sur (branche, ordre)
+- Endpoints PATCH /departements/reorder, /formations/reorder, /niveaux/reorder, /groupes/reorder
+- Intégration DndContext + useSortable dans structure-tree.tsx
+- Optimistic UI avec rollback en cas d'erreur 4xx
+- Messages i18n en français";EX-ORG-01, EX-ORG-02;§3.3;FRONT;Must;8;L1-09;À faire;
+L7-19;L7;E7.7;Qualité frontend;Test;Tests frontend (Zod, API, hooks, composant StructureTree);"Ajouter vitest, testing-library, jsdom ; écrire des tests unitaires pour la validation Zod, les fonctions API, les hooks React Query et le composant StructureTree.";"- Configuration vitest.config.ts avec jsdom et alias @/
+- Tests de validation Zod pour structure.ts
+- Tests des fonctions API (lib/api/structure.ts)
+- Tests des hooks (use-structure.ts)
+- Tests du composant StructureTree";EX-NFR-07;§5.5;QA;Must;5;L1-09, L7-18;À faire;
