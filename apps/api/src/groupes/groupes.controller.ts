@@ -12,7 +12,13 @@ import {
   HttpStatus,
   BadRequestException,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiParam,
+} from '@nestjs/swagger';
 import { GroupesService } from './groupes.service.js';
 import {
   CreateGroupeDto,
@@ -23,6 +29,10 @@ import {
   CodeSuggestionQueryDto,
   CodeSuggestionDto,
 } from './dto/groupe.dto.js';
+import {
+  DuplicateGroupesDto,
+  DuplicateGroupesResult,
+} from './dto/groupe-duplicate.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
@@ -40,27 +50,76 @@ export class GroupesController {
   @Post()
   @Permissions('groupe:write')
   @ApiOperation({ summary: 'Créer un groupe hiérarchique' })
-  @ApiResponse({ status: 201, description: 'Groupe créé', type: GroupeResponseDto })
-  @ApiResponse({ status: 404, description: 'Niveau, semestre ou parent non trouvé' })
-  @ApiResponse({ status: 409, description: 'Code déjà existant ou cycle détecté' })
+  @ApiResponse({
+    status: 201,
+    description: 'Groupe créé',
+    type: GroupeResponseDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Niveau, semestre ou parent non trouvé',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Code déjà existant ou cycle détecté',
+  })
   async createGroupe(@Body() dto: CreateGroupeDto): Promise<GroupeResponseDto> {
     return this.groupesService.createGroupe(dto, 'system');
+  }
+
+  @Post('duplicate')
+  @Permissions('groupe:write')
+  @ApiOperation({
+    summary: 'Dupliquer les groupes d’un semestre vers un autre',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Résultat de la duplication des groupes',
+    type: DuplicateGroupesResult,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Semestre source ou cible non trouvé',
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Conflit de code dans le semestre cible (DUPLICATE_RESOURCE)',
+  })
+  async duplicateGroupes(
+    @Body() dto: DuplicateGroupesDto,
+  ): Promise<DuplicateGroupesResult> {
+    return this.groupesService.duplicateGroupes(dto, 'system');
   }
 
   @Get()
   @Permissions('groupe:read')
   @ApiOperation({ summary: 'Lister les groupes avec pagination et filtres' })
-  @ApiResponse({ status: 200, description: 'Liste paginée des groupes', type: PaginatedGroupesDto })
-  async findAllGroupes(@Query() query: GroupeQueryDto): Promise<PaginatedGroupesDto> {
+  @ApiResponse({
+    status: 200,
+    description: 'Liste paginée des groupes',
+    type: PaginatedGroupesDto,
+  })
+  async findAllGroupes(
+    @Query() query: GroupeQueryDto,
+  ): Promise<PaginatedGroupesDto> {
     return this.groupesService.findAllGroupes(query);
   }
 
   @Get('code-suggestion')
   @Permissions('groupe:read')
-  @ApiOperation({ summary: 'Proposer le prochain identifiant de groupe conforme à la nomenclature' })
-  @ApiResponse({ status: 200, description: 'Code de groupe suggéré', type: CodeSuggestionDto })
+  @ApiOperation({
+    summary:
+      'Proposer le prochain identifiant de groupe conforme à la nomenclature',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Code de groupe suggéré',
+    type: CodeSuggestionDto,
+  })
   @ApiResponse({ status: 404, description: 'Niveau non trouvé' })
-  async codeSuggestion(@Query() query: CodeSuggestionQueryDto): Promise<CodeSuggestionDto> {
+  async codeSuggestion(
+    @Query() query: CodeSuggestionQueryDto,
+  ): Promise<CodeSuggestionDto> {
     if (!query.niveauId) {
       throw new BadRequestException('niveauId requis');
     }
@@ -71,7 +130,11 @@ export class GroupesController {
   @Permissions('groupe:read')
   @ApiOperation({ summary: 'Obtenir un groupe par ID' })
   @ApiParam({ name: 'id', description: 'ID du groupe (UUID)' })
-  @ApiResponse({ status: 200, description: 'Groupe trouvé', type: GroupeResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Groupe trouvé',
+    type: GroupeResponseDto,
+  })
   @ApiResponse({ status: 404, description: 'Groupe non trouvé' })
   async findGroupeById(@Param('id') id: string): Promise<GroupeResponseDto> {
     return this.groupesService.findGroupeById(id);
@@ -81,9 +144,16 @@ export class GroupesController {
   @Permissions('groupe:write')
   @ApiOperation({ summary: 'Mettre à jour un groupe' })
   @ApiParam({ name: 'id', description: 'ID du groupe (UUID)' })
-  @ApiResponse({ status: 200, description: 'Groupe mis à jour', type: GroupeResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Groupe mis à jour',
+    type: GroupeResponseDto,
+  })
   @ApiResponse({ status: 404, description: 'Groupe non trouvé' })
-  @ApiResponse({ status: 409, description: 'Code déjà existant ou cycle détecté' })
+  @ApiResponse({
+    status: 409,
+    description: 'Code déjà existant ou cycle détecté',
+  })
   async updateGroupe(
     @Param('id') id: string,
     @Body() dto: UpdateGroupeDto,
@@ -98,14 +168,19 @@ export class GroupesController {
   @ApiParam({ name: 'id', description: 'ID du groupe (UUID)' })
   @ApiResponse({ status: 204, description: 'Groupe supprimé' })
   @ApiResponse({ status: 404, description: 'Groupe non trouvé' })
-  @ApiResponse({ status: 409, description: 'Le groupe possède des sous-groupes' })
+  @ApiResponse({
+    status: 409,
+    description: 'Le groupe possède des sous-groupes',
+  })
   async removeGroupe(@Param('id') id: string): Promise<void> {
     return this.groupesService.removeGroupe(id, 'system');
   }
 
   @Get(':id/fermeture')
   @Permissions('groupe:read')
-  @ApiOperation({ summary: 'Obtenir la fermeture hiérarchique (soi, ancêtres, descendants)' })
+  @ApiOperation({
+    summary: 'Obtenir la fermeture hiérarchique (soi, ancêtres, descendants)',
+  })
   @ApiParam({ name: 'id', description: 'ID du groupe (UUID)' })
   @ApiResponse({ status: 200, description: 'Fermeture hiérarchique du groupe' })
   @ApiResponse({ status: 404, description: 'Groupe non trouvé' })
