@@ -90,6 +90,12 @@ enum GroupeType {
   SOUS_GROUPE
 }
 
+// Niveau d'exigence d'équipement — L1-11
+enum ExigenceNiveau {
+  OBLIGATOIRE
+  SOUHAITE
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -593,6 +599,7 @@ model TypeEnseignement {
   updatedAt     DateTime             @updatedAt
 
   modules Module[]
+  exigencesEquipement ExigenceEquipement[] @relation("TypeExigenceEquipement")
 
   @@unique([code])
   @@map("types_enseignement")
@@ -637,6 +644,7 @@ model Module {
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   enseignantModules EnseignantModule[]
+  exigencesEquipement ExigenceEquipement[] @relation("ModuleExigenceEquipement")
 
   @@unique([niveauId, code, semestreNumero])
   @@index([niveauId])
@@ -658,6 +666,7 @@ model ActivityTag {
   updatedAt DateTime @updatedAt
 
   typesEnseignement TypeEnseignement[]
+  salleActivityTags SalleActivityTag[] @relation("ActivityTagSalleActivityTag")
 
   @@index([code])
   @@index([isActive])
@@ -758,6 +767,7 @@ model Salle {
   departement Departement? @relation(fields: [departementId], references: [id], onDelete: SetNull)
   typeSalle   TypeSalle?   @relation(fields: [typeSalleId], references: [id], onDelete: SetNull)
   equipements SalleEquipement[]
+  salleActivityTags SalleActivityTag[] @relation("SalleActivityTag")
 
   @@index([departementId])
   @@index([typeSalleId])
@@ -774,6 +784,7 @@ model Equipement {
   updatedAt DateTime @updatedAt
 
   salles SalleEquipement[]
+  exigencesEquipement ExigenceEquipement[] @relation("EquipementExigenceEquipement")
 
   @@unique([code])
   @@map("equipements")
@@ -787,4 +798,37 @@ model SalleEquipement {
 
   @@id([salleId, equipementId])
   @@map("salles_equipements")
+}
+
+// ============================================ 
+// Compatibilités salles / Activity Tags (L1-11)
+// ============================================
+
+model SalleActivityTag {
+  salleId       String   @db.Uuid
+  activityTagId String   @db.Uuid
+
+  salle  Salle    @relation("SalleActivityTag", fields: [salleId], references: [id], onDelete: Cascade)
+  tag    ActivityTag @relation("ActivityTagSalleActivityTag", fields: [activityTagId], references: [id], onDelete: Cascade)
+
+  @@id([salleId, activityTagId])
+  @@map("salle_activity_tags")
+}
+
+// ============================================
+// Exigences d'équipement par (module, type d'enseignement) (L1-11)
+// ============================================
+
+model ExigenceEquipement {
+  moduleId           String         @db.Uuid
+  typeEnseignementId String         @db.Uuid
+  equipementId       String         @db.Uuid
+  niveau             ExigenceNiveau @default(OBLIGATOIRE)
+
+  module     Module           @relation("ModuleExigenceEquipement", fields: [moduleId], references: [id], onDelete: Cascade)
+  type       TypeEnseignement @relation("TypeExigenceEquipement", fields: [typeEnseignementId], references: [id])
+  equipement Equipement       @relation("EquipementExigenceEquipement", fields: [equipementId], references: [id])
+
+  @@id([moduleId, typeEnseignementId, equipementId])
+  @@map("exigences_equipement")
 }
