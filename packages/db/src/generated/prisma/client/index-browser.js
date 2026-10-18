@@ -351,6 +351,19 @@ exports.Prisma.SemestreScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CreneauScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  jour: 'jour',
+  ordre: 'ordre',
+  heureDebut: 'heureDebut',
+  heureFin: 'heureFin',
+  estPause: 'estPause',
+  estActive: 'estActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DepartementScalarFieldEnum = {
   id: 'id',
   anneeId: 'anneeId',
@@ -629,6 +642,15 @@ exports.AnneeStatut = exports.$Enums.AnneeStatut = {
   CLOTUREE: 'CLOTUREE'
 };
 
+exports.JourSemaine = exports.$Enums.JourSemaine = {
+  LUNDI: 'LUNDI',
+  MARDI: 'MARDI',
+  MERCREDI: 'MERCREDI',
+  JEUDI: 'JEUDI',
+  VENDREDI: 'VENDREDI',
+  SAMEDI: 'SAMEDI'
+};
+
 exports.GroupeType = exports.$Enums.GroupeType = {
   SECTION: 'SECTION',
   GROUPE: 'GROUPE',
@@ -678,6 +700,7 @@ exports.Prisma.ModelName = {
   AuditLog: 'AuditLog',
   Annee: 'Annee',
   Semestre: 'Semestre',
+  Creneau: 'Creneau',
   Departement: 'Departement',
   Formation: 'Formation',
   Niveau: 'Niveau',

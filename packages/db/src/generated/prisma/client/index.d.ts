@@ -119,6 +119,11 @@ export type Annee = $Result.DefaultSelection<Prisma.$AnneePayload>
  */
 export type Semestre = $Result.DefaultSelection<Prisma.$SemestrePayload>
 /**
+ * Model Creneau
+ * 
+ */
+export type Creneau = $Result.DefaultSelection<Prisma.$CreneauPayload>
+/**
  * Model Departement
  * 
  */
@@ -325,6 +330,18 @@ export const ExigenceNiveau: {
 export type ExigenceNiveau = (typeof ExigenceNiveau)[keyof typeof ExigenceNiveau]
 
 
+export const JourSemaine: {
+  LUNDI: 'LUNDI',
+  MARDI: 'MARDI',
+  MERCREDI: 'MERCREDI',
+  JEUDI: 'JEUDI',
+  VENDREDI: 'VENDREDI',
+  SAMEDI: 'SAMEDI'
+};
+
+export type JourSemaine = (typeof JourSemaine)[keyof typeof JourSemaine]
+
+
 export const TypeEnseignementCode: {
   CM: 'CM',
   TD: 'TD',
@@ -391,6 +408,10 @@ export const GroupeType: typeof $Enums.GroupeType
 export type ExigenceNiveau = $Enums.ExigenceNiveau
 
 export const ExigenceNiveau: typeof $Enums.ExigenceNiveau
+
+export type JourSemaine = $Enums.JourSemaine
+
+export const JourSemaine: typeof $Enums.JourSemaine
 
 export type TypeEnseignementCode = $Enums.TypeEnseignementCode
 
@@ -730,6 +751,16 @@ export class PrismaClient<
     * ```
     */
   get semestre(): Prisma.SemestreDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.creneau`: Exposes CRUD operations for the **Creneau** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Creneaus
+    * const creneaus = await prisma.creneau.findMany()
+    * ```
+    */
+  get creneau(): Prisma.CreneauDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.departement`: Exposes CRUD operations for the **Departement** model.
@@ -1378,6 +1409,7 @@ export namespace Prisma {
     AuditLog: 'AuditLog',
     Annee: 'Annee',
     Semestre: 'Semestre',
+    Creneau: 'Creneau',
     Departement: 'Departement',
     Formation: 'Formation',
     Niveau: 'Niveau',
@@ -1411,7 +1443,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2969,6 +3001,80 @@ export namespace Prisma {
           }
         }
       }
+      Creneau: {
+        payload: Prisma.$CreneauPayload<ExtArgs>
+        fields: Prisma.CreneauFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CreneauFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CreneauFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>
+          }
+          findFirst: {
+            args: Prisma.CreneauFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CreneauFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>
+          }
+          findMany: {
+            args: Prisma.CreneauFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>[]
+          }
+          create: {
+            args: Prisma.CreneauCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>
+          }
+          createMany: {
+            args: Prisma.CreneauCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CreneauCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>[]
+          }
+          delete: {
+            args: Prisma.CreneauDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>
+          }
+          update: {
+            args: Prisma.CreneauUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>
+          }
+          deleteMany: {
+            args: Prisma.CreneauDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CreneauUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CreneauUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>[]
+          }
+          upsert: {
+            args: Prisma.CreneauUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauPayload>
+          }
+          aggregate: {
+            args: Prisma.CreneauAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCreneau>
+          }
+          groupBy: {
+            args: Prisma.CreneauGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CreneauGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CreneauCountArgs<ExtArgs>
+            result: $Utils.Optional<CreneauCountAggregateOutputType> | number
+          }
+        }
+      }
       Departement: {
         payload: Prisma.$DepartementPayload<ExtArgs>
         fields: Prisma.DepartementFieldRefs
@@ -4445,6 +4551,7 @@ export namespace Prisma {
     auditLog?: AuditLogOmit
     annee?: AnneeOmit
     semestre?: SemestreOmit
+    creneau?: CreneauOmit
     departement?: DepartementOmit
     formation?: FormationOmit
     niveau?: NiveauOmit
@@ -4924,11 +5031,13 @@ export namespace Prisma {
   export type SemestreCountOutputType = {
     groupes: number
     decharges: number
+    creneaux: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     groupes?: boolean | SemestreCountOutputTypeCountGroupesArgs
     decharges?: boolean | SemestreCountOutputTypeCountDechargesArgs
+    creneaux?: boolean | SemestreCountOutputTypeCountCreneauxArgs
   }
 
   // Custom InputTypes
@@ -4954,6 +5063,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountDechargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DechargeWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountCreneauxArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreneauWhereInput
   }
 
 
@@ -28586,6 +28702,7 @@ export namespace Prisma {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     groupes?: boolean | Semestre$groupesArgs<ExtArgs>
     decharges?: boolean | Semestre$dechargesArgs<ExtArgs>
+    creneaux?: boolean | Semestre$creneauxArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -28623,6 +28740,7 @@ export namespace Prisma {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     groupes?: boolean | Semestre$groupesArgs<ExtArgs>
     decharges?: boolean | Semestre$dechargesArgs<ExtArgs>
+    creneaux?: boolean | Semestre$creneauxArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28638,6 +28756,7 @@ export namespace Prisma {
       annee: Prisma.$AnneePayload<ExtArgs>
       groupes: Prisma.$GroupePayload<ExtArgs>[]
       decharges: Prisma.$DechargePayload<ExtArgs>[]
+      creneaux: Prisma.$CreneauPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -29043,6 +29162,7 @@ export namespace Prisma {
     annee<T extends AnneeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AnneeDefaultArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     groupes<T extends Semestre$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     decharges<T extends Semestre$dechargesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$dechargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    creneaux<T extends Semestre$creneauxArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$creneauxArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29527,6 +29647,30 @@ export namespace Prisma {
   }
 
   /**
+   * Semestre.creneaux
+   */
+  export type Semestre$creneauxArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    where?: CreneauWhereInput
+    orderBy?: CreneauOrderByWithRelationInput | CreneauOrderByWithRelationInput[]
+    cursor?: CreneauWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CreneauScalarFieldEnum | CreneauScalarFieldEnum[]
+  }
+
+  /**
    * Semestre without action
    */
   export type SemestreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29542,6 +29686,1168 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SemestreInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Creneau
+   */
+
+  export type AggregateCreneau = {
+    _count: CreneauCountAggregateOutputType | null
+    _avg: CreneauAvgAggregateOutputType | null
+    _sum: CreneauSumAggregateOutputType | null
+    _min: CreneauMinAggregateOutputType | null
+    _max: CreneauMaxAggregateOutputType | null
+  }
+
+  export type CreneauAvgAggregateOutputType = {
+    ordre: number | null
+  }
+
+  export type CreneauSumAggregateOutputType = {
+    ordre: number | null
+  }
+
+  export type CreneauMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    jour: $Enums.JourSemaine | null
+    ordre: number | null
+    heureDebut: Date | null
+    heureFin: Date | null
+    estPause: boolean | null
+    estActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CreneauMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    jour: $Enums.JourSemaine | null
+    ordre: number | null
+    heureDebut: Date | null
+    heureFin: Date | null
+    estPause: boolean | null
+    estActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CreneauCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    jour: number
+    ordre: number
+    heureDebut: number
+    heureFin: number
+    estPause: number
+    estActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CreneauAvgAggregateInputType = {
+    ordre?: true
+  }
+
+  export type CreneauSumAggregateInputType = {
+    ordre?: true
+  }
+
+  export type CreneauMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    jour?: true
+    ordre?: true
+    heureDebut?: true
+    heureFin?: true
+    estPause?: true
+    estActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CreneauMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    jour?: true
+    ordre?: true
+    heureDebut?: true
+    heureFin?: true
+    estPause?: true
+    estActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CreneauCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    jour?: true
+    ordre?: true
+    heureDebut?: true
+    heureFin?: true
+    estPause?: true
+    estActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CreneauAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Creneau to aggregate.
+     */
+    where?: CreneauWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Creneaus to fetch.
+     */
+    orderBy?: CreneauOrderByWithRelationInput | CreneauOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CreneauWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Creneaus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Creneaus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Creneaus
+    **/
+    _count?: true | CreneauCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CreneauAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CreneauSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CreneauMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CreneauMaxAggregateInputType
+  }
+
+  export type GetCreneauAggregateType<T extends CreneauAggregateArgs> = {
+        [P in keyof T & keyof AggregateCreneau]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCreneau[P]>
+      : GetScalarType<T[P], AggregateCreneau[P]>
+  }
+
+
+
+
+  export type CreneauGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreneauWhereInput
+    orderBy?: CreneauOrderByWithAggregationInput | CreneauOrderByWithAggregationInput[]
+    by: CreneauScalarFieldEnum[] | CreneauScalarFieldEnum
+    having?: CreneauScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CreneauCountAggregateInputType | true
+    _avg?: CreneauAvgAggregateInputType
+    _sum?: CreneauSumAggregateInputType
+    _min?: CreneauMinAggregateInputType
+    _max?: CreneauMaxAggregateInputType
+  }
+
+  export type CreneauGroupByOutputType = {
+    id: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date
+    heureFin: Date
+    estPause: boolean
+    estActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: CreneauCountAggregateOutputType | null
+    _avg: CreneauAvgAggregateOutputType | null
+    _sum: CreneauSumAggregateOutputType | null
+    _min: CreneauMinAggregateOutputType | null
+    _max: CreneauMaxAggregateOutputType | null
+  }
+
+  type GetCreneauGroupByPayload<T extends CreneauGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CreneauGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CreneauGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CreneauGroupByOutputType[P]>
+            : GetScalarType<T[P], CreneauGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CreneauSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    jour?: boolean
+    ordre?: boolean
+    heureDebut?: boolean
+    heureFin?: boolean
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creneau"]>
+
+  export type CreneauSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    jour?: boolean
+    ordre?: boolean
+    heureDebut?: boolean
+    heureFin?: boolean
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creneau"]>
+
+  export type CreneauSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    jour?: boolean
+    ordre?: boolean
+    heureDebut?: boolean
+    heureFin?: boolean
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creneau"]>
+
+  export type CreneauSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    jour?: boolean
+    ordre?: boolean
+    heureDebut?: boolean
+    heureFin?: boolean
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CreneauOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "jour" | "ordre" | "heureDebut" | "heureFin" | "estPause" | "estActive" | "createdAt" | "updatedAt", ExtArgs["result"]["creneau"]>
+  export type CreneauInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type CreneauIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type CreneauIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+
+  export type $CreneauPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Creneau"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      jour: $Enums.JourSemaine
+      ordre: number
+      heureDebut: Date
+      heureFin: Date
+      estPause: boolean
+      estActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["creneau"]>
+    composites: {}
+  }
+
+  type CreneauGetPayload<S extends boolean | null | undefined | CreneauDefaultArgs> = $Result.GetResult<Prisma.$CreneauPayload, S>
+
+  type CreneauCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CreneauFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CreneauCountAggregateInputType | true
+    }
+
+  export interface CreneauDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Creneau'], meta: { name: 'Creneau' } }
+    /**
+     * Find zero or one Creneau that matches the filter.
+     * @param {CreneauFindUniqueArgs} args - Arguments to find a Creneau
+     * @example
+     * // Get one Creneau
+     * const creneau = await prisma.creneau.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CreneauFindUniqueArgs>(args: SelectSubset<T, CreneauFindUniqueArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Creneau that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CreneauFindUniqueOrThrowArgs} args - Arguments to find a Creneau
+     * @example
+     * // Get one Creneau
+     * const creneau = await prisma.creneau.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CreneauFindUniqueOrThrowArgs>(args: SelectSubset<T, CreneauFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Creneau that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauFindFirstArgs} args - Arguments to find a Creneau
+     * @example
+     * // Get one Creneau
+     * const creneau = await prisma.creneau.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CreneauFindFirstArgs>(args?: SelectSubset<T, CreneauFindFirstArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Creneau that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauFindFirstOrThrowArgs} args - Arguments to find a Creneau
+     * @example
+     * // Get one Creneau
+     * const creneau = await prisma.creneau.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CreneauFindFirstOrThrowArgs>(args?: SelectSubset<T, CreneauFindFirstOrThrowArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Creneaus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Creneaus
+     * const creneaus = await prisma.creneau.findMany()
+     * 
+     * // Get first 10 Creneaus
+     * const creneaus = await prisma.creneau.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const creneauWithIdOnly = await prisma.creneau.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CreneauFindManyArgs>(args?: SelectSubset<T, CreneauFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Creneau.
+     * @param {CreneauCreateArgs} args - Arguments to create a Creneau.
+     * @example
+     * // Create one Creneau
+     * const Creneau = await prisma.creneau.create({
+     *   data: {
+     *     // ... data to create a Creneau
+     *   }
+     * })
+     * 
+     */
+    create<T extends CreneauCreateArgs>(args: SelectSubset<T, CreneauCreateArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Creneaus.
+     * @param {CreneauCreateManyArgs} args - Arguments to create many Creneaus.
+     * @example
+     * // Create many Creneaus
+     * const creneau = await prisma.creneau.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CreneauCreateManyArgs>(args?: SelectSubset<T, CreneauCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Creneaus and returns the data saved in the database.
+     * @param {CreneauCreateManyAndReturnArgs} args - Arguments to create many Creneaus.
+     * @example
+     * // Create many Creneaus
+     * const creneau = await prisma.creneau.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Creneaus and only return the `id`
+     * const creneauWithIdOnly = await prisma.creneau.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CreneauCreateManyAndReturnArgs>(args?: SelectSubset<T, CreneauCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Creneau.
+     * @param {CreneauDeleteArgs} args - Arguments to delete one Creneau.
+     * @example
+     * // Delete one Creneau
+     * const Creneau = await prisma.creneau.delete({
+     *   where: {
+     *     // ... filter to delete one Creneau
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CreneauDeleteArgs>(args: SelectSubset<T, CreneauDeleteArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Creneau.
+     * @param {CreneauUpdateArgs} args - Arguments to update one Creneau.
+     * @example
+     * // Update one Creneau
+     * const creneau = await prisma.creneau.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CreneauUpdateArgs>(args: SelectSubset<T, CreneauUpdateArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Creneaus.
+     * @param {CreneauDeleteManyArgs} args - Arguments to filter Creneaus to delete.
+     * @example
+     * // Delete a few Creneaus
+     * const { count } = await prisma.creneau.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CreneauDeleteManyArgs>(args?: SelectSubset<T, CreneauDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Creneaus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Creneaus
+     * const creneau = await prisma.creneau.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CreneauUpdateManyArgs>(args: SelectSubset<T, CreneauUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Creneaus and returns the data updated in the database.
+     * @param {CreneauUpdateManyAndReturnArgs} args - Arguments to update many Creneaus.
+     * @example
+     * // Update many Creneaus
+     * const creneau = await prisma.creneau.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Creneaus and only return the `id`
+     * const creneauWithIdOnly = await prisma.creneau.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CreneauUpdateManyAndReturnArgs>(args: SelectSubset<T, CreneauUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Creneau.
+     * @param {CreneauUpsertArgs} args - Arguments to update or create a Creneau.
+     * @example
+     * // Update or create a Creneau
+     * const creneau = await prisma.creneau.upsert({
+     *   create: {
+     *     // ... data to create a Creneau
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Creneau we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CreneauUpsertArgs>(args: SelectSubset<T, CreneauUpsertArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Creneaus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauCountArgs} args - Arguments to filter Creneaus to count.
+     * @example
+     * // Count the number of Creneaus
+     * const count = await prisma.creneau.count({
+     *   where: {
+     *     // ... the filter for the Creneaus we want to count
+     *   }
+     * })
+    **/
+    count<T extends CreneauCountArgs>(
+      args?: Subset<T, CreneauCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CreneauCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Creneau.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CreneauAggregateArgs>(args: Subset<T, CreneauAggregateArgs>): Prisma.PrismaPromise<GetCreneauAggregateType<T>>
+
+    /**
+     * Group by Creneau.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CreneauGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CreneauGroupByArgs['orderBy'] }
+        : { orderBy?: CreneauGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CreneauGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCreneauGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Creneau model
+   */
+  readonly fields: CreneauFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Creneau.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CreneauClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Creneau model
+   */
+  interface CreneauFieldRefs {
+    readonly id: FieldRef<"Creneau", 'String'>
+    readonly semestreId: FieldRef<"Creneau", 'String'>
+    readonly jour: FieldRef<"Creneau", 'JourSemaine'>
+    readonly ordre: FieldRef<"Creneau", 'Int'>
+    readonly heureDebut: FieldRef<"Creneau", 'DateTime'>
+    readonly heureFin: FieldRef<"Creneau", 'DateTime'>
+    readonly estPause: FieldRef<"Creneau", 'Boolean'>
+    readonly estActive: FieldRef<"Creneau", 'Boolean'>
+    readonly createdAt: FieldRef<"Creneau", 'DateTime'>
+    readonly updatedAt: FieldRef<"Creneau", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Creneau findUnique
+   */
+  export type CreneauFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * Filter, which Creneau to fetch.
+     */
+    where: CreneauWhereUniqueInput
+  }
+
+  /**
+   * Creneau findUniqueOrThrow
+   */
+  export type CreneauFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * Filter, which Creneau to fetch.
+     */
+    where: CreneauWhereUniqueInput
+  }
+
+  /**
+   * Creneau findFirst
+   */
+  export type CreneauFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * Filter, which Creneau to fetch.
+     */
+    where?: CreneauWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Creneaus to fetch.
+     */
+    orderBy?: CreneauOrderByWithRelationInput | CreneauOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Creneaus.
+     */
+    cursor?: CreneauWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Creneaus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Creneaus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Creneaus.
+     */
+    distinct?: CreneauScalarFieldEnum | CreneauScalarFieldEnum[]
+  }
+
+  /**
+   * Creneau findFirstOrThrow
+   */
+  export type CreneauFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * Filter, which Creneau to fetch.
+     */
+    where?: CreneauWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Creneaus to fetch.
+     */
+    orderBy?: CreneauOrderByWithRelationInput | CreneauOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Creneaus.
+     */
+    cursor?: CreneauWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Creneaus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Creneaus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Creneaus.
+     */
+    distinct?: CreneauScalarFieldEnum | CreneauScalarFieldEnum[]
+  }
+
+  /**
+   * Creneau findMany
+   */
+  export type CreneauFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * Filter, which Creneaus to fetch.
+     */
+    where?: CreneauWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Creneaus to fetch.
+     */
+    orderBy?: CreneauOrderByWithRelationInput | CreneauOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Creneaus.
+     */
+    cursor?: CreneauWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Creneaus from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Creneaus.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Creneaus.
+     */
+    distinct?: CreneauScalarFieldEnum | CreneauScalarFieldEnum[]
+  }
+
+  /**
+   * Creneau create
+   */
+  export type CreneauCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Creneau.
+     */
+    data: XOR<CreneauCreateInput, CreneauUncheckedCreateInput>
+  }
+
+  /**
+   * Creneau createMany
+   */
+  export type CreneauCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Creneaus.
+     */
+    data: CreneauCreateManyInput | CreneauCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Creneau createManyAndReturn
+   */
+  export type CreneauCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * The data used to create many Creneaus.
+     */
+    data: CreneauCreateManyInput | CreneauCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Creneau update
+   */
+  export type CreneauUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Creneau.
+     */
+    data: XOR<CreneauUpdateInput, CreneauUncheckedUpdateInput>
+    /**
+     * Choose, which Creneau to update.
+     */
+    where: CreneauWhereUniqueInput
+  }
+
+  /**
+   * Creneau updateMany
+   */
+  export type CreneauUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Creneaus.
+     */
+    data: XOR<CreneauUpdateManyMutationInput, CreneauUncheckedUpdateManyInput>
+    /**
+     * Filter which Creneaus to update
+     */
+    where?: CreneauWhereInput
+    /**
+     * Limit how many Creneaus to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Creneau updateManyAndReturn
+   */
+  export type CreneauUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * The data used to update Creneaus.
+     */
+    data: XOR<CreneauUpdateManyMutationInput, CreneauUncheckedUpdateManyInput>
+    /**
+     * Filter which Creneaus to update
+     */
+    where?: CreneauWhereInput
+    /**
+     * Limit how many Creneaus to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Creneau upsert
+   */
+  export type CreneauUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Creneau to update in case it exists.
+     */
+    where: CreneauWhereUniqueInput
+    /**
+     * In case the Creneau found by the `where` argument doesn't exist, create a new Creneau with this data.
+     */
+    create: XOR<CreneauCreateInput, CreneauUncheckedCreateInput>
+    /**
+     * In case the Creneau was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CreneauUpdateInput, CreneauUncheckedUpdateInput>
+  }
+
+  /**
+   * Creneau delete
+   */
+  export type CreneauDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    /**
+     * Filter which Creneau to delete.
+     */
+    where: CreneauWhereUniqueInput
+  }
+
+  /**
+   * Creneau deleteMany
+   */
+  export type CreneauDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Creneaus to delete
+     */
+    where?: CreneauWhereInput
+    /**
+     * Limit how many Creneaus to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Creneau without action
+   */
+  export type CreneauDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
   }
 
 
@@ -50547,6 +51853,22 @@ export namespace Prisma {
   export type SemestreScalarFieldEnum = (typeof SemestreScalarFieldEnum)[keyof typeof SemestreScalarFieldEnum]
 
 
+  export const CreneauScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    jour: 'jour',
+    ordre: 'ordre',
+    heureDebut: 'heureDebut',
+    heureFin: 'heureFin',
+    estPause: 'estPause',
+    estActive: 'estActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CreneauScalarFieldEnum = (typeof CreneauScalarFieldEnum)[keyof typeof CreneauScalarFieldEnum]
+
+
   export const DepartementScalarFieldEnum: {
     id: 'id',
     anneeId: 'anneeId',
@@ -51035,6 +52357,20 @@ export namespace Prisma {
    * Reference to a field of type 'AnneeStatut[]'
    */
   export type ListEnumAnneeStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AnneeStatut[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'JourSemaine'
+   */
+  export type EnumJourSemaineFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourSemaine'>
+    
+
+
+  /**
+   * Reference to a field of type 'JourSemaine[]'
+   */
+  export type ListEnumJourSemaineFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourSemaine[]'>
     
 
 
@@ -52635,6 +53971,7 @@ export namespace Prisma {
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     groupes?: GroupeListRelationFilter
     decharges?: DechargeListRelationFilter
+    creneaux?: CreneauListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -52647,6 +53984,7 @@ export namespace Prisma {
     annee?: AnneeOrderByWithRelationInput
     groupes?: GroupeOrderByRelationAggregateInput
     decharges?: DechargeOrderByRelationAggregateInput
+    creneaux?: CreneauOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -52663,6 +54001,7 @@ export namespace Prisma {
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     groupes?: GroupeListRelationFilter
     decharges?: DechargeListRelationFilter
+    creneaux?: CreneauListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -52689,6 +54028,89 @@ export namespace Prisma {
     nbSemaines?: IntWithAggregatesFilter<"Semestre"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
+  }
+
+  export type CreneauWhereInput = {
+    AND?: CreneauWhereInput | CreneauWhereInput[]
+    OR?: CreneauWhereInput[]
+    NOT?: CreneauWhereInput | CreneauWhereInput[]
+    id?: UuidFilter<"Creneau"> | string
+    semestreId?: UuidFilter<"Creneau"> | string
+    jour?: EnumJourSemaineFilter<"Creneau"> | $Enums.JourSemaine
+    ordre?: IntFilter<"Creneau"> | number
+    heureDebut?: DateTimeFilter<"Creneau"> | Date | string
+    heureFin?: DateTimeFilter<"Creneau"> | Date | string
+    estPause?: BoolFilter<"Creneau"> | boolean
+    estActive?: BoolFilter<"Creneau"> | boolean
+    createdAt?: DateTimeFilter<"Creneau"> | Date | string
+    updatedAt?: DateTimeFilter<"Creneau"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+  }
+
+  export type CreneauOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+    estPause?: SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+  }
+
+  export type CreneauWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    semestreId_jour_ordre?: CreneauSemestreIdJourOrdreCompoundUniqueInput
+    AND?: CreneauWhereInput | CreneauWhereInput[]
+    OR?: CreneauWhereInput[]
+    NOT?: CreneauWhereInput | CreneauWhereInput[]
+    semestreId?: UuidFilter<"Creneau"> | string
+    jour?: EnumJourSemaineFilter<"Creneau"> | $Enums.JourSemaine
+    ordre?: IntFilter<"Creneau"> | number
+    heureDebut?: DateTimeFilter<"Creneau"> | Date | string
+    heureFin?: DateTimeFilter<"Creneau"> | Date | string
+    estPause?: BoolFilter<"Creneau"> | boolean
+    estActive?: BoolFilter<"Creneau"> | boolean
+    createdAt?: DateTimeFilter<"Creneau"> | Date | string
+    updatedAt?: DateTimeFilter<"Creneau"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+  }, "id" | "semestreId_jour_ordre">
+
+  export type CreneauOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+    estPause?: SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CreneauCountOrderByAggregateInput
+    _avg?: CreneauAvgOrderByAggregateInput
+    _max?: CreneauMaxOrderByAggregateInput
+    _min?: CreneauMinOrderByAggregateInput
+    _sum?: CreneauSumOrderByAggregateInput
+  }
+
+  export type CreneauScalarWhereWithAggregatesInput = {
+    AND?: CreneauScalarWhereWithAggregatesInput | CreneauScalarWhereWithAggregatesInput[]
+    OR?: CreneauScalarWhereWithAggregatesInput[]
+    NOT?: CreneauScalarWhereWithAggregatesInput | CreneauScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Creneau"> | string
+    semestreId?: UuidWithAggregatesFilter<"Creneau"> | string
+    jour?: EnumJourSemaineWithAggregatesFilter<"Creneau"> | $Enums.JourSemaine
+    ordre?: IntWithAggregatesFilter<"Creneau"> | number
+    heureDebut?: DateTimeWithAggregatesFilter<"Creneau"> | Date | string
+    heureFin?: DateTimeWithAggregatesFilter<"Creneau"> | Date | string
+    estPause?: BoolWithAggregatesFilter<"Creneau"> | boolean
+    estActive?: BoolWithAggregatesFilter<"Creneau"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Creneau"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Creneau"> | Date | string
   }
 
   export type DepartementWhereInput = {
@@ -55629,6 +57051,7 @@ export namespace Prisma {
     annee: AnneeCreateNestedOneWithoutSemestresInput
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -55640,6 +57063,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -55651,6 +57075,7 @@ export namespace Prisma {
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -55662,6 +57087,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -55686,6 +57112,96 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     anneeId?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauCreateInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutCreneauxInput
+  }
+
+  export type CreneauUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreneauUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutCreneauxNestedInput
+  }
+
+  export type CreneauUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauCreateManyInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreneauUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -58524,11 +60040,21 @@ export namespace Prisma {
     none?: DechargeWhereInput
   }
 
+  export type CreneauListRelationFilter = {
+    every?: CreneauWhereInput
+    some?: CreneauWhereInput
+    none?: CreneauWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type DechargeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CreneauOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -58572,6 +60098,81 @@ export namespace Prisma {
   export type SemestreSumOrderByAggregateInput = {
     numero?: SortOrder
     nbSemaines?: SortOrder
+  }
+
+  export type EnumJourSemaineFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel>
+    in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourSemaineFilter<$PrismaModel> | $Enums.JourSemaine
+  }
+
+  export type SemestreScalarRelationFilter = {
+    is?: SemestreWhereInput
+    isNot?: SemestreWhereInput
+  }
+
+  export type CreneauSemestreIdJourOrdreCompoundUniqueInput = {
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+  }
+
+  export type CreneauCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+    estPause?: SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreneauAvgOrderByAggregateInput = {
+    ordre?: SortOrder
+  }
+
+  export type CreneauMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+    estPause?: SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreneauMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+    estPause?: SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreneauSumOrderByAggregateInput = {
+    ordre?: SortOrder
+  }
+
+  export type EnumJourSemaineWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel>
+    in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourSemaineWithAggregatesFilter<$PrismaModel> | $Enums.JourSemaine
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJourSemaineFilter<$PrismaModel>
+    _max?: NestedEnumJourSemaineFilter<$PrismaModel>
   }
 
   export type FormationListRelationFilter = {
@@ -58772,11 +60373,6 @@ export namespace Prisma {
   export type NiveauScalarRelationFilter = {
     is?: NiveauWhereInput
     isNot?: NiveauWhereInput
-  }
-
-  export type SemestreScalarRelationFilter = {
-    is?: SemestreWhereInput
-    isNot?: SemestreWhereInput
   }
 
   export type GroupeNullableScalarRelationFilter = {
@@ -60981,6 +62577,13 @@ export namespace Prisma {
     connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
   }
 
+  export type CreneauCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<CreneauCreateWithoutSemestreInput, CreneauUncheckedCreateWithoutSemestreInput> | CreneauCreateWithoutSemestreInput[] | CreneauUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: CreneauCreateOrConnectWithoutSemestreInput | CreneauCreateOrConnectWithoutSemestreInput[]
+    createMany?: CreneauCreateManySemestreInputEnvelope
+    connect?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -60993,6 +62596,13 @@ export namespace Prisma {
     connectOrCreate?: DechargeCreateOrConnectWithoutSemestreInput | DechargeCreateOrConnectWithoutSemestreInput[]
     createMany?: DechargeCreateManySemestreInputEnvelope
     connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+  }
+
+  export type CreneauUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<CreneauCreateWithoutSemestreInput, CreneauUncheckedCreateWithoutSemestreInput> | CreneauCreateWithoutSemestreInput[] | CreneauUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: CreneauCreateOrConnectWithoutSemestreInput | CreneauCreateOrConnectWithoutSemestreInput[]
+    createMany?: CreneauCreateManySemestreInputEnvelope
+    connect?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -61031,6 +62641,20 @@ export namespace Prisma {
     deleteMany?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
   }
 
+  export type CreneauUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<CreneauCreateWithoutSemestreInput, CreneauUncheckedCreateWithoutSemestreInput> | CreneauCreateWithoutSemestreInput[] | CreneauUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: CreneauCreateOrConnectWithoutSemestreInput | CreneauCreateOrConnectWithoutSemestreInput[]
+    upsert?: CreneauUpsertWithWhereUniqueWithoutSemestreInput | CreneauUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: CreneauCreateManySemestreInputEnvelope
+    set?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+    disconnect?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+    delete?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+    connect?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+    update?: CreneauUpdateWithWhereUniqueWithoutSemestreInput | CreneauUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: CreneauUpdateManyWithWhereWithoutSemestreInput | CreneauUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: CreneauScalarWhereInput | CreneauScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -61057,6 +62681,38 @@ export namespace Prisma {
     update?: DechargeUpdateWithWhereUniqueWithoutSemestreInput | DechargeUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: DechargeUpdateManyWithWhereWithoutSemestreInput | DechargeUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
+  }
+
+  export type CreneauUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<CreneauCreateWithoutSemestreInput, CreneauUncheckedCreateWithoutSemestreInput> | CreneauCreateWithoutSemestreInput[] | CreneauUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: CreneauCreateOrConnectWithoutSemestreInput | CreneauCreateOrConnectWithoutSemestreInput[]
+    upsert?: CreneauUpsertWithWhereUniqueWithoutSemestreInput | CreneauUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: CreneauCreateManySemestreInputEnvelope
+    set?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+    disconnect?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+    delete?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+    connect?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+    update?: CreneauUpdateWithWhereUniqueWithoutSemestreInput | CreneauUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: CreneauUpdateManyWithWhereWithoutSemestreInput | CreneauUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: CreneauScalarWhereInput | CreneauScalarWhereInput[]
+  }
+
+  export type SemestreCreateNestedOneWithoutCreneauxInput = {
+    create?: XOR<SemestreCreateWithoutCreneauxInput, SemestreUncheckedCreateWithoutCreneauxInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutCreneauxInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type EnumJourSemaineFieldUpdateOperationsInput = {
+    set?: $Enums.JourSemaine
+  }
+
+  export type SemestreUpdateOneRequiredWithoutCreneauxNestedInput = {
+    create?: XOR<SemestreCreateWithoutCreneauxInput, SemestreUncheckedCreateWithoutCreneauxInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutCreneauxInput
+    upsert?: SemestreUpsertWithoutCreneauxInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutCreneauxInput, SemestreUpdateWithoutCreneauxInput>, SemestreUncheckedUpdateWithoutCreneauxInput>
   }
 
   export type AnneeCreateNestedOneWithoutDepartementsInput = {
@@ -62916,6 +64572,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAnneeStatutFilter<$PrismaModel>
     _max?: NestedEnumAnneeStatutFilter<$PrismaModel>
+  }
+
+  export type NestedEnumJourSemaineFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel>
+    in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourSemaineFilter<$PrismaModel> | $Enums.JourSemaine
+  }
+
+  export type NestedEnumJourSemaineWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel>
+    in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel>
+    notIn?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel>
+    not?: NestedEnumJourSemaineWithAggregatesFilter<$PrismaModel> | $Enums.JourSemaine
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumJourSemaineFilter<$PrismaModel>
+    _max?: NestedEnumJourSemaineFilter<$PrismaModel>
   }
 
   export type NestedEnumGroupeTypeFilter<$PrismaModel = never> = {
@@ -66633,6 +68306,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -66643,6 +68317,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -66920,6 +68595,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CreneauCreateWithoutSemestreInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreneauUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreneauCreateOrConnectWithoutSemestreInput = {
+    where: CreneauWhereUniqueInput
+    create: XOR<CreneauCreateWithoutSemestreInput, CreneauUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type CreneauCreateManySemestreInputEnvelope = {
+    data: CreneauCreateManySemestreInput | CreneauCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -67015,6 +68724,98 @@ export namespace Prisma {
     semestreId?: UuidFilter<"Decharge"> | string
     createdAt?: DateTimeFilter<"Decharge"> | Date | string
     updatedAt?: DateTimeFilter<"Decharge"> | Date | string
+  }
+
+  export type CreneauUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: CreneauWhereUniqueInput
+    update: XOR<CreneauUpdateWithoutSemestreInput, CreneauUncheckedUpdateWithoutSemestreInput>
+    create: XOR<CreneauCreateWithoutSemestreInput, CreneauUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type CreneauUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: CreneauWhereUniqueInput
+    data: XOR<CreneauUpdateWithoutSemestreInput, CreneauUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type CreneauUpdateManyWithWhereWithoutSemestreInput = {
+    where: CreneauScalarWhereInput
+    data: XOR<CreneauUpdateManyMutationInput, CreneauUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type CreneauScalarWhereInput = {
+    AND?: CreneauScalarWhereInput | CreneauScalarWhereInput[]
+    OR?: CreneauScalarWhereInput[]
+    NOT?: CreneauScalarWhereInput | CreneauScalarWhereInput[]
+    id?: UuidFilter<"Creneau"> | string
+    semestreId?: UuidFilter<"Creneau"> | string
+    jour?: EnumJourSemaineFilter<"Creneau"> | $Enums.JourSemaine
+    ordre?: IntFilter<"Creneau"> | number
+    heureDebut?: DateTimeFilter<"Creneau"> | Date | string
+    heureFin?: DateTimeFilter<"Creneau"> | Date | string
+    estPause?: BoolFilter<"Creneau"> | boolean
+    estActive?: BoolFilter<"Creneau"> | boolean
+    createdAt?: DateTimeFilter<"Creneau"> | Date | string
+    updatedAt?: DateTimeFilter<"Creneau"> | Date | string
+  }
+
+  export type SemestreCreateWithoutCreneauxInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutCreneauxInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutCreneauxInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutCreneauxInput, SemestreUncheckedCreateWithoutCreneauxInput>
+  }
+
+  export type SemestreUpsertWithoutCreneauxInput = {
+    update: XOR<SemestreUpdateWithoutCreneauxInput, SemestreUncheckedUpdateWithoutCreneauxInput>
+    create: XOR<SemestreCreateWithoutCreneauxInput, SemestreUncheckedCreateWithoutCreneauxInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutCreneauxInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutCreneauxInput, SemestreUncheckedUpdateWithoutCreneauxInput>
+  }
+
+  export type SemestreUpdateWithoutCreneauxInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutCreneauxInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -67644,6 +69445,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -67654,6 +69456,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -67790,6 +69593,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -67800,6 +69604,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -68954,6 +70759,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -68964,6 +70770,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -69033,6 +70840,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -69043,6 +70851,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -71051,6 +72860,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -71061,6 +72871,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -71175,6 +72986,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type CreneauCreateManySemestreInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type GroupeUpdateWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
@@ -71239,6 +73062,42 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     heures?: FloatFieldUpdateOperationsInput | number
     enseignantId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
