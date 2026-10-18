@@ -6,23 +6,25 @@ import {
   findAllDepartements,
   deleteDepartement,
   updateDepartement,
-  Departement,
-  CreateDepartementInput,
+  reorderDepartements,
   UpdateDepartementInput,
   createFormation,
   findAllFormations,
   deleteFormation,
   updateFormation,
+  reorderFormations,
   UpdateFormationInput,
   createNiveau,
   findAllNiveaux,
   deleteNiveau,
   updateNiveau,
+  reorderNiveaux,
   UpdateNiveauInput,
   createGroupe,
   findAllGroupes,
   deleteGroupe,
   updateGroupe,
+  reorderGroupes,
   UpdateGroupeInput,
 } from '@/lib/api/structure';
 import {
@@ -91,6 +93,20 @@ export function useDeleteDepartement() {
   });
 }
 
+export function useReorderDepartements() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: reorderDepartements,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: DEPARTEMENTS_KEY });
+      toast.success(messages.successReorder);
+    },
+    onError: () => {
+      toast.error(messages.errorReorder);
+    },
+  });
+}
+
 const FORMATIONS_KEY = ['formations'];
 
 export function useFormations(query?: {
@@ -144,6 +160,20 @@ export function useDeleteFormation() {
     },
     onError: () => {
       toast.error(messages.errorDeleteFormation);
+    },
+  });
+}
+
+export function useReorderFormations() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: reorderFormations,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: FORMATIONS_KEY });
+      toast.success(messages.successReorder);
+    },
+    onError: () => {
+      toast.error(messages.errorReorder);
     },
   });
 }
@@ -205,6 +235,20 @@ export function useDeleteNiveau() {
   });
 }
 
+export function useReorderNiveaux() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: reorderNiveaux,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: NIVEAUX_KEY });
+      toast.success(messages.successReorder);
+    },
+    onError: () => {
+      toast.error(messages.errorReorder);
+    },
+  });
+}
+
 const GROUPES_KEY = ['groupes'];
 
 export function useGroupes(query?: {
@@ -261,6 +305,20 @@ export function useDeleteGroupe() {
     },
     onError: () => {
       toast.error(messages.errorDeleteGroupe);
+    },
+  });
+}
+
+export function useReorderGroupes() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: reorderGroupes,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: GROUPES_KEY });
+      toast.success(messages.successReorder);
+    },
+    onError: () => {
+      toast.error(messages.errorReorder);
     },
   });
 }

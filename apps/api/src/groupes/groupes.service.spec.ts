@@ -97,6 +97,7 @@ describe('GroupesService', () => {
           code: 'INFO-L3-S1',
           libelle: 'L3 Informatique Semestre 1',
           effectif: 30,
+          ordre: 0,
         },
       });
     });

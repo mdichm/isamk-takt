@@ -1,4 +1,4 @@
-import { IsString, IsOptional, MinLength, MaxLength, IsUUID, IsInt, Min, Max } from 'class-validator';
+import { IsString, IsOptional, MinLength, MaxLength, IsUUID, IsInt, Min, Max, IsArray, ValidateNested } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -23,6 +23,13 @@ export class CreateDepartementDto {
   @MaxLength(100)
   libelle: string;
 
+  @ApiPropertyOptional({ example: 1, description: 'Ordre d\'affichage dans la liste' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  ordre?: number;
+
   @ApiPropertyOptional({ example: 'EXT-123', description: 'ID d\'origine externe (synchronisation)' })
   @IsOptional()
   @IsString()
@@ -45,6 +52,13 @@ export class UpdateDepartementDto {
   @MaxLength(100)
   libelle?: string;
 
+  @ApiPropertyOptional({ example: 1, description: 'Ordre d\'affichage dans la liste' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  ordre?: number;
+
   @ApiPropertyOptional({ example: 'EXT-123' })
   @IsOptional()
   @IsString()
@@ -64,6 +78,9 @@ export class DepartementResponseDto {
 
   @ApiProperty()
   libelle: string;
+
+  @ApiProperty()
+  ordre: number;
 
   @ApiPropertyOptional()
   originId?: string;
@@ -139,6 +156,13 @@ export class CreateFormationDto {
   @MaxLength(100)
   libelle: string;
 
+  @ApiPropertyOptional({ example: 1, description: 'Ordre d\'affichage dans la liste' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  ordre?: number;
+
   @ApiPropertyOptional({ example: 'EXT-456', description: 'ID d\'origine externe (synchronisation)' })
   @IsOptional()
   @IsString()
@@ -161,6 +185,13 @@ export class UpdateFormationDto {
   @MaxLength(100)
   libelle?: string;
 
+  @ApiPropertyOptional({ example: 1, description: 'Ordre d\'affichage dans la liste' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  ordre?: number;
+
   @ApiPropertyOptional({ example: 'EXT-456' })
   @IsOptional()
   @IsString()
@@ -180,6 +211,9 @@ export class FormationResponseDto {
 
   @ApiProperty()
   libelle: string;
+
+  @ApiProperty()
+  ordre: number;
 
   @ApiPropertyOptional()
   originId?: string;
@@ -255,6 +289,13 @@ export class CreateNiveauDto {
   @MaxLength(100)
   libelle: string;
 
+  @ApiPropertyOptional({ example: 1, description: 'Ordre d\'affichage dans la liste' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  ordre?: number;
+
   @ApiPropertyOptional({ example: 'EXT-789', description: 'ID d\'origine externe (synchronisation)' })
   @IsOptional()
   @IsString()
@@ -277,6 +318,13 @@ export class UpdateNiveauDto {
   @MaxLength(100)
   libelle?: string;
 
+  @ApiPropertyOptional({ example: 1, description: 'Ordre d\'affichage dans la liste' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  ordre?: number;
+
   @ApiPropertyOptional({ example: 'EXT-789' })
   @IsOptional()
   @IsString()
@@ -296,6 +344,9 @@ export class NiveauResponseDto {
 
   @ApiProperty()
   libelle: string;
+
+  @ApiProperty()
+  ordre: number;
 
   @ApiPropertyOptional()
   originId?: string;
@@ -348,4 +399,28 @@ export class PaginatedNiveauxDto {
 
   @ApiProperty()
   totalPages: number;
+}
+
+// ============================================
+// Reorder DTOs (L7-18)
+// ============================================
+
+export class ReorderItemDto {
+  @ApiProperty({ description: 'ID de l\'élément à réordonner' })
+  @IsUUID()
+  id: string;
+
+  @ApiProperty({ description: 'Nouvelle position (1-based)' })
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  ordre: number;
+}
+
+export class ReorderDto {
+  @ApiProperty({ type: [ReorderItemDto], description: 'Liste des éléments avec leur nouvel ordre' })
+  @Type(() => ReorderItemDto)
+  @IsArray()
+  @ValidateNested({ each: true })
+  items: ReorderItemDto[];
 }

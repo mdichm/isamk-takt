@@ -29,6 +29,7 @@ import {
   CodeSuggestionQueryDto,
   CodeSuggestionDto,
 } from './dto/groupe.dto.js';
+import { ReorderDto } from '../structure/dto/structure.dto.js';
 import {
   DuplicateGroupesDto,
   DuplicateGroupesResult,
@@ -186,5 +187,16 @@ export class GroupesController {
   @ApiResponse({ status: 404, description: 'Groupe non trouvé' })
   async getClosure(@Param('id') id: string) {
     return this.groupesService.getClosure(id);
+  }
+
+  @Patch('reorder')
+  @Permissions('groupe:write')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Réordonner les groupes d\'un niveau et semestre' })
+  @ApiResponse({ status: 204, description: 'Groupes réordonnés' })
+  @ApiResponse({ status: 400, description: 'Les groupes n\'appartiennent pas au même niveau/semestre' })
+  @ApiResponse({ status: 404, description: 'Groupe introuvable' })
+  async reorderGroupes(@Body() dto: ReorderDto): Promise<void> {
+    return this.groupesService.reorderGroupes(dto, 'system');
   }
 }

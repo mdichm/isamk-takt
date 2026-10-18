@@ -9,6 +9,7 @@ export interface Departement {
   anneeId: string;
   code: string;
   libelle: string;
+  ordre: number;
   originId?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -18,12 +19,14 @@ export interface CreateDepartementInput {
   anneeId: string;
   code: string;
   libelle: string;
+  ordre?: number;
   originId?: string;
 }
 
 export interface UpdateDepartementInput {
   code?: string;
   libelle?: string;
+  ordre?: number;
   originId?: string;
 }
 
@@ -40,6 +43,7 @@ export interface Formation {
   departementId: string;
   code: string;
   libelle: string;
+  ordre: number;
   originId?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -49,12 +53,14 @@ export interface CreateFormationInput {
   departementId: string;
   code: string;
   libelle: string;
+  ordre?: number;
   originId?: string;
 }
 
 export interface UpdateFormationInput {
   code?: string;
   libelle?: string;
+  ordre?: number;
   originId?: string;
 }
 
@@ -71,6 +77,7 @@ export interface Niveau {
   formationId: string;
   code: string;
   libelle: string;
+  ordre: number;
   originId?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -80,12 +87,14 @@ export interface CreateNiveauInput {
   formationId: string;
   code: string;
   libelle: string;
+  ordre?: number;
   originId?: string;
 }
 
 export interface UpdateNiveauInput {
   code?: string;
   libelle?: string;
+  ordre?: number;
   originId?: string;
 }
 
@@ -108,6 +117,7 @@ export interface Groupe {
   code: string;
   libelle: string;
   effectif: number;
+  ordre: number;
   originId?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -121,6 +131,7 @@ export interface CreateGroupeInput {
   code: string;
   libelle: string;
   effectif?: number;
+  ordre?: number;
 }
 
 export interface UpdateGroupeInput {
@@ -128,6 +139,7 @@ export interface UpdateGroupeInput {
   libelle?: string;
   effectif?: number;
   parentId?: string;
+  ordre?: number;
 }
 
 export interface PaginatedGroupes {
@@ -318,4 +330,45 @@ export async function updateGroupe(id: string, input: UpdateGroupeInput): Promis
 
 export async function deleteGroupe(id: string): Promise<void> {
   await apiFetch(API_BASE + '/groupes/' + id, { method: 'DELETE' });
+}
+
+/* ============================================================================
+   Réordonnancement (L7-18)
+   ============================================================================ */
+
+export interface ReorderItem {
+  id: string;
+  ordre: number;
+}
+
+export interface ReorderInput {
+  items: ReorderItem[];
+}
+
+export async function reorderDepartements(input: ReorderInput): Promise<void> {
+  await apiFetch(API_BASE + '/structure/departements/reorder', {
+    method: 'PATCH',
+    body: JSON.stringify(input),
+  });
+}
+
+export async function reorderFormations(input: ReorderInput): Promise<void> {
+  await apiFetch(API_BASE + '/structure/formations/reorder', {
+    method: 'PATCH',
+    body: JSON.stringify(input),
+  });
+}
+
+export async function reorderNiveaux(input: ReorderInput): Promise<void> {
+  await apiFetch(API_BASE + '/structure/niveaux/reorder', {
+    method: 'PATCH',
+    body: JSON.stringify(input),
+  });
+}
+
+export async function reorderGroupes(input: ReorderInput): Promise<void> {
+  await apiFetch(API_BASE + '/groupes/reorder', {
+    method: 'PATCH',
+    body: JSON.stringify(input),
+  });
 }

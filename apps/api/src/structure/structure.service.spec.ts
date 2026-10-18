@@ -60,6 +60,13 @@ describe('StructureService', () => {
         count: vi.fn(),
         findMany: vi.fn(),
       },
+      $transaction: vi.fn(async (calls: any[]) => {
+        const results = [];
+        for (const call of calls) {
+          results.push(await call(prisma));
+        }
+        return results;
+      }),
     };
 
     audit = {
@@ -80,7 +87,7 @@ describe('StructureService', () => {
       prisma.annee.findUnique.mockResolvedValue({ id: anneeId, numero: 2026, code: '2026-2027' });
       prisma.departement.findFirst.mockResolvedValue(null);
       prisma.departement.create.mockResolvedValue({
-        id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', originId: null, createdAt: new Date(), updatedAt: new Date(),
+        id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date(),
       });
 
       const result = await service.createDepartement(dto, userId);
@@ -89,7 +96,7 @@ describe('StructureService', () => {
       expect(result.libelle).toBe('Informatique');
       expect(prisma.departement.create).toHaveBeenCalledWith({
         data: {
-          anneeId, code: 'INFO', libelle: 'Informatique', originId: null,
+          anneeId, code: 'INFO', libelle: 'Informatique', ordre: 0, originId: null,
         },
       });
     });
@@ -107,7 +114,7 @@ describe('StructureService', () => {
 
     it('should find all departements with pagination', async () => {
       prisma.departement.findMany.mockResolvedValue([
-        { id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', originId: null, createdAt: new Date(), updatedAt: new Date() },
+        { id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date() },
       ]);
       prisma.departement.count.mockResolvedValue(1);
 
@@ -122,7 +129,7 @@ describe('StructureService', () => {
 
     it('should find departement by id', async () => {
       prisma.departement.findUnique.mockResolvedValue({
-        id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', originId: null, createdAt: new Date(), updatedAt: new Date(),
+        id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date(),
       });
 
       const result = await service.findDepartementById('dep-1');
@@ -141,11 +148,11 @@ describe('StructureService', () => {
       const dto: UpdateDepartementDto = { code: 'MATH', libelle: 'Mathématiques' };
 
       prisma.departement.findUnique.mockResolvedValue({
-        id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', originId: null,
+        id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', ordre: 1, originId: null,
       });
       prisma.departement.findFirst.mockResolvedValue(null);
       prisma.departement.update.mockResolvedValue({
-        id: 'dep-1', anneeId, code: 'MATH', libelle: 'Mathématiques', originId: null, createdAt: new Date(), updatedAt: new Date(),
+        id: 'dep-1', anneeId, code: 'MATH', libelle: 'Mathématiques', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date(),
       });
 
       const result = await service.updateDepartement('dep-1', dto, userId);
@@ -185,7 +192,7 @@ describe('StructureService', () => {
       prisma.departement.findUnique.mockResolvedValue({ id: 'dep-1' });
       prisma.formation.findFirst.mockResolvedValue(null);
       prisma.formation.create.mockResolvedValue({
-        id: 'form-1', departementId: 'dep-1', code: 'L3-INFO', libelle: 'Licence 3 Informatique', originId: null, createdAt: new Date(), updatedAt: new Date(),
+        id: 'form-1', departementId: 'dep-1', code: 'L3-INFO', libelle: 'Licence 3 Informatique', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date(),
       });
 
       const result = await service.createFormation(dto, userId);
@@ -196,7 +203,7 @@ describe('StructureService', () => {
 
     it('should list formations by departement', async () => {
       prisma.formation.findMany.mockResolvedValue([
-        { id: 'form-1', departementId: 'dep-1', code: 'L3-INFO', libelle: 'Licence 3 Informatique', originId: null, createdAt: new Date(), updatedAt: new Date() },
+        { id: 'form-1', departementId: 'dep-1', code: 'L3-INFO', libelle: 'Licence 3 Informatique', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date() },
       ]);
       prisma.formation.count.mockResolvedValue(1);
 
@@ -226,7 +233,7 @@ describe('StructureService', () => {
       prisma.formation.findUnique.mockResolvedValue({ id: 'form-1' });
       prisma.niveau.findFirst.mockResolvedValue(null);
       prisma.niveau.create.mockResolvedValue({
-        id: 'niv-1', formationId: 'form-1', code: 'L3', libelle: 'Licence 3', originId: null, createdAt: new Date(), updatedAt: new Date(),
+        id: 'niv-1', formationId: 'form-1', code: 'L3', libelle: 'Licence 3', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date(),
       });
 
       const result = await service.createNiveau(dto, userId);
@@ -237,7 +244,7 @@ describe('StructureService', () => {
 
     it('should list niveaux by formation', async () => {
       prisma.niveau.findMany.mockResolvedValue([
-        { id: 'niv-1', formationId: 'form-1', code: 'L3', libelle: 'Licence 3', originId: null, createdAt: new Date(), updatedAt: new Date() },
+        { id: 'niv-1', formationId: 'form-1', code: 'L3', libelle: 'Licence 3', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date() },
       ]);
       prisma.niveau.count.mockResolvedValue(1);
 
@@ -256,6 +263,117 @@ describe('StructureService', () => {
       await service.removeNiveau('niv-1', userId);
 
       expect(prisma.niveau.delete).toHaveBeenCalledWith({ where: { id: 'niv-1' } });
+    });
+  });
+
+  describe('Réordonnancement (L7-18)', () => {
+    it('should reorder departements', async () => {
+      const dto = {
+        items: [
+          { id: 'dep-3', ordre: 1 },
+          { id: 'dep-1', ordre: 2 },
+          { id: 'dep-2', ordre: 3 },
+        ],
+      };
+
+      prisma.departement.findMany.mockResolvedValue([
+        { id: 'dep-1', anneeId, ordre: 1 },
+        { id: 'dep-2', anneeId, ordre: 2 },
+        { id: 'dep-3', anneeId, ordre: 3 },
+      ]);
+      prisma.$transaction.mockResolvedValue([
+        { id: 'dep-3', ordre: 1 },
+        { id: 'dep-1', ordre: 2 },
+        { id: 'dep-2', ordre: 3 },
+      ]);
+
+      await service.reorderDepartements(dto, userId);
+
+      expect(prisma.departement.findMany).toHaveBeenCalledWith({
+        where: { id: { in: ['dep-3', 'dep-1', 'dep-2'] } },
+        select: { id: true, anneeId: true, ordre: true },
+      });
+      expect(prisma.$transaction).toHaveBeenCalledTimes(1);
+    });
+
+    it('should throw NotFound when some departements are missing', async () => {
+      const dto = {
+        items: [{ id: 'dep-99', ordre: 1 }],
+      };
+
+      prisma.departement.findMany.mockResolvedValue([]);
+
+      await expect(service.reorderDepartements(dto, userId)).rejects.toThrow('introuvables');
+    });
+
+    it('should throw BadRequest when departements span multiple années', async () => {
+      const dto = {
+        items: [
+          { id: 'dep-1', ordre: 1 },
+          { id: 'dep-2', ordre: 2 },
+        ],
+      };
+
+      prisma.departement.findMany.mockResolvedValue([
+        { id: 'dep-1', anneeId: 'annee-1', ordre: 1 },
+        { id: 'dep-2', anneeId: 'annee-2', ordre: 2 },
+      ]);
+
+      await expect(service.reorderDepartements(dto, userId)).rejects.toThrow(
+        'même année',
+      );
+    });
+
+    it('should reorder formations', async () => {
+      const dto = {
+        items: [
+          { id: 'form-2', ordre: 1 },
+          { id: 'form-1', ordre: 2 },
+        ],
+      };
+
+      prisma.formation.findMany.mockResolvedValue([
+        { id: 'form-1', departementId: 'dep-1', ordre: 1 },
+        { id: 'form-2', departementId: 'dep-1', ordre: 2 },
+      ]);
+      prisma.$transaction.mockResolvedValue([
+        { id: 'form-2', ordre: 1 },
+        { id: 'form-1', ordre: 2 },
+      ]);
+
+      await service.reorderFormations(dto, userId);
+
+      expect(prisma.formation.findMany).toHaveBeenCalledWith({
+        where: { id: { in: ['form-2', 'form-1'] } },
+        select: { id: true, departementId: true, ordre: true },
+      });
+      expect(prisma.$transaction).toHaveBeenCalledTimes(1);
+    });
+
+    it('should reorder niveaux', async () => {
+      const dto = {
+        items: [
+          { id: 'niv-2', ordre: 1 },
+          { id: 'niv-1', ordre: 2 },
+        ],
+      };
+
+      prisma.niveau.findMany.mockResolvedValue([
+        { id: 'niv-1', formationId: 'form-1', ordre: 1 },
+        { id: 'niv-2', formationId: 'form-1', ordre: 2 },
+      ]);
+      prisma.$transaction.mockResolvedValue([
+        { id: 'niv-2', ordre: 1 },
+        { id: 'niv-1', ordre: 2 },
+      ]);
+
+      await service.reorderNiveaux(dto, userId);
+
+      expect(prisma.niveau.findMany).toHaveBeenCalledWith({
+        where: { id: { in: ['niv-2', 'niv-1'] } },
+        select: { id: true, formationId: true, ordre: true },
+      });
+      expect(prisma.$transaction).toHaveBeenCalledTimes(1);
     });
   });
 });

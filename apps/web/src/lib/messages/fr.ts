@@ -101,6 +101,10 @@ export const messages = {
   aucunNiveau: 'Aucun niveau.',
   aucunGroupe: 'Aucun groupe.',
 
+  // Réordonnancement
+  successReorder: 'Ordre mis à jour avec succès.',
+  errorReorder: 'Échec de la mise à jour de l’ordre.',
+
   // Entités
   entityDepartement: 'département',
   entityFormation: 'formation',
