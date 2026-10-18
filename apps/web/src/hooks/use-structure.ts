@@ -13,14 +13,17 @@ import {
   findAllFormations,
   deleteFormation,
   updateFormation,
+  UpdateFormationInput,
   createNiveau,
   findAllNiveaux,
   deleteNiveau,
   updateNiveau,
+  UpdateNiveauInput,
   createGroupe,
   findAllGroupes,
   deleteGroupe,
   updateGroupe,
+  UpdateGroupeInput,
 } from '@/lib/api/structure';
 import { toast } from 'sonner';
 import { messages } from '@/lib/messages/fr';
