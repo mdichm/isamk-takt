@@ -191,7 +191,7 @@ t("sites","L1",E,S,"Référentiel des sites","Site principal et annexes ; rattac
   "EX-REF-04","§2.2","BACK","Should",2,["salles"])
 t("compat","L1",E,S,"Compatibilités salle/tag et exigences d'équipement","SalleActivityTag et ExigenceEquipement (module, type, niveau obligatoire ou souhaité).",
   ["Une salle liste les Activity Tags autorisés","Un (module, type) liste les équipements requis avec leur niveau (obligatoire par défaut)","La compatibilité distingue compatible, acceptable avec avertissement et incompatible"],
-  "EX-REF-05, EX-CTR-08","§2.2, §4.3","BACK","Must",5,["salles","tags"],"L1-11")
+  "EX-REF-05, EX-CTR-08","§2.2, §4.3","BACK","Must",5,["salles","tags"],"L1-11",statut="Terminé")
 t("salles_ui","L1",E,S,"UI salles","Liste, fiche, équipements, tags compatibles, sites.",
   ["Création et modification d'une salle avec ses compatibilités","Lecture seule pour le Gestionnaire"],
   "EX-REF-04","§3.3","FRONT","Must",5,["compat","sites","shell"],"L1-12")

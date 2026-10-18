@@ -507,6 +507,18 @@ exports.Prisma.SalleEquipementScalarFieldEnum = {
   equipementId: 'equipementId'
 };
 
+exports.Prisma.SalleActivityTagScalarFieldEnum = {
+  salleId: 'salleId',
+  activityTagId: 'activityTagId'
+};
+
+exports.Prisma.ExigenceEquipementScalarFieldEnum = {
+  moduleId: 'moduleId',
+  typeEnseignementId: 'typeEnseignementId',
+  equipementId: 'equipementId',
+  niveau: 'niveau'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -626,6 +638,11 @@ exports.GradeCode = exports.$Enums.GradeCode = {
   AUTRE: 'AUTRE'
 };
 
+exports.ExigenceNiveau = exports.$Enums.ExigenceNiveau = {
+  OBLIGATOIRE: 'OBLIGATOIRE',
+  SOUHAITE: 'SOUHAITE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserSystemRole: 'UserSystemRole',
@@ -662,7 +679,9 @@ exports.Prisma.ModelName = {
   TypeSalle: 'TypeSalle',
   Salle: 'Salle',
   Equipement: 'Equipement',
-  SalleEquipement: 'SalleEquipement'
+  SalleEquipement: 'SalleEquipement',
+  SalleActivityTag: 'SalleActivityTag',
+  ExigenceEquipement: 'ExigenceEquipement'
 };
 
 /**
