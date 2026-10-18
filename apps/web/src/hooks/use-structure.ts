@@ -25,6 +25,12 @@ import {
   updateGroupe,
   UpdateGroupeInput,
 } from '@/lib/api/structure';
+import {
+  findAllAnnees,
+  findAllSemestres,
+  Annee,
+  Semestre,
+} from '@/lib/api/annees';
 import { toast } from 'sonner';
 import { messages } from '@/lib/messages/fr';
 
@@ -256,5 +262,38 @@ export function useDeleteGroupe() {
     onError: () => {
       toast.error(messages.errorDeleteGroupe);
     },
+  });
+}
+
+/* ============================================================================
+   Années & Semestres
+   ============================================================================ */
+
+const ANNEE_KEY = ['annees'];
+
+export function useAnnees(query?: {
+  page?: number;
+  limit?: number;
+  search?: string;
+  statut?: 'PREPARATION' | 'ACTIVE' | 'CLOTUREE';
+}) {
+  return useQuery<Annee[], Error>({
+    queryKey: [...ANNEE_KEY, query],
+    queryFn: () => findAllAnnees(query).then((res) => res.data),
+  });
+}
+
+const SEMESTRE_KEY = ['semestres'];
+
+export function useSemestres({ anneeId }: { anneeId?: string }) {
+  return useQuery<Semestre[], Error>({
+    queryKey: [...SEMESTRE_KEY, anneeId],
+    queryFn: () => {
+      if (!anneeId) {
+        return Promise.resolve([]);
+      }
+      return findAllSemestres(anneeId).then((res) => res.data);
+    },
+    enabled: !!anneeId,
   });
 }

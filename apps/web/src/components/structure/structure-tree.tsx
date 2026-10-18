@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { Plus, Edit, Trash2, Folder, School, GraduationCap, Users } from 'lucide-react';
+import { Plus, Edit, Trash2, Folder, School, GraduationCap, Users, LayoutGrid } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -9,14 +9,22 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
   useDepartements, useCreateDepartement, useUpdateDepartement, useDeleteDepartement,
   useFormations, useCreateFormation, useUpdateFormation, useDeleteFormation,
   useNiveaux, useCreateNiveau, useUpdateNiveau, useDeleteNiveau,
   useGroupes, useCreateGroupe, useUpdateGroupe, useDeleteGroupe,
+  useAnnees, useSemestres,
 } from '@/hooks/use-structure';
 import { Departement, Formation, Niveau, Groupe } from '@/lib/api/structure';
 import { messages } from '@/lib/messages/fr';
+import {
+  departementSchema, formationSchema, niveauSchema, groupeSchema,
+  DepartementFormValues, FormationFormValues, NiveauFormValues, GroupeFormValues,
+} from '@/lib/validation/structure';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type EntityKind = 'departement' | 'formation' | 'niveau' | 'groupe';
 
@@ -29,9 +37,10 @@ interface TreeState {
 
 export function StructureTree() {
   const [mode, setMode] = useState<EntityKind>('departement');
-  const [entityForm, setEntityForm] = useState<{ code: string; libelle: string; [key: string]: string | number }>({ code: '', libelle: '' });
   const [openForm, setOpenForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [selectedAnneeId, setSelectedAnneeId] = useState<string | null>(null);
+  const [selectedSemestreId, setSelectedSemestreId] = useState<string | null>(null);
   const [tree, setTree] = useState<TreeState>({
     selectedDepartementId: null,
     selectedFormationId: null,
@@ -39,8 +48,18 @@ export function StructureTree() {
     selectedGroupeId: null,
   });
 
+  /* ---------- Années & Semestres ---------- */
+  const { data: anneesData, isLoading: anneesLoading } = useAnnees({ limit: 100 });
+  const annees = anneesData ?? [];
+  const semestres = useSemestres({ anneeId: selectedAnneeId ?? undefined });
+  const semestreList = semestres.data ?? [];
+  const semestresLoading = semestres.isLoading;
+
   /* ---------- Départements ---------- */
-  const { data: departementsData, isLoading: depsLoading } = useDepartements({ limit: 100 });
+  const { data: departementsData, isLoading: depsLoading } = useDepartements({
+    limit: 100,
+    anneeId: selectedAnneeId ?? undefined,
+  });
   const createDep = useCreateDepartement();
   const updateDep = useUpdateDepartement();
   const deleteDep = useDeleteDepartement();
@@ -67,12 +86,13 @@ export function StructureTree() {
   const { data: groupesData, isLoading: grpLoading } = useGroupes({
     limit: 100,
     niveauId: tree.selectedNiveauId ?? undefined,
+    semestreId: selectedSemestreId ?? undefined,
   });
   const createGrp = useCreateGroupe();
   const updateGrp = useUpdateGroupe();
   const deleteGrp = useDeleteGroupe();
 
-  if (depsLoading || formLoading || nivLoading || grpLoading) {
+  if (anneesLoading || depsLoading || formLoading || nivLoading || grpLoading || semestresLoading) {
     return <div className="p-4">{messages.loading}</div>;
   }
 
@@ -81,57 +101,107 @@ export function StructureTree() {
   const niveaux: Niveau[] = niveauxData?.data ?? [];
   const groupes: Groupe[] = groupesData?.data ?? [];
 
+  /* ---------- Formulaires réactifs ---------- */
+  const depForm = useForm<DepartementFormValues>({
+    resolver: zodResolver(departementSchema),
+    defaultValues: { code: '', libelle: '', originId: '' },
+  });
+  const formForm = useForm<FormationFormValues>({
+    resolver: zodResolver(formationSchema),
+    defaultValues: { code: '', libelle: '', originId: '' },
+  });
+  const nivForm = useForm<NiveauFormValues>({
+    resolver: zodResolver(niveauSchema),
+    defaultValues: { code: '', libelle: '', originId: '' },
+  });
+  const grpForm = useForm<GroupeFormValues>({
+    resolver: zodResolver(groupeSchema),
+    defaultValues: { code: '', libelle: '', type: 'SECTION', parentId: '', effectif: undefined },
+  });
+
   const handleSave = () => {
     switch (mode) {
-      case 'departement':
+      case 'departement': {
+        if (!selectedAnneeId) return;
+        const values = depForm.getValues();
         if (editingId) {
-          updateDep.mutate({ id: editingId, input: { code: entityForm.code as string, libelle: entityForm.libelle as string } });
+          updateDep.mutate({
+            id: editingId,
+            input: { code: values.code, libelle: values.libelle, originId: values.originId || undefined },
+          });
         } else {
           createDep.mutate({
-            anneeId: '00000000-0000-0000-0000-000000000000',
-            code: entityForm.code as string,
-            libelle: entityForm.libelle as string,
+            anneeId: selectedAnneeId,
+            code: values.code,
+            libelle: values.libelle,
+            originId: values.originId || undefined,
           });
         }
         break;
-      case 'formation':
+      }
+      case 'formation': {
         if (!tree.selectedDepartementId) return;
+        const values = formForm.getValues();
         if (editingId) {
-          updateForm.mutate({ id: editingId, input: { code: entityForm.code as string, libelle: entityForm.libelle as string } });
+          updateForm.mutate({
+            id: editingId,
+            input: { code: values.code, libelle: values.libelle, originId: values.originId || undefined },
+          });
         } else {
           createForm.mutate({
             departementId: tree.selectedDepartementId,
-            code: entityForm.code as string,
-            libelle: entityForm.libelle as string,
+            code: values.code,
+            libelle: values.libelle,
+            originId: values.originId || undefined,
           });
         }
         break;
-      case 'niveau':
+      }
+      case 'niveau': {
         if (!tree.selectedFormationId) return;
+        const values = nivForm.getValues();
         if (editingId) {
-          updateNiv.mutate({ id: editingId, input: { code: entityForm.code as string, libelle: entityForm.libelle as string } });
+          updateNiv.mutate({
+            id: editingId,
+            input: { code: values.code, libelle: values.libelle, originId: values.originId || undefined },
+          });
         } else {
           createNiv.mutate({
             formationId: tree.selectedFormationId,
-            code: entityForm.code as string,
-            libelle: entityForm.libelle as string,
+            code: values.code,
+            libelle: values.libelle,
+            originId: values.originId || undefined,
           });
         }
         break;
-      case 'groupe':
+      }
+      case 'groupe': {
         if (!tree.selectedNiveauId) return;
+        if (!selectedSemestreId) return;
+        const values = grpForm.getValues();
         if (editingId) {
-          updateGrp.mutate({ id: editingId, input: { code: entityForm.code as string, libelle: entityForm.libelle as string } });
+          updateGrp.mutate({
+            id: editingId,
+            input: {
+              code: values.code,
+              libelle: values.libelle,
+              effectif: values.effectif ? Number(values.effectif) : undefined,
+              parentId: values.parentId || undefined,
+            },
+          });
         } else {
           createGrp.mutate({
             niveauId: tree.selectedNiveauId,
-            semestreId: '00000000-0000-0000-0000-000000000000',
-            type: 'SECTION',
-            code: entityForm.code as string,
-            libelle: entityForm.libelle as string,
+            semestreId: selectedSemestreId,
+            type: values.type,
+            code: values.code,
+            libelle: values.libelle,
+            effectif: values.effectif ? Number(values.effectif) : undefined,
+            parentId: values.parentId || undefined,
           });
         }
         break;
+      }
     }
     setOpenForm(false);
   };
@@ -156,33 +226,122 @@ export function StructureTree() {
     setTree((prev) => ({ ...prev, selectedNiveauId: id, selectedGroupeId: null }));
   }, []);
 
+  const openCreateForm = (kind: EntityKind) => {
+    setMode(kind);
+    setEditingId(null);
+    setOpenForm(true);
+    depForm.reset({ code: '', libelle: '', originId: '' });
+    formForm.reset({ code: '', libelle: '', originId: '' });
+    nivForm.reset({ code: '', libelle: '', originId: '' });
+    grpForm.reset({ code: '', libelle: '', type: 'SECTION', parentId: '', effectif: undefined });
+  };
+
+  const openEditForm = (kind: EntityKind, id: string, code: string, libelle: string) => {
+    setMode(kind);
+    setEditingId(id);
+    setOpenForm(true);
+    if (kind === 'departement') depForm.reset({ code, libelle, originId: '' });
+    else if (kind === 'formation') formForm.reset({ code, libelle, originId: '' });
+    else if (kind === 'niveau') nivForm.reset({ code, libelle, originId: '' });
+    else if (kind === 'groupe') grpForm.reset({ code, libelle, type: 'SECTION', parentId: '', effectif: undefined });
+  };
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      {/* Sélecteurs année / semestre */}
+      <div className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">{messages.structure}</h1>
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+            <LayoutGrid size={20} /> {messages.structure}
+          </h1>
           <p className="text-muted-foreground">
             {messages.departements} {'>'} {messages.formations} {'>'} {messages.niveaux} {'>'} {messages.groupes}
           </p>
         </div>
-        <Button onClick={() => { setMode('departement'); setEntityForm({ code: '', libelle: '' }); setEditingId(null); setOpenForm(true); }}>
-          <Plus size={18} className="mr-2" />
-          {messages.createDepartement}
-        </Button>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <Label className="text-sm font-medium">{messages.labelAnnee}</Label>
+            <Select
+              value={selectedAnneeId ?? ''}
+              onValueChange={(val) => {
+                setSelectedAnneeId(val || null);
+                setSelectedSemestreId(null);
+              }}
+              disabled={annees.length === 0}
+            >
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder={messages.selectAnnee} />
+              </SelectTrigger>
+              <SelectContent>
+                {annees.length === 0 ? (
+                  <SelectItem disabled key="none">{messages.errorLoadStructure}</SelectItem>
+                ) : (
+                  annees.map((a) => (
+                    <SelectItem key={a.id} value={a.id}>
+                      {a.code} ({a.numero})
+                    </SelectItem>
+                  ))
+                )}
+              </SelectContent>
+            </Select>
+          </div>
+          {selectedAnneeId && (
+            <div className="flex items-center gap-2">
+              <Label className="text-sm font-medium">{messages.labelSemestre}</Label>
+              <Select
+                value={selectedSemestreId ?? ''}
+                onValueChange={(val) => setSelectedSemestreId(val || null)}
+                disabled={semestreList.length === 0}
+              >
+                <SelectTrigger className="w-40">
+                  <SelectValue placeholder={messages.selectSemestre} />
+                </SelectTrigger>
+                <SelectContent>
+                  {semestreList.length === 0 ? (
+                    <SelectItem disabled key="none">{messages.aucunSemestre}</SelectItem>
+                  ) : (
+                    semestreList.map((s) => (
+                      <SelectItem key={s.id} value={s.id}>
+                        Semestre {s.numero}
+                      </SelectItem>
+                    ))
+                  )}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+        </div>
       </div>
+
+      {!selectedAnneeId && (
+        <div className="p-4 rounded-md bg-amber-50 border border-amber-200 text-amber-800 text-sm">
+          {messages.anneeRequired}
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Panneau 1 : Départements */}
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle>{messages.departements}</CardTitle>
+              <CardTitle className="flex items-center justify-between">
+                {messages.departements}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => openCreateForm('departement')}
+                  disabled={!selectedAnneeId}
+                  title={!selectedAnneeId ? messages.anneeRequired : undefined}
+                >
+                  <Plus size={14} />
+                </Button>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[70vh]">
                 <ul className="space-y-1">
                   {departements.length === 0 && (
-                    <li className="p-3 text-sm text-muted-foreground text-center">{messages.errorLoadStructure}</li>
+                    <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunDepartement}</li>
                   )}
                   {departements.map((d) => (
                     <li
@@ -199,10 +358,23 @@ export function StructureTree() {
                         <span className="text-xs text-muted-foreground truncate">{d.libelle}</span>
                       </div>
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                        <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); setMode('departement'); setEntityForm({ code: d.code, libelle: d.libelle }); setEditingId(d.id); setOpenForm(true); }} aria-label={messages.editDepartement}>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openEditForm('departement', d.id, d.code, d.libelle);
+                          }}
+                          aria-label={messages.editDepartement}
+                        >
                           <Edit size={12} />
                         </Button>
-                        <Button size="sm" variant="destructive" onClick={(e) => { e.stopPropagation(); handleDelete(d.id); }} aria-label={messages.deleteDepartement}>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={(e) => { e.stopPropagation(); handleDelete(d.id); }}
+                          aria-label={messages.deleteDepartement}
+                        >
                           <Trash2 size={12} />
                         </Button>
                       </div>
@@ -219,18 +391,18 @@ export function StructureTree() {
           <div className="lg:col-span-1">
             <Card>
               <CardHeader>
-                <CardTitle>{messages.formations}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between mb-2">
-                  <Button size="sm" onClick={() => { setMode('formation'); setEntityForm({ code: '', libelle: '' }); setEditingId(null); setOpenForm(true); }}>
+                <CardTitle className="flex items-center justify-between">
+                  {messages.formations}
+                  <Button size="sm" variant="outline" onClick={() => openCreateForm('formation')}>
                     <Plus size={14} />
                   </Button>
-                </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
                 <ScrollArea className="h-[70vh]">
                   <ul className="space-y-1">
                     {formations.length === 0 && (
-                      <li className="p-3 text-sm text-muted-foreground text-center">Aucune formation</li>
+                      <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucuneFormation}</li>
                     )}
                     {formations.map((f) => (
                       <li
@@ -247,10 +419,23 @@ export function StructureTree() {
                           <span className="text-xs text-muted-foreground truncate">{f.libelle}</span>
                         </div>
                         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                          <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); setMode('formation'); setEntityForm({ code: f.code, libelle: f.libelle }); setEditingId(f.id); setOpenForm(true); }} aria-label={messages.editFormation}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openEditForm('formation', f.id, f.code, f.libelle);
+                            }}
+                            aria-label={messages.editFormation}
+                          >
                             <Edit size={12} />
                           </Button>
-                          <Button size="sm" variant="destructive" onClick={(e) => { e.stopPropagation(); handleDelete(f.id); }} aria-label={messages.deleteFormation}>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={(e) => { e.stopPropagation(); handleDelete(f.id); }}
+                            aria-label={messages.deleteFormation}
+                          >
                             <Trash2 size={12} />
                           </Button>
                         </div>
@@ -268,18 +453,18 @@ export function StructureTree() {
           <div className="lg:col-span-1">
             <Card>
               <CardHeader>
-                <CardTitle>{messages.niveaux}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between mb-2">
-                  <Button size="sm" onClick={() => { setMode('niveau'); setEntityForm({ code: '', libelle: '' }); setEditingId(null); setOpenForm(true); }}>
+                <CardTitle className="flex items-center justify-between">
+                  {messages.niveaux}
+                  <Button size="sm" variant="outline" onClick={() => openCreateForm('niveau')}>
                     <Plus size={14} />
                   </Button>
-                </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
                 <ScrollArea className="h-[70vh]">
                   <ul className="space-y-1">
                     {niveaux.length === 0 && (
-                      <li className="p-3 text-sm text-muted-foreground text-center">Aucun niveau</li>
+                      <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunNiveau}</li>
                     )}
                     {niveaux.map((n) => (
                       <li
@@ -296,10 +481,23 @@ export function StructureTree() {
                           <span className="text-xs text-muted-foreground truncate">{n.libelle}</span>
                         </div>
                         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                          <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); setMode('niveau'); setEntityForm({ code: n.code, libelle: n.libelle }); setEditingId(n.id); setOpenForm(true); }} aria-label={messages.editNiveau}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openEditForm('niveau', n.id, n.code, n.libelle);
+                            }}
+                            aria-label={messages.editNiveau}
+                          >
                             <Edit size={12} />
                           </Button>
-                          <Button size="sm" variant="destructive" onClick={(e) => { e.stopPropagation(); handleDelete(n.id); }} aria-label={messages.deleteNiveau}>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={(e) => { e.stopPropagation(); handleDelete(n.id); }}
+                            aria-label={messages.deleteNiveau}
+                          >
                             <Trash2 size={12} />
                           </Button>
                         </div>
@@ -312,23 +510,29 @@ export function StructureTree() {
           </div>
         )}
 
-        {/* Panneau 4 : Groupes */}
+                {/* Panneau 4 : Groupes */}
         {tree.selectedNiveauId && (
           <div className="lg:col-span-1">
             <Card>
               <CardHeader>
-                <CardTitle>{messages.groupes}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between mb-2">
-                  <Button size="sm" onClick={() => { setMode('groupe'); setEntityForm({ code: '', libelle: '' }); setEditingId(null); setOpenForm(true); }}>
+                <CardTitle className="flex items-center justify-between">
+                  {messages.groupes}
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => openCreateForm('groupe')}
+                    disabled={!selectedSemestreId}
+                    title={!selectedSemestreId ? messages.semestreRequired : undefined}
+                  >
                     <Plus size={14} />
                   </Button>
-                </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
                 <ScrollArea className="h-[70vh]">
                   <ul className="space-y-1">
                     {groupes.length === 0 && (
-                      <li className="p-3 text-sm text-muted-foreground text-center">Aucun groupe</li>
+                      <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunGroupe}</li>
                     )}
                     {groupes.map((g) => (
                       <li key={g.id} className="p-2 border rounded hover:bg-muted/50 flex items-center justify-between group">
@@ -337,14 +541,27 @@ export function StructureTree() {
                           <span className="text-sm font-medium truncate w-16">{g.code}</span>
                           <span className="text-xs text-muted-foreground truncate">{g.libelle}</span>
                           <span className={`text-xs px-1.5 py-0.5 rounded-full ${g.type === 'SECTION' ? 'bg-blue-100 text-blue-700' : g.type === 'GROUPE' ? 'bg-amber-100 text-amber-700' : 'bg-purple-100 text-purple-700'}`}>
-                            {g.type}
+                            {g.type === 'SECTION' ? messages.typeSection : g.type === 'GROUPE' ? messages.typeGroupe : messages.typeSousGroupe}
                           </span>
                         </div>
                         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                          <Button size="sm" variant="outline" onClick={(e) => { e.stopPropagation(); setMode('groupe'); setEntityForm({ code: g.code, libelle: g.libelle }); setEditingId(g.id); setOpenForm(true); }} aria-label={messages.editGroupe}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openEditForm('groupe', g.id, g.code, g.libelle);
+                            }}
+                            aria-label={messages.editGroupe}
+                          >
                             <Edit size={12} />
                           </Button>
-                          <Button size="sm" variant="destructive" onClick={(e) => { e.stopPropagation(); handleDelete(g.id); }} aria-label={messages.deleteGroupe}>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            onClick={(e) => { e.stopPropagation(); handleDelete(g.id); }}
+                            aria-label={messages.deleteGroupe}
+                          >
                             <Trash2 size={12} />
                           </Button>
                         </div>
@@ -363,36 +580,152 @@ export function StructureTree() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {editingId ? messages.editDepartement : messages.createDepartement}
+              {editingId ? messages.edit : messages.create}{' '}
+              {mode === 'departement'
+                ? messages.entityDepartement
+                : mode === 'formation'
+                ? messages.entityFormation
+                : mode === 'niveau'
+                ? messages.entityNiveau
+                : messages.entityGroupe}
             </DialogTitle>
-            <DialogDescription>{messages.formCodePlaceholder}</DialogDescription>
+            <DialogDescription>
+              {mode === 'groupe' ? messages.columnEffectif : messages.formCodePlaceholder}
+            </DialogDescription>
           </DialogHeader>
           <Separator className="my-4" />
           <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
-            <div className="space-y-1">
-              <Label className="text-sm font-medium">{messages.columnCode}</Label>
-              <Input
-                value={entityForm.code as string}
-                onChange={(e) => setEntityForm({ ...entityForm, code: e.target.value })}
-                placeholder={messages.formCodePlaceholder}
-                required
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-sm font-medium">{messages.columnLibelle}</Label>
-              <Input
-                value={entityForm.libelle as string}
-                onChange={(e) => setEntityForm({ ...entityForm, libelle: e.target.value })}
-                placeholder={messages.formLibellePlaceholder}
-                required
-              />
-            </div>
+            {mode === 'departement' && (
+              <>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnCode}</Label>
+                  <Input {...depForm.register('code')} placeholder={messages.formCodePlaceholder} />
+                  {depForm.formState.errors.code && (
+                    <span className="text-xs text-destructive">{depForm.formState.errors.code.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnLibelle}</Label>
+                  <Input {...depForm.register('libelle')} placeholder={messages.formLibellePlaceholder} />
+                  {depForm.formState.errors.libelle && (
+                    <span className="text-xs text-destructive">{depForm.formState.errors.libelle.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.labelOriginId}</Label>
+                  <Input {...depForm.register('originId')} placeholder="UUID (optionnel)" />
+                  {depForm.formState.errors.originId && (
+                    <span className="text-xs text-destructive">{depForm.formState.errors.originId.message}</span>
+                  )}
+                </div>
+              </>
+            )}
+            {mode === 'formation' && (
+              <>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnCode}</Label>
+                  <Input {...formForm.register('code')} placeholder={messages.formCodePlaceholder} />
+                  {formForm.formState.errors.code && (
+                    <span className="text-xs text-destructive">{formForm.formState.errors.code.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnLibelle}</Label>
+                  <Input {...formForm.register('libelle')} placeholder={messages.formLibellePlaceholder} />
+                  {formForm.formState.errors.libelle && (
+                    <span className="text-xs text-destructive">{formForm.formState.errors.libelle.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.labelOriginId}</Label>
+                  <Input {...formForm.register('originId')} placeholder="UUID (optionnel)" />
+                  {formForm.formState.errors.originId && (
+                    <span className="text-xs text-destructive">{formForm.formState.errors.originId.message}</span>
+                  )}
+                </div>
+              </>
+            )}
+            {mode === 'niveau' && (
+              <>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnCode}</Label>
+                  <Input {...nivForm.register('code')} placeholder={messages.formCodePlaceholder} />
+                  {nivForm.formState.errors.code && (
+                    <span className="text-xs text-destructive">{nivForm.formState.errors.code.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnLibelle}</Label>
+                  <Input {...nivForm.register('libelle')} placeholder={messages.formLibellePlaceholder} />
+                  {nivForm.formState.errors.libelle && (
+                    <span className="text-xs text-destructive">{nivForm.formState.errors.libelle.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.labelOriginId}</Label>
+                  <Input {...nivForm.register('originId')} placeholder="UUID (optionnel)" />
+                  {nivForm.formState.errors.originId && (
+                    <span className="text-xs text-destructive">{nivForm.formState.errors.originId.message}</span>
+                  )}
+                </div>
+              </>
+            )}
+            {mode === 'groupe' && (
+              <>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.labelType}</Label>
+                  <Select {...grpForm.register('type')} defaultValue="SECTION">
+                    <SelectTrigger>
+                      <SelectValue placeholder={messages.formSelectType} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="SECTION">{messages.typeSection}</SelectItem>
+                      <SelectItem value="GROUPE">{messages.typeGroupe}</SelectItem>
+                      <SelectItem value="SOUS_GROUPE">{messages.typeSousGroupe}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {grpForm.formState.errors.type && (
+                    <span className="text-xs text-destructive">{grpForm.formState.errors.type.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnCode}</Label>
+                  <Input {...grpForm.register('code')} placeholder="L1-INFO-G1" />
+                  {grpForm.formState.errors.code && (
+                    <span className="text-xs text-destructive">{grpForm.formState.errors.code.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnLibelle}</Label>
+                  <Input {...grpForm.register('libelle')} placeholder={messages.formLibellePlaceholder} />
+                  {grpForm.formState.errors.libelle && (
+                    <span className="text-xs text-destructive">{grpForm.formState.errors.libelle.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnEffectif}</Label>
+                  <Input {...grpForm.register('effectif')} type="number" placeholder={messages.formEffectif} />
+                  {grpForm.formState.errors.effectif && (
+                    <span className="text-xs text-destructive">{grpForm.formState.errors.effectif.message}</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-sm font-medium">{messages.columnParent}</Label>
+                  <Input {...grpForm.register('parentId')} placeholder="UUID du parent (optionnel)" />
+                  {grpForm.formState.errors.parentId && (
+                    <span className="text-xs text-destructive">{grpForm.formState.errors.parentId.message}</span>
+                  )}
+                </div>
+              </>
+            )}
           </form>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={() => setOpenForm(false)}>
               {messages.cancel}
             </Button>
-            <Button onClick={handleSave}>{messages.save}</Button>
+            <Button onClick={handleSave} disabled={!selectedAnneeId && mode === 'departement'}>
+              {messages.save}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

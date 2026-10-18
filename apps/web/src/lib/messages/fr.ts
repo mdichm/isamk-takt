@@ -88,6 +88,19 @@ export const messages = {
   grades: 'Grades',
   tags: 'Tags',
 
+  // Sélecteurs année / semestre
+  labelAnnee: 'Année universitaire',
+  labelSemestre: 'Semestre',
+  selectAnnee: 'Sélectionner une année',
+  selectSemestre: 'Sélectionner un semestre',
+  anneeRequired: 'Une année universitaire est requise.',
+  semestreRequired: 'Un semestre est requis pour créer un groupe.',
+  aucunSemestre: 'Aucun semestre pour cette année.',
+  aucunDepartement: 'Aucun département.',
+  aucuneFormation: 'Aucune formation.',
+  aucunNiveau: 'Aucun niveau.',
+  aucunGroupe: 'Aucun groupe.',
+
   // Entités
   entityDepartement: 'département',
   entityFormation: 'formation',
@@ -139,6 +152,14 @@ export const messages = {
   formEffectifMax: 'Effectif maximum',
   formSemestreNumero: 'Numéro de semestre',
   formColor: 'Couleur',
+
+  // Libellés de formulaires par entité
+  labelType: 'Type',
+  labelEffectif: 'Effectif',
+  labelOriginId: 'Identifiant d\'origine',
+  typeSection: 'Section',
+  typeGroupe: 'Groupe',
+  typeSousGroupe: 'Sous-groupe',
 
   // Colonnes
   columnCode: 'Code',
