@@ -9,13 +9,13 @@
 | Métrique | Valeur |
 |----------|--------|
 | Tickets total | 212 |
-| ✅ Terminés | 56 (26.4%) |
+| ✅ Terminés | 57 (26.9%) |
 | 🔄 En cours | 0 |
-| ⏳ À faire | 156 |
+| ⏳ À faire | 155 |
 | Points total | 1092 |
-| Points réalisés | 254 (23.3%) |
-| Points restants | 838 |
-| Débit journalier moyen | 42.33 pts/j |
+| Points réalisés | 259 (23.7%) |
+| Points restants | 833 |
+| Débit journalier moyen | 43.17 pts/j |
 | Jours écoulés depuis le début | 6 |
 
 ---
@@ -37,10 +37,10 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Métrique | Valeur |
 |----------|--------|
-| Points réalisés | 254 |
-| Débit journalier moyen | 42.33 pts/j |
-| Débit hebdomadaire moyen | 296.33 pts/sem |
-| Points restants | 838 |
+| Points réalisés | 259 |
+| Débit journalier moyen | 43.17 pts/j |
+| Débit hebdomadaire moyen | 302.17 pts/sem |
+| Points restants | 833 |
 | Prévision débit continu | 07/11/2026 (~2.8 semaines restants) |
 
 ---
@@ -49,13 +49,13 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Lot | Points restants | Coeff. vélocité | Jours estimés | Date fin lot |
 |-----|----------------:|----------------:|--------------:|-------------:|
-| L1 | 57 | 1.0 | 1.3 j | 20/10/2026 |
-| L2 | 94 | 0.9 | 2.5 j | 21/10/2026 |
-| L3 | 225 | 0.7 | 7.6 j | 26/10/2026 |
-| L4 | 148 | 0.85 | 4.1 j | 22/10/2026 |
+| L1 | 52 | 1.0 | 1.2 j | 20/10/2026 |
+| L2 | 94 | 0.9 | 2.4 j | 21/10/2026 |
+| L3 | 225 | 0.7 | 7.4 j | 26/10/2026 |
+| L4 | 148 | 0.85 | 4.0 j | 22/10/2026 |
 | L5 | 150 | 0.9 | 3.9 j | 22/10/2026 |
 | L6 | 64 | 1.0 | 1.5 j | 20/10/2026 |
-| L7 | 100 | 0.85 | 2.8 j | 21/10/2026 |
+| L7 | 100 | 0.85 | 2.7 j | 21/10/2026 |
 
 *Le lot le plus long détermine la date de fin globale du projet.*
 
@@ -94,7 +94,7 @@ Sprint,Points restants,Points idéaux
 | Lot | Tickets | Points | Terminés | % |
 |-----|--------:|-------:|---------:|---:|
 | L0 | 39 | 176 | 39 | 100.0% |
-| L1 | 27 | 122 | 15 | 55.6% |
+| L1 | 27 | 122 | 16 | 59.3% |
 | L2 | 19 | 94 | 0 | 0.0% |
 | L3 | 45 | 225 | 0 | 0.0% |
 | L4 | 24 | 148 | 0 | 0.0% |

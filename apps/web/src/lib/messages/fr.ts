@@ -192,6 +192,64 @@ export const messages = {
   editDecharge: 'Modifier la décharge',
   deleteDecharge: 'Supprimer la décharge',
 
+  // Entités salles
+  entitySalle: 'salle',
+  entityTypeSalle: 'type de salle',
+  entityEquipement: 'équipement',
+
+  // Salles
+  salles: 'Salles',
+  sallesSubtitle: 'Gestion des salles, équipements et compatibilités.',
+  noSalles: 'Aucune salle trouvée.',
+  deleteSalleConfirm: 'Supprimer {name} ? Cette action est irréversible.',
+  createSalleDesc: 'Créez une nouvelle salle et affectez-lui un site, un type et des équipements.',
+  editSalleDesc: 'Modifiez les informations de la salle.',
+  createSalle: 'Créer une salle',
+  editSalle: 'Modifier la salle',
+  deleteSalle: 'Supprimer la salle',
+  createTypeSalle: 'Créer un type de salle',
+  editTypeSalle: 'Modifier le type de salle',
+  deleteTypeSalle: 'Supprimer le type de salle',
+  createEquipement: 'Créer un équipement',
+  editEquipement: 'Modifier l\'équipement',
+  deleteEquipement: 'Supprimer l\'équipement',
+
+  // Colonnes spécifiques salles
+  columnSite: 'Site',
+  columnTypeSalle: 'Type de salle',
+  columnCapacite: 'Capacité',
+  columnPMR: 'PMR',
+  columnDepartement: 'Département',
+
+  // Formulaire salle
+  formCapaciteRequired: 'La capacité maximale est requise.',
+  formCapaciteMin: 'La capacité doit être supérieure à 0.',
+  formSelectSite: 'Sélectionner un site',
+  formSelectTypeSalle: 'Sélectionner un type de salle',
+  formSelectEquipements: 'Équipements de la salle',
+  labelCapaciteMax: 'Capacité maximale',
+  labelCapaciteRecommandee: 'Capacité recommandée',
+  labelAccesPMR: 'Accessible PMR',
+  labelCommentaire: 'Commentaire',
+  labelDepartementSalle: 'Département (null = partagée)',
+  labelEstActive: 'État',
+  equipements: 'Équipements',
+  equipementsSubtitle: 'Équipements installés dans cette salle.',
+  aucunEquipement: 'Aucun équipement.',
+  btnAssignerEquipements: 'Assigner les équipements sélectionnés',
+
+  // Messages de succès / erreur
+  successSalleCreated: 'Salle créée avec succès.',
+  successSalleUpdated: 'Salle mise à jour avec succès.',
+  successSalleDeleted: 'Salle supprimée.',
+  successEquipementsAssignes: 'Équipements assignés à la salle.',
+  errorLoadSalles: 'Impossible de charger la liste des salles.',
+  errorCreateSalle: 'Impossible de créer la salle.',
+  errorUpdateSalle: 'Impossible de mettre à jour la salle.',
+  errorDeleteSalle: 'Impossible de supprimer la salle.',
+  errorAssignerEquipements: 'Impossible d\'assigner les équipements.',
+  errorSalleNotFound: 'Salle introuvable.',
+
   // Formulaires
   formCodePlaceholder: 'Code (ex: INFO)',
   formLibellePlaceholder: 'Libellé',
