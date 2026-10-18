@@ -184,7 +184,7 @@ L1-13;L1;E1.4;Salles & équipements;Story;CRUD salles, types de salle et équipe
 - Désactivation recommandée à la suppression";EX-REF-04;§2.2, §2.4;BACK;Must;5;L1-03;Terminé;
 L1-14;L1;E1.4;Salles & équipements;Story;Référentiel des sites;"Site principal et annexes ; rattachement obligatoire d'une salle à un site.";"- Un site principal existe par défaut
 - Les filtres et vues par site sont disponibles
-- Le site n'a aucun effet de calcul en v1.0";EX-REF-04;§2.2;BACK;Should;2;L1-13;À faire;
+- Le site n'a aucun effet de calcul en v1.0";EX-REF-04;§2.2;BACK;Should;2;L1-13;En cours;
 L1-15;L1;E1.4;Salles & équipements;Story;Compatibilités salle/tag et exigences d'équipement;SalleActivityTag et ExigenceEquipement (module, type, niveau obligatoire ou souhaité).;"- Une salle liste les Activity Tags autorisés
 - Un (module, type) liste les équipements requis avec leur niveau (obligatoire par défaut)
 - La compatibilité distingue compatible, acceptable avec avertissement et incompatible";EX-REF-05, EX-CTR-08;§2.2, §4.3;BACK;Must;5;L1-13, L1-06;Terminé;
