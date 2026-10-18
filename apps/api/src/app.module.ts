@@ -23,6 +23,7 @@ import { ActivityTagsModule } from './activity-tags/activity-tags.module.js';
 import { EnseignantsModule } from './enseignants/enseignants.module.js';
 import { DechargesModule } from './decharges/decharges.module.js';
 import { SalleModule } from './salles/salle.module.js';
+import { SitesModule } from './sites/sites.module.js';
 import { CompatModule } from './compat/compat.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
@@ -87,6 +88,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     EnseignantsModule,
     DechargesModule,
     SalleModule,
+    SitesModule,
     CompatModule,
     PolicyModule,
   ],

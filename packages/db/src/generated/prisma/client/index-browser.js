@@ -479,11 +479,20 @@ exports.Prisma.TypeSalleScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SiteScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  libelle: 'libelle',
+  estPrincipal: 'estPrincipal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SalleScalarFieldEnum = {
   id: 'id',
   code: 'code',
   libelle: 'libelle',
-  site: 'site',
+  siteId: 'siteId',
   capaciteMax: 'capaciteMax',
   capaciteRecommandee: 'capaciteRecommandee',
   accesPMR: 'accesPMR',
@@ -681,6 +690,7 @@ exports.Prisma.ModelName = {
   EnseignantModule: 'EnseignantModule',
   Decharge: 'Decharge',
   TypeSalle: 'TypeSalle',
+  Site: 'Site',
   Salle: 'Salle',
   Equipement: 'Equipement',
   SalleEquipement: 'SalleEquipement',

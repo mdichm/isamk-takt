@@ -179,6 +179,11 @@ export type Decharge = $Result.DefaultSelection<Prisma.$DechargePayload>
  */
 export type TypeSalle = $Result.DefaultSelection<Prisma.$TypeSallePayload>
 /**
+ * Model Site
+ * 
+ */
+export type Site = $Result.DefaultSelection<Prisma.$SitePayload>
+/**
  * Model Salle
  * 
  */
@@ -847,6 +852,16 @@ export class PrismaClient<
   get typeSalle(): Prisma.TypeSalleDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.site`: Exposes CRUD operations for the **Site** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sites
+    * const sites = await prisma.site.findMany()
+    * ```
+    */
+  get site(): Prisma.SiteDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.salle`: Exposes CRUD operations for the **Salle** model.
     * Example usage:
     * ```ts
@@ -1375,6 +1390,7 @@ export namespace Prisma {
     EnseignantModule: 'EnseignantModule',
     Decharge: 'Decharge',
     TypeSalle: 'TypeSalle',
+    Site: 'Site',
     Salle: 'Salle',
     Equipement: 'Equipement',
     SalleEquipement: 'SalleEquipement',
@@ -1395,7 +1411,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "salle" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3841,6 +3857,80 @@ export namespace Prisma {
           }
         }
       }
+      Site: {
+        payload: Prisma.$SitePayload<ExtArgs>
+        fields: Prisma.SiteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SiteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SiteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          findFirst: {
+            args: Prisma.SiteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SiteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          findMany: {
+            args: Prisma.SiteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>[]
+          }
+          create: {
+            args: Prisma.SiteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          createMany: {
+            args: Prisma.SiteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SiteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>[]
+          }
+          delete: {
+            args: Prisma.SiteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          update: {
+            args: Prisma.SiteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          deleteMany: {
+            args: Prisma.SiteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SiteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SiteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>[]
+          }
+          upsert: {
+            args: Prisma.SiteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SitePayload>
+          }
+          aggregate: {
+            args: Prisma.SiteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSite>
+          }
+          groupBy: {
+            args: Prisma.SiteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SiteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SiteCountArgs<ExtArgs>
+            result: $Utils.Optional<SiteCountAggregateOutputType> | number
+          }
+        }
+      }
       Salle: {
         payload: Prisma.$SallePayload<ExtArgs>
         fields: Prisma.SalleFieldRefs
@@ -4367,6 +4457,7 @@ export namespace Prisma {
     enseignantModule?: EnseignantModuleOmit
     decharge?: DechargeOmit
     typeSalle?: TypeSalleOmit
+    site?: SiteOmit
     salle?: SalleOmit
     equipement?: EquipementOmit
     salleEquipement?: SalleEquipementOmit
@@ -5244,6 +5335,37 @@ export namespace Prisma {
    * TypeSalleCountOutputType without action
    */
   export type TypeSalleCountOutputTypeCountSallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SalleWhereInput
+  }
+
+
+  /**
+   * Count Type SiteCountOutputType
+   */
+
+  export type SiteCountOutputType = {
+    salles: number
+  }
+
+  export type SiteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salles?: boolean | SiteCountOutputTypeCountSallesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SiteCountOutputType without action
+   */
+  export type SiteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SiteCountOutputType
+     */
+    select?: SiteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SiteCountOutputType without action
+   */
+  export type SiteCountOutputTypeCountSallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SalleWhereInput
   }
 
@@ -43422,6 +43544,1094 @@ export namespace Prisma {
 
 
   /**
+   * Model Site
+   */
+
+  export type AggregateSite = {
+    _count: SiteCountAggregateOutputType | null
+    _min: SiteMinAggregateOutputType | null
+    _max: SiteMaxAggregateOutputType | null
+  }
+
+  export type SiteMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    estPrincipal: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SiteMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    estPrincipal: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SiteCountAggregateOutputType = {
+    id: number
+    code: number
+    libelle: number
+    estPrincipal: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SiteMinAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estPrincipal?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SiteMaxAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estPrincipal?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SiteCountAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    estPrincipal?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SiteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Site to aggregate.
+     */
+    where?: SiteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sites to fetch.
+     */
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SiteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Sites
+    **/
+    _count?: true | SiteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SiteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SiteMaxAggregateInputType
+  }
+
+  export type GetSiteAggregateType<T extends SiteAggregateArgs> = {
+        [P in keyof T & keyof AggregateSite]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSite[P]>
+      : GetScalarType<T[P], AggregateSite[P]>
+  }
+
+
+
+
+  export type SiteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SiteWhereInput
+    orderBy?: SiteOrderByWithAggregationInput | SiteOrderByWithAggregationInput[]
+    by: SiteScalarFieldEnum[] | SiteScalarFieldEnum
+    having?: SiteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SiteCountAggregateInputType | true
+    _min?: SiteMinAggregateInputType
+    _max?: SiteMaxAggregateInputType
+  }
+
+  export type SiteGroupByOutputType = {
+    id: string
+    code: string
+    libelle: string
+    estPrincipal: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: SiteCountAggregateOutputType | null
+    _min: SiteMinAggregateOutputType | null
+    _max: SiteMaxAggregateOutputType | null
+  }
+
+  type GetSiteGroupByPayload<T extends SiteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SiteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SiteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SiteGroupByOutputType[P]>
+            : GetScalarType<T[P], SiteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SiteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estPrincipal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    salles?: boolean | Site$sallesArgs<ExtArgs>
+    _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["site"]>
+
+  export type SiteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estPrincipal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["site"]>
+
+  export type SiteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estPrincipal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["site"]>
+
+  export type SiteSelectScalar = {
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    estPrincipal?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SiteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "estPrincipal" | "createdAt" | "updatedAt", ExtArgs["result"]["site"]>
+  export type SiteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    salles?: boolean | Site$sallesArgs<ExtArgs>
+    _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SiteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SiteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SitePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Site"
+    objects: {
+      salles: Prisma.$SallePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      libelle: string
+      estPrincipal: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["site"]>
+    composites: {}
+  }
+
+  type SiteGetPayload<S extends boolean | null | undefined | SiteDefaultArgs> = $Result.GetResult<Prisma.$SitePayload, S>
+
+  type SiteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SiteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SiteCountAggregateInputType | true
+    }
+
+  export interface SiteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Site'], meta: { name: 'Site' } }
+    /**
+     * Find zero or one Site that matches the filter.
+     * @param {SiteFindUniqueArgs} args - Arguments to find a Site
+     * @example
+     * // Get one Site
+     * const site = await prisma.site.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SiteFindUniqueArgs>(args: SelectSubset<T, SiteFindUniqueArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Site that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SiteFindUniqueOrThrowArgs} args - Arguments to find a Site
+     * @example
+     * // Get one Site
+     * const site = await prisma.site.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SiteFindUniqueOrThrowArgs>(args: SelectSubset<T, SiteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Site that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteFindFirstArgs} args - Arguments to find a Site
+     * @example
+     * // Get one Site
+     * const site = await prisma.site.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SiteFindFirstArgs>(args?: SelectSubset<T, SiteFindFirstArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Site that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteFindFirstOrThrowArgs} args - Arguments to find a Site
+     * @example
+     * // Get one Site
+     * const site = await prisma.site.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SiteFindFirstOrThrowArgs>(args?: SelectSubset<T, SiteFindFirstOrThrowArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sites that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sites
+     * const sites = await prisma.site.findMany()
+     * 
+     * // Get first 10 Sites
+     * const sites = await prisma.site.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const siteWithIdOnly = await prisma.site.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SiteFindManyArgs>(args?: SelectSubset<T, SiteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Site.
+     * @param {SiteCreateArgs} args - Arguments to create a Site.
+     * @example
+     * // Create one Site
+     * const Site = await prisma.site.create({
+     *   data: {
+     *     // ... data to create a Site
+     *   }
+     * })
+     * 
+     */
+    create<T extends SiteCreateArgs>(args: SelectSubset<T, SiteCreateArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sites.
+     * @param {SiteCreateManyArgs} args - Arguments to create many Sites.
+     * @example
+     * // Create many Sites
+     * const site = await prisma.site.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SiteCreateManyArgs>(args?: SelectSubset<T, SiteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Sites and returns the data saved in the database.
+     * @param {SiteCreateManyAndReturnArgs} args - Arguments to create many Sites.
+     * @example
+     * // Create many Sites
+     * const site = await prisma.site.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Sites and only return the `id`
+     * const siteWithIdOnly = await prisma.site.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SiteCreateManyAndReturnArgs>(args?: SelectSubset<T, SiteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Site.
+     * @param {SiteDeleteArgs} args - Arguments to delete one Site.
+     * @example
+     * // Delete one Site
+     * const Site = await prisma.site.delete({
+     *   where: {
+     *     // ... filter to delete one Site
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SiteDeleteArgs>(args: SelectSubset<T, SiteDeleteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Site.
+     * @param {SiteUpdateArgs} args - Arguments to update one Site.
+     * @example
+     * // Update one Site
+     * const site = await prisma.site.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SiteUpdateArgs>(args: SelectSubset<T, SiteUpdateArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sites.
+     * @param {SiteDeleteManyArgs} args - Arguments to filter Sites to delete.
+     * @example
+     * // Delete a few Sites
+     * const { count } = await prisma.site.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SiteDeleteManyArgs>(args?: SelectSubset<T, SiteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sites
+     * const site = await prisma.site.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SiteUpdateManyArgs>(args: SelectSubset<T, SiteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sites and returns the data updated in the database.
+     * @param {SiteUpdateManyAndReturnArgs} args - Arguments to update many Sites.
+     * @example
+     * // Update many Sites
+     * const site = await prisma.site.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Sites and only return the `id`
+     * const siteWithIdOnly = await prisma.site.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SiteUpdateManyAndReturnArgs>(args: SelectSubset<T, SiteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Site.
+     * @param {SiteUpsertArgs} args - Arguments to update or create a Site.
+     * @example
+     * // Update or create a Site
+     * const site = await prisma.site.upsert({
+     *   create: {
+     *     // ... data to create a Site
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Site we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SiteUpsertArgs>(args: SelectSubset<T, SiteUpsertArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteCountArgs} args - Arguments to filter Sites to count.
+     * @example
+     * // Count the number of Sites
+     * const count = await prisma.site.count({
+     *   where: {
+     *     // ... the filter for the Sites we want to count
+     *   }
+     * })
+    **/
+    count<T extends SiteCountArgs>(
+      args?: Subset<T, SiteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SiteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Site.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SiteAggregateArgs>(args: Subset<T, SiteAggregateArgs>): Prisma.PrismaPromise<GetSiteAggregateType<T>>
+
+    /**
+     * Group by Site.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SiteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SiteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SiteGroupByArgs['orderBy'] }
+        : { orderBy?: SiteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SiteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSiteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Site model
+   */
+  readonly fields: SiteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Site.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SiteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    salles<T extends Site$sallesArgs<ExtArgs> = {}>(args?: Subset<T, Site$sallesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Site model
+   */
+  interface SiteFieldRefs {
+    readonly id: FieldRef<"Site", 'String'>
+    readonly code: FieldRef<"Site", 'String'>
+    readonly libelle: FieldRef<"Site", 'String'>
+    readonly estPrincipal: FieldRef<"Site", 'Boolean'>
+    readonly createdAt: FieldRef<"Site", 'DateTime'>
+    readonly updatedAt: FieldRef<"Site", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Site findUnique
+   */
+  export type SiteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Site to fetch.
+     */
+    where: SiteWhereUniqueInput
+  }
+
+  /**
+   * Site findUniqueOrThrow
+   */
+  export type SiteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Site to fetch.
+     */
+    where: SiteWhereUniqueInput
+  }
+
+  /**
+   * Site findFirst
+   */
+  export type SiteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Site to fetch.
+     */
+    where?: SiteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sites to fetch.
+     */
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sites.
+     */
+    cursor?: SiteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sites.
+     */
+    distinct?: SiteScalarFieldEnum | SiteScalarFieldEnum[]
+  }
+
+  /**
+   * Site findFirstOrThrow
+   */
+  export type SiteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Site to fetch.
+     */
+    where?: SiteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sites to fetch.
+     */
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Sites.
+     */
+    cursor?: SiteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sites.
+     */
+    distinct?: SiteScalarFieldEnum | SiteScalarFieldEnum[]
+  }
+
+  /**
+   * Site findMany
+   */
+  export type SiteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter, which Sites to fetch.
+     */
+    where?: SiteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Sites to fetch.
+     */
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Sites.
+     */
+    cursor?: SiteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Sites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Sites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Sites.
+     */
+    distinct?: SiteScalarFieldEnum | SiteScalarFieldEnum[]
+  }
+
+  /**
+   * Site create
+   */
+  export type SiteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Site.
+     */
+    data: XOR<SiteCreateInput, SiteUncheckedCreateInput>
+  }
+
+  /**
+   * Site createMany
+   */
+  export type SiteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Sites.
+     */
+    data: SiteCreateManyInput | SiteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Site createManyAndReturn
+   */
+  export type SiteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * The data used to create many Sites.
+     */
+    data: SiteCreateManyInput | SiteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Site update
+   */
+  export type SiteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Site.
+     */
+    data: XOR<SiteUpdateInput, SiteUncheckedUpdateInput>
+    /**
+     * Choose, which Site to update.
+     */
+    where: SiteWhereUniqueInput
+  }
+
+  /**
+   * Site updateMany
+   */
+  export type SiteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Sites.
+     */
+    data: XOR<SiteUpdateManyMutationInput, SiteUncheckedUpdateManyInput>
+    /**
+     * Filter which Sites to update
+     */
+    where?: SiteWhereInput
+    /**
+     * Limit how many Sites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Site updateManyAndReturn
+   */
+  export type SiteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * The data used to update Sites.
+     */
+    data: XOR<SiteUpdateManyMutationInput, SiteUncheckedUpdateManyInput>
+    /**
+     * Filter which Sites to update
+     */
+    where?: SiteWhereInput
+    /**
+     * Limit how many Sites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Site upsert
+   */
+  export type SiteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Site to update in case it exists.
+     */
+    where: SiteWhereUniqueInput
+    /**
+     * In case the Site found by the `where` argument doesn't exist, create a new Site with this data.
+     */
+    create: XOR<SiteCreateInput, SiteUncheckedCreateInput>
+    /**
+     * In case the Site was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SiteUpdateInput, SiteUncheckedUpdateInput>
+  }
+
+  /**
+   * Site delete
+   */
+  export type SiteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    /**
+     * Filter which Site to delete.
+     */
+    where: SiteWhereUniqueInput
+  }
+
+  /**
+   * Site deleteMany
+   */
+  export type SiteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Sites to delete
+     */
+    where?: SiteWhereInput
+    /**
+     * Limit how many Sites to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Site.salles
+   */
+  export type Site$sallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    where?: SalleWhereInput
+    orderBy?: SalleOrderByWithRelationInput | SalleOrderByWithRelationInput[]
+    cursor?: SalleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SalleScalarFieldEnum | SalleScalarFieldEnum[]
+  }
+
+  /**
+   * Site without action
+   */
+  export type SiteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Salle
    */
 
@@ -43447,7 +44657,7 @@ export namespace Prisma {
     id: string | null
     code: string | null
     libelle: string | null
-    site: string | null
+    siteId: string | null
     capaciteMax: number | null
     capaciteRecommandee: number | null
     accesPMR: boolean | null
@@ -43464,7 +44674,7 @@ export namespace Prisma {
     id: string | null
     code: string | null
     libelle: string | null
-    site: string | null
+    siteId: string | null
     capaciteMax: number | null
     capaciteRecommandee: number | null
     accesPMR: boolean | null
@@ -43481,7 +44691,7 @@ export namespace Prisma {
     id: number
     code: number
     libelle: number
-    site: number
+    siteId: number
     capaciteMax: number
     capaciteRecommandee: number
     accesPMR: number
@@ -43510,7 +44720,7 @@ export namespace Prisma {
     id?: true
     code?: true
     libelle?: true
-    site?: true
+    siteId?: true
     capaciteMax?: true
     capaciteRecommandee?: true
     accesPMR?: true
@@ -43527,7 +44737,7 @@ export namespace Prisma {
     id?: true
     code?: true
     libelle?: true
-    site?: true
+    siteId?: true
     capaciteMax?: true
     capaciteRecommandee?: true
     accesPMR?: true
@@ -43544,7 +44754,7 @@ export namespace Prisma {
     id?: true
     code?: true
     libelle?: true
-    site?: true
+    siteId?: true
     capaciteMax?: true
     capaciteRecommandee?: true
     accesPMR?: true
@@ -43648,7 +44858,7 @@ export namespace Prisma {
     id: string
     code: string
     libelle: string
-    site: string | null
+    siteId: string | null
     capaciteMax: number
     capaciteRecommandee: number | null
     accesPMR: boolean
@@ -43684,7 +44894,7 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     libelle?: boolean
-    site?: boolean
+    siteId?: boolean
     capaciteMax?: boolean
     capaciteRecommandee?: boolean
     accesPMR?: boolean
@@ -43697,6 +44907,7 @@ export namespace Prisma {
     updatedAt?: boolean
     departement?: boolean | Salle$departementArgs<ExtArgs>
     typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+    site?: boolean | Salle$siteArgs<ExtArgs>
     equipements?: boolean | Salle$equipementsArgs<ExtArgs>
     salleActivityTags?: boolean | Salle$salleActivityTagsArgs<ExtArgs>
     _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
@@ -43706,7 +44917,7 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     libelle?: boolean
-    site?: boolean
+    siteId?: boolean
     capaciteMax?: boolean
     capaciteRecommandee?: boolean
     accesPMR?: boolean
@@ -43719,13 +44930,14 @@ export namespace Prisma {
     updatedAt?: boolean
     departement?: boolean | Salle$departementArgs<ExtArgs>
     typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+    site?: boolean | Salle$siteArgs<ExtArgs>
   }, ExtArgs["result"]["salle"]>
 
   export type SalleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     code?: boolean
     libelle?: boolean
-    site?: boolean
+    siteId?: boolean
     capaciteMax?: boolean
     capaciteRecommandee?: boolean
     accesPMR?: boolean
@@ -43738,13 +44950,14 @@ export namespace Prisma {
     updatedAt?: boolean
     departement?: boolean | Salle$departementArgs<ExtArgs>
     typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+    site?: boolean | Salle$siteArgs<ExtArgs>
   }, ExtArgs["result"]["salle"]>
 
   export type SalleSelectScalar = {
     id?: boolean
     code?: boolean
     libelle?: boolean
-    site?: boolean
+    siteId?: boolean
     capaciteMax?: boolean
     capaciteRecommandee?: boolean
     accesPMR?: boolean
@@ -43757,10 +44970,11 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SalleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "site" | "capaciteMax" | "capaciteRecommandee" | "accesPMR" | "commentaire" | "estActive" | "departementId" | "typeSalleId" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["salle"]>
+  export type SalleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "siteId" | "capaciteMax" | "capaciteRecommandee" | "accesPMR" | "commentaire" | "estActive" | "departementId" | "typeSalleId" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["salle"]>
   export type SalleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     departement?: boolean | Salle$departementArgs<ExtArgs>
     typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+    site?: boolean | Salle$siteArgs<ExtArgs>
     equipements?: boolean | Salle$equipementsArgs<ExtArgs>
     salleActivityTags?: boolean | Salle$salleActivityTagsArgs<ExtArgs>
     _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
@@ -43768,10 +44982,12 @@ export namespace Prisma {
   export type SalleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     departement?: boolean | Salle$departementArgs<ExtArgs>
     typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+    site?: boolean | Salle$siteArgs<ExtArgs>
   }
   export type SalleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     departement?: boolean | Salle$departementArgs<ExtArgs>
     typeSalle?: boolean | Salle$typeSalleArgs<ExtArgs>
+    site?: boolean | Salle$siteArgs<ExtArgs>
   }
 
   export type $SallePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -43779,6 +44995,7 @@ export namespace Prisma {
     objects: {
       departement: Prisma.$DepartementPayload<ExtArgs> | null
       typeSalle: Prisma.$TypeSallePayload<ExtArgs> | null
+      site: Prisma.$SitePayload<ExtArgs> | null
       equipements: Prisma.$SalleEquipementPayload<ExtArgs>[]
       salleActivityTags: Prisma.$SalleActivityTagPayload<ExtArgs>[]
     }
@@ -43786,7 +45003,7 @@ export namespace Prisma {
       id: string
       code: string
       libelle: string
-      site: string | null
+      siteId: string | null
       capaciteMax: number
       capaciteRecommandee: number | null
       accesPMR: boolean
@@ -44193,6 +45410,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     departement<T extends Salle$departementArgs<ExtArgs> = {}>(args?: Subset<T, Salle$departementArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     typeSalle<T extends Salle$typeSalleArgs<ExtArgs> = {}>(args?: Subset<T, Salle$typeSalleArgs<ExtArgs>>): Prisma__TypeSalleClient<$Result.GetResult<Prisma.$TypeSallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    site<T extends Salle$siteArgs<ExtArgs> = {}>(args?: Subset<T, Salle$siteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     equipements<T extends Salle$equipementsArgs<ExtArgs> = {}>(args?: Subset<T, Salle$equipementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salleActivityTags<T extends Salle$salleActivityTagsArgs<ExtArgs> = {}>(args?: Subset<T, Salle$salleActivityTagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleActivityTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -44227,7 +45445,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Salle", 'String'>
     readonly code: FieldRef<"Salle", 'String'>
     readonly libelle: FieldRef<"Salle", 'String'>
-    readonly site: FieldRef<"Salle", 'String'>
+    readonly siteId: FieldRef<"Salle", 'String'>
     readonly capaciteMax: FieldRef<"Salle", 'Int'>
     readonly capaciteRecommandee: FieldRef<"Salle", 'Int'>
     readonly accesPMR: FieldRef<"Salle", 'Boolean'>
@@ -44674,6 +45892,25 @@ export namespace Prisma {
      */
     include?: TypeSalleInclude<ExtArgs> | null
     where?: TypeSalleWhereInput
+  }
+
+  /**
+   * Salle.site
+   */
+  export type Salle$siteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    where?: SiteWhereInput
   }
 
   /**
@@ -49474,11 +50711,23 @@ export namespace Prisma {
   export type TypeSalleScalarFieldEnum = (typeof TypeSalleScalarFieldEnum)[keyof typeof TypeSalleScalarFieldEnum]
 
 
+  export const SiteScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    libelle: 'libelle',
+    estPrincipal: 'estPrincipal',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SiteScalarFieldEnum = (typeof SiteScalarFieldEnum)[keyof typeof SiteScalarFieldEnum]
+
+
   export const SalleScalarFieldEnum: {
     id: 'id',
     code: 'code',
     libelle: 'libelle',
-    site: 'site',
+    siteId: 'siteId',
     capaciteMax: 'capaciteMax',
     capaciteRecommandee: 'capaciteRecommandee',
     accesPMR: 'accesPMR',
@@ -52351,6 +53600,66 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"TypeSalle"> | Date | string
   }
 
+  export type SiteWhereInput = {
+    AND?: SiteWhereInput | SiteWhereInput[]
+    OR?: SiteWhereInput[]
+    NOT?: SiteWhereInput | SiteWhereInput[]
+    id?: UuidFilter<"Site"> | string
+    code?: StringFilter<"Site"> | string
+    libelle?: StringFilter<"Site"> | string
+    estPrincipal?: BoolFilter<"Site"> | boolean
+    createdAt?: DateTimeFilter<"Site"> | Date | string
+    updatedAt?: DateTimeFilter<"Site"> | Date | string
+    salles?: SalleListRelationFilter
+  }
+
+  export type SiteOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estPrincipal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    salles?: SalleOrderByRelationAggregateInput
+  }
+
+  export type SiteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: SiteWhereInput | SiteWhereInput[]
+    OR?: SiteWhereInput[]
+    NOT?: SiteWhereInput | SiteWhereInput[]
+    libelle?: StringFilter<"Site"> | string
+    estPrincipal?: BoolFilter<"Site"> | boolean
+    createdAt?: DateTimeFilter<"Site"> | Date | string
+    updatedAt?: DateTimeFilter<"Site"> | Date | string
+    salles?: SalleListRelationFilter
+  }, "id" | "code">
+
+  export type SiteOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estPrincipal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SiteCountOrderByAggregateInput
+    _max?: SiteMaxOrderByAggregateInput
+    _min?: SiteMinOrderByAggregateInput
+  }
+
+  export type SiteScalarWhereWithAggregatesInput = {
+    AND?: SiteScalarWhereWithAggregatesInput | SiteScalarWhereWithAggregatesInput[]
+    OR?: SiteScalarWhereWithAggregatesInput[]
+    NOT?: SiteScalarWhereWithAggregatesInput | SiteScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Site"> | string
+    code?: StringWithAggregatesFilter<"Site"> | string
+    libelle?: StringWithAggregatesFilter<"Site"> | string
+    estPrincipal?: BoolWithAggregatesFilter<"Site"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Site"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Site"> | Date | string
+  }
+
   export type SalleWhereInput = {
     AND?: SalleWhereInput | SalleWhereInput[]
     OR?: SalleWhereInput[]
@@ -52358,7 +53667,7 @@ export namespace Prisma {
     id?: UuidFilter<"Salle"> | string
     code?: StringFilter<"Salle"> | string
     libelle?: StringFilter<"Salle"> | string
-    site?: StringNullableFilter<"Salle"> | string | null
+    siteId?: UuidNullableFilter<"Salle"> | string | null
     capaciteMax?: IntFilter<"Salle"> | number
     capaciteRecommandee?: IntNullableFilter<"Salle"> | number | null
     accesPMR?: BoolFilter<"Salle"> | boolean
@@ -52371,6 +53680,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Salle"> | Date | string
     departement?: XOR<DepartementNullableScalarRelationFilter, DepartementWhereInput> | null
     typeSalle?: XOR<TypeSalleNullableScalarRelationFilter, TypeSalleWhereInput> | null
+    site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
     equipements?: SalleEquipementListRelationFilter
     salleActivityTags?: SalleActivityTagListRelationFilter
   }
@@ -52379,7 +53689,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
-    site?: SortOrderInput | SortOrder
+    siteId?: SortOrderInput | SortOrder
     capaciteMax?: SortOrder
     capaciteRecommandee?: SortOrderInput | SortOrder
     accesPMR?: SortOrder
@@ -52392,6 +53702,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     departement?: DepartementOrderByWithRelationInput
     typeSalle?: TypeSalleOrderByWithRelationInput
+    site?: SiteOrderByWithRelationInput
     equipements?: SalleEquipementOrderByRelationAggregateInput
     salleActivityTags?: SalleActivityTagOrderByRelationAggregateInput
   }
@@ -52403,7 +53714,7 @@ export namespace Prisma {
     NOT?: SalleWhereInput | SalleWhereInput[]
     code?: StringFilter<"Salle"> | string
     libelle?: StringFilter<"Salle"> | string
-    site?: StringNullableFilter<"Salle"> | string | null
+    siteId?: UuidNullableFilter<"Salle"> | string | null
     capaciteMax?: IntFilter<"Salle"> | number
     capaciteRecommandee?: IntNullableFilter<"Salle"> | number | null
     accesPMR?: BoolFilter<"Salle"> | boolean
@@ -52416,6 +53727,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Salle"> | Date | string
     departement?: XOR<DepartementNullableScalarRelationFilter, DepartementWhereInput> | null
     typeSalle?: XOR<TypeSalleNullableScalarRelationFilter, TypeSalleWhereInput> | null
+    site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
     equipements?: SalleEquipementListRelationFilter
     salleActivityTags?: SalleActivityTagListRelationFilter
   }, "id">
@@ -52424,7 +53736,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
-    site?: SortOrderInput | SortOrder
+    siteId?: SortOrderInput | SortOrder
     capaciteMax?: SortOrder
     capaciteRecommandee?: SortOrderInput | SortOrder
     accesPMR?: SortOrder
@@ -52449,7 +53761,7 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"Salle"> | string
     code?: StringWithAggregatesFilter<"Salle"> | string
     libelle?: StringWithAggregatesFilter<"Salle"> | string
-    site?: StringNullableWithAggregatesFilter<"Salle"> | string | null
+    siteId?: UuidNullableWithAggregatesFilter<"Salle"> | string | null
     capaciteMax?: IntWithAggregatesFilter<"Salle"> | number
     capaciteRecommandee?: IntNullableWithAggregatesFilter<"Salle"> | number | null
     accesPMR?: BoolWithAggregatesFilter<"Salle"> | boolean
@@ -55330,11 +56642,77 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SiteCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    estPrincipal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salles?: SalleCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteUncheckedCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    estPrincipal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    salles?: SalleUncheckedCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estPrincipal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salles?: SalleUpdateManyWithoutSiteNestedInput
+  }
+
+  export type SiteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estPrincipal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salles?: SalleUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type SiteCreateManyInput = {
+    id?: string
+    code: string
+    libelle: string
+    estPrincipal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SiteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estPrincipal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SiteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estPrincipal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SalleCreateInput = {
     id?: string
     code: string
     libelle: string
-    site?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -55345,6 +56723,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     departement?: DepartementCreateNestedOneWithoutSallesInput
     typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
   }
@@ -55353,7 +56732,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
+    siteId?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -55372,7 +56751,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -55383,6 +56761,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departement?: DepartementUpdateOneWithoutSallesNestedInput
     typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
   }
@@ -55391,7 +56770,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -55410,7 +56789,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
+    siteId?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -55427,7 +56806,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -55442,7 +56820,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -57884,6 +59262,33 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type SiteCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estPrincipal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SiteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estPrincipal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SiteMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    estPrincipal?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type DepartementNullableScalarRelationFilter = {
     is?: DepartementWhereInput | null
     isNot?: DepartementWhereInput | null
@@ -57892,6 +59297,11 @@ export namespace Prisma {
   export type TypeSalleNullableScalarRelationFilter = {
     is?: TypeSalleWhereInput | null
     isNot?: TypeSalleWhereInput | null
+  }
+
+  export type SiteNullableScalarRelationFilter = {
+    is?: SiteWhereInput | null
+    isNot?: SiteWhereInput | null
   }
 
   export type SalleEquipementListRelationFilter = {
@@ -57908,7 +59318,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
-    site?: SortOrder
+    siteId?: SortOrder
     capaciteMax?: SortOrder
     capaciteRecommandee?: SortOrder
     accesPMR?: SortOrder
@@ -57930,7 +59340,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
-    site?: SortOrder
+    siteId?: SortOrder
     capaciteMax?: SortOrder
     capaciteRecommandee?: SortOrder
     accesPMR?: SortOrder
@@ -57947,7 +59357,7 @@ export namespace Prisma {
     id?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
-    site?: SortOrder
+    siteId?: SortOrder
     capaciteMax?: SortOrder
     capaciteRecommandee?: SortOrder
     accesPMR?: SortOrder
@@ -60671,6 +62081,48 @@ export namespace Prisma {
     deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
   }
 
+  export type SalleCreateNestedManyWithoutSiteInput = {
+    create?: XOR<SalleCreateWithoutSiteInput, SalleUncheckedCreateWithoutSiteInput> | SalleCreateWithoutSiteInput[] | SalleUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutSiteInput | SalleCreateOrConnectWithoutSiteInput[]
+    createMany?: SalleCreateManySiteInputEnvelope
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+  }
+
+  export type SalleUncheckedCreateNestedManyWithoutSiteInput = {
+    create?: XOR<SalleCreateWithoutSiteInput, SalleUncheckedCreateWithoutSiteInput> | SalleCreateWithoutSiteInput[] | SalleUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutSiteInput | SalleCreateOrConnectWithoutSiteInput[]
+    createMany?: SalleCreateManySiteInputEnvelope
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+  }
+
+  export type SalleUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<SalleCreateWithoutSiteInput, SalleUncheckedCreateWithoutSiteInput> | SalleCreateWithoutSiteInput[] | SalleUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutSiteInput | SalleCreateOrConnectWithoutSiteInput[]
+    upsert?: SalleUpsertWithWhereUniqueWithoutSiteInput | SalleUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: SalleCreateManySiteInputEnvelope
+    set?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    disconnect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    delete?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    update?: SalleUpdateWithWhereUniqueWithoutSiteInput | SalleUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: SalleUpdateManyWithWhereWithoutSiteInput | SalleUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
+  }
+
+  export type SalleUncheckedUpdateManyWithoutSiteNestedInput = {
+    create?: XOR<SalleCreateWithoutSiteInput, SalleUncheckedCreateWithoutSiteInput> | SalleCreateWithoutSiteInput[] | SalleUncheckedCreateWithoutSiteInput[]
+    connectOrCreate?: SalleCreateOrConnectWithoutSiteInput | SalleCreateOrConnectWithoutSiteInput[]
+    upsert?: SalleUpsertWithWhereUniqueWithoutSiteInput | SalleUpsertWithWhereUniqueWithoutSiteInput[]
+    createMany?: SalleCreateManySiteInputEnvelope
+    set?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    disconnect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    delete?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+    update?: SalleUpdateWithWhereUniqueWithoutSiteInput | SalleUpdateWithWhereUniqueWithoutSiteInput[]
+    updateMany?: SalleUpdateManyWithWhereWithoutSiteInput | SalleUpdateManyWithWhereWithoutSiteInput[]
+    deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
+  }
+
   export type DepartementCreateNestedOneWithoutSallesInput = {
     create?: XOR<DepartementCreateWithoutSallesInput, DepartementUncheckedCreateWithoutSallesInput>
     connectOrCreate?: DepartementCreateOrConnectWithoutSallesInput
@@ -60681,6 +62133,12 @@ export namespace Prisma {
     create?: XOR<TypeSalleCreateWithoutSallesInput, TypeSalleUncheckedCreateWithoutSallesInput>
     connectOrCreate?: TypeSalleCreateOrConnectWithoutSallesInput
     connect?: TypeSalleWhereUniqueInput
+  }
+
+  export type SiteCreateNestedOneWithoutSallesInput = {
+    create?: XOR<SiteCreateWithoutSallesInput, SiteUncheckedCreateWithoutSallesInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutSallesInput
+    connect?: SiteWhereUniqueInput
   }
 
   export type SalleEquipementCreateNestedManyWithoutSalleInput = {
@@ -60729,6 +62187,16 @@ export namespace Prisma {
     delete?: TypeSalleWhereInput | boolean
     connect?: TypeSalleWhereUniqueInput
     update?: XOR<XOR<TypeSalleUpdateToOneWithWhereWithoutSallesInput, TypeSalleUpdateWithoutSallesInput>, TypeSalleUncheckedUpdateWithoutSallesInput>
+  }
+
+  export type SiteUpdateOneWithoutSallesNestedInput = {
+    create?: XOR<SiteCreateWithoutSallesInput, SiteUncheckedCreateWithoutSallesInput>
+    connectOrCreate?: SiteCreateOrConnectWithoutSallesInput
+    upsert?: SiteUpsertWithoutSallesInput
+    disconnect?: SiteWhereInput | boolean
+    delete?: SiteWhereInput | boolean
+    connect?: SiteWhereUniqueInput
+    update?: XOR<XOR<SiteUpdateToOneWithWhereWithoutSallesInput, SiteUpdateWithoutSallesInput>, SiteUncheckedUpdateWithoutSallesInput>
   }
 
   export type SalleEquipementUpdateManyWithoutSalleNestedInput = {
@@ -65656,7 +67124,6 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -65666,6 +67133,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
   }
@@ -65674,7 +67142,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
+    siteId?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -65802,7 +67270,7 @@ export namespace Prisma {
     id?: UuidFilter<"Salle"> | string
     code?: StringFilter<"Salle"> | string
     libelle?: StringFilter<"Salle"> | string
-    site?: StringNullableFilter<"Salle"> | string | null
+    siteId?: UuidNullableFilter<"Salle"> | string | null
     capaciteMax?: IntFilter<"Salle"> | number
     capaciteRecommandee?: IntNullableFilter<"Salle"> | number | null
     accesPMR?: BoolFilter<"Salle"> | boolean
@@ -67581,7 +69049,6 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -67591,6 +69058,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     departement?: DepartementCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
   }
@@ -67599,7 +69067,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
+    siteId?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -67637,6 +69105,68 @@ export namespace Prisma {
   export type SalleUpdateManyWithWhereWithoutTypeSalleInput = {
     where: SalleScalarWhereInput
     data: XOR<SalleUpdateManyMutationInput, SalleUncheckedUpdateManyWithoutTypeSalleInput>
+  }
+
+  export type SalleCreateWithoutSiteInput = {
+    id?: string
+    code: string
+    libelle: string
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement?: DepartementCreateNestedOneWithoutSallesInput
+    typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleUncheckedCreateWithoutSiteInput = {
+    id?: string
+    code: string
+    libelle: string
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleCreateOrConnectWithoutSiteInput = {
+    where: SalleWhereUniqueInput
+    create: XOR<SalleCreateWithoutSiteInput, SalleUncheckedCreateWithoutSiteInput>
+  }
+
+  export type SalleCreateManySiteInputEnvelope = {
+    data: SalleCreateManySiteInput | SalleCreateManySiteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SalleUpsertWithWhereUniqueWithoutSiteInput = {
+    where: SalleWhereUniqueInput
+    update: XOR<SalleUpdateWithoutSiteInput, SalleUncheckedUpdateWithoutSiteInput>
+    create: XOR<SalleCreateWithoutSiteInput, SalleUncheckedCreateWithoutSiteInput>
+  }
+
+  export type SalleUpdateWithWhereUniqueWithoutSiteInput = {
+    where: SalleWhereUniqueInput
+    data: XOR<SalleUpdateWithoutSiteInput, SalleUncheckedUpdateWithoutSiteInput>
+  }
+
+  export type SalleUpdateManyWithWhereWithoutSiteInput = {
+    where: SalleScalarWhereInput
+    data: XOR<SalleUpdateManyMutationInput, SalleUncheckedUpdateManyWithoutSiteInput>
   }
 
   export type DepartementCreateWithoutSallesInput = {
@@ -67693,6 +69223,29 @@ export namespace Prisma {
   export type TypeSalleCreateOrConnectWithoutSallesInput = {
     where: TypeSalleWhereUniqueInput
     create: XOR<TypeSalleCreateWithoutSallesInput, TypeSalleUncheckedCreateWithoutSallesInput>
+  }
+
+  export type SiteCreateWithoutSallesInput = {
+    id?: string
+    code: string
+    libelle: string
+    estPrincipal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SiteUncheckedCreateWithoutSallesInput = {
+    id?: string
+    code: string
+    libelle: string
+    estPrincipal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SiteCreateOrConnectWithoutSallesInput = {
+    where: SiteWhereUniqueInput
+    create: XOR<SiteCreateWithoutSallesInput, SiteUncheckedCreateWithoutSallesInput>
   }
 
   export type SalleEquipementCreateWithoutSalleInput = {
@@ -67795,6 +69348,35 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     estActive?: BoolFieldUpdateOperationsInput | boolean
     originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SiteUpsertWithoutSallesInput = {
+    update: XOR<SiteUpdateWithoutSallesInput, SiteUncheckedUpdateWithoutSallesInput>
+    create: XOR<SiteCreateWithoutSallesInput, SiteUncheckedCreateWithoutSallesInput>
+    where?: SiteWhereInput
+  }
+
+  export type SiteUpdateToOneWithWhereWithoutSallesInput = {
+    where?: SiteWhereInput
+    data: XOR<SiteUpdateWithoutSallesInput, SiteUncheckedUpdateWithoutSallesInput>
+  }
+
+  export type SiteUpdateWithoutSallesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estPrincipal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SiteUncheckedUpdateWithoutSallesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    estPrincipal?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -67915,7 +69497,6 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -67926,6 +69507,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     departement?: DepartementCreateNestedOneWithoutSallesInput
     typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
   }
 
@@ -67933,7 +69515,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
+    siteId?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -67994,7 +69576,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -68005,6 +69586,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departement?: DepartementUpdateOneWithoutSallesNestedInput
     typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
   }
 
@@ -68012,7 +69594,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -68063,7 +69645,6 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -68074,6 +69655,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     departement?: DepartementCreateNestedOneWithoutSallesInput
     typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
   }
 
@@ -68081,7 +69663,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
+    siteId?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -68140,7 +69722,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -68151,6 +69732,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departement?: DepartementUpdateOneWithoutSallesNestedInput
     typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
   }
 
@@ -68158,7 +69740,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -69689,7 +71271,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
+    siteId?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -69783,7 +71365,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -69793,6 +71374,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
   }
@@ -69801,7 +71383,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -69819,7 +71401,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -70399,7 +71981,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
-    site?: string | null
+    siteId?: string | null
     capaciteMax: number
     capaciteRecommandee?: number | null
     accesPMR?: boolean
@@ -70415,7 +71997,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -70425,6 +72006,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departement?: DepartementUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
   }
@@ -70433,7 +72015,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
@@ -70451,13 +72033,81 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
-    site?: NullableStringFieldUpdateOperationsInput | string | null
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
     capaciteMax?: IntFieldUpdateOperationsInput | number
     capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
     accesPMR?: BoolFieldUpdateOperationsInput | boolean
     commentaire?: NullableStringFieldUpdateOperationsInput | string | null
     estActive?: BoolFieldUpdateOperationsInput | boolean
     departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleCreateManySiteInput = {
+    id?: string
+    code: string
+    libelle: string
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SalleUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneWithoutSallesNestedInput
+    typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateManyWithoutSiteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

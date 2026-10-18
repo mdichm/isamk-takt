@@ -208,13 +208,13 @@ export class SalleService {
       }
     }
 
-    const salle = await this.audit.auditTransaction<{ id: string; code: string; libelle: string; site: string | null; capaciteMax: number; capaciteRecommandee: number | null; accesPMR: boolean; commentaire: string | null; estActive: boolean; departementId: string | null; typeSalleId: string | null; originId: string | null; createdAt: Date; updatedAt: Date }>(
+    const salle = await this.audit.auditTransaction<{ id: string; code: string; libelle: string; siteId: string | null; capaciteMax: number; capaciteRecommandee: number | null; accesPMR: boolean; commentaire: string | null; estActive: boolean; departementId: string | null; typeSalleId: string | null; originId: string | null; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.salle.create({
           data: {
             code: dto.code,
             libelle: dto.libelle,
-            site: dto.site ?? null,
+            siteId: dto.siteId ?? null,
             capaciteMax: dto.capaciteMax,
             capaciteRecommandee: dto.capaciteRecommandee ?? null,
             accesPMR: dto.accesPMR ?? false,
@@ -264,7 +264,6 @@ export class SalleService {
       where.OR = [
         { code: { contains: query.search, mode: 'insensitive' as const } },
         { libelle: { contains: query.search, mode: 'insensitive' as const } },
-        { site: { contains: query.search, mode: 'insensitive' as const } },
       ];
     }
 
@@ -342,14 +341,14 @@ export class SalleService {
       }
     }
 
-    const salle = await this.audit.auditTransaction<{ id: string; code: string; libelle: string; site: string | null; capaciteMax: number; capaciteRecommandee: number | null; accesPMR: boolean; commentaire: string | null; estActive: boolean; departementId: string | null; typeSalleId: string | null; originId: string | null; createdAt: Date; updatedAt: Date }>(
+    const salle = await this.audit.auditTransaction<{ id: string; code: string; libelle: string; siteId: string | null; capaciteMax: number; capaciteRecommandee: number | null; accesPMR: boolean; commentaire: string | null; estActive: boolean; departementId: string | null; typeSalleId: string | null; originId: string | null; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.salle.update({
           where: { id },
           data: {
             ...(dto.code !== undefined && { code: dto.code }),
             ...(dto.libelle !== undefined && { libelle: dto.libelle }),
-            ...(dto.site !== undefined && { site: dto.site ?? null }),
+            ...(dto.siteId !== undefined && { siteId: dto.siteId ?? null }),
             ...(dto.capaciteMax !== undefined && { capaciteMax: dto.capaciteMax }),
             ...(dto.capaciteRecommandee !== undefined && { capaciteRecommandee: dto.capaciteRecommandee ?? null }),
             ...(dto.accesPMR !== undefined && { accesPMR: dto.accesPMR }),
@@ -432,7 +431,7 @@ export class SalleService {
     id: string;
     code: string;
     libelle: string;
-    site: string | null;
+    siteId: string | null;
     capaciteMax: number;
     capaciteRecommandee: number | null;
     accesPMR: boolean;
@@ -451,7 +450,7 @@ export class SalleService {
       id: salle.id,
       code: salle.code,
       libelle: salle.libelle,
-      site: salle.site ?? undefined,
+      siteId: salle.siteId ?? undefined,
       capaciteMax: salle.capaciteMax,
       capaciteRecommandee: salle.capaciteRecommandee ?? undefined,
       accesPMR: salle.accesPMR,
