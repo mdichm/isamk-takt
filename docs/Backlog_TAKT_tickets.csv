@@ -189,7 +189,7 @@ L1-15;L1;E1.4;Salles & équipements;Story;Compatibilités salle/tag et exigences
 - Un (module, type) liste les équipements requis avec leur niveau (obligatoire par défaut)
 - La compatibilité distingue compatible, acceptable avec avertissement et incompatible";EX-REF-05, EX-CTR-08;§2.2, §4.3;BACK;Must;5;L1-13, L1-06;Terminé;
 L1-16;L1;E1.4;Salles & équipements;Story;UI salles;Liste, fiche, équipements, tags compatibles, sites.;"- Création et modification d'une salle avec ses compatibilités
-- Lecture seule pour le Gestionnaire";EX-REF-04;§3.3;FRONT;Must;5;L1-15, L1-14, L0-29;En cours;
+- Lecture seule pour le Gestionnaire";EX-REF-04;§3.3;FRONT;Must;5;L1-15, L1-14, L0-29;Terminé;
 L1-17;L1;E1.5;Grille horaire & indisponibilités;Story;CRUD créneaux et pauses (par semestre);Grille lundi–samedi propre à chaque semestre, ordre consécutif, pauses, pas fixe de 30 minutes.;"- Unicité (semestre, jour, ordre)
 - Durée exacte de 30 minutes (CHECK SQL, constante SLOT_MINUTES)
 - Une pause est non planifiable
