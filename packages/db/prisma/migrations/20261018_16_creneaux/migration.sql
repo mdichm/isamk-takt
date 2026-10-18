@@ -31,4 +31,4 @@ CREATE INDEX "creneaux_semestreId_jour_idx" ON "creneaux"("semestreId", "jour");
 -- CHECK: durée exacte de 30 minutes (SLOT_MINUTES)
 ALTER TABLE "creneaux"
     ADD CONSTRAINT "creneaux_duree_30min_check"
-    CHECK ((heureFin - heureDebut) = interval '30 minutes');
+    CHECK (("heureFin" - "heureDebut") = interval '30 minutes');
