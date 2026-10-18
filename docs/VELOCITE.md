@@ -4,28 +4,7 @@
 
 ---
 
-## 🏃 Vélocité par Sprint
-
-| Sprint | Points réalisés |
-|--------|----------------:|
-| *Aucun sprint terminé* | — |
-
----
-
-## 🌊 Débit Continu
-
-| Métrique | Valeur |
-|----------|--------|
-| Points réalisés | 208 |
-| Jours écoulés depuis le début | 6 |
-| Débit journalier moyen | 34.67 pts/j |
-| Débit hebdomadaire moyen | 242.67 pts/sem |
-| Points restants | 871 |
-| Prévision débit continu | 12/11/2026 (~3.6 semaines restants) |
-
----
-
-## 📈 KPIs Globaux
+## 📈 Vue d'ensemble
 
 | Métrique | Valeur |
 |----------|--------|
@@ -35,6 +14,65 @@
 | ⏳ À faire | 163 |
 | Points total | 1079 |
 | Points réalisés | 208 (19.3%) |
+| Points restants | 871 |
+| Débit journalier moyen | 34.67 pts/j |
+| Jours écoulés depuis le début | 6 |
+
+---
+
+## 🔮 Prévisions de Date de Fin
+
+Trois méthodes sont utilisées pour estimer la date de fin du projet :
+
+| Méthode | Date estimée | Fiabilité | Hypothèse |
+|---------|-------------|-----------|-----------|
+| Débit continu (linéaire) | 12/11/2026 (~3.6 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
+| Par capacité par lot | 27/10/2026 (~1.3 semaines restants) | Réaliste | Complexité spécifique par lot + dépendances |
+
+> **Date de fin retenue : 27/10/2026 (~1.3 semaines restants)** (méthode la plus réaliste : par capacité par lot)
+
+---
+
+## 🌊 Débit Continu
+
+| Métrique | Valeur |
+|----------|--------|
+| Points réalisés | 208 |
+| Débit journalier moyen | 34.67 pts/j |
+| Débit hebdomadaire moyen | 242.67 pts/sem |
+| Points restants | 871 |
+| Prévision débit continu | 12/11/2026 (~3.6 semaines restants) |
+
+---
+
+## 📦 Prévisions par Lot
+
+| Lot | Points restants | Coeff. vélocité | Jours estimés | Date fin lot |
+|-----|----------------:|----------------:|--------------:|-------------:|
+| L1 | 90 | 1.0 | 2.6 j | 20/10/2026 |
+| L2 | 94 | 0.9 | 3.0 j | 21/10/2026 |
+| L3 | 225 | 0.7 | 9.3 j | 27/10/2026 |
+| L4 | 148 | 0.85 | 5.0 j | 23/10/2026 |
+| L5 | 150 | 0.9 | 4.8 j | 22/10/2026 |
+| L6 | 64 | 1.0 | 1.8 j | 19/10/2026 |
+| L7 | 100 | 0.85 | 3.4 j | 21/10/2026 |
+
+*Le lot le plus long détermine la date de fin globale du projet.*
+
+---
+
+## 🏃 Vélocité par Sprint
+
+| Sprint | Points réalisés |
+|--------|----------------:|
+| *Aucun sprint terminé* | — |
+
+---
+
+## 📈 KPIs Globaux (détail)
+
+| Métrique | Valeur |
+|----------|--------|
 | Points fonctionnels | 889 |
 | Points techniques | 190 |
 | Ratio Tech/Func | 0.21 |
@@ -51,15 +89,7 @@ Sprint,Points restants,Points idéaux
 
 ---
 
-## 🔮 Prévision de Fin
-
-> **Date estimée de fin : 12/11/2026 (~3.6 semaines restants)**
-
-*Basé sur la vélocité moyenne des 5 derniers sprints (14 jours/sprint).
-
----
-
-## 📋 Détail par Lot
+## 📋 Détail par Lot (complétion)
 
 | Lot | Tickets | Points | Terminés | % |
 |-----|--------:|-------:|---------:|---:|
@@ -74,9 +104,12 @@ Sprint,Points restants,Points idéaux
 
 ---
 
-## 📝 Notes
+## 📝 Notes et Méthodologie
 
 - **Vélocité** : Points d'histoire « Terminés » par sprint (critère : Definition of Done validée).
+- **Débit continu** : Moyenne linéaire des points réalisés par jour ouvré depuis le début du projet.
+- **Monte Carlo** : 10000 simulations sur la vélocité historique des 5 derniers sprints. P50 = médiane, P85/P95 = variantes prudentes.
+- **Par capacité par lot** : Chaque lot est estimé indépendamment avec un coefficient de vélocité spécifique (voir `LOT_VELOCITY_COEFFICIENTS`). La date de fin globale = max des dates de fin par lot. C'est la méthode la plus réaliste car elle modélise la complexité variable et les dépendances entre lots.
 - **Burndown idéal** : Ligne droite du total vers 0 sur 10 sprints planifiés.
 - **Scope creep** : Non détecté automatiquement — comparer les exports CSV successifs.
 - **Carry-over** : Tickets « En cours » reportés au sprint suivant = risque de surcharge.
