@@ -96,6 +96,16 @@ enum ExigenceNiveau {
   SOUHAITE
 }
 
+// Jour de la semaine pour la grille horaire — L1-17
+enum JourSemaine {
+  LUNDI
+  MARDI
+  MERCREDI
+  JEUDI
+  VENDREDI
+  SAMEDI
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -486,9 +496,32 @@ model Semestre {
 
   groupes   Groupe[]
   decharges Decharge[]
+  creneaux  Creneau[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
+}
+
+// ============================================
+// Grille horaire (L1-17 : créneaux et pauses)
+// ============================================
+
+model Creneau {
+  id         String      @id @default(uuid()) @db.Uuid
+  semestreId String      @db.Uuid
+  semestre   Semestre    @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  jour       JourSemaine
+  ordre      Int // position dans la journée (1..n)
+  heureDebut DateTime    @db.Time
+  heureFin   DateTime    @db.Time
+  estPause   Boolean     @default(false)
+  estActive  Boolean     @default(true)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@unique([semestreId, jour, ordre])
+  @@index([semestreId, jour])
+  @@map("creneaux")
 }
 
 // ============================================
