@@ -10,8 +10,8 @@
 |----------|--------|
 | Tickets total | 210 |
 | ✅ Terminés | 48 (22.9%) |
-| 🔄 En cours | 0 |
-| ⏳ À faire | 162 |
+| 🔄 En cours | 1 |
+| ⏳ À faire | 161 |
 | Points total | 1079 |
 | Points réalisés | 213 (19.7%) |
 | Points restants | 866 |
@@ -52,7 +52,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 | L1 | 85 | 1.0 | 2.4 j | 20/10/2026 |
 | L2 | 94 | 0.9 | 2.9 j | 21/10/2026 |
 | L3 | 225 | 0.7 | 9.1 j | 27/10/2026 |
-| L4 | 148 | 0.85 | 4.9 j | 22/10/2026 |
+| L4 | 148 | 0.85 | 4.9 j | 23/10/2026 |
 | L5 | 150 | 0.9 | 4.7 j | 22/10/2026 |
 | L6 | 64 | 1.0 | 1.8 j | 19/10/2026 |
 | L7 | 100 | 0.85 | 3.3 j | 21/10/2026 |
