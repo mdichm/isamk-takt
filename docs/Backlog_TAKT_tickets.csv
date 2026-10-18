@@ -170,7 +170,7 @@ L1-08;L1;E1.2;Structure académique;Story;Duplication des groupes d'un semestre 
 - Effectifs copiés ou réinitialisés avec avertissement
 - Aucune affectation copiée";EX-ORG-03;§4.10;BACK;Should;3;L1-07;Terminé;
 L1-09;L1;E1.2;Structure académique;Story;UI structure académique;Arbre département > formation > niveau > groupes, modules, types, tags.;"- Création, modification et désactivation depuis l'arbre
-- Erreurs de suppression RESTRICT expliquées";EX-ORG-01, EX-ORG-02;§3.3;FRONT;Must;8;L1-04, L1-05, L1-06, L0-29;À faire;
+- Erreurs de suppression RESTRICT expliquées";EX-ORG-01, EX-ORG-02;§3.3;FRONT;Must;8;L1-04, L1-05, L1-06, L0-29;Terminé;
 L1-10;L1;E1.3;Enseignants, grades & décharges;Story;CRUD enseignants et modules enseignables;Enseignant (matricule, grade, département, téléphone facultatif), modules enseignables.;"- Unicité (année, matricule)
 - Désactivation refusée (409) si présent dans une répartition d'une année non clôturée
 - Le Responsable modifie les modules enseignables de son département uniquement
