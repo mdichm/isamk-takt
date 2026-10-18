@@ -45,6 +45,8 @@ export type paths = {
             path?: never;
             cookie?: never;
         };
+        /** Consulter les entrées d'audit métier avec filtres et pagination */
+        get: operations["listAudit"];
         put?: never;
         post?: never;
         delete?: never;
@@ -52,8 +54,23 @@ export type paths = {
         head?: never;
         patch?: never;
         trace?: never;
-        /** Consulter les entrées d'audit métier avec filtres et pagination */
-        get: operations["listAudit"];
+    };
+    "/groupes/duplicate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Dupliquer les groupes d’un semestre vers un autre */
+        post: operations["duplicateGroupes"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
 };
 export type webhooks = Record<string, never>;
@@ -119,16 +136,18 @@ export type components = {
             id: string;
             /** Format: date-time */
             at: string;
+            /** Format: uuid */
             userId: string | null;
             action: string;
             objetType: string;
             objetId: string;
-            ancienneValeur: unknown | null;
-            nouvelleValeur: unknown | null;
-            versionId: string | null;
-            motif: string | null;
-            requestId: string | null;
-            ip: string | null;
+            ancienneValeur?: Record<string, never> | null;
+            nouvelleValeur?: Record<string, never> | null;
+            /** Format: uuid */
+            versionId?: string | null;
+            motif?: string | null;
+            requestId?: string | null;
+            ip?: string | null;
         };
         PaginatedAuditResponse: {
             data: components["schemas"]["AuditEntry"][];
@@ -158,6 +177,92 @@ export type components = {
                 seanceIds?: string[];
                 message: string;
             }[];
+        };
+        GroupeResponseDto: {
+            /**
+             * Format: uuid
+             * @description Identifiant du groupe
+             */
+            id: string;
+            /**
+             * Format: uuid
+             * @description Identifiant du niveau parent
+             */
+            niveauId: string;
+            /**
+             * Format: uuid
+             * @description Identifiant du semestre
+             */
+            semestreId: string;
+            /**
+             * Format: uuid
+             * @description Identifiant du groupe parent (null pour une section racine)
+             */
+            parentId?: string | null;
+            /**
+             * @description Type de groupe
+             * @enum {string}
+             */
+            type: "SECTION" | "GROUPE" | "SOUS_GROUPE";
+            /** @description Code unique du groupe */
+            code: string;
+            /** @description Libellé du groupe */
+            libelle: string;
+            /** @description Effectif du groupe */
+            effectif: number;
+            /**
+             * Format: uuid
+             * @description Identifiant d'origine (idempotence de duplication)
+             */
+            originId?: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        DuplicateGroupesDto: {
+            /**
+             * Format: uuid
+             * @description ID du semestre source à dupliquer
+             */
+            sourceSemestreId: string;
+            /**
+             * Format: uuid
+             * @description ID du semestre cible de la duplication
+             */
+            cibleSemestreId: string;
+            /**
+             * @description Réinitialiser les effectifs à 0 (un avertissement est émis par groupe)
+             * @default false
+             */
+            reinitialiserEffectifs: boolean;
+        };
+        DuplicateGroupesConflict: {
+            /**
+             * @description Code du groupe déjà présent dans le semestre cible (bloquant)
+             * @example INFO-L3-S1
+             */
+            code: string;
+            /**
+             * Format: uuid
+             * @description ID du groupe source concerné
+             */
+            sourceGroupeId: string;
+            /**
+             * Format: uuid
+             * @description ID du groupe cible déjà existant avec ce code (sans originId correspondant)
+             */
+            existingGroupeId: string;
+        };
+        DuplicateGroupesResult: {
+            /** @description Groupes créés dans le semestre cible */
+            crees: components["schemas"]["GroupeResponseDto"][];
+            /** @description Groupes déjà dupliqués (idempotence via originId) et donc ignorés */
+            "ignor\u00E9s": components["schemas"]["GroupeResponseDto"][];
+            /** @description Avertissements métier (ex: effectifs réinitialisés à 0) */
+            avertissements: string[];
+            /** @description Conflits de code détectés (aucune création n'est effectuée en cas de conflit) */
+            conflits?: components["schemas"]["DuplicateGroupesConflict"][];
         };
     };
     responses: never;
@@ -236,12 +341,19 @@ export interface operations {
     listAudit: {
         parameters: {
             query?: {
+                /** @description Filtre par type d'objet audité */
                 objetType?: string;
+                /** @description Filtre par identifiant d'objet audité (UUID) */
                 objetId?: string;
+                /** @description Filtre par utilisateur ayant déclenché l'action */
                 userId?: string;
+                /** @description Date/heure de début (ISO 8601) */
                 from?: string;
+                /** @description Date/heure de fin (ISO 8601) */
                 to?: string;
+                /** @description Nombre d'entrées par page */
                 limit?: number;
+                /** @description Curseur de pagination (ID de la dernière entrée vue) */
                 cursor?: string;
             };
             header?: never;
@@ -279,4 +391,64 @@ export interface operations {
             };
         };
     };
-};
+    duplicateGroupes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DuplicateGroupesDto"];
+            };
+        };
+        responses: {
+            /** @description Résultat de la duplication des groupes */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DuplicateGroupesResult"];
+                };
+            };
+            /** @description Non authentifié */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDetails"];
+                };
+            };
+            /** @description Droit insuffisant (groupe:write) */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDetails"];
+                };
+            };
+            /** @description Semestre source ou cible non trouvé */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDetails"];
+                };
+            };
+            /** @description Conflit de code dans le semestre cible (DUPLICATE_RESOURCE) */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProblemDetails"];
+                };
+            };
+        };
+    };
+}

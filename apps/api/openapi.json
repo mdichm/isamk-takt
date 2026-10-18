@@ -65,8 +65,21 @@
         "operationId": "listUsers",
         "summary": "Liste des utilisateurs",
         "parameters": [
-          {"name": "limit", "in": "query", "schema": {"type": "integer", "default": 50}},
-          {"name": "cursor", "in": "query", "schema": {"type": "string"}}
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -87,13 +100,68 @@
         "operationId": "listAudit",
         "summary": "Consulter les entrées d'audit métier avec filtres et pagination",
         "parameters": [
-          {"name": "objetType", "in": "query", "schema": {"type": "string"}, "description": "Filtre par type d'objet audité"},
-          {"name": "objetId", "in": "query", "schema": {"type": "string", "format": "uuid"}, "description": "Filtre par identifiant d'objet audité (UUID)"},
-          {"name": "userId", "in": "query", "schema": {"type": "string", "format": "uuid"}, "description": "Filtre par utilisateur ayant déclenché l'action"},
-          {"name": "from", "in": "query", "schema": {"type": "string", "format": "date-time"}, "description": "Date/heure de début (ISO 8601)"},
-          {"name": "to", "in": "query", "schema": {"type": "string", "format": "date-time"}, "description": "Date/heure de fin (ISO 8601)"},
-          {"name": "limit", "in": "query", "schema": {"type": "integer", "default": 50, "maximum": 100}, "description": "Nombre d'entrées par page"},
-          {"name": "cursor", "in": "query", "schema": {"type": "string"}, "description": "Curseur de pagination (ID de la dernière entrée vue)"}
+          {
+            "name": "objetType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtre par type d'objet audité"
+          },
+          {
+            "name": "objetId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Filtre par identifiant d'objet audité (UUID)"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Filtre par utilisateur ayant déclenché l'action"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Date/heure de début (ISO 8601)"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Date/heure de fin (ISO 8601)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            },
+            "description": "Nombre d'entrées par page"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Curseur de pagination (ID de la dernière entrée vue)"
+          }
         ],
         "responses": {
           "200": {
@@ -128,133 +196,414 @@
           }
         }
       }
+    },
+    "/groupes/duplicate": {
+      "post": {
+        "tags": [
+          "Groupes hiérarchiques"
+        ],
+        "operationId": "duplicateGroupes",
+        "summary": "Dupliquer les groupes d’un semestre vers un autre",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DuplicateGroupesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Résultat de la duplication des groupes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DuplicateGroupesResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non authentifié",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Droit insuffisant (groupe:write)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Semestre source ou cible non trouvé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflit de code dans le semestre cible (DUPLICATE_RESOURCE)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
       "LoginRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
-          "email": {"type": "string", "format": "email"},
-          "password": {"type": "string"},
-          "totp": {"type": "string", "pattern": "^\\d{6}$"}
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          },
+          "totp": {
+            "type": "string",
+            "pattern": "^\\d{6}$"
+          }
         }
       },
       "LoginResponse": {
         "type": "object",
-        "required": ["accessToken", "expiresIn", "mustChangePassword", "user"],
+        "required": [
+          "accessToken",
+          "expiresIn",
+          "mustChangePassword",
+          "user"
+        ],
         "properties": {
-          "accessToken": {"type": "string"},
-          "expiresIn": {"type": "integer"},
-          "mustChangePassword": {"type": "boolean"},
-          "user": {"$ref": "#/components/schemas/AuthUser"}
+          "accessToken": {
+            "type": "string"
+          },
+          "expiresIn": {
+            "type": "integer"
+          },
+          "mustChangePassword": {
+            "type": "boolean"
+          },
+          "user": {
+            "$ref": "#/components/schemas/AuthUser"
+          }
         }
       },
       "AuthUser": {
         "type": "object",
-        "required": ["id", "email", "nom", "prenom", "roles", "mfaActive", "mustChangePassword"],
+        "required": [
+          "id",
+          "email",
+          "nom",
+          "prenom",
+          "roles",
+          "mfaActive",
+          "mustChangePassword"
+        ],
         "properties": {
-          "id": {"type": "string", "format": "uuid"},
-          "email": {"type": "string", "format": "email"},
-          "nom": {"type": "string"},
-          "prenom": {"type": "string"},
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "prenom": {
+            "type": "string"
+          },
           "roles": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["role", "departementCode"],
+              "required": [
+                "role",
+                "departementCode"
+              ],
               "properties": {
-                "role": {"type": "string", "enum": ["ADMINISTRATEUR", "GESTIONNAIRE", "RESPONSABLE_DEPARTEMENT", "DIRECTION"]},
-                "departementCode": {"type": "string", "nullable": true}
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "ADMINISTRATEUR",
+                    "GESTIONNAIRE",
+                    "RESPONSABLE_DEPARTEMENT",
+                    "DIRECTION"
+                  ]
+                },
+                "departementCode": {
+                  "type": "string",
+                  "nullable": true
+                }
               }
             }
           },
-          "mfaActive": {"type": "boolean"},
-          "mustChangePassword": {"type": "boolean"}
+          "mfaActive": {
+            "type": "boolean"
+          },
+          "mustChangePassword": {
+            "type": "boolean"
+          }
         }
       },
       "UserDto": {
         "type": "object",
-        "required": ["id", "email", "nom", "prenom", "roles", "actif", "mfaActive", "mustChangePassword", "createdAt", "updatedAt"],
+        "required": [
+          "id",
+          "email",
+          "nom",
+          "prenom",
+          "roles",
+          "actif",
+          "mfaActive",
+          "mustChangePassword",
+          "createdAt",
+          "updatedAt"
+        ],
         "properties": {
-          "id": {"type": "string", "format": "uuid"},
-          "email": {"type": "string", "format": "email"},
-          "nom": {"type": "string"},
-          "prenom": {"type": "string"},
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "prenom": {
+            "type": "string"
+          },
           "roles": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["role", "departementCode"],
+              "required": [
+                "role",
+                "departementCode"
+              ],
               "properties": {
-                "role": {"type": "string", "enum": ["ADMINISTRATEUR", "GESTIONNAIRE", "RESPONSABLE_DEPARTEMENT", "DIRECTION"]},
-                "departementCode": {"type": "string", "nullable": true}
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "ADMINISTRATEUR",
+                    "GESTIONNAIRE",
+                    "RESPONSABLE_DEPARTEMENT",
+                    "DIRECTION"
+                  ]
+                },
+                "departementCode": {
+                  "type": "string",
+                  "nullable": true
+                }
               }
             }
           },
-          "actif": {"type": "boolean"},
-          "desactiveLe": {"type": "string", "format": "date-time", "nullable": true},
-          "lastLoginAt": {"type": "string", "format": "date-time", "nullable": true},
-          "mfaActive": {"type": "boolean"},
-          "mustChangePassword": {"type": "boolean"},
-          "createdAt": {"type": "string", "format": "date-time"},
-          "updatedAt": {"type": "string", "format": "date-time"}
+          "actif": {
+            "type": "boolean"
+          },
+          "desactiveLe": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastLoginAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "mfaActive": {
+            "type": "boolean"
+          },
+          "mustChangePassword": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "PaginatedUsersResponse": {
         "type": "object",
-        "required": ["data", "nextCursor"],
+        "required": [
+          "data",
+          "nextCursor"
+        ],
         "properties": {
-          "data": {"type": "array", "items": {"$ref": "#/components/schemas/UserDto"}},
-          "nextCursor": {"type": "string", "nullable": true}
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserDto"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "nullable": true
+          }
         }
       },
       "AuditEntry": {
         "type": "object",
-        "required": ["id", "at", "userId", "action", "objetType", "objetId"],
+        "required": [
+          "id",
+          "at",
+          "userId",
+          "action",
+          "objetType",
+          "objetId"
+        ],
         "properties": {
-          "id": {"type": "string", "format": "uuid"},
-          "at": {"type": "string", "format": "date-time"},
-          "userId": {"type": "string", "format": "uuid", "nullable": true},
-          "action": {"type": "string"},
-          "objetType": {"type": "string"},
-          "objetId": {"type": "string"},
-          "ancienneValeur": {"type": "object", "nullable": true},
-          "nouvelleValeur": {"type": "object", "nullable": true},
-          "versionId": {"type": "string", "format": "uuid", "nullable": true},
-          "motif": {"type": "string", "nullable": true},
-          "requestId": {"type": "string", "nullable": true},
-          "ip": {"type": "string", "nullable": true}
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "action": {
+            "type": "string"
+          },
+          "objetType": {
+            "type": "string"
+          },
+          "objetId": {
+            "type": "string"
+          },
+          "ancienneValeur": {
+            "type": "object",
+            "nullable": true
+          },
+          "nouvelleValeur": {
+            "type": "object",
+            "nullable": true
+          },
+          "versionId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "motif": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ip": {
+            "type": "string",
+            "nullable": true
+          }
         }
       },
       "PaginatedAuditResponse": {
         "type": "object",
-        "required": ["data", "nextCursor"],
+        "required": [
+          "data",
+          "nextCursor"
+        ],
         "properties": {
-          "data": {"type": "array", "items": {"$ref": "#/components/schemas/AuditEntry"}},
-          "nextCursor": {"type": "string", "nullable": true}
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            }
+          },
+          "nextCursor": {
+            "type": "string",
+            "nullable": true
+          }
         }
       },
       "ProblemDetails": {
         "type": "object",
-        "required": ["type", "title", "status"],
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
         "properties": {
-          "type": {"type": "string", "format": "uri"},
-          "title": {"type": "string"},
-          "status": {"type": "integer"},
-          "detail": {"type": "string"},
-          "instance": {"type": "string"},
-          "code": {"type": "string"},
-          "requestId": {"type": "string"},
+          "type": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string"
+          },
           "errors": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["field", "message"],
+              "required": [
+                "field",
+                "message"
+              ],
               "properties": {
-                "field": {"type": "string"},
-                "message": {"type": "string"}
+                "field": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -262,25 +611,217 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["type", "severite", "regleCode", "message"],
+              "required": [
+                "type",
+                "severite",
+                "regleCode",
+                "message"
+              ],
               "properties": {
-                "type": {"type": "string"},
-                "severite": {"type": "string"},
-                "regleCode": {"type": "string"},
+                "type": {
+                  "type": "string"
+                },
+                "severite": {
+                  "type": "string"
+                },
+                "regleCode": {
+                  "type": "string"
+                },
                 "objet": {
                   "type": "object",
-                  "required": ["type", "id"],
+                  "required": [
+                    "type",
+                    "id"
+                  ],
                   "properties": {
-                    "type": {"type": "string"},
-                    "id": {"type": "string"}
+                    "type": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
                   }
                 },
-                "seanceIds": {"type": "array", "items": {"type": "string"}},
-                "message": {"type": "string"}
+                "seanceIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
               }
             }
           }
         }
+      },
+      "GroupeResponseDto": {
+        "type": "object",
+        "required": [
+          "id",
+          "niveauId",
+          "semestreId",
+          "type",
+          "code",
+          "libelle",
+          "effectif",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifiant du groupe"
+          },
+          "niveauId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifiant du niveau parent"
+          },
+          "semestreId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identifiant du semestre"
+          },
+          "parentId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "description": "Identifiant du groupe parent (null pour une section racine)"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "SECTION",
+              "GROUPE",
+              "SOUS_GROUPE"
+            ],
+            "description": "Type de groupe"
+          },
+          "code": {
+            "type": "string",
+            "description": "Code unique du groupe"
+          },
+          "libelle": {
+            "type": "string",
+            "description": "Libellé du groupe"
+          },
+          "effectif": {
+            "type": "integer",
+            "description": "Effectif du groupe"
+          },
+          "originId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "description": "Identifiant d'origine (idempotence de duplication)"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DuplicateGroupesDto": {
+        "type": "object",
+        "required": [
+          "sourceSemestreId",
+          "cibleSemestreId"
+        ],
+        "properties": {
+          "sourceSemestreId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID du semestre source à dupliquer"
+          },
+          "cibleSemestreId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID du semestre cible de la duplication"
+          },
+          "reinitialiserEffectifs": {
+            "type": "boolean",
+            "default": false,
+            "description": "Réinitialiser les effectifs à 0 (un avertissement est émis par groupe)"
+          }
+        }
+      },
+      "DuplicateGroupesConflict": {
+        "type": "object",
+        "required": [
+          "code",
+          "sourceGroupeId",
+          "existingGroupeId"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Code du groupe déjà présent dans le semestre cible (bloquant)",
+            "example": "INFO-L3-S1"
+          },
+          "sourceGroupeId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID du groupe source concerné"
+          },
+          "existingGroupeId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID du groupe cible déjà existant avec ce code (sans originId correspondant)"
+          }
+        }
+      },
+      "DuplicateGroupesResult": {
+        "type": "object",
+        "required": [
+          "crees",
+          "ignorés",
+          "avertissements"
+        ],
+        "properties": {
+          "crees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupeResponseDto"
+            },
+            "description": "Groupes créés dans le semestre cible"
+          },
+          "ignorés": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupeResponseDto"
+            },
+            "description": "Groupes déjà dupliqués (idempotence via originId) et donc ignorés"
+          },
+          "avertissements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Avertissements métier (ex: effectifs réinitialisés à 0)"
+          },
+          "conflits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DuplicateGroupesConflict"
+            },
+            "description": "Conflits de code détectés (aucune création n'est effectuée en cas de conflit)"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT d'authentification (Bearer)"
       }
     }
   }
