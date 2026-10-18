@@ -164,7 +164,7 @@ L1-07;L1;E1.2;Structure académique;Story;Nomenclature normalisée des groupes;C
 - Segment 2 = abréviation de la formation, unique par année
 - GET /groupes/code-suggestion propose le prochain identifiant libre
 - Code non conforme refusé (422 GROUP_CODE_INVALID), y compris à l'import
-- Segment 3 = identifiant du groupe dans le niveau (1, 2, 3 ou A, B)";EX-ORG-03;§4.10;BACK;Must;5;L1-04;À faire;
+- Segment 3 = identifiant du groupe dans le niveau (1, 2, 3 ou A, B)";EX-ORG-03;§4.10;BACK;Must;5;L1-04;En cours;
 L1-08;L1;E1.2;Structure académique;Story;Duplication des groupes d'un semestre à l'autre;POST /groupes/duplicate {sourceSemestre, cibleSemestre}.;"- Parents copiés avant les enfants
 - Idempotent via originId
 - Effectifs copiés ou réinitialisés avec avertissement
