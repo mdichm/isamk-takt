@@ -143,9 +143,8 @@ export class CreateSalleDto {
 
   @ApiPropertyOptional({ example: 'Bâtiment A - 3ème étage', description: 'Site / bâtiment' })
   @IsOptional()
-  @IsString()
-  @MaxLength(200)
-  site?: string;
+  @IsUUID()
+  siteId?: string;
 
   @ApiProperty({ example: 120, description: 'Capacité maximale (> 0)' })
   @IsInt()
@@ -203,9 +202,8 @@ export class UpdateSalleDto {
 
   @ApiPropertyOptional({ example: 'Bâtiment A - 3ème étage' })
   @IsOptional()
-  @IsString()
-  @MaxLength(200)
-  site?: string;
+  @IsUUID()
+  siteId?: string;
 
   @ApiPropertyOptional({ example: 120 })
   @IsOptional()
@@ -263,7 +261,7 @@ export class SalleResponseDto {
   libelle: string;
 
   @ApiPropertyOptional()
-  site?: string;
+  siteId?: string;
 
   @ApiProperty()
   capaciteMax: number;

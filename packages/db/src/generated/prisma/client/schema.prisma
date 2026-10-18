@@ -752,11 +752,29 @@ model TypeSalle {
   @@map("types_salle")
 }
 
+// ============================================
+// Référentiel des sites (L1-14)
+// ============================================
+
+model Site {
+  id           String   @id @default(uuid()) @db.Uuid
+  code         String   @unique // ex: "SITE-PRINCIPAL"
+  libelle      String // ex: "Campus Principal"
+  estPrincipal Boolean  @default(false) // un seul site principal par défaut
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  salles Salle[]
+
+  @@index([estPrincipal])
+  @@map("sites")
+}
+
 model Salle {
   id                  String   @id @default(uuid()) @db.Uuid
   code                String // ex: "AMPHI-A"
   libelle             String // ex: "Amphithéâtre A"
-  site                String? // site / bâtiment
+  siteId              String?  @db.Uuid // rattachement à un site (null = non affecté)
   capaciteMax         Int // capacité maximale (> 0)
   capaciteRecommandee Int? // capacité recommandée (<= capaciteMax)
   accesPMR            Boolean  @default(false)
@@ -770,11 +788,13 @@ model Salle {
 
   departement       Departement?       @relation(fields: [departementId], references: [id], onDelete: SetNull)
   typeSalle         TypeSalle?         @relation(fields: [typeSalleId], references: [id], onDelete: SetNull)
+  site              Site?              @relation(fields: [siteId], references: [id], onDelete: SetNull)
   equipements       SalleEquipement[]
   salleActivityTags SalleActivityTag[] @relation("SalleActivityTag")
 
   @@index([departementId])
   @@index([typeSalleId])
+  @@index([siteId])
   @@map("salles")
 }
 

@@ -162,7 +162,7 @@ describe('SalleService', () => {
       prisma.departement.findUnique.mockResolvedValue({ id: departementId });
       prisma.typeSalle.findUnique.mockResolvedValue({ id: typeSalleId });
       prisma.salle.create.mockResolvedValue({
-        id: 'salle-1', code: 'AMPHI-A', libelle: 'Amphithéâtre A', site: null,
+        id: 'salle-1', code: 'AMPHI-A', libelle: 'Amphithéâtre A', siteId: null,
         capaciteMax: 120, capaciteRecommandee: 100, accesPMR: false, commentaire: null,
         estActive: true, departementId, typeSalleId, originId: null,
         createdAt: new Date(), updatedAt: new Date(),
@@ -174,7 +174,7 @@ describe('SalleService', () => {
       expect(result.capaciteMax).toBe(120);
       expect(prisma.salle.create).toHaveBeenCalledWith({
         data: {
-          code: 'AMPHI-A', libelle: 'Amphithéâtre A', site: null,
+          code: 'AMPHI-A', libelle: 'Amphithéâtre A', siteId: null,
           capaciteMax: 120, capaciteRecommandee: 100, accesPMR: false,
           commentaire: null, estActive: true, departementId, typeSalleId, originId: null,
         },
