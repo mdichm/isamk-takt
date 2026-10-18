@@ -185,7 +185,7 @@ t("ens_ui","L1",E,S,"UI enseignants","Liste, fiche, modules enseignables, décha
 E = "Salles & équipements"
 t("salles","L1",E,S,"CRUD salles, types de salle et équipements","Capacité maximale et recommandée, accessibilité PMR, commentaire, site, rattachement département optionnel.",
   ["CHECK capacité > 0 et capacité recommandée inférieure ou égale à la maximale","Salle partagée = département nul","Désactivation recommandée à la suppression"],
-  "EX-REF-04","§2.2, §2.4","BACK","Must",5,["structure"],"L1-10",statut="En cours")
+  "EX-REF-04","§2.2, §2.4","BACK","Must",5,["structure"],"L1-10",statut="Terminé")
 t("sites","L1",E,S,"Référentiel des sites","Site principal et annexes ; rattachement obligatoire d'une salle à un site.",
   ["Un site principal existe par défaut","Les filtres et vues par site sont disponibles","Le site n'a aucun effet de calcul en v1.0"],
   "EX-REF-04","§2.2","BACK","Should",2,["salles"])
