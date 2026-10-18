@@ -356,6 +356,7 @@ exports.Prisma.DepartementScalarFieldEnum = {
   anneeId: 'anneeId',
   code: 'code',
   libelle: 'libelle',
+  ordre: 'ordre',
   originId: 'originId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -366,6 +367,7 @@ exports.Prisma.FormationScalarFieldEnum = {
   departementId: 'departementId',
   code: 'code',
   libelle: 'libelle',
+  ordre: 'ordre',
   originId: 'originId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -376,6 +378,7 @@ exports.Prisma.NiveauScalarFieldEnum = {
   formationId: 'formationId',
   code: 'code',
   libelle: 'libelle',
+  ordre: 'ordre',
   originId: 'originId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -389,6 +392,7 @@ exports.Prisma.GroupeScalarFieldEnum = {
   type: 'type',
   code: 'code',
   libelle: 'libelle',
+  ordre: 'ordre',
   effectif: 'effectif',
   originId: 'originId',
   createdAt: 'createdAt',

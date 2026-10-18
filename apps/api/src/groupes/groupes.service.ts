@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
+  BadRequestException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
@@ -15,6 +16,7 @@ import {
   GroupeType,
   CodeSuggestionDto,
 } from './dto/groupe.dto.js';
+import { ReorderDto } from '../structure/dto/structure.dto.js';
 import {
   DuplicateGroupesDto,
   DuplicateGroupesResult,
@@ -90,6 +92,7 @@ export class GroupesService {
       code: string;
       libelle: string;
       effectif: number;
+      ordre: number;
       originId: string | null;
       createdAt: Date;
       updatedAt: Date;
@@ -104,6 +107,7 @@ export class GroupesService {
             code: dto.code,
             libelle: dto.libelle,
             effectif: dto.effectif ?? 0,
+            ordre: dto.ordre ?? 0,
           },
         });
       },
@@ -293,7 +297,7 @@ export class GroupesService {
         where,
         skip,
         take: limit,
-        orderBy: { code: 'asc' },
+        orderBy: { ordre: 'asc', code: 'asc' },
         include: { parent: true, enfants: true },
       }),
       this.prisma.groupe.count({ where }),
@@ -369,6 +373,7 @@ export class GroupesService {
       code: string;
       libelle: string;
       effectif: number;
+      ordre: number;
       originId: string | null;
       createdAt: Date;
       updatedAt: Date;
@@ -381,6 +386,7 @@ export class GroupesService {
             ...(dto.libelle !== undefined && { libelle: dto.libelle }),
             ...(dto.effectif !== undefined && { effectif: dto.effectif }),
             ...(dto.parentId !== undefined && { parentId: dto.parentId }),
+            ...(dto.ordre !== undefined && { ordre: dto.ordre }),
           },
         });
       },
@@ -570,6 +576,7 @@ export class GroupesService {
     code: string;
     libelle: string;
     effectif: number;
+    ordre: number;
     originId: string | null;
     createdAt: Date;
     updatedAt: Date;
@@ -583,9 +590,53 @@ export class GroupesService {
       code: groupe.code,
       libelle: groupe.libelle,
       effectif: groupe.effectif,
+      ordre: groupe.ordre,
       originId: groupe.originId,
       createdAt: groupe.createdAt,
       updatedAt: groupe.updatedAt,
     };
+  }
+
+  // ============================================
+  // Réordonnancement (L7-18)
+  // ============================================
+
+  async reorderGroupes(dto: ReorderDto, userId: string): Promise<void> {
+    const ids = dto.items.map((item) => item.id);
+    const groupes = await this.prisma.groupe.findMany({
+      where: { id: { in: ids } },
+      select: { id: true, niveauId: true, semestreId: true, ordre: true },
+    });
+
+    if (groupes.length !== ids.length) {
+      throw new NotFoundException('Un ou plusieurs groupes introuvables');
+    }
+
+    const niveauIds = new Set(groupes.map((g) => g.niveauId));
+    const semestreIds = new Set(groupes.map((g) => g.semestreId));
+    if (niveauIds.size !== 1 || semestreIds.size !== 1) {
+      throw new BadRequestException(
+        'Tous les groupes doivent appartenir au même niveau et au même semestre',
+      );
+    }
+
+    await this.prisma.$transaction(
+      dto.items.map((item, index) =>
+        this.prisma.groupe.update({
+          where: { id: item.id },
+          data: { ordre: index + 1 },
+        }),
+      ),
+    );
+
+    await this.audit.auditTransaction(
+      async () => {},
+      {
+        userId,
+        action: 'UPDATE',
+        objetType: 'Groupe',
+        motif: `Réordonnancement des groupes (${ids.length} éléments)`,
+      },
+    );
   }
 }

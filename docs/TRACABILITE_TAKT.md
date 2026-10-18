@@ -2,7 +2,7 @@
 
 Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main.
 
-- 124 exigences, 210 tickets, 1079 points.
+- 124 exigences, 212 tickets, 1092 points.
 
 ## Exigences → tickets
 
@@ -37,8 +37,8 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | EX-CAL-04 | L1-22, L1-23, L3-28, L6-05 | L1, L3, L6 |
 | EX-CAL-05 | L1-02, L7-01, L7-02 | L1, L7 |
 | EX-CAL-06 | L7-03, L7-04 | L7 |
-| EX-ORG-01 | L1-03, L1-09 | L1 |
-| EX-ORG-02 | L1-04, L1-09 | L1 |
+| EX-ORG-01 | L1-03, L1-09, L7-18 | L1, L7 |
+| EX-ORG-02 | L1-04, L1-09, L7-18 | L1, L7 |
 | EX-ORG-03 | L1-07, L1-08 | L1 |
 | EX-REF-01 | L1-05, L2-01, L2-02 | L1, L2 |
 | EX-REF-02 | L1-05 | L1 |
@@ -125,7 +125,7 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | EX-NFR-04 | L0-36, L3-11, L3-17, L3-23, L6-07, L7-08, L7-09 | L0, L3, L6, L7 |
 | EX-NFR-05 | L0-09, L0-35, L7-11 | L0, L7 |
 | EX-NFR-06 | L0-07, L7-12 | L0, L7 |
-| EX-NFR-07 | L3-18, L5-16, L7-14, L7-15, L7-16 | L3, L5, L7 |
+| EX-NFR-07 | L3-18, L5-16, L7-14, L7-15, L7-16, L7-19 | L3, L5, L7 |
 | EX-NFR-08 | L0-29 | L0 |
 | EX-NFR-09 | L0-01, L0-37 | L0 |
 | EX-NFR-10 | L0-05 | L0 |
@@ -356,3 +356,5 @@ Fichier généré par `tools/verifier_coherence.py`. Ne pas l'éditer à la main
 | L7-15 | L7-15 |
 | L7-16 | L7-16 |
 | L7-17 | L7-17 |
+| L7-18 | L7-18 |
+| L7-19 | L7-19 |

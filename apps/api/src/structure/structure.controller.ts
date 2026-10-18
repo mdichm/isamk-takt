@@ -29,6 +29,7 @@ import {
   NiveauResponseDto,
   PaginatedNiveauxDto,
   NiveauQueryDto,
+  ReorderDto,
 } from './dto/structure.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -98,6 +99,17 @@ export class StructureController {
     return this.structureService.removeDepartement(id, 'system');
   }
 
+  @Patch('departements/reorder')
+  @Permissions('structure:write')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Réordonner les départements d\'une année' })
+  @ApiResponse({ status: 204, description: 'Départements réordonnés' })
+  @ApiResponse({ status: 400, description: 'Les départements n\'appartiennent pas à la même année' })
+  @ApiResponse({ status: 404, description: 'Département introuvable' })
+  async reorderDepartements(@Body() dto: ReorderDto): Promise<void> {
+    return this.structureService.reorderDepartements(dto, 'system');
+  }
+
   // ============================================
   // Formations
   // ============================================
@@ -164,6 +176,17 @@ export class StructureController {
     return this.structureService.removeFormation(id, 'system');
   }
 
+  @Patch('formations/reorder')
+  @Permissions('structure:write')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Réordonner les formations d\'un département' })
+  @ApiResponse({ status: 204, description: 'Formations réordonnées' })
+  @ApiResponse({ status: 400, description: 'Les formations n\'appartiennent pas au même département' })
+  @ApiResponse({ status: 404, description: 'Formation introuvable' })
+  async reorderFormations(@Body() dto: ReorderDto): Promise<void> {
+    return this.structureService.reorderFormations(dto, 'system');
+  }
+
   // ============================================
   // Niveaux
   // ============================================
@@ -227,5 +250,16 @@ export class StructureController {
   @ApiResponse({ status: 404, description: 'Niveau non trouvé' })
   async removeNiveau(@Param('id') id: string): Promise<void> {
     return this.structureService.removeNiveau(id, 'system');
+  }
+
+  @Patch('niveaux/reorder')
+  @Permissions('structure:write')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Réordonner les niveaux d\'une formation' })
+  @ApiResponse({ status: 204, description: 'Niveaux réordonnés' })
+  @ApiResponse({ status: 400, description: 'Les niveaux n\'appartiennent pas à la même formation' })
+  @ApiResponse({ status: 404, description: 'Niveau introuvable' })
+  async reorderNiveaux(@Body() dto: ReorderDto): Promise<void> {
+    return this.structureService.reorderNiveaux(dto, 'system');
   }
 }

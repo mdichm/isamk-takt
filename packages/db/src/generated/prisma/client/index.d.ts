@@ -29429,8 +29429,18 @@ export namespace Prisma {
 
   export type AggregateDepartement = {
     _count: DepartementCountAggregateOutputType | null
+    _avg: DepartementAvgAggregateOutputType | null
+    _sum: DepartementSumAggregateOutputType | null
     _min: DepartementMinAggregateOutputType | null
     _max: DepartementMaxAggregateOutputType | null
+  }
+
+  export type DepartementAvgAggregateOutputType = {
+    ordre: number | null
+  }
+
+  export type DepartementSumAggregateOutputType = {
+    ordre: number | null
   }
 
   export type DepartementMinAggregateOutputType = {
@@ -29438,6 +29448,7 @@ export namespace Prisma {
     anneeId: string | null
     code: string | null
     libelle: string | null
+    ordre: number | null
     originId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -29448,6 +29459,7 @@ export namespace Prisma {
     anneeId: string | null
     code: string | null
     libelle: string | null
+    ordre: number | null
     originId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -29458,6 +29470,7 @@ export namespace Prisma {
     anneeId: number
     code: number
     libelle: number
+    ordre: number
     originId: number
     createdAt: number
     updatedAt: number
@@ -29465,11 +29478,20 @@ export namespace Prisma {
   }
 
 
+  export type DepartementAvgAggregateInputType = {
+    ordre?: true
+  }
+
+  export type DepartementSumAggregateInputType = {
+    ordre?: true
+  }
+
   export type DepartementMinAggregateInputType = {
     id?: true
     anneeId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -29480,6 +29502,7 @@ export namespace Prisma {
     anneeId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -29490,6 +29513,7 @@ export namespace Prisma {
     anneeId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -29534,6 +29558,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: DepartementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DepartementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: DepartementMinAggregateInputType
@@ -29564,6 +29600,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: DepartementCountAggregateInputType | true
+    _avg?: DepartementAvgAggregateInputType
+    _sum?: DepartementSumAggregateInputType
     _min?: DepartementMinAggregateInputType
     _max?: DepartementMaxAggregateInputType
   }
@@ -29573,10 +29611,13 @@ export namespace Prisma {
     anneeId: string
     code: string
     libelle: string
+    ordre: number
     originId: string | null
     createdAt: Date
     updatedAt: Date
     _count: DepartementCountAggregateOutputType | null
+    _avg: DepartementAvgAggregateOutputType | null
+    _sum: DepartementSumAggregateOutputType | null
     _min: DepartementMinAggregateOutputType | null
     _max: DepartementMaxAggregateOutputType | null
   }
@@ -29600,6 +29641,7 @@ export namespace Prisma {
     anneeId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -29615,6 +29657,7 @@ export namespace Prisma {
     anneeId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -29626,6 +29669,7 @@ export namespace Prisma {
     anneeId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -29637,12 +29681,13 @@ export namespace Prisma {
     anneeId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DepartementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "anneeId" | "code" | "libelle" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["departement"]>
+  export type DepartementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "anneeId" | "code" | "libelle" | "ordre" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["departement"]>
   export type DepartementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     formations?: boolean | Departement$formationsArgs<ExtArgs>
@@ -29670,6 +29715,7 @@ export namespace Prisma {
       anneeId: string
       code: string
       libelle: string
+      ordre: number
       originId: string | null
       createdAt: Date
       updatedAt: Date
@@ -30104,6 +30150,7 @@ export namespace Prisma {
     readonly anneeId: FieldRef<"Departement", 'String'>
     readonly code: FieldRef<"Departement", 'String'>
     readonly libelle: FieldRef<"Departement", 'String'>
+    readonly ordre: FieldRef<"Departement", 'Int'>
     readonly originId: FieldRef<"Departement", 'String'>
     readonly createdAt: FieldRef<"Departement", 'DateTime'>
     readonly updatedAt: FieldRef<"Departement", 'DateTime'>
@@ -30604,8 +30651,18 @@ export namespace Prisma {
 
   export type AggregateFormation = {
     _count: FormationCountAggregateOutputType | null
+    _avg: FormationAvgAggregateOutputType | null
+    _sum: FormationSumAggregateOutputType | null
     _min: FormationMinAggregateOutputType | null
     _max: FormationMaxAggregateOutputType | null
+  }
+
+  export type FormationAvgAggregateOutputType = {
+    ordre: number | null
+  }
+
+  export type FormationSumAggregateOutputType = {
+    ordre: number | null
   }
 
   export type FormationMinAggregateOutputType = {
@@ -30613,6 +30670,7 @@ export namespace Prisma {
     departementId: string | null
     code: string | null
     libelle: string | null
+    ordre: number | null
     originId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -30623,6 +30681,7 @@ export namespace Prisma {
     departementId: string | null
     code: string | null
     libelle: string | null
+    ordre: number | null
     originId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -30633,6 +30692,7 @@ export namespace Prisma {
     departementId: number
     code: number
     libelle: number
+    ordre: number
     originId: number
     createdAt: number
     updatedAt: number
@@ -30640,11 +30700,20 @@ export namespace Prisma {
   }
 
 
+  export type FormationAvgAggregateInputType = {
+    ordre?: true
+  }
+
+  export type FormationSumAggregateInputType = {
+    ordre?: true
+  }
+
   export type FormationMinAggregateInputType = {
     id?: true
     departementId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -30655,6 +30724,7 @@ export namespace Prisma {
     departementId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -30665,6 +30735,7 @@ export namespace Prisma {
     departementId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -30709,6 +30780,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: FormationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FormationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: FormationMinAggregateInputType
@@ -30739,6 +30822,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: FormationCountAggregateInputType | true
+    _avg?: FormationAvgAggregateInputType
+    _sum?: FormationSumAggregateInputType
     _min?: FormationMinAggregateInputType
     _max?: FormationMaxAggregateInputType
   }
@@ -30748,10 +30833,13 @@ export namespace Prisma {
     departementId: string
     code: string
     libelle: string
+    ordre: number
     originId: string | null
     createdAt: Date
     updatedAt: Date
     _count: FormationCountAggregateOutputType | null
+    _avg: FormationAvgAggregateOutputType | null
+    _sum: FormationSumAggregateOutputType | null
     _min: FormationMinAggregateOutputType | null
     _max: FormationMaxAggregateOutputType | null
   }
@@ -30775,6 +30863,7 @@ export namespace Prisma {
     departementId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -30788,6 +30877,7 @@ export namespace Prisma {
     departementId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -30799,6 +30889,7 @@ export namespace Prisma {
     departementId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -30810,12 +30901,13 @@ export namespace Prisma {
     departementId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type FormationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "departementId" | "code" | "libelle" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["formation"]>
+  export type FormationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "departementId" | "code" | "libelle" | "ordre" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["formation"]>
   export type FormationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     departement?: boolean | DepartementDefaultArgs<ExtArgs>
     niveaux?: boolean | Formation$niveauxArgs<ExtArgs>
@@ -30839,6 +30931,7 @@ export namespace Prisma {
       departementId: string
       code: string
       libelle: string
+      ordre: number
       originId: string | null
       createdAt: Date
       updatedAt: Date
@@ -31271,6 +31364,7 @@ export namespace Prisma {
     readonly departementId: FieldRef<"Formation", 'String'>
     readonly code: FieldRef<"Formation", 'String'>
     readonly libelle: FieldRef<"Formation", 'String'>
+    readonly ordre: FieldRef<"Formation", 'Int'>
     readonly originId: FieldRef<"Formation", 'String'>
     readonly createdAt: FieldRef<"Formation", 'DateTime'>
     readonly updatedAt: FieldRef<"Formation", 'DateTime'>
@@ -31723,8 +31817,18 @@ export namespace Prisma {
 
   export type AggregateNiveau = {
     _count: NiveauCountAggregateOutputType | null
+    _avg: NiveauAvgAggregateOutputType | null
+    _sum: NiveauSumAggregateOutputType | null
     _min: NiveauMinAggregateOutputType | null
     _max: NiveauMaxAggregateOutputType | null
+  }
+
+  export type NiveauAvgAggregateOutputType = {
+    ordre: number | null
+  }
+
+  export type NiveauSumAggregateOutputType = {
+    ordre: number | null
   }
 
   export type NiveauMinAggregateOutputType = {
@@ -31732,6 +31836,7 @@ export namespace Prisma {
     formationId: string | null
     code: string | null
     libelle: string | null
+    ordre: number | null
     originId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -31742,6 +31847,7 @@ export namespace Prisma {
     formationId: string | null
     code: string | null
     libelle: string | null
+    ordre: number | null
     originId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -31752,6 +31858,7 @@ export namespace Prisma {
     formationId: number
     code: number
     libelle: number
+    ordre: number
     originId: number
     createdAt: number
     updatedAt: number
@@ -31759,11 +31866,20 @@ export namespace Prisma {
   }
 
 
+  export type NiveauAvgAggregateInputType = {
+    ordre?: true
+  }
+
+  export type NiveauSumAggregateInputType = {
+    ordre?: true
+  }
+
   export type NiveauMinAggregateInputType = {
     id?: true
     formationId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -31774,6 +31890,7 @@ export namespace Prisma {
     formationId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -31784,6 +31901,7 @@ export namespace Prisma {
     formationId?: true
     code?: true
     libelle?: true
+    ordre?: true
     originId?: true
     createdAt?: true
     updatedAt?: true
@@ -31828,6 +31946,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: NiveauAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NiveauSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: NiveauMinAggregateInputType
@@ -31858,6 +31988,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: NiveauCountAggregateInputType | true
+    _avg?: NiveauAvgAggregateInputType
+    _sum?: NiveauSumAggregateInputType
     _min?: NiveauMinAggregateInputType
     _max?: NiveauMaxAggregateInputType
   }
@@ -31867,10 +31999,13 @@ export namespace Prisma {
     formationId: string
     code: string
     libelle: string
+    ordre: number
     originId: string | null
     createdAt: Date
     updatedAt: Date
     _count: NiveauCountAggregateOutputType | null
+    _avg: NiveauAvgAggregateOutputType | null
+    _sum: NiveauSumAggregateOutputType | null
     _min: NiveauMinAggregateOutputType | null
     _max: NiveauMaxAggregateOutputType | null
   }
@@ -31894,6 +32029,7 @@ export namespace Prisma {
     formationId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -31908,6 +32044,7 @@ export namespace Prisma {
     formationId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -31919,6 +32056,7 @@ export namespace Prisma {
     formationId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -31930,12 +32068,13 @@ export namespace Prisma {
     formationId?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type NiveauOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formationId" | "code" | "libelle" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["niveau"]>
+  export type NiveauOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formationId" | "code" | "libelle" | "ordre" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["niveau"]>
   export type NiveauInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     formation?: boolean | FormationDefaultArgs<ExtArgs>
     groupes?: boolean | Niveau$groupesArgs<ExtArgs>
@@ -31961,6 +32100,7 @@ export namespace Prisma {
       formationId: string
       code: string
       libelle: string
+      ordre: number
       originId: string | null
       createdAt: Date
       updatedAt: Date
@@ -32394,6 +32534,7 @@ export namespace Prisma {
     readonly formationId: FieldRef<"Niveau", 'String'>
     readonly code: FieldRef<"Niveau", 'String'>
     readonly libelle: FieldRef<"Niveau", 'String'>
+    readonly ordre: FieldRef<"Niveau", 'Int'>
     readonly originId: FieldRef<"Niveau", 'String'>
     readonly createdAt: FieldRef<"Niveau", 'DateTime'>
     readonly updatedAt: FieldRef<"Niveau", 'DateTime'>
@@ -32877,10 +33018,12 @@ export namespace Prisma {
   }
 
   export type GroupeAvgAggregateOutputType = {
+    ordre: number | null
     effectif: number | null
   }
 
   export type GroupeSumAggregateOutputType = {
+    ordre: number | null
     effectif: number | null
   }
 
@@ -32892,6 +33035,7 @@ export namespace Prisma {
     type: $Enums.GroupeType | null
     code: string | null
     libelle: string | null
+    ordre: number | null
     effectif: number | null
     originId: string | null
     createdAt: Date | null
@@ -32906,6 +33050,7 @@ export namespace Prisma {
     type: $Enums.GroupeType | null
     code: string | null
     libelle: string | null
+    ordre: number | null
     effectif: number | null
     originId: string | null
     createdAt: Date | null
@@ -32920,6 +33065,7 @@ export namespace Prisma {
     type: number
     code: number
     libelle: number
+    ordre: number
     effectif: number
     originId: number
     createdAt: number
@@ -32929,10 +33075,12 @@ export namespace Prisma {
 
 
   export type GroupeAvgAggregateInputType = {
+    ordre?: true
     effectif?: true
   }
 
   export type GroupeSumAggregateInputType = {
+    ordre?: true
     effectif?: true
   }
 
@@ -32944,6 +33092,7 @@ export namespace Prisma {
     type?: true
     code?: true
     libelle?: true
+    ordre?: true
     effectif?: true
     originId?: true
     createdAt?: true
@@ -32958,6 +33107,7 @@ export namespace Prisma {
     type?: true
     code?: true
     libelle?: true
+    ordre?: true
     effectif?: true
     originId?: true
     createdAt?: true
@@ -32972,6 +33122,7 @@ export namespace Prisma {
     type?: true
     code?: true
     libelle?: true
+    ordre?: true
     effectif?: true
     originId?: true
     createdAt?: true
@@ -33073,6 +33224,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre: number
     effectif: number
     originId: string | null
     createdAt: Date
@@ -33106,6 +33258,7 @@ export namespace Prisma {
     type?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     effectif?: boolean
     originId?: boolean
     createdAt?: boolean
@@ -33125,6 +33278,7 @@ export namespace Prisma {
     type?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     effectif?: boolean
     originId?: boolean
     createdAt?: boolean
@@ -33142,6 +33296,7 @@ export namespace Prisma {
     type?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     effectif?: boolean
     originId?: boolean
     createdAt?: boolean
@@ -33159,13 +33314,14 @@ export namespace Prisma {
     type?: boolean
     code?: boolean
     libelle?: boolean
+    ordre?: boolean
     effectif?: boolean
     originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type GroupeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "niveauId" | "semestreId" | "parentId" | "type" | "code" | "libelle" | "effectif" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["groupe"]>
+  export type GroupeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "niveauId" | "semestreId" | "parentId" | "type" | "code" | "libelle" | "ordre" | "effectif" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["groupe"]>
   export type GroupeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     niveau?: boolean | NiveauDefaultArgs<ExtArgs>
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -33200,6 +33356,7 @@ export namespace Prisma {
       type: $Enums.GroupeType
       code: string
       libelle: string
+      ordre: number
       effectif: number
       originId: string | null
       createdAt: Date
@@ -33638,6 +33795,7 @@ export namespace Prisma {
     readonly type: FieldRef<"Groupe", 'GroupeType'>
     readonly code: FieldRef<"Groupe", 'String'>
     readonly libelle: FieldRef<"Groupe", 'String'>
+    readonly ordre: FieldRef<"Groupe", 'Int'>
     readonly effectif: FieldRef<"Groupe", 'Int'>
     readonly originId: FieldRef<"Groupe", 'String'>
     readonly createdAt: FieldRef<"Groupe", 'DateTime'>
@@ -49157,6 +49315,7 @@ export namespace Prisma {
     anneeId: 'anneeId',
     code: 'code',
     libelle: 'libelle',
+    ordre: 'ordre',
     originId: 'originId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -49170,6 +49329,7 @@ export namespace Prisma {
     departementId: 'departementId',
     code: 'code',
     libelle: 'libelle',
+    ordre: 'ordre',
     originId: 'originId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -49183,6 +49343,7 @@ export namespace Prisma {
     formationId: 'formationId',
     code: 'code',
     libelle: 'libelle',
+    ordre: 'ordre',
     originId: 'originId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -49199,6 +49360,7 @@ export namespace Prisma {
     type: 'type',
     code: 'code',
     libelle: 'libelle',
+    ordre: 'ordre',
     effectif: 'effectif',
     originId: 'originId',
     createdAt: 'createdAt',
@@ -51288,6 +51450,7 @@ export namespace Prisma {
     anneeId?: UuidFilter<"Departement"> | string
     code?: StringFilter<"Departement"> | string
     libelle?: StringFilter<"Departement"> | string
+    ordre?: IntFilter<"Departement"> | number
     originId?: StringNullableFilter<"Departement"> | string | null
     createdAt?: DateTimeFilter<"Departement"> | Date | string
     updatedAt?: DateTimeFilter<"Departement"> | Date | string
@@ -51302,6 +51465,7 @@ export namespace Prisma {
     anneeId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -51320,6 +51484,7 @@ export namespace Prisma {
     anneeId?: UuidFilter<"Departement"> | string
     code?: StringFilter<"Departement"> | string
     libelle?: StringFilter<"Departement"> | string
+    ordre?: IntFilter<"Departement"> | number
     originId?: StringNullableFilter<"Departement"> | string | null
     createdAt?: DateTimeFilter<"Departement"> | Date | string
     updatedAt?: DateTimeFilter<"Departement"> | Date | string
@@ -51334,12 +51499,15 @@ export namespace Prisma {
     anneeId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: DepartementCountOrderByAggregateInput
+    _avg?: DepartementAvgOrderByAggregateInput
     _max?: DepartementMaxOrderByAggregateInput
     _min?: DepartementMinOrderByAggregateInput
+    _sum?: DepartementSumOrderByAggregateInput
   }
 
   export type DepartementScalarWhereWithAggregatesInput = {
@@ -51350,6 +51518,7 @@ export namespace Prisma {
     anneeId?: UuidWithAggregatesFilter<"Departement"> | string
     code?: StringWithAggregatesFilter<"Departement"> | string
     libelle?: StringWithAggregatesFilter<"Departement"> | string
+    ordre?: IntWithAggregatesFilter<"Departement"> | number
     originId?: StringNullableWithAggregatesFilter<"Departement"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Departement"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Departement"> | Date | string
@@ -51363,6 +51532,7 @@ export namespace Prisma {
     departementId?: UuidFilter<"Formation"> | string
     code?: StringFilter<"Formation"> | string
     libelle?: StringFilter<"Formation"> | string
+    ordre?: IntFilter<"Formation"> | number
     originId?: StringNullableFilter<"Formation"> | string | null
     createdAt?: DateTimeFilter<"Formation"> | Date | string
     updatedAt?: DateTimeFilter<"Formation"> | Date | string
@@ -51375,6 +51545,7 @@ export namespace Prisma {
     departementId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -51391,6 +51562,7 @@ export namespace Prisma {
     departementId?: UuidFilter<"Formation"> | string
     code?: StringFilter<"Formation"> | string
     libelle?: StringFilter<"Formation"> | string
+    ordre?: IntFilter<"Formation"> | number
     originId?: StringNullableFilter<"Formation"> | string | null
     createdAt?: DateTimeFilter<"Formation"> | Date | string
     updatedAt?: DateTimeFilter<"Formation"> | Date | string
@@ -51403,12 +51575,15 @@ export namespace Prisma {
     departementId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: FormationCountOrderByAggregateInput
+    _avg?: FormationAvgOrderByAggregateInput
     _max?: FormationMaxOrderByAggregateInput
     _min?: FormationMinOrderByAggregateInput
+    _sum?: FormationSumOrderByAggregateInput
   }
 
   export type FormationScalarWhereWithAggregatesInput = {
@@ -51419,6 +51594,7 @@ export namespace Prisma {
     departementId?: UuidWithAggregatesFilter<"Formation"> | string
     code?: StringWithAggregatesFilter<"Formation"> | string
     libelle?: StringWithAggregatesFilter<"Formation"> | string
+    ordre?: IntWithAggregatesFilter<"Formation"> | number
     originId?: StringNullableWithAggregatesFilter<"Formation"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Formation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Formation"> | Date | string
@@ -51432,6 +51608,7 @@ export namespace Prisma {
     formationId?: UuidFilter<"Niveau"> | string
     code?: StringFilter<"Niveau"> | string
     libelle?: StringFilter<"Niveau"> | string
+    ordre?: IntFilter<"Niveau"> | number
     originId?: StringNullableFilter<"Niveau"> | string | null
     createdAt?: DateTimeFilter<"Niveau"> | Date | string
     updatedAt?: DateTimeFilter<"Niveau"> | Date | string
@@ -51445,6 +51622,7 @@ export namespace Prisma {
     formationId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -51462,6 +51640,7 @@ export namespace Prisma {
     formationId?: UuidFilter<"Niveau"> | string
     code?: StringFilter<"Niveau"> | string
     libelle?: StringFilter<"Niveau"> | string
+    ordre?: IntFilter<"Niveau"> | number
     originId?: StringNullableFilter<"Niveau"> | string | null
     createdAt?: DateTimeFilter<"Niveau"> | Date | string
     updatedAt?: DateTimeFilter<"Niveau"> | Date | string
@@ -51475,12 +51654,15 @@ export namespace Prisma {
     formationId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: NiveauCountOrderByAggregateInput
+    _avg?: NiveauAvgOrderByAggregateInput
     _max?: NiveauMaxOrderByAggregateInput
     _min?: NiveauMinOrderByAggregateInput
+    _sum?: NiveauSumOrderByAggregateInput
   }
 
   export type NiveauScalarWhereWithAggregatesInput = {
@@ -51491,6 +51673,7 @@ export namespace Prisma {
     formationId?: UuidWithAggregatesFilter<"Niveau"> | string
     code?: StringWithAggregatesFilter<"Niveau"> | string
     libelle?: StringWithAggregatesFilter<"Niveau"> | string
+    ordre?: IntWithAggregatesFilter<"Niveau"> | number
     originId?: StringNullableWithAggregatesFilter<"Niveau"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Niveau"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Niveau"> | Date | string
@@ -51507,6 +51690,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFilter<"Groupe"> | $Enums.GroupeType
     code?: StringFilter<"Groupe"> | string
     libelle?: StringFilter<"Groupe"> | string
+    ordre?: IntFilter<"Groupe"> | number
     effectif?: IntFilter<"Groupe"> | number
     originId?: StringNullableFilter<"Groupe"> | string | null
     createdAt?: DateTimeFilter<"Groupe"> | Date | string
@@ -51525,6 +51709,7 @@ export namespace Prisma {
     type?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     effectif?: SortOrder
     originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -51547,6 +51732,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFilter<"Groupe"> | $Enums.GroupeType
     code?: StringFilter<"Groupe"> | string
     libelle?: StringFilter<"Groupe"> | string
+    ordre?: IntFilter<"Groupe"> | number
     effectif?: IntFilter<"Groupe"> | number
     originId?: StringNullableFilter<"Groupe"> | string | null
     createdAt?: DateTimeFilter<"Groupe"> | Date | string
@@ -51565,6 +51751,7 @@ export namespace Prisma {
     type?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     effectif?: SortOrder
     originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -51587,6 +51774,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeWithAggregatesFilter<"Groupe"> | $Enums.GroupeType
     code?: StringWithAggregatesFilter<"Groupe"> | string
     libelle?: StringWithAggregatesFilter<"Groupe"> | string
+    ordre?: IntWithAggregatesFilter<"Groupe"> | number
     effectif?: IntWithAggregatesFilter<"Groupe"> | number
     originId?: StringNullableWithAggregatesFilter<"Groupe"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Groupe"> | Date | string
@@ -54194,6 +54382,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54208,6 +54397,7 @@ export namespace Prisma {
     anneeId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54220,6 +54410,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54234,6 +54425,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54247,6 +54439,7 @@ export namespace Prisma {
     anneeId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54256,6 +54449,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54266,6 +54460,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54275,6 +54470,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54287,6 +54483,7 @@ export namespace Prisma {
     departementId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54297,6 +54494,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54309,6 +54507,7 @@ export namespace Prisma {
     departementId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54320,6 +54519,7 @@ export namespace Prisma {
     departementId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54329,6 +54529,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54339,6 +54540,7 @@ export namespace Prisma {
     departementId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54348,6 +54550,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54361,6 +54564,7 @@ export namespace Prisma {
     formationId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54372,6 +54576,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54385,6 +54590,7 @@ export namespace Prisma {
     formationId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54397,6 +54603,7 @@ export namespace Prisma {
     formationId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -54406,6 +54613,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54416,6 +54624,7 @@ export namespace Prisma {
     formationId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54426,6 +54635,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -54444,6 +54654,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -54456,6 +54667,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54474,6 +54686,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54489,6 +54702,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -54500,6 +54714,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -54514,6 +54729,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -57010,9 +57226,14 @@ export namespace Prisma {
     anneeId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type DepartementAvgOrderByAggregateInput = {
+    ordre?: SortOrder
   }
 
   export type DepartementMaxOrderByAggregateInput = {
@@ -57020,6 +57241,7 @@ export namespace Prisma {
     anneeId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -57030,9 +57252,14 @@ export namespace Prisma {
     anneeId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type DepartementSumOrderByAggregateInput = {
+    ordre?: SortOrder
   }
 
   export type DepartementScalarRelationFilter = {
@@ -57060,9 +57287,14 @@ export namespace Prisma {
     departementId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type FormationAvgOrderByAggregateInput = {
+    ordre?: SortOrder
   }
 
   export type FormationMaxOrderByAggregateInput = {
@@ -57070,6 +57302,7 @@ export namespace Prisma {
     departementId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -57080,9 +57313,14 @@ export namespace Prisma {
     departementId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type FormationSumOrderByAggregateInput = {
+    ordre?: SortOrder
   }
 
   export type FormationScalarRelationFilter = {
@@ -57110,9 +57348,14 @@ export namespace Prisma {
     formationId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type NiveauAvgOrderByAggregateInput = {
+    ordre?: SortOrder
   }
 
   export type NiveauMaxOrderByAggregateInput = {
@@ -57120,6 +57363,7 @@ export namespace Prisma {
     formationId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -57130,9 +57374,14 @@ export namespace Prisma {
     formationId?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type NiveauSumOrderByAggregateInput = {
+    ordre?: SortOrder
   }
 
   export type EnumGroupeTypeFilter<$PrismaModel = never> = {
@@ -57171,6 +57420,7 @@ export namespace Prisma {
     type?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     effectif?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
@@ -57178,6 +57428,7 @@ export namespace Prisma {
   }
 
   export type GroupeAvgOrderByAggregateInput = {
+    ordre?: SortOrder
     effectif?: SortOrder
   }
 
@@ -57189,6 +57440,7 @@ export namespace Prisma {
     type?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     effectif?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
@@ -57203,6 +57455,7 @@ export namespace Prisma {
     type?: SortOrder
     code?: SortOrder
     libelle?: SortOrder
+    ordre?: SortOrder
     effectif?: SortOrder
     originId?: SortOrder
     createdAt?: SortOrder
@@ -57210,6 +57463,7 @@ export namespace Prisma {
   }
 
   export type GroupeSumOrderByAggregateInput = {
+    ordre?: SortOrder
     effectif?: SortOrder
   }
 
@@ -64937,6 +65191,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -64949,6 +65204,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65061,6 +65317,7 @@ export namespace Prisma {
     anneeId?: UuidFilter<"Departement"> | string
     code?: StringFilter<"Departement"> | string
     libelle?: StringFilter<"Departement"> | string
+    ordre?: IntFilter<"Departement"> | number
     originId?: StringNullableFilter<"Departement"> | string | null
     createdAt?: DateTimeFilter<"Departement"> | Date | string
     updatedAt?: DateTimeFilter<"Departement"> | Date | string
@@ -65134,6 +65391,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -65150,6 +65408,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -65255,6 +65514,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFilter<"Groupe"> | $Enums.GroupeType
     code?: StringFilter<"Groupe"> | string
     libelle?: StringFilter<"Groupe"> | string
+    ordre?: IntFilter<"Groupe"> | number
     effectif?: IntFilter<"Groupe"> | number
     originId?: StringNullableFilter<"Groupe"> | string | null
     createdAt?: DateTimeFilter<"Groupe"> | Date | string
@@ -65322,6 +65582,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65332,6 +65593,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65495,6 +65757,7 @@ export namespace Prisma {
     departementId?: UuidFilter<"Formation"> | string
     code?: StringFilter<"Formation"> | string
     libelle?: StringFilter<"Formation"> | string
+    ordre?: IntFilter<"Formation"> | number
     originId?: StringNullableFilter<"Formation"> | string | null
     createdAt?: DateTimeFilter<"Formation"> | Date | string
     updatedAt?: DateTimeFilter<"Formation"> | Date | string
@@ -65556,6 +65819,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65569,6 +65833,7 @@ export namespace Prisma {
     anneeId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65585,6 +65850,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65596,6 +65862,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65628,6 +65895,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65641,6 +65909,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65672,6 +65941,7 @@ export namespace Prisma {
     formationId?: UuidFilter<"Niveau"> | string
     code?: StringFilter<"Niveau"> | string
     libelle?: StringFilter<"Niveau"> | string
+    ordre?: IntFilter<"Niveau"> | number
     originId?: StringNullableFilter<"Niveau"> | string | null
     createdAt?: DateTimeFilter<"Niveau"> | Date | string
     updatedAt?: DateTimeFilter<"Niveau"> | Date | string
@@ -65681,6 +65951,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65692,6 +65963,7 @@ export namespace Prisma {
     departementId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65707,6 +65979,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -65723,6 +65996,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -65797,6 +66071,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65808,6 +66083,7 @@ export namespace Prisma {
     departementId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65867,6 +66143,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65879,6 +66156,7 @@ export namespace Prisma {
     formationId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -65920,6 +66198,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -65937,6 +66216,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -65953,6 +66233,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -65969,6 +66250,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -66001,6 +66283,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66013,6 +66296,7 @@ export namespace Prisma {
     formationId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66066,6 +66350,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66083,6 +66368,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66387,6 +66673,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -66399,6 +66686,7 @@ export namespace Prisma {
     formationId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -66513,6 +66801,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66525,6 +66814,7 @@ export namespace Prisma {
     formationId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66764,6 +67054,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -66777,6 +67068,7 @@ export namespace Prisma {
     anneeId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -66906,6 +67198,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -66919,6 +67212,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -67349,6 +67643,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -67362,6 +67657,7 @@ export namespace Prisma {
     anneeId: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -67450,6 +67746,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -67463,6 +67760,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69143,6 +69441,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -69194,6 +69493,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69206,6 +69506,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69218,6 +69519,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69276,6 +69578,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -69295,6 +69598,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69311,6 +69615,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69325,6 +69630,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69359,6 +69665,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -69398,6 +69705,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69408,6 +69716,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69418,6 +69727,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69525,6 +69835,7 @@ export namespace Prisma {
     id?: string
     code: string
     libelle: string
+    ordre?: number
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -69534,6 +69845,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69545,6 +69857,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69556,6 +69869,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69568,6 +69882,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -69593,6 +69908,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69609,6 +69925,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69623,6 +69940,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69682,6 +70000,7 @@ export namespace Prisma {
     type: $Enums.GroupeType
     code: string
     libelle: string
+    ordre?: number
     effectif?: number
     originId?: string | null
     createdAt?: Date | string
@@ -69693,6 +70012,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69709,6 +70029,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -69723,6 +70044,7 @@ export namespace Prisma {
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

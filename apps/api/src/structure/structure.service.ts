@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 import {
@@ -17,6 +17,7 @@ import {
   NiveauResponseDto,
   PaginatedNiveauxDto,
   NiveauQueryDto,
+  ReorderDto,
 } from './dto/structure.dto.js';
 
 @Injectable()
@@ -43,13 +44,14 @@ export class StructureService {
       throw new ConflictException(`Le département avec le code "${dto.code}" existe déjà pour cette année`);
     }
 
-    const departement = await this.audit.auditTransaction<{ id: string; anneeId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }>(
+    const departement = await this.audit.auditTransaction<{ id: string; anneeId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.departement.create({
           data: {
             anneeId: dto.anneeId,
             code: dto.code,
             libelle: dto.libelle,
+            ordre: dto.ordre ?? 0,
             originId: dto.originId ?? null,
           },
         });
@@ -88,7 +90,7 @@ export class StructureService {
         where,
         skip,
         take: limit,
-        orderBy: { code: 'asc' },
+        orderBy: { ordre: 'asc', code: 'asc' },
       }),
       this.prisma.departement.count({ where }),
     ]);
@@ -125,13 +127,14 @@ export class StructureService {
       }
     }
 
-    const departement = await this.audit.auditTransaction<{ id: string; anneeId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }>(
+    const departement = await this.audit.auditTransaction<{ id: string; anneeId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.departement.update({
           where: { id },
           data: {
             ...(dto.code !== undefined && { code: dto.code }),
             ...(dto.libelle !== undefined && { libelle: dto.libelle }),
+            ...(dto.ordre !== undefined && { ordre: dto.ordre }),
             ...(dto.originId !== undefined && { originId: dto.originId ?? null }),
           },
         });
@@ -176,12 +179,13 @@ export class StructureService {
     );
   }
 
-  private toDepartementDto(departement: { id: string; anneeId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }): DepartementResponseDto {
+  private toDepartementDto(departement: { id: string; anneeId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }): DepartementResponseDto {
     return {
       id: departement.id,
       anneeId: departement.anneeId,
       code: departement.code,
       libelle: departement.libelle,
+      ordre: departement.ordre,
       originId: departement.originId ?? undefined,
       createdAt: departement.createdAt,
       updatedAt: departement.updatedAt,
@@ -205,13 +209,14 @@ export class StructureService {
       throw new ConflictException(`La formation avec le code "${dto.code}" existe déjà pour ce département`);
     }
 
-    const formation = await this.audit.auditTransaction<{ id: string; departementId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }>(
+    const formation = await this.audit.auditTransaction<{ id: string; departementId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.formation.create({
           data: {
             departementId: dto.departementId,
             code: dto.code,
             libelle: dto.libelle,
+            ordre: dto.ordre ?? 0,
             originId: dto.originId ?? null,
           },
         });
@@ -250,7 +255,7 @@ export class StructureService {
         where,
         skip,
         take: limit,
-        orderBy: { code: 'asc' },
+        orderBy: { ordre: 'asc', code: 'asc' },
       }),
       this.prisma.formation.count({ where }),
     ]);
@@ -287,13 +292,14 @@ export class StructureService {
       }
     }
 
-    const formation = await this.audit.auditTransaction<{ id: string; departementId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }>(
+    const formation = await this.audit.auditTransaction<{ id: string; departementId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.formation.update({
           where: { id },
           data: {
             ...(dto.code !== undefined && { code: dto.code }),
             ...(dto.libelle !== undefined && { libelle: dto.libelle }),
+            ...(dto.ordre !== undefined && { ordre: dto.ordre }),
             ...(dto.originId !== undefined && { originId: dto.originId ?? null }),
           },
         });
@@ -338,12 +344,13 @@ export class StructureService {
     );
   }
 
-  private toFormationDto(formation: { id: string; departementId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }): FormationResponseDto {
+  private toFormationDto(formation: { id: string; departementId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }): FormationResponseDto {
     return {
       id: formation.id,
       departementId: formation.departementId,
       code: formation.code,
       libelle: formation.libelle,
+      ordre: formation.ordre,
       originId: formation.originId ?? undefined,
       createdAt: formation.createdAt,
       updatedAt: formation.updatedAt,
@@ -367,13 +374,14 @@ export class StructureService {
       throw new ConflictException(`Le niveau avec le code "${dto.code}" existe déjà pour cette formation`);
     }
 
-    const niveau = await this.audit.auditTransaction<{ id: string; formationId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }>(
+    const niveau = await this.audit.auditTransaction<{ id: string; formationId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.niveau.create({
           data: {
             formationId: dto.formationId,
             code: dto.code,
             libelle: dto.libelle,
+            ordre: dto.ordre ?? 0,
             originId: dto.originId ?? null,
           },
         });
@@ -412,7 +420,7 @@ export class StructureService {
         where,
         skip,
         take: limit,
-        orderBy: { code: 'asc' },
+        orderBy: { ordre: 'asc', code: 'asc' },
       }),
       this.prisma.niveau.count({ where }),
     ]);
@@ -449,13 +457,14 @@ export class StructureService {
       }
     }
 
-    const niveau = await this.audit.auditTransaction<{ id: string; formationId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }>(
+    const niveau = await this.audit.auditTransaction<{ id: string; formationId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }>(
       async (tx) => {
         return tx.niveau.update({
           where: { id },
           data: {
             ...(dto.code !== undefined && { code: dto.code }),
             ...(dto.libelle !== undefined && { libelle: dto.libelle }),
+            ...(dto.ordre !== undefined && { ordre: dto.ordre }),
             ...(dto.originId !== undefined && { originId: dto.originId ?? null }),
           },
         });
@@ -492,15 +501,130 @@ export class StructureService {
     );
   }
 
-  private toNiveauDto(niveau: { id: string; formationId: string; code: string; libelle: string; originId: string | null; createdAt: Date; updatedAt: Date }): NiveauResponseDto {
+  private toNiveauDto(niveau: { id: string; formationId: string; code: string; libelle: string; ordre: number; originId: string | null; createdAt: Date; updatedAt: Date }): NiveauResponseDto {
     return {
       id: niveau.id,
       formationId: niveau.formationId,
       code: niveau.code,
       libelle: niveau.libelle,
+      ordre: niveau.ordre,
       originId: niveau.originId ?? undefined,
       createdAt: niveau.createdAt,
       updatedAt: niveau.updatedAt,
     };
+  }
+
+  // ============================================
+  // Réordonnancement (L7-18)
+  // ============================================
+
+  async reorderDepartements(dto: ReorderDto, userId: string): Promise<void> {
+    // Vérifier que tous les IDs existent et appartiennent à la même année
+    const ids = dto.items.map((item) => item.id);
+    const departements = await this.prisma.departement.findMany({
+      where: { id: { in: ids } },
+      select: { id: true, anneeId: true, ordre: true },
+    });
+
+    if (departements.length !== ids.length) {
+      throw new NotFoundException('Un ou plusieurs départements introuvables');
+    }
+
+    const anneeIds = new Set(departements.map((d) => d.anneeId));
+    if (anneeIds.size !== 1) {
+      throw new BadRequestException('Tous les départements doivent appartenir à la même année');
+    }
+
+    // Reassigner 1..N dans l'ordre fourni
+    await this.prisma.$transaction(
+      dto.items.map((item, index) =>
+        this.prisma.departement.update({
+          where: { id: item.id },
+          data: { ordre: index + 1 },
+        }),
+      ),
+    );
+
+    await this.audit.auditTransaction(
+      async () => {},
+      {
+        userId,
+        action: 'UPDATE',
+        objetType: 'Departement',
+        motif: `Réordonnancement des départements (${ids.length} éléments)`,
+      },
+    );
+  }
+
+  async reorderFormations(dto: ReorderDto, userId: string): Promise<void> {
+    const ids = dto.items.map((item) => item.id);
+    const formations = await this.prisma.formation.findMany({
+      where: { id: { in: ids } },
+      select: { id: true, departementId: true, ordre: true },
+    });
+
+    if (formations.length !== ids.length) {
+      throw new NotFoundException('Un ou plusieurs formations introuvables');
+    }
+
+    const departementIds = new Set(formations.map((f) => f.departementId));
+    if (departementIds.size !== 1) {
+      throw new BadRequestException('Toutes les formations doivent appartenir au même département');
+    }
+
+    await this.prisma.$transaction(
+      dto.items.map((item, index) =>
+        this.prisma.formation.update({
+          where: { id: item.id },
+          data: { ordre: index + 1 },
+        }),
+      ),
+    );
+
+    await this.audit.auditTransaction(
+      async () => {},
+      {
+        userId,
+        action: 'UPDATE',
+        objetType: 'Formation',
+        motif: `Réordonnancement des formations (${ids.length} éléments)`,
+      },
+    );
+  }
+
+  async reorderNiveaux(dto: ReorderDto, userId: string): Promise<void> {
+    const ids = dto.items.map((item) => item.id);
+    const niveaux = await this.prisma.niveau.findMany({
+      where: { id: { in: ids } },
+      select: { id: true, formationId: true, ordre: true },
+    });
+
+    if (niveaux.length !== ids.length) {
+      throw new NotFoundException('Un ou plusieurs niveaux introuvables');
+    }
+
+    const formationIds = new Set(niveaux.map((n) => n.formationId));
+    if (formationIds.size !== 1) {
+      throw new BadRequestException('Tous les niveaux doivent appartenir à la même formation');
+    }
+
+    await this.prisma.$transaction(
+      dto.items.map((item, index) =>
+        this.prisma.niveau.update({
+          where: { id: item.id },
+          data: { ordre: index + 1 },
+        }),
+      ),
+    );
+
+    await this.audit.auditTransaction(
+      async () => {},
+      {
+        userId,
+        action: 'UPDATE',
+        objetType: 'Niveau',
+        motif: `Réordonnancement des niveaux (${ids.length} éléments)`,
+      },
+    );
   }
 }

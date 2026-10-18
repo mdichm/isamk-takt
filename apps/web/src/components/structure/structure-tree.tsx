@@ -2,6 +2,9 @@
 
 import { useState, useCallback } from 'react';
 import { Plus, Edit, Trash2, Folder, School, GraduationCap, Users, LayoutGrid } from 'lucide-react';
+import { DndContext, useSensor, PointerSensor } from '@dnd-kit/core';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -11,10 +14,10 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
-  useDepartements, useCreateDepartement, useUpdateDepartement, useDeleteDepartement,
-  useFormations, useCreateFormation, useUpdateFormation, useDeleteFormation,
-  useNiveaux, useCreateNiveau, useUpdateNiveau, useDeleteNiveau,
-  useGroupes, useCreateGroupe, useUpdateGroupe, useDeleteGroupe,
+  useDepartements, useCreateDepartement, useUpdateDepartement, useDeleteDepartement, useReorderDepartements,
+  useFormations, useCreateFormation, useUpdateFormation, useDeleteFormation, useReorderFormations,
+  useNiveaux, useCreateNiveau, useUpdateNiveau, useDeleteNiveau, useReorderNiveaux,
+  useGroupes, useCreateGroupe, useUpdateGroupe, useDeleteGroupe, useReorderGroupes,
   useAnnees, useSemestres,
 } from '@/hooks/use-structure';
 import { Departement, Formation, Niveau, Groupe } from '@/lib/api/structure';
@@ -63,6 +66,7 @@ export function StructureTree() {
   const createDep = useCreateDepartement();
   const updateDep = useUpdateDepartement();
   const deleteDep = useDeleteDepartement();
+  const reorderDep = useReorderDepartements();
 
   /* ---------- Formations ---------- */
   const { data: formationsData, isLoading: formLoading } = useFormations({
@@ -72,6 +76,7 @@ export function StructureTree() {
   const createForm = useCreateFormation();
   const updateForm = useUpdateFormation();
   const deleteForm = useDeleteFormation();
+  const reorderForm = useReorderFormations();
 
   /* ---------- Niveaux ---------- */
   const { data: niveauxData, isLoading: nivLoading } = useNiveaux({
@@ -81,6 +86,7 @@ export function StructureTree() {
   const createNiv = useCreateNiveau();
   const updateNiv = useUpdateNiveau();
   const deleteNiv = useDeleteNiveau();
+  const reorderNiv = useReorderNiveaux();
 
   /* ---------- Groupes ---------- */
   const { data: groupesData, isLoading: grpLoading } = useGroupes({
@@ -91,6 +97,8 @@ export function StructureTree() {
   const createGrp = useCreateGroupe();
   const updateGrp = useUpdateGroupe();
   const deleteGrp = useDeleteGroupe();
+  const reorderGrp = useReorderGroupes();
+
 
   if (anneesLoading || depsLoading || formLoading || nivLoading || grpLoading || semestresLoading) {
     return <div className="p-4">{messages.loading}</div>;
@@ -100,6 +108,83 @@ export function StructureTree() {
   const formations: Formation[] = formationsData?.data ?? [];
   const niveaux: Niveau[] = niveauxData?.data ?? [];
   const groupes: Groupe[] = groupesData?.data ?? [];
+
+  const sensors = useSensor(PointerSensor);
+
+  /* ---------- Handlers de réordonnancement (dnd-kit) ---------- */
+
+  const handleDragEndDepartements = useCallback(async (event: { active: { id: unknown }; over: { id: unknown } | null }) => {
+    const { active, over } = event;
+    if (!over) return;
+    const activeId = active.id as string;
+    const overId = over.id as string;
+    const ordered = [...departements];
+    const activeIndex = ordered.findIndex((d) => d.id === activeId);
+    const overIndex = ordered.findIndex((d) => d.id === overId);
+    if (activeIndex === -1 || overIndex === -1) return;
+    const [moved] = ordered.splice(activeIndex, 1);
+    ordered.splice(overIndex, 0, moved);
+    const input = { items: ordered.map((d, i) => ({ id: d.id, ordre: i + 1 })) };
+    await reorderDep.mutateAsync(input);
+  }, [departements, reorderDep]);
+
+  const handleDragEndFormations = useCallback(async (event: { active: { id: unknown }; over: { id: unknown } | null }) => {
+    const { active, over } = event;
+    if (!over) return;
+    const activeId = active.id as string;
+    const overId = over.id as string;
+    const ordered = [...formations];
+    const activeIndex = ordered.findIndex((f) => f.id === activeId);
+    const overIndex = ordered.findIndex((f) => f.id === overId);
+    if (activeIndex === -1 || overIndex === -1) return;
+    const [moved] = ordered.splice(activeIndex, 1);
+    ordered.splice(overIndex, 0, moved);
+    const input = { items: ordered.map((f, i) => ({ id: f.id, ordre: i + 1 })) };
+    await reorderForm.mutateAsync(input);
+  }, [formations, reorderForm]);
+
+  const handleDragEndNiveaux = useCallback(async (event: { active: { id: unknown }; over: { id: unknown } | null }) => {
+    const { active, over } = event;
+    if (!over) return;
+    const activeId = active.id as string;
+    const overId = over.id as string;
+    const ordered = [...niveaux];
+    const activeIndex = ordered.findIndex((n) => n.id === activeId);
+    const overIndex = ordered.findIndex((n) => n.id === overId);
+    if (activeIndex === -1 || overIndex === -1) return;
+    const [moved] = ordered.splice(activeIndex, 1);
+    ordered.splice(overIndex, 0, moved);
+    const input = { items: ordered.map((n, i) => ({ id: n.id, ordre: i + 1 })) };
+    await reorderNiv.mutateAsync(input);
+  }, [niveaux, reorderNiv]);
+
+  const handleDragEndGroupes = useCallback(async (event: { active: { id: unknown }; over: { id: unknown } | null }) => {
+    const { active, over } = event;
+    if (!over) return;
+    const activeId = active.id as string;
+    const overId = over.id as string;
+    const ordered = [...groupes];
+    const activeIndex = ordered.findIndex((g) => g.id === activeId);
+    const overIndex = ordered.findIndex((g) => g.id === overId);
+    if (activeIndex === -1 || overIndex === -1) return;
+    const [moved] = ordered.splice(activeIndex, 1);
+    ordered.splice(overIndex, 0, moved);
+    const input = { items: ordered.map((g, i) => ({ id: g.id, ordre: i + 1 })) };
+    await reorderGrp.mutateAsync(input);
+  }, [groupes, reorderGrp]);
+
+  function SortableListItem({ id, children }: { id: string; children: React.ReactNode }) {
+    const { attributes, listeners, transform, transition } = useSortable({ id });
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+    };
+    return (
+      <div {...attributes} {...listeners} style={style}>
+        {children}
+      </div>
+    );
+  }
 
   /* ---------- Formulaires réactifs ---------- */
   const depForm = useForm<DepartementFormValues>({
@@ -339,48 +424,52 @@ export function StructureTree() {
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[70vh]">
-                <ul className="space-y-1">
-                  {departements.length === 0 && (
-                    <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunDepartement}</li>
-                  )}
-                  {departements.map((d) => (
-                    <li
-                      key={d.id}
-                      className={`
-                        p-2 border rounded hover:bg-muted/50 cursor-pointer flex items-center justify-between group
-                        ${tree.selectedDepartementId === d.id ? 'bg-muted border-border' : ''}
-                      `}
-                      onClick={() => selectDepartement(d.id)}
-                    >
-                      <div className="flex items-center gap-2">
-                        <Folder size={14} className="text-muted-foreground" />
-                        <span className="text-sm font-medium truncate w-16">{d.code}</span>
-                        <span className="text-xs text-muted-foreground truncate">{d.libelle}</span>
-                      </div>
-                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openEditForm('departement', d.id, d.code, d.libelle);
-                          }}
-                          aria-label={messages.editDepartement}
+                <DndContext sensors={[sensors]} onDragEnd={handleDragEndDepartements}>
+                  <ul className="space-y-1">
+                    {departements.length === 0 && (
+                      <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunDepartement}</li>
+                    )}
+                    {departements.map((d) => (
+                      <SortableListItem key={d.id} id={d.id}>
+                        <li
+                          data-id={d.id}
+                          className={`
+                            p-2 border rounded hover:bg-muted/50 cursor-pointer flex items-center justify-between group
+                            ${tree.selectedDepartementId === d.id ? 'bg-muted border-border' : ''}
+                          `}
+                          onClick={() => selectDepartement(d.id)}
                         >
-                          <Edit size={12} />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          onClick={(e) => { e.stopPropagation(); handleDelete(d.id); }}
-                          aria-label={messages.deleteDepartement}
-                        >
-                          <Trash2 size={12} />
-                        </Button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                          <div className="flex items-center gap-2">
+                            <Folder size={14} className="text-muted-foreground" />
+                            <span className="text-sm font-medium truncate w-16">{d.code}</span>
+                            <span className="text-xs text-muted-foreground truncate">{d.libelle}</span>
+                          </div>
+                          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openEditForm('departement', d.id, d.code, d.libelle);
+                              }}
+                              aria-label={messages.editDepartement}
+                            >
+                              <Edit size={12} />
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={(e) => { e.stopPropagation(); handleDelete(d.id); }}
+                              aria-label={messages.deleteDepartement}
+                            >
+                              <Trash2 size={12} />
+                            </Button>
+                          </div>
+                        </li>
+                      </SortableListItem>
+                    ))}
+                  </ul>
+                </DndContext>
               </ScrollArea>
             </CardContent>
           </Card>
@@ -400,48 +489,52 @@ export function StructureTree() {
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[70vh]">
-                  <ul className="space-y-1">
-                    {formations.length === 0 && (
-                      <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucuneFormation}</li>
-                    )}
-                    {formations.map((f) => (
-                      <li
-                        key={f.id}
-                        className={`
-                          p-2 border rounded hover:bg-muted/50 cursor-pointer flex items-center justify-between group
-                          ${tree.selectedFormationId === f.id ? 'bg-muted border-border' : ''}
-                        `}
-                        onClick={() => selectFormation(f.id)}
-                      >
-                        <div className="flex items-center gap-2">
-                          <School size={14} className="text-muted-foreground" />
-                          <span className="text-sm font-medium truncate w-16">{f.code}</span>
-                          <span className="text-xs text-muted-foreground truncate">{f.libelle}</span>
-                        </div>
-                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              openEditForm('formation', f.id, f.code, f.libelle);
-                            }}
-                            aria-label={messages.editFormation}
+                  <DndContext sensors={[sensors]} onDragEnd={handleDragEndFormations}>
+                    <ul className="space-y-1">
+                      {formations.length === 0 && (
+                        <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucuneFormation}</li>
+                      )}
+                      {formations.map((f) => (
+                        <SortableListItem key={f.id} id={f.id}>
+                          <li
+                            data-id={f.id}
+                            className={`
+                              p-2 border rounded hover:bg-muted/50 cursor-pointer flex items-center justify-between group
+                              ${tree.selectedFormationId === f.id ? 'bg-muted border-border' : ''}
+                            `}
+                            onClick={() => selectFormation(f.id)}
                           >
-                            <Edit size={12} />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={(e) => { e.stopPropagation(); handleDelete(f.id); }}
-                            aria-label={messages.deleteFormation}
-                          >
-                            <Trash2 size={12} />
-                          </Button>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                            <div className="flex items-center gap-2">
+                              <School size={14} className="text-muted-foreground" />
+                              <span className="text-sm font-medium truncate w-16">{f.code}</span>
+                              <span className="text-xs text-muted-foreground truncate">{f.libelle}</span>
+                            </div>
+                            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openEditForm('formation', f.id, f.code, f.libelle);
+                                }}
+                                aria-label={messages.editFormation}
+                              >
+                                <Edit size={12} />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={(e) => { e.stopPropagation(); handleDelete(f.id); }}
+                                aria-label={messages.deleteFormation}
+                              >
+                                <Trash2 size={12} />
+                              </Button>
+                            </div>
+                          </li>
+                        </SortableListItem>
+                      ))}
+                    </ul>
+                  </DndContext>
                 </ScrollArea>
               </CardContent>
             </Card>
@@ -462,48 +555,52 @@ export function StructureTree() {
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[70vh]">
-                  <ul className="space-y-1">
-                    {niveaux.length === 0 && (
-                      <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunNiveau}</li>
-                    )}
-                    {niveaux.map((n) => (
-                      <li
-                        key={n.id}
-                        className={`
-                          p-2 border rounded hover:bg-muted/50 cursor-pointer flex items-center justify-between group
-                          ${tree.selectedNiveauId === n.id ? 'bg-muted border-border' : ''}
-                        `}
-                        onClick={() => selectNiveau(n.id)}
-                      >
-                        <div className="flex items-center gap-2">
-                          <GraduationCap size={14} className="text-muted-foreground" />
-                          <span className="text-sm font-medium truncate w-16">{n.code}</span>
-                          <span className="text-xs text-muted-foreground truncate">{n.libelle}</span>
-                        </div>
-                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              openEditForm('niveau', n.id, n.code, n.libelle);
-                            }}
-                            aria-label={messages.editNiveau}
+                  <DndContext sensors={[sensors]} onDragEnd={handleDragEndNiveaux}>
+                    <ul className="space-y-1">
+                      {niveaux.length === 0 && (
+                        <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunNiveau}</li>
+                      )}
+                      {niveaux.map((n) => (
+                        <SortableListItem key={n.id} id={n.id}>
+                          <li
+                            data-id={n.id}
+                            className={`
+                              p-2 border rounded hover:bg-muted/50 cursor-pointer flex items-center justify-between group
+                              ${tree.selectedNiveauId === n.id ? 'bg-muted border-border' : ''}
+                            `}
+                            onClick={() => selectNiveau(n.id)}
                           >
-                            <Edit size={12} />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={(e) => { e.stopPropagation(); handleDelete(n.id); }}
-                            aria-label={messages.deleteNiveau}
-                          >
-                            <Trash2 size={12} />
-                          </Button>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                            <div className="flex items-center gap-2">
+                              <GraduationCap size={14} className="text-muted-foreground" />
+                              <span className="text-sm font-medium truncate w-16">{n.code}</span>
+                              <span className="text-xs text-muted-foreground truncate">{n.libelle}</span>
+                            </div>
+                            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openEditForm('niveau', n.id, n.code, n.libelle);
+                                }}
+                                aria-label={messages.editNiveau}
+                              >
+                                <Edit size={12} />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={(e) => { e.stopPropagation(); handleDelete(n.id); }}
+                                aria-label={messages.deleteNiveau}
+                              >
+                                <Trash2 size={12} />
+                              </Button>
+                            </div>
+                          </li>
+                        </SortableListItem>
+                      ))}
+                    </ul>
+                  </DndContext>
                 </ScrollArea>
               </CardContent>
             </Card>
@@ -530,44 +627,48 @@ export function StructureTree() {
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[70vh]">
-                  <ul className="space-y-1">
-                    {groupes.length === 0 && (
-                      <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunGroupe}</li>
-                    )}
-                    {groupes.map((g) => (
-                      <li key={g.id} className="p-2 border rounded hover:bg-muted/50 flex items-center justify-between group">
-                        <div className="flex items-center gap-2">
-                          <Users size={14} className="text-muted-foreground" />
-                          <span className="text-sm font-medium truncate w-16">{g.code}</span>
-                          <span className="text-xs text-muted-foreground truncate">{g.libelle}</span>
-                          <span className={`text-xs px-1.5 py-0.5 rounded-full ${g.type === 'SECTION' ? 'bg-blue-100 text-blue-700' : g.type === 'GROUPE' ? 'bg-amber-100 text-amber-700' : 'bg-purple-100 text-purple-700'}`}>
-                            {g.type === 'SECTION' ? messages.typeSection : g.type === 'GROUPE' ? messages.typeGroupe : messages.typeSousGroupe}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              openEditForm('groupe', g.id, g.code, g.libelle);
-                            }}
-                            aria-label={messages.editGroupe}
-                          >
-                            <Edit size={12} />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={(e) => { e.stopPropagation(); handleDelete(g.id); }}
-                            aria-label={messages.deleteGroupe}
-                          >
-                            <Trash2 size={12} />
-                          </Button>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                  <DndContext sensors={[sensors]} onDragEnd={handleDragEndGroupes}>
+                    <ul className="space-y-1">
+                      {groupes.length === 0 && (
+                        <li className="p-3 text-sm text-muted-foreground text-center">{messages.aucunGroupe}</li>
+                      )}
+                      {groupes.map((g) => (
+                        <SortableListItem key={g.id} id={g.id}>
+                          <li data-id={g.id} className="p-2 border rounded hover:bg-muted/50 flex items-center justify-between group">
+                            <div className="flex items-center gap-2">
+                              <Users size={14} className="text-muted-foreground" />
+                              <span className="text-sm font-medium truncate w-16">{g.code}</span>
+                              <span className="text-xs text-muted-foreground truncate">{g.libelle}</span>
+                              <span className={`text-xs px-1.5 py-0.5 rounded-full ${g.type === 'SECTION' ? 'bg-blue-100 text-blue-700' : g.type === 'GROUPE' ? 'bg-amber-100 text-amber-700' : 'bg-purple-100 text-purple-700'}`}>
+                                {g.type === 'SECTION' ? messages.typeSection : g.type === 'GROUPE' ? messages.typeGroupe : messages.typeSousGroupe}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openEditForm('groupe', g.id, g.code, g.libelle);
+                                }}
+                                aria-label={messages.editGroupe}
+                              >
+                                <Edit size={12} />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={(e) => { e.stopPropagation(); handleDelete(g.id); }}
+                                aria-label={messages.deleteGroupe}
+                              >
+                                <Trash2 size={12} />
+                              </Button>
+                            </div>
+                          </li>
+                        </SortableListItem>
+                      ))}
+                    </ul>
+                  </DndContext>
                 </ScrollArea>
               </CardContent>
             </Card>

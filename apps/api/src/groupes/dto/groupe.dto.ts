@@ -49,6 +49,13 @@ export class CreateGroupeDto {
   @IsInt()
   @Min(0)
   effectif?: number;
+
+  @ApiPropertyOptional({ example: 1, description: 'Ordre d\'affichage dans la liste' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  ordre?: number;
 }
 
 export class UpdateGroupeDto {
@@ -80,6 +87,13 @@ export class UpdateGroupeDto {
   @IsOptional()
   @IsUUID()
   parentId?: string;
+
+  @ApiPropertyOptional({ example: 1, description: 'Ordre d\'affichage dans la liste' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  ordre?: number;
 }
 
 export class GroupeResponseDto {
@@ -106,6 +120,9 @@ export class GroupeResponseDto {
 
   @ApiProperty()
   effectif: number;
+
+  @ApiProperty()
+  ordre: number;
 
   @ApiPropertyOptional()
   originId: string | null;

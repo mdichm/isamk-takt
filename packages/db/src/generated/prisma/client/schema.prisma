@@ -501,6 +501,7 @@ model Departement {
   annee     Annee    @relation(fields: [anneeId], references: [id], onDelete: Cascade)
   code      String // ex: "INFO", "MATH"
   libelle   String // ex: "Informatique", "Mathématiques"
+  ordre     Int      @default(0)
   originId  String? // ID d'origine externe (synchronisation)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -510,7 +511,7 @@ model Departement {
   salles      Salle[]
 
   @@unique([anneeId, code])
-  @@index([anneeId])
+  @@index([anneeId, ordre])
   @@map("departements")
 }
 
@@ -520,6 +521,7 @@ model Formation {
   departement   Departement @relation(fields: [departementId], references: [id], onDelete: Cascade)
   code          String // ex: "L3-INFO"
   libelle       String // ex: "Licence 3 Informatique"
+  ordre         Int         @default(0)
   originId      String? // ID d'origine externe (synchronisation)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
@@ -527,7 +529,7 @@ model Formation {
   niveaux Niveau[]
 
   @@unique([departementId, code])
-  @@index([departementId])
+  @@index([departementId, ordre])
   @@map("formations")
 }
 
@@ -537,6 +539,7 @@ model Niveau {
   formation   Formation @relation(fields: [formationId], references: [id], onDelete: Cascade)
   code        String // ex: "L3"
   libelle     String // ex: "Licence 3"
+  ordre       Int       @default(0)
   originId    String? // ID d'origine externe (synchronisation)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -545,7 +548,7 @@ model Niveau {
   modules Module[]
 
   @@unique([formationId, code])
-  @@index([formationId])
+  @@index([formationId, ordre])
   @@map("niveaux")
 }
 
@@ -565,13 +568,14 @@ model Groupe {
   type       GroupeType
   code       String // ex: "INFO-L3-S1"
   libelle    String // ex: "L3 Informatique Semestre 1"
+  ordre      Int        @default(0)
   effectif   Int        @default(0)
   originId   String? // ID d'origine externe (synchronisation)
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
   @@unique([niveauId, semestreId, code])
-  @@index([niveauId])
+  @@index([niveauId, semestreId, ordre])
   @@index([semestreId])
   @@index([parentId])
   @@map("groupes")
