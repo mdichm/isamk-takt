@@ -1,4 +1,4 @@
-import { IsString, IsOptional, MinLength, MaxLength, IsInt, Min, Max, IsUUID, IsIn } from 'class-validator';
+import { IsString, IsOptional, MinLength, MaxLength, IsInt, Min, Max, IsUUID, IsIn, Matches } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -28,10 +28,13 @@ export class CreateGroupeDto {
   @IsIn(['SECTION', 'GROUPE', 'SOUS_GROUPE'])
   type: GroupeType;
 
-  @ApiProperty({ example: 'INFO-L3-S1', description: 'Code unique du groupe' })
+  @ApiProperty({ example: 'L3-INFO-1', description: 'Code unique du groupe (nomenclature {niveau}-{abréviation}-{groupe})' })
   @IsString()
   @MinLength(2)
   @MaxLength(20)
+  @Matches(/^(L1|L2|L3|M1|M2)-[A-Z0-9]{2,8}-[A-Z0-9]{1,4}$/, {
+    message: 'GROUP_CODE_INVALID',
+  })
   code: string;
 
   @ApiProperty({ example: 'L3 Informatique Semestre 1', description: 'Libellé du groupe' })
@@ -49,11 +52,14 @@ export class CreateGroupeDto {
 }
 
 export class UpdateGroupeDto {
-  @ApiPropertyOptional({ example: 'INFO-L3-S2' })
+  @ApiPropertyOptional({ example: 'L3-INFO-2', description: 'Code unique du groupe (nomenclature {niveau}-{abréviation}-{groupe})' })
   @IsOptional()
   @IsString()
   @MinLength(2)
   @MaxLength(20)
+  @Matches(/^(L1|L2|L3|M1|M2)-[A-Z0-9]{2,8}-[A-Z0-9]{1,4}$/, {
+    message: 'GROUP_CODE_INVALID',
+  })
   code?: string;
 
   @ApiPropertyOptional({ example: 'L3 Informatique Semestre 2' })
@@ -168,4 +174,37 @@ export class GroupeQueryDto {
   @IsOptional()
   @IsUUID()
   parentId?: string;
+}
+
+// ============================================
+// Code-suggestion (nomenclature — L1-07)
+// ============================================
+
+export class CodeSuggestionQueryDto {
+  @ApiPropertyOptional({ description: 'ID du niveau pour lequel générer le code' })
+  @IsOptional()
+  @IsUUID()
+  niveauId?: string;
+
+  @ApiPropertyOptional({ description: 'ID du semestre (filtre les groupes existants d\'un semestre)' })
+  @IsOptional()
+  @IsUUID()
+  semestreId?: string;
+}
+
+export class CodeSuggestionDto {
+  @ApiProperty({ description: 'ID du niveau concerné' })
+  niveauId: string;
+
+  @ApiProperty({ description: 'Code du niveau (ex: L3)', enum: ['L1', 'L2', 'L3', 'M1', 'M2'] })
+  niveauCode: string;
+
+  @ApiPropertyOptional({ description: 'ID du département de la formation' })
+  departementId?: string;
+
+  @ApiPropertyOptional({ description: 'Code abrégé du département / formation (ex: INFO)' })
+  departementCode?: string;
+
+  @ApiProperty({ example: 'L3-INFO-1', description: 'Prochain identifiant de groupe libre conforme à la nomenclature' })
+  suggestedCode: string;
 }

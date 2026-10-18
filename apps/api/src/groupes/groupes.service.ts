@@ -8,6 +8,7 @@ import {
   PaginatedGroupesDto,
   GroupeQueryDto,
   GroupeType,
+  CodeSuggestionDto,
 } from './dto/groupe.dto.js';
 
 @Injectable()
@@ -232,6 +233,62 @@ export class GroupesService {
     );
   }
   // ============================================
+  // Code-suggestion (nomenclature — L1-07)
+  // ============================================
+
+  async codeSuggestion(
+    niveauId: string,
+    semestreId?: string,
+  ): Promise<CodeSuggestionDto> {
+    // Vérifier que le niveau existe et résoudre le code de département/formation
+    const niveau = await this.prisma.niveau.findUnique({
+      where: { id: niveauId },
+      include: { formation: { include: { departement: true } } },
+    });
+    if (!niveau) {
+      throw new NotFoundException('Niveau non trouvé');
+    }
+
+    const departementCode = niveau.formation?.departement?.code ?? 'INCONNU';
+    const departementId = niveau.formation?.departement?.id ?? null;
+    const prefix = `${niveau.code}-${departementCode}-`;
+
+    // Récupérer les codes existants pour ce niveau (et optionnellement ce semestre)
+    const where: Record<string, unknown> = { niveauId };
+    if (semestreId) {
+      where.semestreId = semestreId;
+    }
+
+    const existing = await this.prisma.groupe.findMany({
+      where,
+      select: { code: true },
+    });
+
+    const used = new Set<number>();
+    const prefixRegex = new RegExp(`^${this.escapeRegExpPrefix(prefix)}(\\d+)$`);
+    for (const groupe of existing) {
+      const match = groupe.code.match(prefixRegex);
+      if (match) {
+        used.add(parseInt(match[1], 10));
+      }
+    }
+
+    // Premier identifiant libre (segment 3 = 1, 2, 3 ...)
+    let next = 1;
+    while (used.has(next)) {
+      next++;
+    }
+
+    return {
+      niveauId,
+      niveauCode: niveau.code,
+      departementId,
+      departementCode,
+      suggestedCode: `${prefix}${next}`,
+    };
+  }
+
+  // ============================================
   // Fermeture hiérarchique (ancêtres + descendants + soi)
   // ============================================
 
@@ -291,6 +348,11 @@ export class GroupesService {
       });
     }
     return false;
+  }
+
+  // Échappement des caractères spéciaux pour une utilisation dans une regex
+  private escapeRegExpPrefix(value: string): string {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   private toGroupeDto(groupe: {
