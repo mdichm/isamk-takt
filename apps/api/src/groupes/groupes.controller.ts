@@ -10,6 +10,7 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  BadRequestException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { GroupesService } from './groupes.service.js';
@@ -19,6 +20,8 @@ import {
   GroupeResponseDto,
   PaginatedGroupesDto,
   GroupeQueryDto,
+  CodeSuggestionQueryDto,
+  CodeSuggestionDto,
 } from './dto/groupe.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -50,6 +53,18 @@ export class GroupesController {
   @ApiResponse({ status: 200, description: 'Liste paginée des groupes', type: PaginatedGroupesDto })
   async findAllGroupes(@Query() query: GroupeQueryDto): Promise<PaginatedGroupesDto> {
     return this.groupesService.findAllGroupes(query);
+  }
+
+  @Get('code-suggestion')
+  @Permissions('groupe:read')
+  @ApiOperation({ summary: 'Proposer le prochain identifiant de groupe conforme à la nomenclature' })
+  @ApiResponse({ status: 200, description: 'Code de groupe suggéré', type: CodeSuggestionDto })
+  @ApiResponse({ status: 404, description: 'Niveau non trouvé' })
+  async codeSuggestion(@Query() query: CodeSuggestionQueryDto): Promise<CodeSuggestionDto> {
+    if (!query.niveauId) {
+      throw new BadRequestException('niveauId requis');
+    }
+    return this.groupesService.codeSuggestion(query.niveauId, query.semestreId);
   }
 
   @Get(':id')

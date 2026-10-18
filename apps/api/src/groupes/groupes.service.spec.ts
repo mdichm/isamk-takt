@@ -259,4 +259,52 @@ describe('GroupesService', () => {
       expect(result.descendants[0].id).toBe('enfant-1');
     });
   });
+
+  describe('codeSuggestion', () => {
+    it('should suggest L3-INFO-1 when no groupe exists yet', async () => {
+      prisma.niveau.findUnique.mockResolvedValue({
+        id: niveauId,
+        code: 'L3',
+        formation: { departement: { id: 'dep-info', code: 'INFO' } },
+      });
+      prisma.groupe.findMany.mockResolvedValue([]);
+
+      const result = await service.codeSuggestion(niveauId);
+
+      expect(result.suggestedCode).toBe('L3-INFO-1');
+      expect(result.niveauCode).toBe('L3');
+      expect(result.departementCode).toBe('INFO');
+      expect(result.departementId).toBe('dep-info');
+      expect(prisma.groupe.findMany).toHaveBeenCalledWith({
+        where: { niveauId },
+        select: { code: true },
+      });
+    });
+
+    it('should suggest the next free segment 3 skipping used codes', async () => {
+      prisma.niveau.findUnique.mockResolvedValue({
+        id: niveauId,
+        code: 'L3',
+        formation: { departement: { id: 'dep-info', code: 'INFO' } },
+      });
+      prisma.groupe.findMany.mockResolvedValue([
+        { code: 'L3-INFO-1' },
+        { code: 'L3-INFO-2' },
+        { code: 'L3-INFO-4' },
+      ]);
+
+      const result = await service.codeSuggestion(niveauId, semestreId);
+
+      expect(result.suggestedCode).toBe('L3-INFO-3');
+      expect(prisma.groupe.findMany).toHaveBeenCalledWith({
+        where: { niveauId, semestreId },
+        select: { code: true },
+      });
+    });
+
+    it('should throw NotFound when niveau does not exist', async () => {
+      prisma.niveau.findUnique.mockResolvedValue(null);
+      await expect(service.codeSuggestion(niveauId)).rejects.toThrow('Niveau non trouvé');
+    });
+  });
 });
