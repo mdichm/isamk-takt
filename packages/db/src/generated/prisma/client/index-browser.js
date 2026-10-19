@@ -347,6 +347,7 @@ exports.Prisma.SemestreScalarFieldEnum = {
   numero: 'numero',
   anneeId: 'anneeId',
   nbSemaines: 'nbSemaines',
+  grilleParams: 'grilleParams',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -514,6 +515,18 @@ exports.Prisma.SalleScalarFieldEnum = {
   departementId: 'departementId',
   typeSalleId: 'typeSalleId',
   originId: 'originId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.IndisponibiliteScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  jour: 'jour',
+  ordre: 'ordre',
+  enseignantId: 'enseignantId',
+  salleId: 'salleId',
+  estActive: 'estActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -715,6 +728,7 @@ exports.Prisma.ModelName = {
   TypeSalle: 'TypeSalle',
   Site: 'Site',
   Salle: 'Salle',
+  Indisponibilite: 'Indisponibilite',
   Equipement: 'Equipement',
   SalleEquipement: 'SalleEquipement',
   SalleActivityTag: 'SalleActivityTag',
