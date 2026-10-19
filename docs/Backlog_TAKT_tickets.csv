@@ -214,7 +214,7 @@ L1-22;L1;E1.6;Grille Ramadan;Story;Correspondance d'affichage Ramadan (modèle e
 - Aucun effet sur FET, les volumes ou les conflits";EX-CAL-04;§4.10, §2.2;BACK;Must;5;L1-17;Terminé;
 L1-23;L1;E1.6;Grille Ramadan;Story;UI de saisie et de duplication de la grille Ramadan;Écran de correspondance par semestre, duplication depuis un autre semestre ou une autre année.;"- Saisie jour par jour des horaires Ramadan avec contrôles visibles
 - Duplication idempotente
-- Aperçu de la grille normale et de la grille Ramadan côte à côte";EX-CAL-04;§4.10;FRONT;Must;5;L1-22, L0-29;À faire;
+- Aperçu de la grille normale et de la grille Ramadan côte à côte";EX-CAL-04;§4.10;FRONT;Must;5;L1-22, L0-29;En cours;
 L1-24;L1;E1.7;Import depuis une année clôturée;Story;Import depuis une année clôturée avec aperçu;POST /annees/{id}/import : sélection par type de donnée, dryRun puis confirmation, idempotent par originId.;"- Aperçu obligatoire : ajouts, modifications, doublons, conflits, erreurs
 - Application transactionnelle sur confirmation avec l'importId de l'aperçu
 - Copie départements, formations, niveaux, groupes (parents d'abord), modules, salles, enseignants, et en option créneaux et grille Ramadan

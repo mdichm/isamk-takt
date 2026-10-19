@@ -1,6 +1,6 @@
 # 📊 Dashboard Vélocité TAKT
 
-*Généré le 19/10/2026 par `velocity_tracker.py` — Ne pas éditer à la main.*
+*Généré le 20/10/2026 par `velocity_tracker.py` — Ne pas éditer à la main.*
 
 ---
 
@@ -10,13 +10,13 @@
 |----------|--------|
 | Tickets total | 212 |
 | ✅ Terminés | 63 (29.7%) |
-| 🔄 En cours | 0 |
-| ⏳ À faire | 149 |
+| 🔄 En cours | 1 |
+| ⏳ À faire | 148 |
 | Points total | 1092 |
 | Points réalisés | 284 (26.0%) |
 | Points restants | 808 |
-| Débit journalier moyen | 40.57 pts/j |
-| Jours écoulés depuis le début | 7 |
+| Débit journalier moyen | 35.50 pts/j |
+| Jours écoulés depuis le début | 8 |
 
 ---
 
@@ -26,10 +26,10 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Méthode | Date estimée | Fiabilité | Hypothèse |
 |---------|-------------|-----------|-----------|
-| Débit continu (linéaire) | 08/11/2026 (~2.8 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
-| Par capacité par lot | 27/10/2026 (~1.0 semaines restants) | Réaliste | Complexité spécifique par lot + dépendances |
+| Débit continu (linéaire) | 11/11/2026 (~3.3 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
+| Par capacité par lot | 29/10/2026 (~1.3 semaines restants) | Réaliste | Complexité spécifique par lot + dépendances |
 
-> **Date de fin retenue : 27/10/2026 (~1.0 semaines restants)** (méthode la plus réaliste : par capacité par lot)
+> **Date de fin retenue : 29/10/2026 (~1.3 semaines restants)** (méthode la plus réaliste : par capacité par lot)
 
 ---
 
@@ -38,10 +38,10 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 | Métrique | Valeur |
 |----------|--------|
 | Points réalisés | 284 |
-| Débit journalier moyen | 40.57 pts/j |
-| Débit hebdomadaire moyen | 284.00 pts/sem |
+| Débit journalier moyen | 35.50 pts/j |
+| Débit hebdomadaire moyen | 248.50 pts/sem |
 | Points restants | 808 |
-| Prévision débit continu | 08/11/2026 (~2.8 semaines restants) |
+| Prévision débit continu | 11/11/2026 (~3.3 semaines restants) |
 
 ---
 
@@ -49,13 +49,13 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Lot | Points restants | Coeff. vélocité | Jours estimés | Date fin lot |
 |-----|----------------:|----------------:|--------------:|-------------:|
-| L1 | 27 | 1.0 | 0.7 j | 20/10/2026 |
-| L2 | 94 | 0.9 | 2.6 j | 22/10/2026 |
-| L3 | 225 | 0.7 | 7.9 j | 27/10/2026 |
-| L4 | 148 | 0.85 | 4.3 j | 24/10/2026 |
-| L5 | 150 | 0.9 | 4.1 j | 24/10/2026 |
-| L6 | 64 | 1.0 | 1.6 j | 21/10/2026 |
-| L7 | 100 | 0.85 | 2.9 j | 22/10/2026 |
+| L1 | 27 | 1.0 | 0.8 j | 20/10/2026 |
+| L2 | 94 | 0.9 | 2.9 j | 22/10/2026 |
+| L3 | 225 | 0.7 | 9.1 j | 29/10/2026 |
+| L4 | 148 | 0.85 | 4.9 j | 24/10/2026 |
+| L5 | 150 | 0.9 | 4.7 j | 24/10/2026 |
+| L6 | 64 | 1.0 | 1.8 j | 21/10/2026 |
+| L7 | 100 | 0.85 | 3.3 j | 23/10/2026 |
 
 *Le lot le plus long détermine la date de fin globale du projet.*
 
