@@ -198,7 +198,7 @@ L1-18;L1;E1.5;Grille horaire & indisponibilités;Story;Générateur de grille ho
 - Génération déterministe de créneaux consécutifs, pauses marquées
 - dryRun retourne le décompte par jour sans écriture
 - 409 SLOT_IN_USE si des séances référencent un créneau qui disparaîtrait
-- Paramètres conservés dans Semestre.grilleParams";EX-CAL-02, EX-CAL-03;§4.10;BACK;Must;5;L1-17;En cours;
+- Paramètres conservés dans Semestre.grilleParams";EX-CAL-02, EX-CAL-03;§4.10;BACK;Must;5;L1-17;Terminé;
 L1-19;L1;E1.5;Grille horaire & indisponibilités;Story;Duplication des créneaux depuis un autre semestre ou une autre année;POST /creneaux/duplicate (action optionnelle).;"- Les créneaux ne sont jamais reconduits automatiquement
 - La duplication ne copie ni contraintes ni indisponibilités
 - Refusée si la cible contient déjà des créneaux, sauf option « remplacer » sans séance";EX-CAL-03;§4.10;BACK;Should;2;L1-17;À faire;
