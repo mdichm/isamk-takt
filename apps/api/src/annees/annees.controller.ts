@@ -26,6 +26,10 @@ import {
   SemestreQueryDto,
   TransitionAnneeDto,
 } from './dto/annee.dto.js';
+import {
+  GenerateCreneauxDto,
+  GenerateCreneauxResponseDto,
+} from './dto/generate-creneaux.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
@@ -172,5 +176,25 @@ export class AnneesController {
   @ApiResponse({ status: 404, description: 'Semestre non trouvé' })
   async removeSemestre(@Param('id') id: string): Promise<void> {
     return this.anneesService.removeSemestre(id, 'system');
+  }
+
+  @Post('semestres/:id/creneaux/generate')
+  @Permissions('creneaux:generate')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: 'Générer la grille horaire d\'un semestre',
+    description: 'Crée les créneaux consécutifs de 30 minutes pour chaque jour ouvré. Si dryRun=true, retourne uniquement le décompte sans écriture.',
+  })
+  @ApiParam({ name: 'id', description: 'ID du semestre (UUID)' })
+  @ApiResponse({ status: 201, description: 'Grille générée', type: GenerateCreneauxResponseDto })
+  @ApiResponse({ status: 400, description: 'Paramètres invalides (durée non conforme, pauses incohérentes)' })
+  @ApiResponse({ status: 404, description: 'Semestre non trouvé' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 409, description: 'Conflit : séance existante sur un créneau supprimé (SLOT_IN_USE)' })
+  async generateCreneaux(
+    @Param('id') id: string,
+    @Body() dto: GenerateCreneauxDto,
+  ): Promise<GenerateCreneauxResponseDto> {
+    return this.anneesService.generateCreneaux(id, dto, 'system');
   }
 }

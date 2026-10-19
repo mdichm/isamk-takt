@@ -491,6 +491,7 @@ model Semestre {
   anneeId    String   @db.Uuid
   annee      Annee    @relation(fields: [anneeId], references: [id], onDelete: Cascade)
   nbSemaines Int      @default(14)
+  grilleParams Json?  // {jours:[{jour, debut, fin, pauses:[{debut, fin}]}]} pour regenerer la grille
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 

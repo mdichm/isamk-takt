@@ -34,7 +34,7 @@ export class PolicyService {
         permissions: [
           'user:manage','role:manage','securite:write','security-event:read',
           'annee:manage','annee:transition','annee:read','annee:write',
-          'referentiel:write','creneau:write','charge-ruleset:write','export-style:write','referentiel:read',
+          'referentiel:write','creneau:write','creneaux:generate','charge-ruleset:write','export-style:write','referentiel:read',
           'enseignant:write','salle:read','salle:write',
           'creneau-affichage:write','indisponibilite:write',
           'repartition:read','repartition:write','repartition:validate',
@@ -53,7 +53,7 @@ export class PolicyService {
       RoleCode.GESTIONNAIRE,
       {
         permissions: [
-          'referentiel:read','salle:read','salle:write','creneau-affichage:write','indisponibilite:write',
+          'referentiel:read','salle:read','salle:write','creneau-affichage:write','indisponibilite:write','creneaux:generate',
           'repartition:read','charges:read','annee:read',
           'contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
           'version:create','generation:launch','verrou:write','avertissement:accept',
