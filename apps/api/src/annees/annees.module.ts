@@ -3,9 +3,10 @@ import { AnneesService } from './annees.service.js';
 import { AnneesController } from './annees.controller.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
 import { AuditModule } from '../audit/audit.module.js';
+import { CreneauModule } from '../creneaux/creneau.module.js';
 
 @Module({
-  imports: [PrismaModule, AuditModule],
+  imports: [PrismaModule, AuditModule, CreneauModule],
   controllers: [AnneesController],
   providers: [AnneesService],
   exports: [AnneesService],

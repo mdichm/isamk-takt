@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { CreneauService } from '../creneaux/creneau.service.js';
 import {
   CreateAnneeDto,
   UpdateAnneeDto,
@@ -15,12 +17,23 @@ import {
   AnneeStatut,
   TransitionAnneeDto,
 } from './dto/annee.dto.js';
+import {
+  GenerateCreneauxDto,
+  GenerateCreneauxResponseDto,
+} from './dto/generate-creneaux.dto.js';
+// eslint-disable-next-line no-restricted-imports
+import { JourSemaine } from '@takt/db';
+// eslint-disable-next-line no-restricted-imports
+import { Prisma } from '@takt/db';
+
+const SLOT_MINUTES = 30;
 
 @Injectable()
 export class AnneesService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private creneauService: CreneauService,
   ) {}
 
   // ============================================
@@ -388,6 +401,189 @@ export class AnneesService {
         motif: `Suppression semestre ${existing.numero}`,
       },
     );
+  }
+
+  // ============================================
+  // Génération de grille horaire (L1-18)
+  // ============================================
+
+  async generateCreneaux(
+    semestreId: string,
+    dto: GenerateCreneauxDto,
+    userId: string,
+  ): Promise<GenerateCreneauxResponseDto> {
+    const semestre = await this.prisma.semestre.findUnique({ where: { id: semestreId } });
+    if (!semestre) {
+      throw new NotFoundException(`Semestre "${semestreId}" introuvable`);
+    }
+
+    const joursOrdres: { jour: JourSemaine; ordre: number; heureDebut: string; heureFin: string; estPause: boolean }[] = [];
+    const parJour: { jour: JourSemaine; count: number }[] = [];
+
+    for (const j of dto.jours) {
+      const debut = new Date(`1970-01-01T${j.heureDebut}Z`);
+      const fin = new Date(`1970-01-01T${j.heureFin}Z`);
+      const diffMinutes = (fin.getTime() - debut.getTime()) / (1000 * 60);
+      if (diffMinutes <= 0 || diffMinutes % SLOT_MINUTES !== 0) {
+        throw new BadRequestException(
+          `La plage horaire du jour ${j.jour} doit être un multiple positif de ${SLOT_MINUTES} minutes`,
+        );
+      }
+
+      let pauseCursor = debut.getTime();
+      if (j.pauses) {
+        for (const p of j.pauses) {
+          const pDebut = new Date(`1970-01-01T${p.debut}Z`);
+          const pFin = new Date(`1970-01-01T${p.fin}Z`);
+          const pDiff = (pFin.getTime() - pDebut.getTime()) / (1000 * 60);
+          if (pDiff <= 0 || pDiff % SLOT_MINUTES !== 0) {
+            throw new BadRequestException(
+              `La pause du jour ${j.jour} de ${p.debut} à ${p.fin} doit être un multiple positif de ${SLOT_MINUTES} minutes`,
+            );
+          }
+          if (pDebut.getTime() <= debut.getTime() || pFin.getTime() >= fin.getTime()) {
+            throw new BadRequestException(
+              `La pause du jour ${j.jour} doit être comprise strictement entre ${j.heureDebut} et ${j.heureFin}`,
+            );
+          }
+          if (pDebut.getTime() < pauseCursor) {
+            throw new BadRequestException(
+              `Les pauses du jour ${j.jour} se chevauchent ou ne sont pas ordonnées`,
+            );
+          }
+          pauseCursor = pFin.getTime();
+        }
+      }
+
+      let cursor = debut.getTime();
+      let ordre = 1;
+      let jourCount = 0;
+      while (cursor < fin.getTime()) {
+        const slotFin = cursor + SLOT_MINUTES * 60 * 1000;
+        let estPause = false;
+        if (j.pauses) {
+          for (const p of j.pauses) {
+            const pDebut = new Date(`1970-01-01T${p.debut}Z`);
+            const pFin = new Date(`1970-01-01T${p.fin}Z`);
+            if (cursor >= pDebut.getTime() && cursor < pFin.getTime()) {
+              estPause = true;
+              break;
+            }
+          }
+        }
+        joursOrdres.push({
+          jour: j.jour,
+          ordre,
+          heureDebut: new Date(cursor).toISOString().slice(11, 19),
+          heureFin: new Date(slotFin).toISOString().slice(11, 19),
+          estPause,
+        });
+        jourCount++;
+        ordre++;
+        cursor = slotFin;
+      }
+      parJour.push({ jour: j.jour, count: jourCount });
+    }
+
+    if (dto.dryRun === true) {
+      return {
+        semestreId,
+        creneaux: joursOrdres.map((j) => ({
+          jour: j.jour,
+          ordre: j.ordre,
+          heureDebut: j.heureDebut,
+          heureFin: j.heureFin,
+          estPause: j.estPause,
+        })),
+        total: joursOrdres.length,
+        parJour,
+      };
+    }
+
+    const grilleParams = {
+      jours: dto.jours.map((j) => ({
+        jour: j.jour,
+        debut: j.heureDebut,
+        fin: j.heureFin,
+        pauses: j.pauses?.map((p) => ({ debut: p.debut, fin: p.fin })) ?? [],
+      })),
+    };
+
+    // Contrôle 409 SLOT_IN_USE (inactif jusqu'à L3-10 : modèle Seance absent)
+    // TODO L3-10 : une fois le modèle Seance implémenté, vérifier qu'aucune séance
+    // ne référence un créneau du semestre qui serait supprimé/modifié.
+
+    const result = await this.audit.auditTransaction(
+      async (tx) => {
+        await tx.creneau.deleteMany({ where: { semestreId } });
+
+        const created: Array<{
+          id: string;
+          semestreId: string;
+          jour: string;
+          ordre: number;
+          heureDebut: Date;
+          heureFin: Date;
+          estPause: boolean;
+          estActive: boolean;
+          createdAt: Date;
+          updatedAt: Date;
+        }> = [];
+
+        for (const j of joursOrdres) {
+          const c = await tx.creneau.create({
+            data: {
+              semestreId,
+              jour: j.jour,
+              ordre: j.ordre,
+              heureDebut: new Date(`1970-01-01T${j.heureDebut}Z`),
+              heureFin: new Date(`1970-01-01T${j.heureFin}Z`),
+              estPause: j.estPause,
+              estActive: true,
+            },
+          });
+          created.push({
+            id: c.id,
+            semestreId: c.semestreId,
+            jour: c.jour,
+            ordre: c.ordre,
+            heureDebut: c.heureDebut,
+            heureFin: c.heureFin,
+            estPause: c.estPause,
+            estActive: c.estActive,
+            createdAt: c.createdAt,
+            updatedAt: c.updatedAt,
+          });
+        }
+
+        await tx.semestre.update({
+          where: { id: semestreId },
+          data: { grilleParams: grilleParams as unknown as Prisma.InputJsonValue },
+        });
+
+        return created;
+      },
+      {
+        userId,
+        action: 'CREATE',
+        objetType: 'Semestre',
+        objetId: semestreId,
+        motif: `Génération de la grille horaire du semestre ${semestreId} (${joursOrdres.length} créneaux)`,
+      },
+    );
+
+    return {
+      semestreId,
+      creneaux: result.map((c) => ({
+        jour: c.jour as JourSemaine,
+        ordre: c.ordre,
+        heureDebut: c.heureDebut.toISOString().slice(11, 19),
+        heureFin: c.heureFin.toISOString().slice(11, 19),
+        estPause: c.estPause,
+      })),
+      total: result.length,
+      parJour,
+    };
   }
 
   private toSemestreDto(semestre: { id: string; anneeId: string; numero: number; nbSemaines: number; createdAt: Date; updatedAt: Date }): SemestreResponseDto {
