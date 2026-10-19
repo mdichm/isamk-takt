@@ -1,48 +1,118 @@
+# Destination : .github/workflows/ci.yml
+#
+# - Pull request vers main (hors brouillons) : validation, tests, scans, build Docker de contrôle.
+# - Push sur main / tags v*             : validation ET build des images en parallèle,
+#                                         puis promotion (latest/main) et déploiement dev
+#                                         seulement si tout est vert.
+# - Push de branche sans PR             : rien n'est lancé.
+# Le job "CI gate" est le SEUL check à déclarer comme requis dans le ruleset de main.
+
 name: CI
 
 on:
-  push:
-    branches: [main, develop]
-    tags: ['v*']
   pull_request:
-    branches: [main, develop]
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.cline/**'
+      - '.clinerules/**'
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  # =========================================================================
-  # Validate: Lint, Typecheck, Build
-  # =========================================================================
+  # ===========================================================================
+  # Détection des changements (PR uniquement ; push/tags/manuel = tout lancer)
+  # ===========================================================================
+  changes:
+    name: Detect changes
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+      integration: ${{ steps.filter.outputs.integration }}
+      docker: ${{ steps.filter.outputs.docker }}
+      docs: ${{ steps.filter.outputs.docs }}
+    steps:
+      - name: Classify changed files
+        id: filter
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" != "pull_request" ]; then
+            {
+              echo "code=true"
+              echo "integration=true"
+              echo "docker=true"
+              echo "docs=true"
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          files="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files" --paginate --jq '.[].filename')"
+          echo "Changed files:"
+          echo "$files"
+
+          any() {
+            if grep -Eq "$1" <<< "$files"; then echo true; else echo false; fi
+          }
+
+          # "code" = tout ce qui n'est pas uniquement documentation / maintenance.
+          # Un fichier inconnu déclenche donc la CI (échec sûr).
+          noncode='^(docs/|\.cline/|\.clinerules/|\.github/(dependabot\.yml|PULL_REQUEST_TEMPLATE|ISSUE_TEMPLATE))|\.md$|^LICENSE'
+          code=false
+          if [ -n "$files" ] && grep -Evq "$noncode" <<< "$files"; then
+            code=true
+          fi
+
+          {
+            echo "code=$code"
+            echo "integration=$(any '^(apps/api/|packages/|package\.json$|pnpm-lock\.yaml$|pnpm-workspace\.yaml$|turbo\.json$|\.github/(workflows|actions)/)')"
+            echo "docker=$(any '(^|/)Dockerfile$|^infra/|^\.dockerignore$|^pnpm-lock\.yaml$|^\.github/(workflows|actions)/')"
+            echo "docs=$(any '^docs/|^\.github/(workflows|actions)/')"
+          } >> "$GITHUB_OUTPUT"
+
+  # ===========================================================================
+  # Validate: lint, typecheck, build
+  # ===========================================================================
   validate:
     name: Validate
-    runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/takt
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Generate Prisma Client (db package)
         run: pnpm prisma generate
         working-directory: ./packages/db
-        env:
-          DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/takt'
 
       - name: Generate Prisma Client (api package)
         run: pnpm db:generate
@@ -57,64 +127,44 @@ jobs:
       - name: Run build
         run: pnpm build
 
-  # =========================================================================
-  # Test: Unit Tests
-  # =========================================================================
+  # ===========================================================================
+  # Unit tests
+  # ===========================================================================
   test:
     name: Unit Tests
-    runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      # Factice : Prisma se construit avec l'adapter pg sans se connecter ;
+      # les tests unitaires mockent PrismaService et ne queryent jamais la base.
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/takt
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Run tests
         run: pnpm test
-        env:
-          # Factice : Prisma se construit avec l'adapter pg sans se connecter ;
-          # les tests unitaires mockent PrismaService et ne queryent jamais la base.
-          DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/takt'
 
-  # =========================================================================
-  # Test: Integration Tests (Testcontainers PostgreSQL)
-  # =========================================================================
+  # ===========================================================================
+  # Integration tests (Testcontainers PostgreSQL) : seulement si api/db/packages changent
+  # ===========================================================================
   test-integration:
     name: Integration Tests
-    runs-on: ubuntu-latest
+    needs: changes
+    if: needs.changes.outputs.code == 'true' && needs.changes.outputs.integration == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Setup Node.js and pnpm
+        uses: ./.github/actions/setup-node-pnpm
 
       - name: Generate Prisma Client
         run: pnpm db:generate
@@ -124,44 +174,34 @@ jobs:
         run: pnpm test:integration
         working-directory: ./apps/api
         env:
-          TESTCONTAINERS_RYUK_DISABLED: "true"
+          TESTCONTAINERS_RYUK_DISABLED: 'true'
 
-  # =========================================================================
-  # Security: Dependency, Secret, Container Scanning
-  # =========================================================================
+  # ===========================================================================
+  # Security: audit des dépendances + Trivy FS (PR et main)
+  # ===========================================================================
   security:
     name: Security Scans
-    runs-on: ubuntu-latest
-    needs: [validate]
-    if: github.event_name != 'pull_request'
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     permissions:
       contents: read
       security-events: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Node.js and pnpm (no install needed for audit)
+        uses: ./.github/actions/setup-node-pnpm
         with:
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          install: 'false'
 
       - name: Audit dependencies
         run: pnpm audit --audit-level=critical
 
       - name: Run Trivy vulnerability scanner (FS)
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
@@ -170,6 +210,7 @@ jobs:
           severity: 'HIGH,CRITICAL'
           ignore-unfixed: true
 
+      # continue-on-error : à retirer une fois l'onglet Security vérifié (dépôt public).
       - name: Upload Trivy FS results to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
         if: always()
@@ -178,27 +219,118 @@ jobs:
           sarif_file: trivy-fs.sarif
           category: filesystem
 
-  # =========================================================================
-  # Build & Push Docker Images
-  # =========================================================================
-  build-and-push:
-    name: Build & Push
-    runs-on: ubuntu-latest
-    needs: [validate, test, security]
-    if: github.event_name != 'pull_request'
+  # ===========================================================================
+  # Docker build de contrôle sur PR (sans push), si Dockerfile / infra / lockfile changent
+  # ===========================================================================
+  docker-check:
+    name: Docker build (${{ matrix.app }})
+    needs: changes
+    if: github.event_name == 'pull_request' && needs.changes.outputs.docker == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
     strategy:
+      fail-fast: false
+      matrix:
+        app: [api, web, worker]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build ${{ matrix.app }} (no push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/${{ matrix.app }}/Dockerfile
+          push: false
+          cache-from: type=gha,scope=${{ matrix.app }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.app }}
+          platforms: linux/amd64
+
+  # ===========================================================================
+  # Cohérence du backlog : les artefacts versionnés doivent correspondre à tickets_data.py
+  # (le XLSX n'est pas comparé : ses octets changent à chaque génération)
+  # ===========================================================================
+  backlog:
+    name: Backlog consistency
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Install openpyxl
+        run: python -m pip install openpyxl
+
+      - name: Regenerate backlog artifacts
+        run: |
+          python3 docs/tools/build_backlog.py
+          python3 docs/tools/verifier_coherence.py
+          python3 docs/tools/velocity_tracker.py
+
+      - name: Generated artifacts must be committed
+        run: |
+          if ! git diff --exit-code -- \
+            docs/Backlog_TAKT_tickets.csv \
+            docs/tools/correspondance_tickets.json \
+            docs/VELOCITE.md; then
+            echo "::error::Backlog artifacts are out of date. Regenerate them after syncing with main and commit them together."
+            exit 1
+          fi
+
+  # ===========================================================================
+  # CI gate : seul check requis par le ruleset de main
+  # ===========================================================================
+  ci-gate:
+    name: CI gate
+    needs: [changes, validate, test, test-integration, security, docker-check, backlog]
+    if: always() && (github.event_name != 'pull_request' || !github.event.pull_request.draft)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check results
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Job results: $RESULTS"
+          case " $RESULTS " in
+            *" failure "*|*" cancelled "*)
+              echo "::error::At least one job failed or was cancelled"
+              exit 1
+              ;;
+          esac
+
+  # ===========================================================================
+  # Build & push des images (main et tags uniquement)
+  # ===========================================================================
+  # Lancé en parallèle de la validation : il ne pousse que des tags immuables
+  # (sha-xxxxxxx, semver). Les tags mobiles latest/main ne sont posés qu'après
+  # validation, dans deploy-dev (étape "Promote tested images").
+  build-and-push:
+    name: Build & Push (${{ matrix.app }})
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
       matrix:
         app: [api, web, worker]
     permissions:
       contents: read
       packages: write
-      attestations: write
-      id-token: write
+      security-events: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -216,36 +348,38 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/takt-${{ matrix.app }}
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha,prefix=sha-
-            type=raw,value=latest,enable={{is_default_branch}}
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
             org.opencontainers.image.description=TAKT ${{ matrix.app }} service
             org.opencontainers.image.licenses=AGPL-3.0-only
 
       - name: Build and push ${{ matrix.app }}
-        uses: docker/build-push-action@v5
+        id: build
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./apps/${{ matrix.app }}/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=${{ matrix.app }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.app }}
           platforms: linux/amd64
           provenance: true
           sbom: true
 
+      # Scan de l'image exacte qui vient d'être poussée (digest), pas du tag :main.
       - name: Trivy container scan for ${{ matrix.app }}
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        env:
+          TRIVY_USERNAME: ${{ github.actor }}
+          TRIVY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/takt-${{ matrix.app }}:main
+          image-ref: ${{ env.REGISTRY }}/${{ github.repository_owner }}/takt-${{ matrix.app }}@${{ steps.build.outputs.digest }}
           format: sarif
           output: trivy-${{ matrix.app }}.sarif
           severity: HIGH,CRITICAL
@@ -259,31 +393,25 @@ jobs:
           sarif_file: trivy-${{ matrix.app }}.sarif
           category: ${{ matrix.app }}
 
-  # =========================================================================
-  # Deploy Dev: Automatic deployment to dev on main branch
-  # =========================================================================
+  # ===========================================================================
+  # Deploy dev : automatique sur push main uniquement
+  # ===========================================================================
   deploy-dev:
     name: Deploy Dev
-    runs-on: ubuntu-latest
-    needs: [build-and-push]
+    needs: [validate, test, test-integration, security, build-and-push]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: development
+    concurrency:
+      group: deploy-dev
+      cancel-in-progress: false
     permissions:
       contents: read
-      packages: read
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Determine image tag
-        id: tag
-        run: |
-          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
-            echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
-          else
-            echo "tag=latest" >> $GITHUB_OUTPUT
-          fi
 
       - name: Log in to Container Registry
         uses: docker/login-action@v3
@@ -292,12 +420,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Toute la validation est verte : on déplace latest et main vers l'image testée.
+      - name: Promote tested images (latest, main)
+        env:
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          set -euo pipefail
+          sha_tag="sha-${GITHUB_SHA::7}"
+          for app in api web worker; do
+            image="${REGISTRY}/${OWNER}/takt-${app}"
+            docker buildx imagetools create \
+              --tag "${image}:latest" \
+              --tag "${image}:main" \
+              "${image}:${sha_tag}"
+          done
+
       - name: Deploy to dev
         env:
           REGISTRY: ${{ env.REGISTRY }}
           REPOSITORY_OWNER: ${{ github.repository_owner }}
           PROJECT_NAME: takt
-          IMAGE_TAG: ${{ steps.tag.outputs.tag }}
+          IMAGE_TAG: latest
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
