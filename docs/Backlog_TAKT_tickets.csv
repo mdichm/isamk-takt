@@ -207,7 +207,7 @@ L1-20;L1;E1.5;Grille horaire & indisponibilités;Story;CRUD indisponibilités en
 - Un effet sur les versions en cours est déclenché en L3";EX-REF-06;§2.2, §2.4;BACK;Must;3;L1-17, L1-10, L1-13;Terminé;
 L1-21;L1;E1.5;Grille horaire & indisponibilités;Story;UI grille horaire et indisponibilités;Saisie des créneaux, pauses et indisponibilités en grille, via le générateur.;"- La grille affiche jours et créneaux ordonnés
 - Sélection de plages multiples pour une indisponibilité
-- Les heures de début et de fin par jour passent par le générateur";EX-CAL-02, EX-REF-06;§3.3;FRONT;Must;5;L1-20, L1-18, L0-29;À faire;
+- Les heures de début et de fin par jour passent par le générateur";EX-CAL-02, EX-REF-06;§3.3;FRONT;Must;5;L1-20, L1-18, L0-29;Terminé;
 L1-22;L1;E1.6;Grille Ramadan;Story;Correspondance d'affichage Ramadan (modèle et API);CreneauAffichage par semestre : horaire Ramadan par créneau logique, durées libres.;"- Contrôles : ordre croissant, aucun chevauchement, pauses conservées
 - Aucune contrainte de 30 minutes sur l'horaire affiché
 - Les vues acceptent grille=NORMALE ou RAMADAN
