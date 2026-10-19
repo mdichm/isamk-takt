@@ -124,6 +124,11 @@ export type Semestre = $Result.DefaultSelection<Prisma.$SemestrePayload>
  */
 export type Creneau = $Result.DefaultSelection<Prisma.$CreneauPayload>
 /**
+ * Model CreneauAffichage
+ * 
+ */
+export type CreneauAffichage = $Result.DefaultSelection<Prisma.$CreneauAffichagePayload>
+/**
  * Model Departement
  * 
  */
@@ -347,6 +352,14 @@ export const JourSemaine: {
 export type JourSemaine = (typeof JourSemaine)[keyof typeof JourSemaine]
 
 
+export const GrilleAffichage: {
+  NORMALE: 'NORMALE',
+  RAMADAN: 'RAMADAN'
+};
+
+export type GrilleAffichage = (typeof GrilleAffichage)[keyof typeof GrilleAffichage]
+
+
 export const TypeEnseignementCode: {
   CM: 'CM',
   TD: 'TD',
@@ -417,6 +430,10 @@ export const ExigenceNiveau: typeof $Enums.ExigenceNiveau
 export type JourSemaine = $Enums.JourSemaine
 
 export const JourSemaine: typeof $Enums.JourSemaine
+
+export type GrilleAffichage = $Enums.GrilleAffichage
+
+export const GrilleAffichage: typeof $Enums.GrilleAffichage
 
 export type TypeEnseignementCode = $Enums.TypeEnseignementCode
 
@@ -766,6 +783,16 @@ export class PrismaClient<
     * ```
     */
   get creneau(): Prisma.CreneauDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.creneauAffichage`: Exposes CRUD operations for the **CreneauAffichage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CreneauAffichages
+    * const creneauAffichages = await prisma.creneauAffichage.findMany()
+    * ```
+    */
+  get creneauAffichage(): Prisma.CreneauAffichageDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.departement`: Exposes CRUD operations for the **Departement** model.
@@ -1425,6 +1452,7 @@ export namespace Prisma {
     Annee: 'Annee',
     Semestre: 'Semestre',
     Creneau: 'Creneau',
+    CreneauAffichage: 'CreneauAffichage',
     Departement: 'Departement',
     Formation: 'Formation',
     Niveau: 'Niveau',
@@ -1459,7 +1487,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3091,6 +3119,80 @@ export namespace Prisma {
           }
         }
       }
+      CreneauAffichage: {
+        payload: Prisma.$CreneauAffichagePayload<ExtArgs>
+        fields: Prisma.CreneauAffichageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CreneauAffichageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CreneauAffichageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>
+          }
+          findFirst: {
+            args: Prisma.CreneauAffichageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CreneauAffichageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>
+          }
+          findMany: {
+            args: Prisma.CreneauAffichageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>[]
+          }
+          create: {
+            args: Prisma.CreneauAffichageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>
+          }
+          createMany: {
+            args: Prisma.CreneauAffichageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CreneauAffichageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>[]
+          }
+          delete: {
+            args: Prisma.CreneauAffichageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>
+          }
+          update: {
+            args: Prisma.CreneauAffichageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>
+          }
+          deleteMany: {
+            args: Prisma.CreneauAffichageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CreneauAffichageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CreneauAffichageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>[]
+          }
+          upsert: {
+            args: Prisma.CreneauAffichageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreneauAffichagePayload>
+          }
+          aggregate: {
+            args: Prisma.CreneauAffichageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCreneauAffichage>
+          }
+          groupBy: {
+            args: Prisma.CreneauAffichageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CreneauAffichageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CreneauAffichageCountArgs<ExtArgs>
+            result: $Utils.Optional<CreneauAffichageCountAggregateOutputType> | number
+          }
+        }
+      }
       Departement: {
         payload: Prisma.$DepartementPayload<ExtArgs>
         fields: Prisma.DepartementFieldRefs
@@ -4642,6 +4744,7 @@ export namespace Prisma {
     annee?: AnneeOmit
     semestre?: SemestreOmit
     creneau?: CreneauOmit
+    creneauAffichage?: CreneauAffichageOmit
     departement?: DepartementOmit
     formation?: FormationOmit
     niveau?: NiveauOmit
@@ -5170,6 +5273,37 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountIndisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IndisponibiliteWhereInput
+  }
+
+
+  /**
+   * Count Type CreneauCountOutputType
+   */
+
+  export type CreneauCountOutputType = {
+    affichages: number
+  }
+
+  export type CreneauCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    affichages?: boolean | CreneauCountOutputTypeCountAffichagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CreneauCountOutputType without action
+   */
+  export type CreneauCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauCountOutputType
+     */
+    select?: CreneauCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CreneauCountOutputType without action
+   */
+  export type CreneauCountOutputTypeCountAffichagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreneauAffichageWhereInput
   }
 
 
@@ -30083,6 +30217,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    affichages?: boolean | Creneau$affichagesArgs<ExtArgs>
+    _count?: boolean | CreneauCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["creneau"]>
 
   export type CreneauSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -30129,6 +30265,8 @@ export namespace Prisma {
   export type CreneauOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "jour" | "ordre" | "heureDebut" | "heureFin" | "estPause" | "estActive" | "createdAt" | "updatedAt", ExtArgs["result"]["creneau"]>
   export type CreneauInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    affichages?: boolean | Creneau$affichagesArgs<ExtArgs>
+    _count?: boolean | CreneauCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CreneauIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -30141,6 +30279,7 @@ export namespace Prisma {
     name: "Creneau"
     objects: {
       semestre: Prisma.$SemestrePayload<ExtArgs>
+      affichages: Prisma.$CreneauAffichagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30548,6 +30687,7 @@ export namespace Prisma {
   export interface Prisma__CreneauClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    affichages<T extends Creneau$affichagesArgs<ExtArgs> = {}>(args?: Subset<T, Creneau$affichagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30988,6 +31128,30 @@ export namespace Prisma {
   }
 
   /**
+   * Creneau.affichages
+   */
+  export type Creneau$affichagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    where?: CreneauAffichageWhereInput
+    orderBy?: CreneauAffichageOrderByWithRelationInput | CreneauAffichageOrderByWithRelationInput[]
+    cursor?: CreneauAffichageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CreneauAffichageScalarFieldEnum | CreneauAffichageScalarFieldEnum[]
+  }
+
+  /**
    * Creneau without action
    */
   export type CreneauDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31003,6 +31167,1069 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CreneauInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CreneauAffichage
+   */
+
+  export type AggregateCreneauAffichage = {
+    _count: CreneauAffichageCountAggregateOutputType | null
+    _min: CreneauAffichageMinAggregateOutputType | null
+    _max: CreneauAffichageMaxAggregateOutputType | null
+  }
+
+  export type CreneauAffichageMinAggregateOutputType = {
+    id: string | null
+    creneauId: string | null
+    grille: $Enums.GrilleAffichage | null
+    heureDebut: Date | null
+    heureFin: Date | null
+  }
+
+  export type CreneauAffichageMaxAggregateOutputType = {
+    id: string | null
+    creneauId: string | null
+    grille: $Enums.GrilleAffichage | null
+    heureDebut: Date | null
+    heureFin: Date | null
+  }
+
+  export type CreneauAffichageCountAggregateOutputType = {
+    id: number
+    creneauId: number
+    grille: number
+    heureDebut: number
+    heureFin: number
+    _all: number
+  }
+
+
+  export type CreneauAffichageMinAggregateInputType = {
+    id?: true
+    creneauId?: true
+    grille?: true
+    heureDebut?: true
+    heureFin?: true
+  }
+
+  export type CreneauAffichageMaxAggregateInputType = {
+    id?: true
+    creneauId?: true
+    grille?: true
+    heureDebut?: true
+    heureFin?: true
+  }
+
+  export type CreneauAffichageCountAggregateInputType = {
+    id?: true
+    creneauId?: true
+    grille?: true
+    heureDebut?: true
+    heureFin?: true
+    _all?: true
+  }
+
+  export type CreneauAffichageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreneauAffichage to aggregate.
+     */
+    where?: CreneauAffichageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreneauAffichages to fetch.
+     */
+    orderBy?: CreneauAffichageOrderByWithRelationInput | CreneauAffichageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CreneauAffichageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreneauAffichages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreneauAffichages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CreneauAffichages
+    **/
+    _count?: true | CreneauAffichageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CreneauAffichageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CreneauAffichageMaxAggregateInputType
+  }
+
+  export type GetCreneauAffichageAggregateType<T extends CreneauAffichageAggregateArgs> = {
+        [P in keyof T & keyof AggregateCreneauAffichage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCreneauAffichage[P]>
+      : GetScalarType<T[P], AggregateCreneauAffichage[P]>
+  }
+
+
+
+
+  export type CreneauAffichageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreneauAffichageWhereInput
+    orderBy?: CreneauAffichageOrderByWithAggregationInput | CreneauAffichageOrderByWithAggregationInput[]
+    by: CreneauAffichageScalarFieldEnum[] | CreneauAffichageScalarFieldEnum
+    having?: CreneauAffichageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CreneauAffichageCountAggregateInputType | true
+    _min?: CreneauAffichageMinAggregateInputType
+    _max?: CreneauAffichageMaxAggregateInputType
+  }
+
+  export type CreneauAffichageGroupByOutputType = {
+    id: string
+    creneauId: string
+    grille: $Enums.GrilleAffichage
+    heureDebut: Date
+    heureFin: Date
+    _count: CreneauAffichageCountAggregateOutputType | null
+    _min: CreneauAffichageMinAggregateOutputType | null
+    _max: CreneauAffichageMaxAggregateOutputType | null
+  }
+
+  type GetCreneauAffichageGroupByPayload<T extends CreneauAffichageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CreneauAffichageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CreneauAffichageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CreneauAffichageGroupByOutputType[P]>
+            : GetScalarType<T[P], CreneauAffichageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CreneauAffichageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    creneauId?: boolean
+    grille?: boolean
+    heureDebut?: boolean
+    heureFin?: boolean
+    creneau?: boolean | CreneauDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creneauAffichage"]>
+
+  export type CreneauAffichageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    creneauId?: boolean
+    grille?: boolean
+    heureDebut?: boolean
+    heureFin?: boolean
+    creneau?: boolean | CreneauDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creneauAffichage"]>
+
+  export type CreneauAffichageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    creneauId?: boolean
+    grille?: boolean
+    heureDebut?: boolean
+    heureFin?: boolean
+    creneau?: boolean | CreneauDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creneauAffichage"]>
+
+  export type CreneauAffichageSelectScalar = {
+    id?: boolean
+    creneauId?: boolean
+    grille?: boolean
+    heureDebut?: boolean
+    heureFin?: boolean
+  }
+
+  export type CreneauAffichageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "creneauId" | "grille" | "heureDebut" | "heureFin", ExtArgs["result"]["creneauAffichage"]>
+  export type CreneauAffichageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creneau?: boolean | CreneauDefaultArgs<ExtArgs>
+  }
+  export type CreneauAffichageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creneau?: boolean | CreneauDefaultArgs<ExtArgs>
+  }
+  export type CreneauAffichageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creneau?: boolean | CreneauDefaultArgs<ExtArgs>
+  }
+
+  export type $CreneauAffichagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CreneauAffichage"
+    objects: {
+      creneau: Prisma.$CreneauPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      creneauId: string
+      grille: $Enums.GrilleAffichage
+      heureDebut: Date
+      heureFin: Date
+    }, ExtArgs["result"]["creneauAffichage"]>
+    composites: {}
+  }
+
+  type CreneauAffichageGetPayload<S extends boolean | null | undefined | CreneauAffichageDefaultArgs> = $Result.GetResult<Prisma.$CreneauAffichagePayload, S>
+
+  type CreneauAffichageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CreneauAffichageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CreneauAffichageCountAggregateInputType | true
+    }
+
+  export interface CreneauAffichageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CreneauAffichage'], meta: { name: 'CreneauAffichage' } }
+    /**
+     * Find zero or one CreneauAffichage that matches the filter.
+     * @param {CreneauAffichageFindUniqueArgs} args - Arguments to find a CreneauAffichage
+     * @example
+     * // Get one CreneauAffichage
+     * const creneauAffichage = await prisma.creneauAffichage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CreneauAffichageFindUniqueArgs>(args: SelectSubset<T, CreneauAffichageFindUniqueArgs<ExtArgs>>): Prisma__CreneauAffichageClient<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CreneauAffichage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CreneauAffichageFindUniqueOrThrowArgs} args - Arguments to find a CreneauAffichage
+     * @example
+     * // Get one CreneauAffichage
+     * const creneauAffichage = await prisma.creneauAffichage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CreneauAffichageFindUniqueOrThrowArgs>(args: SelectSubset<T, CreneauAffichageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CreneauAffichageClient<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CreneauAffichage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauAffichageFindFirstArgs} args - Arguments to find a CreneauAffichage
+     * @example
+     * // Get one CreneauAffichage
+     * const creneauAffichage = await prisma.creneauAffichage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CreneauAffichageFindFirstArgs>(args?: SelectSubset<T, CreneauAffichageFindFirstArgs<ExtArgs>>): Prisma__CreneauAffichageClient<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CreneauAffichage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauAffichageFindFirstOrThrowArgs} args - Arguments to find a CreneauAffichage
+     * @example
+     * // Get one CreneauAffichage
+     * const creneauAffichage = await prisma.creneauAffichage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CreneauAffichageFindFirstOrThrowArgs>(args?: SelectSubset<T, CreneauAffichageFindFirstOrThrowArgs<ExtArgs>>): Prisma__CreneauAffichageClient<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CreneauAffichages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauAffichageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CreneauAffichages
+     * const creneauAffichages = await prisma.creneauAffichage.findMany()
+     * 
+     * // Get first 10 CreneauAffichages
+     * const creneauAffichages = await prisma.creneauAffichage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const creneauAffichageWithIdOnly = await prisma.creneauAffichage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CreneauAffichageFindManyArgs>(args?: SelectSubset<T, CreneauAffichageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CreneauAffichage.
+     * @param {CreneauAffichageCreateArgs} args - Arguments to create a CreneauAffichage.
+     * @example
+     * // Create one CreneauAffichage
+     * const CreneauAffichage = await prisma.creneauAffichage.create({
+     *   data: {
+     *     // ... data to create a CreneauAffichage
+     *   }
+     * })
+     * 
+     */
+    create<T extends CreneauAffichageCreateArgs>(args: SelectSubset<T, CreneauAffichageCreateArgs<ExtArgs>>): Prisma__CreneauAffichageClient<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CreneauAffichages.
+     * @param {CreneauAffichageCreateManyArgs} args - Arguments to create many CreneauAffichages.
+     * @example
+     * // Create many CreneauAffichages
+     * const creneauAffichage = await prisma.creneauAffichage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CreneauAffichageCreateManyArgs>(args?: SelectSubset<T, CreneauAffichageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CreneauAffichages and returns the data saved in the database.
+     * @param {CreneauAffichageCreateManyAndReturnArgs} args - Arguments to create many CreneauAffichages.
+     * @example
+     * // Create many CreneauAffichages
+     * const creneauAffichage = await prisma.creneauAffichage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CreneauAffichages and only return the `id`
+     * const creneauAffichageWithIdOnly = await prisma.creneauAffichage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CreneauAffichageCreateManyAndReturnArgs>(args?: SelectSubset<T, CreneauAffichageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CreneauAffichage.
+     * @param {CreneauAffichageDeleteArgs} args - Arguments to delete one CreneauAffichage.
+     * @example
+     * // Delete one CreneauAffichage
+     * const CreneauAffichage = await prisma.creneauAffichage.delete({
+     *   where: {
+     *     // ... filter to delete one CreneauAffichage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CreneauAffichageDeleteArgs>(args: SelectSubset<T, CreneauAffichageDeleteArgs<ExtArgs>>): Prisma__CreneauAffichageClient<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CreneauAffichage.
+     * @param {CreneauAffichageUpdateArgs} args - Arguments to update one CreneauAffichage.
+     * @example
+     * // Update one CreneauAffichage
+     * const creneauAffichage = await prisma.creneauAffichage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CreneauAffichageUpdateArgs>(args: SelectSubset<T, CreneauAffichageUpdateArgs<ExtArgs>>): Prisma__CreneauAffichageClient<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CreneauAffichages.
+     * @param {CreneauAffichageDeleteManyArgs} args - Arguments to filter CreneauAffichages to delete.
+     * @example
+     * // Delete a few CreneauAffichages
+     * const { count } = await prisma.creneauAffichage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CreneauAffichageDeleteManyArgs>(args?: SelectSubset<T, CreneauAffichageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreneauAffichages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauAffichageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CreneauAffichages
+     * const creneauAffichage = await prisma.creneauAffichage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CreneauAffichageUpdateManyArgs>(args: SelectSubset<T, CreneauAffichageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreneauAffichages and returns the data updated in the database.
+     * @param {CreneauAffichageUpdateManyAndReturnArgs} args - Arguments to update many CreneauAffichages.
+     * @example
+     * // Update many CreneauAffichages
+     * const creneauAffichage = await prisma.creneauAffichage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CreneauAffichages and only return the `id`
+     * const creneauAffichageWithIdOnly = await prisma.creneauAffichage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CreneauAffichageUpdateManyAndReturnArgs>(args: SelectSubset<T, CreneauAffichageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CreneauAffichage.
+     * @param {CreneauAffichageUpsertArgs} args - Arguments to update or create a CreneauAffichage.
+     * @example
+     * // Update or create a CreneauAffichage
+     * const creneauAffichage = await prisma.creneauAffichage.upsert({
+     *   create: {
+     *     // ... data to create a CreneauAffichage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CreneauAffichage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CreneauAffichageUpsertArgs>(args: SelectSubset<T, CreneauAffichageUpsertArgs<ExtArgs>>): Prisma__CreneauAffichageClient<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CreneauAffichages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauAffichageCountArgs} args - Arguments to filter CreneauAffichages to count.
+     * @example
+     * // Count the number of CreneauAffichages
+     * const count = await prisma.creneauAffichage.count({
+     *   where: {
+     *     // ... the filter for the CreneauAffichages we want to count
+     *   }
+     * })
+    **/
+    count<T extends CreneauAffichageCountArgs>(
+      args?: Subset<T, CreneauAffichageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CreneauAffichageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CreneauAffichage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauAffichageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CreneauAffichageAggregateArgs>(args: Subset<T, CreneauAffichageAggregateArgs>): Prisma.PrismaPromise<GetCreneauAffichageAggregateType<T>>
+
+    /**
+     * Group by CreneauAffichage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreneauAffichageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CreneauAffichageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CreneauAffichageGroupByArgs['orderBy'] }
+        : { orderBy?: CreneauAffichageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CreneauAffichageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCreneauAffichageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CreneauAffichage model
+   */
+  readonly fields: CreneauAffichageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CreneauAffichage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CreneauAffichageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creneau<T extends CreneauDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CreneauDefaultArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CreneauAffichage model
+   */
+  interface CreneauAffichageFieldRefs {
+    readonly id: FieldRef<"CreneauAffichage", 'String'>
+    readonly creneauId: FieldRef<"CreneauAffichage", 'String'>
+    readonly grille: FieldRef<"CreneauAffichage", 'GrilleAffichage'>
+    readonly heureDebut: FieldRef<"CreneauAffichage", 'DateTime'>
+    readonly heureFin: FieldRef<"CreneauAffichage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CreneauAffichage findUnique
+   */
+  export type CreneauAffichageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreneauAffichage to fetch.
+     */
+    where: CreneauAffichageWhereUniqueInput
+  }
+
+  /**
+   * CreneauAffichage findUniqueOrThrow
+   */
+  export type CreneauAffichageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreneauAffichage to fetch.
+     */
+    where: CreneauAffichageWhereUniqueInput
+  }
+
+  /**
+   * CreneauAffichage findFirst
+   */
+  export type CreneauAffichageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreneauAffichage to fetch.
+     */
+    where?: CreneauAffichageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreneauAffichages to fetch.
+     */
+    orderBy?: CreneauAffichageOrderByWithRelationInput | CreneauAffichageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreneauAffichages.
+     */
+    cursor?: CreneauAffichageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreneauAffichages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreneauAffichages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreneauAffichages.
+     */
+    distinct?: CreneauAffichageScalarFieldEnum | CreneauAffichageScalarFieldEnum[]
+  }
+
+  /**
+   * CreneauAffichage findFirstOrThrow
+   */
+  export type CreneauAffichageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreneauAffichage to fetch.
+     */
+    where?: CreneauAffichageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreneauAffichages to fetch.
+     */
+    orderBy?: CreneauAffichageOrderByWithRelationInput | CreneauAffichageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreneauAffichages.
+     */
+    cursor?: CreneauAffichageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreneauAffichages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreneauAffichages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreneauAffichages.
+     */
+    distinct?: CreneauAffichageScalarFieldEnum | CreneauAffichageScalarFieldEnum[]
+  }
+
+  /**
+   * CreneauAffichage findMany
+   */
+  export type CreneauAffichageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * Filter, which CreneauAffichages to fetch.
+     */
+    where?: CreneauAffichageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreneauAffichages to fetch.
+     */
+    orderBy?: CreneauAffichageOrderByWithRelationInput | CreneauAffichageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CreneauAffichages.
+     */
+    cursor?: CreneauAffichageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreneauAffichages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreneauAffichages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreneauAffichages.
+     */
+    distinct?: CreneauAffichageScalarFieldEnum | CreneauAffichageScalarFieldEnum[]
+  }
+
+  /**
+   * CreneauAffichage create
+   */
+  export type CreneauAffichageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CreneauAffichage.
+     */
+    data: XOR<CreneauAffichageCreateInput, CreneauAffichageUncheckedCreateInput>
+  }
+
+  /**
+   * CreneauAffichage createMany
+   */
+  export type CreneauAffichageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CreneauAffichages.
+     */
+    data: CreneauAffichageCreateManyInput | CreneauAffichageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CreneauAffichage createManyAndReturn
+   */
+  export type CreneauAffichageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * The data used to create many CreneauAffichages.
+     */
+    data: CreneauAffichageCreateManyInput | CreneauAffichageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CreneauAffichage update
+   */
+  export type CreneauAffichageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CreneauAffichage.
+     */
+    data: XOR<CreneauAffichageUpdateInput, CreneauAffichageUncheckedUpdateInput>
+    /**
+     * Choose, which CreneauAffichage to update.
+     */
+    where: CreneauAffichageWhereUniqueInput
+  }
+
+  /**
+   * CreneauAffichage updateMany
+   */
+  export type CreneauAffichageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CreneauAffichages.
+     */
+    data: XOR<CreneauAffichageUpdateManyMutationInput, CreneauAffichageUncheckedUpdateManyInput>
+    /**
+     * Filter which CreneauAffichages to update
+     */
+    where?: CreneauAffichageWhereInput
+    /**
+     * Limit how many CreneauAffichages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CreneauAffichage updateManyAndReturn
+   */
+  export type CreneauAffichageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * The data used to update CreneauAffichages.
+     */
+    data: XOR<CreneauAffichageUpdateManyMutationInput, CreneauAffichageUncheckedUpdateManyInput>
+    /**
+     * Filter which CreneauAffichages to update
+     */
+    where?: CreneauAffichageWhereInput
+    /**
+     * Limit how many CreneauAffichages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CreneauAffichage upsert
+   */
+  export type CreneauAffichageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CreneauAffichage to update in case it exists.
+     */
+    where: CreneauAffichageWhereUniqueInput
+    /**
+     * In case the CreneauAffichage found by the `where` argument doesn't exist, create a new CreneauAffichage with this data.
+     */
+    create: XOR<CreneauAffichageCreateInput, CreneauAffichageUncheckedCreateInput>
+    /**
+     * In case the CreneauAffichage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CreneauAffichageUpdateInput, CreneauAffichageUncheckedUpdateInput>
+  }
+
+  /**
+   * CreneauAffichage delete
+   */
+  export type CreneauAffichageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
+    /**
+     * Filter which CreneauAffichage to delete.
+     */
+    where: CreneauAffichageWhereUniqueInput
+  }
+
+  /**
+   * CreneauAffichage deleteMany
+   */
+  export type CreneauAffichageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreneauAffichages to delete
+     */
+    where?: CreneauAffichageWhereInput
+    /**
+     * Limit how many CreneauAffichages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CreneauAffichage without action
+   */
+  export type CreneauAffichageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreneauAffichage
+     */
+    select?: CreneauAffichageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreneauAffichage
+     */
+    omit?: CreneauAffichageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauAffichageInclude<ExtArgs> | null
   }
 
 
@@ -53284,6 +54511,17 @@ export namespace Prisma {
   export type CreneauScalarFieldEnum = (typeof CreneauScalarFieldEnum)[keyof typeof CreneauScalarFieldEnum]
 
 
+  export const CreneauAffichageScalarFieldEnum: {
+    id: 'id',
+    creneauId: 'creneauId',
+    grille: 'grille',
+    heureDebut: 'heureDebut',
+    heureFin: 'heureFin'
+  };
+
+  export type CreneauAffichageScalarFieldEnum = (typeof CreneauAffichageScalarFieldEnum)[keyof typeof CreneauAffichageScalarFieldEnum]
+
+
   export const DepartementScalarFieldEnum: {
     id: 'id',
     anneeId: 'anneeId',
@@ -53801,6 +55039,20 @@ export namespace Prisma {
    * Reference to a field of type 'JourSemaine[]'
    */
   export type ListEnumJourSemaineFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JourSemaine[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'GrilleAffichage'
+   */
+  export type EnumGrilleAffichageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GrilleAffichage'>
+    
+
+
+  /**
+   * Reference to a field of type 'GrilleAffichage[]'
+   */
+  export type ListEnumGrilleAffichageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GrilleAffichage[]'>
     
 
 
@@ -55483,6 +56735,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Creneau"> | Date | string
     updatedAt?: DateTimeFilter<"Creneau"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    affichages?: CreneauAffichageListRelationFilter
   }
 
   export type CreneauOrderByWithRelationInput = {
@@ -55497,6 +56750,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
+    affichages?: CreneauAffichageOrderByRelationAggregateInput
   }
 
   export type CreneauWhereUniqueInput = Prisma.AtLeast<{
@@ -55515,6 +56769,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Creneau"> | Date | string
     updatedAt?: DateTimeFilter<"Creneau"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    affichages?: CreneauAffichageListRelationFilter
   }, "id" | "semestreId_jour_ordre">
 
   export type CreneauOrderByWithAggregationInput = {
@@ -55549,6 +56804,62 @@ export namespace Prisma {
     estActive?: BoolWithAggregatesFilter<"Creneau"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Creneau"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Creneau"> | Date | string
+  }
+
+  export type CreneauAffichageWhereInput = {
+    AND?: CreneauAffichageWhereInput | CreneauAffichageWhereInput[]
+    OR?: CreneauAffichageWhereInput[]
+    NOT?: CreneauAffichageWhereInput | CreneauAffichageWhereInput[]
+    id?: UuidFilter<"CreneauAffichage"> | string
+    creneauId?: UuidFilter<"CreneauAffichage"> | string
+    grille?: EnumGrilleAffichageFilter<"CreneauAffichage"> | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFilter<"CreneauAffichage"> | Date | string
+    heureFin?: DateTimeFilter<"CreneauAffichage"> | Date | string
+    creneau?: XOR<CreneauScalarRelationFilter, CreneauWhereInput>
+  }
+
+  export type CreneauAffichageOrderByWithRelationInput = {
+    id?: SortOrder
+    creneauId?: SortOrder
+    grille?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+    creneau?: CreneauOrderByWithRelationInput
+  }
+
+  export type CreneauAffichageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    creneauId_grille?: CreneauAffichageCreneauIdGrilleCompoundUniqueInput
+    AND?: CreneauAffichageWhereInput | CreneauAffichageWhereInput[]
+    OR?: CreneauAffichageWhereInput[]
+    NOT?: CreneauAffichageWhereInput | CreneauAffichageWhereInput[]
+    creneauId?: UuidFilter<"CreneauAffichage"> | string
+    grille?: EnumGrilleAffichageFilter<"CreneauAffichage"> | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFilter<"CreneauAffichage"> | Date | string
+    heureFin?: DateTimeFilter<"CreneauAffichage"> | Date | string
+    creneau?: XOR<CreneauScalarRelationFilter, CreneauWhereInput>
+  }, "id" | "creneauId_grille">
+
+  export type CreneauAffichageOrderByWithAggregationInput = {
+    id?: SortOrder
+    creneauId?: SortOrder
+    grille?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+    _count?: CreneauAffichageCountOrderByAggregateInput
+    _max?: CreneauAffichageMaxOrderByAggregateInput
+    _min?: CreneauAffichageMinOrderByAggregateInput
+  }
+
+  export type CreneauAffichageScalarWhereWithAggregatesInput = {
+    AND?: CreneauAffichageScalarWhereWithAggregatesInput | CreneauAffichageScalarWhereWithAggregatesInput[]
+    OR?: CreneauAffichageScalarWhereWithAggregatesInput[]
+    NOT?: CreneauAffichageScalarWhereWithAggregatesInput | CreneauAffichageScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CreneauAffichage"> | string
+    creneauId?: UuidWithAggregatesFilter<"CreneauAffichage"> | string
+    grille?: EnumGrilleAffichageWithAggregatesFilter<"CreneauAffichage"> | $Enums.GrilleAffichage
+    heureDebut?: DateTimeWithAggregatesFilter<"CreneauAffichage"> | Date | string
+    heureFin?: DateTimeWithAggregatesFilter<"CreneauAffichage"> | Date | string
   }
 
   export type DepartementWhereInput = {
@@ -58666,6 +59977,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutCreneauxInput
+    affichages?: CreneauAffichageCreateNestedManyWithoutCreneauInput
   }
 
   export type CreneauUncheckedCreateInput = {
@@ -58679,6 +59991,7 @@ export namespace Prisma {
     estActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    affichages?: CreneauAffichageUncheckedCreateNestedManyWithoutCreneauInput
   }
 
   export type CreneauUpdateInput = {
@@ -58692,6 +60005,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutCreneauxNestedInput
+    affichages?: CreneauAffichageUpdateManyWithoutCreneauNestedInput
   }
 
   export type CreneauUncheckedUpdateInput = {
@@ -58705,6 +60019,7 @@ export namespace Prisma {
     estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    affichages?: CreneauAffichageUncheckedUpdateManyWithoutCreneauNestedInput
   }
 
   export type CreneauCreateManyInput = {
@@ -58743,6 +60058,61 @@ export namespace Prisma {
     estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauAffichageCreateInput = {
+    id?: string
+    grille?: $Enums.GrilleAffichage
+    heureDebut: Date | string
+    heureFin: Date | string
+    creneau: CreneauCreateNestedOneWithoutAffichagesInput
+  }
+
+  export type CreneauAffichageUncheckedCreateInput = {
+    id?: string
+    creneauId: string
+    grille?: $Enums.GrilleAffichage
+    heureDebut: Date | string
+    heureFin: Date | string
+  }
+
+  export type CreneauAffichageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    creneau?: CreneauUpdateOneRequiredWithoutAffichagesNestedInput
+  }
+
+  export type CreneauAffichageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creneauId?: StringFieldUpdateOperationsInput | string
+    grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauAffichageCreateManyInput = {
+    id?: string
+    creneauId: string
+    grille?: $Enums.GrilleAffichage
+    heureDebut: Date | string
+    heureFin: Date | string
+  }
+
+  export type CreneauAffichageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauAffichageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    creneauId?: StringFieldUpdateOperationsInput | string
+    grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DepartementCreateInput = {
@@ -61751,6 +63121,16 @@ export namespace Prisma {
     isNot?: SemestreWhereInput
   }
 
+  export type CreneauAffichageListRelationFilter = {
+    every?: CreneauAffichageWhereInput
+    some?: CreneauAffichageWhereInput
+    none?: CreneauAffichageWhereInput
+  }
+
+  export type CreneauAffichageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CreneauSemestreIdJourOrdreCompoundUniqueInput = {
     semestreId: string
     jour: $Enums.JourSemaine
@@ -61812,6 +63192,57 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumJourSemaineFilter<$PrismaModel>
     _max?: NestedEnumJourSemaineFilter<$PrismaModel>
+  }
+
+  export type EnumGrilleAffichageFilter<$PrismaModel = never> = {
+    equals?: $Enums.GrilleAffichage | EnumGrilleAffichageFieldRefInput<$PrismaModel>
+    in?: $Enums.GrilleAffichage[] | ListEnumGrilleAffichageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GrilleAffichage[] | ListEnumGrilleAffichageFieldRefInput<$PrismaModel>
+    not?: NestedEnumGrilleAffichageFilter<$PrismaModel> | $Enums.GrilleAffichage
+  }
+
+  export type CreneauScalarRelationFilter = {
+    is?: CreneauWhereInput
+    isNot?: CreneauWhereInput
+  }
+
+  export type CreneauAffichageCreneauIdGrilleCompoundUniqueInput = {
+    creneauId: string
+    grille: $Enums.GrilleAffichage
+  }
+
+  export type CreneauAffichageCountOrderByAggregateInput = {
+    id?: SortOrder
+    creneauId?: SortOrder
+    grille?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+  }
+
+  export type CreneauAffichageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    creneauId?: SortOrder
+    grille?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+  }
+
+  export type CreneauAffichageMinOrderByAggregateInput = {
+    id?: SortOrder
+    creneauId?: SortOrder
+    grille?: SortOrder
+    heureDebut?: SortOrder
+    heureFin?: SortOrder
+  }
+
+  export type EnumGrilleAffichageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GrilleAffichage | EnumGrilleAffichageFieldRefInput<$PrismaModel>
+    in?: $Enums.GrilleAffichage[] | ListEnumGrilleAffichageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GrilleAffichage[] | ListEnumGrilleAffichageFieldRefInput<$PrismaModel>
+    not?: NestedEnumGrilleAffichageWithAggregatesFilter<$PrismaModel> | $Enums.GrilleAffichage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGrilleAffichageFilter<$PrismaModel>
+    _max?: NestedEnumGrilleAffichageFilter<$PrismaModel>
   }
 
   export type FormationListRelationFilter = {
@@ -64446,6 +65877,20 @@ export namespace Prisma {
     connect?: SemestreWhereUniqueInput
   }
 
+  export type CreneauAffichageCreateNestedManyWithoutCreneauInput = {
+    create?: XOR<CreneauAffichageCreateWithoutCreneauInput, CreneauAffichageUncheckedCreateWithoutCreneauInput> | CreneauAffichageCreateWithoutCreneauInput[] | CreneauAffichageUncheckedCreateWithoutCreneauInput[]
+    connectOrCreate?: CreneauAffichageCreateOrConnectWithoutCreneauInput | CreneauAffichageCreateOrConnectWithoutCreneauInput[]
+    createMany?: CreneauAffichageCreateManyCreneauInputEnvelope
+    connect?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+  }
+
+  export type CreneauAffichageUncheckedCreateNestedManyWithoutCreneauInput = {
+    create?: XOR<CreneauAffichageCreateWithoutCreneauInput, CreneauAffichageUncheckedCreateWithoutCreneauInput> | CreneauAffichageCreateWithoutCreneauInput[] | CreneauAffichageUncheckedCreateWithoutCreneauInput[]
+    connectOrCreate?: CreneauAffichageCreateOrConnectWithoutCreneauInput | CreneauAffichageCreateOrConnectWithoutCreneauInput[]
+    createMany?: CreneauAffichageCreateManyCreneauInputEnvelope
+    connect?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+  }
+
   export type EnumJourSemaineFieldUpdateOperationsInput = {
     set?: $Enums.JourSemaine
   }
@@ -64456,6 +65901,52 @@ export namespace Prisma {
     upsert?: SemestreUpsertWithoutCreneauxInput
     connect?: SemestreWhereUniqueInput
     update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutCreneauxInput, SemestreUpdateWithoutCreneauxInput>, SemestreUncheckedUpdateWithoutCreneauxInput>
+  }
+
+  export type CreneauAffichageUpdateManyWithoutCreneauNestedInput = {
+    create?: XOR<CreneauAffichageCreateWithoutCreneauInput, CreneauAffichageUncheckedCreateWithoutCreneauInput> | CreneauAffichageCreateWithoutCreneauInput[] | CreneauAffichageUncheckedCreateWithoutCreneauInput[]
+    connectOrCreate?: CreneauAffichageCreateOrConnectWithoutCreneauInput | CreneauAffichageCreateOrConnectWithoutCreneauInput[]
+    upsert?: CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput | CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput[]
+    createMany?: CreneauAffichageCreateManyCreneauInputEnvelope
+    set?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+    disconnect?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+    delete?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+    connect?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+    update?: CreneauAffichageUpdateWithWhereUniqueWithoutCreneauInput | CreneauAffichageUpdateWithWhereUniqueWithoutCreneauInput[]
+    updateMany?: CreneauAffichageUpdateManyWithWhereWithoutCreneauInput | CreneauAffichageUpdateManyWithWhereWithoutCreneauInput[]
+    deleteMany?: CreneauAffichageScalarWhereInput | CreneauAffichageScalarWhereInput[]
+  }
+
+  export type CreneauAffichageUncheckedUpdateManyWithoutCreneauNestedInput = {
+    create?: XOR<CreneauAffichageCreateWithoutCreneauInput, CreneauAffichageUncheckedCreateWithoutCreneauInput> | CreneauAffichageCreateWithoutCreneauInput[] | CreneauAffichageUncheckedCreateWithoutCreneauInput[]
+    connectOrCreate?: CreneauAffichageCreateOrConnectWithoutCreneauInput | CreneauAffichageCreateOrConnectWithoutCreneauInput[]
+    upsert?: CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput | CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput[]
+    createMany?: CreneauAffichageCreateManyCreneauInputEnvelope
+    set?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+    disconnect?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+    delete?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+    connect?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+    update?: CreneauAffichageUpdateWithWhereUniqueWithoutCreneauInput | CreneauAffichageUpdateWithWhereUniqueWithoutCreneauInput[]
+    updateMany?: CreneauAffichageUpdateManyWithWhereWithoutCreneauInput | CreneauAffichageUpdateManyWithWhereWithoutCreneauInput[]
+    deleteMany?: CreneauAffichageScalarWhereInput | CreneauAffichageScalarWhereInput[]
+  }
+
+  export type CreneauCreateNestedOneWithoutAffichagesInput = {
+    create?: XOR<CreneauCreateWithoutAffichagesInput, CreneauUncheckedCreateWithoutAffichagesInput>
+    connectOrCreate?: CreneauCreateOrConnectWithoutAffichagesInput
+    connect?: CreneauWhereUniqueInput
+  }
+
+  export type EnumGrilleAffichageFieldUpdateOperationsInput = {
+    set?: $Enums.GrilleAffichage
+  }
+
+  export type CreneauUpdateOneRequiredWithoutAffichagesNestedInput = {
+    create?: XOR<CreneauCreateWithoutAffichagesInput, CreneauUncheckedCreateWithoutAffichagesInput>
+    connectOrCreate?: CreneauCreateOrConnectWithoutAffichagesInput
+    upsert?: CreneauUpsertWithoutAffichagesInput
+    connect?: CreneauWhereUniqueInput
+    update?: XOR<XOR<CreneauUpdateToOneWithWhereWithoutAffichagesInput, CreneauUpdateWithoutAffichagesInput>, CreneauUncheckedUpdateWithoutAffichagesInput>
   }
 
   export type AnneeCreateNestedOneWithoutDepartementsInput = {
@@ -66462,6 +67953,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumJourSemaineFilter<$PrismaModel>
     _max?: NestedEnumJourSemaineFilter<$PrismaModel>
+  }
+
+  export type NestedEnumGrilleAffichageFilter<$PrismaModel = never> = {
+    equals?: $Enums.GrilleAffichage | EnumGrilleAffichageFieldRefInput<$PrismaModel>
+    in?: $Enums.GrilleAffichage[] | ListEnumGrilleAffichageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GrilleAffichage[] | ListEnumGrilleAffichageFieldRefInput<$PrismaModel>
+    not?: NestedEnumGrilleAffichageFilter<$PrismaModel> | $Enums.GrilleAffichage
+  }
+
+  export type NestedEnumGrilleAffichageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GrilleAffichage | EnumGrilleAffichageFieldRefInput<$PrismaModel>
+    in?: $Enums.GrilleAffichage[] | ListEnumGrilleAffichageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GrilleAffichage[] | ListEnumGrilleAffichageFieldRefInput<$PrismaModel>
+    not?: NestedEnumGrilleAffichageWithAggregatesFilter<$PrismaModel> | $Enums.GrilleAffichage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGrilleAffichageFilter<$PrismaModel>
+    _max?: NestedEnumGrilleAffichageFilter<$PrismaModel>
   }
 
   export type NestedEnumGroupeTypeFilter<$PrismaModel = never> = {
@@ -70485,6 +71993,7 @@ export namespace Prisma {
     estActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    affichages?: CreneauAffichageCreateNestedManyWithoutCreneauInput
   }
 
   export type CreneauUncheckedCreateWithoutSemestreInput = {
@@ -70497,6 +72006,7 @@ export namespace Prisma {
     estActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    affichages?: CreneauAffichageUncheckedCreateNestedManyWithoutCreneauInput
   }
 
   export type CreneauCreateOrConnectWithoutSemestreInput = {
@@ -70732,6 +72242,30 @@ export namespace Prisma {
     create: XOR<SemestreCreateWithoutCreneauxInput, SemestreUncheckedCreateWithoutCreneauxInput>
   }
 
+  export type CreneauAffichageCreateWithoutCreneauInput = {
+    id?: string
+    grille?: $Enums.GrilleAffichage
+    heureDebut: Date | string
+    heureFin: Date | string
+  }
+
+  export type CreneauAffichageUncheckedCreateWithoutCreneauInput = {
+    id?: string
+    grille?: $Enums.GrilleAffichage
+    heureDebut: Date | string
+    heureFin: Date | string
+  }
+
+  export type CreneauAffichageCreateOrConnectWithoutCreneauInput = {
+    where: CreneauAffichageWhereUniqueInput
+    create: XOR<CreneauAffichageCreateWithoutCreneauInput, CreneauAffichageUncheckedCreateWithoutCreneauInput>
+  }
+
+  export type CreneauAffichageCreateManyCreneauInputEnvelope = {
+    data: CreneauAffichageCreateManyCreneauInput | CreneauAffichageCreateManyCreneauInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutCreneauxInput = {
     update: XOR<SemestreUpdateWithoutCreneauxInput, SemestreUncheckedUpdateWithoutCreneauxInput>
     create: XOR<SemestreCreateWithoutCreneauxInput, SemestreUncheckedCreateWithoutCreneauxInput>
@@ -70767,6 +72301,101 @@ export namespace Prisma {
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
+    where: CreneauAffichageWhereUniqueInput
+    update: XOR<CreneauAffichageUpdateWithoutCreneauInput, CreneauAffichageUncheckedUpdateWithoutCreneauInput>
+    create: XOR<CreneauAffichageCreateWithoutCreneauInput, CreneauAffichageUncheckedCreateWithoutCreneauInput>
+  }
+
+  export type CreneauAffichageUpdateWithWhereUniqueWithoutCreneauInput = {
+    where: CreneauAffichageWhereUniqueInput
+    data: XOR<CreneauAffichageUpdateWithoutCreneauInput, CreneauAffichageUncheckedUpdateWithoutCreneauInput>
+  }
+
+  export type CreneauAffichageUpdateManyWithWhereWithoutCreneauInput = {
+    where: CreneauAffichageScalarWhereInput
+    data: XOR<CreneauAffichageUpdateManyMutationInput, CreneauAffichageUncheckedUpdateManyWithoutCreneauInput>
+  }
+
+  export type CreneauAffichageScalarWhereInput = {
+    AND?: CreneauAffichageScalarWhereInput | CreneauAffichageScalarWhereInput[]
+    OR?: CreneauAffichageScalarWhereInput[]
+    NOT?: CreneauAffichageScalarWhereInput | CreneauAffichageScalarWhereInput[]
+    id?: UuidFilter<"CreneauAffichage"> | string
+    creneauId?: UuidFilter<"CreneauAffichage"> | string
+    grille?: EnumGrilleAffichageFilter<"CreneauAffichage"> | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFilter<"CreneauAffichage"> | Date | string
+    heureFin?: DateTimeFilter<"CreneauAffichage"> | Date | string
+  }
+
+  export type CreneauCreateWithoutAffichagesInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutCreneauxInput
+  }
+
+  export type CreneauUncheckedCreateWithoutAffichagesInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreneauCreateOrConnectWithoutAffichagesInput = {
+    where: CreneauWhereUniqueInput
+    create: XOR<CreneauCreateWithoutAffichagesInput, CreneauUncheckedCreateWithoutAffichagesInput>
+  }
+
+  export type CreneauUpsertWithoutAffichagesInput = {
+    update: XOR<CreneauUpdateWithoutAffichagesInput, CreneauUncheckedUpdateWithoutAffichagesInput>
+    create: XOR<CreneauCreateWithoutAffichagesInput, CreneauUncheckedCreateWithoutAffichagesInput>
+    where?: CreneauWhereInput
+  }
+
+  export type CreneauUpdateToOneWithWhereWithoutAffichagesInput = {
+    where?: CreneauWhereInput
+    data: XOR<CreneauUpdateWithoutAffichagesInput, CreneauUncheckedUpdateWithoutAffichagesInput>
+  }
+
+  export type CreneauUpdateWithoutAffichagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutCreneauxNestedInput
+  }
+
+  export type CreneauUncheckedUpdateWithoutAffichagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -75428,6 +77057,7 @@ export namespace Prisma {
     estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    affichages?: CreneauAffichageUpdateManyWithoutCreneauNestedInput
   }
 
   export type CreneauUncheckedUpdateWithoutSemestreInput = {
@@ -75440,6 +77070,7 @@ export namespace Prisma {
     estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    affichages?: CreneauAffichageUncheckedUpdateManyWithoutCreneauNestedInput
   }
 
   export type CreneauUncheckedUpdateManyWithoutSemestreInput = {
@@ -75485,6 +77116,34 @@ export namespace Prisma {
     estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauAffichageCreateManyCreneauInput = {
+    id?: string
+    grille?: $Enums.GrilleAffichage
+    heureDebut: Date | string
+    heureFin: Date | string
+  }
+
+  export type CreneauAffichageUpdateWithoutCreneauInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauAffichageUncheckedUpdateWithoutCreneauInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreneauAffichageUncheckedUpdateManyWithoutCreneauInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormationCreateManyDepartementInput = {
