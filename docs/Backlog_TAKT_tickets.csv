@@ -211,7 +211,7 @@ L1-21;L1;E1.5;Grille horaire & indisponibilités;Story;UI grille horaire et indi
 L1-22;L1;E1.6;Grille Ramadan;Story;Correspondance d'affichage Ramadan (modèle et API);CreneauAffichage par semestre : horaire Ramadan par créneau logique, durées libres.;"- Contrôles : ordre croissant, aucun chevauchement, pauses conservées
 - Aucune contrainte de 30 minutes sur l'horaire affiché
 - Les vues acceptent grille=NORMALE ou RAMADAN
-- Aucun effet sur FET, les volumes ou les conflits";EX-CAL-04;§4.10, §2.2;BACK;Must;5;L1-17;À faire;
+- Aucun effet sur FET, les volumes ou les conflits";EX-CAL-04;§4.10, §2.2;BACK;Must;5;L1-17;En cours;
 L1-23;L1;E1.6;Grille Ramadan;Story;UI de saisie et de duplication de la grille Ramadan;Écran de correspondance par semestre, duplication depuis un autre semestre ou une autre année.;"- Saisie jour par jour des horaires Ramadan avec contrôles visibles
 - Duplication idempotente
 - Aperçu de la grille normale et de la grille Ramadan côte à côte";EX-CAL-04;§4.10;FRONT;Must;5;L1-22, L0-29;À faire;
