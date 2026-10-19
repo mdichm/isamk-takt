@@ -26,6 +26,7 @@ import { SalleModule } from './salles/salle.module.js';
 import { SitesModule } from './sites/sites.module.js';
 import { CompatModule } from './compat/compat.module.js';
 import { CreneauModule } from './creneaux/creneau.module.js';
+import { IndisponibiliteModule } from './indisponibilites/indisponibilite.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -92,6 +93,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     SitesModule,
     CompatModule,
     CreneauModule,
+    IndisponibiliteModule,
     PolicyModule,
   ],
   controllers: [MetricsController, SecurityEventController],

@@ -498,6 +498,7 @@ model Semestre {
   groupes    Groupe[]
   decharges  Decharge[]
   creneaux   Creneau[]
+  indisponibilites Indisponibilite[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -727,6 +728,8 @@ model Enseignant {
   grade             Grade?             @relation(fields: [gradeId], references: [id], onDelete: SetNull)
   enseignantModules EnseignantModule[]
   decharges         Decharge[]
+  indisponibilites  Indisponibilite[]
+
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
 
@@ -825,11 +828,37 @@ model Salle {
   site        Site?        @relation(fields: [siteId], references: [id], onDelete: SetNull)
   equipements SalleEquipement[]
   salleActivityTags SalleActivityTag[] @relation("SalleActivityTag")
+  indisponibilites Indisponibilite[]
 
   @@index([departementId])
   @@index([typeSalleId])
   @@index([siteId])
   @@map("salles")
+}
+
+// ============================================
+// Indisponibilités (L1-20 : enseignants et salles)
+// ============================================
+
+model Indisponibilite {
+  id           String      @id @default(uuid()) @db.Uuid
+  semestreId   String      @db.Uuid
+  semestre     Semestre    @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  jour         JourSemaine
+  ordre        Int         // position dans la journée (1..n)
+  enseignantId String?     @db.Uuid
+  enseignant   Enseignant? @relation(fields: [enseignantId], references: [id], onDelete: Cascade)
+  salleId      String?     @db.Uuid
+  salle        Salle?      @relation(fields: [salleId], references: [id], onDelete: Cascade)
+  estActive    Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@unique([semestreId, jour, ordre, enseignantId, salleId])
+  @@index([semestreId, jour, ordre])
+  @@index([enseignantId])
+  @@index([salleId])
+  @@map("indisponibilites")
 }
 
 model Equipement {

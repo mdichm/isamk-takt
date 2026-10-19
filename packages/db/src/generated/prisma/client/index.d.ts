@@ -194,6 +194,11 @@ export type Site = $Result.DefaultSelection<Prisma.$SitePayload>
  */
 export type Salle = $Result.DefaultSelection<Prisma.$SallePayload>
 /**
+ * Model Indisponibilite
+ * 
+ */
+export type Indisponibilite = $Result.DefaultSelection<Prisma.$IndisponibilitePayload>
+/**
  * Model Equipement
  * 
  */
@@ -903,6 +908,16 @@ export class PrismaClient<
   get salle(): Prisma.SalleDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.indisponibilite`: Exposes CRUD operations for the **Indisponibilite** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Indisponibilites
+    * const indisponibilites = await prisma.indisponibilite.findMany()
+    * ```
+    */
+  get indisponibilite(): Prisma.IndisponibiliteDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.equipement`: Exposes CRUD operations for the **Equipement** model.
     * Example usage:
     * ```ts
@@ -1424,6 +1439,7 @@ export namespace Prisma {
     TypeSalle: 'TypeSalle',
     Site: 'Site',
     Salle: 'Salle',
+    Indisponibilite: 'Indisponibilite',
     Equipement: 'Equipement',
     SalleEquipement: 'SalleEquipement',
     SalleActivityTag: 'SalleActivityTag',
@@ -1443,7 +1459,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4111,6 +4127,80 @@ export namespace Prisma {
           }
         }
       }
+      Indisponibilite: {
+        payload: Prisma.$IndisponibilitePayload<ExtArgs>
+        fields: Prisma.IndisponibiliteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.IndisponibiliteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.IndisponibiliteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>
+          }
+          findFirst: {
+            args: Prisma.IndisponibiliteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.IndisponibiliteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>
+          }
+          findMany: {
+            args: Prisma.IndisponibiliteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>[]
+          }
+          create: {
+            args: Prisma.IndisponibiliteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>
+          }
+          createMany: {
+            args: Prisma.IndisponibiliteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.IndisponibiliteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>[]
+          }
+          delete: {
+            args: Prisma.IndisponibiliteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>
+          }
+          update: {
+            args: Prisma.IndisponibiliteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>
+          }
+          deleteMany: {
+            args: Prisma.IndisponibiliteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.IndisponibiliteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.IndisponibiliteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>[]
+          }
+          upsert: {
+            args: Prisma.IndisponibiliteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$IndisponibilitePayload>
+          }
+          aggregate: {
+            args: Prisma.IndisponibiliteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateIndisponibilite>
+          }
+          groupBy: {
+            args: Prisma.IndisponibiliteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<IndisponibiliteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.IndisponibiliteCountArgs<ExtArgs>
+            result: $Utils.Optional<IndisponibiliteCountAggregateOutputType> | number
+          }
+        }
+      }
       Equipement: {
         payload: Prisma.$EquipementPayload<ExtArgs>
         fields: Prisma.EquipementFieldRefs
@@ -4566,6 +4656,7 @@ export namespace Prisma {
     typeSalle?: TypeSalleOmit
     site?: SiteOmit
     salle?: SalleOmit
+    indisponibilite?: IndisponibiliteOmit
     equipement?: EquipementOmit
     salleEquipement?: SalleEquipementOmit
     salleActivityTag?: SalleActivityTagOmit
@@ -5032,12 +5123,14 @@ export namespace Prisma {
     groupes: number
     decharges: number
     creneaux: number
+    indisponibilites: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     groupes?: boolean | SemestreCountOutputTypeCountGroupesArgs
     decharges?: boolean | SemestreCountOutputTypeCountDechargesArgs
     creneaux?: boolean | SemestreCountOutputTypeCountCreneauxArgs
+    indisponibilites?: boolean | SemestreCountOutputTypeCountIndisponibilitesArgs
   }
 
   // Custom InputTypes
@@ -5070,6 +5163,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountCreneauxArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CreneauWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountIndisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IndisponibiliteWhereInput
   }
 
 
@@ -5391,11 +5491,13 @@ export namespace Prisma {
   export type EnseignantCountOutputType = {
     enseignantModules: number
     decharges: number
+    indisponibilites: number
   }
 
   export type EnseignantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enseignantModules?: boolean | EnseignantCountOutputTypeCountEnseignantModulesArgs
     decharges?: boolean | EnseignantCountOutputTypeCountDechargesArgs
+    indisponibilites?: boolean | EnseignantCountOutputTypeCountIndisponibilitesArgs
   }
 
   // Custom InputTypes
@@ -5421,6 +5523,13 @@ export namespace Prisma {
    */
   export type EnseignantCountOutputTypeCountDechargesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DechargeWhereInput
+  }
+
+  /**
+   * EnseignantCountOutputType without action
+   */
+  export type EnseignantCountOutputTypeCountIndisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IndisponibiliteWhereInput
   }
 
 
@@ -5493,11 +5602,13 @@ export namespace Prisma {
   export type SalleCountOutputType = {
     equipements: number
     salleActivityTags: number
+    indisponibilites: number
   }
 
   export type SalleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     equipements?: boolean | SalleCountOutputTypeCountEquipementsArgs
     salleActivityTags?: boolean | SalleCountOutputTypeCountSalleActivityTagsArgs
+    indisponibilites?: boolean | SalleCountOutputTypeCountIndisponibilitesArgs
   }
 
   // Custom InputTypes
@@ -5523,6 +5634,13 @@ export namespace Prisma {
    */
   export type SalleCountOutputTypeCountSalleActivityTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SalleActivityTagWhereInput
+  }
+
+  /**
+   * SalleCountOutputType without action
+   */
+  export type SalleCountOutputTypeCountIndisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IndisponibiliteWhereInput
   }
 
 
@@ -28534,6 +28652,7 @@ export namespace Prisma {
     numero: number
     anneeId: number
     nbSemaines: number
+    grilleParams: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -28573,6 +28692,7 @@ export namespace Prisma {
     numero?: true
     anneeId?: true
     nbSemaines?: true
+    grilleParams?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -28669,6 +28789,7 @@ export namespace Prisma {
     numero: number
     anneeId: string
     nbSemaines: number
+    grilleParams: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: SemestreCountAggregateOutputType | null
@@ -28697,12 +28818,14 @@ export namespace Prisma {
     numero?: boolean
     anneeId?: boolean
     nbSemaines?: boolean
+    grilleParams?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     groupes?: boolean | Semestre$groupesArgs<ExtArgs>
     decharges?: boolean | Semestre$dechargesArgs<ExtArgs>
     creneaux?: boolean | Semestre$creneauxArgs<ExtArgs>
+    indisponibilites?: boolean | Semestre$indisponibilitesArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -28711,6 +28834,7 @@ export namespace Prisma {
     numero?: boolean
     anneeId?: boolean
     nbSemaines?: boolean
+    grilleParams?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
@@ -28721,6 +28845,7 @@ export namespace Prisma {
     numero?: boolean
     anneeId?: boolean
     nbSemaines?: boolean
+    grilleParams?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
@@ -28731,16 +28856,18 @@ export namespace Prisma {
     numero?: boolean
     anneeId?: boolean
     nbSemaines?: boolean
+    grilleParams?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SemestreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "anneeId" | "nbSemaines" | "createdAt" | "updatedAt", ExtArgs["result"]["semestre"]>
+  export type SemestreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "anneeId" | "nbSemaines" | "grilleParams" | "createdAt" | "updatedAt", ExtArgs["result"]["semestre"]>
   export type SemestreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     groupes?: boolean | Semestre$groupesArgs<ExtArgs>
     decharges?: boolean | Semestre$dechargesArgs<ExtArgs>
     creneaux?: boolean | Semestre$creneauxArgs<ExtArgs>
+    indisponibilites?: boolean | Semestre$indisponibilitesArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28757,12 +28884,14 @@ export namespace Prisma {
       groupes: Prisma.$GroupePayload<ExtArgs>[]
       decharges: Prisma.$DechargePayload<ExtArgs>[]
       creneaux: Prisma.$CreneauPayload<ExtArgs>[]
+      indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       numero: number
       anneeId: string
       nbSemaines: number
+      grilleParams: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["semestre"]>
@@ -29163,6 +29292,7 @@ export namespace Prisma {
     groupes<T extends Semestre$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     decharges<T extends Semestre$dechargesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$dechargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     creneaux<T extends Semestre$creneauxArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$creneauxArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    indisponibilites<T extends Semestre$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29196,6 +29326,7 @@ export namespace Prisma {
     readonly numero: FieldRef<"Semestre", 'Int'>
     readonly anneeId: FieldRef<"Semestre", 'String'>
     readonly nbSemaines: FieldRef<"Semestre", 'Int'>
+    readonly grilleParams: FieldRef<"Semestre", 'Json'>
     readonly createdAt: FieldRef<"Semestre", 'DateTime'>
     readonly updatedAt: FieldRef<"Semestre", 'DateTime'>
   }
@@ -29668,6 +29799,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CreneauScalarFieldEnum | CreneauScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.indisponibilites
+   */
+  export type Semestre$indisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    where?: IndisponibiliteWhereInput
+    orderBy?: IndisponibiliteOrderByWithRelationInput | IndisponibiliteOrderByWithRelationInput[]
+    cursor?: IndisponibiliteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
   }
 
   /**
@@ -40576,6 +40731,7 @@ export namespace Prisma {
     grade?: boolean | Enseignant$gradeArgs<ExtArgs>
     enseignantModules?: boolean | Enseignant$enseignantModulesArgs<ExtArgs>
     decharges?: boolean | Enseignant$dechargesArgs<ExtArgs>
+    indisponibilites?: boolean | Enseignant$indisponibilitesArgs<ExtArgs>
     _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enseignant"]>
 
@@ -40637,6 +40793,7 @@ export namespace Prisma {
     grade?: boolean | Enseignant$gradeArgs<ExtArgs>
     enseignantModules?: boolean | Enseignant$enseignantModulesArgs<ExtArgs>
     decharges?: boolean | Enseignant$dechargesArgs<ExtArgs>
+    indisponibilites?: boolean | Enseignant$indisponibilitesArgs<ExtArgs>
     _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EnseignantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -40658,6 +40815,7 @@ export namespace Prisma {
       grade: Prisma.$GradePayload<ExtArgs> | null
       enseignantModules: Prisma.$EnseignantModulePayload<ExtArgs>[]
       decharges: Prisma.$DechargePayload<ExtArgs>[]
+      indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -41071,6 +41229,7 @@ export namespace Prisma {
     grade<T extends Enseignant$gradeArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$gradeArgs<ExtArgs>>): Prisma__GradeClient<$Result.GetResult<Prisma.$GradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     enseignantModules<T extends Enseignant$enseignantModulesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$enseignantModulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     decharges<T extends Enseignant$dechargesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$dechargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    indisponibilites<T extends Enseignant$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -41577,6 +41736,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DechargeScalarFieldEnum | DechargeScalarFieldEnum[]
+  }
+
+  /**
+   * Enseignant.indisponibilites
+   */
+  export type Enseignant$indisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    where?: IndisponibiliteWhereInput
+    orderBy?: IndisponibiliteOrderByWithRelationInput | IndisponibiliteOrderByWithRelationInput[]
+    cursor?: IndisponibiliteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
   }
 
   /**
@@ -46216,6 +46399,7 @@ export namespace Prisma {
     site?: boolean | Salle$siteArgs<ExtArgs>
     equipements?: boolean | Salle$equipementsArgs<ExtArgs>
     salleActivityTags?: boolean | Salle$salleActivityTagsArgs<ExtArgs>
+    indisponibilites?: boolean | Salle$indisponibilitesArgs<ExtArgs>
     _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["salle"]>
 
@@ -46283,6 +46467,7 @@ export namespace Prisma {
     site?: boolean | Salle$siteArgs<ExtArgs>
     equipements?: boolean | Salle$equipementsArgs<ExtArgs>
     salleActivityTags?: boolean | Salle$salleActivityTagsArgs<ExtArgs>
+    indisponibilites?: boolean | Salle$indisponibilitesArgs<ExtArgs>
     _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SalleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -46304,6 +46489,7 @@ export namespace Prisma {
       site: Prisma.$SitePayload<ExtArgs> | null
       equipements: Prisma.$SalleEquipementPayload<ExtArgs>[]
       salleActivityTags: Prisma.$SalleActivityTagPayload<ExtArgs>[]
+      indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -46719,6 +46905,7 @@ export namespace Prisma {
     site<T extends Salle$siteArgs<ExtArgs> = {}>(args?: Subset<T, Salle$siteArgs<ExtArgs>>): Prisma__SiteClient<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     equipements<T extends Salle$equipementsArgs<ExtArgs> = {}>(args?: Subset<T, Salle$equipementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salleActivityTags<T extends Salle$salleActivityTagsArgs<ExtArgs> = {}>(args?: Subset<T, Salle$salleActivityTagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleActivityTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    indisponibilites<T extends Salle$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Salle$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -47268,6 +47455,30 @@ export namespace Prisma {
   }
 
   /**
+   * Salle.indisponibilites
+   */
+  export type Salle$indisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    where?: IndisponibiliteWhereInput
+    orderBy?: IndisponibiliteOrderByWithRelationInput | IndisponibiliteOrderByWithRelationInput[]
+    cursor?: IndisponibiliteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
+  }
+
+  /**
    * Salle without action
    */
   export type SalleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -47283,6 +47494,1209 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SalleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Indisponibilite
+   */
+
+  export type AggregateIndisponibilite = {
+    _count: IndisponibiliteCountAggregateOutputType | null
+    _avg: IndisponibiliteAvgAggregateOutputType | null
+    _sum: IndisponibiliteSumAggregateOutputType | null
+    _min: IndisponibiliteMinAggregateOutputType | null
+    _max: IndisponibiliteMaxAggregateOutputType | null
+  }
+
+  export type IndisponibiliteAvgAggregateOutputType = {
+    ordre: number | null
+  }
+
+  export type IndisponibiliteSumAggregateOutputType = {
+    ordre: number | null
+  }
+
+  export type IndisponibiliteMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    jour: $Enums.JourSemaine | null
+    ordre: number | null
+    enseignantId: string | null
+    salleId: string | null
+    estActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IndisponibiliteMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    jour: $Enums.JourSemaine | null
+    ordre: number | null
+    enseignantId: string | null
+    salleId: string | null
+    estActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type IndisponibiliteCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    jour: number
+    ordre: number
+    enseignantId: number
+    salleId: number
+    estActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type IndisponibiliteAvgAggregateInputType = {
+    ordre?: true
+  }
+
+  export type IndisponibiliteSumAggregateInputType = {
+    ordre?: true
+  }
+
+  export type IndisponibiliteMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    jour?: true
+    ordre?: true
+    enseignantId?: true
+    salleId?: true
+    estActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IndisponibiliteMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    jour?: true
+    ordre?: true
+    enseignantId?: true
+    salleId?: true
+    estActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type IndisponibiliteCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    jour?: true
+    ordre?: true
+    enseignantId?: true
+    salleId?: true
+    estActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type IndisponibiliteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Indisponibilite to aggregate.
+     */
+    where?: IndisponibiliteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Indisponibilites to fetch.
+     */
+    orderBy?: IndisponibiliteOrderByWithRelationInput | IndisponibiliteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: IndisponibiliteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Indisponibilites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Indisponibilites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Indisponibilites
+    **/
+    _count?: true | IndisponibiliteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: IndisponibiliteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: IndisponibiliteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: IndisponibiliteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: IndisponibiliteMaxAggregateInputType
+  }
+
+  export type GetIndisponibiliteAggregateType<T extends IndisponibiliteAggregateArgs> = {
+        [P in keyof T & keyof AggregateIndisponibilite]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateIndisponibilite[P]>
+      : GetScalarType<T[P], AggregateIndisponibilite[P]>
+  }
+
+
+
+
+  export type IndisponibiliteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IndisponibiliteWhereInput
+    orderBy?: IndisponibiliteOrderByWithAggregationInput | IndisponibiliteOrderByWithAggregationInput[]
+    by: IndisponibiliteScalarFieldEnum[] | IndisponibiliteScalarFieldEnum
+    having?: IndisponibiliteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: IndisponibiliteCountAggregateInputType | true
+    _avg?: IndisponibiliteAvgAggregateInputType
+    _sum?: IndisponibiliteSumAggregateInputType
+    _min?: IndisponibiliteMinAggregateInputType
+    _max?: IndisponibiliteMaxAggregateInputType
+  }
+
+  export type IndisponibiliteGroupByOutputType = {
+    id: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    enseignantId: string | null
+    salleId: string | null
+    estActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: IndisponibiliteCountAggregateOutputType | null
+    _avg: IndisponibiliteAvgAggregateOutputType | null
+    _sum: IndisponibiliteSumAggregateOutputType | null
+    _min: IndisponibiliteMinAggregateOutputType | null
+    _max: IndisponibiliteMaxAggregateOutputType | null
+  }
+
+  type GetIndisponibiliteGroupByPayload<T extends IndisponibiliteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<IndisponibiliteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof IndisponibiliteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], IndisponibiliteGroupByOutputType[P]>
+            : GetScalarType<T[P], IndisponibiliteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type IndisponibiliteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    jour?: boolean
+    ordre?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    estActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Indisponibilite$enseignantArgs<ExtArgs>
+    salle?: boolean | Indisponibilite$salleArgs<ExtArgs>
+  }, ExtArgs["result"]["indisponibilite"]>
+
+  export type IndisponibiliteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    jour?: boolean
+    ordre?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    estActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Indisponibilite$enseignantArgs<ExtArgs>
+    salle?: boolean | Indisponibilite$salleArgs<ExtArgs>
+  }, ExtArgs["result"]["indisponibilite"]>
+
+  export type IndisponibiliteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    jour?: boolean
+    ordre?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    estActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Indisponibilite$enseignantArgs<ExtArgs>
+    salle?: boolean | Indisponibilite$salleArgs<ExtArgs>
+  }, ExtArgs["result"]["indisponibilite"]>
+
+  export type IndisponibiliteSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    jour?: boolean
+    ordre?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    estActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type IndisponibiliteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "jour" | "ordre" | "enseignantId" | "salleId" | "estActive" | "createdAt" | "updatedAt", ExtArgs["result"]["indisponibilite"]>
+  export type IndisponibiliteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Indisponibilite$enseignantArgs<ExtArgs>
+    salle?: boolean | Indisponibilite$salleArgs<ExtArgs>
+  }
+  export type IndisponibiliteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Indisponibilite$enseignantArgs<ExtArgs>
+    salle?: boolean | Indisponibilite$salleArgs<ExtArgs>
+  }
+  export type IndisponibiliteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Indisponibilite$enseignantArgs<ExtArgs>
+    salle?: boolean | Indisponibilite$salleArgs<ExtArgs>
+  }
+
+  export type $IndisponibilitePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Indisponibilite"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      enseignant: Prisma.$EnseignantPayload<ExtArgs> | null
+      salle: Prisma.$SallePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      jour: $Enums.JourSemaine
+      ordre: number
+      enseignantId: string | null
+      salleId: string | null
+      estActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["indisponibilite"]>
+    composites: {}
+  }
+
+  type IndisponibiliteGetPayload<S extends boolean | null | undefined | IndisponibiliteDefaultArgs> = $Result.GetResult<Prisma.$IndisponibilitePayload, S>
+
+  type IndisponibiliteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<IndisponibiliteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: IndisponibiliteCountAggregateInputType | true
+    }
+
+  export interface IndisponibiliteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Indisponibilite'], meta: { name: 'Indisponibilite' } }
+    /**
+     * Find zero or one Indisponibilite that matches the filter.
+     * @param {IndisponibiliteFindUniqueArgs} args - Arguments to find a Indisponibilite
+     * @example
+     * // Get one Indisponibilite
+     * const indisponibilite = await prisma.indisponibilite.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends IndisponibiliteFindUniqueArgs>(args: SelectSubset<T, IndisponibiliteFindUniqueArgs<ExtArgs>>): Prisma__IndisponibiliteClient<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Indisponibilite that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {IndisponibiliteFindUniqueOrThrowArgs} args - Arguments to find a Indisponibilite
+     * @example
+     * // Get one Indisponibilite
+     * const indisponibilite = await prisma.indisponibilite.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends IndisponibiliteFindUniqueOrThrowArgs>(args: SelectSubset<T, IndisponibiliteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IndisponibiliteClient<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Indisponibilite that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndisponibiliteFindFirstArgs} args - Arguments to find a Indisponibilite
+     * @example
+     * // Get one Indisponibilite
+     * const indisponibilite = await prisma.indisponibilite.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends IndisponibiliteFindFirstArgs>(args?: SelectSubset<T, IndisponibiliteFindFirstArgs<ExtArgs>>): Prisma__IndisponibiliteClient<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Indisponibilite that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndisponibiliteFindFirstOrThrowArgs} args - Arguments to find a Indisponibilite
+     * @example
+     * // Get one Indisponibilite
+     * const indisponibilite = await prisma.indisponibilite.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends IndisponibiliteFindFirstOrThrowArgs>(args?: SelectSubset<T, IndisponibiliteFindFirstOrThrowArgs<ExtArgs>>): Prisma__IndisponibiliteClient<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Indisponibilites that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndisponibiliteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Indisponibilites
+     * const indisponibilites = await prisma.indisponibilite.findMany()
+     * 
+     * // Get first 10 Indisponibilites
+     * const indisponibilites = await prisma.indisponibilite.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const indisponibiliteWithIdOnly = await prisma.indisponibilite.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends IndisponibiliteFindManyArgs>(args?: SelectSubset<T, IndisponibiliteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Indisponibilite.
+     * @param {IndisponibiliteCreateArgs} args - Arguments to create a Indisponibilite.
+     * @example
+     * // Create one Indisponibilite
+     * const Indisponibilite = await prisma.indisponibilite.create({
+     *   data: {
+     *     // ... data to create a Indisponibilite
+     *   }
+     * })
+     * 
+     */
+    create<T extends IndisponibiliteCreateArgs>(args: SelectSubset<T, IndisponibiliteCreateArgs<ExtArgs>>): Prisma__IndisponibiliteClient<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Indisponibilites.
+     * @param {IndisponibiliteCreateManyArgs} args - Arguments to create many Indisponibilites.
+     * @example
+     * // Create many Indisponibilites
+     * const indisponibilite = await prisma.indisponibilite.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends IndisponibiliteCreateManyArgs>(args?: SelectSubset<T, IndisponibiliteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Indisponibilites and returns the data saved in the database.
+     * @param {IndisponibiliteCreateManyAndReturnArgs} args - Arguments to create many Indisponibilites.
+     * @example
+     * // Create many Indisponibilites
+     * const indisponibilite = await prisma.indisponibilite.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Indisponibilites and only return the `id`
+     * const indisponibiliteWithIdOnly = await prisma.indisponibilite.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends IndisponibiliteCreateManyAndReturnArgs>(args?: SelectSubset<T, IndisponibiliteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Indisponibilite.
+     * @param {IndisponibiliteDeleteArgs} args - Arguments to delete one Indisponibilite.
+     * @example
+     * // Delete one Indisponibilite
+     * const Indisponibilite = await prisma.indisponibilite.delete({
+     *   where: {
+     *     // ... filter to delete one Indisponibilite
+     *   }
+     * })
+     * 
+     */
+    delete<T extends IndisponibiliteDeleteArgs>(args: SelectSubset<T, IndisponibiliteDeleteArgs<ExtArgs>>): Prisma__IndisponibiliteClient<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Indisponibilite.
+     * @param {IndisponibiliteUpdateArgs} args - Arguments to update one Indisponibilite.
+     * @example
+     * // Update one Indisponibilite
+     * const indisponibilite = await prisma.indisponibilite.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends IndisponibiliteUpdateArgs>(args: SelectSubset<T, IndisponibiliteUpdateArgs<ExtArgs>>): Prisma__IndisponibiliteClient<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Indisponibilites.
+     * @param {IndisponibiliteDeleteManyArgs} args - Arguments to filter Indisponibilites to delete.
+     * @example
+     * // Delete a few Indisponibilites
+     * const { count } = await prisma.indisponibilite.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends IndisponibiliteDeleteManyArgs>(args?: SelectSubset<T, IndisponibiliteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Indisponibilites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndisponibiliteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Indisponibilites
+     * const indisponibilite = await prisma.indisponibilite.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends IndisponibiliteUpdateManyArgs>(args: SelectSubset<T, IndisponibiliteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Indisponibilites and returns the data updated in the database.
+     * @param {IndisponibiliteUpdateManyAndReturnArgs} args - Arguments to update many Indisponibilites.
+     * @example
+     * // Update many Indisponibilites
+     * const indisponibilite = await prisma.indisponibilite.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Indisponibilites and only return the `id`
+     * const indisponibiliteWithIdOnly = await prisma.indisponibilite.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends IndisponibiliteUpdateManyAndReturnArgs>(args: SelectSubset<T, IndisponibiliteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Indisponibilite.
+     * @param {IndisponibiliteUpsertArgs} args - Arguments to update or create a Indisponibilite.
+     * @example
+     * // Update or create a Indisponibilite
+     * const indisponibilite = await prisma.indisponibilite.upsert({
+     *   create: {
+     *     // ... data to create a Indisponibilite
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Indisponibilite we want to update
+     *   }
+     * })
+     */
+    upsert<T extends IndisponibiliteUpsertArgs>(args: SelectSubset<T, IndisponibiliteUpsertArgs<ExtArgs>>): Prisma__IndisponibiliteClient<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Indisponibilites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndisponibiliteCountArgs} args - Arguments to filter Indisponibilites to count.
+     * @example
+     * // Count the number of Indisponibilites
+     * const count = await prisma.indisponibilite.count({
+     *   where: {
+     *     // ... the filter for the Indisponibilites we want to count
+     *   }
+     * })
+    **/
+    count<T extends IndisponibiliteCountArgs>(
+      args?: Subset<T, IndisponibiliteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], IndisponibiliteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Indisponibilite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndisponibiliteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends IndisponibiliteAggregateArgs>(args: Subset<T, IndisponibiliteAggregateArgs>): Prisma.PrismaPromise<GetIndisponibiliteAggregateType<T>>
+
+    /**
+     * Group by Indisponibilite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {IndisponibiliteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends IndisponibiliteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: IndisponibiliteGroupByArgs['orderBy'] }
+        : { orderBy?: IndisponibiliteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, IndisponibiliteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIndisponibiliteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Indisponibilite model
+   */
+  readonly fields: IndisponibiliteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Indisponibilite.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__IndisponibiliteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    enseignant<T extends Indisponibilite$enseignantArgs<ExtArgs> = {}>(args?: Subset<T, Indisponibilite$enseignantArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    salle<T extends Indisponibilite$salleArgs<ExtArgs> = {}>(args?: Subset<T, Indisponibilite$salleArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Indisponibilite model
+   */
+  interface IndisponibiliteFieldRefs {
+    readonly id: FieldRef<"Indisponibilite", 'String'>
+    readonly semestreId: FieldRef<"Indisponibilite", 'String'>
+    readonly jour: FieldRef<"Indisponibilite", 'JourSemaine'>
+    readonly ordre: FieldRef<"Indisponibilite", 'Int'>
+    readonly enseignantId: FieldRef<"Indisponibilite", 'String'>
+    readonly salleId: FieldRef<"Indisponibilite", 'String'>
+    readonly estActive: FieldRef<"Indisponibilite", 'Boolean'>
+    readonly createdAt: FieldRef<"Indisponibilite", 'DateTime'>
+    readonly updatedAt: FieldRef<"Indisponibilite", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Indisponibilite findUnique
+   */
+  export type IndisponibiliteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * Filter, which Indisponibilite to fetch.
+     */
+    where: IndisponibiliteWhereUniqueInput
+  }
+
+  /**
+   * Indisponibilite findUniqueOrThrow
+   */
+  export type IndisponibiliteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * Filter, which Indisponibilite to fetch.
+     */
+    where: IndisponibiliteWhereUniqueInput
+  }
+
+  /**
+   * Indisponibilite findFirst
+   */
+  export type IndisponibiliteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * Filter, which Indisponibilite to fetch.
+     */
+    where?: IndisponibiliteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Indisponibilites to fetch.
+     */
+    orderBy?: IndisponibiliteOrderByWithRelationInput | IndisponibiliteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Indisponibilites.
+     */
+    cursor?: IndisponibiliteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Indisponibilites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Indisponibilites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Indisponibilites.
+     */
+    distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
+  }
+
+  /**
+   * Indisponibilite findFirstOrThrow
+   */
+  export type IndisponibiliteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * Filter, which Indisponibilite to fetch.
+     */
+    where?: IndisponibiliteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Indisponibilites to fetch.
+     */
+    orderBy?: IndisponibiliteOrderByWithRelationInput | IndisponibiliteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Indisponibilites.
+     */
+    cursor?: IndisponibiliteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Indisponibilites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Indisponibilites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Indisponibilites.
+     */
+    distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
+  }
+
+  /**
+   * Indisponibilite findMany
+   */
+  export type IndisponibiliteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * Filter, which Indisponibilites to fetch.
+     */
+    where?: IndisponibiliteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Indisponibilites to fetch.
+     */
+    orderBy?: IndisponibiliteOrderByWithRelationInput | IndisponibiliteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Indisponibilites.
+     */
+    cursor?: IndisponibiliteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Indisponibilites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Indisponibilites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Indisponibilites.
+     */
+    distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
+  }
+
+  /**
+   * Indisponibilite create
+   */
+  export type IndisponibiliteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Indisponibilite.
+     */
+    data: XOR<IndisponibiliteCreateInput, IndisponibiliteUncheckedCreateInput>
+  }
+
+  /**
+   * Indisponibilite createMany
+   */
+  export type IndisponibiliteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Indisponibilites.
+     */
+    data: IndisponibiliteCreateManyInput | IndisponibiliteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Indisponibilite createManyAndReturn
+   */
+  export type IndisponibiliteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * The data used to create many Indisponibilites.
+     */
+    data: IndisponibiliteCreateManyInput | IndisponibiliteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Indisponibilite update
+   */
+  export type IndisponibiliteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Indisponibilite.
+     */
+    data: XOR<IndisponibiliteUpdateInput, IndisponibiliteUncheckedUpdateInput>
+    /**
+     * Choose, which Indisponibilite to update.
+     */
+    where: IndisponibiliteWhereUniqueInput
+  }
+
+  /**
+   * Indisponibilite updateMany
+   */
+  export type IndisponibiliteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Indisponibilites.
+     */
+    data: XOR<IndisponibiliteUpdateManyMutationInput, IndisponibiliteUncheckedUpdateManyInput>
+    /**
+     * Filter which Indisponibilites to update
+     */
+    where?: IndisponibiliteWhereInput
+    /**
+     * Limit how many Indisponibilites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Indisponibilite updateManyAndReturn
+   */
+  export type IndisponibiliteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * The data used to update Indisponibilites.
+     */
+    data: XOR<IndisponibiliteUpdateManyMutationInput, IndisponibiliteUncheckedUpdateManyInput>
+    /**
+     * Filter which Indisponibilites to update
+     */
+    where?: IndisponibiliteWhereInput
+    /**
+     * Limit how many Indisponibilites to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Indisponibilite upsert
+   */
+  export type IndisponibiliteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Indisponibilite to update in case it exists.
+     */
+    where: IndisponibiliteWhereUniqueInput
+    /**
+     * In case the Indisponibilite found by the `where` argument doesn't exist, create a new Indisponibilite with this data.
+     */
+    create: XOR<IndisponibiliteCreateInput, IndisponibiliteUncheckedCreateInput>
+    /**
+     * In case the Indisponibilite was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<IndisponibiliteUpdateInput, IndisponibiliteUncheckedUpdateInput>
+  }
+
+  /**
+   * Indisponibilite delete
+   */
+  export type IndisponibiliteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
+    /**
+     * Filter which Indisponibilite to delete.
+     */
+    where: IndisponibiliteWhereUniqueInput
+  }
+
+  /**
+   * Indisponibilite deleteMany
+   */
+  export type IndisponibiliteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Indisponibilites to delete
+     */
+    where?: IndisponibiliteWhereInput
+    /**
+     * Limit how many Indisponibilites to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Indisponibilite.enseignant
+   */
+  export type Indisponibilite$enseignantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    where?: EnseignantWhereInput
+  }
+
+  /**
+   * Indisponibilite.salle
+   */
+  export type Indisponibilite$salleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    where?: SalleWhereInput
+  }
+
+  /**
+   * Indisponibilite without action
+   */
+  export type IndisponibiliteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Indisponibilite
+     */
+    select?: IndisponibiliteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Indisponibilite
+     */
+    omit?: IndisponibiliteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndisponibiliteInclude<ExtArgs> | null
   }
 
 
@@ -51846,6 +53260,7 @@ export namespace Prisma {
     numero: 'numero',
     anneeId: 'anneeId',
     nbSemaines: 'nbSemaines',
+    grilleParams: 'grilleParams',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -52063,6 +53478,21 @@ export namespace Prisma {
   };
 
   export type SalleScalarFieldEnum = (typeof SalleScalarFieldEnum)[keyof typeof SalleScalarFieldEnum]
+
+
+  export const IndisponibiliteScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    jour: 'jour',
+    ordre: 'ordre',
+    enseignantId: 'enseignantId',
+    salleId: 'salleId',
+    estActive: 'estActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type IndisponibiliteScalarFieldEnum = (typeof IndisponibiliteScalarFieldEnum)[keyof typeof IndisponibiliteScalarFieldEnum]
 
 
   export const EquipementScalarFieldEnum: {
@@ -53966,12 +55396,14 @@ export namespace Prisma {
     numero?: IntFilter<"Semestre"> | number
     anneeId?: UuidFilter<"Semestre"> | string
     nbSemaines?: IntFilter<"Semestre"> | number
+    grilleParams?: JsonNullableFilter<"Semestre">
     createdAt?: DateTimeFilter<"Semestre"> | Date | string
     updatedAt?: DateTimeFilter<"Semestre"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     groupes?: GroupeListRelationFilter
     decharges?: DechargeListRelationFilter
     creneaux?: CreneauListRelationFilter
+    indisponibilites?: IndisponibiliteListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -53979,12 +55411,14 @@ export namespace Prisma {
     numero?: SortOrder
     anneeId?: SortOrder
     nbSemaines?: SortOrder
+    grilleParams?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     annee?: AnneeOrderByWithRelationInput
     groupes?: GroupeOrderByRelationAggregateInput
     decharges?: DechargeOrderByRelationAggregateInput
     creneaux?: CreneauOrderByRelationAggregateInput
+    indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -53996,12 +55430,14 @@ export namespace Prisma {
     numero?: IntFilter<"Semestre"> | number
     anneeId?: UuidFilter<"Semestre"> | string
     nbSemaines?: IntFilter<"Semestre"> | number
+    grilleParams?: JsonNullableFilter<"Semestre">
     createdAt?: DateTimeFilter<"Semestre"> | Date | string
     updatedAt?: DateTimeFilter<"Semestre"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
     groupes?: GroupeListRelationFilter
     decharges?: DechargeListRelationFilter
     creneaux?: CreneauListRelationFilter
+    indisponibilites?: IndisponibiliteListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -54009,6 +55445,7 @@ export namespace Prisma {
     numero?: SortOrder
     anneeId?: SortOrder
     nbSemaines?: SortOrder
+    grilleParams?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SemestreCountOrderByAggregateInput
@@ -54026,6 +55463,7 @@ export namespace Prisma {
     numero?: IntWithAggregatesFilter<"Semestre"> | number
     anneeId?: UuidWithAggregatesFilter<"Semestre"> | string
     nbSemaines?: IntWithAggregatesFilter<"Semestre"> | number
+    grilleParams?: JsonNullableWithAggregatesFilter<"Semestre">
     createdAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Semestre"> | Date | string
   }
@@ -54765,6 +56203,7 @@ export namespace Prisma {
     grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
     enseignantModules?: EnseignantModuleListRelationFilter
     decharges?: DechargeListRelationFilter
+    indisponibilites?: IndisponibiliteListRelationFilter
   }
 
   export type EnseignantOrderByWithRelationInput = {
@@ -54785,6 +56224,7 @@ export namespace Prisma {
     grade?: GradeOrderByWithRelationInput
     enseignantModules?: EnseignantModuleOrderByRelationAggregateInput
     decharges?: DechargeOrderByRelationAggregateInput
+    indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
   }
 
   export type EnseignantWhereUniqueInput = Prisma.AtLeast<{
@@ -54809,6 +56249,7 @@ export namespace Prisma {
     grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
     enseignantModules?: EnseignantModuleListRelationFilter
     decharges?: DechargeListRelationFilter
+    indisponibilites?: IndisponibiliteListRelationFilter
   }, "id" | "email" | "anneeId_matricule">
 
   export type EnseignantOrderByWithAggregationInput = {
@@ -55105,6 +56546,7 @@ export namespace Prisma {
     site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
     equipements?: SalleEquipementListRelationFilter
     salleActivityTags?: SalleActivityTagListRelationFilter
+    indisponibilites?: IndisponibiliteListRelationFilter
   }
 
   export type SalleOrderByWithRelationInput = {
@@ -55127,6 +56569,7 @@ export namespace Prisma {
     site?: SiteOrderByWithRelationInput
     equipements?: SalleEquipementOrderByRelationAggregateInput
     salleActivityTags?: SalleActivityTagOrderByRelationAggregateInput
+    indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
   }
 
   export type SalleWhereUniqueInput = Prisma.AtLeast<{
@@ -55152,6 +56595,7 @@ export namespace Prisma {
     site?: XOR<SiteNullableScalarRelationFilter, SiteWhereInput> | null
     equipements?: SalleEquipementListRelationFilter
     salleActivityTags?: SalleActivityTagListRelationFilter
+    indisponibilites?: IndisponibiliteListRelationFilter
   }, "id">
 
   export type SalleOrderByWithAggregationInput = {
@@ -55194,6 +56638,90 @@ export namespace Prisma {
     originId?: StringNullableWithAggregatesFilter<"Salle"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Salle"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Salle"> | Date | string
+  }
+
+  export type IndisponibiliteWhereInput = {
+    AND?: IndisponibiliteWhereInput | IndisponibiliteWhereInput[]
+    OR?: IndisponibiliteWhereInput[]
+    NOT?: IndisponibiliteWhereInput | IndisponibiliteWhereInput[]
+    id?: UuidFilter<"Indisponibilite"> | string
+    semestreId?: UuidFilter<"Indisponibilite"> | string
+    jour?: EnumJourSemaineFilter<"Indisponibilite"> | $Enums.JourSemaine
+    ordre?: IntFilter<"Indisponibilite"> | number
+    enseignantId?: UuidNullableFilter<"Indisponibilite"> | string | null
+    salleId?: UuidNullableFilter<"Indisponibilite"> | string | null
+    estActive?: BoolFilter<"Indisponibilite"> | boolean
+    createdAt?: DateTimeFilter<"Indisponibilite"> | Date | string
+    updatedAt?: DateTimeFilter<"Indisponibilite"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    enseignant?: XOR<EnseignantNullableScalarRelationFilter, EnseignantWhereInput> | null
+    salle?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
+  }
+
+  export type IndisponibiliteOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    enseignantId?: SortOrderInput | SortOrder
+    salleId?: SortOrderInput | SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    enseignant?: EnseignantOrderByWithRelationInput
+    salle?: SalleOrderByWithRelationInput
+  }
+
+  export type IndisponibiliteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    semestreId_jour_ordre_enseignantId_salleId?: IndisponibiliteSemestreIdJourOrdreEnseignantIdSalleIdCompoundUniqueInput
+    AND?: IndisponibiliteWhereInput | IndisponibiliteWhereInput[]
+    OR?: IndisponibiliteWhereInput[]
+    NOT?: IndisponibiliteWhereInput | IndisponibiliteWhereInput[]
+    semestreId?: UuidFilter<"Indisponibilite"> | string
+    jour?: EnumJourSemaineFilter<"Indisponibilite"> | $Enums.JourSemaine
+    ordre?: IntFilter<"Indisponibilite"> | number
+    enseignantId?: UuidNullableFilter<"Indisponibilite"> | string | null
+    salleId?: UuidNullableFilter<"Indisponibilite"> | string | null
+    estActive?: BoolFilter<"Indisponibilite"> | boolean
+    createdAt?: DateTimeFilter<"Indisponibilite"> | Date | string
+    updatedAt?: DateTimeFilter<"Indisponibilite"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    enseignant?: XOR<EnseignantNullableScalarRelationFilter, EnseignantWhereInput> | null
+    salle?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
+  }, "id" | "semestreId_jour_ordre_enseignantId_salleId">
+
+  export type IndisponibiliteOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    enseignantId?: SortOrderInput | SortOrder
+    salleId?: SortOrderInput | SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: IndisponibiliteCountOrderByAggregateInput
+    _avg?: IndisponibiliteAvgOrderByAggregateInput
+    _max?: IndisponibiliteMaxOrderByAggregateInput
+    _min?: IndisponibiliteMinOrderByAggregateInput
+    _sum?: IndisponibiliteSumOrderByAggregateInput
+  }
+
+  export type IndisponibiliteScalarWhereWithAggregatesInput = {
+    AND?: IndisponibiliteScalarWhereWithAggregatesInput | IndisponibiliteScalarWhereWithAggregatesInput[]
+    OR?: IndisponibiliteScalarWhereWithAggregatesInput[]
+    NOT?: IndisponibiliteScalarWhereWithAggregatesInput | IndisponibiliteScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Indisponibilite"> | string
+    semestreId?: UuidWithAggregatesFilter<"Indisponibilite"> | string
+    jour?: EnumJourSemaineWithAggregatesFilter<"Indisponibilite"> | $Enums.JourSemaine
+    ordre?: IntWithAggregatesFilter<"Indisponibilite"> | number
+    enseignantId?: UuidNullableWithAggregatesFilter<"Indisponibilite"> | string | null
+    salleId?: UuidNullableWithAggregatesFilter<"Indisponibilite"> | string | null
+    estActive?: BoolWithAggregatesFilter<"Indisponibilite"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Indisponibilite"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Indisponibilite"> | Date | string
   }
 
   export type EquipementWhereInput = {
@@ -57046,12 +58574,14 @@ export namespace Prisma {
     id?: string
     numero: number
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -57059,23 +58589,27 @@ export namespace Prisma {
     numero: number
     anneeId: string
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -57083,11 +58617,13 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     anneeId?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -57095,6 +58631,7 @@ export namespace Prisma {
     numero: number
     anneeId: string
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -57103,6 +58640,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57112,6 +58650,7 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     anneeId?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57894,6 +59433,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateInput = {
@@ -57911,6 +59451,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUpdateInput = {
@@ -57928,6 +59469,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateInput = {
@@ -57945,6 +59487,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantCreateManyInput = {
@@ -58242,6 +59785,7 @@ export namespace Prisma {
     site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateInput = {
@@ -58261,6 +59805,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUpdateInput = {
@@ -58280,6 +59825,7 @@ export namespace Prisma {
     site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateInput = {
@@ -58299,6 +59845,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleCreateManyInput = {
@@ -58345,6 +59892,87 @@ export namespace Prisma {
     departementId?: NullableStringFieldUpdateOperationsInput | string | null
     typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
     originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndisponibiliteCreateInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutIndisponibilitesInput
+    enseignant?: EnseignantCreateNestedOneWithoutIndisponibilitesInput
+    salle?: SalleCreateNestedOneWithoutIndisponibilitesInput
+  }
+
+  export type IndisponibiliteUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    enseignantId?: string | null
+    salleId?: string | null
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndisponibiliteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutIndisponibilitesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutIndisponibilitesNestedInput
+    salle?: SalleUpdateOneWithoutIndisponibilitesNestedInput
+  }
+
+  export type IndisponibiliteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndisponibiliteCreateManyInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    enseignantId?: string | null
+    salleId?: string | null
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndisponibiliteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndisponibiliteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -60046,6 +61674,12 @@ export namespace Prisma {
     none?: CreneauWhereInput
   }
 
+  export type IndisponibiliteListRelationFilter = {
+    every?: IndisponibiliteWhereInput
+    some?: IndisponibiliteWhereInput
+    none?: IndisponibiliteWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -60055,6 +61689,10 @@ export namespace Prisma {
   }
 
   export type CreneauOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IndisponibiliteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -60068,6 +61706,7 @@ export namespace Prisma {
     numero?: SortOrder
     anneeId?: SortOrder
     nbSemaines?: SortOrder
+    grilleParams?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -60969,6 +62608,68 @@ export namespace Prisma {
   export type SalleSumOrderByAggregateInput = {
     capaciteMax?: SortOrder
     capaciteRecommandee?: SortOrder
+  }
+
+  export type EnseignantNullableScalarRelationFilter = {
+    is?: EnseignantWhereInput | null
+    isNot?: EnseignantWhereInput | null
+  }
+
+  export type SalleNullableScalarRelationFilter = {
+    is?: SalleWhereInput | null
+    isNot?: SalleWhereInput | null
+  }
+
+  export type IndisponibiliteSemestreIdJourOrdreEnseignantIdSalleIdCompoundUniqueInput = {
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    enseignantId: string
+    salleId: string
+  }
+
+  export type IndisponibiliteCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IndisponibiliteAvgOrderByAggregateInput = {
+    ordre?: SortOrder
+  }
+
+  export type IndisponibiliteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IndisponibiliteMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    jour?: SortOrder
+    ordre?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    estActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IndisponibiliteSumOrderByAggregateInput = {
+    ordre?: SortOrder
   }
 
   export type EquipementCountOrderByAggregateInput = {
@@ -62584,6 +64285,13 @@ export namespace Prisma {
     connect?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
   }
 
+  export type IndisponibiliteCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<IndisponibiliteCreateWithoutSemestreInput, IndisponibiliteUncheckedCreateWithoutSemestreInput> | IndisponibiliteCreateWithoutSemestreInput[] | IndisponibiliteUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSemestreInput | IndisponibiliteCreateOrConnectWithoutSemestreInput[]
+    createMany?: IndisponibiliteCreateManySemestreInputEnvelope
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -62603,6 +64311,13 @@ export namespace Prisma {
     connectOrCreate?: CreneauCreateOrConnectWithoutSemestreInput | CreneauCreateOrConnectWithoutSemestreInput[]
     createMany?: CreneauCreateManySemestreInputEnvelope
     connect?: CreneauWhereUniqueInput | CreneauWhereUniqueInput[]
+  }
+
+  export type IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<IndisponibiliteCreateWithoutSemestreInput, IndisponibiliteUncheckedCreateWithoutSemestreInput> | IndisponibiliteCreateWithoutSemestreInput[] | IndisponibiliteUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSemestreInput | IndisponibiliteCreateOrConnectWithoutSemestreInput[]
+    createMany?: IndisponibiliteCreateManySemestreInputEnvelope
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -62655,6 +64370,20 @@ export namespace Prisma {
     deleteMany?: CreneauScalarWhereInput | CreneauScalarWhereInput[]
   }
 
+  export type IndisponibiliteUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<IndisponibiliteCreateWithoutSemestreInput, IndisponibiliteUncheckedCreateWithoutSemestreInput> | IndisponibiliteCreateWithoutSemestreInput[] | IndisponibiliteUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSemestreInput | IndisponibiliteCreateOrConnectWithoutSemestreInput[]
+    upsert?: IndisponibiliteUpsertWithWhereUniqueWithoutSemestreInput | IndisponibiliteUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: IndisponibiliteCreateManySemestreInputEnvelope
+    set?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    disconnect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    delete?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    update?: IndisponibiliteUpdateWithWhereUniqueWithoutSemestreInput | IndisponibiliteUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: IndisponibiliteUpdateManyWithWhereWithoutSemestreInput | IndisponibiliteUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -62695,6 +64424,20 @@ export namespace Prisma {
     update?: CreneauUpdateWithWhereUniqueWithoutSemestreInput | CreneauUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: CreneauUpdateManyWithWhereWithoutSemestreInput | CreneauUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: CreneauScalarWhereInput | CreneauScalarWhereInput[]
+  }
+
+  export type IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<IndisponibiliteCreateWithoutSemestreInput, IndisponibiliteUncheckedCreateWithoutSemestreInput> | IndisponibiliteCreateWithoutSemestreInput[] | IndisponibiliteUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSemestreInput | IndisponibiliteCreateOrConnectWithoutSemestreInput[]
+    upsert?: IndisponibiliteUpsertWithWhereUniqueWithoutSemestreInput | IndisponibiliteUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: IndisponibiliteCreateManySemestreInputEnvelope
+    set?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    disconnect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    delete?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    update?: IndisponibiliteUpdateWithWhereUniqueWithoutSemestreInput | IndisponibiliteUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: IndisponibiliteUpdateManyWithWhereWithoutSemestreInput | IndisponibiliteUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -63535,6 +65278,13 @@ export namespace Prisma {
     connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
   }
 
+  export type IndisponibiliteCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<IndisponibiliteCreateWithoutEnseignantInput, IndisponibiliteUncheckedCreateWithoutEnseignantInput> | IndisponibiliteCreateWithoutEnseignantInput[] | IndisponibiliteUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutEnseignantInput | IndisponibiliteCreateOrConnectWithoutEnseignantInput[]
+    createMany?: IndisponibiliteCreateManyEnseignantInputEnvelope
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+  }
+
   export type EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput = {
     create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
@@ -63547,6 +65297,13 @@ export namespace Prisma {
     connectOrCreate?: DechargeCreateOrConnectWithoutEnseignantInput | DechargeCreateOrConnectWithoutEnseignantInput[]
     createMany?: DechargeCreateManyEnseignantInputEnvelope
     connect?: DechargeWhereUniqueInput | DechargeWhereUniqueInput[]
+  }
+
+  export type IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<IndisponibiliteCreateWithoutEnseignantInput, IndisponibiliteUncheckedCreateWithoutEnseignantInput> | IndisponibiliteCreateWithoutEnseignantInput[] | IndisponibiliteUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutEnseignantInput | IndisponibiliteCreateOrConnectWithoutEnseignantInput[]
+    createMany?: IndisponibiliteCreateManyEnseignantInputEnvelope
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutEnseignantsNestedInput = {
@@ -63603,6 +65360,20 @@ export namespace Prisma {
     deleteMany?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
   }
 
+  export type IndisponibiliteUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<IndisponibiliteCreateWithoutEnseignantInput, IndisponibiliteUncheckedCreateWithoutEnseignantInput> | IndisponibiliteCreateWithoutEnseignantInput[] | IndisponibiliteUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutEnseignantInput | IndisponibiliteCreateOrConnectWithoutEnseignantInput[]
+    upsert?: IndisponibiliteUpsertWithWhereUniqueWithoutEnseignantInput | IndisponibiliteUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: IndisponibiliteCreateManyEnseignantInputEnvelope
+    set?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    disconnect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    delete?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    update?: IndisponibiliteUpdateWithWhereUniqueWithoutEnseignantInput | IndisponibiliteUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: IndisponibiliteUpdateManyWithWhereWithoutEnseignantInput | IndisponibiliteUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+  }
+
   export type EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput = {
     create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
@@ -63629,6 +65400,20 @@ export namespace Prisma {
     update?: DechargeUpdateWithWhereUniqueWithoutEnseignantInput | DechargeUpdateWithWhereUniqueWithoutEnseignantInput[]
     updateMany?: DechargeUpdateManyWithWhereWithoutEnseignantInput | DechargeUpdateManyWithWhereWithoutEnseignantInput[]
     deleteMany?: DechargeScalarWhereInput | DechargeScalarWhereInput[]
+  }
+
+  export type IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<IndisponibiliteCreateWithoutEnseignantInput, IndisponibiliteUncheckedCreateWithoutEnseignantInput> | IndisponibiliteCreateWithoutEnseignantInput[] | IndisponibiliteUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutEnseignantInput | IndisponibiliteCreateOrConnectWithoutEnseignantInput[]
+    upsert?: IndisponibiliteUpsertWithWhereUniqueWithoutEnseignantInput | IndisponibiliteUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: IndisponibiliteCreateManyEnseignantInputEnvelope
+    set?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    disconnect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    delete?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    update?: IndisponibiliteUpdateWithWhereUniqueWithoutEnseignantInput | IndisponibiliteUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: IndisponibiliteUpdateManyWithWhereWithoutEnseignantInput | IndisponibiliteUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
   }
 
   export type EnseignantCreateNestedOneWithoutEnseignantModulesInput = {
@@ -63811,6 +65596,13 @@ export namespace Prisma {
     connect?: SalleActivityTagWhereUniqueInput | SalleActivityTagWhereUniqueInput[]
   }
 
+  export type IndisponibiliteCreateNestedManyWithoutSalleInput = {
+    create?: XOR<IndisponibiliteCreateWithoutSalleInput, IndisponibiliteUncheckedCreateWithoutSalleInput> | IndisponibiliteCreateWithoutSalleInput[] | IndisponibiliteUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSalleInput | IndisponibiliteCreateOrConnectWithoutSalleInput[]
+    createMany?: IndisponibiliteCreateManySalleInputEnvelope
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+  }
+
   export type SalleEquipementUncheckedCreateNestedManyWithoutSalleInput = {
     create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
     connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
@@ -63823,6 +65615,13 @@ export namespace Prisma {
     connectOrCreate?: SalleActivityTagCreateOrConnectWithoutSalleInput | SalleActivityTagCreateOrConnectWithoutSalleInput[]
     createMany?: SalleActivityTagCreateManySalleInputEnvelope
     connect?: SalleActivityTagWhereUniqueInput | SalleActivityTagWhereUniqueInput[]
+  }
+
+  export type IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput = {
+    create?: XOR<IndisponibiliteCreateWithoutSalleInput, IndisponibiliteUncheckedCreateWithoutSalleInput> | IndisponibiliteCreateWithoutSalleInput[] | IndisponibiliteUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSalleInput | IndisponibiliteCreateOrConnectWithoutSalleInput[]
+    createMany?: IndisponibiliteCreateManySalleInputEnvelope
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
   }
 
   export type DepartementUpdateOneWithoutSallesNestedInput = {
@@ -63883,6 +65682,20 @@ export namespace Prisma {
     deleteMany?: SalleActivityTagScalarWhereInput | SalleActivityTagScalarWhereInput[]
   }
 
+  export type IndisponibiliteUpdateManyWithoutSalleNestedInput = {
+    create?: XOR<IndisponibiliteCreateWithoutSalleInput, IndisponibiliteUncheckedCreateWithoutSalleInput> | IndisponibiliteCreateWithoutSalleInput[] | IndisponibiliteUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSalleInput | IndisponibiliteCreateOrConnectWithoutSalleInput[]
+    upsert?: IndisponibiliteUpsertWithWhereUniqueWithoutSalleInput | IndisponibiliteUpsertWithWhereUniqueWithoutSalleInput[]
+    createMany?: IndisponibiliteCreateManySalleInputEnvelope
+    set?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    disconnect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    delete?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    update?: IndisponibiliteUpdateWithWhereUniqueWithoutSalleInput | IndisponibiliteUpdateWithWhereUniqueWithoutSalleInput[]
+    updateMany?: IndisponibiliteUpdateManyWithWhereWithoutSalleInput | IndisponibiliteUpdateManyWithWhereWithoutSalleInput[]
+    deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+  }
+
   export type SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput = {
     create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
     connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
@@ -63909,6 +65722,66 @@ export namespace Prisma {
     update?: SalleActivityTagUpdateWithWhereUniqueWithoutSalleInput | SalleActivityTagUpdateWithWhereUniqueWithoutSalleInput[]
     updateMany?: SalleActivityTagUpdateManyWithWhereWithoutSalleInput | SalleActivityTagUpdateManyWithWhereWithoutSalleInput[]
     deleteMany?: SalleActivityTagScalarWhereInput | SalleActivityTagScalarWhereInput[]
+  }
+
+  export type IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput = {
+    create?: XOR<IndisponibiliteCreateWithoutSalleInput, IndisponibiliteUncheckedCreateWithoutSalleInput> | IndisponibiliteCreateWithoutSalleInput[] | IndisponibiliteUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSalleInput | IndisponibiliteCreateOrConnectWithoutSalleInput[]
+    upsert?: IndisponibiliteUpsertWithWhereUniqueWithoutSalleInput | IndisponibiliteUpsertWithWhereUniqueWithoutSalleInput[]
+    createMany?: IndisponibiliteCreateManySalleInputEnvelope
+    set?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    disconnect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    delete?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+    update?: IndisponibiliteUpdateWithWhereUniqueWithoutSalleInput | IndisponibiliteUpdateWithWhereUniqueWithoutSalleInput[]
+    updateMany?: IndisponibiliteUpdateManyWithWhereWithoutSalleInput | IndisponibiliteUpdateManyWithWhereWithoutSalleInput[]
+    deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+  }
+
+  export type SemestreCreateNestedOneWithoutIndisponibilitesInput = {
+    create?: XOR<SemestreCreateWithoutIndisponibilitesInput, SemestreUncheckedCreateWithoutIndisponibilitesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutIndisponibilitesInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type EnseignantCreateNestedOneWithoutIndisponibilitesInput = {
+    create?: XOR<EnseignantCreateWithoutIndisponibilitesInput, EnseignantUncheckedCreateWithoutIndisponibilitesInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutIndisponibilitesInput
+    connect?: EnseignantWhereUniqueInput
+  }
+
+  export type SalleCreateNestedOneWithoutIndisponibilitesInput = {
+    create?: XOR<SalleCreateWithoutIndisponibilitesInput, SalleUncheckedCreateWithoutIndisponibilitesInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutIndisponibilitesInput
+    connect?: SalleWhereUniqueInput
+  }
+
+  export type SemestreUpdateOneRequiredWithoutIndisponibilitesNestedInput = {
+    create?: XOR<SemestreCreateWithoutIndisponibilitesInput, SemestreUncheckedCreateWithoutIndisponibilitesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutIndisponibilitesInput
+    upsert?: SemestreUpsertWithoutIndisponibilitesInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutIndisponibilitesInput, SemestreUpdateWithoutIndisponibilitesInput>, SemestreUncheckedUpdateWithoutIndisponibilitesInput>
+  }
+
+  export type EnseignantUpdateOneWithoutIndisponibilitesNestedInput = {
+    create?: XOR<EnseignantCreateWithoutIndisponibilitesInput, EnseignantUncheckedCreateWithoutIndisponibilitesInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutIndisponibilitesInput
+    upsert?: EnseignantUpsertWithoutIndisponibilitesInput
+    disconnect?: EnseignantWhereInput | boolean
+    delete?: EnseignantWhereInput | boolean
+    connect?: EnseignantWhereUniqueInput
+    update?: XOR<XOR<EnseignantUpdateToOneWithWhereWithoutIndisponibilitesInput, EnseignantUpdateWithoutIndisponibilitesInput>, EnseignantUncheckedUpdateWithoutIndisponibilitesInput>
+  }
+
+  export type SalleUpdateOneWithoutIndisponibilitesNestedInput = {
+    create?: XOR<SalleCreateWithoutIndisponibilitesInput, SalleUncheckedCreateWithoutIndisponibilitesInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutIndisponibilitesInput
+    upsert?: SalleUpsertWithoutIndisponibilitesInput
+    disconnect?: SalleWhereInput | boolean
+    delete?: SalleWhereInput | boolean
+    connect?: SalleWhereUniqueInput
+    update?: XOR<XOR<SalleUpdateToOneWithWhereWithoutIndisponibilitesInput, SalleUpdateWithoutIndisponibilitesInput>, SalleUncheckedUpdateWithoutIndisponibilitesInput>
   }
 
   export type SalleEquipementCreateNestedManyWithoutEquipementInput = {
@@ -68302,22 +70175,26 @@ export namespace Prisma {
     id?: string
     numero: number
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
     id?: string
     numero: number
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -68380,6 +70257,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutAnneeInput = {
@@ -68396,6 +70274,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutAnneeInput = {
@@ -68432,6 +70311,7 @@ export namespace Prisma {
     numero?: IntFilter<"Semestre"> | number
     anneeId?: UuidFilter<"Semestre"> | string
     nbSemaines?: IntFilter<"Semestre"> | number
+    grilleParams?: JsonNullableFilter<"Semestre">
     createdAt?: DateTimeFilter<"Semestre"> | Date | string
     updatedAt?: DateTimeFilter<"Semestre"> | Date | string
   }
@@ -68629,6 +70509,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IndisponibiliteCreateWithoutSemestreInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignant?: EnseignantCreateNestedOneWithoutIndisponibilitesInput
+    salle?: SalleCreateNestedOneWithoutIndisponibilitesInput
+  }
+
+  export type IndisponibiliteUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    enseignantId?: string | null
+    salleId?: string | null
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndisponibiliteCreateOrConnectWithoutSemestreInput = {
+    where: IndisponibiliteWhereUniqueInput
+    create: XOR<IndisponibiliteCreateWithoutSemestreInput, IndisponibiliteUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type IndisponibiliteCreateManySemestreInputEnvelope = {
+    data: IndisponibiliteCreateManySemestreInput | IndisponibiliteCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -68758,15 +70670,48 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Creneau"> | Date | string
   }
 
+  export type IndisponibiliteUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: IndisponibiliteWhereUniqueInput
+    update: XOR<IndisponibiliteUpdateWithoutSemestreInput, IndisponibiliteUncheckedUpdateWithoutSemestreInput>
+    create: XOR<IndisponibiliteCreateWithoutSemestreInput, IndisponibiliteUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type IndisponibiliteUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: IndisponibiliteWhereUniqueInput
+    data: XOR<IndisponibiliteUpdateWithoutSemestreInput, IndisponibiliteUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type IndisponibiliteUpdateManyWithWhereWithoutSemestreInput = {
+    where: IndisponibiliteScalarWhereInput
+    data: XOR<IndisponibiliteUpdateManyMutationInput, IndisponibiliteUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type IndisponibiliteScalarWhereInput = {
+    AND?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+    OR?: IndisponibiliteScalarWhereInput[]
+    NOT?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+    id?: UuidFilter<"Indisponibilite"> | string
+    semestreId?: UuidFilter<"Indisponibilite"> | string
+    jour?: EnumJourSemaineFilter<"Indisponibilite"> | $Enums.JourSemaine
+    ordre?: IntFilter<"Indisponibilite"> | number
+    enseignantId?: UuidNullableFilter<"Indisponibilite"> | string | null
+    salleId?: UuidNullableFilter<"Indisponibilite"> | string | null
+    estActive?: BoolFilter<"Indisponibilite"> | boolean
+    createdAt?: DateTimeFilter<"Indisponibilite"> | Date | string
+    updatedAt?: DateTimeFilter<"Indisponibilite"> | Date | string
+  }
+
   export type SemestreCreateWithoutCreneauxInput = {
     id?: string
     numero: number
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -68774,10 +70719,12 @@ export namespace Prisma {
     numero: number
     anneeId: string
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -68800,11 +70747,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -68812,10 +70761,12 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     anneeId?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -68893,6 +70844,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutDepartementInput = {
@@ -68909,6 +70861,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutDepartementInput = {
@@ -68937,6 +70890,7 @@ export namespace Prisma {
     site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutDepartementInput = {
@@ -68955,6 +70909,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutDepartementInput = {
@@ -69441,11 +71396,13 @@ export namespace Prisma {
     id?: string
     numero: number
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -69453,10 +71410,12 @@ export namespace Prisma {
     numero: number
     anneeId: string
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -69589,11 +71548,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -69601,10 +71562,12 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     anneeId?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -69882,6 +71845,7 @@ export namespace Prisma {
     departement: DepartementCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutGradeInput = {
@@ -69898,6 +71862,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutGradeInput = {
@@ -70421,6 +72386,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IndisponibiliteCreateWithoutEnseignantInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutIndisponibilitesInput
+    salle?: SalleCreateNestedOneWithoutIndisponibilitesInput
+  }
+
+  export type IndisponibiliteUncheckedCreateWithoutEnseignantInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    salleId?: string | null
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndisponibiliteCreateOrConnectWithoutEnseignantInput = {
+    where: IndisponibiliteWhereUniqueInput
+    create: XOR<IndisponibiliteCreateWithoutEnseignantInput, IndisponibiliteUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type IndisponibiliteCreateManyEnseignantInputEnvelope = {
+    data: IndisponibiliteCreateManyEnseignantInput | IndisponibiliteCreateManyEnseignantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutEnseignantsInput = {
     update: XOR<AnneeUpdateWithoutEnseignantsInput, AnneeUncheckedUpdateWithoutEnseignantsInput>
     create: XOR<AnneeCreateWithoutEnseignantsInput, AnneeUncheckedCreateWithoutEnseignantsInput>
@@ -70554,6 +72551,22 @@ export namespace Prisma {
     data: XOR<DechargeUpdateManyMutationInput, DechargeUncheckedUpdateManyWithoutEnseignantInput>
   }
 
+  export type IndisponibiliteUpsertWithWhereUniqueWithoutEnseignantInput = {
+    where: IndisponibiliteWhereUniqueInput
+    update: XOR<IndisponibiliteUpdateWithoutEnseignantInput, IndisponibiliteUncheckedUpdateWithoutEnseignantInput>
+    create: XOR<IndisponibiliteCreateWithoutEnseignantInput, IndisponibiliteUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type IndisponibiliteUpdateWithWhereUniqueWithoutEnseignantInput = {
+    where: IndisponibiliteWhereUniqueInput
+    data: XOR<IndisponibiliteUpdateWithoutEnseignantInput, IndisponibiliteUncheckedUpdateWithoutEnseignantInput>
+  }
+
+  export type IndisponibiliteUpdateManyWithWhereWithoutEnseignantInput = {
+    where: IndisponibiliteScalarWhereInput
+    data: XOR<IndisponibiliteUpdateManyMutationInput, IndisponibiliteUncheckedUpdateManyWithoutEnseignantInput>
+  }
+
   export type EnseignantCreateWithoutEnseignantModulesInput = {
     id?: string
     matricule: string
@@ -70568,6 +72581,7 @@ export namespace Prisma {
     departement: DepartementCreateNestedOneWithoutEnseignantsInput
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutEnseignantModulesInput = {
@@ -70584,6 +72598,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutEnseignantModulesInput = {
@@ -70653,6 +72668,7 @@ export namespace Prisma {
     departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutEnseignantModulesInput = {
@@ -70669,6 +72685,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type ModuleUpsertWithoutEnseignantModulesInput = {
@@ -70728,6 +72745,7 @@ export namespace Prisma {
     departement: DepartementCreateNestedOneWithoutEnseignantsInput
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutDechargesInput = {
@@ -70744,6 +72762,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutDechargesInput = {
@@ -70755,11 +72774,13 @@ export namespace Prisma {
     id?: string
     numero: number
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutSemestresInput
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -70767,10 +72788,12 @@ export namespace Prisma {
     numero: number
     anneeId: string
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -70803,6 +72826,7 @@ export namespace Prisma {
     departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutDechargesInput = {
@@ -70819,6 +72843,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type SemestreUpsertWithoutDechargesInput = {
@@ -70836,11 +72861,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -70848,10 +72875,12 @@ export namespace Prisma {
     numero?: IntFieldUpdateOperationsInput | number
     anneeId?: StringFieldUpdateOperationsInput | string
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -70870,6 +72899,7 @@ export namespace Prisma {
     site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutTypeSalleInput = {
@@ -70888,6 +72918,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutTypeSalleInput = {
@@ -70932,6 +72963,7 @@ export namespace Prisma {
     typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutSiteInput = {
@@ -70950,6 +72982,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutSiteInput = {
@@ -71093,6 +73126,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IndisponibiliteCreateWithoutSalleInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutIndisponibilitesInput
+    enseignant?: EnseignantCreateNestedOneWithoutIndisponibilitesInput
+  }
+
+  export type IndisponibiliteUncheckedCreateWithoutSalleInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    enseignantId?: string | null
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndisponibiliteCreateOrConnectWithoutSalleInput = {
+    where: IndisponibiliteWhereUniqueInput
+    create: XOR<IndisponibiliteCreateWithoutSalleInput, IndisponibiliteUncheckedCreateWithoutSalleInput>
+  }
+
+  export type IndisponibiliteCreateManySalleInputEnvelope = {
+    data: IndisponibiliteCreateManySalleInput | IndisponibiliteCreateManySalleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DepartementUpsertWithoutSallesInput = {
     update: XOR<DepartementUpdateWithoutSallesInput, DepartementUncheckedUpdateWithoutSallesInput>
     create: XOR<DepartementCreateWithoutSallesInput, DepartementUncheckedCreateWithoutSallesInput>
@@ -71230,6 +73295,266 @@ export namespace Prisma {
     data: XOR<SalleActivityTagUpdateManyMutationInput, SalleActivityTagUncheckedUpdateManyWithoutSalleInput>
   }
 
+  export type IndisponibiliteUpsertWithWhereUniqueWithoutSalleInput = {
+    where: IndisponibiliteWhereUniqueInput
+    update: XOR<IndisponibiliteUpdateWithoutSalleInput, IndisponibiliteUncheckedUpdateWithoutSalleInput>
+    create: XOR<IndisponibiliteCreateWithoutSalleInput, IndisponibiliteUncheckedCreateWithoutSalleInput>
+  }
+
+  export type IndisponibiliteUpdateWithWhereUniqueWithoutSalleInput = {
+    where: IndisponibiliteWhereUniqueInput
+    data: XOR<IndisponibiliteUpdateWithoutSalleInput, IndisponibiliteUncheckedUpdateWithoutSalleInput>
+  }
+
+  export type IndisponibiliteUpdateManyWithWhereWithoutSalleInput = {
+    where: IndisponibiliteScalarWhereInput
+    data: XOR<IndisponibiliteUpdateManyMutationInput, IndisponibiliteUncheckedUpdateManyWithoutSalleInput>
+  }
+
+  export type SemestreCreateWithoutIndisponibilitesInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutIndisponibilitesInput, SemestreUncheckedCreateWithoutIndisponibilitesInput>
+  }
+
+  export type EnseignantCreateWithoutIndisponibilitesInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutEnseignantsInput
+    departement: DepartementCreateNestedOneWithoutEnseignantsInput
+    grade?: GradeCreateNestedOneWithoutEnseignantsInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUncheckedCreateWithoutIndisponibilitesInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    gradeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantCreateOrConnectWithoutIndisponibilitesInput = {
+    where: EnseignantWhereUniqueInput
+    create: XOR<EnseignantCreateWithoutIndisponibilitesInput, EnseignantUncheckedCreateWithoutIndisponibilitesInput>
+  }
+
+  export type SalleCreateWithoutIndisponibilitesInput = {
+    id?: string
+    code: string
+    libelle: string
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement?: DepartementCreateNestedOneWithoutSallesInput
+    typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
+    equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleUncheckedCreateWithoutIndisponibilitesInput = {
+    id?: string
+    code: string
+    libelle: string
+    siteId?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleCreateOrConnectWithoutIndisponibilitesInput = {
+    where: SalleWhereUniqueInput
+    create: XOR<SalleCreateWithoutIndisponibilitesInput, SalleUncheckedCreateWithoutIndisponibilitesInput>
+  }
+
+  export type SemestreUpsertWithoutIndisponibilitesInput = {
+    update: XOR<SemestreUpdateWithoutIndisponibilitesInput, SemestreUncheckedUpdateWithoutIndisponibilitesInput>
+    create: XOR<SemestreCreateWithoutIndisponibilitesInput, SemestreUncheckedCreateWithoutIndisponibilitesInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutIndisponibilitesInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutIndisponibilitesInput, SemestreUncheckedUpdateWithoutIndisponibilitesInput>
+  }
+
+  export type SemestreUpdateWithoutIndisponibilitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type EnseignantUpsertWithoutIndisponibilitesInput = {
+    update: XOR<EnseignantUpdateWithoutIndisponibilitesInput, EnseignantUncheckedUpdateWithoutIndisponibilitesInput>
+    create: XOR<EnseignantCreateWithoutIndisponibilitesInput, EnseignantUncheckedCreateWithoutIndisponibilitesInput>
+    where?: EnseignantWhereInput
+  }
+
+  export type EnseignantUpdateToOneWithWhereWithoutIndisponibilitesInput = {
+    where?: EnseignantWhereInput
+    data: XOR<EnseignantUpdateWithoutIndisponibilitesInput, EnseignantUncheckedUpdateWithoutIndisponibilitesInput>
+  }
+
+  export type EnseignantUpdateWithoutIndisponibilitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
+    grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateWithoutIndisponibilitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type SalleUpsertWithoutIndisponibilitesInput = {
+    update: XOR<SalleUpdateWithoutIndisponibilitesInput, SalleUncheckedUpdateWithoutIndisponibilitesInput>
+    create: XOR<SalleCreateWithoutIndisponibilitesInput, SalleUncheckedCreateWithoutIndisponibilitesInput>
+    where?: SalleWhereInput
+  }
+
+  export type SalleUpdateToOneWithWhereWithoutIndisponibilitesInput = {
+    where?: SalleWhereInput
+    data: XOR<SalleUpdateWithoutIndisponibilitesInput, SalleUncheckedUpdateWithoutIndisponibilitesInput>
+  }
+
+  export type SalleUpdateWithoutIndisponibilitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneWithoutSallesNestedInput
+    typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
+    equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateWithoutIndisponibilitesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+  }
+
   export type SalleEquipementCreateWithoutEquipementInput = {
     salle: SalleCreateNestedOneWithoutEquipementsInput
   }
@@ -71318,6 +73643,7 @@ export namespace Prisma {
     typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
     site?: SiteCreateNestedOneWithoutSallesInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutEquipementsInput = {
@@ -71336,6 +73662,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutEquipementsInput = {
@@ -71397,6 +73724,7 @@ export namespace Prisma {
     typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
     site?: SiteUpdateOneWithoutSallesNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutEquipementsInput = {
@@ -71415,6 +73743,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type EquipementUpsertWithoutSallesInput = {
@@ -71466,6 +73795,7 @@ export namespace Prisma {
     typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
     site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutSalleActivityTagsInput = {
@@ -71484,6 +73814,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutSalleActivityTagsInput = {
@@ -71543,6 +73874,7 @@ export namespace Prisma {
     typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
     site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutSalleActivityTagsInput = {
@@ -71561,6 +73893,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type ActivityTagUpsertWithoutSalleActivityTagsInput = {
@@ -72824,6 +75157,7 @@ export namespace Prisma {
     id?: string
     numero: number
     nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -72856,28 +75190,33 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
     nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -72932,6 +75271,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutAnneeInput = {
@@ -72948,6 +75288,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutAnneeInput = {
@@ -72993,6 +75334,17 @@ export namespace Prisma {
     heureDebut: Date | string
     heureFin: Date | string
     estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndisponibiliteCreateManySemestreInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    enseignantId?: string | null
+    salleId?: string | null
     estActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -73102,6 +75454,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IndisponibiliteUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignant?: EnseignantUpdateOneWithoutIndisponibilitesNestedInput
+    salle?: SalleUpdateOneWithoutIndisponibilitesNestedInput
+  }
+
+  export type IndisponibiliteUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndisponibiliteUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FormationCreateManyDepartementInput = {
     id?: string
     code: string
@@ -73188,6 +75573,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutDepartementInput = {
@@ -73204,6 +75590,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutDepartementInput = {
@@ -73236,6 +75623,7 @@ export namespace Prisma {
     site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutDepartementInput = {
@@ -73254,6 +75642,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutDepartementInput = {
@@ -73664,6 +76053,7 @@ export namespace Prisma {
     departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutGradeInput = {
@@ -73680,6 +76070,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutGradeInput = {
@@ -73800,6 +76191,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type IndisponibiliteCreateManyEnseignantInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    salleId?: string | null
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EnseignantModuleUpdateWithoutEnseignantInput = {
     module?: ModuleUpdateOneRequiredWithoutEnseignantModulesNestedInput
   }
@@ -73836,6 +76238,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type IndisponibiliteUpdateWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutIndisponibilitesNestedInput
+    salle?: SalleUpdateOneWithoutIndisponibilitesNestedInput
+  }
+
+  export type IndisponibiliteUncheckedUpdateWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndisponibiliteUncheckedUpdateManyWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SalleCreateManyTypeSalleInput = {
     id?: string
     code: string
@@ -73868,6 +76303,7 @@ export namespace Prisma {
     site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutTypeSalleInput = {
@@ -73886,6 +76322,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutTypeSalleInput = {
@@ -73936,6 +76373,7 @@ export namespace Prisma {
     typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutSiteInput = {
@@ -73954,6 +76392,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutSiteInput = {
@@ -73980,6 +76419,17 @@ export namespace Prisma {
     activityTagId: string
   }
 
+  export type IndisponibiliteCreateManySalleInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    enseignantId?: string | null
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SalleEquipementUpdateWithoutSalleInput = {
     equipement?: EquipementUpdateOneRequiredWithoutSallesNestedInput
   }
@@ -74002,6 +76452,39 @@ export namespace Prisma {
 
   export type SalleActivityTagUncheckedUpdateManyWithoutSalleInput = {
     activityTagId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IndisponibiliteUpdateWithoutSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutIndisponibilitesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutIndisponibilitesNestedInput
+  }
+
+  export type IndisponibiliteUncheckedUpdateWithoutSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndisponibiliteUncheckedUpdateManyWithoutSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SalleEquipementCreateManyEquipementInput = {
