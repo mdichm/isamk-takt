@@ -1,0 +1,17 @@
+# Destination : .gitattributes (racine du dépôt)
+* text=auto eol=lf
+
+# Binaires
+*.xlsx binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+
+# CSV généré avec des fins de ligne mixtes (lignes CRLF, retours LF dans les cellules) :
+# ne pas normaliser pour éviter des diffs parasites.
+docs/Backlog_TAKT_tickets.csv -text
