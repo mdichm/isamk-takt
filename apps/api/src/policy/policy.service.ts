@@ -39,7 +39,7 @@ export class PolicyService {
           'creneau-affichage:write','indisponibilite:write',
           'repartition:read','repartition:write','repartition:validate',
           'charges:read',
-          'contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
+          'contrainte:read','contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
           'version:create','generation:launch','seance:edit','verrou:write','avertissement:accept',
           'version:read','version:submit','version:abandon','version:validate','version:publish',
           'parametre:write','export:create','export-view:write','audit:read',
@@ -55,7 +55,7 @@ export class PolicyService {
         permissions: [
           'referentiel:read','salle:read','salle:write','creneau-affichage:write','indisponibilite:write','creneaux:generate',
           'repartition:read','charges:read','annee:read',
-          'contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
+          'contrainte:read','contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
           'version:create','generation:launch','verrou:write','avertissement:accept',
           'version:read','version:submit','version:abandon','version:publish',
           'export:create','export-view:write','demande:create',
@@ -85,6 +85,7 @@ export class PolicyService {
       {
         permissions: [
           'referentiel:read','salle:read','repartition:read','charges:read','version:read','annee:read',
+          'contrainte:read',
           'project:read','task:read','sprint:read','comment:read','activity:read','tag:read',
           'export:create','notification:read','tableau-de-bord:read',
           'audit:read',

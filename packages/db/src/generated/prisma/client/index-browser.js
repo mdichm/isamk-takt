@@ -558,6 +558,34 @@ exports.Prisma.ExigenceEquipementScalarFieldEnum = {
   niveau: 'niveau'
 };
 
+exports.Prisma.ContrainteDefinitionScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  libelle: 'libelle',
+  categorie: 'categorie',
+  portee: 'portee',
+  paramsSchema: 'paramsSchema',
+  fetSupport: 'fetSupport',
+  actif: 'actif'
+};
+
+exports.Prisma.ContrainteInstanceScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  definitionId: 'definitionId',
+  enseignantId: 'enseignantId',
+  groupeId: 'groupeId',
+  salleId: 'salleId',
+  moduleId: 'moduleId',
+  params: 'params',
+  poids: 'poids',
+  nature: 'nature',
+  commentaire: 'commentaire',
+  actif: 'actif',
+  creePar: 'creePar',
+  creeLe: 'creeLe'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -691,6 +719,30 @@ exports.ExigenceNiveau = exports.$Enums.ExigenceNiveau = {
   SOUHAITE: 'SOUHAITE'
 };
 
+exports.ContrainteCategorie = exports.$Enums.ContrainteCategorie = {
+  DURE: 'DURE',
+  SOUPLE: 'SOUPLE'
+};
+
+exports.ContraintePortee = exports.$Enums.ContraintePortee = {
+  GLOBALE: 'GLOBALE',
+  ENSEIGNANT: 'ENSEIGNANT',
+  GROUPE: 'GROUPE',
+  SALLE: 'SALLE',
+  MODULE: 'MODULE'
+};
+
+exports.FetSupport = exports.$Enums.FetSupport = {
+  NATIF: 'NATIF',
+  PARTIEL: 'PARTIEL',
+  AUCUN: 'AUCUN'
+};
+
+exports.ContrainteNature = exports.$Enums.ContrainteNature = {
+  REGLE: 'REGLE',
+  VOEU: 'VOEU'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserSystemRole: 'UserSystemRole',
@@ -732,7 +784,9 @@ exports.Prisma.ModelName = {
   Equipement: 'Equipement',
   SalleEquipement: 'SalleEquipement',
   SalleActivityTag: 'SalleActivityTag',
-  ExigenceEquipement: 'ExigenceEquipement'
+  ExigenceEquipement: 'ExigenceEquipement',
+  ContrainteDefinition: 'ContrainteDefinition',
+  ContrainteInstance: 'ContrainteInstance'
 };
 
 /**

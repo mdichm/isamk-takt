@@ -1,0 +1,153 @@
+[{
+  "code": "MAX_HOURS_PER_DAY",
+  "libelle": "Maximum d'heures par jour",
+  "categorie": "DURE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "heures": {"type": "integer", "minimum": 1}
+    },
+    "required": ["heures"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+},
+  {
+  "code": "MIN_HOURS_PER_DAY",
+  "libelle": "Minimum d'heures par jour",
+  "categorie": "DURE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "heures": {"type": "integer", "minimum": 0},
+      "joursVidesAutorises": {"type": "boolean"}
+    },
+    "required": ["heures"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+},
+  {
+  "code": "MAX_CONTINUOUS_HOURS",
+  "libelle": "Maximum d'heures continues",
+  "categorie": "DURE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "heures": {"type": "integer", "minimum": 1}
+    },
+    "required": ["heures"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+},
+  {
+  "code": "MIN_CONTINUOUS_HOURS",
+  "libelle": "Minimum d'heures continues",
+  "categorie": "SOUPLE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "heures": {"type": "integer", "minimum": 1}
+    },
+    "required": ["heures"]
+  },
+  "fetSupport": "PARTIEL",
+  "actif": true
+},
+  {
+  "code": "MAX_GAPS_PER_DAY",
+  "libelle": "Maximum de creux par jour",
+  "categorie": "DURE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "creux": {"type": "integer", "minimum": 0}
+    },
+    "required": ["creux"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+},
+  {
+  "code": "MAX_GAPS_PER_WEEK",
+  "libelle": "Maximum de creux par semaine",
+  "categorie": "DURE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "creux": {"type": "integer", "minimum": 0}
+    },
+    "required": ["creux"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+},
+  {
+  "code": "MAX_DAYS_PER_WEEK",
+  "libelle": "Maximum de jours par semaine",
+  "categorie": "DURE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "jours": {"type": "integer", "minimum": 1}
+    },
+    "required": ["jours"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+},
+  {
+  "code": "MIN_DAYS_PER_WEEK",
+  "libelle": "Minimum de jours par semaine",
+  "categorie": "DURE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "jours": {"type": "integer", "minimum": 1}
+    },
+    "required": ["jours"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+},
+  {
+  "code": "MAX_SPAN_PER_DAY",
+  "libelle": "Amplitude journalière maximale",
+  "categorie": "SOUPLE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "heures": {"type": "integer", "minimum": 1}
+    },
+    "required": ["heures"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+},
+  {
+  "code": "MAX_HOURS_IN_INTERVAL",
+  "libelle": "Maximum d'heures dans un intervalle",
+  "categorie": "DURE",
+  "portee": "GLOBALE",
+  "paramsSchema": {
+    "type": "object",
+    "properties": {
+      "debut": {"type": "string"},
+      "fin": {"type": "string"},
+      "heures": {"type": "integer", "minimum": 1}
+    },
+    "required": ["debut", "fin", "heures"]
+  },
+  "fetSupport": "NATIF",
+  "actif": true
+}]

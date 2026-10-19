@@ -106,6 +106,30 @@ enum JourSemaine {
   SAMEDI
 }
 
+enum ContrainteCategorie {
+  DURE
+  SOUPLE
+}
+
+enum ContraintePortee {
+  GLOBALE
+  ENSEIGNANT
+  GROUPE
+  SALLE
+  MODULE
+}
+
+enum ContrainteNature {
+  REGLE
+  VOEU
+}
+
+enum FetSupport {
+  NATIF
+  PARTIEL
+  AUCUN
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -499,6 +523,7 @@ model Semestre {
   decharges  Decharge[]
   creneaux   Creneau[]
   indisponibilites Indisponibilite[]
+  contrainteInstances ContrainteInstance[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -918,4 +943,46 @@ model ExigenceEquipement {
 
   @@id([moduleId, typeEnseignementId, equipementId])
   @@map("exigences_equipement")
+}
+
+// ============================================
+// Contraintes - L3-01
+// ============================================
+
+model ContrainteDefinition {
+  id           String              @id @default(uuid()) @db.Uuid
+  code         String              @unique
+  libelle      String
+  categorie    ContrainteCategorie
+  portee       ContraintePortee
+  paramsSchema Json
+  fetSupport   FetSupport          @default(NATIF)
+  actif        Boolean             @default(true)
+
+  instances ContrainteInstance[]
+
+  @@map("contrainte_definitions")
+}
+
+model ContrainteInstance {
+  id           String           @id @default(uuid()) @db.Uuid
+  semestreId   String           @db.Uuid
+  definitionId String           @db.Uuid
+  enseignantId String?          @db.Uuid
+  groupeId     String?          @db.Uuid
+  salleId      String?          @db.Uuid
+  moduleId     String?          @db.Uuid
+  params       Json
+  poids        Int?
+  nature       ContrainteNature @default(REGLE)
+  commentaire  String?
+  actif        Boolean          @default(true)
+  creePar      String           @db.Uuid
+  creeLe       DateTime         @default(now())
+
+  semestre   Semestre             @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  definition ContrainteDefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+
+  @@index([semestreId, actif])
+  @@map("contrainte_instances")
 }
