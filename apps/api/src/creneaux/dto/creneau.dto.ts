@@ -107,6 +107,33 @@ export class CreneauResponseDto {
   updatedAt: Date;
 }
 
+// ============================================
+// Duplication de créneaux (L1-19)
+// ============================================
+
+export class DuplicateCreneauxDto {
+  @ApiProperty({ example: 'uuid-source-semestre', description: 'ID du semestre source' })
+  @IsUUID()
+  sourceSemestreId: string;
+
+  @ApiProperty({ example: 'uuid-cible-semestre', description: 'ID du semestre cible' })
+  @IsUUID()
+  cibleSemestreId: string;
+
+  @ApiPropertyOptional({ example: false, description: 'Remplacer les créneaux existants du cible' })
+  @IsOptional()
+  @IsBoolean()
+  remplacer?: boolean;
+}
+
+export class DuplicateCreneauxResponseDto {
+  @ApiProperty({ example: 8, description: 'Nombre de créneaux dupliqués' })
+  created: number;
+
+  @ApiProperty({ type: [String], example: ['uuid-1', 'uuid-2'], description: 'IDs des créneaux créés' })
+  creneauIds: string[];
+}
+
 export class CreneauQueryDto {
   @ApiPropertyOptional({ default: 1 })
   @IsOptional()

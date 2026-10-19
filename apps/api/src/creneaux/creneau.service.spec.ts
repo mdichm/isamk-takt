@@ -40,6 +40,7 @@ describe('CreneauService', () => {
         update: vi.fn(),
         count: vi.fn(),
         findMany: vi.fn(),
+        deleteMany: vi.fn(),
       },
     };
     audit = {
@@ -144,5 +145,120 @@ describe('CreneauService', () => {
     expect(prisma.creneau.update).toHaveBeenCalledWith({
       where: { id: creneauId }, data: { estActive: false },
     });
+  });
+
+  // ============================================
+  // Duplication de créneaux (L1-19)
+  // ============================================
+
+  it('should duplicate creneaux from source to empty cible', async () => {
+    const cibleSemestreId = '550e8400-e29b-41d4-a716-446655440003';
+    prisma.semestre.findUnique
+      .mockResolvedValueOnce({ id: semestreId, numero: 1 })
+      .mockResolvedValueOnce({ id: cibleSemestreId, numero: 2 });
+    prisma.creneau.count.mockResolvedValue(0);
+    prisma.creneau.findMany.mockResolvedValue([
+      {
+        id: creneauId, semestreId: semestreId, jour: 'LUNDI', ordre: 1,
+        heureDebut: new Date('1970-01-01T08:00:00Z'),
+        heureFin: new Date('1970-01-01T08:30:00Z'),
+        estPause: false, estActive: true,
+        createdAt: new Date(), updatedAt: new Date(),
+      },
+      {
+        id: 'creneau-2', semestreId: semestreId, jour: 'LUNDI', ordre: 2,
+        heureDebut: new Date('1970-01-01T08:30:00Z'),
+        heureFin: new Date('1970-01-01T09:00:00Z'),
+        estPause: false, estActive: true,
+        createdAt: new Date(), updatedAt: new Date(),
+      },
+    ]);
+    prisma.creneau.create.mockResolvedValueOnce({ id: 'new-creneau-1' });
+    prisma.creneau.create.mockResolvedValueOnce({ id: 'new-creneau-2' });
+
+    const result = await service.duplicate(semestreId, cibleSemestreId, userId, false);
+
+    expect(result.created).toBe(2);
+    expect(result.creneauIds).toEqual(['new-creneau-1', 'new-creneau-2']);
+    expect(prisma.creneau.create).toHaveBeenCalledTimes(2);
+  });
+
+  it('should throw Conflict when cible is not empty and remplacer is false', async () => {
+    const cibleSemestreId = '550e8400-e29b-41d4-a716-446655440003';
+    prisma.semestre.findUnique
+      .mockResolvedValueOnce({ id: semestreId, numero: 1 })
+      .mockResolvedValueOnce({ id: cibleSemestreId, numero: 2 });
+    prisma.creneau.count.mockResolvedValue(3);
+
+    await expect(
+      service.duplicate(semestreId, cibleSemestreId, userId, false),
+    ).rejects.toThrow('déjà des créneaux');
+  });
+
+  it('should duplicate with remplacer when cible is not empty', async () => {
+    const cibleSemestreId = '550e8400-e29b-41d4-a716-446655440003';
+    prisma.semestre.findUnique
+      .mockResolvedValueOnce({ id: semestreId, numero: 1 })
+      .mockResolvedValueOnce({ id: cibleSemestreId, numero: 2 });
+    prisma.creneau.count.mockResolvedValue(3);
+    prisma.creneau.deleteMany.mockResolvedValue({ count: 3 });
+    prisma.creneau.findMany.mockResolvedValue([
+      {
+        id: creneauId, semestreId: semestreId, jour: 'LUNDI', ordre: 1,
+        heureDebut: new Date('1970-01-01T08:00:00Z'),
+        heureFin: new Date('1970-01-01T08:30:00Z'),
+        estPause: false, estActive: true,
+        createdAt: new Date(), updatedAt: new Date(),
+      },
+    ]);
+    prisma.creneau.create.mockResolvedValue({ id: 'new-creneau' });
+
+    const result = await service.duplicate(semestreId, cibleSemestreId, userId, true);
+
+    expect(result.created).toBe(1);
+    expect(prisma.creneau.deleteMany).toHaveBeenCalledWith({
+      where: { semestreId: cibleSemestreId },
+    });
+    expect(prisma.creneau.create).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw NotFound when source semestre does not exist', async () => {
+    prisma.semestre.findUnique.mockResolvedValueOnce(null);
+
+    await expect(
+      service.duplicate('unknown-source', 'unknown-cible', userId, false),
+    ).rejects.toThrow('introuvable');
+  });
+
+  it('should throw NotFound when cible semestre does not exist', async () => {
+    const cibleSemestreId = '550e8400-e29b-41d4-a716-446655440003';
+    prisma.semestre.findUnique
+      .mockResolvedValueOnce({ id: semestreId, numero: 1 })
+      .mockResolvedValueOnce(null);
+
+    await expect(
+      service.duplicate(semestreId, cibleSemestreId, userId, false),
+    ).rejects.toThrow('introuvable');
+  });
+
+  it('should throw BadRequest when source and cible are the same', async () => {
+    await expect(
+      service.duplicate(semestreId, semestreId, userId, false),
+    ).rejects.toThrow('doivent être différents');
+  });
+
+  it('should return 0 when source has no creneaux', async () => {
+    const cibleSemestreId = '550e8400-e29b-41d4-a716-446655440003';
+    prisma.semestre.findUnique
+      .mockResolvedValueOnce({ id: semestreId, numero: 1 })
+      .mockResolvedValueOnce({ id: cibleSemestreId, numero: 2 });
+    prisma.creneau.count.mockResolvedValue(0);
+    prisma.creneau.findMany.mockResolvedValue([]);
+
+    const result = await service.duplicate(semestreId, cibleSemestreId, userId, false);
+
+    expect(result.created).toBe(0);
+    expect(result.creneauIds).toEqual([]);
+    expect(prisma.creneau.create).not.toHaveBeenCalled();
   });
 });

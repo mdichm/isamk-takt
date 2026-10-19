@@ -10,6 +10,7 @@ import {
   CreneauResponseDto,
   PaginatedCreneauxDto,
   CreneauQueryDto,
+  DuplicateCreneauxResponseDto,
 } from './dto/creneau.dto.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports, no-restricted-imports
 import { JourSemaine } from '@takt/db';
@@ -232,6 +233,80 @@ export class CreneauService {
         motif: `Désactivation créneau ${existing.jour} ordre ${existing.ordre}`,
       },
     );
+  }
+
+  // ============================================
+  // Duplication de créneaux (L1-19)
+  // ============================================
+
+  async duplicate(
+    sourceSemestreId: string,
+    cibleSemestreId: string,
+    userId: string,
+    remplacer = false,
+  ): Promise<DuplicateCreneauxResponseDto> {
+    // Validation d'entrée avant tout appel DB
+    if (sourceSemestreId === cibleSemestreId) {
+      throw new BadRequestException('Le semestre source et le semestre cible doivent être différents');
+    }
+
+    // Vérifier que source et cible existent
+    const [source, cible] = await Promise.all([
+      this.prisma.semestre.findUnique({ where: { id: sourceSemestreId } }),
+      this.prisma.semestre.findUnique({ where: { id: cibleSemestreId } }),
+    ]);
+    if (!source) {
+      throw new NotFoundException(`Semestre source "${sourceSemestreId}" introuvable`);
+    }
+    if (!cible) {
+      throw new NotFoundException(`Semestre cible "${cibleSemestreId}" introuvable`);
+    }
+
+    // Vérifier que la cible est vide (sauf si remplacer)
+    const cibleCount = await this.prisma.creneau.count({ where: { semestreId: cibleSemestreId } });
+    if (cibleCount > 0 && !remplacer) {
+      throw new ConflictException(
+        'Le semestre cible contient déjà des créneaux. Utilisez l\'option « remplacer » pour les écraser.',
+      );
+    }
+
+    // Lire les créneaux source triés par jour, ordre
+    const sourceCreneaux = await this.prisma.creneau.findMany({
+      where: { semestreId: sourceSemestreId, estActive: true },
+      orderBy: [{ jour: 'asc' }, { ordre: 'asc' }],
+    });
+
+    if (sourceCreneaux.length === 0) {
+      return { created: 0, creneauIds: [] };
+    }
+
+    const created: string[] = [];
+    await this.audit.auditTransaction(async (tx) => {
+      if (remplacer) {
+        await tx.creneau.deleteMany({ where: { semestreId: cibleSemestreId } });
+      }
+      for (const c of sourceCreneaux) {
+        const createdCreneau = await tx.creneau.create({
+          data: {
+            semestreId: cibleSemestreId,
+            jour: c.jour,
+            ordre: c.ordre,
+            heureDebut: c.heureDebut,
+            heureFin: c.heureFin,
+            estPause: c.estPause,
+            estActive: true,
+          },
+        });
+        created.push(createdCreneau.id);
+      }
+    }, {
+      userId,
+      action: 'CREATE',
+      objetType: 'Creneau',
+      motif: `Duplication créneaux de ${sourceSemestreId} vers ${cibleSemestreId}`,
+    });
+
+    return { created: created.length, creneauIds: created };
   }
 
   private toCreneauDto(

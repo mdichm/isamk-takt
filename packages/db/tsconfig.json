@@ -6,6 +6,6 @@
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["src/**/*", ".generated/**/*"],
+  "include": ["src/**/*", "src/generated/**/*"],
   "exclude": ["node_modules", "dist"]
 }

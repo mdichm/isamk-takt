@@ -21,6 +21,8 @@ import {
   CreneauResponseDto,
   PaginatedCreneauxDto,
   CreneauQueryDto,
+  DuplicateCreneauxDto,
+  DuplicateCreneauxResponseDto,
 } from './dto/creneau.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -40,6 +42,19 @@ export class CreneauController {
   @ApiResponse({ status: 400, description: 'Durée non conforme (30 min requise)' })
   async createCreneau(@Body() dto: CreateCreneauDto): Promise<CreneauResponseDto> {
     return this.creneauService.createCreneau(dto, 'system');
+  }
+
+  @Post('duplicate')
+  @Permissions('creneaux:write')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Dupliquer les créneaux d\'un semestre vers un autre' })
+  @ApiResponse({ status: 201, description: 'Créneaux dupliqués', type: DuplicateCreneauxResponseDto })
+  @ApiResponse({ status: 400, description: 'Paramètres invalides (même semestre source et cible)' })
+  @ApiResponse({ status: 404, description: 'Semestre source ou cible introuvable' })
+  @ApiResponse({ status: 409, description: 'Conflit : cible contient déjà des créneaux' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  async duplicateCreneaux(@Body() dto: DuplicateCreneauxDto): Promise<DuplicateCreneauxResponseDto> {
+    return this.creneauService.duplicate(dto.sourceSemestreId, dto.cibleSemestreId, 'system', dto.remplacer ?? false);
   }
 
   @Get()
