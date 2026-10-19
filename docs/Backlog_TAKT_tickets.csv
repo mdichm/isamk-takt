@@ -201,7 +201,7 @@ L1-18;L1;E1.5;Grille horaire & indisponibilités;Story;Générateur de grille ho
 - Paramètres conservés dans Semestre.grilleParams";EX-CAL-02, EX-CAL-03;§4.10;BACK;Must;5;L1-17;Terminé;
 L1-19;L1;E1.5;Grille horaire & indisponibilités;Story;Duplication des créneaux depuis un autre semestre ou une autre année;POST /creneaux/duplicate (action optionnelle).;"- Les créneaux ne sont jamais reconduits automatiquement
 - La duplication ne copie ni contraintes ni indisponibilités
-- Refusée si la cible contient déjà des créneaux, sauf option « remplacer » sans séance";EX-CAL-03;§4.10;BACK;Should;2;L1-17;À faire;
+- Refusée si la cible contient déjà des créneaux, sauf option « remplacer » sans séance";EX-CAL-03;§4.10;BACK;Should;2;L1-17;En cours;
 L1-20;L1;E1.5;Grille horaire & indisponibilités;Story;CRUD indisponibilités enseignants et salles;Indisponibilité absolue par jour et créneau, rattachée au semestre.;"- CHECK enseignant XOR salle
 - Écriture par l'Administrateur et le Gestionnaire
 - Un effet sur les versions en cours est déclenché en L3";EX-REF-06;§2.2, §2.4;BACK;Must;3;L1-17, L1-10, L1-13;À faire;
