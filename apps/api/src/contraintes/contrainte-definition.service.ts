@@ -18,7 +18,15 @@ export class ContrainteDefinitionService {
   async findAll(
     query: ContrainteDefinitionListQueryDto,
   ): Promise<PaginatedContrainteDefinitionsDto> {
-    const { actif = true, categorie, portee, page = 1, limit = 50 } = query;
+    const {
+      actif = true,
+      categorie,
+      portee,
+      classe,
+      traductionFET,
+      page = 1,
+      limit = 50,
+    } = query;
 
     const where: Record<string, unknown> = {};
 
@@ -32,6 +40,14 @@ export class ContrainteDefinitionService {
 
     if (portee) {
       where.portee = portee;
+    }
+
+    if (classe) {
+      where.classe = classe;
+    }
+
+    if (traductionFET) {
+      where.traductionFET = traductionFET;
     }
 
     const [items, total] = await this.prisma.$transaction([
@@ -150,6 +166,8 @@ export class ContrainteDefinitionService {
       libelle: definition.libelle,
       categorie: definition.categorie,
       portee: definition.portee,
+      classe: definition.classe,
+      traductionFET: definition.traductionFET,
       paramsSchema: definition.paramsSchema as Record<string, unknown>,
       fetSupport: definition.fetSupport,
       actif: definition.actif,

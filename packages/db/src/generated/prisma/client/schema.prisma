@@ -136,6 +136,21 @@ enum FetSupport {
   AUCUN
 }
 
+// Classe d'une règle du catalogue — L3-02
+enum ClasseRegle {
+  HARD_CONSTRAINT
+  SOFT_CONSTRAINT
+  BUSINESS_VALIDATION
+  INFORMATIONAL
+}
+
+// Traduction technique d'une règle vers FET — L3-02
+enum TraductionFET {
+  FET_SUPPORTED
+  FET_TRANSFORMED
+  APPLICATION_ONLY
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -977,14 +992,16 @@ model ExigenceEquipement {
 // ============================================
 
 model ContrainteDefinition {
-  id           String              @id @default(uuid()) @db.Uuid
-  code         String              @unique
-  libelle      String
-  categorie    ContrainteCategorie
-  portee       ContraintePortee
-  paramsSchema Json
-  fetSupport   FetSupport          @default(NATIF)
-  actif        Boolean             @default(true)
+  id            String              @id @default(uuid()) @db.Uuid
+  code          String              @unique
+  libelle       String
+  categorie     ContrainteCategorie
+  portee        ContraintePortee
+  classe        ClasseRegle         @default(HARD_CONSTRAINT)
+  traductionFET TraductionFET       @default(FET_SUPPORTED)
+  paramsSchema  Json
+  fetSupport    FetSupport          @default(NATIF)
+  actif         Boolean             @default(true)
 
   instances ContrainteInstance[]
 

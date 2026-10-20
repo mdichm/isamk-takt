@@ -572,6 +572,8 @@ exports.Prisma.ContrainteDefinitionScalarFieldEnum = {
   libelle: 'libelle',
   categorie: 'categorie',
   portee: 'portee',
+  classe: 'classe',
+  traductionFET: 'traductionFET',
   paramsSchema: 'paramsSchema',
   fetSupport: 'fetSupport',
   actif: 'actif'
@@ -743,6 +745,19 @@ exports.ContraintePortee = exports.$Enums.ContraintePortee = {
   GROUPE: 'GROUPE',
   SALLE: 'SALLE',
   MODULE: 'MODULE'
+};
+
+exports.ClasseRegle = exports.$Enums.ClasseRegle = {
+  HARD_CONSTRAINT: 'HARD_CONSTRAINT',
+  SOFT_CONSTRAINT: 'SOFT_CONSTRAINT',
+  BUSINESS_VALIDATION: 'BUSINESS_VALIDATION',
+  INFORMATIONAL: 'INFORMATIONAL'
+};
+
+exports.TraductionFET = exports.$Enums.TraductionFET = {
+  FET_SUPPORTED: 'FET_SUPPORTED',
+  FET_TRANSFORMED: 'FET_TRANSFORMED',
+  APPLICATION_ONLY: 'APPLICATION_ONLY'
 };
 
 exports.FetSupport = exports.$Enums.FetSupport = {
