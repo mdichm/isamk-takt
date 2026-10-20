@@ -3,6 +3,8 @@
 // Dépôt de fichier, rapport de simulation ligne par ligne, impacts, confirmation.
 // Le contenu client est chargé dynamiquement (ssr: false) afin d'éviter toute
 // évaluation de React Query pendant le prerender statique.
+'use client';
+
 import nextDynamic from 'next/dynamic';
 
 const ImportPageContent = nextDynamic(() => import('./import-page-content'), {
