@@ -4,6 +4,7 @@
 // parseur isolé, analyse d'impact, application transactionnelle, audit.
 import { Injectable, BadRequestException, ConflictException, Logger } from '@nestjs/common';
 import { parse as parseCsvSync } from 'csv-parse/sync';
+import * as XLSX from 'xlsx';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 import { WriteAuditDto } from '../audit/dto/audit.dto.js';
@@ -161,174 +162,36 @@ export class ImportsService {
   }
 
   private parseXlsx(buffer: Buffer): Record<string, string>[] {
-    const entries = this.listZipEntries(buffer);
-    const sharedStringsXml = entries.find((e) => e.name === 'xl/sharedStrings.xml');
-    const sheetXml = entries.find(
-      (e) => e.name.startsWith('xl/worksheets/sheet') && e.name.endsWith('.xml'),
+    const workbook = XLSX.read(buffer, { type: 'buffer' });
+    const sheetName = workbook.SheetNames[0];
+    if (!sheetName) {
+      throw new BadRequestException('Le fichier .xlsx ne contient aucune feuille de donnees');
+    }
+    const worksheet = workbook.Sheets[sheetName];
+    const rawRows = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: true }) as any[][];
+
+    if (rawRows.length === 0) {
+      return [];
+    }
+
+    const headers = (rawRows[0] as (string | undefined)[]).map((h, i) =>
+      (h ?? `colonne_${i + 1}`).toString().trim(),
     );
 
-    if (!sheetXml) {
-      throw new BadRequestException('Le fichier .xlsx ne contient aucune feuille de données');
-    }
-
-    const sharedStrings = sharedStringsXml
-      ? this.extractSharedStrings(sharedStringsXml.content)
-      : [];
-    const sheetContent = sheetXml.content.toString('utf-8');
-    return this.parseSheetXml(sheetContent, sharedStrings);
-  }
-
-  private listZipEntries(buffer: Buffer): { name: string; content: Buffer }[] {
-    const entries: { name: string; content: Buffer }[] = [];
-    let offset = 0;
-
-    while (offset < buffer.length - 4) {
-      if (
-        buffer[offset] === 0x50 &&
-        buffer[offset + 1] === 0x4b &&
-        buffer[offset + 2] === 0x03 &&
-        buffer[offset + 3] === 0x04
-      ) {
-        const nameLength = buffer.readUInt16LE(offset + 26);
-        const extraLength = buffer.readUInt16LE(offset + 28);
-        const compressedSize = buffer.readUInt32LE(offset + 18);
-        const compressionMethod = buffer.readUInt16LE(offset + 10);
-
-        const nameOffset = offset + 30;
-        const name = buffer.subarray(nameOffset, nameOffset + nameLength).toString('utf-8');
-        const dataOffset = nameOffset + nameLength + extraLength;
-
-        let content: Buffer;
-        if (compressionMethod === 0) {
-          content = buffer.subarray(dataOffset, dataOffset + compressedSize);
-        } else if (compressionMethod === 8) {
-          try {
-            content = require('zlib').inflateRawSync(
-              buffer.subarray(dataOffset, dataOffset + compressedSize),
-            );
-          } catch {
-            content = Buffer.alloc(0);
-          }
-        } else {
-          content = Buffer.alloc(0);
-        }
-
-        entries.push({ name, content });
-        offset = dataOffset + compressedSize;
-        if (
-          offset < buffer.length - 4 &&
-          buffer[offset] === 0x50 &&
-          buffer[offset + 1] === 0x4b &&
-          buffer[offset + 2] === 0x07 &&
-          buffer[offset + 3] === 0x08
-        ) {
-          offset += 16;
-        }
-      } else {
-        offset++;
-      }
-    }
-
-    return entries;
-  }
-
-  private extractSharedStrings(xml: Buffer): string[] {
-    const content = xml.toString('utf-8');
-    const strings: string[] = [];
-    const tRegex = /<t[^>]*>([\s\S]*?)<\/t>/g;
-    let match;
-    while ((match = tRegex.exec(content)) !== null) {
-      strings.push(match[1]);
-    }
-    return strings;
-  }
-
-  private parseSheetXml(sheetXml: string, sharedStrings: string[]): Record<string, string>[] {
-    const rowsMap: Map<number, Map<string, string>> = new Map();
-    const rowRegex = /<row[^>]*r="(\d+)"[^>]*>([\s\S]*?)<\/row>/g;
-    let rowMatch;
-    while ((rowMatch = rowRegex.exec(sheetXml)) !== null) {
-      const rowNum = parseInt(rowMatch[1], 10);
-      const rowContent = rowMatch[2];
-      const cells = new Map<string, string>();
-
-      const cellRegex = /<c[^>]*r="([A-Z]+\d+)"[^>]*t="([^"]*)"?[^>]*>([\s\S]*?)<\/c>/g;
-      let cellMatch;
-      while ((cellMatch = cellRegex.exec(rowContent)) !== null) {
-        const ref = cellMatch[1];
-        const type = cellMatch[2];
-        const valueContent = cellMatch[3];
-        const col = ref.replace(/\d+/, '');
-
-        let value = '';
-        if (type === 's') {
-          const idx = parseInt(valueContent, 10);
-          value = sharedStrings[idx] ?? '';
-        } else {
-          const vMatch = valueContent.match(/<v>([\s\S]*?)<\/v>/);
-          value = vMatch ? vMatch[1] : valueContent;
-        }
-
-        cells.set(col, value);
-      }
-
-      if (cells.size > 0) {
-        rowsMap.set(rowNum, cells);
-      }
-    }
-
-    if (rowsMap.size === 0) {
-      return [];
-    }
-
-    const headerCells = rowsMap.get(1);
-    if (!headerCells) {
-      return [];
-    }
-
-    const headers: string[] = [];
-    let maxCol = 0;
-    for (const [col, val] of headerCells) {
-      const colIdx = this.columnIndex(col);
-      headers[colIdx] = val;
-      if (colIdx > maxCol) maxCol = colIdx;
-    }
-
     const rows: Record<string, string>[] = [];
-    for (let rowNum = 2; rowNum <= rowsMap.size; rowNum++) {
-      const cells = rowsMap.get(rowNum);
-      if (!cells) continue;
-      const row: Record<string, string> = {};
+    for (let i = 1; i < rawRows.length; i++) {
+      const row = rawRows[i] as any[];
+      const obj: Record<string, string> = {};
       let hasData = false;
-      for (let colIdx = 0; colIdx <= maxCol; colIdx++) {
-        const col = this.columnName(colIdx);
-        const val = cells.get(col) ?? '';
-        row[headers[colIdx] ?? `colonne_${colIdx + 1}`] = val;
-        if (val.trim()) hasData = true;
+      for (let j = 0; j < headers.length; j++) {
+        const val = row[j] ?? '';
+        obj[headers[j]] = String(val);
+        if (String(val).trim()) hasData = true;
       }
-      if (hasData) rows.push(row);
+      if (hasData) rows.push(obj);
     }
 
     return rows;
-  }
-
-  private columnIndex(col: string): number {
-    let result = 0;
-    for (let i = 0; i < col.length; i++) {
-      result = result * 26 + (col.charCodeAt(i) - 64);
-    }
-    return result - 1;
-  }
-
-  private columnName(index: number): string {
-    let result = '';
-    let n = index + 1;
-    while (n > 0) {
-      const rem = (n - 1) % 26;
-      result = String.fromCharCode(65 + rem) + result;
-      n = Math.floor((n - 1) / 26);
-    }
-    return result;
   }
 
   private async buildPreview(
