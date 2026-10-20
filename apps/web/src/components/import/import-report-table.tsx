@@ -2,7 +2,7 @@
 // TAKT - Rapport de simulation ligne par ligne (L1-27)
 'use client';
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ImportFichierItem } from '@/lib/api/import-fichier';
 import { ImportActionBadge } from './import-action-badge';
 import { messages } from '@/lib/messages/fr';

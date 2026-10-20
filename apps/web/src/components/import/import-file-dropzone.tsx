@@ -48,11 +48,6 @@ export function ImportFileDropzone({
 
   const removeFile = useCallback(() => onFileChange(null), [onFileChange]);
 
-  const isValidType = (f: File) =>
-    f.name.toLowerCase().endsWith('.csv') ||
-    f.name.toLowerCase().endsWith('.xlsx') ||
-    f.name.toLowerCase().endsWith('.xls');
-
   const onChooseFile = useCallback(() => {
     fileInputRef.current?.click();
   }, []);
