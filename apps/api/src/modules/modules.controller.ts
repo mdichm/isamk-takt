@@ -26,6 +26,13 @@ import {
   PaginatedModulesDto,
   ModulesQueryDto,
 } from './dto/module.dto.js';
+import {
+  CreateModuleVolumeDto,
+  UpdateModuleVolumeDto,
+  ModuleVolumeResponseDto,
+  ModuleVolumesQueryDto,
+  PaginatedModuleVolumesDto,
+} from './dto/volume.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
@@ -204,6 +211,81 @@ export class ModulesController {
   @ApiResponse({ status: 404, description: 'Module non trouvé' })
   async removeModule(@Param('id') id: string): Promise<void> {
     return this.modulesService.removeModule(id, 'system');
+  }
+
+  // ============================================
+  // Module Volumes (L2-01)
+  // ============================================
+
+  @Post(':id/volumes')
+  @Permissions('volume:write')
+  @ApiOperation({ summary: 'Créer ou mettre à jour le volume d\'un module' })
+  @ApiParam({ name: 'id', description: 'ID du module (UUID)' })
+  @ApiResponse({ status: 201, description: 'Volume créé', type: ModuleVolumeResponseDto })
+  @ApiResponse({ status: 404, description: 'Module non trouvé' })
+  @ApiResponse({ status: 409, description: 'Volume déjà existant pour ce type' })
+  async createModuleVolume(
+    @Param('id') moduleId: string,
+    @Body() dto: CreateModuleVolumeDto,
+  ): Promise<ModuleVolumeResponseDto> {
+    return this.modulesService.createModuleVolume(moduleId, dto, 'system');
+  }
+
+  @Get(':id/volumes')
+  @Permissions('volume:read')
+  @ApiOperation({ summary: 'Lister les volumes d\'un module' })
+  @ApiParam({ name: 'id', description: 'ID du module (UUID)' })
+  @ApiResponse({ status: 200, description: 'Liste des volumes du module', type: PaginatedModuleVolumesDto })
+  async findModuleVolumes(
+    @Param('id') moduleId: string,
+    @Query() query: ModuleVolumesQueryDto,
+  ): Promise<PaginatedModuleVolumesDto> {
+    return this.modulesService.findModuleVolumes(moduleId, query);
+  }
+
+  @Get(':id/volumes/:volumeId')
+  @Permissions('volume:read')
+  @ApiOperation({ summary: 'Obtenir un volume de module par ID' })
+  @ApiParam({ name: 'id', description: 'ID du module (UUID)' })
+  @ApiParam({ name: 'volumeId', description: 'ID du volume (UUID)' })
+  @ApiResponse({ status: 200, description: 'Volume trouvé', type: ModuleVolumeResponseDto })
+  @ApiResponse({ status: 404, description: 'Volume non trouvé' })
+  async findModuleVolumeById(
+    @Param('id') moduleId: string,
+    @Param('volumeId') volumeId: string,
+  ): Promise<ModuleVolumeResponseDto> {
+    return this.modulesService.findModuleVolumeById(volumeId);
+  }
+
+  @Patch(':id/volumes/:volumeId')
+  @Permissions('volume:write')
+  @ApiOperation({ summary: 'Mettre à jour un volume de module' })
+  @ApiParam({ name: 'id', description: 'ID du module (UUID)' })
+  @ApiParam({ name: 'volumeId', description: 'ID du volume (UUID)' })
+  @ApiResponse({ status: 200, description: 'Volume mis à jour', type: ModuleVolumeResponseDto })
+  @ApiResponse({ status: 404, description: 'Volume non trouvé' })
+  @ApiResponse({ status: 409, description: 'Conflit de type' })
+  async updateModuleVolume(
+    @Param('id') moduleId: string,
+    @Param('volumeId') volumeId: string,
+    @Body() dto: UpdateModuleVolumeDto,
+  ): Promise<ModuleVolumeResponseDto> {
+    return this.modulesService.updateModuleVolume(volumeId, dto, 'system');
+  }
+
+  @Delete(':id/volumes/:volumeId')
+  @Permissions('volume:write')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Supprimer un volume de module' })
+  @ApiParam({ name: 'id', description: 'ID du module (UUID)' })
+  @ApiParam({ name: 'volumeId', description: 'ID du volume (UUID)' })
+  @ApiResponse({ status: 204, description: 'Volume supprimé' })
+  @ApiResponse({ status: 404, description: 'Volume non trouvé' })
+  async removeModuleVolume(
+    @Param('id') moduleId: string,
+    @Param('volumeId') volumeId: string,
+  ): Promise<void> {
+    return this.modulesService.removeModuleVolume(volumeId, 'system');
   }
 }
   // ============================================

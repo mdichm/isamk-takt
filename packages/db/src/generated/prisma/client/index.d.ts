@@ -164,6 +164,11 @@ export type Grade = $Result.DefaultSelection<Prisma.$GradePayload>
  */
 export type Module = $Result.DefaultSelection<Prisma.$ModulePayload>
 /**
+ * Model ModuleVolume
+ * 
+ */
+export type ModuleVolume = $Result.DefaultSelection<Prisma.$ModuleVolumePayload>
+/**
  * Model ActivityTag
  * 
  */
@@ -954,6 +959,16 @@ export class PrismaClient<
   get module(): Prisma.ModuleDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.moduleVolume`: Exposes CRUD operations for the **ModuleVolume** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ModuleVolumes
+    * const moduleVolumes = await prisma.moduleVolume.findMany()
+    * ```
+    */
+  get moduleVolume(): Prisma.ModuleVolumeDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.activityTag`: Exposes CRUD operations for the **ActivityTag** model.
     * Example usage:
     * ```ts
@@ -1569,6 +1584,7 @@ export namespace Prisma {
     TypeEnseignement: 'TypeEnseignement',
     Grade: 'Grade',
     Module: 'Module',
+    ModuleVolume: 'ModuleVolume',
     ActivityTag: 'ActivityTag',
     Enseignant: 'Enseignant',
     EnseignantModule: 'EnseignantModule',
@@ -1598,7 +1614,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3822,6 +3838,80 @@ export namespace Prisma {
           }
         }
       }
+      ModuleVolume: {
+        payload: Prisma.$ModuleVolumePayload<ExtArgs>
+        fields: Prisma.ModuleVolumeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ModuleVolumeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ModuleVolumeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>
+          }
+          findFirst: {
+            args: Prisma.ModuleVolumeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ModuleVolumeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>
+          }
+          findMany: {
+            args: Prisma.ModuleVolumeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>[]
+          }
+          create: {
+            args: Prisma.ModuleVolumeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>
+          }
+          createMany: {
+            args: Prisma.ModuleVolumeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ModuleVolumeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>[]
+          }
+          delete: {
+            args: Prisma.ModuleVolumeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>
+          }
+          update: {
+            args: Prisma.ModuleVolumeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>
+          }
+          deleteMany: {
+            args: Prisma.ModuleVolumeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ModuleVolumeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ModuleVolumeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>[]
+          }
+          upsert: {
+            args: Prisma.ModuleVolumeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModuleVolumePayload>
+          }
+          aggregate: {
+            args: Prisma.ModuleVolumeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateModuleVolume>
+          }
+          groupBy: {
+            args: Prisma.ModuleVolumeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ModuleVolumeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ModuleVolumeCountArgs<ExtArgs>
+            result: $Utils.Optional<ModuleVolumeCountAggregateOutputType> | number
+          }
+        }
+      }
       ActivityTag: {
         payload: Prisma.$ActivityTagPayload<ExtArgs>
         fields: Prisma.ActivityTagFieldRefs
@@ -5011,6 +5101,7 @@ export namespace Prisma {
     typeEnseignement?: TypeEnseignementOmit
     grade?: GradeOmit
     module?: ModuleOmit
+    moduleVolume?: ModuleVolumeOmit
     activityTag?: ActivityTagOmit
     enseignant?: EnseignantOmit
     enseignantModule?: EnseignantModuleOmit
@@ -5815,11 +5906,13 @@ export namespace Prisma {
   export type ModuleCountOutputType = {
     enseignantModules: number
     exigencesEquipement: number
+    moduleVolumes: number
   }
 
   export type ModuleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enseignantModules?: boolean | ModuleCountOutputTypeCountEnseignantModulesArgs
     exigencesEquipement?: boolean | ModuleCountOutputTypeCountExigencesEquipementArgs
+    moduleVolumes?: boolean | ModuleCountOutputTypeCountModuleVolumesArgs
   }
 
   // Custom InputTypes
@@ -5845,6 +5938,13 @@ export namespace Prisma {
    */
   export type ModuleCountOutputTypeCountExigencesEquipementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExigenceEquipementWhereInput
+  }
+
+  /**
+   * ModuleCountOutputType without action
+   */
+  export type ModuleCountOutputTypeCountModuleVolumesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ModuleVolumeWhereInput
   }
 
 
@@ -39924,6 +40024,7 @@ export namespace Prisma {
     grade?: boolean | Module$gradeArgs<ExtArgs>
     enseignantModules?: boolean | Module$enseignantModulesArgs<ExtArgs>
     exigencesEquipement?: boolean | Module$exigencesEquipementArgs<ExtArgs>
+    moduleVolumes?: boolean | Module$moduleVolumesArgs<ExtArgs>
     _count?: boolean | ModuleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["module"]>
 
@@ -39985,6 +40086,7 @@ export namespace Prisma {
     grade?: boolean | Module$gradeArgs<ExtArgs>
     enseignantModules?: boolean | Module$enseignantModulesArgs<ExtArgs>
     exigencesEquipement?: boolean | Module$exigencesEquipementArgs<ExtArgs>
+    moduleVolumes?: boolean | Module$moduleVolumesArgs<ExtArgs>
     _count?: boolean | ModuleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ModuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -40006,6 +40108,7 @@ export namespace Prisma {
       grade: Prisma.$GradePayload<ExtArgs> | null
       enseignantModules: Prisma.$EnseignantModulePayload<ExtArgs>[]
       exigencesEquipement: Prisma.$ExigenceEquipementPayload<ExtArgs>[]
+      moduleVolumes: Prisma.$ModuleVolumePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -40419,6 +40522,7 @@ export namespace Prisma {
     grade<T extends Module$gradeArgs<ExtArgs> = {}>(args?: Subset<T, Module$gradeArgs<ExtArgs>>): Prisma__GradeClient<$Result.GetResult<Prisma.$GradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     enseignantModules<T extends Module$enseignantModulesArgs<ExtArgs> = {}>(args?: Subset<T, Module$enseignantModulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exigencesEquipement<T extends Module$exigencesEquipementArgs<ExtArgs> = {}>(args?: Subset<T, Module$exigencesEquipementArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    moduleVolumes<T extends Module$moduleVolumesArgs<ExtArgs> = {}>(args?: Subset<T, Module$moduleVolumesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -40928,6 +41032,30 @@ export namespace Prisma {
   }
 
   /**
+   * Module.moduleVolumes
+   */
+  export type Module$moduleVolumesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    where?: ModuleVolumeWhereInput
+    orderBy?: ModuleVolumeOrderByWithRelationInput | ModuleVolumeOrderByWithRelationInput[]
+    cursor?: ModuleVolumeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ModuleVolumeScalarFieldEnum | ModuleVolumeScalarFieldEnum[]
+  }
+
+  /**
    * Module without action
    */
   export type ModuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -40943,6 +41071,1116 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ModuleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ModuleVolume
+   */
+
+  export type AggregateModuleVolume = {
+    _count: ModuleVolumeCountAggregateOutputType | null
+    _avg: ModuleVolumeAvgAggregateOutputType | null
+    _sum: ModuleVolumeSumAggregateOutputType | null
+    _min: ModuleVolumeMinAggregateOutputType | null
+    _max: ModuleVolumeMaxAggregateOutputType | null
+  }
+
+  export type ModuleVolumeAvgAggregateOutputType = {
+    volume: number | null
+  }
+
+  export type ModuleVolumeSumAggregateOutputType = {
+    volume: number | null
+  }
+
+  export type ModuleVolumeMinAggregateOutputType = {
+    id: string | null
+    moduleId: string | null
+    type: string | null
+    volume: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ModuleVolumeMaxAggregateOutputType = {
+    id: string | null
+    moduleId: string | null
+    type: string | null
+    volume: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ModuleVolumeCountAggregateOutputType = {
+    id: number
+    moduleId: number
+    type: number
+    volume: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ModuleVolumeAvgAggregateInputType = {
+    volume?: true
+  }
+
+  export type ModuleVolumeSumAggregateInputType = {
+    volume?: true
+  }
+
+  export type ModuleVolumeMinAggregateInputType = {
+    id?: true
+    moduleId?: true
+    type?: true
+    volume?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ModuleVolumeMaxAggregateInputType = {
+    id?: true
+    moduleId?: true
+    type?: true
+    volume?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ModuleVolumeCountAggregateInputType = {
+    id?: true
+    moduleId?: true
+    type?: true
+    volume?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ModuleVolumeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ModuleVolume to aggregate.
+     */
+    where?: ModuleVolumeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ModuleVolumes to fetch.
+     */
+    orderBy?: ModuleVolumeOrderByWithRelationInput | ModuleVolumeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ModuleVolumeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ModuleVolumes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ModuleVolumes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ModuleVolumes
+    **/
+    _count?: true | ModuleVolumeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ModuleVolumeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ModuleVolumeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ModuleVolumeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ModuleVolumeMaxAggregateInputType
+  }
+
+  export type GetModuleVolumeAggregateType<T extends ModuleVolumeAggregateArgs> = {
+        [P in keyof T & keyof AggregateModuleVolume]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateModuleVolume[P]>
+      : GetScalarType<T[P], AggregateModuleVolume[P]>
+  }
+
+
+
+
+  export type ModuleVolumeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ModuleVolumeWhereInput
+    orderBy?: ModuleVolumeOrderByWithAggregationInput | ModuleVolumeOrderByWithAggregationInput[]
+    by: ModuleVolumeScalarFieldEnum[] | ModuleVolumeScalarFieldEnum
+    having?: ModuleVolumeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ModuleVolumeCountAggregateInputType | true
+    _avg?: ModuleVolumeAvgAggregateInputType
+    _sum?: ModuleVolumeSumAggregateInputType
+    _min?: ModuleVolumeMinAggregateInputType
+    _max?: ModuleVolumeMaxAggregateInputType
+  }
+
+  export type ModuleVolumeGroupByOutputType = {
+    id: string
+    moduleId: string
+    type: string
+    volume: number
+    createdAt: Date
+    updatedAt: Date
+    _count: ModuleVolumeCountAggregateOutputType | null
+    _avg: ModuleVolumeAvgAggregateOutputType | null
+    _sum: ModuleVolumeSumAggregateOutputType | null
+    _min: ModuleVolumeMinAggregateOutputType | null
+    _max: ModuleVolumeMaxAggregateOutputType | null
+  }
+
+  type GetModuleVolumeGroupByPayload<T extends ModuleVolumeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ModuleVolumeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ModuleVolumeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ModuleVolumeGroupByOutputType[P]>
+            : GetScalarType<T[P], ModuleVolumeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ModuleVolumeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    moduleId?: boolean
+    type?: boolean
+    volume?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["moduleVolume"]>
+
+  export type ModuleVolumeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    moduleId?: boolean
+    type?: boolean
+    volume?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["moduleVolume"]>
+
+  export type ModuleVolumeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    moduleId?: boolean
+    type?: boolean
+    volume?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["moduleVolume"]>
+
+  export type ModuleVolumeSelectScalar = {
+    id?: boolean
+    moduleId?: boolean
+    type?: boolean
+    volume?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ModuleVolumeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "moduleId" | "type" | "volume" | "createdAt" | "updatedAt", ExtArgs["result"]["moduleVolume"]>
+  export type ModuleVolumeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }
+  export type ModuleVolumeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }
+  export type ModuleVolumeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }
+
+  export type $ModuleVolumePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ModuleVolume"
+    objects: {
+      module: Prisma.$ModulePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      moduleId: string
+      type: string
+      volume: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["moduleVolume"]>
+    composites: {}
+  }
+
+  type ModuleVolumeGetPayload<S extends boolean | null | undefined | ModuleVolumeDefaultArgs> = $Result.GetResult<Prisma.$ModuleVolumePayload, S>
+
+  type ModuleVolumeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ModuleVolumeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ModuleVolumeCountAggregateInputType | true
+    }
+
+  export interface ModuleVolumeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ModuleVolume'], meta: { name: 'ModuleVolume' } }
+    /**
+     * Find zero or one ModuleVolume that matches the filter.
+     * @param {ModuleVolumeFindUniqueArgs} args - Arguments to find a ModuleVolume
+     * @example
+     * // Get one ModuleVolume
+     * const moduleVolume = await prisma.moduleVolume.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ModuleVolumeFindUniqueArgs>(args: SelectSubset<T, ModuleVolumeFindUniqueArgs<ExtArgs>>): Prisma__ModuleVolumeClient<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ModuleVolume that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ModuleVolumeFindUniqueOrThrowArgs} args - Arguments to find a ModuleVolume
+     * @example
+     * // Get one ModuleVolume
+     * const moduleVolume = await prisma.moduleVolume.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ModuleVolumeFindUniqueOrThrowArgs>(args: SelectSubset<T, ModuleVolumeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ModuleVolumeClient<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ModuleVolume that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleVolumeFindFirstArgs} args - Arguments to find a ModuleVolume
+     * @example
+     * // Get one ModuleVolume
+     * const moduleVolume = await prisma.moduleVolume.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ModuleVolumeFindFirstArgs>(args?: SelectSubset<T, ModuleVolumeFindFirstArgs<ExtArgs>>): Prisma__ModuleVolumeClient<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ModuleVolume that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleVolumeFindFirstOrThrowArgs} args - Arguments to find a ModuleVolume
+     * @example
+     * // Get one ModuleVolume
+     * const moduleVolume = await prisma.moduleVolume.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ModuleVolumeFindFirstOrThrowArgs>(args?: SelectSubset<T, ModuleVolumeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ModuleVolumeClient<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ModuleVolumes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleVolumeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ModuleVolumes
+     * const moduleVolumes = await prisma.moduleVolume.findMany()
+     * 
+     * // Get first 10 ModuleVolumes
+     * const moduleVolumes = await prisma.moduleVolume.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const moduleVolumeWithIdOnly = await prisma.moduleVolume.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ModuleVolumeFindManyArgs>(args?: SelectSubset<T, ModuleVolumeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ModuleVolume.
+     * @param {ModuleVolumeCreateArgs} args - Arguments to create a ModuleVolume.
+     * @example
+     * // Create one ModuleVolume
+     * const ModuleVolume = await prisma.moduleVolume.create({
+     *   data: {
+     *     // ... data to create a ModuleVolume
+     *   }
+     * })
+     * 
+     */
+    create<T extends ModuleVolumeCreateArgs>(args: SelectSubset<T, ModuleVolumeCreateArgs<ExtArgs>>): Prisma__ModuleVolumeClient<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ModuleVolumes.
+     * @param {ModuleVolumeCreateManyArgs} args - Arguments to create many ModuleVolumes.
+     * @example
+     * // Create many ModuleVolumes
+     * const moduleVolume = await prisma.moduleVolume.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ModuleVolumeCreateManyArgs>(args?: SelectSubset<T, ModuleVolumeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ModuleVolumes and returns the data saved in the database.
+     * @param {ModuleVolumeCreateManyAndReturnArgs} args - Arguments to create many ModuleVolumes.
+     * @example
+     * // Create many ModuleVolumes
+     * const moduleVolume = await prisma.moduleVolume.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ModuleVolumes and only return the `id`
+     * const moduleVolumeWithIdOnly = await prisma.moduleVolume.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ModuleVolumeCreateManyAndReturnArgs>(args?: SelectSubset<T, ModuleVolumeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ModuleVolume.
+     * @param {ModuleVolumeDeleteArgs} args - Arguments to delete one ModuleVolume.
+     * @example
+     * // Delete one ModuleVolume
+     * const ModuleVolume = await prisma.moduleVolume.delete({
+     *   where: {
+     *     // ... filter to delete one ModuleVolume
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ModuleVolumeDeleteArgs>(args: SelectSubset<T, ModuleVolumeDeleteArgs<ExtArgs>>): Prisma__ModuleVolumeClient<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ModuleVolume.
+     * @param {ModuleVolumeUpdateArgs} args - Arguments to update one ModuleVolume.
+     * @example
+     * // Update one ModuleVolume
+     * const moduleVolume = await prisma.moduleVolume.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ModuleVolumeUpdateArgs>(args: SelectSubset<T, ModuleVolumeUpdateArgs<ExtArgs>>): Prisma__ModuleVolumeClient<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ModuleVolumes.
+     * @param {ModuleVolumeDeleteManyArgs} args - Arguments to filter ModuleVolumes to delete.
+     * @example
+     * // Delete a few ModuleVolumes
+     * const { count } = await prisma.moduleVolume.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ModuleVolumeDeleteManyArgs>(args?: SelectSubset<T, ModuleVolumeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ModuleVolumes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleVolumeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ModuleVolumes
+     * const moduleVolume = await prisma.moduleVolume.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ModuleVolumeUpdateManyArgs>(args: SelectSubset<T, ModuleVolumeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ModuleVolumes and returns the data updated in the database.
+     * @param {ModuleVolumeUpdateManyAndReturnArgs} args - Arguments to update many ModuleVolumes.
+     * @example
+     * // Update many ModuleVolumes
+     * const moduleVolume = await prisma.moduleVolume.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ModuleVolumes and only return the `id`
+     * const moduleVolumeWithIdOnly = await prisma.moduleVolume.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ModuleVolumeUpdateManyAndReturnArgs>(args: SelectSubset<T, ModuleVolumeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ModuleVolume.
+     * @param {ModuleVolumeUpsertArgs} args - Arguments to update or create a ModuleVolume.
+     * @example
+     * // Update or create a ModuleVolume
+     * const moduleVolume = await prisma.moduleVolume.upsert({
+     *   create: {
+     *     // ... data to create a ModuleVolume
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ModuleVolume we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ModuleVolumeUpsertArgs>(args: SelectSubset<T, ModuleVolumeUpsertArgs<ExtArgs>>): Prisma__ModuleVolumeClient<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ModuleVolumes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleVolumeCountArgs} args - Arguments to filter ModuleVolumes to count.
+     * @example
+     * // Count the number of ModuleVolumes
+     * const count = await prisma.moduleVolume.count({
+     *   where: {
+     *     // ... the filter for the ModuleVolumes we want to count
+     *   }
+     * })
+    **/
+    count<T extends ModuleVolumeCountArgs>(
+      args?: Subset<T, ModuleVolumeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ModuleVolumeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ModuleVolume.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleVolumeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ModuleVolumeAggregateArgs>(args: Subset<T, ModuleVolumeAggregateArgs>): Prisma.PrismaPromise<GetModuleVolumeAggregateType<T>>
+
+    /**
+     * Group by ModuleVolume.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleVolumeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ModuleVolumeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ModuleVolumeGroupByArgs['orderBy'] }
+        : { orderBy?: ModuleVolumeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ModuleVolumeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModuleVolumeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ModuleVolume model
+   */
+  readonly fields: ModuleVolumeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ModuleVolume.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ModuleVolumeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    module<T extends ModuleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ModuleDefaultArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ModuleVolume model
+   */
+  interface ModuleVolumeFieldRefs {
+    readonly id: FieldRef<"ModuleVolume", 'String'>
+    readonly moduleId: FieldRef<"ModuleVolume", 'String'>
+    readonly type: FieldRef<"ModuleVolume", 'String'>
+    readonly volume: FieldRef<"ModuleVolume", 'Int'>
+    readonly createdAt: FieldRef<"ModuleVolume", 'DateTime'>
+    readonly updatedAt: FieldRef<"ModuleVolume", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ModuleVolume findUnique
+   */
+  export type ModuleVolumeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * Filter, which ModuleVolume to fetch.
+     */
+    where: ModuleVolumeWhereUniqueInput
+  }
+
+  /**
+   * ModuleVolume findUniqueOrThrow
+   */
+  export type ModuleVolumeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * Filter, which ModuleVolume to fetch.
+     */
+    where: ModuleVolumeWhereUniqueInput
+  }
+
+  /**
+   * ModuleVolume findFirst
+   */
+  export type ModuleVolumeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * Filter, which ModuleVolume to fetch.
+     */
+    where?: ModuleVolumeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ModuleVolumes to fetch.
+     */
+    orderBy?: ModuleVolumeOrderByWithRelationInput | ModuleVolumeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ModuleVolumes.
+     */
+    cursor?: ModuleVolumeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ModuleVolumes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ModuleVolumes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ModuleVolumes.
+     */
+    distinct?: ModuleVolumeScalarFieldEnum | ModuleVolumeScalarFieldEnum[]
+  }
+
+  /**
+   * ModuleVolume findFirstOrThrow
+   */
+  export type ModuleVolumeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * Filter, which ModuleVolume to fetch.
+     */
+    where?: ModuleVolumeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ModuleVolumes to fetch.
+     */
+    orderBy?: ModuleVolumeOrderByWithRelationInput | ModuleVolumeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ModuleVolumes.
+     */
+    cursor?: ModuleVolumeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ModuleVolumes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ModuleVolumes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ModuleVolumes.
+     */
+    distinct?: ModuleVolumeScalarFieldEnum | ModuleVolumeScalarFieldEnum[]
+  }
+
+  /**
+   * ModuleVolume findMany
+   */
+  export type ModuleVolumeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * Filter, which ModuleVolumes to fetch.
+     */
+    where?: ModuleVolumeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ModuleVolumes to fetch.
+     */
+    orderBy?: ModuleVolumeOrderByWithRelationInput | ModuleVolumeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ModuleVolumes.
+     */
+    cursor?: ModuleVolumeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ModuleVolumes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ModuleVolumes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ModuleVolumes.
+     */
+    distinct?: ModuleVolumeScalarFieldEnum | ModuleVolumeScalarFieldEnum[]
+  }
+
+  /**
+   * ModuleVolume create
+   */
+  export type ModuleVolumeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ModuleVolume.
+     */
+    data: XOR<ModuleVolumeCreateInput, ModuleVolumeUncheckedCreateInput>
+  }
+
+  /**
+   * ModuleVolume createMany
+   */
+  export type ModuleVolumeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ModuleVolumes.
+     */
+    data: ModuleVolumeCreateManyInput | ModuleVolumeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ModuleVolume createManyAndReturn
+   */
+  export type ModuleVolumeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * The data used to create many ModuleVolumes.
+     */
+    data: ModuleVolumeCreateManyInput | ModuleVolumeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ModuleVolume update
+   */
+  export type ModuleVolumeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ModuleVolume.
+     */
+    data: XOR<ModuleVolumeUpdateInput, ModuleVolumeUncheckedUpdateInput>
+    /**
+     * Choose, which ModuleVolume to update.
+     */
+    where: ModuleVolumeWhereUniqueInput
+  }
+
+  /**
+   * ModuleVolume updateMany
+   */
+  export type ModuleVolumeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ModuleVolumes.
+     */
+    data: XOR<ModuleVolumeUpdateManyMutationInput, ModuleVolumeUncheckedUpdateManyInput>
+    /**
+     * Filter which ModuleVolumes to update
+     */
+    where?: ModuleVolumeWhereInput
+    /**
+     * Limit how many ModuleVolumes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ModuleVolume updateManyAndReturn
+   */
+  export type ModuleVolumeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * The data used to update ModuleVolumes.
+     */
+    data: XOR<ModuleVolumeUpdateManyMutationInput, ModuleVolumeUncheckedUpdateManyInput>
+    /**
+     * Filter which ModuleVolumes to update
+     */
+    where?: ModuleVolumeWhereInput
+    /**
+     * Limit how many ModuleVolumes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ModuleVolume upsert
+   */
+  export type ModuleVolumeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ModuleVolume to update in case it exists.
+     */
+    where: ModuleVolumeWhereUniqueInput
+    /**
+     * In case the ModuleVolume found by the `where` argument doesn't exist, create a new ModuleVolume with this data.
+     */
+    create: XOR<ModuleVolumeCreateInput, ModuleVolumeUncheckedCreateInput>
+    /**
+     * In case the ModuleVolume was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ModuleVolumeUpdateInput, ModuleVolumeUncheckedUpdateInput>
+  }
+
+  /**
+   * ModuleVolume delete
+   */
+  export type ModuleVolumeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
+    /**
+     * Filter which ModuleVolume to delete.
+     */
+    where: ModuleVolumeWhereUniqueInput
+  }
+
+  /**
+   * ModuleVolume deleteMany
+   */
+  export type ModuleVolumeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ModuleVolumes to delete
+     */
+    where?: ModuleVolumeWhereInput
+    /**
+     * Limit how many ModuleVolumes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ModuleVolume without action
+   */
+  export type ModuleVolumeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleVolume
+     */
+    select?: ModuleVolumeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ModuleVolume
+     */
+    omit?: ModuleVolumeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleVolumeInclude<ExtArgs> | null
   }
 
 
@@ -57306,6 +58544,18 @@ export namespace Prisma {
   export type ModuleScalarFieldEnum = (typeof ModuleScalarFieldEnum)[keyof typeof ModuleScalarFieldEnum]
 
 
+  export const ModuleVolumeScalarFieldEnum: {
+    id: 'id',
+    moduleId: 'moduleId',
+    type: 'type',
+    volume: 'volume',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ModuleVolumeScalarFieldEnum = (typeof ModuleVolumeScalarFieldEnum)[keyof typeof ModuleVolumeScalarFieldEnum]
+
+
   export const ActivityTagScalarFieldEnum: {
     id: 'id',
     code: 'code',
@@ -60152,6 +61402,7 @@ export namespace Prisma {
     grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
     enseignantModules?: EnseignantModuleListRelationFilter
     exigencesEquipement?: ExigenceEquipementListRelationFilter
+    moduleVolumes?: ModuleVolumeListRelationFilter
   }
 
   export type ModuleOrderByWithRelationInput = {
@@ -60172,6 +61423,7 @@ export namespace Prisma {
     grade?: GradeOrderByWithRelationInput
     enseignantModules?: EnseignantModuleOrderByRelationAggregateInput
     exigencesEquipement?: ExigenceEquipementOrderByRelationAggregateInput
+    moduleVolumes?: ModuleVolumeOrderByRelationAggregateInput
   }
 
   export type ModuleWhereUniqueInput = Prisma.AtLeast<{
@@ -60196,6 +61448,7 @@ export namespace Prisma {
     grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
     enseignantModules?: EnseignantModuleListRelationFilter
     exigencesEquipement?: ExigenceEquipementListRelationFilter
+    moduleVolumes?: ModuleVolumeListRelationFilter
   }, "id" | "niveauId_code_semestreNumero">
 
   export type ModuleOrderByWithAggregationInput = {
@@ -60234,6 +61487,69 @@ export namespace Prisma {
     originId?: StringNullableWithAggregatesFilter<"Module"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Module"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Module"> | Date | string
+  }
+
+  export type ModuleVolumeWhereInput = {
+    AND?: ModuleVolumeWhereInput | ModuleVolumeWhereInput[]
+    OR?: ModuleVolumeWhereInput[]
+    NOT?: ModuleVolumeWhereInput | ModuleVolumeWhereInput[]
+    id?: UuidFilter<"ModuleVolume"> | string
+    moduleId?: UuidFilter<"ModuleVolume"> | string
+    type?: StringFilter<"ModuleVolume"> | string
+    volume?: IntFilter<"ModuleVolume"> | number
+    createdAt?: DateTimeFilter<"ModuleVolume"> | Date | string
+    updatedAt?: DateTimeFilter<"ModuleVolume"> | Date | string
+    module?: XOR<ModuleScalarRelationFilter, ModuleWhereInput>
+  }
+
+  export type ModuleVolumeOrderByWithRelationInput = {
+    id?: SortOrder
+    moduleId?: SortOrder
+    type?: SortOrder
+    volume?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    module?: ModuleOrderByWithRelationInput
+  }
+
+  export type ModuleVolumeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    moduleId_type?: ModuleVolumeModuleIdTypeCompoundUniqueInput
+    AND?: ModuleVolumeWhereInput | ModuleVolumeWhereInput[]
+    OR?: ModuleVolumeWhereInput[]
+    NOT?: ModuleVolumeWhereInput | ModuleVolumeWhereInput[]
+    moduleId?: UuidFilter<"ModuleVolume"> | string
+    type?: StringFilter<"ModuleVolume"> | string
+    volume?: IntFilter<"ModuleVolume"> | number
+    createdAt?: DateTimeFilter<"ModuleVolume"> | Date | string
+    updatedAt?: DateTimeFilter<"ModuleVolume"> | Date | string
+    module?: XOR<ModuleScalarRelationFilter, ModuleWhereInput>
+  }, "id" | "moduleId_type">
+
+  export type ModuleVolumeOrderByWithAggregationInput = {
+    id?: SortOrder
+    moduleId?: SortOrder
+    type?: SortOrder
+    volume?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ModuleVolumeCountOrderByAggregateInput
+    _avg?: ModuleVolumeAvgOrderByAggregateInput
+    _max?: ModuleVolumeMaxOrderByAggregateInput
+    _min?: ModuleVolumeMinOrderByAggregateInput
+    _sum?: ModuleVolumeSumOrderByAggregateInput
+  }
+
+  export type ModuleVolumeScalarWhereWithAggregatesInput = {
+    AND?: ModuleVolumeScalarWhereWithAggregatesInput | ModuleVolumeScalarWhereWithAggregatesInput[]
+    OR?: ModuleVolumeScalarWhereWithAggregatesInput[]
+    NOT?: ModuleVolumeScalarWhereWithAggregatesInput | ModuleVolumeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ModuleVolume"> | string
+    moduleId?: UuidWithAggregatesFilter<"ModuleVolume"> | string
+    type?: StringWithAggregatesFilter<"ModuleVolume"> | string
+    volume?: IntWithAggregatesFilter<"ModuleVolume"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"ModuleVolume"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ModuleVolume"> | Date | string
   }
 
   export type ActivityTagWhereInput = {
@@ -63617,6 +64933,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutModulesInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateInput = {
@@ -63634,6 +64951,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUpdateInput = {
@@ -63651,6 +64969,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutModulesNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateInput = {
@@ -63668,6 +64987,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleCreateManyInput = {
@@ -63708,6 +65028,68 @@ export namespace Prisma {
     credits?: NullableIntFieldUpdateOperationsInput | number | null
     effectifMax?: NullableIntFieldUpdateOperationsInput | number | null
     originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleVolumeCreateInput = {
+    id?: string
+    type: string
+    volume: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    module: ModuleCreateNestedOneWithoutModuleVolumesInput
+  }
+
+  export type ModuleVolumeUncheckedCreateInput = {
+    id?: string
+    moduleId: string
+    type: string
+    volume: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModuleVolumeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    module?: ModuleUpdateOneRequiredWithoutModuleVolumesNestedInput
+  }
+
+  export type ModuleVolumeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    moduleId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleVolumeCreateManyInput = {
+    id?: string
+    moduleId: string
+    type: string
+    volume: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModuleVolumeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleVolumeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    moduleId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -66854,7 +68236,17 @@ export namespace Prisma {
     none?: EnseignantModuleWhereInput
   }
 
+  export type ModuleVolumeListRelationFilter = {
+    every?: ModuleVolumeWhereInput
+    some?: ModuleVolumeWhereInput
+    none?: ModuleVolumeWhereInput
+  }
+
   export type EnseignantModuleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ModuleVolumeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -66919,6 +68311,51 @@ export namespace Prisma {
     semestreNumero?: SortOrder
     credits?: SortOrder
     effectifMax?: SortOrder
+  }
+
+  export type ModuleScalarRelationFilter = {
+    is?: ModuleWhereInput
+    isNot?: ModuleWhereInput
+  }
+
+  export type ModuleVolumeModuleIdTypeCompoundUniqueInput = {
+    moduleId: string
+    type: string
+  }
+
+  export type ModuleVolumeCountOrderByAggregateInput = {
+    id?: SortOrder
+    moduleId?: SortOrder
+    type?: SortOrder
+    volume?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModuleVolumeAvgOrderByAggregateInput = {
+    volume?: SortOrder
+  }
+
+  export type ModuleVolumeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    moduleId?: SortOrder
+    type?: SortOrder
+    volume?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModuleVolumeMinOrderByAggregateInput = {
+    id?: SortOrder
+    moduleId?: SortOrder
+    type?: SortOrder
+    volume?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModuleVolumeSumOrderByAggregateInput = {
+    volume?: SortOrder
   }
 
   export type TypeEnseignementListRelationFilter = {
@@ -67021,11 +68458,6 @@ export namespace Prisma {
   export type EnseignantScalarRelationFilter = {
     is?: EnseignantWhereInput
     isNot?: EnseignantWhereInput
-  }
-
-  export type ModuleScalarRelationFilter = {
-    is?: ModuleWhereInput
-    isNot?: ModuleWhereInput
   }
 
   export type EnseignantModuleEnseignantIdModuleIdCompoundUniqueInput = {
@@ -70017,6 +71449,13 @@ export namespace Prisma {
     connect?: ExigenceEquipementWhereUniqueInput | ExigenceEquipementWhereUniqueInput[]
   }
 
+  export type ModuleVolumeCreateNestedManyWithoutModuleInput = {
+    create?: XOR<ModuleVolumeCreateWithoutModuleInput, ModuleVolumeUncheckedCreateWithoutModuleInput> | ModuleVolumeCreateWithoutModuleInput[] | ModuleVolumeUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: ModuleVolumeCreateOrConnectWithoutModuleInput | ModuleVolumeCreateOrConnectWithoutModuleInput[]
+    createMany?: ModuleVolumeCreateManyModuleInputEnvelope
+    connect?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+  }
+
   export type EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput = {
     create?: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput> | EnseignantModuleCreateWithoutModuleInput[] | EnseignantModuleUncheckedCreateWithoutModuleInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutModuleInput | EnseignantModuleCreateOrConnectWithoutModuleInput[]
@@ -70029,6 +71468,13 @@ export namespace Prisma {
     connectOrCreate?: ExigenceEquipementCreateOrConnectWithoutModuleInput | ExigenceEquipementCreateOrConnectWithoutModuleInput[]
     createMany?: ExigenceEquipementCreateManyModuleInputEnvelope
     connect?: ExigenceEquipementWhereUniqueInput | ExigenceEquipementWhereUniqueInput[]
+  }
+
+  export type ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput = {
+    create?: XOR<ModuleVolumeCreateWithoutModuleInput, ModuleVolumeUncheckedCreateWithoutModuleInput> | ModuleVolumeCreateWithoutModuleInput[] | ModuleVolumeUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: ModuleVolumeCreateOrConnectWithoutModuleInput | ModuleVolumeCreateOrConnectWithoutModuleInput[]
+    createMany?: ModuleVolumeCreateManyModuleInputEnvelope
+    connect?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
   }
 
   export type NiveauUpdateOneRequiredWithoutModulesNestedInput = {
@@ -70085,6 +71531,20 @@ export namespace Prisma {
     deleteMany?: ExigenceEquipementScalarWhereInput | ExigenceEquipementScalarWhereInput[]
   }
 
+  export type ModuleVolumeUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<ModuleVolumeCreateWithoutModuleInput, ModuleVolumeUncheckedCreateWithoutModuleInput> | ModuleVolumeCreateWithoutModuleInput[] | ModuleVolumeUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: ModuleVolumeCreateOrConnectWithoutModuleInput | ModuleVolumeCreateOrConnectWithoutModuleInput[]
+    upsert?: ModuleVolumeUpsertWithWhereUniqueWithoutModuleInput | ModuleVolumeUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: ModuleVolumeCreateManyModuleInputEnvelope
+    set?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+    disconnect?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+    delete?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+    connect?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+    update?: ModuleVolumeUpdateWithWhereUniqueWithoutModuleInput | ModuleVolumeUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: ModuleVolumeUpdateManyWithWhereWithoutModuleInput | ModuleVolumeUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: ModuleVolumeScalarWhereInput | ModuleVolumeScalarWhereInput[]
+  }
+
   export type EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput = {
     create?: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput> | EnseignantModuleCreateWithoutModuleInput[] | EnseignantModuleUncheckedCreateWithoutModuleInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutModuleInput | EnseignantModuleCreateOrConnectWithoutModuleInput[]
@@ -70111,6 +71571,34 @@ export namespace Prisma {
     update?: ExigenceEquipementUpdateWithWhereUniqueWithoutModuleInput | ExigenceEquipementUpdateWithWhereUniqueWithoutModuleInput[]
     updateMany?: ExigenceEquipementUpdateManyWithWhereWithoutModuleInput | ExigenceEquipementUpdateManyWithWhereWithoutModuleInput[]
     deleteMany?: ExigenceEquipementScalarWhereInput | ExigenceEquipementScalarWhereInput[]
+  }
+
+  export type ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<ModuleVolumeCreateWithoutModuleInput, ModuleVolumeUncheckedCreateWithoutModuleInput> | ModuleVolumeCreateWithoutModuleInput[] | ModuleVolumeUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: ModuleVolumeCreateOrConnectWithoutModuleInput | ModuleVolumeCreateOrConnectWithoutModuleInput[]
+    upsert?: ModuleVolumeUpsertWithWhereUniqueWithoutModuleInput | ModuleVolumeUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: ModuleVolumeCreateManyModuleInputEnvelope
+    set?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+    disconnect?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+    delete?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+    connect?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+    update?: ModuleVolumeUpdateWithWhereUniqueWithoutModuleInput | ModuleVolumeUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: ModuleVolumeUpdateManyWithWhereWithoutModuleInput | ModuleVolumeUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: ModuleVolumeScalarWhereInput | ModuleVolumeScalarWhereInput[]
+  }
+
+  export type ModuleCreateNestedOneWithoutModuleVolumesInput = {
+    create?: XOR<ModuleCreateWithoutModuleVolumesInput, ModuleUncheckedCreateWithoutModuleVolumesInput>
+    connectOrCreate?: ModuleCreateOrConnectWithoutModuleVolumesInput
+    connect?: ModuleWhereUniqueInput
+  }
+
+  export type ModuleUpdateOneRequiredWithoutModuleVolumesNestedInput = {
+    create?: XOR<ModuleCreateWithoutModuleVolumesInput, ModuleUncheckedCreateWithoutModuleVolumesInput>
+    connectOrCreate?: ModuleCreateOrConnectWithoutModuleVolumesInput
+    upsert?: ModuleUpsertWithoutModuleVolumesInput
+    connect?: ModuleWhereUniqueInput
+    update?: XOR<XOR<ModuleUpdateToOneWithWhereWithoutModuleVolumesInput, ModuleUpdateWithoutModuleVolumesInput>, ModuleUncheckedUpdateWithoutModuleVolumesInput>
   }
 
   export type TypeEnseignementCreateNestedManyWithoutActivityTagInput = {
@@ -76621,6 +78109,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutModulesInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutNiveauInput = {
@@ -76637,6 +78126,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutNiveauInput = {
@@ -77039,6 +78529,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutModulesInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutTypeInput = {
@@ -77055,6 +78546,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutTypeInput = {
@@ -77176,6 +78668,7 @@ export namespace Prisma {
     type: TypeEnseignementCreateNestedOneWithoutModulesInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutGradeInput = {
@@ -77192,6 +78685,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutGradeInput = {
@@ -77397,6 +78891,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ModuleVolumeCreateWithoutModuleInput = {
+    id?: string
+    type: string
+    volume: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModuleVolumeUncheckedCreateWithoutModuleInput = {
+    id?: string
+    type: string
+    volume: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModuleVolumeCreateOrConnectWithoutModuleInput = {
+    where: ModuleVolumeWhereUniqueInput
+    create: XOR<ModuleVolumeCreateWithoutModuleInput, ModuleVolumeUncheckedCreateWithoutModuleInput>
+  }
+
+  export type ModuleVolumeCreateManyModuleInputEnvelope = {
+    data: ModuleVolumeCreateManyModuleInput | ModuleVolumeCreateManyModuleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NiveauUpsertWithoutModulesInput = {
     update: XOR<NiveauUpdateWithoutModulesInput, NiveauUncheckedUpdateWithoutModulesInput>
     create: XOR<NiveauCreateWithoutModulesInput, NiveauUncheckedCreateWithoutModulesInput>
@@ -77530,6 +79050,118 @@ export namespace Prisma {
   export type ExigenceEquipementUpdateManyWithWhereWithoutModuleInput = {
     where: ExigenceEquipementScalarWhereInput
     data: XOR<ExigenceEquipementUpdateManyMutationInput, ExigenceEquipementUncheckedUpdateManyWithoutModuleInput>
+  }
+
+  export type ModuleVolumeUpsertWithWhereUniqueWithoutModuleInput = {
+    where: ModuleVolumeWhereUniqueInput
+    update: XOR<ModuleVolumeUpdateWithoutModuleInput, ModuleVolumeUncheckedUpdateWithoutModuleInput>
+    create: XOR<ModuleVolumeCreateWithoutModuleInput, ModuleVolumeUncheckedCreateWithoutModuleInput>
+  }
+
+  export type ModuleVolumeUpdateWithWhereUniqueWithoutModuleInput = {
+    where: ModuleVolumeWhereUniqueInput
+    data: XOR<ModuleVolumeUpdateWithoutModuleInput, ModuleVolumeUncheckedUpdateWithoutModuleInput>
+  }
+
+  export type ModuleVolumeUpdateManyWithWhereWithoutModuleInput = {
+    where: ModuleVolumeScalarWhereInput
+    data: XOR<ModuleVolumeUpdateManyMutationInput, ModuleVolumeUncheckedUpdateManyWithoutModuleInput>
+  }
+
+  export type ModuleVolumeScalarWhereInput = {
+    AND?: ModuleVolumeScalarWhereInput | ModuleVolumeScalarWhereInput[]
+    OR?: ModuleVolumeScalarWhereInput[]
+    NOT?: ModuleVolumeScalarWhereInput | ModuleVolumeScalarWhereInput[]
+    id?: UuidFilter<"ModuleVolume"> | string
+    moduleId?: UuidFilter<"ModuleVolume"> | string
+    type?: StringFilter<"ModuleVolume"> | string
+    volume?: IntFilter<"ModuleVolume"> | number
+    createdAt?: DateTimeFilter<"ModuleVolume"> | Date | string
+    updatedAt?: DateTimeFilter<"ModuleVolume"> | Date | string
+  }
+
+  export type ModuleCreateWithoutModuleVolumesInput = {
+    id?: string
+    code: string
+    libelle: string
+    semestreNumero: number
+    credits?: number | null
+    effectifMax?: number | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutModulesInput
+    type: TypeEnseignementCreateNestedOneWithoutModulesInput
+    grade?: GradeCreateNestedOneWithoutModulesInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
+    exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
+  }
+
+  export type ModuleUncheckedCreateWithoutModuleVolumesInput = {
+    id?: string
+    niveauId: string
+    typeId: string
+    gradeId?: string | null
+    code: string
+    libelle: string
+    semestreNumero: number
+    credits?: number | null
+    effectifMax?: number | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
+    exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
+  }
+
+  export type ModuleCreateOrConnectWithoutModuleVolumesInput = {
+    where: ModuleWhereUniqueInput
+    create: XOR<ModuleCreateWithoutModuleVolumesInput, ModuleUncheckedCreateWithoutModuleVolumesInput>
+  }
+
+  export type ModuleUpsertWithoutModuleVolumesInput = {
+    update: XOR<ModuleUpdateWithoutModuleVolumesInput, ModuleUncheckedUpdateWithoutModuleVolumesInput>
+    create: XOR<ModuleCreateWithoutModuleVolumesInput, ModuleUncheckedCreateWithoutModuleVolumesInput>
+    where?: ModuleWhereInput
+  }
+
+  export type ModuleUpdateToOneWithWhereWithoutModuleVolumesInput = {
+    where?: ModuleWhereInput
+    data: XOR<ModuleUpdateWithoutModuleVolumesInput, ModuleUncheckedUpdateWithoutModuleVolumesInput>
+  }
+
+  export type ModuleUpdateWithoutModuleVolumesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    semestreNumero?: IntFieldUpdateOperationsInput | number
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    effectifMax?: NullableIntFieldUpdateOperationsInput | number | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutModulesNestedInput
+    type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
+    grade?: GradeUpdateOneWithoutModulesNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
+    exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
+  }
+
+  export type ModuleUncheckedUpdateWithoutModuleVolumesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    typeId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    semestreNumero?: IntFieldUpdateOperationsInput | number
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    effectifMax?: NullableIntFieldUpdateOperationsInput | number | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
+    exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type TypeEnseignementCreateWithoutActivityTagInput = {
@@ -77993,6 +79625,7 @@ export namespace Prisma {
     type: TypeEnseignementCreateNestedOneWithoutModulesInput
     grade?: GradeCreateNestedOneWithoutModulesInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutEnseignantModulesInput = {
@@ -78009,6 +79642,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutEnseignantModulesInput = {
@@ -78086,6 +79720,7 @@ export namespace Prisma {
     type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
     grade?: GradeUpdateOneWithoutModulesNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutEnseignantModulesInput = {
@@ -78102,6 +79737,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type EnseignantCreateWithoutDechargesInput = {
@@ -79322,6 +80958,7 @@ export namespace Prisma {
     type: TypeEnseignementCreateNestedOneWithoutModulesInput
     grade?: GradeCreateNestedOneWithoutModulesInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutExigencesEquipementInput = {
@@ -79338,6 +80975,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutExigencesEquipementInput = {
@@ -79422,6 +81060,7 @@ export namespace Prisma {
     type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
     grade?: GradeUpdateOneWithoutModulesNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutExigencesEquipementInput = {
@@ -79438,6 +81077,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type TypeEnseignementUpsertWithoutExigencesEquipementInput = {
@@ -81466,6 +83106,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutModulesNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutNiveauInput = {
@@ -81482,6 +83123,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutNiveauInput = {
@@ -81590,6 +83232,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutModulesNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutTypeInput = {
@@ -81606,6 +83249,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutTypeInput = {
@@ -81682,6 +83326,7 @@ export namespace Prisma {
     type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutGradeInput = {
@@ -81698,6 +83343,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutGradeInput = {
@@ -81772,6 +83418,14 @@ export namespace Prisma {
     niveau?: $Enums.ExigenceNiveau
   }
 
+  export type ModuleVolumeCreateManyModuleInput = {
+    id?: string
+    type: string
+    volume: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EnseignantModuleUpdateWithoutModuleInput = {
     enseignant?: EnseignantUpdateOneRequiredWithoutEnseignantModulesNestedInput
   }
@@ -81800,6 +83454,30 @@ export namespace Prisma {
     typeEnseignementId?: StringFieldUpdateOperationsInput | string
     equipementId?: StringFieldUpdateOperationsInput | string
     niveau?: EnumExigenceNiveauFieldUpdateOperationsInput | $Enums.ExigenceNiveau
+  }
+
+  export type ModuleVolumeUpdateWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleVolumeUncheckedUpdateWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleVolumeUncheckedUpdateManyWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    volume?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TypeEnseignementCreateManyActivityTagInput = {

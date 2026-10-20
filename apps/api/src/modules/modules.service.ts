@@ -16,6 +16,14 @@ import {
   PaginatedModulesDto,
   ModulesQueryDto,
 } from './dto/module.dto.js';
+import {
+  CreateModuleVolumeDto,
+  UpdateModuleVolumeDto,
+  ModuleVolumeResponseDto,
+  ModuleVolumesQueryDto,
+  PaginatedModuleVolumesDto,
+  VolumeTypeValues,
+} from './dto/volume.dto.js';
 
 @Injectable()
 export class ModulesService {
@@ -471,6 +479,168 @@ export class ModulesService {
   }
 
   // ============================================
+  // Module Volumes (L2-01)
+  // ============================================
+
+  async createModuleVolume(
+    moduleId: string,
+    dto: CreateModuleVolumeDto,
+    userId: string,
+  ): Promise<ModuleVolumeResponseDto> {
+    const module = await this.prisma.module.findUnique({ where: { id: moduleId } });
+    if (!module) {
+      throw new NotFoundException('Module non trouvé');
+    }
+
+    const existing = await this.prisma.moduleVolume.findUnique({
+      where: { moduleId_type: { moduleId, type: dto.type } },
+    });
+    if (existing) {
+      throw new ConflictException(
+        `Un volume existe déjà pour le module ${moduleId} et le type ${dto.type}`,
+      );
+    }
+
+    if (dto.volume % 30 !== 0) {
+      throw new ConflictException(
+        'Le volume doit être un multiple de 30 minutes',
+      );
+    }
+
+    const volume = await this.audit.auditTransaction(
+      async (tx) => {
+        return tx.moduleVolume.create({
+          data: {
+            moduleId,
+            type: dto.type,
+            volume: dto.volume,
+          },
+        });
+      },
+      {
+        userId,
+        action: 'CREATE',
+        objetType: 'ModuleVolume',
+        motif: `Création volume module ${moduleId} type ${dto.type}`,
+      },
+    );
+
+    return this.toModuleVolumeDto(volume);
+  }
+
+  async findModuleVolumes(
+    moduleId: string,
+    query: ModuleVolumesQueryDto,
+  ): Promise<PaginatedModuleVolumesDto> {
+    const { page = 1, limit = 10 } = query;
+    const skip = (page - 1) * limit;
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.moduleVolume.findMany({
+        where: { moduleId },
+        orderBy: { type: 'asc' },
+        skip,
+        take: limit,
+      }),
+      this.prisma.moduleVolume.count({ where: { moduleId } }),
+    ]);
+
+    return {
+      data: data.map((v) => this.toModuleVolumeDto(v)),
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
+  }
+
+  async findModuleVolumeById(volumeId: string): Promise<ModuleVolumeResponseDto> {
+    const volume = await this.prisma.moduleVolume.findUnique({
+      where: { id: volumeId },
+    });
+    if (!volume) {
+      throw new NotFoundException('Volume non trouvé');
+    }
+    return this.toModuleVolumeDto(volume);
+  }
+
+  async updateModuleVolume(
+    volumeId: string,
+    dto: UpdateModuleVolumeDto,
+    userId: string,
+  ): Promise<ModuleVolumeResponseDto> {
+    const existing = await this.prisma.moduleVolume.findUnique({
+      where: { id: volumeId },
+    });
+    if (!existing) {
+      throw new NotFoundException('Volume non trouvé');
+    }
+
+    const data: Record<string, unknown> = {};
+    if (dto.type !== undefined) data.type = dto.type;
+    if (dto.volume !== undefined) {
+      if (dto.volume % 30 !== 0) {
+        throw new ConflictException(
+          'Le volume doit être un multiple de 30 minutes',
+        );
+      }
+      data.volume = dto.volume;
+    }
+
+    // Check uniqueness if type changed
+    if (dto.type !== undefined && dto.type !== existing.type) {
+      const dup = await this.prisma.moduleVolume.findUnique({
+        where: { moduleId_type: { moduleId: existing.moduleId, type: dto.type } },
+      });
+      if (dup) {
+        throw new ConflictException(
+          `Un volume existe déjà pour le module ${existing.moduleId} et le type ${dto.type}`,
+        );
+      }
+    }
+
+    const volume = await this.audit.auditTransaction(
+      async (tx) => {
+        return tx.moduleVolume.update({
+          where: { id: volumeId },
+          data,
+        });
+      },
+      {
+        userId,
+        action: 'UPDATE',
+        objetType: 'ModuleVolume',
+        objetId: volumeId,
+        motif: `Mise à jour volume ${volumeId}`,
+      },
+    );
+
+    return this.toModuleVolumeDto(volume);
+  }
+
+  async removeModuleVolume(volumeId: string, userId: string): Promise<void> {
+    const existing = await this.prisma.moduleVolume.findUnique({
+      where: { id: volumeId },
+    });
+    if (!existing) {
+      throw new NotFoundException('Volume non trouvé');
+    }
+
+    await this.audit.auditTransaction(
+      async (tx) => {
+        await tx.moduleVolume.delete({ where: { id: volumeId } });
+      },
+      {
+        userId,
+        action: 'DELETE',
+        objetType: 'ModuleVolume',
+        objetId: volumeId,
+        motif: `Suppression volume ${volumeId}`,
+      },
+    );
+  }
+
+  // ============================================
   // Helpers privés
   // ============================================
 
@@ -518,6 +688,20 @@ export class ModulesService {
       originId: module.originId,
       createdAt: module.createdAt,
       updatedAt: module.updatedAt,
+    };
+  }
+
+  private toModuleVolumeDto(volume: {
+    id: string; moduleId: string; type: string; volume: number;
+    createdAt: Date; updatedAt: Date;
+  }): ModuleVolumeResponseDto {
+    return {
+      id: volume.id,
+      moduleId: volume.moduleId,
+      type: volume.type as (typeof VolumeTypeValues)[number],
+      volume: volume.volume,
+      createdAt: volume.createdAt,
+      updatedAt: volume.updatedAt,
     };
   }
 }

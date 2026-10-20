@@ -251,7 +251,7 @@ L1-33;L1;E1.9;Imports CSV/XLSX - Dette technique;DET;Tests d'intégration : endp
 - Vérification de l'audit écrit dans la même transaction";EX-IMP-01;§4.9;TEST;Should;5;L1-26;À faire;
 L2-01;L2;E2.1;Volumes prévus (maquette);DET;Volumes prévus par (module, type);CRUD /modules/{id}/volumes (ModuleVolume).;"- Unicité (module, type)
 - Écriture par l'Administrateur et le Responsable de son département
-- Volume en minutes multiple de 30";EX-REF-01;§2.2, §3.3;BACK;Must;3;L1-05, L1-17;À faire;
+- Volume en minutes multiple de 30";EX-REF-01;§2.2, §3.3;BACK;Must;3;L1-05, L1-17;Terminé;
 L2-02;L2;E2.1;Volumes prévus (maquette);DET;UI maquette pédagogique;Saisie des volumes par module et type, import possible.;"- Tableau éditable par niveau
 - Les volumes non multiples de 30 minutes sont signalés";EX-REF-01;§3.3;FRONT;Must;3;L2-01, L0-29;À faire;
 L2-03;L2;E2.2;Charge paramétrable;DET;Jeux de règles de charge et publication immuable;ChargeRuleSet, ChargeReferenceGrade, ChargeCoefficient (grade facultatif), publication.;"- Un jeu publié est immuable (trigger CHARGE_RULESET_PUBLISHED, 423)
