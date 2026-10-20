@@ -301,14 +301,14 @@ L2-19;L2;E2.7;Vue annuelle des charges;Story;UI vue annuelle des charges par ens
 L3-01;L3;E3.1;Contraintes;Story;Catalogue de contraintes et règles centralisées;ContrainteDefinition seedée (dures/souples, portée, fetSupport, message), moteur de règles unique alimentant génération, contrôles et édition.;"- Catalogue consultable par Administrateur, Gestionnaire et Direction
 - Chaque définition expose un schéma de paramètres, une catégorie, un support FET et un message
 - Une règle ajoutée au catalogue n'impose pas de modifier les écrans existants
-- Les trois consommateurs (fichier FET, contrôles avant génération, édition) lisent la même définition";EX-CTR-01, EX-PRI-06;§2.2, §4.11;BACK;Must;5;L0-04;À faire;
+- Les trois consommateurs (fichier FET, contrôles avant génération, édition) lisent la même définition";EX-CTR-01, EX-PRI-06;§2.2, §4.11;BACK;Must;5;L0-04;Terminé;
 L3-02;L3;E3.1;Contraintes;Story;Classification des règles et matrice de traduction;"Classement HARD_CONSTRAINT, SOFT_CONSTRAINT, BUSINESS_VALIDATION, INFORMATIONAL et FET_SUPPORTED, FET_TRANSFORMED, APPLICATION_ONLY ; matrice de traduction.";"- Chaque règle du catalogue porte sa classe et sa traduction technique
 - La nature (règle ou préférence) est affichée partout
 - Aucune règle APPLICATION_ONLY n'est présentée comme respectée par FET
-- La matrice de traduction (identifiant, domaine, sévérité, type, entrée FET, contrôles pré/post-génération et édition, message, test, version) est générée depuis le catalogue";EX-CTR-06, EX-PRI-02;§4.3, §4.6.3;BACK;Must;3;L3-01;À faire;
+- La matrice de traduction (identifiant, domaine, sévérité, type, entrée FET, contrôles pré/post-génération et édition, message, test, version) est générée depuis le catalogue";EX-CTR-06, EX-PRI-02;§4.3, §4.6.3;BACK;Must;3;L3-01;Terminé;
 L3-03;L3;E3.1;Contraintes;Story;Instances de contraintes;CRUD /contraintes/instances par semestre.;"- Poids 0–100 (CHECK), null pour les dures
 - Cible enseignant, groupe, salle ou module cohérente avec la portée
-- Champs nature (REGLE ou VOEU) et commentaire";EX-CTR-02;§2.2, §4.11;BACK;Must;5;L3-01, L1-10, L1-04, L1-13;À faire;
+- Champs nature (REGLE ou VOEU) et commentaire";EX-CTR-02;§2.2, §4.11;BACK;Must;5;L3-01, L1-10, L1-04, L1-13;Terminé;
 L3-04;L3;E3.1;Contraintes;Story;UI contraintes;Création et paramétrage des contraintes avec rapport de traduction FET en aperçu.;"- Le poids n'est saisissable que pour les contraintes souples
 - L'aperçu fet-mapping est affiché (branché en L4)
 - La nature de chaque contrainte (règle, préférence) est visible";EX-CTR-02, EX-CTR-06;§3.3;FRONT;Should;5;L3-03, L0-29;À faire;
