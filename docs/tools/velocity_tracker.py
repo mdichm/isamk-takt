@@ -247,14 +247,13 @@ def forecast_by_lot(rows, kpis, daily_throughput):
 
 def generate_markdown(velocity, kpis, burndown_csv, forecast_cont, forecast_lot, lot_forecasts, rows, daily_throughput=0, weekly_throughput=0, elapsed_days=0, p50=None, p85=None, p95=None):
     """Génère le fichier VELOCITE.md."""
-    today = datetime.now().strftime("%d/%m/%Y")
     num_sprints = 10
     remaining = kpis["total_points"] - kpis["done_points"]
 
     md = [
         f"# 📊 Dashboard Vélocité TAKT",
         f"",
-        f"*Généré le {today} par `velocity_tracker.py` — Ne pas éditer à la main.*",
+        f"*Fichier généré automatiquement — Source : `Backlog_TAKT_tickets.csv`*",
         f"",
         f"---",
         f"",

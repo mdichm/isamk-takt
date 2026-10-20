@@ -1,6 +1,6 @@
 # 📊 Dashboard Vélocité TAKT
 
-*Généré le 21/10/2026 par `velocity_tracker.py` — Ne pas éditer à la main.*
+*Fichier généré automatiquement — Source : `Backlog_TAKT_tickets.csv`*
 
 ---
 
