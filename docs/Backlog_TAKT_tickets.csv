@@ -301,7 +301,7 @@ L2-19;L2;E2.7;Vue annuelle des charges;Story;UI vue annuelle des charges par ens
 L3-01;L3;E3.1;Contraintes;Story;Catalogue de contraintes et règles centralisées;ContrainteDefinition seedée (dures/souples, portée, fetSupport, message), moteur de règles unique alimentant génération, contrôles et édition.;"- Catalogue consultable par Administrateur, Gestionnaire et Direction
 - Chaque définition expose un schéma de paramètres, une catégorie, un support FET et un message
 - Une règle ajoutée au catalogue n'impose pas de modifier les écrans existants
-- Les trois consommateurs (fichier FET, contrôles avant génération, édition) lisent la même définition";EX-CTR-01, EX-PRI-06;§2.2, §4.11;BACK;Must;5;L0-04;En cours;
+- Les trois consommateurs (fichier FET, contrôles avant génération, édition) lisent la même définition";EX-CTR-01, EX-PRI-06;§2.2, §4.11;BACK;Must;5;L0-04;Terminé;
 L3-02;L3;E3.1;Contraintes;Story;Classification des règles et matrice de traduction;"Classement HARD_CONSTRAINT, SOFT_CONSTRAINT, BUSINESS_VALIDATION, INFORMATIONAL et FET_SUPPORTED, FET_TRANSFORMED, APPLICATION_ONLY ; matrice de traduction.";"- Chaque règle du catalogue porte sa classe et sa traduction technique
 - La nature (règle ou préférence) est affichée partout
 - Aucune règle APPLICATION_ONLY n'est présentée comme respectée par FET
