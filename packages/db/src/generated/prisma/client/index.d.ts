@@ -406,6 +406,25 @@ export const FetSupport: {
 export type FetSupport = (typeof FetSupport)[keyof typeof FetSupport]
 
 
+export const ClasseRegle: {
+  HARD_CONSTRAINT: 'HARD_CONSTRAINT',
+  SOFT_CONSTRAINT: 'SOFT_CONSTRAINT',
+  BUSINESS_VALIDATION: 'BUSINESS_VALIDATION',
+  INFORMATIONAL: 'INFORMATIONAL'
+};
+
+export type ClasseRegle = (typeof ClasseRegle)[keyof typeof ClasseRegle]
+
+
+export const TraductionFET: {
+  FET_SUPPORTED: 'FET_SUPPORTED',
+  FET_TRANSFORMED: 'FET_TRANSFORMED',
+  APPLICATION_ONLY: 'APPLICATION_ONLY'
+};
+
+export type TraductionFET = (typeof TraductionFET)[keyof typeof TraductionFET]
+
+
 export const TypeEnseignementCode: {
   CM: 'CM',
   TD: 'TD',
@@ -496,6 +515,14 @@ export const ContrainteNature: typeof $Enums.ContrainteNature
 export type FetSupport = $Enums.FetSupport
 
 export const FetSupport: typeof $Enums.FetSupport
+
+export type ClasseRegle = $Enums.ClasseRegle
+
+export const ClasseRegle: typeof $Enums.ClasseRegle
+
+export type TraductionFET = $Enums.TraductionFET
+
+export const TraductionFET: typeof $Enums.TraductionFET
 
 export type TypeEnseignementCode = $Enums.TypeEnseignementCode
 
@@ -54504,6 +54531,8 @@ export namespace Prisma {
     libelle: string | null
     categorie: $Enums.ContrainteCategorie | null
     portee: $Enums.ContraintePortee | null
+    classe: $Enums.ClasseRegle | null
+    traductionFET: $Enums.TraductionFET | null
     fetSupport: $Enums.FetSupport | null
     actif: boolean | null
   }
@@ -54514,6 +54543,8 @@ export namespace Prisma {
     libelle: string | null
     categorie: $Enums.ContrainteCategorie | null
     portee: $Enums.ContraintePortee | null
+    classe: $Enums.ClasseRegle | null
+    traductionFET: $Enums.TraductionFET | null
     fetSupport: $Enums.FetSupport | null
     actif: boolean | null
   }
@@ -54524,6 +54555,8 @@ export namespace Prisma {
     libelle: number
     categorie: number
     portee: number
+    classe: number
+    traductionFET: number
     paramsSchema: number
     fetSupport: number
     actif: number
@@ -54537,6 +54570,8 @@ export namespace Prisma {
     libelle?: true
     categorie?: true
     portee?: true
+    classe?: true
+    traductionFET?: true
     fetSupport?: true
     actif?: true
   }
@@ -54547,6 +54582,8 @@ export namespace Prisma {
     libelle?: true
     categorie?: true
     portee?: true
+    classe?: true
+    traductionFET?: true
     fetSupport?: true
     actif?: true
   }
@@ -54557,6 +54594,8 @@ export namespace Prisma {
     libelle?: true
     categorie?: true
     portee?: true
+    classe?: true
+    traductionFET?: true
     paramsSchema?: true
     fetSupport?: true
     actif?: true
@@ -54641,6 +54680,8 @@ export namespace Prisma {
     libelle: string
     categorie: $Enums.ContrainteCategorie
     portee: $Enums.ContraintePortee
+    classe: $Enums.ClasseRegle
+    traductionFET: $Enums.TraductionFET
     paramsSchema: JsonValue
     fetSupport: $Enums.FetSupport
     actif: boolean
@@ -54669,6 +54710,8 @@ export namespace Prisma {
     libelle?: boolean
     categorie?: boolean
     portee?: boolean
+    classe?: boolean
+    traductionFET?: boolean
     paramsSchema?: boolean
     fetSupport?: boolean
     actif?: boolean
@@ -54682,6 +54725,8 @@ export namespace Prisma {
     libelle?: boolean
     categorie?: boolean
     portee?: boolean
+    classe?: boolean
+    traductionFET?: boolean
     paramsSchema?: boolean
     fetSupport?: boolean
     actif?: boolean
@@ -54693,6 +54738,8 @@ export namespace Prisma {
     libelle?: boolean
     categorie?: boolean
     portee?: boolean
+    classe?: boolean
+    traductionFET?: boolean
     paramsSchema?: boolean
     fetSupport?: boolean
     actif?: boolean
@@ -54704,12 +54751,14 @@ export namespace Prisma {
     libelle?: boolean
     categorie?: boolean
     portee?: boolean
+    classe?: boolean
+    traductionFET?: boolean
     paramsSchema?: boolean
     fetSupport?: boolean
     actif?: boolean
   }
 
-  export type ContrainteDefinitionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "categorie" | "portee" | "paramsSchema" | "fetSupport" | "actif", ExtArgs["result"]["contrainteDefinition"]>
+  export type ContrainteDefinitionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "categorie" | "portee" | "classe" | "traductionFET" | "paramsSchema" | "fetSupport" | "actif", ExtArgs["result"]["contrainteDefinition"]>
   export type ContrainteDefinitionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     instances?: boolean | ContrainteDefinition$instancesArgs<ExtArgs>
     _count?: boolean | ContrainteDefinitionCountOutputTypeDefaultArgs<ExtArgs>
@@ -54728,6 +54777,8 @@ export namespace Prisma {
       libelle: string
       categorie: $Enums.ContrainteCategorie
       portee: $Enums.ContraintePortee
+      classe: $Enums.ClasseRegle
+      traductionFET: $Enums.TraductionFET
       paramsSchema: Prisma.JsonValue
       fetSupport: $Enums.FetSupport
       actif: boolean
@@ -55160,6 +55211,8 @@ export namespace Prisma {
     readonly libelle: FieldRef<"ContrainteDefinition", 'String'>
     readonly categorie: FieldRef<"ContrainteDefinition", 'ContrainteCategorie'>
     readonly portee: FieldRef<"ContrainteDefinition", 'ContraintePortee'>
+    readonly classe: FieldRef<"ContrainteDefinition", 'ClasseRegle'>
+    readonly traductionFET: FieldRef<"ContrainteDefinition", 'TraductionFET'>
     readonly paramsSchema: FieldRef<"ContrainteDefinition", 'Json'>
     readonly fetSupport: FieldRef<"ContrainteDefinition", 'FetSupport'>
     readonly actif: FieldRef<"ContrainteDefinition", 'Boolean'>
@@ -57408,6 +57461,8 @@ export namespace Prisma {
     libelle: 'libelle',
     categorie: 'categorie',
     portee: 'portee',
+    classe: 'classe',
+    traductionFET: 'traductionFET',
     paramsSchema: 'paramsSchema',
     fetSupport: 'fetSupport',
     actif: 'actif'
@@ -57815,6 +57870,34 @@ export namespace Prisma {
    * Reference to a field of type 'ContraintePortee[]'
    */
   export type ListEnumContraintePorteeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContraintePortee[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClasseRegle'
+   */
+  export type EnumClasseRegleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClasseRegle'>
+    
+
+
+  /**
+   * Reference to a field of type 'ClasseRegle[]'
+   */
+  export type ListEnumClasseRegleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClasseRegle[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TraductionFET'
+   */
+  export type EnumTraductionFETFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TraductionFET'>
+    
+
+
+  /**
+   * Reference to a field of type 'TraductionFET[]'
+   */
+  export type ListEnumTraductionFETFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TraductionFET[]'>
     
 
 
@@ -60980,6 +61063,8 @@ export namespace Prisma {
     libelle?: StringFilter<"ContrainteDefinition"> | string
     categorie?: EnumContrainteCategorieFilter<"ContrainteDefinition"> | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeFilter<"ContrainteDefinition"> | $Enums.ContraintePortee
+    classe?: EnumClasseRegleFilter<"ContrainteDefinition"> | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETFilter<"ContrainteDefinition"> | $Enums.TraductionFET
     paramsSchema?: JsonFilter<"ContrainteDefinition">
     fetSupport?: EnumFetSupportFilter<"ContrainteDefinition"> | $Enums.FetSupport
     actif?: BoolFilter<"ContrainteDefinition"> | boolean
@@ -60992,6 +61077,8 @@ export namespace Prisma {
     libelle?: SortOrder
     categorie?: SortOrder
     portee?: SortOrder
+    classe?: SortOrder
+    traductionFET?: SortOrder
     paramsSchema?: SortOrder
     fetSupport?: SortOrder
     actif?: SortOrder
@@ -61007,6 +61094,8 @@ export namespace Prisma {
     libelle?: StringFilter<"ContrainteDefinition"> | string
     categorie?: EnumContrainteCategorieFilter<"ContrainteDefinition"> | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeFilter<"ContrainteDefinition"> | $Enums.ContraintePortee
+    classe?: EnumClasseRegleFilter<"ContrainteDefinition"> | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETFilter<"ContrainteDefinition"> | $Enums.TraductionFET
     paramsSchema?: JsonFilter<"ContrainteDefinition">
     fetSupport?: EnumFetSupportFilter<"ContrainteDefinition"> | $Enums.FetSupport
     actif?: BoolFilter<"ContrainteDefinition"> | boolean
@@ -61019,6 +61108,8 @@ export namespace Prisma {
     libelle?: SortOrder
     categorie?: SortOrder
     portee?: SortOrder
+    classe?: SortOrder
+    traductionFET?: SortOrder
     paramsSchema?: SortOrder
     fetSupport?: SortOrder
     actif?: SortOrder
@@ -61036,6 +61127,8 @@ export namespace Prisma {
     libelle?: StringWithAggregatesFilter<"ContrainteDefinition"> | string
     categorie?: EnumContrainteCategorieWithAggregatesFilter<"ContrainteDefinition"> | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeWithAggregatesFilter<"ContrainteDefinition"> | $Enums.ContraintePortee
+    classe?: EnumClasseRegleWithAggregatesFilter<"ContrainteDefinition"> | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETWithAggregatesFilter<"ContrainteDefinition"> | $Enums.TraductionFET
     paramsSchema?: JsonWithAggregatesFilter<"ContrainteDefinition">
     fetSupport?: EnumFetSupportWithAggregatesFilter<"ContrainteDefinition"> | $Enums.FetSupport
     actif?: BoolWithAggregatesFilter<"ContrainteDefinition"> | boolean
@@ -64447,6 +64540,8 @@ export namespace Prisma {
     libelle: string
     categorie: $Enums.ContrainteCategorie
     portee: $Enums.ContraintePortee
+    classe?: $Enums.ClasseRegle
+    traductionFET?: $Enums.TraductionFET
     paramsSchema: JsonNullValueInput | InputJsonValue
     fetSupport?: $Enums.FetSupport
     actif?: boolean
@@ -64459,6 +64554,8 @@ export namespace Prisma {
     libelle: string
     categorie: $Enums.ContrainteCategorie
     portee: $Enums.ContraintePortee
+    classe?: $Enums.ClasseRegle
+    traductionFET?: $Enums.TraductionFET
     paramsSchema: JsonNullValueInput | InputJsonValue
     fetSupport?: $Enums.FetSupport
     actif?: boolean
@@ -64471,6 +64568,8 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    classe?: EnumClasseRegleFieldUpdateOperationsInput | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETFieldUpdateOperationsInput | $Enums.TraductionFET
     paramsSchema?: JsonNullValueInput | InputJsonValue
     fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
     actif?: BoolFieldUpdateOperationsInput | boolean
@@ -64483,6 +64582,8 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    classe?: EnumClasseRegleFieldUpdateOperationsInput | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETFieldUpdateOperationsInput | $Enums.TraductionFET
     paramsSchema?: JsonNullValueInput | InputJsonValue
     fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
     actif?: BoolFieldUpdateOperationsInput | boolean
@@ -64495,6 +64596,8 @@ export namespace Prisma {
     libelle: string
     categorie: $Enums.ContrainteCategorie
     portee: $Enums.ContraintePortee
+    classe?: $Enums.ClasseRegle
+    traductionFET?: $Enums.TraductionFET
     paramsSchema: JsonNullValueInput | InputJsonValue
     fetSupport?: $Enums.FetSupport
     actif?: boolean
@@ -64506,6 +64609,8 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    classe?: EnumClasseRegleFieldUpdateOperationsInput | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETFieldUpdateOperationsInput | $Enums.TraductionFET
     paramsSchema?: JsonNullValueInput | InputJsonValue
     fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
     actif?: BoolFieldUpdateOperationsInput | boolean
@@ -64517,6 +64622,8 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    classe?: EnumClasseRegleFieldUpdateOperationsInput | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETFieldUpdateOperationsInput | $Enums.TraductionFET
     paramsSchema?: JsonNullValueInput | InputJsonValue
     fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
     actif?: BoolFieldUpdateOperationsInput | boolean
@@ -67356,6 +67463,20 @@ export namespace Prisma {
     not?: NestedEnumContraintePorteeFilter<$PrismaModel> | $Enums.ContraintePortee
   }
 
+  export type EnumClasseRegleFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClasseRegle | EnumClasseRegleFieldRefInput<$PrismaModel>
+    in?: $Enums.ClasseRegle[] | ListEnumClasseRegleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClasseRegle[] | ListEnumClasseRegleFieldRefInput<$PrismaModel>
+    not?: NestedEnumClasseRegleFilter<$PrismaModel> | $Enums.ClasseRegle
+  }
+
+  export type EnumTraductionFETFilter<$PrismaModel = never> = {
+    equals?: $Enums.TraductionFET | EnumTraductionFETFieldRefInput<$PrismaModel>
+    in?: $Enums.TraductionFET[] | ListEnumTraductionFETFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TraductionFET[] | ListEnumTraductionFETFieldRefInput<$PrismaModel>
+    not?: NestedEnumTraductionFETFilter<$PrismaModel> | $Enums.TraductionFET
+  }
+
   export type EnumFetSupportFilter<$PrismaModel = never> = {
     equals?: $Enums.FetSupport | EnumFetSupportFieldRefInput<$PrismaModel>
     in?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
@@ -67369,6 +67490,8 @@ export namespace Prisma {
     libelle?: SortOrder
     categorie?: SortOrder
     portee?: SortOrder
+    classe?: SortOrder
+    traductionFET?: SortOrder
     paramsSchema?: SortOrder
     fetSupport?: SortOrder
     actif?: SortOrder
@@ -67380,6 +67503,8 @@ export namespace Prisma {
     libelle?: SortOrder
     categorie?: SortOrder
     portee?: SortOrder
+    classe?: SortOrder
+    traductionFET?: SortOrder
     fetSupport?: SortOrder
     actif?: SortOrder
   }
@@ -67390,6 +67515,8 @@ export namespace Prisma {
     libelle?: SortOrder
     categorie?: SortOrder
     portee?: SortOrder
+    classe?: SortOrder
+    traductionFET?: SortOrder
     fetSupport?: SortOrder
     actif?: SortOrder
   }
@@ -67412,6 +67539,26 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumContraintePorteeFilter<$PrismaModel>
     _max?: NestedEnumContraintePorteeFilter<$PrismaModel>
+  }
+
+  export type EnumClasseRegleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClasseRegle | EnumClasseRegleFieldRefInput<$PrismaModel>
+    in?: $Enums.ClasseRegle[] | ListEnumClasseRegleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClasseRegle[] | ListEnumClasseRegleFieldRefInput<$PrismaModel>
+    not?: NestedEnumClasseRegleWithAggregatesFilter<$PrismaModel> | $Enums.ClasseRegle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumClasseRegleFilter<$PrismaModel>
+    _max?: NestedEnumClasseRegleFilter<$PrismaModel>
+  }
+
+  export type EnumTraductionFETWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TraductionFET | EnumTraductionFETFieldRefInput<$PrismaModel>
+    in?: $Enums.TraductionFET[] | ListEnumTraductionFETFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TraductionFET[] | ListEnumTraductionFETFieldRefInput<$PrismaModel>
+    not?: NestedEnumTraductionFETWithAggregatesFilter<$PrismaModel> | $Enums.TraductionFET
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTraductionFETFilter<$PrismaModel>
+    _max?: NestedEnumTraductionFETFilter<$PrismaModel>
   }
 
   export type EnumFetSupportWithAggregatesFilter<$PrismaModel = never> = {
@@ -70796,6 +70943,14 @@ export namespace Prisma {
     set?: $Enums.ContraintePortee
   }
 
+  export type EnumClasseRegleFieldUpdateOperationsInput = {
+    set?: $Enums.ClasseRegle
+  }
+
+  export type EnumTraductionFETFieldUpdateOperationsInput = {
+    set?: $Enums.TraductionFET
+  }
+
   export type EnumFetSupportFieldUpdateOperationsInput = {
     set?: $Enums.FetSupport
   }
@@ -71469,6 +71624,20 @@ export namespace Prisma {
     not?: NestedEnumContraintePorteeFilter<$PrismaModel> | $Enums.ContraintePortee
   }
 
+  export type NestedEnumClasseRegleFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClasseRegle | EnumClasseRegleFieldRefInput<$PrismaModel>
+    in?: $Enums.ClasseRegle[] | ListEnumClasseRegleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClasseRegle[] | ListEnumClasseRegleFieldRefInput<$PrismaModel>
+    not?: NestedEnumClasseRegleFilter<$PrismaModel> | $Enums.ClasseRegle
+  }
+
+  export type NestedEnumTraductionFETFilter<$PrismaModel = never> = {
+    equals?: $Enums.TraductionFET | EnumTraductionFETFieldRefInput<$PrismaModel>
+    in?: $Enums.TraductionFET[] | ListEnumTraductionFETFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TraductionFET[] | ListEnumTraductionFETFieldRefInput<$PrismaModel>
+    not?: NestedEnumTraductionFETFilter<$PrismaModel> | $Enums.TraductionFET
+  }
+
   export type NestedEnumFetSupportFilter<$PrismaModel = never> = {
     equals?: $Enums.FetSupport | EnumFetSupportFieldRefInput<$PrismaModel>
     in?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
@@ -71494,6 +71663,26 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumContraintePorteeFilter<$PrismaModel>
     _max?: NestedEnumContraintePorteeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumClasseRegleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ClasseRegle | EnumClasseRegleFieldRefInput<$PrismaModel>
+    in?: $Enums.ClasseRegle[] | ListEnumClasseRegleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ClasseRegle[] | ListEnumClasseRegleFieldRefInput<$PrismaModel>
+    not?: NestedEnumClasseRegleWithAggregatesFilter<$PrismaModel> | $Enums.ClasseRegle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumClasseRegleFilter<$PrismaModel>
+    _max?: NestedEnumClasseRegleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTraductionFETWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TraductionFET | EnumTraductionFETFieldRefInput<$PrismaModel>
+    in?: $Enums.TraductionFET[] | ListEnumTraductionFETFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TraductionFET[] | ListEnumTraductionFETFieldRefInput<$PrismaModel>
+    not?: NestedEnumTraductionFETWithAggregatesFilter<$PrismaModel> | $Enums.TraductionFET
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTraductionFETFilter<$PrismaModel>
+    _max?: NestedEnumTraductionFETFilter<$PrismaModel>
   }
 
   export type NestedEnumFetSupportWithAggregatesFilter<$PrismaModel = never> = {
@@ -79412,6 +79601,8 @@ export namespace Prisma {
     libelle: string
     categorie: $Enums.ContrainteCategorie
     portee: $Enums.ContraintePortee
+    classe?: $Enums.ClasseRegle
+    traductionFET?: $Enums.TraductionFET
     paramsSchema: JsonNullValueInput | InputJsonValue
     fetSupport?: $Enums.FetSupport
     actif?: boolean
@@ -79423,6 +79614,8 @@ export namespace Prisma {
     libelle: string
     categorie: $Enums.ContrainteCategorie
     portee: $Enums.ContraintePortee
+    classe?: $Enums.ClasseRegle
+    traductionFET?: $Enums.TraductionFET
     paramsSchema: JsonNullValueInput | InputJsonValue
     fetSupport?: $Enums.FetSupport
     actif?: boolean
@@ -79489,6 +79682,8 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    classe?: EnumClasseRegleFieldUpdateOperationsInput | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETFieldUpdateOperationsInput | $Enums.TraductionFET
     paramsSchema?: JsonNullValueInput | InputJsonValue
     fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
     actif?: BoolFieldUpdateOperationsInput | boolean
@@ -79500,6 +79695,8 @@ export namespace Prisma {
     libelle?: StringFieldUpdateOperationsInput | string
     categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
     portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    classe?: EnumClasseRegleFieldUpdateOperationsInput | $Enums.ClasseRegle
+    traductionFET?: EnumTraductionFETFieldUpdateOperationsInput | $Enums.TraductionFET
     paramsSchema?: JsonNullValueInput | InputJsonValue
     fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
     actif?: BoolFieldUpdateOperationsInput | boolean

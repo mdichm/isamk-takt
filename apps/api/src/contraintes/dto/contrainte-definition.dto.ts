@@ -10,11 +10,19 @@ import {
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import type { ContrainteCategorie, ContraintePortee, FetSupport } from '@takt/db';
+import type {
+  ClasseRegle,
+  ContrainteCategorie,
+  ContraintePortee,
+  FetSupport,
+  TraductionFET,
+} from '@takt/db';
 
 export type ContrainteCategorieType = ContrainteCategorie;
 export type ContraintePorteeType = ContraintePortee;
 export type FetSupportType = FetSupport;
+export type ClasseRegleType = ClasseRegle;
+export type TraductionFETType = TraductionFET;
 
 export const ContrainteCategorieValues = {
   DURE: 'DURE' as const,
@@ -35,6 +43,19 @@ export const FetSupportValues = {
   AUCUN: 'AUCUN' as const,
 } as const;
 
+export const ClasseRegleValues = {
+  HARD_CONSTRAINT: 'HARD_CONSTRAINT' as const,
+  SOFT_CONSTRAINT: 'SOFT_CONSTRAINT' as const,
+  BUSINESS_VALIDATION: 'BUSINESS_VALIDATION' as const,
+  INFORMATIONAL: 'INFORMATIONAL' as const,
+} as const;
+
+export const TraductionFETValues = {
+  FET_SUPPORTED: 'FET_SUPPORTED' as const,
+  FET_TRANSFORMED: 'FET_TRANSFORMED' as const,
+  APPLICATION_ONLY: 'APPLICATION_ONLY' as const,
+} as const;
+
 export class ContrainteDefinitionResponseDto {
   @ApiProperty()
   id: string;
@@ -50,6 +71,12 @@ export class ContrainteDefinitionResponseDto {
 
   @ApiProperty({ enum: ['GLOBALE', 'ENSEIGNANT', 'GROUPE', 'SALLE', 'MODULE'] })
   portee: ContraintePorteeType;
+
+  @ApiProperty({ enum: ['HARD_CONSTRAINT', 'SOFT_CONSTRAINT', 'BUSINESS_VALIDATION', 'INFORMATIONAL'] })
+  classe: ClasseRegleType;
+
+  @ApiProperty({ enum: ['FET_SUPPORTED', 'FET_TRANSFORMED', 'APPLICATION_ONLY'] })
+  traductionFET: TraductionFETType;
 
   @ApiProperty()
   paramsSchema: Record<string, unknown>;
@@ -77,6 +104,16 @@ export class ContrainteDefinitionListQueryDto {
   @IsOptional()
   @IsIn(['GLOBALE', 'ENSEIGNANT', 'GROUPE', 'SALLE', 'MODULE'])
   portee?: ContraintePorteeType;
+
+  @ApiPropertyOptional({ enum: ['HARD_CONSTRAINT', 'SOFT_CONSTRAINT', 'BUSINESS_VALIDATION', 'INFORMATIONAL'] })
+  @IsOptional()
+  @IsIn(['HARD_CONSTRAINT', 'SOFT_CONSTRAINT', 'BUSINESS_VALIDATION', 'INFORMATIONAL'])
+  classe?: ClasseRegleType;
+
+  @ApiPropertyOptional({ enum: ['FET_SUPPORTED', 'FET_TRANSFORMED', 'APPLICATION_ONLY'] })
+  @IsOptional()
+  @IsIn(['FET_SUPPORTED', 'FET_TRANSFORMED', 'APPLICATION_ONLY'])
+  traductionFET?: TraductionFETType;
 
   @ApiPropertyOptional({ default: 1 })
   @IsOptional()

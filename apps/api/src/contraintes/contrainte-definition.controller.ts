@@ -48,6 +48,8 @@ export class ContrainteDefinitionController {
   @ApiQuery({ name: 'actif', required: false, type: Boolean, example: true })
   @ApiQuery({ name: 'categorie', required: false, enum: ['DURE', 'SOUPLE'] })
   @ApiQuery({ name: 'portee', required: false, enum: ['GLOBALE', 'ENSEIGNANT', 'GROUPE', 'SALLE', 'MODULE'] })
+  @ApiQuery({ name: 'classe', required: false, enum: ['HARD_CONSTRAINT', 'SOFT_CONSTRAINT', 'BUSINESS_VALIDATION', 'INFORMATIONAL'] })
+  @ApiQuery({ name: 'traductionFET', required: false, enum: ['FET_SUPPORTED', 'FET_TRANSFORMED', 'APPLICATION_ONLY'] })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
   @ApiQuery({ name: 'limit', required: false, type: Number, example: 50 })
   async findAll(

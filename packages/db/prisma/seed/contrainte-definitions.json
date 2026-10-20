@@ -3,6 +3,8 @@
   "libelle": "Maximum d'heures par jour",
   "categorie": "DURE",
   "portee": "GLOBALE",
+  "classe": "HARD_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -18,6 +20,8 @@
   "libelle": "Minimum d'heures par jour",
   "categorie": "DURE",
   "portee": "GLOBALE",
+  "classe": "HARD_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -34,6 +38,8 @@
   "libelle": "Maximum d'heures continues",
   "categorie": "DURE",
   "portee": "GLOBALE",
+  "classe": "HARD_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -49,6 +55,8 @@
   "libelle": "Minimum d'heures continues",
   "categorie": "SOUPLE",
   "portee": "GLOBALE",
+  "classe": "SOFT_CONSTRAINT",
+  "traductionFET": "FET_TRANSFORMED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -64,6 +72,8 @@
   "libelle": "Maximum de creux par jour",
   "categorie": "DURE",
   "portee": "GLOBALE",
+  "classe": "HARD_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -79,6 +89,8 @@
   "libelle": "Maximum de creux par semaine",
   "categorie": "DURE",
   "portee": "GLOBALE",
+  "classe": "HARD_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -94,6 +106,8 @@
   "libelle": "Maximum de jours par semaine",
   "categorie": "DURE",
   "portee": "GLOBALE",
+  "classe": "HARD_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -109,6 +123,8 @@
   "libelle": "Minimum de jours par semaine",
   "categorie": "DURE",
   "portee": "GLOBALE",
+  "classe": "HARD_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -124,6 +140,8 @@
   "libelle": "Amplitude journalière maximale",
   "categorie": "SOUPLE",
   "portee": "GLOBALE",
+  "classe": "SOFT_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
@@ -139,6 +157,8 @@
   "libelle": "Maximum d'heures dans un intervalle",
   "categorie": "DURE",
   "portee": "GLOBALE",
+  "classe": "HARD_CONSTRAINT",
+  "traductionFET": "FET_SUPPORTED",
   "paramsSchema": {
     "type": "object",
     "properties": {
