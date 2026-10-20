@@ -2,7 +2,7 @@
 L0-01;L0;E0.1;Monorepo & CI/CD;Tâche technique;Initialiser le monorepo;Créer apps (web, api, worker) et packages (contracts, conflict-engine, charge-engine, engine-fet, design-tokens, db).;"- Arborescence conforme à ST §1.5
 - Une commande unique lance lint, typecheck et build sur tous les paquets
 - TypeScript strict activé partout
-- Règles de dépendance entre modules vérifiées par le lint (un module n'importe que les interfaces des autres)";EX-NFR-09;§1.5, §1.4;DEVOPS;Must;3;;À faire;
+- Règles de dépendance entre modules vérifiées par le lint (un module n'importe que les interfaces des autres)";EX-NFR-09;§1.5, §1.4;DEVOPS;Must;3;;Terminé;
 L0-02;L0;E0.1;Monorepo & CI/CD;Tâche technique;Pipeline CI/CD et registre d'images privé;Lint, typecheck, tests, build d'images publiées dans un registre privé interne, migrations, déploiement par environnement par scripts.;"- Une PR déclenche lint, typecheck, tests et build
 - Le scan des dépendances, des secrets et des images est exécuté
 - Les images sont publiées dans le registre privé interne
@@ -20,11 +20,11 @@ L0-05;L0;E0.1;Monorepo & CI/CD;Tâche technique;Intégration des tokens de conce
 - OFL-Black-Ops-One.txt est conservé avec la police dans le dépôt et dans l'image web
 - Les couleurs d'état sont lues uniquement depuis states.*.*.text (texte) et states.*.*.color (icône, bordure) ; le lint interdit color en texte
 - Le contraste texte 4,5:1 et composant 3:1 est vérifié sur Ivory, Warm, Inset, Card et Elevated ; seul color.navigation_on_deep.text_disabled est exempté ; le build échoue en cas d'écart
-- Les icônes d'état référencées par les tokens existent dans lucide-react (version épinglée) ou dans le dossier icons/ ; un test échoue sinon";EX-NFR-10;§0.1;FRONT;Must;5;L0-01;À faire;
+- Les icônes d'état référencées par les tokens existent dans lucide-react (version épinglée) ou dans le dossier icons/ ; un test échoue sinon";EX-NFR-10;§0.1;FRONT;Must;5;L0-01;Terminé;
 L0-06;L0;E0.2;Infrastructure sur site;Tâche technique;Réseau et périmètre sur site;Nginx en reverse proxy (TLS, limitation de débit), pare-feu, réseau de conteneurs interne, route sortante unique de l'API vers le SMTP.;"- Seul le port 443 de Nginx est exposé sur le réseau interne
 - API, worker et base accessibles uniquement depuis le réseau de conteneurs
 - La limitation de débit par IP est active
-- Le worker n'a aucune route sortante ; l'API n'a que la route vers l'hôte et le port SMTP";EX-NFR-01;§5.3, §1.8;DEVOPS;Must;8;L0-01;À faire;
+- Le worker n'a aucune route sortante ; l'API n'a que la route vers l'hôte et le port SMTP";EX-NFR-01;§5.3, §1.8;DEVOPS;Must;8;L0-01;Terminé;
 L0-07;L0;E0.2;Infrastructure sur site;Tâche technique;Données, fichiers et secrets sur site;PostgreSQL 16, volume de fichiers derrière le port FileStore sur disque chiffré, file de jobs pg-boss (generation, export, email), secrets en fichiers, rôles de base.;"- Disques et volumes de fichiers chiffrés (LUKS)
 - Rôles app_rw, worker_rw, audit_ro et audit_purge créés avec droits minimaux
 - Les secrets sont montés en fichiers en lecture seule, absents des images
@@ -97,12 +97,12 @@ L0-25;L0;E0.5;Audit append-only;Story;Conservation et purge des journaux;Fonctio
 - app_rw ne peut ni supprimer ni modifier les journaux";EX-AUD-02;§2.4, §5.3;BACK;Should;3;L0-13, L0-23;Terminé;
 L0-26;L0;E0.6;Socle API;Tâche technique;Erreurs RFC 9457 et catalogue de codes;Format problem+json, codes métier, traduction SQLSTATE P0001 et 23505.;"- Toutes les erreurs suivent le format ST §3.2
 - IMMUTABLE_VERSION, YEAR_CLOSED, APPEND_ONLY_TABLE, CHARGE_RULESET_PUBLISHED, CONFIG_IN_USE et 23505 sont traduits en 409 ou 423
-- requestId présent dans chaque erreur";—;§3.2, §2.4;BACK;Must;5;L0-01;À faire;
+- requestId présent dans chaque erreur";—;§3.2, §2.4;BACK;Must;5;L0-01;Terminé;
 L0-27;L0;E0.6;Socle API;Tâche technique;Conventions HTTP transverses;ETag et If-Match, pagination par curseur, Idempotency-Key, throttling, Helmet, CORS.;"- If-Match absent ou périmé renvoie 412
 - Pagination limit et cursor opérationnelle
-- Rate limiting renforcé sur /auth/*";—;§3.1, §5.3;BACK;Must;5;L0-26;À faire;
+- Rate limiting renforcé sur /auth/*";—;§3.1, §5.3;BACK;Must;5;L0-26;Terminé;
 L0-28;L0;E0.6;Socle API;Tâche technique;OpenAPI 3.1 généré;Documentation exposée sur /api/docs, désactivable en production publique.;"- Le contrat est généré depuis le code
-- /api/docs est désactivé en production publique";—;§3.1;BACK;Should;2;L0-27;À faire;
+- /api/docs est désactivé en production publique";—;§3.1;BACK;Should;2;L0-27;Terminé;
 L0-29;L0;E0.7;Socle web;Story;Shell web, navigation par rôle et connexion;Layout, login, MFA, changement de mot de passe, refresh transparent, React Query, shadcn, i18n français (textes externalisés), libellés d'états du glossaire.;"- Le menu affiche uniquement les entrées autorisées au rôle (quatre rôles)
 - Le jeton expiré est rafraîchi sans perte de saisie
 - Les textes sont externalisés (i18n) et aucun code d'état technique n'est affiché
@@ -722,7 +722,7 @@ L7-10;L7;E7.4;Exploitation & conformité;Tâche technique;Sauvegardes et restaur
 - Les sauvegardes sont sur un support séparé du serveur (volume backup_data + S3 optionnel)
 - Procédure documentée (infra/backup/README.md) et test trimestriel planifié
 - Protection contre la suppression accidentelle (rétention, checksums)
-- Manifestes JSON horodatés pour audit et traçabilité";EX-NFR-03;§5.3, §1.8;DEVOPS;Must;5;L0-07;Terminé;
+- Manifestes JSON horodatés pour audit et traçabilité";EX-NFR-03;§5.3, §1.8;DEVOPS;Must;5;L0-07;À faire;
 L7-11;L7;E7.4;Exploitation & conformité;Tâche technique;Alarmes et runbooks;File d'échecs non vide, génération au-delà du seuil, 5xx, e-mails en échec.;"- Chaque alarme a un runbook
 - Alerte déclenchée sur les scénarios simulés";EX-NFR-05;§5.4, §4.19;DEVOPS;Should;5;L0-09, L5-22;À faire;
 L7-12;L7;E7.4;Exploitation & conformité;Tâche technique;Conformité INPDP et conservation;Durées de conservation audit, journal de sécurité et exports, droit d'accès et de rectification, validation DPO.;"- Politique de conservation validée par la maîtrise d'ouvrage
