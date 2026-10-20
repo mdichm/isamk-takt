@@ -326,7 +326,7 @@ export default function ImportPage() {
               onClick={() => setPreview(null)}
               className="px-4 py-2 border rounded hover:bg-muted"
             >
-              Nouveau aperçu
+              {messages.btnNouveauApercu}
             </button>
             {!hasConflits && (
               <button
@@ -334,7 +334,7 @@ export default function ImportPage() {
                 disabled={confirmLoading}
                 className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 disabled:opacity-50"
               >
-                {confirmLoading ? 'Application…' : messages.btnConfirmer}
+                {confirmLoading ? messages.btnApplicationEnCours : messages.btnConfirmer}
               </button>
             )}
           </div>
