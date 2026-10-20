@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - Tests unitaires du service d'import CSV/XLSX (L1-26)
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import * as XLSX from 'xlsx';
 import { ImportsService } from './imports.service.js';
 import { ImportEntity, ImportCsvDto } from './dto/import-csv.dto.js';
 
@@ -196,6 +197,88 @@ describe('ImportsService', () => {
       const items = (service as any).validateModule({ code: 'INFO301', semestreNumero: '3' }, 2);
       const erreur = items.find((i: any) => i.action === 'erreur');
       expect(erreur.colonne).toBe('semestreNumero');
+    });
+  });
+
+  describe('parseXlsx', () => {
+    function makeXlsxBuffer(rows: any[][]): Buffer {
+      const worksheet = XLSX.utils.aoa_to_sheet(rows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Feuil1');
+      return XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+    }
+
+    it('devrait parser un XLSX simple avec en-têtes', () => {
+      const buffer = makeXlsxBuffer([
+        ['matricule', 'nom', 'email'],
+        ['M001', 'Doe', 'doe@example.com'],
+        ['M002', 'Smith', 'smith@example.com'],
+      ]);
+      const rows = (service as any).parseXlsx(buffer);
+      expect(rows).toHaveLength(2);
+      expect(rows[0].matricule).toBe('M001');
+      expect(rows[0].email).toBe('doe@example.com');
+      expect(rows[1].nom).toBe('Smith');
+    });
+
+    it('devrait prendre la premiere feuille quand il y en a plusieurs', () => {
+      const ws1 = XLSX.utils.aoa_to_sheet([
+        ['a', 'b'],
+        ['1', '2'],
+      ]);
+      const ws2 = XLSX.utils.aoa_to_sheet([
+        ['x', 'y'],
+        ['9', '8'],
+      ]);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, ws1, 'Feuil1');
+      XLSX.utils.book_append_sheet(workbook, ws2, 'Feuil2');
+      const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+
+      const rows = (service as any).parseXlsx(buffer);
+      expect(rows).toHaveLength(1);
+      expect(rows[0].a).toBe('1');
+      expect(rows[0].b).toBe('2');
+    });
+
+    it('devrait convertir les valeurs numeriques en string', () => {
+      const buffer = makeXlsxBuffer([
+        ['code', 'effectif'],
+        ['S001', 120],
+      ]);
+      const rows = (service as any).parseXlsx(buffer);
+      expect(rows[0].code).toBe('S001');
+      expect(rows[0].effectif).toBe('120');
+      expect(typeof rows[0].effectif).toBe('string');
+    });
+
+    it('devrait utiliser les en-tetes comme cles des lignes', () => {
+      const buffer = makeXlsxBuffer([
+        ['code', 'libelle', 'capacite'],
+        ['S001', 'Amphi A', '120'],
+      ]);
+      const rows = (service as any).parseXlsx(buffer);
+      expect(rows[0]).toEqual({ code: 'S001', libelle: 'Amphi A', capacite: '120' });
+    });
+
+    it('devrait ignorer les lignes completamente vides', () => {
+      const buffer = makeXlsxBuffer([
+        ['matricule', 'nom'],
+        ['M001', 'Doe'],
+        [undefined, undefined],
+        ['M002', 'Smith'],
+      ]);
+      const rows = (service as any).parseXlsx(buffer);
+      expect(rows).toHaveLength(2);
+    });
+
+    it('devrait retourner un tableau vide pour une feuille sans donnees', () => {
+      const worksheet = XLSX.utils.aoa_to_sheet([]);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Feuil1');
+      const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+      const rows = (service as any).parseXlsx(buffer);
+      expect(rows).toEqual([]);
     });
   });
 });

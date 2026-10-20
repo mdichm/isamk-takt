@@ -236,7 +236,7 @@ L1-28;L1;E1.9;Imports CSV/XLSX - Dette technique;DET;Parseur CSV : librairie dé
 - Pas de perte de données sur les champs multivaleurs";EX-IMP-01;§5.3;BACK;Should;3;L1-26;Terminé;
 L1-29;L1;E1.9;Imports CSV/XLSX - Dette technique;DET;Parseur XLSX : librairie dédiée;Remplacer la lecture ZIP brute du XLSX par une librairie Excel (multi-feuilles, formules, styles, fichiers produits par divers outils).;"- Support plusieurs feuilles (sheet1, sheet2...)
 - Lecture des cellules avec formules et styles
-- Compatibilité fichiers XLSX produits par Excel, LibreOffice, Google Sheets";EX-IMP-01;§5.3;BACK;Should;3;L1-26;À faire;
+- Compatibilité fichiers XLSX produits par Excel, LibreOffice, Google Sheets";EX-IMP-01;§5.3;BACK;Should;3;L1-26;Terminé;
 L1-30;L1;E1.9;Imports CSV/XLSX - Dette technique;DET;Types Multer : déclaration globale manuelle;Ajouter @types/multer ou supprimer la déclaration globale Express.Multer.File pour éviter la divergence avec @nestjs/platform-express.;"- Types Multer déclarés proprement
 - Pas de déclaration globale hand-écrite
 - Compatible avec les mises à jour de @nestjs/platform-express";EX-IMP-01;§5.3;BACK;Could;1;L1-26;À faire;
