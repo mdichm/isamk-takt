@@ -262,7 +262,7 @@ L2-04;L2;E2.2;Charge paramétrable;DET;Moteur de calcul de la charge (charge-eng
 - Un CM commun compte une seule fois pour l'enseignant (test dédié)
 - Écart = charge calculée − service dû ; heures sup, seuil et plafond conformes à ST §4.2
 - Tests par propriété et cas limites (période annuelle partielle)
-- Détail par activité : type, volume, coefficient, contribution";EX-CHG-02, EX-CHG-05, EX-ACT-03;§4.2;BACK;Must;8;L0-03;À faire;
+- Détail par activité : type, volume, coefficient, contribution";EX-CHG-02, EX-CHG-05, EX-ACT-03;§4.2;BACK;Must;8;L0-03;En cours;
 L2-05;L2;E2.2;Charge paramétrable;DET;UI paramétrage de la charge;Édition d'un jeu de règles, publication, création du suivant, affectation à l'année.;"- Édition impossible après publication
 - Affectation du jeu à l'année (garde d'activation)
 - Vocabulaire « charge » partout, aucun « DU »";EX-CHG-01;§4.2;FRONT;Must;5;L2-03, L0-29;À faire;
