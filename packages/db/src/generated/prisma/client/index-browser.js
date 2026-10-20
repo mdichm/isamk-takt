@@ -462,6 +462,35 @@ exports.Prisma.ModuleVolumeScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ChargeRuleSetScalarFieldEnum = {
+  id: 'id',
+  numero: 'numero',
+  periode: 'periode',
+  seuil: 'seuil',
+  plafond: 'plafond',
+  arrondi: 'arrondi',
+  publieLe: 'publieLe',
+  anneeId: 'anneeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChargeReferenceGradeScalarFieldEnum = {
+  id: 'id',
+  rulesetId: 'rulesetId',
+  gradeId: 'gradeId',
+  coefficient: 'coefficient',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ChargeCoefficientScalarFieldEnum = {
+  id: 'id',
+  rulesetId: 'rulesetId',
+  typeId: 'typeId',
+  coefficient: 'coefficient',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ActivityTagScalarFieldEnum = {
   id: 'id',
   code: 'code',
@@ -738,6 +767,12 @@ exports.GradeCode = exports.$Enums.GradeCode = {
   AUTRE: 'AUTRE'
 };
 
+exports.PeriodeRegle = exports.$Enums.PeriodeRegle = {
+  HEBDOMADAIRE: 'HEBDOMADAIRE',
+  SEMESTRIELLE: 'SEMESTRIELLE',
+  ANNUELLE: 'ANNUELLE'
+};
+
 exports.ExigenceNiveau = exports.$Enums.ExigenceNiveau = {
   OBLIGATOIRE: 'OBLIGATOIRE',
   SOUHAITE: 'SOUHAITE'
@@ -812,6 +847,9 @@ exports.Prisma.ModelName = {
   Grade: 'Grade',
   Module: 'Module',
   ModuleVolume: 'ModuleVolume',
+  ChargeRuleSet: 'ChargeRuleSet',
+  ChargeReferenceGrade: 'ChargeReferenceGrade',
+  ChargeCoefficient: 'ChargeCoefficient',
   ActivityTag: 'ActivityTag',
   Enseignant: 'Enseignant',
   EnseignantModule: 'EnseignantModule',

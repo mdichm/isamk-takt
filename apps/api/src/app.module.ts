@@ -27,6 +27,7 @@ import { SitesModule } from './sites/sites.module.js';
 import { CompatModule } from './compat/compat.module.js';
 import { CreneauModule } from './creneaux/creneau.module.js';
 import { CreneauxAffichageModule } from './creneaux-affichage/creneaux-affichage.module.js';
+import { ChargeRuleSetModule } from './charge-ruleset/charge-ruleset.module.js';
 import { IndisponibiliteModule } from './indisponibilites/indisponibilite.module.js';
 import { ContraintesModule } from './contraintes/contraintes.module.js';
 import { ImportsModule } from './imports/imports.module.js';
@@ -98,6 +99,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     CreneauModule,
     CreneauxAffichageModule,
     IndisponibiliteModule,
+    ChargeRuleSetModule,
     ContraintesModule,
     ImportsModule,
     PolicyModule,
