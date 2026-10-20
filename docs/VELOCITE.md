@@ -1,6 +1,6 @@
 # 📊 Dashboard Vélocité TAKT
 
-*Généré le 21/10/2026 par `velocity_tracker.py` — Ne pas éditer à la main.*
+*Généré le 20/10/2026 par `velocity_tracker.py` — Ne pas éditer à la main.*
 
 ---
 
@@ -15,8 +15,8 @@
 | Points total | 1112 |
 | Points réalisés | 344 (30.9%) |
 | Points restants | 768 |
-| Débit journalier moyen | 38.22 pts/j |
-| Jours écoulés depuis le début | 9 |
+| Débit journalier moyen | 43.00 pts/j |
+| Jours écoulés depuis le début | 8 |
 
 ---
 
@@ -26,7 +26,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Méthode | Date estimée | Fiabilité | Hypothèse |
 |---------|-------------|-----------|-----------|
-| Débit continu (linéaire) | 10/11/2026 (~2.9 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
+| Débit continu (linéaire) | 07/11/2026 (~2.6 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
 | Par capacité par lot | 28/10/2026 (~1.0 semaines restants) | Réaliste | Complexité spécifique par lot + dépendances |
 
 > **Date de fin retenue : 28/10/2026 (~1.0 semaines restants)** (méthode la plus réaliste : par capacité par lot)
@@ -38,10 +38,10 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 | Métrique | Valeur |
 |----------|--------|
 | Points réalisés | 344 |
-| Débit journalier moyen | 38.22 pts/j |
-| Débit hebdomadaire moyen | 267.56 pts/sem |
+| Débit journalier moyen | 43.00 pts/j |
+| Débit hebdomadaire moyen | 301.00 pts/sem |
 | Points restants | 768 |
-| Prévision débit continu | 10/11/2026 (~2.9 semaines restants) |
+| Prévision débit continu | 07/11/2026 (~2.6 semaines restants) |
 
 ---
 
@@ -49,13 +49,13 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Lot | Points restants | Coeff. vélocité | Jours estimés | Date fin lot |
 |-----|----------------:|----------------:|--------------:|-------------:|
-| L1 | 14 | 1.0 | 0.4 j | 21/10/2026 |
-| L2 | 80 | 0.9 | 2.3 j | 23/10/2026 |
-| L3 | 212 | 0.7 | 7.9 j | 28/10/2026 |
-| L4 | 148 | 0.85 | 4.6 j | 25/10/2026 |
-| L5 | 150 | 0.9 | 4.4 j | 25/10/2026 |
-| L6 | 64 | 1.0 | 1.7 j | 22/10/2026 |
-| L7 | 100 | 0.85 | 3.1 j | 24/10/2026 |
+| L1 | 14 | 1.0 | 0.3 j | 21/10/2026 |
+| L2 | 80 | 0.9 | 2.1 j | 23/10/2026 |
+| L3 | 212 | 0.7 | 7.0 j | 28/10/2026 |
+| L4 | 148 | 0.85 | 4.0 j | 25/10/2026 |
+| L5 | 150 | 0.9 | 3.9 j | 24/10/2026 |
+| L6 | 64 | 1.0 | 1.5 j | 22/10/2026 |
+| L7 | 100 | 0.85 | 2.7 j | 23/10/2026 |
 
 *Le lot le plus long détermine la date de fin globale du projet.*
 
