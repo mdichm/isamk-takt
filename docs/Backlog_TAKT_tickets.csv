@@ -308,7 +308,7 @@ L3-02;L3;E3.1;Contraintes;Story;Classification des règles et matrice de traduct
 - La matrice de traduction (identifiant, domaine, sévérité, type, entrée FET, contrôles pré/post-génération et édition, message, test, version) est générée depuis le catalogue";EX-CTR-06, EX-PRI-02;§4.3, §4.6.3;BACK;Must;3;L3-01;Terminé;
 L3-03;L3;E3.1;Contraintes;Story;Instances de contraintes;CRUD /contraintes/instances par semestre.;"- Poids 0–100 (CHECK), null pour les dures
 - Cible enseignant, groupe, salle ou module cohérente avec la portée
-- Champs nature (REGLE ou VOEU) et commentaire";EX-CTR-02;§2.2, §4.11;BACK;Must;5;L3-01, L1-10, L1-04, L1-13;À faire;
+- Champs nature (REGLE ou VOEU) et commentaire";EX-CTR-02;§2.2, §4.11;BACK;Must;5;L3-01, L1-10, L1-04, L1-13;En cours;
 L3-04;L3;E3.1;Contraintes;Story;UI contraintes;Création et paramétrage des contraintes avec rapport de traduction FET en aperçu.;"- Le poids n'est saisissable que pour les contraintes souples
 - L'aperçu fet-mapping est affiché (branché en L4)
 - La nature de chaque contrainte (règle, préférence) est visible";EX-CTR-02, EX-CTR-06;§3.3;FRONT;Should;5;L3-03, L0-29;À faire;
