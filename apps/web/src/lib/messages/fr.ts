@@ -608,6 +608,41 @@ export const messages = {
   errorImportFichierPreview: 'Impossible de générer l’aperçu du fichier.',
   errorImportFichierApply: 'Impossible d’appliquer l’import.',
   successImportFichierApplied: 'Import appliqué avec succès.',
+
+  // ============================================
+  // Volumes de module (L2-02)
+  // ============================================
+  entityVolume: 'volume',
+  volumes: 'Volumes de module',
+  volumesSubtitle: 'Saisie des volumes d’enseignement par type (CM, TD, TP, CI, AUTRE).',
+  noVolumes: 'Aucun volume renseigné pour ce module.',
+  volumeColumnType: 'Type d’enseignement',
+  volumeColumnVolume: 'Volume (minutes)',
+  volumeColumnActions: 'Actions',
+  typeCM: 'CM',
+  typeTD: 'TD',
+  typeTP: 'TP',
+  typeCI: 'CI',
+  typeAutre: 'Autre',
+  createVolume: 'Ajouter un volume',
+  editVolume: 'Modifier le volume',
+  deleteVolume: 'Supprimer le volume',
+  deleteVolumeConfirm: 'Supprimer le volume {type} ? Cette action est irréversible.',
+  formVolumeRequired: 'Le volume est requis.',
+  formVolumeMultiple: 'Le volume doit être un multiple de 30 minutes.',
+  formVolumeMin: 'Le volume doit être supérieur ou égal à 30 minutes.',
+  formVolumeMax: 'Le volume doit être inférieur ou égal à 960 minutes.',
+  formTypeRequired: 'Le type d’enseignement est requis.',
+  formTypeUnique: 'Un volume existe déjà pour ce type dans ce module.',
+  successVolumeCreated: 'Volume créé avec succès.',
+  successVolumeUpdated: 'Volume mis à jour avec succès.',
+  successVolumeDeleted: 'Volume supprimé.',
+  errorLoadVolumes: 'Impossible de charger les volumes du module.',
+  errorCreateVolume: 'Impossible de créer le volume.',
+  errorUpdateVolume: 'Impossible de mettre à jour le volume.',
+  errorDeleteVolume: 'Impossible de supprimer le volume.',
+  errorVolumeNotFound: 'Volume introuvable.',
+  btnVoirVolumes: 'Voir les volumes',
 } as const;
 
 export type Messages = typeof messages;
