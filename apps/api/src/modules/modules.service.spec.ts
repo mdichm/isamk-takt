@@ -10,6 +10,10 @@ import {
   CreateModuleDto,
   UpdateModuleDto,
 } from './dto/module.dto.js';
+import {
+  CreateModuleVolumeDto,
+  UpdateModuleVolumeDto,
+} from './dto/volume.dto.js';
 
 vi.mock('@takt/db', () => {
   class PrismaClientMock {}
@@ -32,6 +36,7 @@ describe('ModulesService', () => {
   const typeId = '550e8400-e29b-41d4-a716-446655440020';
   const gradeId = '550e8400-e29b-41d4-a716-446655440030';
   const moduleId = '550e8400-e29b-41d4-a716-446655440040';
+  const volumeId = '550e8400-e29b-41d4-a716-446655440050';
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -64,6 +69,14 @@ describe('ModulesService', () => {
       module: {
         findUnique: vi.fn(),
         findFirst: vi.fn(),
+        findMany: vi.fn(),
+        count: vi.fn(),
+        create: vi.fn(),
+        update: vi.fn(),
+        delete: vi.fn(),
+      },
+      moduleVolume: {
+        findUnique: vi.fn(),
         findMany: vi.fn(),
         count: vi.fn(),
         create: vi.fn(),
@@ -384,6 +397,152 @@ describe('ModulesService', () => {
     it('should throw NotFound when module does not exist', async () => {
       prisma.module.findUnique.mockResolvedValue(null);
       await expect(service.removeModule(moduleId, userId)).rejects.toThrow('non trouvé');
+    });
+  });
+
+  // ============================================
+  // Module Volumes (L2-01)
+  // ============================================
+
+  describe('createModuleVolume', () => {
+    it('should create a module volume', async () => {
+      prisma.module.findUnique.mockResolvedValue({ id: moduleId });
+      prisma.moduleVolume.findUnique.mockResolvedValue(null);
+      prisma.moduleVolume.create.mockResolvedValue({
+        id: volumeId,
+        moduleId,
+        type: 'CM',
+        volume: 90,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      const dto: CreateModuleVolumeDto = {
+        moduleId,
+        type: 'CM',
+        volume: 90,
+      };
+      const result = await service.createModuleVolume(moduleId, dto, userId);
+
+      expect(result.id).toBe(volumeId);
+      expect(result.type).toBe('CM');
+      expect(result.volume).toBe(90);
+    });
+
+    it('should throw NotFound when module does not exist', async () => {
+      prisma.module.findUnique.mockResolvedValue(null);
+      await expect(
+        service.createModuleVolume(moduleId, { moduleId, type: 'CM', volume: 90 }, userId),
+      ).rejects.toThrow('non trouvé');
+    });
+
+    it('should throw Conflict when volume already exists for type', async () => {
+      prisma.module.findUnique.mockResolvedValue({ id: moduleId });
+      prisma.moduleVolume.findUnique.mockResolvedValue({
+        id: volumeId,
+        moduleId,
+        type: 'CM',
+        volume: 90,
+      });
+      await expect(
+        service.createModuleVolume(moduleId, { moduleId, type: 'CM', volume: 90 }, userId),
+      ).rejects.toThrow('existe déjà');
+    });
+
+    it('should throw Conflict when volume is not multiple of 30', async () => {
+      prisma.module.findUnique.mockResolvedValue({ id: moduleId });
+      prisma.moduleVolume.findUnique.mockResolvedValue(null);
+      await expect(
+        service.createModuleVolume(moduleId, { moduleId, type: 'CM', volume: 45 }, userId),
+      ).rejects.toThrow('multiple de 30');
+    });
+  });
+
+  describe('findModuleVolumes', () => {
+    it('should list module volumes', async () => {
+      prisma.moduleVolume.findMany.mockResolvedValue([
+        {
+          id: volumeId,
+          moduleId,
+          type: 'CM',
+          volume: 90,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ]);
+      prisma.moduleVolume.count.mockResolvedValue(1);
+
+      const result = await service.findModuleVolumes(moduleId, { page: 1, limit: 10 });
+
+      expect(result.total).toBe(1);
+      expect(result.data.length).toBe(1);
+      expect(result.data[0].type).toBe('CM');
+    });
+  });
+
+  describe('findModuleVolumeById', () => {
+    it('should get module volume by ID', async () => {
+      prisma.moduleVolume.findUnique.mockResolvedValue({
+        id: volumeId,
+        moduleId,
+        type: 'TD',
+        volume: 120,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      const result = await service.findModuleVolumeById(volumeId);
+
+      expect(result.id).toBe(volumeId);
+      expect(result.type).toBe('TD');
+    });
+
+    it('should throw NotFound when volume does not exist', async () => {
+      prisma.moduleVolume.findUnique.mockResolvedValue(null);
+      await expect(service.findModuleVolumeById(volumeId)).rejects.toThrow('non trouvé');
+    });
+  });
+
+  describe('updateModuleVolume', () => {
+    it('should update a module volume', async () => {
+      prisma.moduleVolume.findUnique.mockResolvedValue({
+        id: volumeId,
+        moduleId,
+        type: 'CM',
+        volume: 90,
+      });
+      prisma.moduleVolume.update.mockResolvedValue({
+        id: volumeId,
+        moduleId,
+        type: 'CM',
+        volume: 120,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      const dto: UpdateModuleVolumeDto = { volume: 120 };
+      const result = await service.updateModuleVolume(volumeId, dto, userId);
+
+      expect(result.volume).toBe(120);
+    });
+  });
+
+  describe('removeModuleVolume', () => {
+    it('should delete a module volume', async () => {
+      prisma.moduleVolume.findUnique.mockResolvedValue({
+        id: volumeId,
+        moduleId,
+        type: 'CM',
+        volume: 90,
+      });
+
+      await expect(service.removeModuleVolume(volumeId, userId)).resolves.toBeUndefined();
+      expect(prisma.moduleVolume.delete).toHaveBeenCalledWith({ where: { id: volumeId } });
+    });
+
+    it('should throw NotFound when deleting non-existent volume', async () => {
+      prisma.moduleVolume.findUnique.mockResolvedValue(null);
+      await expect(service.removeModuleVolume(volumeId, userId)).rejects.toThrow('non trouvé');
     });
   });
 });

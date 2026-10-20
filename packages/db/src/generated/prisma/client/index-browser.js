@@ -453,6 +453,15 @@ exports.Prisma.ModuleScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ModuleVolumeScalarFieldEnum = {
+  id: 'id',
+  moduleId: 'moduleId',
+  type: 'type',
+  volume: 'volume',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ActivityTagScalarFieldEnum = {
   id: 'id',
   code: 'code',
@@ -802,6 +811,7 @@ exports.Prisma.ModelName = {
   TypeEnseignement: 'TypeEnseignement',
   Grade: 'Grade',
   Module: 'Module',
+  ModuleVolume: 'ModuleVolume',
   ActivityTag: 'ActivityTag',
   Enseignant: 'Enseignant',
   EnseignantModule: 'EnseignantModule',

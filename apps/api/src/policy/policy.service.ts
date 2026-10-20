@@ -37,6 +37,7 @@ export class PolicyService {
           'referentiel:write','creneau:write','creneaux:generate','charge-ruleset:write','export-style:write','referentiel:read',
           'enseignant:write','salle:read','salle:write','import:write',
           'creneau-affichage:read','creneau-affichage:write','indisponibilite:write',
+          'volume:write','volume:read',
           'repartition:read','repartition:write','repartition:validate',
           'charges:read',
           'contrainte:read','contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
@@ -54,6 +55,7 @@ export class PolicyService {
       {
         permissions: [
           'referentiel:read','salle:read','salle:write','creneau-affichage:read','creneau-affichage:write','indisponibilite:write','creneaux:generate','import:write',
+          'volume:write','volume:read',
           'repartition:read','charges:read','annee:read',
           'contrainte:read','contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
           'version:create','generation:launch','verrou:write','avertissement:accept',
@@ -72,6 +74,7 @@ export class PolicyService {
         permissions: [
           'referentiel:read','salle:read','salle:write','enseignant:write','repartition:read','repartition:write',
           'repartition:validate','charges:read','version:read','version:validate','annee:read',
+          'volume:write','volume:read',
           'demande:handle',
           'project:read','project:write','task:read','task:write','sprint:read','sprint:write','comment:read','comment:write','activity:read','tag:read','tag:write',
           'notification:read','tableau-de-bord:read',
@@ -86,6 +89,7 @@ export class PolicyService {
         permissions: [
           'referentiel:read','salle:read','repartition:read','charges:read','version:read','annee:read',
           'contrainte:read',
+          'volume:read',
           'project:read','task:read','sprint:read','comment:read','activity:read','tag:read',
           'export:create','notification:read','tableau-de-bord:read',
           'audit:read',

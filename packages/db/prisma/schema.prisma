@@ -751,12 +751,31 @@ model Module {
   updatedAt         DateTime           @updatedAt
   enseignantModules EnseignantModule[]
   exigencesEquipement ExigenceEquipement[] @relation("ModuleExigenceEquipement")
+  moduleVolumes     ModuleVolume[]
 
   @@unique([niveauId, code, semestreNumero])
   @@index([niveauId])
   @@index([typeId])
   @@index([gradeId])
   @@map("modules")
+}
+
+// ============================================
+// Module Volumes (L2-01)
+// ============================================
+
+model ModuleVolume {
+  id        String   @id @default(uuid()) @db.Uuid
+  moduleId  String   @db.Uuid
+  module    Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  type      String   // CM, TD, TP, CI, AUTRE
+  volume    Int      // en minutes, multiple de 30
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([moduleId, type])
+  @@index([moduleId])
+  @@map("module_volumes")
 }
 
 // ============================================
