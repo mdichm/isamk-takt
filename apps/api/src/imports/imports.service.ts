@@ -8,7 +8,7 @@ import * as XLSX from 'xlsx';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 import { WriteAuditDto } from '../audit/dto/audit.dto.js';
-import './types.js';
+
 import {
   ImportEntity,
   ALL_IMPORT_ENTITIES,
