@@ -106,6 +106,12 @@ enum JourSemaine {
   SAMEDI
 }
 
+// Grille d'affichage (normale ou Ramadan) — L1-22
+enum GrilleAffichage {
+  NORMALE
+  RAMADAN
+}
+
 enum ContrainteCategorie {
   DURE
   SOUPLE
@@ -546,9 +552,30 @@ model Creneau {
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
+  affichages CreneauAffichage[]
+
   @@unique([semestreId, jour, ordre])
   @@index([semestreId, jour])
   @@map("creneaux")
+}
+
+// ============================================
+// Correspondance d'affichage Ramadan (L1-22 : EX-CAL-04)
+// La grille NORMALE est dérivée de Creneau ; RAMADAN associe un horaire d'affichage libre par créneau.
+// ============================================
+
+model CreneauAffichage {
+  id         String          @id @default(uuid()) @db.Uuid
+  creneauId  String          @db.Uuid
+  grille     GrilleAffichage @default(RAMADAN)
+  heureDebut DateTime        @db.Time(0)
+  heureFin   DateTime        @db.Time(0) // durée libre, pas de contrainte de 30 minutes
+
+  creneau Creneau @relation(fields: [creneauId], references: [id], onDelete: Cascade)
+
+  @@unique([creneauId, grille])
+  @@index([creneauId])
+  @@map("creneau_affichage")
 }
 
 // ============================================

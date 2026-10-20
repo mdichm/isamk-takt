@@ -365,6 +365,14 @@ exports.Prisma.CreneauScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CreneauAffichageScalarFieldEnum = {
+  id: 'id',
+  creneauId: 'creneauId',
+  grille: 'grille',
+  heureDebut: 'heureDebut',
+  heureFin: 'heureFin'
+};
+
 exports.Prisma.DepartementScalarFieldEnum = {
   id: 'id',
   anneeId: 'anneeId',
@@ -692,6 +700,11 @@ exports.JourSemaine = exports.$Enums.JourSemaine = {
   SAMEDI: 'SAMEDI'
 };
 
+exports.GrilleAffichage = exports.$Enums.GrilleAffichage = {
+  NORMALE: 'NORMALE',
+  RAMADAN: 'RAMADAN'
+};
+
 exports.GroupeType = exports.$Enums.GroupeType = {
   SECTION: 'SECTION',
   GROUPE: 'GROUPE',
@@ -766,6 +779,7 @@ exports.Prisma.ModelName = {
   Annee: 'Annee',
   Semestre: 'Semestre',
   Creneau: 'Creneau',
+  CreneauAffichage: 'CreneauAffichage',
   Departement: 'Departement',
   Formation: 'Formation',
   Niveau: 'Niveau',

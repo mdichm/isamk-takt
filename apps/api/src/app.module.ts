@@ -26,6 +26,7 @@ import { SalleModule } from './salles/salle.module.js';
 import { SitesModule } from './sites/sites.module.js';
 import { CompatModule } from './compat/compat.module.js';
 import { CreneauModule } from './creneaux/creneau.module.js';
+import { CreneauxAffichageModule } from './creneaux-affichage/creneaux-affichage.module.js';
 import { IndisponibiliteModule } from './indisponibilites/indisponibilite.module.js';
 import { ContraintesModule } from './contraintes/contraintes.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
@@ -94,6 +95,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     SitesModule,
     CompatModule,
     CreneauModule,
+    CreneauxAffichageModule,
     IndisponibiliteModule,
     ContraintesModule,
     PolicyModule,
