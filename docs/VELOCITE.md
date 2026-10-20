@@ -9,13 +9,13 @@
 | Métrique | Valeur |
 |----------|--------|
 | Tickets total | 212 |
-| ✅ Terminés | 69 (32.5%) |
+| ✅ Terminés | 70 (33.0%) |
 | 🔄 En cours | 0 |
-| ⏳ À faire | 143 |
+| ⏳ À faire | 142 |
 | Points total | 1092 |
-| Points réalisés | 313 (28.7%) |
-| Points restants | 779 |
-| Débit journalier moyen | 39.12 pts/j |
+| Points réalisés | 321 (29.4%) |
+| Points restants | 771 |
+| Débit journalier moyen | 40.12 pts/j |
 | Jours écoulés depuis le début | 8 |
 
 ---
@@ -26,7 +26,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Méthode | Date estimée | Fiabilité | Hypothèse |
 |---------|-------------|-----------|-----------|
-| Débit continu (linéaire) | 09/11/2026 (~2.8 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
+| Débit continu (linéaire) | 08/11/2026 (~2.7 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
 | Par capacité par lot | 28/10/2026 (~1.0 semaines restants) | Réaliste | Complexité spécifique par lot + dépendances |
 
 > **Date de fin retenue : 28/10/2026 (~1.0 semaines restants)** (méthode la plus réaliste : par capacité par lot)
@@ -37,11 +37,11 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Métrique | Valeur |
 |----------|--------|
-| Points réalisés | 313 |
-| Débit journalier moyen | 39.12 pts/j |
-| Débit hebdomadaire moyen | 273.88 pts/sem |
-| Points restants | 779 |
-| Prévision débit continu | 09/11/2026 (~2.8 semaines restants) |
+| Points réalisés | 321 |
+| Débit journalier moyen | 40.12 pts/j |
+| Débit hebdomadaire moyen | 280.88 pts/sem |
+| Points restants | 771 |
+| Prévision débit continu | 08/11/2026 (~2.7 semaines restants) |
 
 ---
 
@@ -49,13 +49,13 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Lot | Points restants | Coeff. vélocité | Jours estimés | Date fin lot |
 |-----|----------------:|----------------:|--------------:|-------------:|
-| L1 | 11 | 1.0 | 0.3 j | 20/10/2026 |
-| L2 | 94 | 0.9 | 2.7 j | 23/10/2026 |
-| L3 | 212 | 0.7 | 7.7 j | 28/10/2026 |
-| L4 | 148 | 0.85 | 4.5 j | 25/10/2026 |
-| L5 | 150 | 0.9 | 4.3 j | 24/10/2026 |
+| L1 | 3 | 1.0 | 0.1 j | 20/10/2026 |
+| L2 | 94 | 0.9 | 2.6 j | 23/10/2026 |
+| L3 | 212 | 0.7 | 7.5 j | 28/10/2026 |
+| L4 | 148 | 0.85 | 4.3 j | 24/10/2026 |
+| L5 | 150 | 0.9 | 4.2 j | 24/10/2026 |
 | L6 | 64 | 1.0 | 1.6 j | 22/10/2026 |
-| L7 | 100 | 0.85 | 3.0 j | 23/10/2026 |
+| L7 | 100 | 0.85 | 2.9 j | 23/10/2026 |
 
 *Le lot le plus long détermine la date de fin globale du projet.*
 
@@ -94,7 +94,7 @@ Sprint,Points restants,Points idéaux
 | Lot | Tickets | Points | Terminés | % |
 |-----|--------:|-------:|---------:|---:|
 | L0 | 39 | 176 | 39 | 100.0% |
-| L1 | 27 | 122 | 25 | 92.6% |
+| L1 | 27 | 122 | 26 | 96.3% |
 | L2 | 19 | 94 | 0 | 0.0% |
 | L3 | 45 | 225 | 3 | 6.7% |
 | L4 | 24 | 148 | 0 | 0.0% |

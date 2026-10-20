@@ -227,7 +227,7 @@ L1-26;L1;E1.8;Imports CSV/XLSX;Story;Import CSV/XLSX avec simulation et impact;"
 - Rapport ligne par ligne (ligne, colonne, valeur, erreur, cause, correction attendue) sans enregistrement partiel
 - Contrôle de taille et de type réel (magic bytes), parseur isolé
 - Groupes : colonne semestre obligatoire et code validé selon la nomenclature
-- Une donnée utilisée dans une répartition validée déclenche une analyse d'impact avant application, sans modifier de validation";EX-IMP-01, EX-IMP-03;§4.9, §5.3;BACK;Should;8;L1-10, L1-13, L1-04, L1-05, L1-07;À faire;
+- Une donnée utilisée dans une répartition validée déclenche une analyse d'impact avant application, sans modifier de validation";EX-IMP-01, EX-IMP-03;§4.9, §5.3;BACK;Should;8;L1-10, L1-13, L1-04, L1-05, L1-07;Terminé;
 L1-27;L1;E1.8;Imports CSV/XLSX;Story;UI import;Dépôt de fichier, rapport d'erreurs, impacts, confirmation.;"- Le rapport de simulation est lisible avant confirmation
 - Fichier invalide rejeté avec message explicite
 - Les impacts sur les données validées sont affichés";EX-IMP-01, EX-IMP-03;§3.3;FRONT;Should;3;L1-26, L0-29;À faire;
