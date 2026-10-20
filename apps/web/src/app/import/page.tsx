@@ -27,6 +27,8 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { messages } from '@/lib/messages/fr';
 
+export const dynamic = 'force-dynamic';
+
 export default function ImportPage() {
   const [entite, setEntite] = useState<ImportEntity>('enseignants');
   const [file, setFile] = useState<File | null>(null);
