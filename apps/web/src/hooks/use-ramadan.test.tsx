@@ -10,6 +10,7 @@ import {
   useDuplicateCreneauxAffichage,
 } from './use-ramadan';
 import * as api from '@/lib/api/ramadan';
+import type { CreneauAffichage } from '@/lib/api/ramadan';
 
 vi.mock('@/lib/api/ramadan', () => ({
   findAllCreneauxAffichage: vi.fn(),
@@ -88,7 +89,7 @@ describe('useCreateCreneauAffichage', () => {
   });
 
   it('should create an affichage successfully', async () => {
-    const created = { id: 'a-1', creneauId: 'c-1', grille: 'RAMADAN', heureDebut: '07:30:00', heureFin: '09:00:00', createdAt: '', updatedAt: '' };
+    const created: CreneauAffichage = { id: 'a-1', creneauId: 'c-1', grille: 'RAMADAN', heureDebut: '07:30:00', heureFin: '09:00:00', createdAt: '', updatedAt: '' };
     mockCreateCreneauAffichage.mockResolvedValue(created);
 
     const { result } = renderHook(() => useCreateCreneauAffichage(), { wrapper: createWrapper() });
@@ -128,7 +129,7 @@ describe('useUpdateCreneauAffichage', () => {
   });
 
   it('should update an affichage successfully', async () => {
-    const updated = { id: 'a-1', creneauId: 'c-1', grille: 'RAMADAN', heureDebut: '08:00:00', heureFin: '09:30:00', createdAt: '', updatedAt: '' };
+    const updated: CreneauAffichage = { id: 'a-1', creneauId: 'c-1', grille: 'RAMADAN', heureDebut: '08:00:00', heureFin: '09:30:00', createdAt: '', updatedAt: '' };
     mockUpdateCreneauAffichage.mockResolvedValue(updated);
 
     const { result } = renderHook(() => useUpdateCreneauAffichage(), { wrapper: createWrapper() });
