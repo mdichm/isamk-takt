@@ -26,7 +26,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 
 | Méthode | Date estimée | Fiabilité | Hypothèse |
 |---------|-------------|-----------|-----------|
-| Débit continu (linéaire) | 10/11/2026 (~3.0 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
+| Débit continu (linéaire) | 09/11/2026 (~3.0 semaines restants) | Moyenne | Vélocité constante sur tous les lots |
 | Par capacité par lot | 28/10/2026 (~1.1 semaines restants) | Réaliste | Complexité spécifique par lot + dépendances |
 
 > **Date de fin retenue : 28/10/2026 (~1.1 semaines restants)** (méthode la plus réaliste : par capacité par lot)
@@ -41,7 +41,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 | Débit journalier moyen | 37.75 pts/j |
 | Débit hebdomadaire moyen | 264.25 pts/sem |
 | Points restants | 790 |
-| Prévision débit continu | 10/11/2026 (~3.0 semaines restants) |
+| Prévision débit continu | 09/11/2026 (~3.0 semaines restants) |
 
 ---
 
