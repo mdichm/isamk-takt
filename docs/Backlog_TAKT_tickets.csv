@@ -220,7 +220,7 @@ L1-24;L1;E1.7;Import depuis une année clôturée;Story;Import depuis une année
 - Copie départements, formations, niveaux, groupes (parents d'abord), modules, salles, enseignants, et en option créneaux et grille Ramadan
 - Relancer ne duplique rien
 - Répartitions, séances, versions, contraintes, indisponibilités, charges non copiés
-- Effectifs réinitialisables avec avertissement";EX-IMP-02;§4.9, §3.4.16;BACK;Must;8;L1-10, L1-15, L1-04, L1-22, L1-17;À faire;
+- Effectifs réinitialisables avec avertissement";EX-IMP-02;§4.9, §3.4.16;BACK;Must;8;L1-10, L1-15, L1-04, L1-22, L1-17;Terminé;
 L1-25;L1;E1.7;Import depuis une année clôturée;Story;UI import depuis une année clôturée;Assistant de choix des types de données, aperçu détaillé, confirmation.;"- Le résumé des copies, conflits et avertissements est affiché avant confirmation
 - L'opération est transactionnelle";EX-IMP-02;§3.4.16;FRONT;Should;3;L1-24, L0-29;À faire;
 L1-26;L1;E1.8;Imports CSV/XLSX;Story;Import CSV/XLSX avec simulation et impact;"POST /imports/{entite}?dryRun=true pour enseignants, salles, groupes, modules ; analyse d'impact sur les répartitions validées.";"- Simulation obligatoire avant import réel

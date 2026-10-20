@@ -30,6 +30,11 @@ import {
   GenerateCreneauxDto,
   GenerateCreneauxResponseDto,
 } from './dto/generate-creneaux.dto.js';
+import {
+  ImportAnneeDto,
+  ImportPreviewDto,
+  ImportResultDto,
+} from './dto/import.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
@@ -95,6 +100,29 @@ export class AnneesController {
   @ApiResponse({ status: 409, description: 'L\'année contient des semestres' })
   async removeAnnee(@Param('id') id: string): Promise<void> {
     return this.anneesService.removeAnnee(id, 'system');
+  }
+
+  @Post(':id/import')
+  @Permissions('annee:write')
+  @ApiOperation({
+    summary: 'Importer des données depuis une année clôturée',
+    description:
+      'Aperçu (dryRun=true) puis application transactionnelle (confirmation=true). Idempotent par originId.',
+  })
+  @ApiParam({ name: 'id', description: 'ID de l\'année source (UUID, doit être CLOTUREE)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Aperçu de l\'import (dryRun) ou résultat de l\'application',
+  })
+  @ApiResponse({ status: 400, description: 'Confirmation requise ou année source non clôturée' })
+  @ApiResponse({ status: 404, description: 'Année source ou cible non trouvée' })
+  @ApiResponse({ status: 409, description: 'Conflit de données dans l\'année cible' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  async importAnnee(
+    @Param('id') id: string,
+    @Body() dto: ImportAnneeDto,
+  ): Promise<ImportPreviewDto | ImportResultDto> {
+    return this.anneesService.importAnnee(id, dto, 'system');
   }
 
   @Post(':id/transitions')
