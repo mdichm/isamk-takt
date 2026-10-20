@@ -543,6 +543,8 @@ export const messages = {
   btnImportApercu: 'Générer l\'aperçu',
   btnConfirmer: 'Confirmer l\'import',
   btnAnnuler: 'Annuler',
+  btnNouveauApercu: 'Nouveau aperçu',
+  btnApplicationEnCours: 'Application…',
   importApercuTitre: 'Aperçu de l\'import',
   importActionAjout: 'Ajout',
   importActionModification: 'Modification',
