@@ -76,7 +76,7 @@ L0-19;L0;E0.4;RBAC avec portée;Story;Module policy RBAC avec portée;Permission
 - Le Gestionnaire ne modifie pas la répartition ; la Direction n'a aucun droit d'écriture";EX-SEC-08, EX-ROL-03, EX-ROL-05, EX-PRI-05;§5.2;BACK;Must;8;L0-10;Terminé;
 L0-20;L0;E0.4;RBAC avec portée;Test;Matrice RBAC automatisée;Test rôle × endpoint déduit de la matrice des permissions (4 rôles).;"- Un test parcourt le routeur et échoue si une route n'est pas déclarée
 - Chaque cellule de la matrice (ST §5.2) est vérifiée
-- Les cas négatifs (Responsable hors département, Direction en écriture) sont couverts";EX-SEC-08, EX-ROL-04;§5.2, §5.5;QA;Must;5;L0-19;À faire;
+- Les cas négatifs (Responsable hors département, Direction en écriture) sont couverts";EX-SEC-08, EX-ROL-04;§5.2, §5.5;QA;Must;5;L0-19;Terminé;
 L0-21;L0;E0.4;RBAC avec portée;Story;Permissions ressource:action sur les contrôleurs génériques (projects, tasks, sprints, comments, activities);Déclarer @Permissions(...) sur chaque méthode publique des contrôleurs génériques (projects, tasks, sprints, comments, activities) et définir les permissions ressource:action associées dans PolicyService (matrice ST §5.2), afin qu'elles soient couvertes par le test de matrice L0-16.;"- Chaque méthode publique des 6 contrôleurs déclare @Permissions(...) (ou @Public si pertinent)
 - Les nouvelles permissions sont ajoutées à PolicyService pour les 4 rôles
 - Le test rbac-router.spec.ts (L0-16) les inclut et passe
@@ -116,28 +116,28 @@ L0-31;L0;E0.7;Socle web;Story;Écrans des paramètres de sécurité et du journa
 L0-32;L0;E0.7;Socle web;Tâche technique;JWT Auth Guard (JwtAuthGuard);Implémentation du guard JwtAuthGuard pour protéger les routes avec vérification du JWT d'accès (signature, expiration, revocation via refresh token family).;"- Le guard extrait le token du header Authorization Bearer
 - Valide la signature et l'expiration
 - Vérifie la non-révocation via la famille de refresh tokens
-- Retourne 401 avec ProblemJson RFC 9457 en cas d'échec";EX-SEC-01;§5.1;BACK;Must;3;L0-10;À faire;
+- Retourne 401 avec ProblemJson RFC 9457 en cas d'échec";EX-SEC-01;§5.1;BACK;Must;3;L0-10;Terminé;
 L0-33;L0;E0.7;Socle web;Tâche technique;RolesGuard et décorateur @Roles();"Guard RolesGuard vérifiant les rôles requis et la portée département ; décorateur @Roles() pour déclarer les rôles attendus sur les contrôleurs.";"- Le guard lit les rôles depuis le payload JWT
 - Vérifie l'appartenance au département de l'utilisateur
 - Le décorateur accepte un ou plusieurs rôles
-- Retourne 403 ProblemJson si insuffisant";EX-SEC-01;§5.1;BACK;Must;3;L0-32;À faire;
+- Retourne 403 ProblemJson si insuffisant";EX-SEC-01;§5.1;BACK;Must;3;L0-32;Terminé;
 L0-34;L0;E0.7;Socle web;Story;UsersModule (CRUD + reset‑pwd);Module Users complet : création, lecture, mise à jour, suppression (soft‑delete) d'utilisateurs, changement de mot de passe par l'utilisateur, réinitialisation par l'administrateur avec lien à usage unique.;"- Seul l'Administrateur peut créer/supprimer
 - L'utilisateur peut modifier son propre profil et mot de passe
 - L'administrateur génère un lien de réinitialisation (token opaque, TTL court)
-- Tous les endpoints documentés OpenAPI";EX-SEC-02;§5.1, §3.4.21;BACK;Must;5;L0-33;À faire;
+- Tous les endpoints documentés OpenAPI";EX-SEC-02;§5.1, §3.4.21;BACK;Must;5;L0-33;Terminé;
 L0-35;L0;E0.7;Socle web;Tâche technique;Filtre global ProblemJson (RFC 9457);Filtre d'exception global transformant toute erreur en réponse application/problem+json (type, title, status, detail, instance, errors).;"- Toutes les HttpException et erreurs imprévues passent par le filtre
 - Le format respecte RFC 9457
-- Le type d'erreur contient une URI stable https://takt.example.fr/errors/{status}";EX-NFR-05;§5.4;BACK;Must;3;L0-32;À faire;
+- Le type d'erreur contient une URI stable https://takt.example.fr/errors/{status}";EX-NFR-05;§5.4;BACK;Must;3;L0-32;Terminé;
 L0-36;L0;E0.7;Socle web;Tâche technique;Intercepteur de réponse avec en‑tête Link (pagination curseur);ResponseInterceptor ajoutant l'en‑tête Link RFC 5988 (rel=next) lorsque le payload paginé contient nextCursor.;"- L'en‑tête Link n'est ajouté que si nextCursor présent
 - L'URL construida conserve les paramètres de requête existants
-- Conforme à la pagination curseur définie dans ST §3.1";EX-NFR-04;§3.1, §5.4;BACK;Must;2;L0-35;À faire;
+- Conforme à la pagination curseur définie dans ST §3.1";EX-NFR-04;§3.1, §5.4;BACK;Must;2;L0-35;Terminé;
 L0-37;L0;E0.7;Socle web;Tâche technique;Configuration Swagger UI à /api/docs;Initialisation de SwaggerModule avec DocumentBuilder (BearerAuth, tags, version) et exposition de l'UI à /api/docs.;"- L'UI est accessible sans authentification
 - Les schémas DTO sont inclus via @ApiProperty
 - Le document OpenAPI 3.1 est généré au démarrage";EX-NFR-09;§5.3;BACK;Must;2;L0-35;Terminé;
 L0-38;L0;E0.7;Socle web;Tâche technique;Enregistrement d'événements de sécurité;Service d'audit pour tracer les événements de sécurité (connexion, échec, MFA, changements de rôle, etc.) et les exposer via API.;"- Les événements sont écrits de façon asynchrone
 - Chaque événement contient: type, userId, ip, userAgent, timestamp, détails
 - L'API permet de lister/filtrer les événements (admin only)
-- Intégré au guard JWT et au service d'audit futur";EX-SEC-01;§5.1;BACK;Must;3;L0-32, L0-23;À faire;
+- Intégré au guard JWT et au service d'audit futur";EX-SEC-01;§5.1;BACK;Must;3;L0-32, L0-23;Terminé;
 L0-39;L0;E0.7;Socle web;Tâche technique;Brancher l'interceptor SecurityEvent sur l'authentification;Appliquer SecurityEventInterceptor sur les contrôleurs d'authentification (login, register, refresh, logout) pour capturer les événements de sécurité réels (succès).;"- Login, register, refresh et logout génèrent un SecurityEvent
 - Les événements MFA restent gérés par MfaService (pas de doublon)
 - L'email est capturé depuis le corps de requête sur les routes publiques";EX-SEC-01;§5.1;BACK;Must;2;L0-38, L0-32;Terminé;
@@ -181,13 +181,13 @@ L1-12;L1;E1.3;Enseignants, grades & décharges;Story;UI enseignants;Liste, fiche
 - Le Responsable voit uniquement son département en écriture";EX-REF-03, EX-REF-07;§3.3;FRONT;Must;5;L1-10, L0-29;Terminé;
 L1-13;L1;E1.4;Salles & équipements;Story;CRUD salles, types de salle et équipements;Capacité maximale et recommandée, accessibilité PMR, commentaire, site, rattachement département optionnel.;"- CHECK capacité > 0 et capacité recommandée inférieure ou égale à la maximale
 - Salle partagée = département nul
-- Désactivation recommandée à la suppression";EX-REF-04;§2.2, §2.4;BACK;Must;5;L1-03;À faire;
+- Désactivation recommandée à la suppression";EX-REF-04;§2.2, §2.4;BACK;Must;5;L1-03;Terminé;
 L1-14;L1;E1.4;Salles & équipements;Story;Référentiel des sites;"Site principal et annexes ; rattachement obligatoire d'une salle à un site.";"- Un site principal existe par défaut
 - Les filtres et vues par site sont disponibles
 - Le site n'a aucun effet de calcul en v1.0";EX-REF-04;§2.2;BACK;Should;2;L1-13;Terminé;
 L1-15;L1;E1.4;Salles & équipements;Story;Compatibilités salle/tag et exigences d'équipement;SalleActivityTag et ExigenceEquipement (module, type, niveau obligatoire ou souhaité).;"- Une salle liste les Activity Tags autorisés
 - Un (module, type) liste les équipements requis avec leur niveau (obligatoire par défaut)
-- La compatibilité distingue compatible, acceptable avec avertissement et incompatible";EX-REF-05, EX-CTR-08;§2.2, §4.3;BACK;Must;5;L1-13, L1-06;À faire;
+- La compatibilité distingue compatible, acceptable avec avertissement et incompatible";EX-REF-05, EX-CTR-08;§2.2, §4.3;BACK;Must;5;L1-13, L1-06;Terminé;
 L1-16;L1;E1.4;Salles & équipements;Story;UI salles;Liste, fiche, équipements, tags compatibles, sites.;"- Création et modification d'une salle avec ses compatibilités
 - Lecture seule pour le Gestionnaire";EX-REF-04;§3.3;FRONT;Must;5;L1-15, L1-14, L0-29;Terminé;
 L1-17;L1;E1.5;Grille horaire & indisponibilités;Story;CRUD créneaux et pauses (par semestre);Grille lundi–samedi propre à chaque semestre, ordre consécutif, pauses, pas fixe de 30 minutes.;"- Unicité (semestre, jour, ordre)
