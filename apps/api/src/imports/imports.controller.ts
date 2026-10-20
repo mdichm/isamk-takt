@@ -27,7 +27,6 @@ import { ImportCsvDto, ImportPreviewDto, ImportResultDto, ImportEntity, ALL_IMPO
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
-import './types.js';
 
 @ApiTags('Imports CSV/XLSX')
 @Controller('imports')
