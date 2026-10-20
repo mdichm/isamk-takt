@@ -565,6 +565,49 @@ export const messages = {
   errorImportPreview: 'Impossible de générer l\'aperçu de l\'import.',
   errorImportApply: 'Impossible d\'appliquer l\'import.',
   successImportApplied: 'Import appliqué avec succès.',
+
+  // ============================================
+  // Import de fichier CSV/XLSX (L1-27)
+  // ============================================
+  labelImportFichierTitre: 'Importer un fichier',
+  labelImportFichierEntite: 'Entité',
+  labelImportFichierFichier: 'Fichier',
+  labelImportFichierTailleMax: 'Taille maximum : 10 Mo',
+  labelImportFichierFormats: 'Formats acceptés',
+  entiteEnseignants: 'Enseignants',
+  entiteSalles: 'Salles',
+  entiteGroupes: 'Groupes',
+  entiteModules: 'Modules',
+  btnImportFichierApercu: 'Générer l\'aperçu',
+  btnImportFichierParcourir: 'Parcourir…',
+  importFichierDepot: 'Déposez votre fichier CSV ou XLSX ici',
+  importFichierDepotHint: 'Ou cliquez pour choisir un fichier.',
+  importFichierColLigne: 'Ligne',
+  importFichierColColonne: 'Colonne',
+  importFichierColValeur: 'Valeur',
+  importFichierColAction: 'Action',
+  importFichierColMessage: 'Détail',
+  importFichierColCorrection: 'Correction attendue',
+  importRapportTitre: 'Rapport de simulation',
+  importErreursConflitsDetectes: 'Erreurs ou conflits détectés.',
+  importResumeTitre: 'Résumé',
+  importResumeModification: 'Modifications',
+  importImpactsTitre: 'Impacts sur les données existantes',
+  importImpactEntite: 'Entité',
+  importImpactCode: 'Code',
+  importImpactUtiliseDans: 'Utilisé dans',
+  importImpactsAvertissement:
+    'Ces données sont utilisées dans des répartitions validées. Elles ne seront pas modifiées.',
+  importConflitsBloquants:
+    'Conflits ou erreurs détectés : l’import ne peut pas être appliqué.',
+  importAucuneErreur: 'Aucune erreur détectée.',
+  importAucuneValeur: '—',
+  importTotalLignes: 'Lignes totales',
+  importAidePiedDePage:
+    'L’import est d’abord simulé (aucune écriture en base). Confirmez pour appliquer de manière transactionnelle.',
+  errorImportFichierPreview: 'Impossible de générer l’aperçu du fichier.',
+  errorImportFichierApply: 'Impossible d’appliquer l’import.',
+  successImportFichierApplied: 'Import appliqué avec succès.',
 } as const;
 
 export type Messages = typeof messages;
