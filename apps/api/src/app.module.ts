@@ -29,6 +29,7 @@ import { CreneauModule } from './creneaux/creneau.module.js';
 import { CreneauxAffichageModule } from './creneaux-affichage/creneaux-affichage.module.js';
 import { IndisponibiliteModule } from './indisponibilites/indisponibilite.module.js';
 import { ContraintesModule } from './contraintes/contraintes.module.js';
+import { ImportsModule } from './imports/imports.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -98,6 +99,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     CreneauxAffichageModule,
     IndisponibiliteModule,
     ContraintesModule,
+    ImportsModule,
     PolicyModule,
   ],
   controllers: [MetricsController, SecurityEventController],
