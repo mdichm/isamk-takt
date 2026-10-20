@@ -223,6 +223,16 @@ export type SalleActivityTag = $Result.DefaultSelection<Prisma.$SalleActivityTag
  * 
  */
 export type ExigenceEquipement = $Result.DefaultSelection<Prisma.$ExigenceEquipementPayload>
+/**
+ * Model ContrainteDefinition
+ * 
+ */
+export type ContrainteDefinition = $Result.DefaultSelection<Prisma.$ContrainteDefinitionPayload>
+/**
+ * Model ContrainteInstance
+ * 
+ */
+export type ContrainteInstance = $Result.DefaultSelection<Prisma.$ContrainteInstancePayload>
 
 /**
  * Enums
@@ -360,6 +370,42 @@ export const GrilleAffichage: {
 export type GrilleAffichage = (typeof GrilleAffichage)[keyof typeof GrilleAffichage]
 
 
+export const ContrainteCategorie: {
+  DURE: 'DURE',
+  SOUPLE: 'SOUPLE'
+};
+
+export type ContrainteCategorie = (typeof ContrainteCategorie)[keyof typeof ContrainteCategorie]
+
+
+export const ContraintePortee: {
+  GLOBALE: 'GLOBALE',
+  ENSEIGNANT: 'ENSEIGNANT',
+  GROUPE: 'GROUPE',
+  SALLE: 'SALLE',
+  MODULE: 'MODULE'
+};
+
+export type ContraintePortee = (typeof ContraintePortee)[keyof typeof ContraintePortee]
+
+
+export const ContrainteNature: {
+  REGLE: 'REGLE',
+  VOEU: 'VOEU'
+};
+
+export type ContrainteNature = (typeof ContrainteNature)[keyof typeof ContrainteNature]
+
+
+export const FetSupport: {
+  NATIF: 'NATIF',
+  PARTIEL: 'PARTIEL',
+  AUCUN: 'AUCUN'
+};
+
+export type FetSupport = (typeof FetSupport)[keyof typeof FetSupport]
+
+
 export const TypeEnseignementCode: {
   CM: 'CM',
   TD: 'TD',
@@ -434,6 +480,22 @@ export const JourSemaine: typeof $Enums.JourSemaine
 export type GrilleAffichage = $Enums.GrilleAffichage
 
 export const GrilleAffichage: typeof $Enums.GrilleAffichage
+
+export type ContrainteCategorie = $Enums.ContrainteCategorie
+
+export const ContrainteCategorie: typeof $Enums.ContrainteCategorie
+
+export type ContraintePortee = $Enums.ContraintePortee
+
+export const ContraintePortee: typeof $Enums.ContraintePortee
+
+export type ContrainteNature = $Enums.ContrainteNature
+
+export const ContrainteNature: typeof $Enums.ContrainteNature
+
+export type FetSupport = $Enums.FetSupport
+
+export const FetSupport: typeof $Enums.FetSupport
 
 export type TypeEnseignementCode = $Enums.TypeEnseignementCode
 
@@ -983,6 +1045,26 @@ export class PrismaClient<
     * ```
     */
   get exigenceEquipement(): Prisma.ExigenceEquipementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contrainteDefinition`: Exposes CRUD operations for the **ContrainteDefinition** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContrainteDefinitions
+    * const contrainteDefinitions = await prisma.contrainteDefinition.findMany()
+    * ```
+    */
+  get contrainteDefinition(): Prisma.ContrainteDefinitionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contrainteInstance`: Exposes CRUD operations for the **ContrainteInstance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContrainteInstances
+    * const contrainteInstances = await prisma.contrainteInstance.findMany()
+    * ```
+    */
+  get contrainteInstance(): Prisma.ContrainteInstanceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1471,7 +1553,9 @@ export namespace Prisma {
     Equipement: 'Equipement',
     SalleEquipement: 'SalleEquipement',
     SalleActivityTag: 'SalleActivityTag',
-    ExigenceEquipement: 'ExigenceEquipement'
+    ExigenceEquipement: 'ExigenceEquipement',
+    ContrainteDefinition: 'ContrainteDefinition',
+    ContrainteInstance: 'ContrainteInstance'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1487,7 +1571,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4599,6 +4683,154 @@ export namespace Prisma {
           }
         }
       }
+      ContrainteDefinition: {
+        payload: Prisma.$ContrainteDefinitionPayload<ExtArgs>
+        fields: Prisma.ContrainteDefinitionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContrainteDefinitionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContrainteDefinitionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>
+          }
+          findFirst: {
+            args: Prisma.ContrainteDefinitionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContrainteDefinitionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>
+          }
+          findMany: {
+            args: Prisma.ContrainteDefinitionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>[]
+          }
+          create: {
+            args: Prisma.ContrainteDefinitionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>
+          }
+          createMany: {
+            args: Prisma.ContrainteDefinitionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContrainteDefinitionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>[]
+          }
+          delete: {
+            args: Prisma.ContrainteDefinitionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>
+          }
+          update: {
+            args: Prisma.ContrainteDefinitionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContrainteDefinitionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContrainteDefinitionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContrainteDefinitionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContrainteDefinitionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteDefinitionPayload>
+          }
+          aggregate: {
+            args: Prisma.ContrainteDefinitionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContrainteDefinition>
+          }
+          groupBy: {
+            args: Prisma.ContrainteDefinitionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContrainteDefinitionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContrainteDefinitionCountArgs<ExtArgs>
+            result: $Utils.Optional<ContrainteDefinitionCountAggregateOutputType> | number
+          }
+        }
+      }
+      ContrainteInstance: {
+        payload: Prisma.$ContrainteInstancePayload<ExtArgs>
+        fields: Prisma.ContrainteInstanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContrainteInstanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContrainteInstanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>
+          }
+          findFirst: {
+            args: Prisma.ContrainteInstanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContrainteInstanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>
+          }
+          findMany: {
+            args: Prisma.ContrainteInstanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>[]
+          }
+          create: {
+            args: Prisma.ContrainteInstanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>
+          }
+          createMany: {
+            args: Prisma.ContrainteInstanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContrainteInstanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>[]
+          }
+          delete: {
+            args: Prisma.ContrainteInstanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>
+          }
+          update: {
+            args: Prisma.ContrainteInstanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>
+          }
+          deleteMany: {
+            args: Prisma.ContrainteInstanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContrainteInstanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContrainteInstanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>[]
+          }
+          upsert: {
+            args: Prisma.ContrainteInstanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContrainteInstancePayload>
+          }
+          aggregate: {
+            args: Prisma.ContrainteInstanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContrainteInstance>
+          }
+          groupBy: {
+            args: Prisma.ContrainteInstanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContrainteInstanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContrainteInstanceCountArgs<ExtArgs>
+            result: $Utils.Optional<ContrainteInstanceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4764,6 +4996,8 @@ export namespace Prisma {
     salleEquipement?: SalleEquipementOmit
     salleActivityTag?: SalleActivityTagOmit
     exigenceEquipement?: ExigenceEquipementOmit
+    contrainteDefinition?: ContrainteDefinitionOmit
+    contrainteInstance?: ContrainteInstanceOmit
   }
 
   /* Types for Logging */
@@ -5227,6 +5461,7 @@ export namespace Prisma {
     decharges: number
     creneaux: number
     indisponibilites: number
+    contrainteInstances: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5234,6 +5469,7 @@ export namespace Prisma {
     decharges?: boolean | SemestreCountOutputTypeCountDechargesArgs
     creneaux?: boolean | SemestreCountOutputTypeCountCreneauxArgs
     indisponibilites?: boolean | SemestreCountOutputTypeCountIndisponibilitesArgs
+    contrainteInstances?: boolean | SemestreCountOutputTypeCountContrainteInstancesArgs
   }
 
   // Custom InputTypes
@@ -5273,6 +5509,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountIndisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IndisponibiliteWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountContrainteInstancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContrainteInstanceWhereInput
   }
 
 
@@ -5815,6 +6058,37 @@ export namespace Prisma {
    */
   export type EquipementCountOutputTypeCountExigencesEquipementArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExigenceEquipementWhereInput
+  }
+
+
+  /**
+   * Count Type ContrainteDefinitionCountOutputType
+   */
+
+  export type ContrainteDefinitionCountOutputType = {
+    instances: number
+  }
+
+  export type ContrainteDefinitionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instances?: boolean | ContrainteDefinitionCountOutputTypeCountInstancesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ContrainteDefinitionCountOutputType without action
+   */
+  export type ContrainteDefinitionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinitionCountOutputType
+     */
+    select?: ContrainteDefinitionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ContrainteDefinitionCountOutputType without action
+   */
+  export type ContrainteDefinitionCountOutputTypeCountInstancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContrainteInstanceWhereInput
   }
 
 
@@ -28960,6 +29234,7 @@ export namespace Prisma {
     decharges?: boolean | Semestre$dechargesArgs<ExtArgs>
     creneaux?: boolean | Semestre$creneauxArgs<ExtArgs>
     indisponibilites?: boolean | Semestre$indisponibilitesArgs<ExtArgs>
+    contrainteInstances?: boolean | Semestre$contrainteInstancesArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -29002,6 +29277,7 @@ export namespace Prisma {
     decharges?: boolean | Semestre$dechargesArgs<ExtArgs>
     creneaux?: boolean | Semestre$creneauxArgs<ExtArgs>
     indisponibilites?: boolean | Semestre$indisponibilitesArgs<ExtArgs>
+    contrainteInstances?: boolean | Semestre$contrainteInstancesArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29019,6 +29295,7 @@ export namespace Prisma {
       decharges: Prisma.$DechargePayload<ExtArgs>[]
       creneaux: Prisma.$CreneauPayload<ExtArgs>[]
       indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
+      contrainteInstances: Prisma.$ContrainteInstancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -29427,6 +29704,7 @@ export namespace Prisma {
     decharges<T extends Semestre$dechargesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$dechargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     creneaux<T extends Semestre$creneauxArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$creneauxArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     indisponibilites<T extends Semestre$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    contrainteInstances<T extends Semestre$contrainteInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$contrainteInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29957,6 +30235,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.contrainteInstances
+   */
+  export type Semestre$contrainteInstancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    where?: ContrainteInstanceWhereInput
+    orderBy?: ContrainteInstanceOrderByWithRelationInput | ContrainteInstanceOrderByWithRelationInput[]
+    cursor?: ContrainteInstanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContrainteInstanceScalarFieldEnum | ContrainteInstanceScalarFieldEnum[]
   }
 
   /**
@@ -54187,6 +54489,2334 @@ export namespace Prisma {
 
 
   /**
+   * Model ContrainteDefinition
+   */
+
+  export type AggregateContrainteDefinition = {
+    _count: ContrainteDefinitionCountAggregateOutputType | null
+    _min: ContrainteDefinitionMinAggregateOutputType | null
+    _max: ContrainteDefinitionMaxAggregateOutputType | null
+  }
+
+  export type ContrainteDefinitionMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    categorie: $Enums.ContrainteCategorie | null
+    portee: $Enums.ContraintePortee | null
+    fetSupport: $Enums.FetSupport | null
+    actif: boolean | null
+  }
+
+  export type ContrainteDefinitionMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    libelle: string | null
+    categorie: $Enums.ContrainteCategorie | null
+    portee: $Enums.ContraintePortee | null
+    fetSupport: $Enums.FetSupport | null
+    actif: boolean | null
+  }
+
+  export type ContrainteDefinitionCountAggregateOutputType = {
+    id: number
+    code: number
+    libelle: number
+    categorie: number
+    portee: number
+    paramsSchema: number
+    fetSupport: number
+    actif: number
+    _all: number
+  }
+
+
+  export type ContrainteDefinitionMinAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    categorie?: true
+    portee?: true
+    fetSupport?: true
+    actif?: true
+  }
+
+  export type ContrainteDefinitionMaxAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    categorie?: true
+    portee?: true
+    fetSupport?: true
+    actif?: true
+  }
+
+  export type ContrainteDefinitionCountAggregateInputType = {
+    id?: true
+    code?: true
+    libelle?: true
+    categorie?: true
+    portee?: true
+    paramsSchema?: true
+    fetSupport?: true
+    actif?: true
+    _all?: true
+  }
+
+  export type ContrainteDefinitionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContrainteDefinition to aggregate.
+     */
+    where?: ContrainteDefinitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContrainteDefinitions to fetch.
+     */
+    orderBy?: ContrainteDefinitionOrderByWithRelationInput | ContrainteDefinitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContrainteDefinitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContrainteDefinitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContrainteDefinitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContrainteDefinitions
+    **/
+    _count?: true | ContrainteDefinitionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContrainteDefinitionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContrainteDefinitionMaxAggregateInputType
+  }
+
+  export type GetContrainteDefinitionAggregateType<T extends ContrainteDefinitionAggregateArgs> = {
+        [P in keyof T & keyof AggregateContrainteDefinition]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContrainteDefinition[P]>
+      : GetScalarType<T[P], AggregateContrainteDefinition[P]>
+  }
+
+
+
+
+  export type ContrainteDefinitionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContrainteDefinitionWhereInput
+    orderBy?: ContrainteDefinitionOrderByWithAggregationInput | ContrainteDefinitionOrderByWithAggregationInput[]
+    by: ContrainteDefinitionScalarFieldEnum[] | ContrainteDefinitionScalarFieldEnum
+    having?: ContrainteDefinitionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContrainteDefinitionCountAggregateInputType | true
+    _min?: ContrainteDefinitionMinAggregateInputType
+    _max?: ContrainteDefinitionMaxAggregateInputType
+  }
+
+  export type ContrainteDefinitionGroupByOutputType = {
+    id: string
+    code: string
+    libelle: string
+    categorie: $Enums.ContrainteCategorie
+    portee: $Enums.ContraintePortee
+    paramsSchema: JsonValue
+    fetSupport: $Enums.FetSupport
+    actif: boolean
+    _count: ContrainteDefinitionCountAggregateOutputType | null
+    _min: ContrainteDefinitionMinAggregateOutputType | null
+    _max: ContrainteDefinitionMaxAggregateOutputType | null
+  }
+
+  type GetContrainteDefinitionGroupByPayload<T extends ContrainteDefinitionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContrainteDefinitionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContrainteDefinitionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContrainteDefinitionGroupByOutputType[P]>
+            : GetScalarType<T[P], ContrainteDefinitionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContrainteDefinitionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    categorie?: boolean
+    portee?: boolean
+    paramsSchema?: boolean
+    fetSupport?: boolean
+    actif?: boolean
+    instances?: boolean | ContrainteDefinition$instancesArgs<ExtArgs>
+    _count?: boolean | ContrainteDefinitionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contrainteDefinition"]>
+
+  export type ContrainteDefinitionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    categorie?: boolean
+    portee?: boolean
+    paramsSchema?: boolean
+    fetSupport?: boolean
+    actif?: boolean
+  }, ExtArgs["result"]["contrainteDefinition"]>
+
+  export type ContrainteDefinitionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    categorie?: boolean
+    portee?: boolean
+    paramsSchema?: boolean
+    fetSupport?: boolean
+    actif?: boolean
+  }, ExtArgs["result"]["contrainteDefinition"]>
+
+  export type ContrainteDefinitionSelectScalar = {
+    id?: boolean
+    code?: boolean
+    libelle?: boolean
+    categorie?: boolean
+    portee?: boolean
+    paramsSchema?: boolean
+    fetSupport?: boolean
+    actif?: boolean
+  }
+
+  export type ContrainteDefinitionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "libelle" | "categorie" | "portee" | "paramsSchema" | "fetSupport" | "actif", ExtArgs["result"]["contrainteDefinition"]>
+  export type ContrainteDefinitionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instances?: boolean | ContrainteDefinition$instancesArgs<ExtArgs>
+    _count?: boolean | ContrainteDefinitionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ContrainteDefinitionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ContrainteDefinitionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ContrainteDefinitionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ContrainteDefinition"
+    objects: {
+      instances: Prisma.$ContrainteInstancePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      libelle: string
+      categorie: $Enums.ContrainteCategorie
+      portee: $Enums.ContraintePortee
+      paramsSchema: Prisma.JsonValue
+      fetSupport: $Enums.FetSupport
+      actif: boolean
+    }, ExtArgs["result"]["contrainteDefinition"]>
+    composites: {}
+  }
+
+  type ContrainteDefinitionGetPayload<S extends boolean | null | undefined | ContrainteDefinitionDefaultArgs> = $Result.GetResult<Prisma.$ContrainteDefinitionPayload, S>
+
+  type ContrainteDefinitionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContrainteDefinitionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContrainteDefinitionCountAggregateInputType | true
+    }
+
+  export interface ContrainteDefinitionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ContrainteDefinition'], meta: { name: 'ContrainteDefinition' } }
+    /**
+     * Find zero or one ContrainteDefinition that matches the filter.
+     * @param {ContrainteDefinitionFindUniqueArgs} args - Arguments to find a ContrainteDefinition
+     * @example
+     * // Get one ContrainteDefinition
+     * const contrainteDefinition = await prisma.contrainteDefinition.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContrainteDefinitionFindUniqueArgs>(args: SelectSubset<T, ContrainteDefinitionFindUniqueArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ContrainteDefinition that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContrainteDefinitionFindUniqueOrThrowArgs} args - Arguments to find a ContrainteDefinition
+     * @example
+     * // Get one ContrainteDefinition
+     * const contrainteDefinition = await prisma.contrainteDefinition.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContrainteDefinitionFindUniqueOrThrowArgs>(args: SelectSubset<T, ContrainteDefinitionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContrainteDefinition that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteDefinitionFindFirstArgs} args - Arguments to find a ContrainteDefinition
+     * @example
+     * // Get one ContrainteDefinition
+     * const contrainteDefinition = await prisma.contrainteDefinition.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContrainteDefinitionFindFirstArgs>(args?: SelectSubset<T, ContrainteDefinitionFindFirstArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContrainteDefinition that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteDefinitionFindFirstOrThrowArgs} args - Arguments to find a ContrainteDefinition
+     * @example
+     * // Get one ContrainteDefinition
+     * const contrainteDefinition = await prisma.contrainteDefinition.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContrainteDefinitionFindFirstOrThrowArgs>(args?: SelectSubset<T, ContrainteDefinitionFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContrainteDefinitions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteDefinitionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContrainteDefinitions
+     * const contrainteDefinitions = await prisma.contrainteDefinition.findMany()
+     * 
+     * // Get first 10 ContrainteDefinitions
+     * const contrainteDefinitions = await prisma.contrainteDefinition.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contrainteDefinitionWithIdOnly = await prisma.contrainteDefinition.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContrainteDefinitionFindManyArgs>(args?: SelectSubset<T, ContrainteDefinitionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ContrainteDefinition.
+     * @param {ContrainteDefinitionCreateArgs} args - Arguments to create a ContrainteDefinition.
+     * @example
+     * // Create one ContrainteDefinition
+     * const ContrainteDefinition = await prisma.contrainteDefinition.create({
+     *   data: {
+     *     // ... data to create a ContrainteDefinition
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContrainteDefinitionCreateArgs>(args: SelectSubset<T, ContrainteDefinitionCreateArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ContrainteDefinitions.
+     * @param {ContrainteDefinitionCreateManyArgs} args - Arguments to create many ContrainteDefinitions.
+     * @example
+     * // Create many ContrainteDefinitions
+     * const contrainteDefinition = await prisma.contrainteDefinition.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContrainteDefinitionCreateManyArgs>(args?: SelectSubset<T, ContrainteDefinitionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ContrainteDefinitions and returns the data saved in the database.
+     * @param {ContrainteDefinitionCreateManyAndReturnArgs} args - Arguments to create many ContrainteDefinitions.
+     * @example
+     * // Create many ContrainteDefinitions
+     * const contrainteDefinition = await prisma.contrainteDefinition.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ContrainteDefinitions and only return the `id`
+     * const contrainteDefinitionWithIdOnly = await prisma.contrainteDefinition.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContrainteDefinitionCreateManyAndReturnArgs>(args?: SelectSubset<T, ContrainteDefinitionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ContrainteDefinition.
+     * @param {ContrainteDefinitionDeleteArgs} args - Arguments to delete one ContrainteDefinition.
+     * @example
+     * // Delete one ContrainteDefinition
+     * const ContrainteDefinition = await prisma.contrainteDefinition.delete({
+     *   where: {
+     *     // ... filter to delete one ContrainteDefinition
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContrainteDefinitionDeleteArgs>(args: SelectSubset<T, ContrainteDefinitionDeleteArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ContrainteDefinition.
+     * @param {ContrainteDefinitionUpdateArgs} args - Arguments to update one ContrainteDefinition.
+     * @example
+     * // Update one ContrainteDefinition
+     * const contrainteDefinition = await prisma.contrainteDefinition.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContrainteDefinitionUpdateArgs>(args: SelectSubset<T, ContrainteDefinitionUpdateArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ContrainteDefinitions.
+     * @param {ContrainteDefinitionDeleteManyArgs} args - Arguments to filter ContrainteDefinitions to delete.
+     * @example
+     * // Delete a few ContrainteDefinitions
+     * const { count } = await prisma.contrainteDefinition.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContrainteDefinitionDeleteManyArgs>(args?: SelectSubset<T, ContrainteDefinitionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContrainteDefinitions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteDefinitionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContrainteDefinitions
+     * const contrainteDefinition = await prisma.contrainteDefinition.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContrainteDefinitionUpdateManyArgs>(args: SelectSubset<T, ContrainteDefinitionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContrainteDefinitions and returns the data updated in the database.
+     * @param {ContrainteDefinitionUpdateManyAndReturnArgs} args - Arguments to update many ContrainteDefinitions.
+     * @example
+     * // Update many ContrainteDefinitions
+     * const contrainteDefinition = await prisma.contrainteDefinition.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ContrainteDefinitions and only return the `id`
+     * const contrainteDefinitionWithIdOnly = await prisma.contrainteDefinition.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContrainteDefinitionUpdateManyAndReturnArgs>(args: SelectSubset<T, ContrainteDefinitionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ContrainteDefinition.
+     * @param {ContrainteDefinitionUpsertArgs} args - Arguments to update or create a ContrainteDefinition.
+     * @example
+     * // Update or create a ContrainteDefinition
+     * const contrainteDefinition = await prisma.contrainteDefinition.upsert({
+     *   create: {
+     *     // ... data to create a ContrainteDefinition
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContrainteDefinition we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContrainteDefinitionUpsertArgs>(args: SelectSubset<T, ContrainteDefinitionUpsertArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ContrainteDefinitions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteDefinitionCountArgs} args - Arguments to filter ContrainteDefinitions to count.
+     * @example
+     * // Count the number of ContrainteDefinitions
+     * const count = await prisma.contrainteDefinition.count({
+     *   where: {
+     *     // ... the filter for the ContrainteDefinitions we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContrainteDefinitionCountArgs>(
+      args?: Subset<T, ContrainteDefinitionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContrainteDefinitionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContrainteDefinition.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteDefinitionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContrainteDefinitionAggregateArgs>(args: Subset<T, ContrainteDefinitionAggregateArgs>): Prisma.PrismaPromise<GetContrainteDefinitionAggregateType<T>>
+
+    /**
+     * Group by ContrainteDefinition.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteDefinitionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContrainteDefinitionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContrainteDefinitionGroupByArgs['orderBy'] }
+        : { orderBy?: ContrainteDefinitionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContrainteDefinitionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContrainteDefinitionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ContrainteDefinition model
+   */
+  readonly fields: ContrainteDefinitionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContrainteDefinition.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContrainteDefinitionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    instances<T extends ContrainteDefinition$instancesArgs<ExtArgs> = {}>(args?: Subset<T, ContrainteDefinition$instancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ContrainteDefinition model
+   */
+  interface ContrainteDefinitionFieldRefs {
+    readonly id: FieldRef<"ContrainteDefinition", 'String'>
+    readonly code: FieldRef<"ContrainteDefinition", 'String'>
+    readonly libelle: FieldRef<"ContrainteDefinition", 'String'>
+    readonly categorie: FieldRef<"ContrainteDefinition", 'ContrainteCategorie'>
+    readonly portee: FieldRef<"ContrainteDefinition", 'ContraintePortee'>
+    readonly paramsSchema: FieldRef<"ContrainteDefinition", 'Json'>
+    readonly fetSupport: FieldRef<"ContrainteDefinition", 'FetSupport'>
+    readonly actif: FieldRef<"ContrainteDefinition", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ContrainteDefinition findUnique
+   */
+  export type ContrainteDefinitionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteDefinition to fetch.
+     */
+    where: ContrainteDefinitionWhereUniqueInput
+  }
+
+  /**
+   * ContrainteDefinition findUniqueOrThrow
+   */
+  export type ContrainteDefinitionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteDefinition to fetch.
+     */
+    where: ContrainteDefinitionWhereUniqueInput
+  }
+
+  /**
+   * ContrainteDefinition findFirst
+   */
+  export type ContrainteDefinitionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteDefinition to fetch.
+     */
+    where?: ContrainteDefinitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContrainteDefinitions to fetch.
+     */
+    orderBy?: ContrainteDefinitionOrderByWithRelationInput | ContrainteDefinitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContrainteDefinitions.
+     */
+    cursor?: ContrainteDefinitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContrainteDefinitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContrainteDefinitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContrainteDefinitions.
+     */
+    distinct?: ContrainteDefinitionScalarFieldEnum | ContrainteDefinitionScalarFieldEnum[]
+  }
+
+  /**
+   * ContrainteDefinition findFirstOrThrow
+   */
+  export type ContrainteDefinitionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteDefinition to fetch.
+     */
+    where?: ContrainteDefinitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContrainteDefinitions to fetch.
+     */
+    orderBy?: ContrainteDefinitionOrderByWithRelationInput | ContrainteDefinitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContrainteDefinitions.
+     */
+    cursor?: ContrainteDefinitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContrainteDefinitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContrainteDefinitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContrainteDefinitions.
+     */
+    distinct?: ContrainteDefinitionScalarFieldEnum | ContrainteDefinitionScalarFieldEnum[]
+  }
+
+  /**
+   * ContrainteDefinition findMany
+   */
+  export type ContrainteDefinitionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteDefinitions to fetch.
+     */
+    where?: ContrainteDefinitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContrainteDefinitions to fetch.
+     */
+    orderBy?: ContrainteDefinitionOrderByWithRelationInput | ContrainteDefinitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContrainteDefinitions.
+     */
+    cursor?: ContrainteDefinitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContrainteDefinitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContrainteDefinitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContrainteDefinitions.
+     */
+    distinct?: ContrainteDefinitionScalarFieldEnum | ContrainteDefinitionScalarFieldEnum[]
+  }
+
+  /**
+   * ContrainteDefinition create
+   */
+  export type ContrainteDefinitionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ContrainteDefinition.
+     */
+    data: XOR<ContrainteDefinitionCreateInput, ContrainteDefinitionUncheckedCreateInput>
+  }
+
+  /**
+   * ContrainteDefinition createMany
+   */
+  export type ContrainteDefinitionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ContrainteDefinitions.
+     */
+    data: ContrainteDefinitionCreateManyInput | ContrainteDefinitionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContrainteDefinition createManyAndReturn
+   */
+  export type ContrainteDefinitionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * The data used to create many ContrainteDefinitions.
+     */
+    data: ContrainteDefinitionCreateManyInput | ContrainteDefinitionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContrainteDefinition update
+   */
+  export type ContrainteDefinitionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ContrainteDefinition.
+     */
+    data: XOR<ContrainteDefinitionUpdateInput, ContrainteDefinitionUncheckedUpdateInput>
+    /**
+     * Choose, which ContrainteDefinition to update.
+     */
+    where: ContrainteDefinitionWhereUniqueInput
+  }
+
+  /**
+   * ContrainteDefinition updateMany
+   */
+  export type ContrainteDefinitionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ContrainteDefinitions.
+     */
+    data: XOR<ContrainteDefinitionUpdateManyMutationInput, ContrainteDefinitionUncheckedUpdateManyInput>
+    /**
+     * Filter which ContrainteDefinitions to update
+     */
+    where?: ContrainteDefinitionWhereInput
+    /**
+     * Limit how many ContrainteDefinitions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContrainteDefinition updateManyAndReturn
+   */
+  export type ContrainteDefinitionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * The data used to update ContrainteDefinitions.
+     */
+    data: XOR<ContrainteDefinitionUpdateManyMutationInput, ContrainteDefinitionUncheckedUpdateManyInput>
+    /**
+     * Filter which ContrainteDefinitions to update
+     */
+    where?: ContrainteDefinitionWhereInput
+    /**
+     * Limit how many ContrainteDefinitions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContrainteDefinition upsert
+   */
+  export type ContrainteDefinitionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ContrainteDefinition to update in case it exists.
+     */
+    where: ContrainteDefinitionWhereUniqueInput
+    /**
+     * In case the ContrainteDefinition found by the `where` argument doesn't exist, create a new ContrainteDefinition with this data.
+     */
+    create: XOR<ContrainteDefinitionCreateInput, ContrainteDefinitionUncheckedCreateInput>
+    /**
+     * In case the ContrainteDefinition was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContrainteDefinitionUpdateInput, ContrainteDefinitionUncheckedUpdateInput>
+  }
+
+  /**
+   * ContrainteDefinition delete
+   */
+  export type ContrainteDefinitionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+    /**
+     * Filter which ContrainteDefinition to delete.
+     */
+    where: ContrainteDefinitionWhereUniqueInput
+  }
+
+  /**
+   * ContrainteDefinition deleteMany
+   */
+  export type ContrainteDefinitionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContrainteDefinitions to delete
+     */
+    where?: ContrainteDefinitionWhereInput
+    /**
+     * Limit how many ContrainteDefinitions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContrainteDefinition.instances
+   */
+  export type ContrainteDefinition$instancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    where?: ContrainteInstanceWhereInput
+    orderBy?: ContrainteInstanceOrderByWithRelationInput | ContrainteInstanceOrderByWithRelationInput[]
+    cursor?: ContrainteInstanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContrainteInstanceScalarFieldEnum | ContrainteInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * ContrainteDefinition without action
+   */
+  export type ContrainteDefinitionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteDefinition
+     */
+    select?: ContrainteDefinitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteDefinition
+     */
+    omit?: ContrainteDefinitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteDefinitionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ContrainteInstance
+   */
+
+  export type AggregateContrainteInstance = {
+    _count: ContrainteInstanceCountAggregateOutputType | null
+    _avg: ContrainteInstanceAvgAggregateOutputType | null
+    _sum: ContrainteInstanceSumAggregateOutputType | null
+    _min: ContrainteInstanceMinAggregateOutputType | null
+    _max: ContrainteInstanceMaxAggregateOutputType | null
+  }
+
+  export type ContrainteInstanceAvgAggregateOutputType = {
+    poids: number | null
+  }
+
+  export type ContrainteInstanceSumAggregateOutputType = {
+    poids: number | null
+  }
+
+  export type ContrainteInstanceMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    definitionId: string | null
+    enseignantId: string | null
+    groupeId: string | null
+    salleId: string | null
+    moduleId: string | null
+    poids: number | null
+    nature: $Enums.ContrainteNature | null
+    commentaire: string | null
+    actif: boolean | null
+    creePar: string | null
+    creeLe: Date | null
+  }
+
+  export type ContrainteInstanceMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    definitionId: string | null
+    enseignantId: string | null
+    groupeId: string | null
+    salleId: string | null
+    moduleId: string | null
+    poids: number | null
+    nature: $Enums.ContrainteNature | null
+    commentaire: string | null
+    actif: boolean | null
+    creePar: string | null
+    creeLe: Date | null
+  }
+
+  export type ContrainteInstanceCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    definitionId: number
+    enseignantId: number
+    groupeId: number
+    salleId: number
+    moduleId: number
+    params: number
+    poids: number
+    nature: number
+    commentaire: number
+    actif: number
+    creePar: number
+    creeLe: number
+    _all: number
+  }
+
+
+  export type ContrainteInstanceAvgAggregateInputType = {
+    poids?: true
+  }
+
+  export type ContrainteInstanceSumAggregateInputType = {
+    poids?: true
+  }
+
+  export type ContrainteInstanceMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    definitionId?: true
+    enseignantId?: true
+    groupeId?: true
+    salleId?: true
+    moduleId?: true
+    poids?: true
+    nature?: true
+    commentaire?: true
+    actif?: true
+    creePar?: true
+    creeLe?: true
+  }
+
+  export type ContrainteInstanceMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    definitionId?: true
+    enseignantId?: true
+    groupeId?: true
+    salleId?: true
+    moduleId?: true
+    poids?: true
+    nature?: true
+    commentaire?: true
+    actif?: true
+    creePar?: true
+    creeLe?: true
+  }
+
+  export type ContrainteInstanceCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    definitionId?: true
+    enseignantId?: true
+    groupeId?: true
+    salleId?: true
+    moduleId?: true
+    params?: true
+    poids?: true
+    nature?: true
+    commentaire?: true
+    actif?: true
+    creePar?: true
+    creeLe?: true
+    _all?: true
+  }
+
+  export type ContrainteInstanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContrainteInstance to aggregate.
+     */
+    where?: ContrainteInstanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContrainteInstances to fetch.
+     */
+    orderBy?: ContrainteInstanceOrderByWithRelationInput | ContrainteInstanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContrainteInstanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContrainteInstances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContrainteInstances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContrainteInstances
+    **/
+    _count?: true | ContrainteInstanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ContrainteInstanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ContrainteInstanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContrainteInstanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContrainteInstanceMaxAggregateInputType
+  }
+
+  export type GetContrainteInstanceAggregateType<T extends ContrainteInstanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateContrainteInstance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContrainteInstance[P]>
+      : GetScalarType<T[P], AggregateContrainteInstance[P]>
+  }
+
+
+
+
+  export type ContrainteInstanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContrainteInstanceWhereInput
+    orderBy?: ContrainteInstanceOrderByWithAggregationInput | ContrainteInstanceOrderByWithAggregationInput[]
+    by: ContrainteInstanceScalarFieldEnum[] | ContrainteInstanceScalarFieldEnum
+    having?: ContrainteInstanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContrainteInstanceCountAggregateInputType | true
+    _avg?: ContrainteInstanceAvgAggregateInputType
+    _sum?: ContrainteInstanceSumAggregateInputType
+    _min?: ContrainteInstanceMinAggregateInputType
+    _max?: ContrainteInstanceMaxAggregateInputType
+  }
+
+  export type ContrainteInstanceGroupByOutputType = {
+    id: string
+    semestreId: string
+    definitionId: string
+    enseignantId: string | null
+    groupeId: string | null
+    salleId: string | null
+    moduleId: string | null
+    params: JsonValue
+    poids: number | null
+    nature: $Enums.ContrainteNature
+    commentaire: string | null
+    actif: boolean
+    creePar: string
+    creeLe: Date
+    _count: ContrainteInstanceCountAggregateOutputType | null
+    _avg: ContrainteInstanceAvgAggregateOutputType | null
+    _sum: ContrainteInstanceSumAggregateOutputType | null
+    _min: ContrainteInstanceMinAggregateOutputType | null
+    _max: ContrainteInstanceMaxAggregateOutputType | null
+  }
+
+  type GetContrainteInstanceGroupByPayload<T extends ContrainteInstanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContrainteInstanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContrainteInstanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContrainteInstanceGroupByOutputType[P]>
+            : GetScalarType<T[P], ContrainteInstanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContrainteInstanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    definitionId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    salleId?: boolean
+    moduleId?: boolean
+    params?: boolean
+    poids?: boolean
+    nature?: boolean
+    commentaire?: boolean
+    actif?: boolean
+    creePar?: boolean
+    creeLe?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    definition?: boolean | ContrainteDefinitionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contrainteInstance"]>
+
+  export type ContrainteInstanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    definitionId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    salleId?: boolean
+    moduleId?: boolean
+    params?: boolean
+    poids?: boolean
+    nature?: boolean
+    commentaire?: boolean
+    actif?: boolean
+    creePar?: boolean
+    creeLe?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    definition?: boolean | ContrainteDefinitionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contrainteInstance"]>
+
+  export type ContrainteInstanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    definitionId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    salleId?: boolean
+    moduleId?: boolean
+    params?: boolean
+    poids?: boolean
+    nature?: boolean
+    commentaire?: boolean
+    actif?: boolean
+    creePar?: boolean
+    creeLe?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    definition?: boolean | ContrainteDefinitionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contrainteInstance"]>
+
+  export type ContrainteInstanceSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    definitionId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    salleId?: boolean
+    moduleId?: boolean
+    params?: boolean
+    poids?: boolean
+    nature?: boolean
+    commentaire?: boolean
+    actif?: boolean
+    creePar?: boolean
+    creeLe?: boolean
+  }
+
+  export type ContrainteInstanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "definitionId" | "enseignantId" | "groupeId" | "salleId" | "moduleId" | "params" | "poids" | "nature" | "commentaire" | "actif" | "creePar" | "creeLe", ExtArgs["result"]["contrainteInstance"]>
+  export type ContrainteInstanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    definition?: boolean | ContrainteDefinitionDefaultArgs<ExtArgs>
+  }
+  export type ContrainteInstanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    definition?: boolean | ContrainteDefinitionDefaultArgs<ExtArgs>
+  }
+  export type ContrainteInstanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    definition?: boolean | ContrainteDefinitionDefaultArgs<ExtArgs>
+  }
+
+  export type $ContrainteInstancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ContrainteInstance"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      definition: Prisma.$ContrainteDefinitionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      definitionId: string
+      enseignantId: string | null
+      groupeId: string | null
+      salleId: string | null
+      moduleId: string | null
+      params: Prisma.JsonValue
+      poids: number | null
+      nature: $Enums.ContrainteNature
+      commentaire: string | null
+      actif: boolean
+      creePar: string
+      creeLe: Date
+    }, ExtArgs["result"]["contrainteInstance"]>
+    composites: {}
+  }
+
+  type ContrainteInstanceGetPayload<S extends boolean | null | undefined | ContrainteInstanceDefaultArgs> = $Result.GetResult<Prisma.$ContrainteInstancePayload, S>
+
+  type ContrainteInstanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContrainteInstanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContrainteInstanceCountAggregateInputType | true
+    }
+
+  export interface ContrainteInstanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ContrainteInstance'], meta: { name: 'ContrainteInstance' } }
+    /**
+     * Find zero or one ContrainteInstance that matches the filter.
+     * @param {ContrainteInstanceFindUniqueArgs} args - Arguments to find a ContrainteInstance
+     * @example
+     * // Get one ContrainteInstance
+     * const contrainteInstance = await prisma.contrainteInstance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContrainteInstanceFindUniqueArgs>(args: SelectSubset<T, ContrainteInstanceFindUniqueArgs<ExtArgs>>): Prisma__ContrainteInstanceClient<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ContrainteInstance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContrainteInstanceFindUniqueOrThrowArgs} args - Arguments to find a ContrainteInstance
+     * @example
+     * // Get one ContrainteInstance
+     * const contrainteInstance = await prisma.contrainteInstance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContrainteInstanceFindUniqueOrThrowArgs>(args: SelectSubset<T, ContrainteInstanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContrainteInstanceClient<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContrainteInstance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteInstanceFindFirstArgs} args - Arguments to find a ContrainteInstance
+     * @example
+     * // Get one ContrainteInstance
+     * const contrainteInstance = await prisma.contrainteInstance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContrainteInstanceFindFirstArgs>(args?: SelectSubset<T, ContrainteInstanceFindFirstArgs<ExtArgs>>): Prisma__ContrainteInstanceClient<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContrainteInstance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteInstanceFindFirstOrThrowArgs} args - Arguments to find a ContrainteInstance
+     * @example
+     * // Get one ContrainteInstance
+     * const contrainteInstance = await prisma.contrainteInstance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContrainteInstanceFindFirstOrThrowArgs>(args?: SelectSubset<T, ContrainteInstanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContrainteInstanceClient<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContrainteInstances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteInstanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContrainteInstances
+     * const contrainteInstances = await prisma.contrainteInstance.findMany()
+     * 
+     * // Get first 10 ContrainteInstances
+     * const contrainteInstances = await prisma.contrainteInstance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contrainteInstanceWithIdOnly = await prisma.contrainteInstance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContrainteInstanceFindManyArgs>(args?: SelectSubset<T, ContrainteInstanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ContrainteInstance.
+     * @param {ContrainteInstanceCreateArgs} args - Arguments to create a ContrainteInstance.
+     * @example
+     * // Create one ContrainteInstance
+     * const ContrainteInstance = await prisma.contrainteInstance.create({
+     *   data: {
+     *     // ... data to create a ContrainteInstance
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContrainteInstanceCreateArgs>(args: SelectSubset<T, ContrainteInstanceCreateArgs<ExtArgs>>): Prisma__ContrainteInstanceClient<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ContrainteInstances.
+     * @param {ContrainteInstanceCreateManyArgs} args - Arguments to create many ContrainteInstances.
+     * @example
+     * // Create many ContrainteInstances
+     * const contrainteInstance = await prisma.contrainteInstance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContrainteInstanceCreateManyArgs>(args?: SelectSubset<T, ContrainteInstanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ContrainteInstances and returns the data saved in the database.
+     * @param {ContrainteInstanceCreateManyAndReturnArgs} args - Arguments to create many ContrainteInstances.
+     * @example
+     * // Create many ContrainteInstances
+     * const contrainteInstance = await prisma.contrainteInstance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ContrainteInstances and only return the `id`
+     * const contrainteInstanceWithIdOnly = await prisma.contrainteInstance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContrainteInstanceCreateManyAndReturnArgs>(args?: SelectSubset<T, ContrainteInstanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ContrainteInstance.
+     * @param {ContrainteInstanceDeleteArgs} args - Arguments to delete one ContrainteInstance.
+     * @example
+     * // Delete one ContrainteInstance
+     * const ContrainteInstance = await prisma.contrainteInstance.delete({
+     *   where: {
+     *     // ... filter to delete one ContrainteInstance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContrainteInstanceDeleteArgs>(args: SelectSubset<T, ContrainteInstanceDeleteArgs<ExtArgs>>): Prisma__ContrainteInstanceClient<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ContrainteInstance.
+     * @param {ContrainteInstanceUpdateArgs} args - Arguments to update one ContrainteInstance.
+     * @example
+     * // Update one ContrainteInstance
+     * const contrainteInstance = await prisma.contrainteInstance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContrainteInstanceUpdateArgs>(args: SelectSubset<T, ContrainteInstanceUpdateArgs<ExtArgs>>): Prisma__ContrainteInstanceClient<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ContrainteInstances.
+     * @param {ContrainteInstanceDeleteManyArgs} args - Arguments to filter ContrainteInstances to delete.
+     * @example
+     * // Delete a few ContrainteInstances
+     * const { count } = await prisma.contrainteInstance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContrainteInstanceDeleteManyArgs>(args?: SelectSubset<T, ContrainteInstanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContrainteInstances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteInstanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContrainteInstances
+     * const contrainteInstance = await prisma.contrainteInstance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContrainteInstanceUpdateManyArgs>(args: SelectSubset<T, ContrainteInstanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContrainteInstances and returns the data updated in the database.
+     * @param {ContrainteInstanceUpdateManyAndReturnArgs} args - Arguments to update many ContrainteInstances.
+     * @example
+     * // Update many ContrainteInstances
+     * const contrainteInstance = await prisma.contrainteInstance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ContrainteInstances and only return the `id`
+     * const contrainteInstanceWithIdOnly = await prisma.contrainteInstance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContrainteInstanceUpdateManyAndReturnArgs>(args: SelectSubset<T, ContrainteInstanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ContrainteInstance.
+     * @param {ContrainteInstanceUpsertArgs} args - Arguments to update or create a ContrainteInstance.
+     * @example
+     * // Update or create a ContrainteInstance
+     * const contrainteInstance = await prisma.contrainteInstance.upsert({
+     *   create: {
+     *     // ... data to create a ContrainteInstance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContrainteInstance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContrainteInstanceUpsertArgs>(args: SelectSubset<T, ContrainteInstanceUpsertArgs<ExtArgs>>): Prisma__ContrainteInstanceClient<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ContrainteInstances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteInstanceCountArgs} args - Arguments to filter ContrainteInstances to count.
+     * @example
+     * // Count the number of ContrainteInstances
+     * const count = await prisma.contrainteInstance.count({
+     *   where: {
+     *     // ... the filter for the ContrainteInstances we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContrainteInstanceCountArgs>(
+      args?: Subset<T, ContrainteInstanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContrainteInstanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContrainteInstance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteInstanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContrainteInstanceAggregateArgs>(args: Subset<T, ContrainteInstanceAggregateArgs>): Prisma.PrismaPromise<GetContrainteInstanceAggregateType<T>>
+
+    /**
+     * Group by ContrainteInstance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContrainteInstanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContrainteInstanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContrainteInstanceGroupByArgs['orderBy'] }
+        : { orderBy?: ContrainteInstanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContrainteInstanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContrainteInstanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ContrainteInstance model
+   */
+  readonly fields: ContrainteInstanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContrainteInstance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContrainteInstanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    definition<T extends ContrainteDefinitionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ContrainteDefinitionDefaultArgs<ExtArgs>>): Prisma__ContrainteDefinitionClient<$Result.GetResult<Prisma.$ContrainteDefinitionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ContrainteInstance model
+   */
+  interface ContrainteInstanceFieldRefs {
+    readonly id: FieldRef<"ContrainteInstance", 'String'>
+    readonly semestreId: FieldRef<"ContrainteInstance", 'String'>
+    readonly definitionId: FieldRef<"ContrainteInstance", 'String'>
+    readonly enseignantId: FieldRef<"ContrainteInstance", 'String'>
+    readonly groupeId: FieldRef<"ContrainteInstance", 'String'>
+    readonly salleId: FieldRef<"ContrainteInstance", 'String'>
+    readonly moduleId: FieldRef<"ContrainteInstance", 'String'>
+    readonly params: FieldRef<"ContrainteInstance", 'Json'>
+    readonly poids: FieldRef<"ContrainteInstance", 'Int'>
+    readonly nature: FieldRef<"ContrainteInstance", 'ContrainteNature'>
+    readonly commentaire: FieldRef<"ContrainteInstance", 'String'>
+    readonly actif: FieldRef<"ContrainteInstance", 'Boolean'>
+    readonly creePar: FieldRef<"ContrainteInstance", 'String'>
+    readonly creeLe: FieldRef<"ContrainteInstance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ContrainteInstance findUnique
+   */
+  export type ContrainteInstanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteInstance to fetch.
+     */
+    where: ContrainteInstanceWhereUniqueInput
+  }
+
+  /**
+   * ContrainteInstance findUniqueOrThrow
+   */
+  export type ContrainteInstanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteInstance to fetch.
+     */
+    where: ContrainteInstanceWhereUniqueInput
+  }
+
+  /**
+   * ContrainteInstance findFirst
+   */
+  export type ContrainteInstanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteInstance to fetch.
+     */
+    where?: ContrainteInstanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContrainteInstances to fetch.
+     */
+    orderBy?: ContrainteInstanceOrderByWithRelationInput | ContrainteInstanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContrainteInstances.
+     */
+    cursor?: ContrainteInstanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContrainteInstances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContrainteInstances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContrainteInstances.
+     */
+    distinct?: ContrainteInstanceScalarFieldEnum | ContrainteInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * ContrainteInstance findFirstOrThrow
+   */
+  export type ContrainteInstanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteInstance to fetch.
+     */
+    where?: ContrainteInstanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContrainteInstances to fetch.
+     */
+    orderBy?: ContrainteInstanceOrderByWithRelationInput | ContrainteInstanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContrainteInstances.
+     */
+    cursor?: ContrainteInstanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContrainteInstances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContrainteInstances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContrainteInstances.
+     */
+    distinct?: ContrainteInstanceScalarFieldEnum | ContrainteInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * ContrainteInstance findMany
+   */
+  export type ContrainteInstanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * Filter, which ContrainteInstances to fetch.
+     */
+    where?: ContrainteInstanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContrainteInstances to fetch.
+     */
+    orderBy?: ContrainteInstanceOrderByWithRelationInput | ContrainteInstanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContrainteInstances.
+     */
+    cursor?: ContrainteInstanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContrainteInstances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContrainteInstances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContrainteInstances.
+     */
+    distinct?: ContrainteInstanceScalarFieldEnum | ContrainteInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * ContrainteInstance create
+   */
+  export type ContrainteInstanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ContrainteInstance.
+     */
+    data: XOR<ContrainteInstanceCreateInput, ContrainteInstanceUncheckedCreateInput>
+  }
+
+  /**
+   * ContrainteInstance createMany
+   */
+  export type ContrainteInstanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ContrainteInstances.
+     */
+    data: ContrainteInstanceCreateManyInput | ContrainteInstanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContrainteInstance createManyAndReturn
+   */
+  export type ContrainteInstanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many ContrainteInstances.
+     */
+    data: ContrainteInstanceCreateManyInput | ContrainteInstanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContrainteInstance update
+   */
+  export type ContrainteInstanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ContrainteInstance.
+     */
+    data: XOR<ContrainteInstanceUpdateInput, ContrainteInstanceUncheckedUpdateInput>
+    /**
+     * Choose, which ContrainteInstance to update.
+     */
+    where: ContrainteInstanceWhereUniqueInput
+  }
+
+  /**
+   * ContrainteInstance updateMany
+   */
+  export type ContrainteInstanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ContrainteInstances.
+     */
+    data: XOR<ContrainteInstanceUpdateManyMutationInput, ContrainteInstanceUncheckedUpdateManyInput>
+    /**
+     * Filter which ContrainteInstances to update
+     */
+    where?: ContrainteInstanceWhereInput
+    /**
+     * Limit how many ContrainteInstances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContrainteInstance updateManyAndReturn
+   */
+  export type ContrainteInstanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * The data used to update ContrainteInstances.
+     */
+    data: XOR<ContrainteInstanceUpdateManyMutationInput, ContrainteInstanceUncheckedUpdateManyInput>
+    /**
+     * Filter which ContrainteInstances to update
+     */
+    where?: ContrainteInstanceWhereInput
+    /**
+     * Limit how many ContrainteInstances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ContrainteInstance upsert
+   */
+  export type ContrainteInstanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ContrainteInstance to update in case it exists.
+     */
+    where: ContrainteInstanceWhereUniqueInput
+    /**
+     * In case the ContrainteInstance found by the `where` argument doesn't exist, create a new ContrainteInstance with this data.
+     */
+    create: XOR<ContrainteInstanceCreateInput, ContrainteInstanceUncheckedCreateInput>
+    /**
+     * In case the ContrainteInstance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContrainteInstanceUpdateInput, ContrainteInstanceUncheckedUpdateInput>
+  }
+
+  /**
+   * ContrainteInstance delete
+   */
+  export type ContrainteInstanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+    /**
+     * Filter which ContrainteInstance to delete.
+     */
+    where: ContrainteInstanceWhereUniqueInput
+  }
+
+  /**
+   * ContrainteInstance deleteMany
+   */
+  export type ContrainteInstanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContrainteInstances to delete
+     */
+    where?: ContrainteInstanceWhereInput
+    /**
+     * Limit how many ContrainteInstances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContrainteInstance without action
+   */
+  export type ContrainteInstanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContrainteInstance
+     */
+    select?: ContrainteInstanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContrainteInstance
+     */
+    omit?: ContrainteInstanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContrainteInstanceInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -54772,6 +57402,40 @@ export namespace Prisma {
   export type ExigenceEquipementScalarFieldEnum = (typeof ExigenceEquipementScalarFieldEnum)[keyof typeof ExigenceEquipementScalarFieldEnum]
 
 
+  export const ContrainteDefinitionScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    libelle: 'libelle',
+    categorie: 'categorie',
+    portee: 'portee',
+    paramsSchema: 'paramsSchema',
+    fetSupport: 'fetSupport',
+    actif: 'actif'
+  };
+
+  export type ContrainteDefinitionScalarFieldEnum = (typeof ContrainteDefinitionScalarFieldEnum)[keyof typeof ContrainteDefinitionScalarFieldEnum]
+
+
+  export const ContrainteInstanceScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    definitionId: 'definitionId',
+    enseignantId: 'enseignantId',
+    groupeId: 'groupeId',
+    salleId: 'salleId',
+    moduleId: 'moduleId',
+    params: 'params',
+    poids: 'poids',
+    nature: 'nature',
+    commentaire: 'commentaire',
+    actif: 'actif',
+    creePar: 'creePar',
+    creeLe: 'creeLe'
+  };
+
+  export type ContrainteInstanceScalarFieldEnum = (typeof ContrainteInstanceScalarFieldEnum)[keyof typeof ContrainteInstanceScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -55123,6 +57787,62 @@ export namespace Prisma {
    * Reference to a field of type 'ExigenceNiveau[]'
    */
   export type ListEnumExigenceNiveauFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ExigenceNiveau[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContrainteCategorie'
+   */
+  export type EnumContrainteCategorieFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContrainteCategorie'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContrainteCategorie[]'
+   */
+  export type ListEnumContrainteCategorieFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContrainteCategorie[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContraintePortee'
+   */
+  export type EnumContraintePorteeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContraintePortee'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContraintePortee[]'
+   */
+  export type ListEnumContraintePorteeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContraintePortee[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FetSupport'
+   */
+  export type EnumFetSupportFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FetSupport'>
+    
+
+
+  /**
+   * Reference to a field of type 'FetSupport[]'
+   */
+  export type ListEnumFetSupportFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FetSupport[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContrainteNature'
+   */
+  export type EnumContrainteNatureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContrainteNature'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContrainteNature[]'
+   */
+  export type ListEnumContrainteNatureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContrainteNature[]'>
     
   /**
    * Deep Input Types
@@ -56656,6 +59376,7 @@ export namespace Prisma {
     decharges?: DechargeListRelationFilter
     creneaux?: CreneauListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
+    contrainteInstances?: ContrainteInstanceListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -56671,6 +59392,7 @@ export namespace Prisma {
     decharges?: DechargeOrderByRelationAggregateInput
     creneaux?: CreneauOrderByRelationAggregateInput
     indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
+    contrainteInstances?: ContrainteInstanceOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -56690,6 +59412,7 @@ export namespace Prisma {
     decharges?: DechargeListRelationFilter
     creneaux?: CreneauListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
+    contrainteInstances?: ContrainteInstanceListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -58246,6 +60969,181 @@ export namespace Prisma {
     typeEnseignementId?: UuidWithAggregatesFilter<"ExigenceEquipement"> | string
     equipementId?: UuidWithAggregatesFilter<"ExigenceEquipement"> | string
     niveau?: EnumExigenceNiveauWithAggregatesFilter<"ExigenceEquipement"> | $Enums.ExigenceNiveau
+  }
+
+  export type ContrainteDefinitionWhereInput = {
+    AND?: ContrainteDefinitionWhereInput | ContrainteDefinitionWhereInput[]
+    OR?: ContrainteDefinitionWhereInput[]
+    NOT?: ContrainteDefinitionWhereInput | ContrainteDefinitionWhereInput[]
+    id?: UuidFilter<"ContrainteDefinition"> | string
+    code?: StringFilter<"ContrainteDefinition"> | string
+    libelle?: StringFilter<"ContrainteDefinition"> | string
+    categorie?: EnumContrainteCategorieFilter<"ContrainteDefinition"> | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeFilter<"ContrainteDefinition"> | $Enums.ContraintePortee
+    paramsSchema?: JsonFilter<"ContrainteDefinition">
+    fetSupport?: EnumFetSupportFilter<"ContrainteDefinition"> | $Enums.FetSupport
+    actif?: BoolFilter<"ContrainteDefinition"> | boolean
+    instances?: ContrainteInstanceListRelationFilter
+  }
+
+  export type ContrainteDefinitionOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    categorie?: SortOrder
+    portee?: SortOrder
+    paramsSchema?: SortOrder
+    fetSupport?: SortOrder
+    actif?: SortOrder
+    instances?: ContrainteInstanceOrderByRelationAggregateInput
+  }
+
+  export type ContrainteDefinitionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: ContrainteDefinitionWhereInput | ContrainteDefinitionWhereInput[]
+    OR?: ContrainteDefinitionWhereInput[]
+    NOT?: ContrainteDefinitionWhereInput | ContrainteDefinitionWhereInput[]
+    libelle?: StringFilter<"ContrainteDefinition"> | string
+    categorie?: EnumContrainteCategorieFilter<"ContrainteDefinition"> | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeFilter<"ContrainteDefinition"> | $Enums.ContraintePortee
+    paramsSchema?: JsonFilter<"ContrainteDefinition">
+    fetSupport?: EnumFetSupportFilter<"ContrainteDefinition"> | $Enums.FetSupport
+    actif?: BoolFilter<"ContrainteDefinition"> | boolean
+    instances?: ContrainteInstanceListRelationFilter
+  }, "id" | "code">
+
+  export type ContrainteDefinitionOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    categorie?: SortOrder
+    portee?: SortOrder
+    paramsSchema?: SortOrder
+    fetSupport?: SortOrder
+    actif?: SortOrder
+    _count?: ContrainteDefinitionCountOrderByAggregateInput
+    _max?: ContrainteDefinitionMaxOrderByAggregateInput
+    _min?: ContrainteDefinitionMinOrderByAggregateInput
+  }
+
+  export type ContrainteDefinitionScalarWhereWithAggregatesInput = {
+    AND?: ContrainteDefinitionScalarWhereWithAggregatesInput | ContrainteDefinitionScalarWhereWithAggregatesInput[]
+    OR?: ContrainteDefinitionScalarWhereWithAggregatesInput[]
+    NOT?: ContrainteDefinitionScalarWhereWithAggregatesInput | ContrainteDefinitionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ContrainteDefinition"> | string
+    code?: StringWithAggregatesFilter<"ContrainteDefinition"> | string
+    libelle?: StringWithAggregatesFilter<"ContrainteDefinition"> | string
+    categorie?: EnumContrainteCategorieWithAggregatesFilter<"ContrainteDefinition"> | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeWithAggregatesFilter<"ContrainteDefinition"> | $Enums.ContraintePortee
+    paramsSchema?: JsonWithAggregatesFilter<"ContrainteDefinition">
+    fetSupport?: EnumFetSupportWithAggregatesFilter<"ContrainteDefinition"> | $Enums.FetSupport
+    actif?: BoolWithAggregatesFilter<"ContrainteDefinition"> | boolean
+  }
+
+  export type ContrainteInstanceWhereInput = {
+    AND?: ContrainteInstanceWhereInput | ContrainteInstanceWhereInput[]
+    OR?: ContrainteInstanceWhereInput[]
+    NOT?: ContrainteInstanceWhereInput | ContrainteInstanceWhereInput[]
+    id?: UuidFilter<"ContrainteInstance"> | string
+    semestreId?: UuidFilter<"ContrainteInstance"> | string
+    definitionId?: UuidFilter<"ContrainteInstance"> | string
+    enseignantId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    groupeId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    salleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    moduleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    params?: JsonFilter<"ContrainteInstance">
+    poids?: IntNullableFilter<"ContrainteInstance"> | number | null
+    nature?: EnumContrainteNatureFilter<"ContrainteInstance"> | $Enums.ContrainteNature
+    commentaire?: StringNullableFilter<"ContrainteInstance"> | string | null
+    actif?: BoolFilter<"ContrainteInstance"> | boolean
+    creePar?: UuidFilter<"ContrainteInstance"> | string
+    creeLe?: DateTimeFilter<"ContrainteInstance"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    definition?: XOR<ContrainteDefinitionScalarRelationFilter, ContrainteDefinitionWhereInput>
+  }
+
+  export type ContrainteInstanceOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    definitionId?: SortOrder
+    enseignantId?: SortOrderInput | SortOrder
+    groupeId?: SortOrderInput | SortOrder
+    salleId?: SortOrderInput | SortOrder
+    moduleId?: SortOrderInput | SortOrder
+    params?: SortOrder
+    poids?: SortOrderInput | SortOrder
+    nature?: SortOrder
+    commentaire?: SortOrderInput | SortOrder
+    actif?: SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    definition?: ContrainteDefinitionOrderByWithRelationInput
+  }
+
+  export type ContrainteInstanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ContrainteInstanceWhereInput | ContrainteInstanceWhereInput[]
+    OR?: ContrainteInstanceWhereInput[]
+    NOT?: ContrainteInstanceWhereInput | ContrainteInstanceWhereInput[]
+    semestreId?: UuidFilter<"ContrainteInstance"> | string
+    definitionId?: UuidFilter<"ContrainteInstance"> | string
+    enseignantId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    groupeId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    salleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    moduleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    params?: JsonFilter<"ContrainteInstance">
+    poids?: IntNullableFilter<"ContrainteInstance"> | number | null
+    nature?: EnumContrainteNatureFilter<"ContrainteInstance"> | $Enums.ContrainteNature
+    commentaire?: StringNullableFilter<"ContrainteInstance"> | string | null
+    actif?: BoolFilter<"ContrainteInstance"> | boolean
+    creePar?: UuidFilter<"ContrainteInstance"> | string
+    creeLe?: DateTimeFilter<"ContrainteInstance"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    definition?: XOR<ContrainteDefinitionScalarRelationFilter, ContrainteDefinitionWhereInput>
+  }, "id">
+
+  export type ContrainteInstanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    definitionId?: SortOrder
+    enseignantId?: SortOrderInput | SortOrder
+    groupeId?: SortOrderInput | SortOrder
+    salleId?: SortOrderInput | SortOrder
+    moduleId?: SortOrderInput | SortOrder
+    params?: SortOrder
+    poids?: SortOrderInput | SortOrder
+    nature?: SortOrder
+    commentaire?: SortOrderInput | SortOrder
+    actif?: SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+    _count?: ContrainteInstanceCountOrderByAggregateInput
+    _avg?: ContrainteInstanceAvgOrderByAggregateInput
+    _max?: ContrainteInstanceMaxOrderByAggregateInput
+    _min?: ContrainteInstanceMinOrderByAggregateInput
+    _sum?: ContrainteInstanceSumOrderByAggregateInput
+  }
+
+  export type ContrainteInstanceScalarWhereWithAggregatesInput = {
+    AND?: ContrainteInstanceScalarWhereWithAggregatesInput | ContrainteInstanceScalarWhereWithAggregatesInput[]
+    OR?: ContrainteInstanceScalarWhereWithAggregatesInput[]
+    NOT?: ContrainteInstanceScalarWhereWithAggregatesInput | ContrainteInstanceScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ContrainteInstance"> | string
+    semestreId?: UuidWithAggregatesFilter<"ContrainteInstance"> | string
+    definitionId?: UuidWithAggregatesFilter<"ContrainteInstance"> | string
+    enseignantId?: UuidNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
+    groupeId?: UuidNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
+    salleId?: UuidNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
+    moduleId?: UuidNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
+    params?: JsonWithAggregatesFilter<"ContrainteInstance">
+    poids?: IntNullableWithAggregatesFilter<"ContrainteInstance"> | number | null
+    nature?: EnumContrainteNatureWithAggregatesFilter<"ContrainteInstance"> | $Enums.ContrainteNature
+    commentaire?: StringNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
+    actif?: BoolWithAggregatesFilter<"ContrainteInstance"> | boolean
+    creePar?: UuidWithAggregatesFilter<"ContrainteInstance"> | string
+    creeLe?: DateTimeWithAggregatesFilter<"ContrainteInstance"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -59893,6 +62791,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -59907,6 +62806,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -59921,6 +62821,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -59935,6 +62836,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -61539,6 +64441,204 @@ export namespace Prisma {
     niveau?: EnumExigenceNiveauFieldUpdateOperationsInput | $Enums.ExigenceNiveau
   }
 
+  export type ContrainteDefinitionCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    categorie: $Enums.ContrainteCategorie
+    portee: $Enums.ContraintePortee
+    paramsSchema: JsonNullValueInput | InputJsonValue
+    fetSupport?: $Enums.FetSupport
+    actif?: boolean
+    instances?: ContrainteInstanceCreateNestedManyWithoutDefinitionInput
+  }
+
+  export type ContrainteDefinitionUncheckedCreateInput = {
+    id?: string
+    code: string
+    libelle: string
+    categorie: $Enums.ContrainteCategorie
+    portee: $Enums.ContraintePortee
+    paramsSchema: JsonNullValueInput | InputJsonValue
+    fetSupport?: $Enums.FetSupport
+    actif?: boolean
+    instances?: ContrainteInstanceUncheckedCreateNestedManyWithoutDefinitionInput
+  }
+
+  export type ContrainteDefinitionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    paramsSchema?: JsonNullValueInput | InputJsonValue
+    fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    instances?: ContrainteInstanceUpdateManyWithoutDefinitionNestedInput
+  }
+
+  export type ContrainteDefinitionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    paramsSchema?: JsonNullValueInput | InputJsonValue
+    fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    instances?: ContrainteInstanceUncheckedUpdateManyWithoutDefinitionNestedInput
+  }
+
+  export type ContrainteDefinitionCreateManyInput = {
+    id?: string
+    code: string
+    libelle: string
+    categorie: $Enums.ContrainteCategorie
+    portee: $Enums.ContraintePortee
+    paramsSchema: JsonNullValueInput | InputJsonValue
+    fetSupport?: $Enums.FetSupport
+    actif?: boolean
+  }
+
+  export type ContrainteDefinitionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    paramsSchema?: JsonNullValueInput | InputJsonValue
+    fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
+    actif?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ContrainteDefinitionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    paramsSchema?: JsonNullValueInput | InputJsonValue
+    fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
+    actif?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ContrainteInstanceCreateInput = {
+    id?: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+    semestre: SemestreCreateNestedOneWithoutContrainteInstancesInput
+    definition: ContrainteDefinitionCreateNestedOneWithoutInstancesInput
+  }
+
+  export type ContrainteInstanceUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    definitionId: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+  }
+
+  export type ContrainteInstanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutContrainteInstancesNestedInput
+    definition?: ContrainteDefinitionUpdateOneRequiredWithoutInstancesNestedInput
+  }
+
+  export type ContrainteInstanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    definitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContrainteInstanceCreateManyInput = {
+    id?: string
+    semestreId: string
+    definitionId: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+  }
+
+  export type ContrainteInstanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContrainteInstanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    definitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -63050,6 +66150,12 @@ export namespace Prisma {
     none?: IndisponibiliteWhereInput
   }
 
+  export type ContrainteInstanceListRelationFilter = {
+    every?: ContrainteInstanceWhereInput
+    some?: ContrainteInstanceWhereInput
+    none?: ContrainteInstanceWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -63063,6 +66169,10 @@ export namespace Prisma {
   }
 
   export type IndisponibiliteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ContrainteInstanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -64230,6 +67340,167 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumExigenceNiveauFilter<$PrismaModel>
     _max?: NestedEnumExigenceNiveauFilter<$PrismaModel>
+  }
+
+  export type EnumContrainteCategorieFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContrainteCategorie | EnumContrainteCategorieFieldRefInput<$PrismaModel>
+    in?: $Enums.ContrainteCategorie[] | ListEnumContrainteCategorieFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContrainteCategorie[] | ListEnumContrainteCategorieFieldRefInput<$PrismaModel>
+    not?: NestedEnumContrainteCategorieFilter<$PrismaModel> | $Enums.ContrainteCategorie
+  }
+
+  export type EnumContraintePorteeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContraintePortee | EnumContraintePorteeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContraintePortee[] | ListEnumContraintePorteeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContraintePortee[] | ListEnumContraintePorteeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContraintePorteeFilter<$PrismaModel> | $Enums.ContraintePortee
+  }
+
+  export type EnumFetSupportFilter<$PrismaModel = never> = {
+    equals?: $Enums.FetSupport | EnumFetSupportFieldRefInput<$PrismaModel>
+    in?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
+    not?: NestedEnumFetSupportFilter<$PrismaModel> | $Enums.FetSupport
+  }
+
+  export type ContrainteDefinitionCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    categorie?: SortOrder
+    portee?: SortOrder
+    paramsSchema?: SortOrder
+    fetSupport?: SortOrder
+    actif?: SortOrder
+  }
+
+  export type ContrainteDefinitionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    categorie?: SortOrder
+    portee?: SortOrder
+    fetSupport?: SortOrder
+    actif?: SortOrder
+  }
+
+  export type ContrainteDefinitionMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    libelle?: SortOrder
+    categorie?: SortOrder
+    portee?: SortOrder
+    fetSupport?: SortOrder
+    actif?: SortOrder
+  }
+
+  export type EnumContrainteCategorieWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContrainteCategorie | EnumContrainteCategorieFieldRefInput<$PrismaModel>
+    in?: $Enums.ContrainteCategorie[] | ListEnumContrainteCategorieFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContrainteCategorie[] | ListEnumContrainteCategorieFieldRefInput<$PrismaModel>
+    not?: NestedEnumContrainteCategorieWithAggregatesFilter<$PrismaModel> | $Enums.ContrainteCategorie
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContrainteCategorieFilter<$PrismaModel>
+    _max?: NestedEnumContrainteCategorieFilter<$PrismaModel>
+  }
+
+  export type EnumContraintePorteeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContraintePortee | EnumContraintePorteeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContraintePortee[] | ListEnumContraintePorteeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContraintePortee[] | ListEnumContraintePorteeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContraintePorteeWithAggregatesFilter<$PrismaModel> | $Enums.ContraintePortee
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContraintePorteeFilter<$PrismaModel>
+    _max?: NestedEnumContraintePorteeFilter<$PrismaModel>
+  }
+
+  export type EnumFetSupportWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FetSupport | EnumFetSupportFieldRefInput<$PrismaModel>
+    in?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
+    not?: NestedEnumFetSupportWithAggregatesFilter<$PrismaModel> | $Enums.FetSupport
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFetSupportFilter<$PrismaModel>
+    _max?: NestedEnumFetSupportFilter<$PrismaModel>
+  }
+
+  export type EnumContrainteNatureFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContrainteNature | EnumContrainteNatureFieldRefInput<$PrismaModel>
+    in?: $Enums.ContrainteNature[] | ListEnumContrainteNatureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContrainteNature[] | ListEnumContrainteNatureFieldRefInput<$PrismaModel>
+    not?: NestedEnumContrainteNatureFilter<$PrismaModel> | $Enums.ContrainteNature
+  }
+
+  export type ContrainteDefinitionScalarRelationFilter = {
+    is?: ContrainteDefinitionWhereInput
+    isNot?: ContrainteDefinitionWhereInput
+  }
+
+  export type ContrainteInstanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    definitionId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    salleId?: SortOrder
+    moduleId?: SortOrder
+    params?: SortOrder
+    poids?: SortOrder
+    nature?: SortOrder
+    commentaire?: SortOrder
+    actif?: SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+  }
+
+  export type ContrainteInstanceAvgOrderByAggregateInput = {
+    poids?: SortOrder
+  }
+
+  export type ContrainteInstanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    definitionId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    salleId?: SortOrder
+    moduleId?: SortOrder
+    poids?: SortOrder
+    nature?: SortOrder
+    commentaire?: SortOrder
+    actif?: SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+  }
+
+  export type ContrainteInstanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    definitionId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    salleId?: SortOrder
+    moduleId?: SortOrder
+    poids?: SortOrder
+    nature?: SortOrder
+    commentaire?: SortOrder
+    actif?: SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+  }
+
+  export type ContrainteInstanceSumOrderByAggregateInput = {
+    poids?: SortOrder
+  }
+
+  export type EnumContrainteNatureWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContrainteNature | EnumContrainteNatureFieldRefInput<$PrismaModel>
+    in?: $Enums.ContrainteNature[] | ListEnumContrainteNatureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContrainteNature[] | ListEnumContrainteNatureFieldRefInput<$PrismaModel>
+    not?: NestedEnumContrainteNatureWithAggregatesFilter<$PrismaModel> | $Enums.ContrainteNature
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContrainteNatureFilter<$PrismaModel>
+    _max?: NestedEnumContrainteNatureFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -65723,6 +68994,13 @@ export namespace Prisma {
     connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
   }
 
+  export type ContrainteInstanceCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<ContrainteInstanceCreateWithoutSemestreInput, ContrainteInstanceUncheckedCreateWithoutSemestreInput> | ContrainteInstanceCreateWithoutSemestreInput[] | ContrainteInstanceUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutSemestreInput | ContrainteInstanceCreateOrConnectWithoutSemestreInput[]
+    createMany?: ContrainteInstanceCreateManySemestreInputEnvelope
+    connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -65749,6 +69027,13 @@ export namespace Prisma {
     connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSemestreInput | IndisponibiliteCreateOrConnectWithoutSemestreInput[]
     createMany?: IndisponibiliteCreateManySemestreInputEnvelope
     connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+  }
+
+  export type ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<ContrainteInstanceCreateWithoutSemestreInput, ContrainteInstanceUncheckedCreateWithoutSemestreInput> | ContrainteInstanceCreateWithoutSemestreInput[] | ContrainteInstanceUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutSemestreInput | ContrainteInstanceCreateOrConnectWithoutSemestreInput[]
+    createMany?: ContrainteInstanceCreateManySemestreInputEnvelope
+    connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -65815,6 +69100,20 @@ export namespace Prisma {
     deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
   }
 
+  export type ContrainteInstanceUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<ContrainteInstanceCreateWithoutSemestreInput, ContrainteInstanceUncheckedCreateWithoutSemestreInput> | ContrainteInstanceCreateWithoutSemestreInput[] | ContrainteInstanceUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutSemestreInput | ContrainteInstanceCreateOrConnectWithoutSemestreInput[]
+    upsert?: ContrainteInstanceUpsertWithWhereUniqueWithoutSemestreInput | ContrainteInstanceUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: ContrainteInstanceCreateManySemestreInputEnvelope
+    set?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    disconnect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    delete?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    update?: ContrainteInstanceUpdateWithWhereUniqueWithoutSemestreInput | ContrainteInstanceUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: ContrainteInstanceUpdateManyWithWhereWithoutSemestreInput | ContrainteInstanceUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: ContrainteInstanceScalarWhereInput | ContrainteInstanceScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -65869,6 +69168,20 @@ export namespace Prisma {
     update?: IndisponibiliteUpdateWithWhereUniqueWithoutSemestreInput | IndisponibiliteUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: IndisponibiliteUpdateManyWithWhereWithoutSemestreInput | IndisponibiliteUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+  }
+
+  export type ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<ContrainteInstanceCreateWithoutSemestreInput, ContrainteInstanceUncheckedCreateWithoutSemestreInput> | ContrainteInstanceCreateWithoutSemestreInput[] | ContrainteInstanceUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutSemestreInput | ContrainteInstanceCreateOrConnectWithoutSemestreInput[]
+    upsert?: ContrainteInstanceUpsertWithWhereUniqueWithoutSemestreInput | ContrainteInstanceUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: ContrainteInstanceCreateManySemestreInputEnvelope
+    set?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    disconnect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    delete?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    update?: ContrainteInstanceUpdateWithWhereUniqueWithoutSemestreInput | ContrainteInstanceUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: ContrainteInstanceUpdateManyWithWhereWithoutSemestreInput | ContrainteInstanceUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: ContrainteInstanceScalarWhereInput | ContrainteInstanceScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -67461,6 +70774,92 @@ export namespace Prisma {
     update?: XOR<XOR<EquipementUpdateToOneWithWhereWithoutExigencesEquipementInput, EquipementUpdateWithoutExigencesEquipementInput>, EquipementUncheckedUpdateWithoutExigencesEquipementInput>
   }
 
+  export type ContrainteInstanceCreateNestedManyWithoutDefinitionInput = {
+    create?: XOR<ContrainteInstanceCreateWithoutDefinitionInput, ContrainteInstanceUncheckedCreateWithoutDefinitionInput> | ContrainteInstanceCreateWithoutDefinitionInput[] | ContrainteInstanceUncheckedCreateWithoutDefinitionInput[]
+    connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutDefinitionInput | ContrainteInstanceCreateOrConnectWithoutDefinitionInput[]
+    createMany?: ContrainteInstanceCreateManyDefinitionInputEnvelope
+    connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+  }
+
+  export type ContrainteInstanceUncheckedCreateNestedManyWithoutDefinitionInput = {
+    create?: XOR<ContrainteInstanceCreateWithoutDefinitionInput, ContrainteInstanceUncheckedCreateWithoutDefinitionInput> | ContrainteInstanceCreateWithoutDefinitionInput[] | ContrainteInstanceUncheckedCreateWithoutDefinitionInput[]
+    connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutDefinitionInput | ContrainteInstanceCreateOrConnectWithoutDefinitionInput[]
+    createMany?: ContrainteInstanceCreateManyDefinitionInputEnvelope
+    connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+  }
+
+  export type EnumContrainteCategorieFieldUpdateOperationsInput = {
+    set?: $Enums.ContrainteCategorie
+  }
+
+  export type EnumContraintePorteeFieldUpdateOperationsInput = {
+    set?: $Enums.ContraintePortee
+  }
+
+  export type EnumFetSupportFieldUpdateOperationsInput = {
+    set?: $Enums.FetSupport
+  }
+
+  export type ContrainteInstanceUpdateManyWithoutDefinitionNestedInput = {
+    create?: XOR<ContrainteInstanceCreateWithoutDefinitionInput, ContrainteInstanceUncheckedCreateWithoutDefinitionInput> | ContrainteInstanceCreateWithoutDefinitionInput[] | ContrainteInstanceUncheckedCreateWithoutDefinitionInput[]
+    connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutDefinitionInput | ContrainteInstanceCreateOrConnectWithoutDefinitionInput[]
+    upsert?: ContrainteInstanceUpsertWithWhereUniqueWithoutDefinitionInput | ContrainteInstanceUpsertWithWhereUniqueWithoutDefinitionInput[]
+    createMany?: ContrainteInstanceCreateManyDefinitionInputEnvelope
+    set?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    disconnect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    delete?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    update?: ContrainteInstanceUpdateWithWhereUniqueWithoutDefinitionInput | ContrainteInstanceUpdateWithWhereUniqueWithoutDefinitionInput[]
+    updateMany?: ContrainteInstanceUpdateManyWithWhereWithoutDefinitionInput | ContrainteInstanceUpdateManyWithWhereWithoutDefinitionInput[]
+    deleteMany?: ContrainteInstanceScalarWhereInput | ContrainteInstanceScalarWhereInput[]
+  }
+
+  export type ContrainteInstanceUncheckedUpdateManyWithoutDefinitionNestedInput = {
+    create?: XOR<ContrainteInstanceCreateWithoutDefinitionInput, ContrainteInstanceUncheckedCreateWithoutDefinitionInput> | ContrainteInstanceCreateWithoutDefinitionInput[] | ContrainteInstanceUncheckedCreateWithoutDefinitionInput[]
+    connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutDefinitionInput | ContrainteInstanceCreateOrConnectWithoutDefinitionInput[]
+    upsert?: ContrainteInstanceUpsertWithWhereUniqueWithoutDefinitionInput | ContrainteInstanceUpsertWithWhereUniqueWithoutDefinitionInput[]
+    createMany?: ContrainteInstanceCreateManyDefinitionInputEnvelope
+    set?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    disconnect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    delete?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+    update?: ContrainteInstanceUpdateWithWhereUniqueWithoutDefinitionInput | ContrainteInstanceUpdateWithWhereUniqueWithoutDefinitionInput[]
+    updateMany?: ContrainteInstanceUpdateManyWithWhereWithoutDefinitionInput | ContrainteInstanceUpdateManyWithWhereWithoutDefinitionInput[]
+    deleteMany?: ContrainteInstanceScalarWhereInput | ContrainteInstanceScalarWhereInput[]
+  }
+
+  export type SemestreCreateNestedOneWithoutContrainteInstancesInput = {
+    create?: XOR<SemestreCreateWithoutContrainteInstancesInput, SemestreUncheckedCreateWithoutContrainteInstancesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutContrainteInstancesInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type ContrainteDefinitionCreateNestedOneWithoutInstancesInput = {
+    create?: XOR<ContrainteDefinitionCreateWithoutInstancesInput, ContrainteDefinitionUncheckedCreateWithoutInstancesInput>
+    connectOrCreate?: ContrainteDefinitionCreateOrConnectWithoutInstancesInput
+    connect?: ContrainteDefinitionWhereUniqueInput
+  }
+
+  export type EnumContrainteNatureFieldUpdateOperationsInput = {
+    set?: $Enums.ContrainteNature
+  }
+
+  export type SemestreUpdateOneRequiredWithoutContrainteInstancesNestedInput = {
+    create?: XOR<SemestreCreateWithoutContrainteInstancesInput, SemestreUncheckedCreateWithoutContrainteInstancesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutContrainteInstancesInput
+    upsert?: SemestreUpsertWithoutContrainteInstancesInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutContrainteInstancesInput, SemestreUpdateWithoutContrainteInstancesInput>, SemestreUncheckedUpdateWithoutContrainteInstancesInput>
+  }
+
+  export type ContrainteDefinitionUpdateOneRequiredWithoutInstancesNestedInput = {
+    create?: XOR<ContrainteDefinitionCreateWithoutInstancesInput, ContrainteDefinitionUncheckedCreateWithoutInstancesInput>
+    connectOrCreate?: ContrainteDefinitionCreateOrConnectWithoutInstancesInput
+    upsert?: ContrainteDefinitionUpsertWithoutInstancesInput
+    connect?: ContrainteDefinitionWhereUniqueInput
+    update?: XOR<XOR<ContrainteDefinitionUpdateToOneWithWhereWithoutInstancesInput, ContrainteDefinitionUpdateWithoutInstancesInput>, ContrainteDefinitionUncheckedUpdateWithoutInstancesInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -68054,6 +71453,74 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumExigenceNiveauFilter<$PrismaModel>
     _max?: NestedEnumExigenceNiveauFilter<$PrismaModel>
+  }
+
+  export type NestedEnumContrainteCategorieFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContrainteCategorie | EnumContrainteCategorieFieldRefInput<$PrismaModel>
+    in?: $Enums.ContrainteCategorie[] | ListEnumContrainteCategorieFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContrainteCategorie[] | ListEnumContrainteCategorieFieldRefInput<$PrismaModel>
+    not?: NestedEnumContrainteCategorieFilter<$PrismaModel> | $Enums.ContrainteCategorie
+  }
+
+  export type NestedEnumContraintePorteeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContraintePortee | EnumContraintePorteeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContraintePortee[] | ListEnumContraintePorteeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContraintePortee[] | ListEnumContraintePorteeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContraintePorteeFilter<$PrismaModel> | $Enums.ContraintePortee
+  }
+
+  export type NestedEnumFetSupportFilter<$PrismaModel = never> = {
+    equals?: $Enums.FetSupport | EnumFetSupportFieldRefInput<$PrismaModel>
+    in?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
+    not?: NestedEnumFetSupportFilter<$PrismaModel> | $Enums.FetSupport
+  }
+
+  export type NestedEnumContrainteCategorieWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContrainteCategorie | EnumContrainteCategorieFieldRefInput<$PrismaModel>
+    in?: $Enums.ContrainteCategorie[] | ListEnumContrainteCategorieFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContrainteCategorie[] | ListEnumContrainteCategorieFieldRefInput<$PrismaModel>
+    not?: NestedEnumContrainteCategorieWithAggregatesFilter<$PrismaModel> | $Enums.ContrainteCategorie
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContrainteCategorieFilter<$PrismaModel>
+    _max?: NestedEnumContrainteCategorieFilter<$PrismaModel>
+  }
+
+  export type NestedEnumContraintePorteeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContraintePortee | EnumContraintePorteeFieldRefInput<$PrismaModel>
+    in?: $Enums.ContraintePortee[] | ListEnumContraintePorteeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContraintePortee[] | ListEnumContraintePorteeFieldRefInput<$PrismaModel>
+    not?: NestedEnumContraintePorteeWithAggregatesFilter<$PrismaModel> | $Enums.ContraintePortee
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContraintePorteeFilter<$PrismaModel>
+    _max?: NestedEnumContraintePorteeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFetSupportWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FetSupport | EnumFetSupportFieldRefInput<$PrismaModel>
+    in?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FetSupport[] | ListEnumFetSupportFieldRefInput<$PrismaModel>
+    not?: NestedEnumFetSupportWithAggregatesFilter<$PrismaModel> | $Enums.FetSupport
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFetSupportFilter<$PrismaModel>
+    _max?: NestedEnumFetSupportFilter<$PrismaModel>
+  }
+
+  export type NestedEnumContrainteNatureFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContrainteNature | EnumContrainteNatureFieldRefInput<$PrismaModel>
+    in?: $Enums.ContrainteNature[] | ListEnumContrainteNatureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContrainteNature[] | ListEnumContrainteNatureFieldRefInput<$PrismaModel>
+    not?: NestedEnumContrainteNatureFilter<$PrismaModel> | $Enums.ContrainteNature
+  }
+
+  export type NestedEnumContrainteNatureWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContrainteNature | EnumContrainteNatureFieldRefInput<$PrismaModel>
+    in?: $Enums.ContrainteNature[] | ListEnumContrainteNatureFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContrainteNature[] | ListEnumContrainteNatureFieldRefInput<$PrismaModel>
+    not?: NestedEnumContrainteNatureWithAggregatesFilter<$PrismaModel> | $Enums.ContrainteNature
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContrainteNatureFilter<$PrismaModel>
+    _max?: NestedEnumContrainteNatureFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateWithoutUserInput = {
@@ -71690,6 +75157,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -71703,6 +75171,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -72051,6 +75520,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ContrainteInstanceCreateWithoutSemestreInput = {
+    id?: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+    definition: ContrainteDefinitionCreateNestedOneWithoutInstancesInput
+  }
+
+  export type ContrainteInstanceUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    definitionId: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+  }
+
+  export type ContrainteInstanceCreateOrConnectWithoutSemestreInput = {
+    where: ContrainteInstanceWhereUniqueInput
+    create: XOR<ContrainteInstanceCreateWithoutSemestreInput, ContrainteInstanceUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type ContrainteInstanceCreateManySemestreInputEnvelope = {
+    data: ContrainteInstanceCreateManySemestreInput | ContrainteInstanceCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -72211,6 +75722,42 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Indisponibilite"> | Date | string
   }
 
+  export type ContrainteInstanceUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: ContrainteInstanceWhereUniqueInput
+    update: XOR<ContrainteInstanceUpdateWithoutSemestreInput, ContrainteInstanceUncheckedUpdateWithoutSemestreInput>
+    create: XOR<ContrainteInstanceCreateWithoutSemestreInput, ContrainteInstanceUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type ContrainteInstanceUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: ContrainteInstanceWhereUniqueInput
+    data: XOR<ContrainteInstanceUpdateWithoutSemestreInput, ContrainteInstanceUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type ContrainteInstanceUpdateManyWithWhereWithoutSemestreInput = {
+    where: ContrainteInstanceScalarWhereInput
+    data: XOR<ContrainteInstanceUpdateManyMutationInput, ContrainteInstanceUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type ContrainteInstanceScalarWhereInput = {
+    AND?: ContrainteInstanceScalarWhereInput | ContrainteInstanceScalarWhereInput[]
+    OR?: ContrainteInstanceScalarWhereInput[]
+    NOT?: ContrainteInstanceScalarWhereInput | ContrainteInstanceScalarWhereInput[]
+    id?: UuidFilter<"ContrainteInstance"> | string
+    semestreId?: UuidFilter<"ContrainteInstance"> | string
+    definitionId?: UuidFilter<"ContrainteInstance"> | string
+    enseignantId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    groupeId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    salleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    moduleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    params?: JsonFilter<"ContrainteInstance">
+    poids?: IntNullableFilter<"ContrainteInstance"> | number | null
+    nature?: EnumContrainteNatureFilter<"ContrainteInstance"> | $Enums.ContrainteNature
+    commentaire?: StringNullableFilter<"ContrainteInstance"> | string | null
+    actif?: BoolFilter<"ContrainteInstance"> | boolean
+    creePar?: UuidFilter<"ContrainteInstance"> | string
+    creeLe?: DateTimeFilter<"ContrainteInstance"> | Date | string
+  }
+
   export type SemestreCreateWithoutCreneauxInput = {
     id?: string
     numero: number
@@ -72222,6 +75769,7 @@ export namespace Prisma {
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -72235,6 +75783,7 @@ export namespace Prisma {
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -72288,6 +75837,7 @@ export namespace Prisma {
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -72301,6 +75851,7 @@ export namespace Prisma {
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -73032,6 +76583,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -73045,6 +76597,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -73184,6 +76737,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -73197,6 +76751,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -74410,6 +77965,7 @@ export namespace Prisma {
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -74423,6 +77979,7 @@ export namespace Prisma {
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -74497,6 +78054,7 @@ export namespace Prisma {
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -74510,6 +78068,7 @@ export namespace Prisma {
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -74951,6 +78510,7 @@ export namespace Prisma {
     groupes?: GroupeCreateNestedManyWithoutSemestreInput
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -74964,6 +78524,7 @@ export namespace Prisma {
     groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -75075,6 +78636,7 @@ export namespace Prisma {
     groupes?: GroupeUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -75088,6 +78650,7 @@ export namespace Prisma {
     groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -75750,6 +79313,196 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salles?: SalleEquipementUncheckedUpdateManyWithoutEquipementNestedInput
+  }
+
+  export type ContrainteInstanceCreateWithoutDefinitionInput = {
+    id?: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+    semestre: SemestreCreateNestedOneWithoutContrainteInstancesInput
+  }
+
+  export type ContrainteInstanceUncheckedCreateWithoutDefinitionInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+  }
+
+  export type ContrainteInstanceCreateOrConnectWithoutDefinitionInput = {
+    where: ContrainteInstanceWhereUniqueInput
+    create: XOR<ContrainteInstanceCreateWithoutDefinitionInput, ContrainteInstanceUncheckedCreateWithoutDefinitionInput>
+  }
+
+  export type ContrainteInstanceCreateManyDefinitionInputEnvelope = {
+    data: ContrainteInstanceCreateManyDefinitionInput | ContrainteInstanceCreateManyDefinitionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContrainteInstanceUpsertWithWhereUniqueWithoutDefinitionInput = {
+    where: ContrainteInstanceWhereUniqueInput
+    update: XOR<ContrainteInstanceUpdateWithoutDefinitionInput, ContrainteInstanceUncheckedUpdateWithoutDefinitionInput>
+    create: XOR<ContrainteInstanceCreateWithoutDefinitionInput, ContrainteInstanceUncheckedCreateWithoutDefinitionInput>
+  }
+
+  export type ContrainteInstanceUpdateWithWhereUniqueWithoutDefinitionInput = {
+    where: ContrainteInstanceWhereUniqueInput
+    data: XOR<ContrainteInstanceUpdateWithoutDefinitionInput, ContrainteInstanceUncheckedUpdateWithoutDefinitionInput>
+  }
+
+  export type ContrainteInstanceUpdateManyWithWhereWithoutDefinitionInput = {
+    where: ContrainteInstanceScalarWhereInput
+    data: XOR<ContrainteInstanceUpdateManyMutationInput, ContrainteInstanceUncheckedUpdateManyWithoutDefinitionInput>
+  }
+
+  export type SemestreCreateWithoutContrainteInstancesInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutContrainteInstancesInput, SemestreUncheckedCreateWithoutContrainteInstancesInput>
+  }
+
+  export type ContrainteDefinitionCreateWithoutInstancesInput = {
+    id?: string
+    code: string
+    libelle: string
+    categorie: $Enums.ContrainteCategorie
+    portee: $Enums.ContraintePortee
+    paramsSchema: JsonNullValueInput | InputJsonValue
+    fetSupport?: $Enums.FetSupport
+    actif?: boolean
+  }
+
+  export type ContrainteDefinitionUncheckedCreateWithoutInstancesInput = {
+    id?: string
+    code: string
+    libelle: string
+    categorie: $Enums.ContrainteCategorie
+    portee: $Enums.ContraintePortee
+    paramsSchema: JsonNullValueInput | InputJsonValue
+    fetSupport?: $Enums.FetSupport
+    actif?: boolean
+  }
+
+  export type ContrainteDefinitionCreateOrConnectWithoutInstancesInput = {
+    where: ContrainteDefinitionWhereUniqueInput
+    create: XOR<ContrainteDefinitionCreateWithoutInstancesInput, ContrainteDefinitionUncheckedCreateWithoutInstancesInput>
+  }
+
+  export type SemestreUpsertWithoutContrainteInstancesInput = {
+    update: XOR<SemestreUpdateWithoutContrainteInstancesInput, SemestreUncheckedUpdateWithoutContrainteInstancesInput>
+    create: XOR<SemestreCreateWithoutContrainteInstancesInput, SemestreUncheckedCreateWithoutContrainteInstancesInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutContrainteInstancesInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutContrainteInstancesInput, SemestreUncheckedUpdateWithoutContrainteInstancesInput>
+  }
+
+  export type SemestreUpdateWithoutContrainteInstancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type ContrainteDefinitionUpsertWithoutInstancesInput = {
+    update: XOR<ContrainteDefinitionUpdateWithoutInstancesInput, ContrainteDefinitionUncheckedUpdateWithoutInstancesInput>
+    create: XOR<ContrainteDefinitionCreateWithoutInstancesInput, ContrainteDefinitionUncheckedCreateWithoutInstancesInput>
+    where?: ContrainteDefinitionWhereInput
+  }
+
+  export type ContrainteDefinitionUpdateToOneWithWhereWithoutInstancesInput = {
+    where?: ContrainteDefinitionWhereInput
+    data: XOR<ContrainteDefinitionUpdateWithoutInstancesInput, ContrainteDefinitionUncheckedUpdateWithoutInstancesInput>
+  }
+
+  export type ContrainteDefinitionUpdateWithoutInstancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    paramsSchema?: JsonNullValueInput | InputJsonValue
+    fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
+    actif?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ContrainteDefinitionUncheckedUpdateWithoutInstancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    categorie?: EnumContrainteCategorieFieldUpdateOperationsInput | $Enums.ContrainteCategorie
+    portee?: EnumContraintePorteeFieldUpdateOperationsInput | $Enums.ContraintePortee
+    paramsSchema?: JsonNullValueInput | InputJsonValue
+    fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
+    actif?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -76826,6 +80579,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -76839,6 +80593,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -76979,6 +80734,22 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ContrainteInstanceCreateManySemestreInput = {
+    id?: string
+    definitionId: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+  }
+
   export type GroupeUpdateWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
@@ -77116,6 +80887,54 @@ export namespace Prisma {
     estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContrainteInstanceUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    definition?: ContrainteDefinitionUpdateOneRequiredWithoutInstancesNestedInput
+  }
+
+  export type ContrainteInstanceUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    definitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContrainteInstanceUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    definitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CreneauAffichageCreateManyCreneauInput = {
@@ -78184,6 +82003,70 @@ export namespace Prisma {
     moduleId?: StringFieldUpdateOperationsInput | string
     typeEnseignementId?: StringFieldUpdateOperationsInput | string
     niveau?: EnumExigenceNiveauFieldUpdateOperationsInput | $Enums.ExigenceNiveau
+  }
+
+  export type ContrainteInstanceCreateManyDefinitionInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    groupeId?: string | null
+    salleId?: string | null
+    moduleId?: string | null
+    params: JsonNullValueInput | InputJsonValue
+    poids?: number | null
+    nature?: $Enums.ContrainteNature
+    commentaire?: string | null
+    actif?: boolean
+    creePar: string
+    creeLe?: Date | string
+  }
+
+  export type ContrainteInstanceUpdateWithoutDefinitionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutContrainteInstancesNestedInput
+  }
+
+  export type ContrainteInstanceUncheckedUpdateWithoutDefinitionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContrainteInstanceUncheckedUpdateManyWithoutDefinitionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    params?: JsonNullValueInput | InputJsonValue
+    poids?: NullableIntFieldUpdateOperationsInput | number | null
+    nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    actif?: BoolFieldUpdateOperationsInput | boolean
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
