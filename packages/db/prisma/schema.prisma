@@ -521,9 +521,10 @@ model Annee {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 
-  semestres    Semestre[]
-  departements Departement[]
-  enseignants  Enseignant[]
+  semestres      Semestre[]
+  departements   Departement[]
+  enseignants    Enseignant[]
+  chargeRuleSets ChargeRuleSet[]
 
   @@unique([code])
   @@unique([numero])
@@ -704,8 +705,9 @@ model TypeEnseignement {
   createdAt     DateTime             @default(now())
   updatedAt     DateTime             @updatedAt
 
-  modules Module[]
-  exigencesEquipement ExigenceEquipement[] @relation("TypeExigenceEquipement")
+  modules                 Module[]
+  exigencesEquipement     ExigenceEquipement[] @relation("TypeExigenceEquipement")
+  chargeCoefficients      ChargeCoefficient[]
 
   @@unique([code])
   @@map("types_enseignement")
@@ -726,8 +728,9 @@ model Grade {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
-  modules     Module[]
-  enseignants Enseignant[]
+  modules                   Module[]
+  enseignants               Enseignant[]
+  chargeReferenceGrades     ChargeReferenceGrade[]
 
   @@unique([code])
   @@map("grades")
@@ -776,6 +779,71 @@ model ModuleVolume {
   @@unique([moduleId, type])
   @@index([moduleId])
   @@map("module_volumes")
+}
+
+
+// ============================================
+// Jeux de règles de charge (L2-03)
+// ============================================
+
+enum PeriodeRegle {
+  HEBDOMADAIRE
+  SEMESTRIELLE
+  ANNUELLE
+}
+
+model ChargeRuleSet {
+  id            String           @id @default(uuid()) @db.Uuid
+  numero        Int
+  periode       PeriodeRegle
+  seuil         Int?
+  plafond       Int?
+  arrondi       Int?
+  publieLe      DateTime?
+  anneeId       String?          @db.Uuid
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  annee             Annee?           @relation(fields: [anneeId], references: [id], onDelete: SetNull)
+  referenceGrades   ChargeReferenceGrade[]
+  coefficients      ChargeCoefficient[]
+
+  @@unique([numero])
+  @@index([periode])
+  @@index([anneeId])
+  @@map("charge_rule_sets")
+}
+
+model ChargeReferenceGrade {
+  id          String   @id @default(uuid()) @db.Uuid
+  rulesetId   String   @db.Uuid @map("ruleSetId")
+  gradeId     String?  @db.Uuid
+  coefficient Decimal  @db.Decimal
+  createdAt   DateTime @default(now())
+
+  ruleset ChargeRuleSet @relation(fields: [rulesetId], references: [id], onDelete: Cascade)
+  grade   Grade?        @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+
+  @@unique([rulesetId, gradeId])
+  @@index([rulesetId])
+  @@index([gradeId])
+  @@map("charge_reference_grades")
+}
+
+model ChargeCoefficient {
+  id          String   @id @default(uuid()) @db.Uuid
+  rulesetId   String   @db.Uuid @map("ruleSetId")
+  typeId      String   @db.Uuid
+  coefficient Decimal  @db.Decimal
+  createdAt   DateTime @default(now())
+
+  ruleset ChargeRuleSet       @relation(fields: [rulesetId], references: [id], onDelete: Cascade)
+  type    TypeEnseignement @relation(fields: [typeId], references: [id], onDelete: Cascade)
+
+  @@unique([rulesetId, typeId])
+  @@index([rulesetId])
+  @@index([typeId])
+  @@map("charge_coefficients")
 }
 
 // ============================================
