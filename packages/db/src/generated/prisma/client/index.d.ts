@@ -169,6 +169,21 @@ export type Module = $Result.DefaultSelection<Prisma.$ModulePayload>
  */
 export type ModuleVolume = $Result.DefaultSelection<Prisma.$ModuleVolumePayload>
 /**
+ * Model ChargeRuleSet
+ * 
+ */
+export type ChargeRuleSet = $Result.DefaultSelection<Prisma.$ChargeRuleSetPayload>
+/**
+ * Model ChargeReferenceGrade
+ * 
+ */
+export type ChargeReferenceGrade = $Result.DefaultSelection<Prisma.$ChargeReferenceGradePayload>
+/**
+ * Model ChargeCoefficient
+ * 
+ */
+export type ChargeCoefficient = $Result.DefaultSelection<Prisma.$ChargeCoefficientPayload>
+/**
  * Model ActivityTag
  * 
  */
@@ -451,6 +466,15 @@ export const GradeCode: {
 
 export type GradeCode = (typeof GradeCode)[keyof typeof GradeCode]
 
+
+export const PeriodeRegle: {
+  HEBDOMADAIRE: 'HEBDOMADAIRE',
+  SEMESTRIELLE: 'SEMESTRIELLE',
+  ANNUELLE: 'ANNUELLE'
+};
+
+export type PeriodeRegle = (typeof PeriodeRegle)[keyof typeof PeriodeRegle]
+
 }
 
 export type RoleCode = $Enums.RoleCode
@@ -536,6 +560,10 @@ export const TypeEnseignementCode: typeof $Enums.TypeEnseignementCode
 export type GradeCode = $Enums.GradeCode
 
 export const GradeCode: typeof $Enums.GradeCode
+
+export type PeriodeRegle = $Enums.PeriodeRegle
+
+export const PeriodeRegle: typeof $Enums.PeriodeRegle
 
 /**
  * ##  Prisma Client ʲˢ
@@ -967,6 +995,36 @@ export class PrismaClient<
     * ```
     */
   get moduleVolume(): Prisma.ModuleVolumeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.chargeRuleSet`: Exposes CRUD operations for the **ChargeRuleSet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChargeRuleSets
+    * const chargeRuleSets = await prisma.chargeRuleSet.findMany()
+    * ```
+    */
+  get chargeRuleSet(): Prisma.ChargeRuleSetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.chargeReferenceGrade`: Exposes CRUD operations for the **ChargeReferenceGrade** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChargeReferenceGrades
+    * const chargeReferenceGrades = await prisma.chargeReferenceGrade.findMany()
+    * ```
+    */
+  get chargeReferenceGrade(): Prisma.ChargeReferenceGradeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.chargeCoefficient`: Exposes CRUD operations for the **ChargeCoefficient** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChargeCoefficients
+    * const chargeCoefficients = await prisma.chargeCoefficient.findMany()
+    * ```
+    */
+  get chargeCoefficient(): Prisma.ChargeCoefficientDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.activityTag`: Exposes CRUD operations for the **ActivityTag** model.
@@ -1585,6 +1643,9 @@ export namespace Prisma {
     Grade: 'Grade',
     Module: 'Module',
     ModuleVolume: 'ModuleVolume',
+    ChargeRuleSet: 'ChargeRuleSet',
+    ChargeReferenceGrade: 'ChargeReferenceGrade',
+    ChargeCoefficient: 'ChargeCoefficient',
     ActivityTag: 'ActivityTag',
     Enseignant: 'Enseignant',
     EnseignantModule: 'EnseignantModule',
@@ -1614,7 +1675,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3912,6 +3973,228 @@ export namespace Prisma {
           }
         }
       }
+      ChargeRuleSet: {
+        payload: Prisma.$ChargeRuleSetPayload<ExtArgs>
+        fields: Prisma.ChargeRuleSetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChargeRuleSetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChargeRuleSetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>
+          }
+          findFirst: {
+            args: Prisma.ChargeRuleSetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChargeRuleSetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>
+          }
+          findMany: {
+            args: Prisma.ChargeRuleSetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>[]
+          }
+          create: {
+            args: Prisma.ChargeRuleSetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>
+          }
+          createMany: {
+            args: Prisma.ChargeRuleSetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChargeRuleSetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>[]
+          }
+          delete: {
+            args: Prisma.ChargeRuleSetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>
+          }
+          update: {
+            args: Prisma.ChargeRuleSetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChargeRuleSetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChargeRuleSetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ChargeRuleSetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>[]
+          }
+          upsert: {
+            args: Prisma.ChargeRuleSetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeRuleSetPayload>
+          }
+          aggregate: {
+            args: Prisma.ChargeRuleSetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChargeRuleSet>
+          }
+          groupBy: {
+            args: Prisma.ChargeRuleSetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChargeRuleSetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChargeRuleSetCountArgs<ExtArgs>
+            result: $Utils.Optional<ChargeRuleSetCountAggregateOutputType> | number
+          }
+        }
+      }
+      ChargeReferenceGrade: {
+        payload: Prisma.$ChargeReferenceGradePayload<ExtArgs>
+        fields: Prisma.ChargeReferenceGradeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChargeReferenceGradeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChargeReferenceGradeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>
+          }
+          findFirst: {
+            args: Prisma.ChargeReferenceGradeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChargeReferenceGradeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>
+          }
+          findMany: {
+            args: Prisma.ChargeReferenceGradeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>[]
+          }
+          create: {
+            args: Prisma.ChargeReferenceGradeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>
+          }
+          createMany: {
+            args: Prisma.ChargeReferenceGradeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChargeReferenceGradeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>[]
+          }
+          delete: {
+            args: Prisma.ChargeReferenceGradeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>
+          }
+          update: {
+            args: Prisma.ChargeReferenceGradeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>
+          }
+          deleteMany: {
+            args: Prisma.ChargeReferenceGradeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChargeReferenceGradeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ChargeReferenceGradeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>[]
+          }
+          upsert: {
+            args: Prisma.ChargeReferenceGradeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeReferenceGradePayload>
+          }
+          aggregate: {
+            args: Prisma.ChargeReferenceGradeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChargeReferenceGrade>
+          }
+          groupBy: {
+            args: Prisma.ChargeReferenceGradeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChargeReferenceGradeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChargeReferenceGradeCountArgs<ExtArgs>
+            result: $Utils.Optional<ChargeReferenceGradeCountAggregateOutputType> | number
+          }
+        }
+      }
+      ChargeCoefficient: {
+        payload: Prisma.$ChargeCoefficientPayload<ExtArgs>
+        fields: Prisma.ChargeCoefficientFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChargeCoefficientFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChargeCoefficientFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>
+          }
+          findFirst: {
+            args: Prisma.ChargeCoefficientFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChargeCoefficientFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>
+          }
+          findMany: {
+            args: Prisma.ChargeCoefficientFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>[]
+          }
+          create: {
+            args: Prisma.ChargeCoefficientCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>
+          }
+          createMany: {
+            args: Prisma.ChargeCoefficientCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChargeCoefficientCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>[]
+          }
+          delete: {
+            args: Prisma.ChargeCoefficientDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>
+          }
+          update: {
+            args: Prisma.ChargeCoefficientUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChargeCoefficientDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChargeCoefficientUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ChargeCoefficientUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>[]
+          }
+          upsert: {
+            args: Prisma.ChargeCoefficientUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChargeCoefficientPayload>
+          }
+          aggregate: {
+            args: Prisma.ChargeCoefficientAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChargeCoefficient>
+          }
+          groupBy: {
+            args: Prisma.ChargeCoefficientGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChargeCoefficientGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChargeCoefficientCountArgs<ExtArgs>
+            result: $Utils.Optional<ChargeCoefficientCountAggregateOutputType> | number
+          }
+        }
+      }
       ActivityTag: {
         payload: Prisma.$ActivityTagPayload<ExtArgs>
         fields: Prisma.ActivityTagFieldRefs
@@ -5102,6 +5385,9 @@ export namespace Prisma {
     grade?: GradeOmit
     module?: ModuleOmit
     moduleVolume?: ModuleVolumeOmit
+    chargeRuleSet?: ChargeRuleSetOmit
+    chargeReferenceGrade?: ChargeReferenceGradeOmit
+    chargeCoefficient?: ChargeCoefficientOmit
     activityTag?: ActivityTagOmit
     enseignant?: EnseignantOmit
     enseignantModule?: EnseignantModuleOmit
@@ -5529,12 +5815,14 @@ export namespace Prisma {
     semestres: number
     departements: number
     enseignants: number
+    chargeRuleSets: number
   }
 
   export type AnneeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestres?: boolean | AnneeCountOutputTypeCountSemestresArgs
     departements?: boolean | AnneeCountOutputTypeCountDepartementsArgs
     enseignants?: boolean | AnneeCountOutputTypeCountEnseignantsArgs
+    chargeRuleSets?: boolean | AnneeCountOutputTypeCountChargeRuleSetsArgs
   }
 
   // Custom InputTypes
@@ -5567,6 +5855,13 @@ export namespace Prisma {
    */
   export type AnneeCountOutputTypeCountEnseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnseignantWhereInput
+  }
+
+  /**
+   * AnneeCountOutputType without action
+   */
+  export type AnneeCountOutputTypeCountChargeRuleSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChargeRuleSetWhereInput
   }
 
 
@@ -5826,11 +6121,13 @@ export namespace Prisma {
   export type TypeEnseignementCountOutputType = {
     modules: number
     exigencesEquipement: number
+    chargeCoefficients: number
   }
 
   export type TypeEnseignementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | TypeEnseignementCountOutputTypeCountModulesArgs
     exigencesEquipement?: boolean | TypeEnseignementCountOutputTypeCountExigencesEquipementArgs
+    chargeCoefficients?: boolean | TypeEnseignementCountOutputTypeCountChargeCoefficientsArgs
   }
 
   // Custom InputTypes
@@ -5858,6 +6155,13 @@ export namespace Prisma {
     where?: ExigenceEquipementWhereInput
   }
 
+  /**
+   * TypeEnseignementCountOutputType without action
+   */
+  export type TypeEnseignementCountOutputTypeCountChargeCoefficientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChargeCoefficientWhereInput
+  }
+
 
   /**
    * Count Type GradeCountOutputType
@@ -5866,11 +6170,13 @@ export namespace Prisma {
   export type GradeCountOutputType = {
     modules: number
     enseignants: number
+    chargeReferenceGrades: number
   }
 
   export type GradeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | GradeCountOutputTypeCountModulesArgs
     enseignants?: boolean | GradeCountOutputTypeCountEnseignantsArgs
+    chargeReferenceGrades?: boolean | GradeCountOutputTypeCountChargeReferenceGradesArgs
   }
 
   // Custom InputTypes
@@ -5896,6 +6202,13 @@ export namespace Prisma {
    */
   export type GradeCountOutputTypeCountEnseignantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EnseignantWhereInput
+  }
+
+  /**
+   * GradeCountOutputType without action
+   */
+  export type GradeCountOutputTypeCountChargeReferenceGradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChargeReferenceGradeWhereInput
   }
 
 
@@ -5945,6 +6258,46 @@ export namespace Prisma {
    */
   export type ModuleCountOutputTypeCountModuleVolumesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ModuleVolumeWhereInput
+  }
+
+
+  /**
+   * Count Type ChargeRuleSetCountOutputType
+   */
+
+  export type ChargeRuleSetCountOutputType = {
+    referenceGrades: number
+    coefficients: number
+  }
+
+  export type ChargeRuleSetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    referenceGrades?: boolean | ChargeRuleSetCountOutputTypeCountReferenceGradesArgs
+    coefficients?: boolean | ChargeRuleSetCountOutputTypeCountCoefficientsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ChargeRuleSetCountOutputType without action
+   */
+  export type ChargeRuleSetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSetCountOutputType
+     */
+    select?: ChargeRuleSetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ChargeRuleSetCountOutputType without action
+   */
+  export type ChargeRuleSetCountOutputTypeCountReferenceGradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChargeReferenceGradeWhereInput
+  }
+
+  /**
+   * ChargeRuleSetCountOutputType without action
+   */
+  export type ChargeRuleSetCountOutputTypeCountCoefficientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChargeCoefficientWhereInput
   }
 
 
@@ -28168,6 +28521,7 @@ export namespace Prisma {
     semestres?: boolean | Annee$semestresArgs<ExtArgs>
     departements?: boolean | Annee$departementsArgs<ExtArgs>
     enseignants?: boolean | Annee$enseignantsArgs<ExtArgs>
+    chargeRuleSets?: boolean | Annee$chargeRuleSetsArgs<ExtArgs>
     _count?: boolean | AnneeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["annee"]>
 
@@ -28206,6 +28560,7 @@ export namespace Prisma {
     semestres?: boolean | Annee$semestresArgs<ExtArgs>
     departements?: boolean | Annee$departementsArgs<ExtArgs>
     enseignants?: boolean | Annee$enseignantsArgs<ExtArgs>
+    chargeRuleSets?: boolean | Annee$chargeRuleSetsArgs<ExtArgs>
     _count?: boolean | AnneeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AnneeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -28217,6 +28572,7 @@ export namespace Prisma {
       semestres: Prisma.$SemestrePayload<ExtArgs>[]
       departements: Prisma.$DepartementPayload<ExtArgs>[]
       enseignants: Prisma.$EnseignantPayload<ExtArgs>[]
+      chargeRuleSets: Prisma.$ChargeRuleSetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -28623,6 +28979,7 @@ export namespace Prisma {
     semestres<T extends Annee$semestresArgs<ExtArgs> = {}>(args?: Subset<T, Annee$semestresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     departements<T extends Annee$departementsArgs<ExtArgs> = {}>(args?: Subset<T, Annee$departementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     enseignants<T extends Annee$enseignantsArgs<ExtArgs> = {}>(args?: Subset<T, Annee$enseignantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chargeRuleSets<T extends Annee$chargeRuleSetsArgs<ExtArgs> = {}>(args?: Subset<T, Annee$chargeRuleSetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -29121,6 +29478,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
+  }
+
+  /**
+   * Annee.chargeRuleSets
+   */
+  export type Annee$chargeRuleSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    where?: ChargeRuleSetWhereInput
+    orderBy?: ChargeRuleSetOrderByWithRelationInput | ChargeRuleSetOrderByWithRelationInput[]
+    cursor?: ChargeRuleSetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChargeRuleSetScalarFieldEnum | ChargeRuleSetScalarFieldEnum[]
   }
 
   /**
@@ -37676,6 +38057,7 @@ export namespace Prisma {
     activityTag?: boolean | TypeEnseignement$activityTagArgs<ExtArgs>
     modules?: boolean | TypeEnseignement$modulesArgs<ExtArgs>
     exigencesEquipement?: boolean | TypeEnseignement$exigencesEquipementArgs<ExtArgs>
+    chargeCoefficients?: boolean | TypeEnseignement$chargeCoefficientsArgs<ExtArgs>
     _count?: boolean | TypeEnseignementCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["typeEnseignement"]>
 
@@ -37713,6 +38095,7 @@ export namespace Prisma {
     activityTag?: boolean | TypeEnseignement$activityTagArgs<ExtArgs>
     modules?: boolean | TypeEnseignement$modulesArgs<ExtArgs>
     exigencesEquipement?: boolean | TypeEnseignement$exigencesEquipementArgs<ExtArgs>
+    chargeCoefficients?: boolean | TypeEnseignement$chargeCoefficientsArgs<ExtArgs>
     _count?: boolean | TypeEnseignementCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TypeEnseignementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -37728,6 +38111,7 @@ export namespace Prisma {
       activityTag: Prisma.$ActivityTagPayload<ExtArgs> | null
       modules: Prisma.$ModulePayload<ExtArgs>[]
       exigencesEquipement: Prisma.$ExigenceEquipementPayload<ExtArgs>[]
+      chargeCoefficients: Prisma.$ChargeCoefficientPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -38133,6 +38517,7 @@ export namespace Prisma {
     activityTag<T extends TypeEnseignement$activityTagArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignement$activityTagArgs<ExtArgs>>): Prisma__ActivityTagClient<$Result.GetResult<Prisma.$ActivityTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     modules<T extends TypeEnseignement$modulesArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignement$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exigencesEquipement<T extends TypeEnseignement$exigencesEquipementArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignement$exigencesEquipementArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chargeCoefficients<T extends TypeEnseignement$chargeCoefficientsArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignement$chargeCoefficientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -38636,6 +39021,30 @@ export namespace Prisma {
   }
 
   /**
+   * TypeEnseignement.chargeCoefficients
+   */
+  export type TypeEnseignement$chargeCoefficientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    where?: ChargeCoefficientWhereInput
+    orderBy?: ChargeCoefficientOrderByWithRelationInput | ChargeCoefficientOrderByWithRelationInput[]
+    cursor?: ChargeCoefficientWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChargeCoefficientScalarFieldEnum | ChargeCoefficientScalarFieldEnum[]
+  }
+
+  /**
    * TypeEnseignement without action
    */
   export type TypeEnseignementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38820,6 +39229,7 @@ export namespace Prisma {
     updatedAt?: boolean
     modules?: boolean | Grade$modulesArgs<ExtArgs>
     enseignants?: boolean | Grade$enseignantsArgs<ExtArgs>
+    chargeReferenceGrades?: boolean | Grade$chargeReferenceGradesArgs<ExtArgs>
     _count?: boolean | GradeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["grade"]>
 
@@ -38851,6 +39261,7 @@ export namespace Prisma {
   export type GradeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | Grade$modulesArgs<ExtArgs>
     enseignants?: boolean | Grade$enseignantsArgs<ExtArgs>
+    chargeReferenceGrades?: boolean | Grade$chargeReferenceGradesArgs<ExtArgs>
     _count?: boolean | GradeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GradeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -38861,6 +39272,7 @@ export namespace Prisma {
     objects: {
       modules: Prisma.$ModulePayload<ExtArgs>[]
       enseignants: Prisma.$EnseignantPayload<ExtArgs>[]
+      chargeReferenceGrades: Prisma.$ChargeReferenceGradePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -39264,6 +39676,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     modules<T extends Grade$modulesArgs<ExtArgs> = {}>(args?: Subset<T, Grade$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     enseignants<T extends Grade$enseignantsArgs<ExtArgs> = {}>(args?: Subset<T, Grade$enseignantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chargeReferenceGrades<T extends Grade$chargeReferenceGradesArgs<ExtArgs> = {}>(args?: Subset<T, Grade$chargeReferenceGradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39736,6 +40149,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EnseignantScalarFieldEnum | EnseignantScalarFieldEnum[]
+  }
+
+  /**
+   * Grade.chargeReferenceGrades
+   */
+  export type Grade$chargeReferenceGradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    where?: ChargeReferenceGradeWhereInput
+    orderBy?: ChargeReferenceGradeOrderByWithRelationInput | ChargeReferenceGradeOrderByWithRelationInput[]
+    cursor?: ChargeReferenceGradeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChargeReferenceGradeScalarFieldEnum | ChargeReferenceGradeScalarFieldEnum[]
   }
 
   /**
@@ -42181,6 +42618,3486 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ModuleVolumeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChargeRuleSet
+   */
+
+  export type AggregateChargeRuleSet = {
+    _count: ChargeRuleSetCountAggregateOutputType | null
+    _avg: ChargeRuleSetAvgAggregateOutputType | null
+    _sum: ChargeRuleSetSumAggregateOutputType | null
+    _min: ChargeRuleSetMinAggregateOutputType | null
+    _max: ChargeRuleSetMaxAggregateOutputType | null
+  }
+
+  export type ChargeRuleSetAvgAggregateOutputType = {
+    numero: number | null
+    seuil: number | null
+    plafond: number | null
+    arrondi: number | null
+  }
+
+  export type ChargeRuleSetSumAggregateOutputType = {
+    numero: number | null
+    seuil: number | null
+    plafond: number | null
+    arrondi: number | null
+  }
+
+  export type ChargeRuleSetMinAggregateOutputType = {
+    id: string | null
+    numero: number | null
+    periode: $Enums.PeriodeRegle | null
+    seuil: number | null
+    plafond: number | null
+    arrondi: number | null
+    publieLe: Date | null
+    anneeId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChargeRuleSetMaxAggregateOutputType = {
+    id: string | null
+    numero: number | null
+    periode: $Enums.PeriodeRegle | null
+    seuil: number | null
+    plafond: number | null
+    arrondi: number | null
+    publieLe: Date | null
+    anneeId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChargeRuleSetCountAggregateOutputType = {
+    id: number
+    numero: number
+    periode: number
+    seuil: number
+    plafond: number
+    arrondi: number
+    publieLe: number
+    anneeId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ChargeRuleSetAvgAggregateInputType = {
+    numero?: true
+    seuil?: true
+    plafond?: true
+    arrondi?: true
+  }
+
+  export type ChargeRuleSetSumAggregateInputType = {
+    numero?: true
+    seuil?: true
+    plafond?: true
+    arrondi?: true
+  }
+
+  export type ChargeRuleSetMinAggregateInputType = {
+    id?: true
+    numero?: true
+    periode?: true
+    seuil?: true
+    plafond?: true
+    arrondi?: true
+    publieLe?: true
+    anneeId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChargeRuleSetMaxAggregateInputType = {
+    id?: true
+    numero?: true
+    periode?: true
+    seuil?: true
+    plafond?: true
+    arrondi?: true
+    publieLe?: true
+    anneeId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChargeRuleSetCountAggregateInputType = {
+    id?: true
+    numero?: true
+    periode?: true
+    seuil?: true
+    plafond?: true
+    arrondi?: true
+    publieLe?: true
+    anneeId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ChargeRuleSetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChargeRuleSet to aggregate.
+     */
+    where?: ChargeRuleSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeRuleSets to fetch.
+     */
+    orderBy?: ChargeRuleSetOrderByWithRelationInput | ChargeRuleSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChargeRuleSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeRuleSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeRuleSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChargeRuleSets
+    **/
+    _count?: true | ChargeRuleSetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ChargeRuleSetAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ChargeRuleSetSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChargeRuleSetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChargeRuleSetMaxAggregateInputType
+  }
+
+  export type GetChargeRuleSetAggregateType<T extends ChargeRuleSetAggregateArgs> = {
+        [P in keyof T & keyof AggregateChargeRuleSet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChargeRuleSet[P]>
+      : GetScalarType<T[P], AggregateChargeRuleSet[P]>
+  }
+
+
+
+
+  export type ChargeRuleSetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChargeRuleSetWhereInput
+    orderBy?: ChargeRuleSetOrderByWithAggregationInput | ChargeRuleSetOrderByWithAggregationInput[]
+    by: ChargeRuleSetScalarFieldEnum[] | ChargeRuleSetScalarFieldEnum
+    having?: ChargeRuleSetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChargeRuleSetCountAggregateInputType | true
+    _avg?: ChargeRuleSetAvgAggregateInputType
+    _sum?: ChargeRuleSetSumAggregateInputType
+    _min?: ChargeRuleSetMinAggregateInputType
+    _max?: ChargeRuleSetMaxAggregateInputType
+  }
+
+  export type ChargeRuleSetGroupByOutputType = {
+    id: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil: number | null
+    plafond: number | null
+    arrondi: number | null
+    publieLe: Date | null
+    anneeId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ChargeRuleSetCountAggregateOutputType | null
+    _avg: ChargeRuleSetAvgAggregateOutputType | null
+    _sum: ChargeRuleSetSumAggregateOutputType | null
+    _min: ChargeRuleSetMinAggregateOutputType | null
+    _max: ChargeRuleSetMaxAggregateOutputType | null
+  }
+
+  type GetChargeRuleSetGroupByPayload<T extends ChargeRuleSetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChargeRuleSetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChargeRuleSetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChargeRuleSetGroupByOutputType[P]>
+            : GetScalarType<T[P], ChargeRuleSetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChargeRuleSetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    periode?: boolean
+    seuil?: boolean
+    plafond?: boolean
+    arrondi?: boolean
+    publieLe?: boolean
+    anneeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | ChargeRuleSet$anneeArgs<ExtArgs>
+    referenceGrades?: boolean | ChargeRuleSet$referenceGradesArgs<ExtArgs>
+    coefficients?: boolean | ChargeRuleSet$coefficientsArgs<ExtArgs>
+    _count?: boolean | ChargeRuleSetCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeRuleSet"]>
+
+  export type ChargeRuleSetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    periode?: boolean
+    seuil?: boolean
+    plafond?: boolean
+    arrondi?: boolean
+    publieLe?: boolean
+    anneeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | ChargeRuleSet$anneeArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeRuleSet"]>
+
+  export type ChargeRuleSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    numero?: boolean
+    periode?: boolean
+    seuil?: boolean
+    plafond?: boolean
+    arrondi?: boolean
+    publieLe?: boolean
+    anneeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    annee?: boolean | ChargeRuleSet$anneeArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeRuleSet"]>
+
+  export type ChargeRuleSetSelectScalar = {
+    id?: boolean
+    numero?: boolean
+    periode?: boolean
+    seuil?: boolean
+    plafond?: boolean
+    arrondi?: boolean
+    publieLe?: boolean
+    anneeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ChargeRuleSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "numero" | "periode" | "seuil" | "plafond" | "arrondi" | "publieLe" | "anneeId" | "createdAt" | "updatedAt", ExtArgs["result"]["chargeRuleSet"]>
+  export type ChargeRuleSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | ChargeRuleSet$anneeArgs<ExtArgs>
+    referenceGrades?: boolean | ChargeRuleSet$referenceGradesArgs<ExtArgs>
+    coefficients?: boolean | ChargeRuleSet$coefficientsArgs<ExtArgs>
+    _count?: boolean | ChargeRuleSetCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ChargeRuleSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | ChargeRuleSet$anneeArgs<ExtArgs>
+  }
+  export type ChargeRuleSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    annee?: boolean | ChargeRuleSet$anneeArgs<ExtArgs>
+  }
+
+  export type $ChargeRuleSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChargeRuleSet"
+    objects: {
+      annee: Prisma.$AnneePayload<ExtArgs> | null
+      referenceGrades: Prisma.$ChargeReferenceGradePayload<ExtArgs>[]
+      coefficients: Prisma.$ChargeCoefficientPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      numero: number
+      periode: $Enums.PeriodeRegle
+      seuil: number | null
+      plafond: number | null
+      arrondi: number | null
+      publieLe: Date | null
+      anneeId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["chargeRuleSet"]>
+    composites: {}
+  }
+
+  type ChargeRuleSetGetPayload<S extends boolean | null | undefined | ChargeRuleSetDefaultArgs> = $Result.GetResult<Prisma.$ChargeRuleSetPayload, S>
+
+  type ChargeRuleSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChargeRuleSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChargeRuleSetCountAggregateInputType | true
+    }
+
+  export interface ChargeRuleSetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChargeRuleSet'], meta: { name: 'ChargeRuleSet' } }
+    /**
+     * Find zero or one ChargeRuleSet that matches the filter.
+     * @param {ChargeRuleSetFindUniqueArgs} args - Arguments to find a ChargeRuleSet
+     * @example
+     * // Get one ChargeRuleSet
+     * const chargeRuleSet = await prisma.chargeRuleSet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChargeRuleSetFindUniqueArgs>(args: SelectSubset<T, ChargeRuleSetFindUniqueArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChargeRuleSet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChargeRuleSetFindUniqueOrThrowArgs} args - Arguments to find a ChargeRuleSet
+     * @example
+     * // Get one ChargeRuleSet
+     * const chargeRuleSet = await prisma.chargeRuleSet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChargeRuleSetFindUniqueOrThrowArgs>(args: SelectSubset<T, ChargeRuleSetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChargeRuleSet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeRuleSetFindFirstArgs} args - Arguments to find a ChargeRuleSet
+     * @example
+     * // Get one ChargeRuleSet
+     * const chargeRuleSet = await prisma.chargeRuleSet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChargeRuleSetFindFirstArgs>(args?: SelectSubset<T, ChargeRuleSetFindFirstArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChargeRuleSet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeRuleSetFindFirstOrThrowArgs} args - Arguments to find a ChargeRuleSet
+     * @example
+     * // Get one ChargeRuleSet
+     * const chargeRuleSet = await prisma.chargeRuleSet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChargeRuleSetFindFirstOrThrowArgs>(args?: SelectSubset<T, ChargeRuleSetFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChargeRuleSets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeRuleSetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChargeRuleSets
+     * const chargeRuleSets = await prisma.chargeRuleSet.findMany()
+     * 
+     * // Get first 10 ChargeRuleSets
+     * const chargeRuleSets = await prisma.chargeRuleSet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chargeRuleSetWithIdOnly = await prisma.chargeRuleSet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChargeRuleSetFindManyArgs>(args?: SelectSubset<T, ChargeRuleSetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChargeRuleSet.
+     * @param {ChargeRuleSetCreateArgs} args - Arguments to create a ChargeRuleSet.
+     * @example
+     * // Create one ChargeRuleSet
+     * const ChargeRuleSet = await prisma.chargeRuleSet.create({
+     *   data: {
+     *     // ... data to create a ChargeRuleSet
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChargeRuleSetCreateArgs>(args: SelectSubset<T, ChargeRuleSetCreateArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChargeRuleSets.
+     * @param {ChargeRuleSetCreateManyArgs} args - Arguments to create many ChargeRuleSets.
+     * @example
+     * // Create many ChargeRuleSets
+     * const chargeRuleSet = await prisma.chargeRuleSet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChargeRuleSetCreateManyArgs>(args?: SelectSubset<T, ChargeRuleSetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChargeRuleSets and returns the data saved in the database.
+     * @param {ChargeRuleSetCreateManyAndReturnArgs} args - Arguments to create many ChargeRuleSets.
+     * @example
+     * // Create many ChargeRuleSets
+     * const chargeRuleSet = await prisma.chargeRuleSet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChargeRuleSets and only return the `id`
+     * const chargeRuleSetWithIdOnly = await prisma.chargeRuleSet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChargeRuleSetCreateManyAndReturnArgs>(args?: SelectSubset<T, ChargeRuleSetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ChargeRuleSet.
+     * @param {ChargeRuleSetDeleteArgs} args - Arguments to delete one ChargeRuleSet.
+     * @example
+     * // Delete one ChargeRuleSet
+     * const ChargeRuleSet = await prisma.chargeRuleSet.delete({
+     *   where: {
+     *     // ... filter to delete one ChargeRuleSet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChargeRuleSetDeleteArgs>(args: SelectSubset<T, ChargeRuleSetDeleteArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChargeRuleSet.
+     * @param {ChargeRuleSetUpdateArgs} args - Arguments to update one ChargeRuleSet.
+     * @example
+     * // Update one ChargeRuleSet
+     * const chargeRuleSet = await prisma.chargeRuleSet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChargeRuleSetUpdateArgs>(args: SelectSubset<T, ChargeRuleSetUpdateArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChargeRuleSets.
+     * @param {ChargeRuleSetDeleteManyArgs} args - Arguments to filter ChargeRuleSets to delete.
+     * @example
+     * // Delete a few ChargeRuleSets
+     * const { count } = await prisma.chargeRuleSet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChargeRuleSetDeleteManyArgs>(args?: SelectSubset<T, ChargeRuleSetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChargeRuleSets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeRuleSetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChargeRuleSets
+     * const chargeRuleSet = await prisma.chargeRuleSet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChargeRuleSetUpdateManyArgs>(args: SelectSubset<T, ChargeRuleSetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChargeRuleSets and returns the data updated in the database.
+     * @param {ChargeRuleSetUpdateManyAndReturnArgs} args - Arguments to update many ChargeRuleSets.
+     * @example
+     * // Update many ChargeRuleSets
+     * const chargeRuleSet = await prisma.chargeRuleSet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ChargeRuleSets and only return the `id`
+     * const chargeRuleSetWithIdOnly = await prisma.chargeRuleSet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ChargeRuleSetUpdateManyAndReturnArgs>(args: SelectSubset<T, ChargeRuleSetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ChargeRuleSet.
+     * @param {ChargeRuleSetUpsertArgs} args - Arguments to update or create a ChargeRuleSet.
+     * @example
+     * // Update or create a ChargeRuleSet
+     * const chargeRuleSet = await prisma.chargeRuleSet.upsert({
+     *   create: {
+     *     // ... data to create a ChargeRuleSet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChargeRuleSet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChargeRuleSetUpsertArgs>(args: SelectSubset<T, ChargeRuleSetUpsertArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ChargeRuleSets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeRuleSetCountArgs} args - Arguments to filter ChargeRuleSets to count.
+     * @example
+     * // Count the number of ChargeRuleSets
+     * const count = await prisma.chargeRuleSet.count({
+     *   where: {
+     *     // ... the filter for the ChargeRuleSets we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChargeRuleSetCountArgs>(
+      args?: Subset<T, ChargeRuleSetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChargeRuleSetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChargeRuleSet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeRuleSetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChargeRuleSetAggregateArgs>(args: Subset<T, ChargeRuleSetAggregateArgs>): Prisma.PrismaPromise<GetChargeRuleSetAggregateType<T>>
+
+    /**
+     * Group by ChargeRuleSet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeRuleSetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChargeRuleSetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChargeRuleSetGroupByArgs['orderBy'] }
+        : { orderBy?: ChargeRuleSetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChargeRuleSetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChargeRuleSetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChargeRuleSet model
+   */
+  readonly fields: ChargeRuleSetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChargeRuleSet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChargeRuleSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    annee<T extends ChargeRuleSet$anneeArgs<ExtArgs> = {}>(args?: Subset<T, ChargeRuleSet$anneeArgs<ExtArgs>>): Prisma__AnneeClient<$Result.GetResult<Prisma.$AnneePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    referenceGrades<T extends ChargeRuleSet$referenceGradesArgs<ExtArgs> = {}>(args?: Subset<T, ChargeRuleSet$referenceGradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    coefficients<T extends ChargeRuleSet$coefficientsArgs<ExtArgs> = {}>(args?: Subset<T, ChargeRuleSet$coefficientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChargeRuleSet model
+   */
+  interface ChargeRuleSetFieldRefs {
+    readonly id: FieldRef<"ChargeRuleSet", 'String'>
+    readonly numero: FieldRef<"ChargeRuleSet", 'Int'>
+    readonly periode: FieldRef<"ChargeRuleSet", 'PeriodeRegle'>
+    readonly seuil: FieldRef<"ChargeRuleSet", 'Int'>
+    readonly plafond: FieldRef<"ChargeRuleSet", 'Int'>
+    readonly arrondi: FieldRef<"ChargeRuleSet", 'Int'>
+    readonly publieLe: FieldRef<"ChargeRuleSet", 'DateTime'>
+    readonly anneeId: FieldRef<"ChargeRuleSet", 'String'>
+    readonly createdAt: FieldRef<"ChargeRuleSet", 'DateTime'>
+    readonly updatedAt: FieldRef<"ChargeRuleSet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChargeRuleSet findUnique
+   */
+  export type ChargeRuleSetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeRuleSet to fetch.
+     */
+    where: ChargeRuleSetWhereUniqueInput
+  }
+
+  /**
+   * ChargeRuleSet findUniqueOrThrow
+   */
+  export type ChargeRuleSetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeRuleSet to fetch.
+     */
+    where: ChargeRuleSetWhereUniqueInput
+  }
+
+  /**
+   * ChargeRuleSet findFirst
+   */
+  export type ChargeRuleSetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeRuleSet to fetch.
+     */
+    where?: ChargeRuleSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeRuleSets to fetch.
+     */
+    orderBy?: ChargeRuleSetOrderByWithRelationInput | ChargeRuleSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChargeRuleSets.
+     */
+    cursor?: ChargeRuleSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeRuleSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeRuleSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeRuleSets.
+     */
+    distinct?: ChargeRuleSetScalarFieldEnum | ChargeRuleSetScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeRuleSet findFirstOrThrow
+   */
+  export type ChargeRuleSetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeRuleSet to fetch.
+     */
+    where?: ChargeRuleSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeRuleSets to fetch.
+     */
+    orderBy?: ChargeRuleSetOrderByWithRelationInput | ChargeRuleSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChargeRuleSets.
+     */
+    cursor?: ChargeRuleSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeRuleSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeRuleSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeRuleSets.
+     */
+    distinct?: ChargeRuleSetScalarFieldEnum | ChargeRuleSetScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeRuleSet findMany
+   */
+  export type ChargeRuleSetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeRuleSets to fetch.
+     */
+    where?: ChargeRuleSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeRuleSets to fetch.
+     */
+    orderBy?: ChargeRuleSetOrderByWithRelationInput | ChargeRuleSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChargeRuleSets.
+     */
+    cursor?: ChargeRuleSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeRuleSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeRuleSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeRuleSets.
+     */
+    distinct?: ChargeRuleSetScalarFieldEnum | ChargeRuleSetScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeRuleSet create
+   */
+  export type ChargeRuleSetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChargeRuleSet.
+     */
+    data: XOR<ChargeRuleSetCreateInput, ChargeRuleSetUncheckedCreateInput>
+  }
+
+  /**
+   * ChargeRuleSet createMany
+   */
+  export type ChargeRuleSetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChargeRuleSets.
+     */
+    data: ChargeRuleSetCreateManyInput | ChargeRuleSetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChargeRuleSet createManyAndReturn
+   */
+  export type ChargeRuleSetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * The data used to create many ChargeRuleSets.
+     */
+    data: ChargeRuleSetCreateManyInput | ChargeRuleSetCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChargeRuleSet update
+   */
+  export type ChargeRuleSetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChargeRuleSet.
+     */
+    data: XOR<ChargeRuleSetUpdateInput, ChargeRuleSetUncheckedUpdateInput>
+    /**
+     * Choose, which ChargeRuleSet to update.
+     */
+    where: ChargeRuleSetWhereUniqueInput
+  }
+
+  /**
+   * ChargeRuleSet updateMany
+   */
+  export type ChargeRuleSetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChargeRuleSets.
+     */
+    data: XOR<ChargeRuleSetUpdateManyMutationInput, ChargeRuleSetUncheckedUpdateManyInput>
+    /**
+     * Filter which ChargeRuleSets to update
+     */
+    where?: ChargeRuleSetWhereInput
+    /**
+     * Limit how many ChargeRuleSets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChargeRuleSet updateManyAndReturn
+   */
+  export type ChargeRuleSetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * The data used to update ChargeRuleSets.
+     */
+    data: XOR<ChargeRuleSetUpdateManyMutationInput, ChargeRuleSetUncheckedUpdateManyInput>
+    /**
+     * Filter which ChargeRuleSets to update
+     */
+    where?: ChargeRuleSetWhereInput
+    /**
+     * Limit how many ChargeRuleSets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChargeRuleSet upsert
+   */
+  export type ChargeRuleSetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChargeRuleSet to update in case it exists.
+     */
+    where: ChargeRuleSetWhereUniqueInput
+    /**
+     * In case the ChargeRuleSet found by the `where` argument doesn't exist, create a new ChargeRuleSet with this data.
+     */
+    create: XOR<ChargeRuleSetCreateInput, ChargeRuleSetUncheckedCreateInput>
+    /**
+     * In case the ChargeRuleSet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChargeRuleSetUpdateInput, ChargeRuleSetUncheckedUpdateInput>
+  }
+
+  /**
+   * ChargeRuleSet delete
+   */
+  export type ChargeRuleSetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+    /**
+     * Filter which ChargeRuleSet to delete.
+     */
+    where: ChargeRuleSetWhereUniqueInput
+  }
+
+  /**
+   * ChargeRuleSet deleteMany
+   */
+  export type ChargeRuleSetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChargeRuleSets to delete
+     */
+    where?: ChargeRuleSetWhereInput
+    /**
+     * Limit how many ChargeRuleSets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChargeRuleSet.annee
+   */
+  export type ChargeRuleSet$anneeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Annee
+     */
+    select?: AnneeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Annee
+     */
+    omit?: AnneeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnneeInclude<ExtArgs> | null
+    where?: AnneeWhereInput
+  }
+
+  /**
+   * ChargeRuleSet.referenceGrades
+   */
+  export type ChargeRuleSet$referenceGradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    where?: ChargeReferenceGradeWhereInput
+    orderBy?: ChargeReferenceGradeOrderByWithRelationInput | ChargeReferenceGradeOrderByWithRelationInput[]
+    cursor?: ChargeReferenceGradeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChargeReferenceGradeScalarFieldEnum | ChargeReferenceGradeScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeRuleSet.coefficients
+   */
+  export type ChargeRuleSet$coefficientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    where?: ChargeCoefficientWhereInput
+    orderBy?: ChargeCoefficientOrderByWithRelationInput | ChargeCoefficientOrderByWithRelationInput[]
+    cursor?: ChargeCoefficientWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChargeCoefficientScalarFieldEnum | ChargeCoefficientScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeRuleSet without action
+   */
+  export type ChargeRuleSetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeRuleSet
+     */
+    select?: ChargeRuleSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeRuleSet
+     */
+    omit?: ChargeRuleSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeRuleSetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChargeReferenceGrade
+   */
+
+  export type AggregateChargeReferenceGrade = {
+    _count: ChargeReferenceGradeCountAggregateOutputType | null
+    _avg: ChargeReferenceGradeAvgAggregateOutputType | null
+    _sum: ChargeReferenceGradeSumAggregateOutputType | null
+    _min: ChargeReferenceGradeMinAggregateOutputType | null
+    _max: ChargeReferenceGradeMaxAggregateOutputType | null
+  }
+
+  export type ChargeReferenceGradeAvgAggregateOutputType = {
+    coefficient: Decimal | null
+  }
+
+  export type ChargeReferenceGradeSumAggregateOutputType = {
+    coefficient: Decimal | null
+  }
+
+  export type ChargeReferenceGradeMinAggregateOutputType = {
+    id: string | null
+    rulesetId: string | null
+    gradeId: string | null
+    coefficient: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type ChargeReferenceGradeMaxAggregateOutputType = {
+    id: string | null
+    rulesetId: string | null
+    gradeId: string | null
+    coefficient: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type ChargeReferenceGradeCountAggregateOutputType = {
+    id: number
+    rulesetId: number
+    gradeId: number
+    coefficient: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ChargeReferenceGradeAvgAggregateInputType = {
+    coefficient?: true
+  }
+
+  export type ChargeReferenceGradeSumAggregateInputType = {
+    coefficient?: true
+  }
+
+  export type ChargeReferenceGradeMinAggregateInputType = {
+    id?: true
+    rulesetId?: true
+    gradeId?: true
+    coefficient?: true
+    createdAt?: true
+  }
+
+  export type ChargeReferenceGradeMaxAggregateInputType = {
+    id?: true
+    rulesetId?: true
+    gradeId?: true
+    coefficient?: true
+    createdAt?: true
+  }
+
+  export type ChargeReferenceGradeCountAggregateInputType = {
+    id?: true
+    rulesetId?: true
+    gradeId?: true
+    coefficient?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ChargeReferenceGradeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChargeReferenceGrade to aggregate.
+     */
+    where?: ChargeReferenceGradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeReferenceGrades to fetch.
+     */
+    orderBy?: ChargeReferenceGradeOrderByWithRelationInput | ChargeReferenceGradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChargeReferenceGradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeReferenceGrades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeReferenceGrades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChargeReferenceGrades
+    **/
+    _count?: true | ChargeReferenceGradeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ChargeReferenceGradeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ChargeReferenceGradeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChargeReferenceGradeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChargeReferenceGradeMaxAggregateInputType
+  }
+
+  export type GetChargeReferenceGradeAggregateType<T extends ChargeReferenceGradeAggregateArgs> = {
+        [P in keyof T & keyof AggregateChargeReferenceGrade]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChargeReferenceGrade[P]>
+      : GetScalarType<T[P], AggregateChargeReferenceGrade[P]>
+  }
+
+
+
+
+  export type ChargeReferenceGradeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChargeReferenceGradeWhereInput
+    orderBy?: ChargeReferenceGradeOrderByWithAggregationInput | ChargeReferenceGradeOrderByWithAggregationInput[]
+    by: ChargeReferenceGradeScalarFieldEnum[] | ChargeReferenceGradeScalarFieldEnum
+    having?: ChargeReferenceGradeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChargeReferenceGradeCountAggregateInputType | true
+    _avg?: ChargeReferenceGradeAvgAggregateInputType
+    _sum?: ChargeReferenceGradeSumAggregateInputType
+    _min?: ChargeReferenceGradeMinAggregateInputType
+    _max?: ChargeReferenceGradeMaxAggregateInputType
+  }
+
+  export type ChargeReferenceGradeGroupByOutputType = {
+    id: string
+    rulesetId: string
+    gradeId: string | null
+    coefficient: Decimal
+    createdAt: Date
+    _count: ChargeReferenceGradeCountAggregateOutputType | null
+    _avg: ChargeReferenceGradeAvgAggregateOutputType | null
+    _sum: ChargeReferenceGradeSumAggregateOutputType | null
+    _min: ChargeReferenceGradeMinAggregateOutputType | null
+    _max: ChargeReferenceGradeMaxAggregateOutputType | null
+  }
+
+  type GetChargeReferenceGradeGroupByPayload<T extends ChargeReferenceGradeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChargeReferenceGradeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChargeReferenceGradeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChargeReferenceGradeGroupByOutputType[P]>
+            : GetScalarType<T[P], ChargeReferenceGradeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChargeReferenceGradeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rulesetId?: boolean
+    gradeId?: boolean
+    coefficient?: boolean
+    createdAt?: boolean
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    grade?: boolean | ChargeReferenceGrade$gradeArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeReferenceGrade"]>
+
+  export type ChargeReferenceGradeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rulesetId?: boolean
+    gradeId?: boolean
+    coefficient?: boolean
+    createdAt?: boolean
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    grade?: boolean | ChargeReferenceGrade$gradeArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeReferenceGrade"]>
+
+  export type ChargeReferenceGradeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rulesetId?: boolean
+    gradeId?: boolean
+    coefficient?: boolean
+    createdAt?: boolean
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    grade?: boolean | ChargeReferenceGrade$gradeArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeReferenceGrade"]>
+
+  export type ChargeReferenceGradeSelectScalar = {
+    id?: boolean
+    rulesetId?: boolean
+    gradeId?: boolean
+    coefficient?: boolean
+    createdAt?: boolean
+  }
+
+  export type ChargeReferenceGradeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rulesetId" | "gradeId" | "coefficient" | "createdAt", ExtArgs["result"]["chargeReferenceGrade"]>
+  export type ChargeReferenceGradeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    grade?: boolean | ChargeReferenceGrade$gradeArgs<ExtArgs>
+  }
+  export type ChargeReferenceGradeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    grade?: boolean | ChargeReferenceGrade$gradeArgs<ExtArgs>
+  }
+  export type ChargeReferenceGradeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    grade?: boolean | ChargeReferenceGrade$gradeArgs<ExtArgs>
+  }
+
+  export type $ChargeReferenceGradePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChargeReferenceGrade"
+    objects: {
+      ruleset: Prisma.$ChargeRuleSetPayload<ExtArgs>
+      grade: Prisma.$GradePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      rulesetId: string
+      gradeId: string | null
+      coefficient: Prisma.Decimal
+      createdAt: Date
+    }, ExtArgs["result"]["chargeReferenceGrade"]>
+    composites: {}
+  }
+
+  type ChargeReferenceGradeGetPayload<S extends boolean | null | undefined | ChargeReferenceGradeDefaultArgs> = $Result.GetResult<Prisma.$ChargeReferenceGradePayload, S>
+
+  type ChargeReferenceGradeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChargeReferenceGradeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChargeReferenceGradeCountAggregateInputType | true
+    }
+
+  export interface ChargeReferenceGradeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChargeReferenceGrade'], meta: { name: 'ChargeReferenceGrade' } }
+    /**
+     * Find zero or one ChargeReferenceGrade that matches the filter.
+     * @param {ChargeReferenceGradeFindUniqueArgs} args - Arguments to find a ChargeReferenceGrade
+     * @example
+     * // Get one ChargeReferenceGrade
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChargeReferenceGradeFindUniqueArgs>(args: SelectSubset<T, ChargeReferenceGradeFindUniqueArgs<ExtArgs>>): Prisma__ChargeReferenceGradeClient<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChargeReferenceGrade that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChargeReferenceGradeFindUniqueOrThrowArgs} args - Arguments to find a ChargeReferenceGrade
+     * @example
+     * // Get one ChargeReferenceGrade
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChargeReferenceGradeFindUniqueOrThrowArgs>(args: SelectSubset<T, ChargeReferenceGradeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChargeReferenceGradeClient<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChargeReferenceGrade that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeReferenceGradeFindFirstArgs} args - Arguments to find a ChargeReferenceGrade
+     * @example
+     * // Get one ChargeReferenceGrade
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChargeReferenceGradeFindFirstArgs>(args?: SelectSubset<T, ChargeReferenceGradeFindFirstArgs<ExtArgs>>): Prisma__ChargeReferenceGradeClient<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChargeReferenceGrade that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeReferenceGradeFindFirstOrThrowArgs} args - Arguments to find a ChargeReferenceGrade
+     * @example
+     * // Get one ChargeReferenceGrade
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChargeReferenceGradeFindFirstOrThrowArgs>(args?: SelectSubset<T, ChargeReferenceGradeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChargeReferenceGradeClient<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChargeReferenceGrades that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeReferenceGradeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChargeReferenceGrades
+     * const chargeReferenceGrades = await prisma.chargeReferenceGrade.findMany()
+     * 
+     * // Get first 10 ChargeReferenceGrades
+     * const chargeReferenceGrades = await prisma.chargeReferenceGrade.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chargeReferenceGradeWithIdOnly = await prisma.chargeReferenceGrade.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChargeReferenceGradeFindManyArgs>(args?: SelectSubset<T, ChargeReferenceGradeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChargeReferenceGrade.
+     * @param {ChargeReferenceGradeCreateArgs} args - Arguments to create a ChargeReferenceGrade.
+     * @example
+     * // Create one ChargeReferenceGrade
+     * const ChargeReferenceGrade = await prisma.chargeReferenceGrade.create({
+     *   data: {
+     *     // ... data to create a ChargeReferenceGrade
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChargeReferenceGradeCreateArgs>(args: SelectSubset<T, ChargeReferenceGradeCreateArgs<ExtArgs>>): Prisma__ChargeReferenceGradeClient<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChargeReferenceGrades.
+     * @param {ChargeReferenceGradeCreateManyArgs} args - Arguments to create many ChargeReferenceGrades.
+     * @example
+     * // Create many ChargeReferenceGrades
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChargeReferenceGradeCreateManyArgs>(args?: SelectSubset<T, ChargeReferenceGradeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChargeReferenceGrades and returns the data saved in the database.
+     * @param {ChargeReferenceGradeCreateManyAndReturnArgs} args - Arguments to create many ChargeReferenceGrades.
+     * @example
+     * // Create many ChargeReferenceGrades
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChargeReferenceGrades and only return the `id`
+     * const chargeReferenceGradeWithIdOnly = await prisma.chargeReferenceGrade.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChargeReferenceGradeCreateManyAndReturnArgs>(args?: SelectSubset<T, ChargeReferenceGradeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ChargeReferenceGrade.
+     * @param {ChargeReferenceGradeDeleteArgs} args - Arguments to delete one ChargeReferenceGrade.
+     * @example
+     * // Delete one ChargeReferenceGrade
+     * const ChargeReferenceGrade = await prisma.chargeReferenceGrade.delete({
+     *   where: {
+     *     // ... filter to delete one ChargeReferenceGrade
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChargeReferenceGradeDeleteArgs>(args: SelectSubset<T, ChargeReferenceGradeDeleteArgs<ExtArgs>>): Prisma__ChargeReferenceGradeClient<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChargeReferenceGrade.
+     * @param {ChargeReferenceGradeUpdateArgs} args - Arguments to update one ChargeReferenceGrade.
+     * @example
+     * // Update one ChargeReferenceGrade
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChargeReferenceGradeUpdateArgs>(args: SelectSubset<T, ChargeReferenceGradeUpdateArgs<ExtArgs>>): Prisma__ChargeReferenceGradeClient<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChargeReferenceGrades.
+     * @param {ChargeReferenceGradeDeleteManyArgs} args - Arguments to filter ChargeReferenceGrades to delete.
+     * @example
+     * // Delete a few ChargeReferenceGrades
+     * const { count } = await prisma.chargeReferenceGrade.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChargeReferenceGradeDeleteManyArgs>(args?: SelectSubset<T, ChargeReferenceGradeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChargeReferenceGrades.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeReferenceGradeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChargeReferenceGrades
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChargeReferenceGradeUpdateManyArgs>(args: SelectSubset<T, ChargeReferenceGradeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChargeReferenceGrades and returns the data updated in the database.
+     * @param {ChargeReferenceGradeUpdateManyAndReturnArgs} args - Arguments to update many ChargeReferenceGrades.
+     * @example
+     * // Update many ChargeReferenceGrades
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ChargeReferenceGrades and only return the `id`
+     * const chargeReferenceGradeWithIdOnly = await prisma.chargeReferenceGrade.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ChargeReferenceGradeUpdateManyAndReturnArgs>(args: SelectSubset<T, ChargeReferenceGradeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ChargeReferenceGrade.
+     * @param {ChargeReferenceGradeUpsertArgs} args - Arguments to update or create a ChargeReferenceGrade.
+     * @example
+     * // Update or create a ChargeReferenceGrade
+     * const chargeReferenceGrade = await prisma.chargeReferenceGrade.upsert({
+     *   create: {
+     *     // ... data to create a ChargeReferenceGrade
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChargeReferenceGrade we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChargeReferenceGradeUpsertArgs>(args: SelectSubset<T, ChargeReferenceGradeUpsertArgs<ExtArgs>>): Prisma__ChargeReferenceGradeClient<$Result.GetResult<Prisma.$ChargeReferenceGradePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ChargeReferenceGrades.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeReferenceGradeCountArgs} args - Arguments to filter ChargeReferenceGrades to count.
+     * @example
+     * // Count the number of ChargeReferenceGrades
+     * const count = await prisma.chargeReferenceGrade.count({
+     *   where: {
+     *     // ... the filter for the ChargeReferenceGrades we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChargeReferenceGradeCountArgs>(
+      args?: Subset<T, ChargeReferenceGradeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChargeReferenceGradeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChargeReferenceGrade.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeReferenceGradeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChargeReferenceGradeAggregateArgs>(args: Subset<T, ChargeReferenceGradeAggregateArgs>): Prisma.PrismaPromise<GetChargeReferenceGradeAggregateType<T>>
+
+    /**
+     * Group by ChargeReferenceGrade.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeReferenceGradeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChargeReferenceGradeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChargeReferenceGradeGroupByArgs['orderBy'] }
+        : { orderBy?: ChargeReferenceGradeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChargeReferenceGradeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChargeReferenceGradeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChargeReferenceGrade model
+   */
+  readonly fields: ChargeReferenceGradeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChargeReferenceGrade.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChargeReferenceGradeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ruleset<T extends ChargeRuleSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChargeRuleSetDefaultArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    grade<T extends ChargeReferenceGrade$gradeArgs<ExtArgs> = {}>(args?: Subset<T, ChargeReferenceGrade$gradeArgs<ExtArgs>>): Prisma__GradeClient<$Result.GetResult<Prisma.$GradePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChargeReferenceGrade model
+   */
+  interface ChargeReferenceGradeFieldRefs {
+    readonly id: FieldRef<"ChargeReferenceGrade", 'String'>
+    readonly rulesetId: FieldRef<"ChargeReferenceGrade", 'String'>
+    readonly gradeId: FieldRef<"ChargeReferenceGrade", 'String'>
+    readonly coefficient: FieldRef<"ChargeReferenceGrade", 'Decimal'>
+    readonly createdAt: FieldRef<"ChargeReferenceGrade", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChargeReferenceGrade findUnique
+   */
+  export type ChargeReferenceGradeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeReferenceGrade to fetch.
+     */
+    where: ChargeReferenceGradeWhereUniqueInput
+  }
+
+  /**
+   * ChargeReferenceGrade findUniqueOrThrow
+   */
+  export type ChargeReferenceGradeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeReferenceGrade to fetch.
+     */
+    where: ChargeReferenceGradeWhereUniqueInput
+  }
+
+  /**
+   * ChargeReferenceGrade findFirst
+   */
+  export type ChargeReferenceGradeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeReferenceGrade to fetch.
+     */
+    where?: ChargeReferenceGradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeReferenceGrades to fetch.
+     */
+    orderBy?: ChargeReferenceGradeOrderByWithRelationInput | ChargeReferenceGradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChargeReferenceGrades.
+     */
+    cursor?: ChargeReferenceGradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeReferenceGrades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeReferenceGrades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeReferenceGrades.
+     */
+    distinct?: ChargeReferenceGradeScalarFieldEnum | ChargeReferenceGradeScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeReferenceGrade findFirstOrThrow
+   */
+  export type ChargeReferenceGradeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeReferenceGrade to fetch.
+     */
+    where?: ChargeReferenceGradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeReferenceGrades to fetch.
+     */
+    orderBy?: ChargeReferenceGradeOrderByWithRelationInput | ChargeReferenceGradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChargeReferenceGrades.
+     */
+    cursor?: ChargeReferenceGradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeReferenceGrades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeReferenceGrades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeReferenceGrades.
+     */
+    distinct?: ChargeReferenceGradeScalarFieldEnum | ChargeReferenceGradeScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeReferenceGrade findMany
+   */
+  export type ChargeReferenceGradeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeReferenceGrades to fetch.
+     */
+    where?: ChargeReferenceGradeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeReferenceGrades to fetch.
+     */
+    orderBy?: ChargeReferenceGradeOrderByWithRelationInput | ChargeReferenceGradeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChargeReferenceGrades.
+     */
+    cursor?: ChargeReferenceGradeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeReferenceGrades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeReferenceGrades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeReferenceGrades.
+     */
+    distinct?: ChargeReferenceGradeScalarFieldEnum | ChargeReferenceGradeScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeReferenceGrade create
+   */
+  export type ChargeReferenceGradeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChargeReferenceGrade.
+     */
+    data: XOR<ChargeReferenceGradeCreateInput, ChargeReferenceGradeUncheckedCreateInput>
+  }
+
+  /**
+   * ChargeReferenceGrade createMany
+   */
+  export type ChargeReferenceGradeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChargeReferenceGrades.
+     */
+    data: ChargeReferenceGradeCreateManyInput | ChargeReferenceGradeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChargeReferenceGrade createManyAndReturn
+   */
+  export type ChargeReferenceGradeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * The data used to create many ChargeReferenceGrades.
+     */
+    data: ChargeReferenceGradeCreateManyInput | ChargeReferenceGradeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChargeReferenceGrade update
+   */
+  export type ChargeReferenceGradeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChargeReferenceGrade.
+     */
+    data: XOR<ChargeReferenceGradeUpdateInput, ChargeReferenceGradeUncheckedUpdateInput>
+    /**
+     * Choose, which ChargeReferenceGrade to update.
+     */
+    where: ChargeReferenceGradeWhereUniqueInput
+  }
+
+  /**
+   * ChargeReferenceGrade updateMany
+   */
+  export type ChargeReferenceGradeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChargeReferenceGrades.
+     */
+    data: XOR<ChargeReferenceGradeUpdateManyMutationInput, ChargeReferenceGradeUncheckedUpdateManyInput>
+    /**
+     * Filter which ChargeReferenceGrades to update
+     */
+    where?: ChargeReferenceGradeWhereInput
+    /**
+     * Limit how many ChargeReferenceGrades to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChargeReferenceGrade updateManyAndReturn
+   */
+  export type ChargeReferenceGradeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * The data used to update ChargeReferenceGrades.
+     */
+    data: XOR<ChargeReferenceGradeUpdateManyMutationInput, ChargeReferenceGradeUncheckedUpdateManyInput>
+    /**
+     * Filter which ChargeReferenceGrades to update
+     */
+    where?: ChargeReferenceGradeWhereInput
+    /**
+     * Limit how many ChargeReferenceGrades to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChargeReferenceGrade upsert
+   */
+  export type ChargeReferenceGradeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChargeReferenceGrade to update in case it exists.
+     */
+    where: ChargeReferenceGradeWhereUniqueInput
+    /**
+     * In case the ChargeReferenceGrade found by the `where` argument doesn't exist, create a new ChargeReferenceGrade with this data.
+     */
+    create: XOR<ChargeReferenceGradeCreateInput, ChargeReferenceGradeUncheckedCreateInput>
+    /**
+     * In case the ChargeReferenceGrade was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChargeReferenceGradeUpdateInput, ChargeReferenceGradeUncheckedUpdateInput>
+  }
+
+  /**
+   * ChargeReferenceGrade delete
+   */
+  export type ChargeReferenceGradeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+    /**
+     * Filter which ChargeReferenceGrade to delete.
+     */
+    where: ChargeReferenceGradeWhereUniqueInput
+  }
+
+  /**
+   * ChargeReferenceGrade deleteMany
+   */
+  export type ChargeReferenceGradeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChargeReferenceGrades to delete
+     */
+    where?: ChargeReferenceGradeWhereInput
+    /**
+     * Limit how many ChargeReferenceGrades to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChargeReferenceGrade.grade
+   */
+  export type ChargeReferenceGrade$gradeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Grade
+     */
+    select?: GradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Grade
+     */
+    omit?: GradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GradeInclude<ExtArgs> | null
+    where?: GradeWhereInput
+  }
+
+  /**
+   * ChargeReferenceGrade without action
+   */
+  export type ChargeReferenceGradeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeReferenceGrade
+     */
+    select?: ChargeReferenceGradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeReferenceGrade
+     */
+    omit?: ChargeReferenceGradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeReferenceGradeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChargeCoefficient
+   */
+
+  export type AggregateChargeCoefficient = {
+    _count: ChargeCoefficientCountAggregateOutputType | null
+    _avg: ChargeCoefficientAvgAggregateOutputType | null
+    _sum: ChargeCoefficientSumAggregateOutputType | null
+    _min: ChargeCoefficientMinAggregateOutputType | null
+    _max: ChargeCoefficientMaxAggregateOutputType | null
+  }
+
+  export type ChargeCoefficientAvgAggregateOutputType = {
+    coefficient: Decimal | null
+  }
+
+  export type ChargeCoefficientSumAggregateOutputType = {
+    coefficient: Decimal | null
+  }
+
+  export type ChargeCoefficientMinAggregateOutputType = {
+    id: string | null
+    rulesetId: string | null
+    typeId: string | null
+    coefficient: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type ChargeCoefficientMaxAggregateOutputType = {
+    id: string | null
+    rulesetId: string | null
+    typeId: string | null
+    coefficient: Decimal | null
+    createdAt: Date | null
+  }
+
+  export type ChargeCoefficientCountAggregateOutputType = {
+    id: number
+    rulesetId: number
+    typeId: number
+    coefficient: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ChargeCoefficientAvgAggregateInputType = {
+    coefficient?: true
+  }
+
+  export type ChargeCoefficientSumAggregateInputType = {
+    coefficient?: true
+  }
+
+  export type ChargeCoefficientMinAggregateInputType = {
+    id?: true
+    rulesetId?: true
+    typeId?: true
+    coefficient?: true
+    createdAt?: true
+  }
+
+  export type ChargeCoefficientMaxAggregateInputType = {
+    id?: true
+    rulesetId?: true
+    typeId?: true
+    coefficient?: true
+    createdAt?: true
+  }
+
+  export type ChargeCoefficientCountAggregateInputType = {
+    id?: true
+    rulesetId?: true
+    typeId?: true
+    coefficient?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ChargeCoefficientAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChargeCoefficient to aggregate.
+     */
+    where?: ChargeCoefficientWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeCoefficients to fetch.
+     */
+    orderBy?: ChargeCoefficientOrderByWithRelationInput | ChargeCoefficientOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChargeCoefficientWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeCoefficients from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeCoefficients.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChargeCoefficients
+    **/
+    _count?: true | ChargeCoefficientCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ChargeCoefficientAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ChargeCoefficientSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChargeCoefficientMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChargeCoefficientMaxAggregateInputType
+  }
+
+  export type GetChargeCoefficientAggregateType<T extends ChargeCoefficientAggregateArgs> = {
+        [P in keyof T & keyof AggregateChargeCoefficient]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChargeCoefficient[P]>
+      : GetScalarType<T[P], AggregateChargeCoefficient[P]>
+  }
+
+
+
+
+  export type ChargeCoefficientGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChargeCoefficientWhereInput
+    orderBy?: ChargeCoefficientOrderByWithAggregationInput | ChargeCoefficientOrderByWithAggregationInput[]
+    by: ChargeCoefficientScalarFieldEnum[] | ChargeCoefficientScalarFieldEnum
+    having?: ChargeCoefficientScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChargeCoefficientCountAggregateInputType | true
+    _avg?: ChargeCoefficientAvgAggregateInputType
+    _sum?: ChargeCoefficientSumAggregateInputType
+    _min?: ChargeCoefficientMinAggregateInputType
+    _max?: ChargeCoefficientMaxAggregateInputType
+  }
+
+  export type ChargeCoefficientGroupByOutputType = {
+    id: string
+    rulesetId: string
+    typeId: string
+    coefficient: Decimal
+    createdAt: Date
+    _count: ChargeCoefficientCountAggregateOutputType | null
+    _avg: ChargeCoefficientAvgAggregateOutputType | null
+    _sum: ChargeCoefficientSumAggregateOutputType | null
+    _min: ChargeCoefficientMinAggregateOutputType | null
+    _max: ChargeCoefficientMaxAggregateOutputType | null
+  }
+
+  type GetChargeCoefficientGroupByPayload<T extends ChargeCoefficientGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChargeCoefficientGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChargeCoefficientGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChargeCoefficientGroupByOutputType[P]>
+            : GetScalarType<T[P], ChargeCoefficientGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChargeCoefficientSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rulesetId?: boolean
+    typeId?: boolean
+    coefficient?: boolean
+    createdAt?: boolean
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    type?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeCoefficient"]>
+
+  export type ChargeCoefficientSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rulesetId?: boolean
+    typeId?: boolean
+    coefficient?: boolean
+    createdAt?: boolean
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    type?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeCoefficient"]>
+
+  export type ChargeCoefficientSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    rulesetId?: boolean
+    typeId?: boolean
+    coefficient?: boolean
+    createdAt?: boolean
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    type?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["chargeCoefficient"]>
+
+  export type ChargeCoefficientSelectScalar = {
+    id?: boolean
+    rulesetId?: boolean
+    typeId?: boolean
+    coefficient?: boolean
+    createdAt?: boolean
+  }
+
+  export type ChargeCoefficientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rulesetId" | "typeId" | "coefficient" | "createdAt", ExtArgs["result"]["chargeCoefficient"]>
+  export type ChargeCoefficientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    type?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+  }
+  export type ChargeCoefficientIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    type?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+  }
+  export type ChargeCoefficientIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    ruleset?: boolean | ChargeRuleSetDefaultArgs<ExtArgs>
+    type?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+  }
+
+  export type $ChargeCoefficientPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChargeCoefficient"
+    objects: {
+      ruleset: Prisma.$ChargeRuleSetPayload<ExtArgs>
+      type: Prisma.$TypeEnseignementPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      rulesetId: string
+      typeId: string
+      coefficient: Prisma.Decimal
+      createdAt: Date
+    }, ExtArgs["result"]["chargeCoefficient"]>
+    composites: {}
+  }
+
+  type ChargeCoefficientGetPayload<S extends boolean | null | undefined | ChargeCoefficientDefaultArgs> = $Result.GetResult<Prisma.$ChargeCoefficientPayload, S>
+
+  type ChargeCoefficientCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChargeCoefficientFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChargeCoefficientCountAggregateInputType | true
+    }
+
+  export interface ChargeCoefficientDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChargeCoefficient'], meta: { name: 'ChargeCoefficient' } }
+    /**
+     * Find zero or one ChargeCoefficient that matches the filter.
+     * @param {ChargeCoefficientFindUniqueArgs} args - Arguments to find a ChargeCoefficient
+     * @example
+     * // Get one ChargeCoefficient
+     * const chargeCoefficient = await prisma.chargeCoefficient.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChargeCoefficientFindUniqueArgs>(args: SelectSubset<T, ChargeCoefficientFindUniqueArgs<ExtArgs>>): Prisma__ChargeCoefficientClient<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChargeCoefficient that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChargeCoefficientFindUniqueOrThrowArgs} args - Arguments to find a ChargeCoefficient
+     * @example
+     * // Get one ChargeCoefficient
+     * const chargeCoefficient = await prisma.chargeCoefficient.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChargeCoefficientFindUniqueOrThrowArgs>(args: SelectSubset<T, ChargeCoefficientFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChargeCoefficientClient<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChargeCoefficient that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeCoefficientFindFirstArgs} args - Arguments to find a ChargeCoefficient
+     * @example
+     * // Get one ChargeCoefficient
+     * const chargeCoefficient = await prisma.chargeCoefficient.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChargeCoefficientFindFirstArgs>(args?: SelectSubset<T, ChargeCoefficientFindFirstArgs<ExtArgs>>): Prisma__ChargeCoefficientClient<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChargeCoefficient that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeCoefficientFindFirstOrThrowArgs} args - Arguments to find a ChargeCoefficient
+     * @example
+     * // Get one ChargeCoefficient
+     * const chargeCoefficient = await prisma.chargeCoefficient.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChargeCoefficientFindFirstOrThrowArgs>(args?: SelectSubset<T, ChargeCoefficientFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChargeCoefficientClient<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChargeCoefficients that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeCoefficientFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChargeCoefficients
+     * const chargeCoefficients = await prisma.chargeCoefficient.findMany()
+     * 
+     * // Get first 10 ChargeCoefficients
+     * const chargeCoefficients = await prisma.chargeCoefficient.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const chargeCoefficientWithIdOnly = await prisma.chargeCoefficient.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChargeCoefficientFindManyArgs>(args?: SelectSubset<T, ChargeCoefficientFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChargeCoefficient.
+     * @param {ChargeCoefficientCreateArgs} args - Arguments to create a ChargeCoefficient.
+     * @example
+     * // Create one ChargeCoefficient
+     * const ChargeCoefficient = await prisma.chargeCoefficient.create({
+     *   data: {
+     *     // ... data to create a ChargeCoefficient
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChargeCoefficientCreateArgs>(args: SelectSubset<T, ChargeCoefficientCreateArgs<ExtArgs>>): Prisma__ChargeCoefficientClient<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChargeCoefficients.
+     * @param {ChargeCoefficientCreateManyArgs} args - Arguments to create many ChargeCoefficients.
+     * @example
+     * // Create many ChargeCoefficients
+     * const chargeCoefficient = await prisma.chargeCoefficient.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChargeCoefficientCreateManyArgs>(args?: SelectSubset<T, ChargeCoefficientCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChargeCoefficients and returns the data saved in the database.
+     * @param {ChargeCoefficientCreateManyAndReturnArgs} args - Arguments to create many ChargeCoefficients.
+     * @example
+     * // Create many ChargeCoefficients
+     * const chargeCoefficient = await prisma.chargeCoefficient.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChargeCoefficients and only return the `id`
+     * const chargeCoefficientWithIdOnly = await prisma.chargeCoefficient.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChargeCoefficientCreateManyAndReturnArgs>(args?: SelectSubset<T, ChargeCoefficientCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ChargeCoefficient.
+     * @param {ChargeCoefficientDeleteArgs} args - Arguments to delete one ChargeCoefficient.
+     * @example
+     * // Delete one ChargeCoefficient
+     * const ChargeCoefficient = await prisma.chargeCoefficient.delete({
+     *   where: {
+     *     // ... filter to delete one ChargeCoefficient
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChargeCoefficientDeleteArgs>(args: SelectSubset<T, ChargeCoefficientDeleteArgs<ExtArgs>>): Prisma__ChargeCoefficientClient<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChargeCoefficient.
+     * @param {ChargeCoefficientUpdateArgs} args - Arguments to update one ChargeCoefficient.
+     * @example
+     * // Update one ChargeCoefficient
+     * const chargeCoefficient = await prisma.chargeCoefficient.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChargeCoefficientUpdateArgs>(args: SelectSubset<T, ChargeCoefficientUpdateArgs<ExtArgs>>): Prisma__ChargeCoefficientClient<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChargeCoefficients.
+     * @param {ChargeCoefficientDeleteManyArgs} args - Arguments to filter ChargeCoefficients to delete.
+     * @example
+     * // Delete a few ChargeCoefficients
+     * const { count } = await prisma.chargeCoefficient.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChargeCoefficientDeleteManyArgs>(args?: SelectSubset<T, ChargeCoefficientDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChargeCoefficients.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeCoefficientUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChargeCoefficients
+     * const chargeCoefficient = await prisma.chargeCoefficient.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChargeCoefficientUpdateManyArgs>(args: SelectSubset<T, ChargeCoefficientUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChargeCoefficients and returns the data updated in the database.
+     * @param {ChargeCoefficientUpdateManyAndReturnArgs} args - Arguments to update many ChargeCoefficients.
+     * @example
+     * // Update many ChargeCoefficients
+     * const chargeCoefficient = await prisma.chargeCoefficient.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ChargeCoefficients and only return the `id`
+     * const chargeCoefficientWithIdOnly = await prisma.chargeCoefficient.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ChargeCoefficientUpdateManyAndReturnArgs>(args: SelectSubset<T, ChargeCoefficientUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ChargeCoefficient.
+     * @param {ChargeCoefficientUpsertArgs} args - Arguments to update or create a ChargeCoefficient.
+     * @example
+     * // Update or create a ChargeCoefficient
+     * const chargeCoefficient = await prisma.chargeCoefficient.upsert({
+     *   create: {
+     *     // ... data to create a ChargeCoefficient
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChargeCoefficient we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChargeCoefficientUpsertArgs>(args: SelectSubset<T, ChargeCoefficientUpsertArgs<ExtArgs>>): Prisma__ChargeCoefficientClient<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ChargeCoefficients.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeCoefficientCountArgs} args - Arguments to filter ChargeCoefficients to count.
+     * @example
+     * // Count the number of ChargeCoefficients
+     * const count = await prisma.chargeCoefficient.count({
+     *   where: {
+     *     // ... the filter for the ChargeCoefficients we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChargeCoefficientCountArgs>(
+      args?: Subset<T, ChargeCoefficientCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChargeCoefficientCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChargeCoefficient.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeCoefficientAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChargeCoefficientAggregateArgs>(args: Subset<T, ChargeCoefficientAggregateArgs>): Prisma.PrismaPromise<GetChargeCoefficientAggregateType<T>>
+
+    /**
+     * Group by ChargeCoefficient.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChargeCoefficientGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChargeCoefficientGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChargeCoefficientGroupByArgs['orderBy'] }
+        : { orderBy?: ChargeCoefficientGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChargeCoefficientGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChargeCoefficientGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChargeCoefficient model
+   */
+  readonly fields: ChargeCoefficientFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChargeCoefficient.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChargeCoefficientClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    ruleset<T extends ChargeRuleSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChargeRuleSetDefaultArgs<ExtArgs>>): Prisma__ChargeRuleSetClient<$Result.GetResult<Prisma.$ChargeRuleSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    type<T extends TypeEnseignementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignementDefaultArgs<ExtArgs>>): Prisma__TypeEnseignementClient<$Result.GetResult<Prisma.$TypeEnseignementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChargeCoefficient model
+   */
+  interface ChargeCoefficientFieldRefs {
+    readonly id: FieldRef<"ChargeCoefficient", 'String'>
+    readonly rulesetId: FieldRef<"ChargeCoefficient", 'String'>
+    readonly typeId: FieldRef<"ChargeCoefficient", 'String'>
+    readonly coefficient: FieldRef<"ChargeCoefficient", 'Decimal'>
+    readonly createdAt: FieldRef<"ChargeCoefficient", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChargeCoefficient findUnique
+   */
+  export type ChargeCoefficientFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeCoefficient to fetch.
+     */
+    where: ChargeCoefficientWhereUniqueInput
+  }
+
+  /**
+   * ChargeCoefficient findUniqueOrThrow
+   */
+  export type ChargeCoefficientFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeCoefficient to fetch.
+     */
+    where: ChargeCoefficientWhereUniqueInput
+  }
+
+  /**
+   * ChargeCoefficient findFirst
+   */
+  export type ChargeCoefficientFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeCoefficient to fetch.
+     */
+    where?: ChargeCoefficientWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeCoefficients to fetch.
+     */
+    orderBy?: ChargeCoefficientOrderByWithRelationInput | ChargeCoefficientOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChargeCoefficients.
+     */
+    cursor?: ChargeCoefficientWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeCoefficients from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeCoefficients.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeCoefficients.
+     */
+    distinct?: ChargeCoefficientScalarFieldEnum | ChargeCoefficientScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeCoefficient findFirstOrThrow
+   */
+  export type ChargeCoefficientFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeCoefficient to fetch.
+     */
+    where?: ChargeCoefficientWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeCoefficients to fetch.
+     */
+    orderBy?: ChargeCoefficientOrderByWithRelationInput | ChargeCoefficientOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChargeCoefficients.
+     */
+    cursor?: ChargeCoefficientWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeCoefficients from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeCoefficients.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeCoefficients.
+     */
+    distinct?: ChargeCoefficientScalarFieldEnum | ChargeCoefficientScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeCoefficient findMany
+   */
+  export type ChargeCoefficientFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * Filter, which ChargeCoefficients to fetch.
+     */
+    where?: ChargeCoefficientWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChargeCoefficients to fetch.
+     */
+    orderBy?: ChargeCoefficientOrderByWithRelationInput | ChargeCoefficientOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChargeCoefficients.
+     */
+    cursor?: ChargeCoefficientWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChargeCoefficients from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChargeCoefficients.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChargeCoefficients.
+     */
+    distinct?: ChargeCoefficientScalarFieldEnum | ChargeCoefficientScalarFieldEnum[]
+  }
+
+  /**
+   * ChargeCoefficient create
+   */
+  export type ChargeCoefficientCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChargeCoefficient.
+     */
+    data: XOR<ChargeCoefficientCreateInput, ChargeCoefficientUncheckedCreateInput>
+  }
+
+  /**
+   * ChargeCoefficient createMany
+   */
+  export type ChargeCoefficientCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChargeCoefficients.
+     */
+    data: ChargeCoefficientCreateManyInput | ChargeCoefficientCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChargeCoefficient createManyAndReturn
+   */
+  export type ChargeCoefficientCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * The data used to create many ChargeCoefficients.
+     */
+    data: ChargeCoefficientCreateManyInput | ChargeCoefficientCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChargeCoefficient update
+   */
+  export type ChargeCoefficientUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChargeCoefficient.
+     */
+    data: XOR<ChargeCoefficientUpdateInput, ChargeCoefficientUncheckedUpdateInput>
+    /**
+     * Choose, which ChargeCoefficient to update.
+     */
+    where: ChargeCoefficientWhereUniqueInput
+  }
+
+  /**
+   * ChargeCoefficient updateMany
+   */
+  export type ChargeCoefficientUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChargeCoefficients.
+     */
+    data: XOR<ChargeCoefficientUpdateManyMutationInput, ChargeCoefficientUncheckedUpdateManyInput>
+    /**
+     * Filter which ChargeCoefficients to update
+     */
+    where?: ChargeCoefficientWhereInput
+    /**
+     * Limit how many ChargeCoefficients to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChargeCoefficient updateManyAndReturn
+   */
+  export type ChargeCoefficientUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * The data used to update ChargeCoefficients.
+     */
+    data: XOR<ChargeCoefficientUpdateManyMutationInput, ChargeCoefficientUncheckedUpdateManyInput>
+    /**
+     * Filter which ChargeCoefficients to update
+     */
+    where?: ChargeCoefficientWhereInput
+    /**
+     * Limit how many ChargeCoefficients to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChargeCoefficient upsert
+   */
+  export type ChargeCoefficientUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChargeCoefficient to update in case it exists.
+     */
+    where: ChargeCoefficientWhereUniqueInput
+    /**
+     * In case the ChargeCoefficient found by the `where` argument doesn't exist, create a new ChargeCoefficient with this data.
+     */
+    create: XOR<ChargeCoefficientCreateInput, ChargeCoefficientUncheckedCreateInput>
+    /**
+     * In case the ChargeCoefficient was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChargeCoefficientUpdateInput, ChargeCoefficientUncheckedUpdateInput>
+  }
+
+  /**
+   * ChargeCoefficient delete
+   */
+  export type ChargeCoefficientDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
+    /**
+     * Filter which ChargeCoefficient to delete.
+     */
+    where: ChargeCoefficientWhereUniqueInput
+  }
+
+  /**
+   * ChargeCoefficient deleteMany
+   */
+  export type ChargeCoefficientDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChargeCoefficients to delete
+     */
+    where?: ChargeCoefficientWhereInput
+    /**
+     * Limit how many ChargeCoefficients to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChargeCoefficient without action
+   */
+  export type ChargeCoefficientDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChargeCoefficient
+     */
+    select?: ChargeCoefficientSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChargeCoefficient
+     */
+    omit?: ChargeCoefficientOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChargeCoefficientInclude<ExtArgs> | null
   }
 
 
@@ -58556,6 +62473,44 @@ export namespace Prisma {
   export type ModuleVolumeScalarFieldEnum = (typeof ModuleVolumeScalarFieldEnum)[keyof typeof ModuleVolumeScalarFieldEnum]
 
 
+  export const ChargeRuleSetScalarFieldEnum: {
+    id: 'id',
+    numero: 'numero',
+    periode: 'periode',
+    seuil: 'seuil',
+    plafond: 'plafond',
+    arrondi: 'arrondi',
+    publieLe: 'publieLe',
+    anneeId: 'anneeId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ChargeRuleSetScalarFieldEnum = (typeof ChargeRuleSetScalarFieldEnum)[keyof typeof ChargeRuleSetScalarFieldEnum]
+
+
+  export const ChargeReferenceGradeScalarFieldEnum: {
+    id: 'id',
+    rulesetId: 'rulesetId',
+    gradeId: 'gradeId',
+    coefficient: 'coefficient',
+    createdAt: 'createdAt'
+  };
+
+  export type ChargeReferenceGradeScalarFieldEnum = (typeof ChargeReferenceGradeScalarFieldEnum)[keyof typeof ChargeReferenceGradeScalarFieldEnum]
+
+
+  export const ChargeCoefficientScalarFieldEnum: {
+    id: 'id',
+    rulesetId: 'rulesetId',
+    typeId: 'typeId',
+    coefficient: 'coefficient',
+    createdAt: 'createdAt'
+  };
+
+  export type ChargeCoefficientScalarFieldEnum = (typeof ChargeCoefficientScalarFieldEnum)[keyof typeof ChargeCoefficientScalarFieldEnum]
+
+
   export const ActivityTagScalarFieldEnum: {
     id: 'id',
     code: 'code',
@@ -59064,6 +63019,34 @@ export namespace Prisma {
    * Reference to a field of type 'GradeCode[]'
    */
   export type ListEnumGradeCodeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GradeCode[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PeriodeRegle'
+   */
+  export type EnumPeriodeRegleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PeriodeRegle'>
+    
+
+
+  /**
+   * Reference to a field of type 'PeriodeRegle[]'
+   */
+  export type ListEnumPeriodeRegleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PeriodeRegle[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -60634,6 +64617,7 @@ export namespace Prisma {
     semestres?: SemestreListRelationFilter
     departements?: DepartementListRelationFilter
     enseignants?: EnseignantListRelationFilter
+    chargeRuleSets?: ChargeRuleSetListRelationFilter
   }
 
   export type AnneeOrderByWithRelationInput = {
@@ -60647,6 +64631,7 @@ export namespace Prisma {
     semestres?: SemestreOrderByRelationAggregateInput
     departements?: DepartementOrderByRelationAggregateInput
     enseignants?: EnseignantOrderByRelationAggregateInput
+    chargeRuleSets?: ChargeRuleSetOrderByRelationAggregateInput
   }
 
   export type AnneeWhereUniqueInput = Prisma.AtLeast<{
@@ -60663,6 +64648,7 @@ export namespace Prisma {
     semestres?: SemestreListRelationFilter
     departements?: DepartementListRelationFilter
     enseignants?: EnseignantListRelationFilter
+    chargeRuleSets?: ChargeRuleSetListRelationFilter
   }, "id" | "code" | "numero">
 
   export type AnneeOrderByWithAggregationInput = {
@@ -61270,6 +65256,7 @@ export namespace Prisma {
     activityTag?: XOR<ActivityTagNullableScalarRelationFilter, ActivityTagWhereInput> | null
     modules?: ModuleListRelationFilter
     exigencesEquipement?: ExigenceEquipementListRelationFilter
+    chargeCoefficients?: ChargeCoefficientListRelationFilter
   }
 
   export type TypeEnseignementOrderByWithRelationInput = {
@@ -61282,6 +65269,7 @@ export namespace Prisma {
     activityTag?: ActivityTagOrderByWithRelationInput
     modules?: ModuleOrderByRelationAggregateInput
     exigencesEquipement?: ExigenceEquipementOrderByRelationAggregateInput
+    chargeCoefficients?: ChargeCoefficientOrderByRelationAggregateInput
   }
 
   export type TypeEnseignementWhereUniqueInput = Prisma.AtLeast<{
@@ -61297,6 +65285,7 @@ export namespace Prisma {
     activityTag?: XOR<ActivityTagNullableScalarRelationFilter, ActivityTagWhereInput> | null
     modules?: ModuleListRelationFilter
     exigencesEquipement?: ExigenceEquipementListRelationFilter
+    chargeCoefficients?: ChargeCoefficientListRelationFilter
   }, "id" | "code">
 
   export type TypeEnseignementOrderByWithAggregationInput = {
@@ -61334,6 +65323,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Grade"> | Date | string
     modules?: ModuleListRelationFilter
     enseignants?: EnseignantListRelationFilter
+    chargeReferenceGrades?: ChargeReferenceGradeListRelationFilter
   }
 
   export type GradeOrderByWithRelationInput = {
@@ -61344,6 +65334,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     modules?: ModuleOrderByRelationAggregateInput
     enseignants?: EnseignantOrderByRelationAggregateInput
+    chargeReferenceGrades?: ChargeReferenceGradeOrderByRelationAggregateInput
   }
 
   export type GradeWhereUniqueInput = Prisma.AtLeast<{
@@ -61357,6 +65348,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Grade"> | Date | string
     modules?: ModuleListRelationFilter
     enseignants?: EnseignantListRelationFilter
+    chargeReferenceGrades?: ChargeReferenceGradeListRelationFilter
   }, "id" | "code">
 
   export type GradeOrderByWithAggregationInput = {
@@ -61550,6 +65542,216 @@ export namespace Prisma {
     volume?: IntWithAggregatesFilter<"ModuleVolume"> | number
     createdAt?: DateTimeWithAggregatesFilter<"ModuleVolume"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ModuleVolume"> | Date | string
+  }
+
+  export type ChargeRuleSetWhereInput = {
+    AND?: ChargeRuleSetWhereInput | ChargeRuleSetWhereInput[]
+    OR?: ChargeRuleSetWhereInput[]
+    NOT?: ChargeRuleSetWhereInput | ChargeRuleSetWhereInput[]
+    id?: UuidFilter<"ChargeRuleSet"> | string
+    numero?: IntFilter<"ChargeRuleSet"> | number
+    periode?: EnumPeriodeRegleFilter<"ChargeRuleSet"> | $Enums.PeriodeRegle
+    seuil?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    plafond?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    arrondi?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    publieLe?: DateTimeNullableFilter<"ChargeRuleSet"> | Date | string | null
+    anneeId?: UuidNullableFilter<"ChargeRuleSet"> | string | null
+    createdAt?: DateTimeFilter<"ChargeRuleSet"> | Date | string
+    updatedAt?: DateTimeFilter<"ChargeRuleSet"> | Date | string
+    annee?: XOR<AnneeNullableScalarRelationFilter, AnneeWhereInput> | null
+    referenceGrades?: ChargeReferenceGradeListRelationFilter
+    coefficients?: ChargeCoefficientListRelationFilter
+  }
+
+  export type ChargeRuleSetOrderByWithRelationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    periode?: SortOrder
+    seuil?: SortOrderInput | SortOrder
+    plafond?: SortOrderInput | SortOrder
+    arrondi?: SortOrderInput | SortOrder
+    publieLe?: SortOrderInput | SortOrder
+    anneeId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    annee?: AnneeOrderByWithRelationInput
+    referenceGrades?: ChargeReferenceGradeOrderByRelationAggregateInput
+    coefficients?: ChargeCoefficientOrderByRelationAggregateInput
+  }
+
+  export type ChargeRuleSetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    numero?: number
+    AND?: ChargeRuleSetWhereInput | ChargeRuleSetWhereInput[]
+    OR?: ChargeRuleSetWhereInput[]
+    NOT?: ChargeRuleSetWhereInput | ChargeRuleSetWhereInput[]
+    periode?: EnumPeriodeRegleFilter<"ChargeRuleSet"> | $Enums.PeriodeRegle
+    seuil?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    plafond?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    arrondi?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    publieLe?: DateTimeNullableFilter<"ChargeRuleSet"> | Date | string | null
+    anneeId?: UuidNullableFilter<"ChargeRuleSet"> | string | null
+    createdAt?: DateTimeFilter<"ChargeRuleSet"> | Date | string
+    updatedAt?: DateTimeFilter<"ChargeRuleSet"> | Date | string
+    annee?: XOR<AnneeNullableScalarRelationFilter, AnneeWhereInput> | null
+    referenceGrades?: ChargeReferenceGradeListRelationFilter
+    coefficients?: ChargeCoefficientListRelationFilter
+  }, "id" | "numero">
+
+  export type ChargeRuleSetOrderByWithAggregationInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    periode?: SortOrder
+    seuil?: SortOrderInput | SortOrder
+    plafond?: SortOrderInput | SortOrder
+    arrondi?: SortOrderInput | SortOrder
+    publieLe?: SortOrderInput | SortOrder
+    anneeId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ChargeRuleSetCountOrderByAggregateInput
+    _avg?: ChargeRuleSetAvgOrderByAggregateInput
+    _max?: ChargeRuleSetMaxOrderByAggregateInput
+    _min?: ChargeRuleSetMinOrderByAggregateInput
+    _sum?: ChargeRuleSetSumOrderByAggregateInput
+  }
+
+  export type ChargeRuleSetScalarWhereWithAggregatesInput = {
+    AND?: ChargeRuleSetScalarWhereWithAggregatesInput | ChargeRuleSetScalarWhereWithAggregatesInput[]
+    OR?: ChargeRuleSetScalarWhereWithAggregatesInput[]
+    NOT?: ChargeRuleSetScalarWhereWithAggregatesInput | ChargeRuleSetScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ChargeRuleSet"> | string
+    numero?: IntWithAggregatesFilter<"ChargeRuleSet"> | number
+    periode?: EnumPeriodeRegleWithAggregatesFilter<"ChargeRuleSet"> | $Enums.PeriodeRegle
+    seuil?: IntNullableWithAggregatesFilter<"ChargeRuleSet"> | number | null
+    plafond?: IntNullableWithAggregatesFilter<"ChargeRuleSet"> | number | null
+    arrondi?: IntNullableWithAggregatesFilter<"ChargeRuleSet"> | number | null
+    publieLe?: DateTimeNullableWithAggregatesFilter<"ChargeRuleSet"> | Date | string | null
+    anneeId?: UuidNullableWithAggregatesFilter<"ChargeRuleSet"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ChargeRuleSet"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ChargeRuleSet"> | Date | string
+  }
+
+  export type ChargeReferenceGradeWhereInput = {
+    AND?: ChargeReferenceGradeWhereInput | ChargeReferenceGradeWhereInput[]
+    OR?: ChargeReferenceGradeWhereInput[]
+    NOT?: ChargeReferenceGradeWhereInput | ChargeReferenceGradeWhereInput[]
+    id?: UuidFilter<"ChargeReferenceGrade"> | string
+    rulesetId?: UuidFilter<"ChargeReferenceGrade"> | string
+    gradeId?: UuidNullableFilter<"ChargeReferenceGrade"> | string | null
+    coefficient?: DecimalFilter<"ChargeReferenceGrade"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"ChargeReferenceGrade"> | Date | string
+    ruleset?: XOR<ChargeRuleSetScalarRelationFilter, ChargeRuleSetWhereInput>
+    grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
+  }
+
+  export type ChargeReferenceGradeOrderByWithRelationInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    gradeId?: SortOrderInput | SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+    ruleset?: ChargeRuleSetOrderByWithRelationInput
+    grade?: GradeOrderByWithRelationInput
+  }
+
+  export type ChargeReferenceGradeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    rulesetId_gradeId?: ChargeReferenceGradeRulesetIdGradeIdCompoundUniqueInput
+    AND?: ChargeReferenceGradeWhereInput | ChargeReferenceGradeWhereInput[]
+    OR?: ChargeReferenceGradeWhereInput[]
+    NOT?: ChargeReferenceGradeWhereInput | ChargeReferenceGradeWhereInput[]
+    rulesetId?: UuidFilter<"ChargeReferenceGrade"> | string
+    gradeId?: UuidNullableFilter<"ChargeReferenceGrade"> | string | null
+    coefficient?: DecimalFilter<"ChargeReferenceGrade"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"ChargeReferenceGrade"> | Date | string
+    ruleset?: XOR<ChargeRuleSetScalarRelationFilter, ChargeRuleSetWhereInput>
+    grade?: XOR<GradeNullableScalarRelationFilter, GradeWhereInput> | null
+  }, "id" | "rulesetId_gradeId">
+
+  export type ChargeReferenceGradeOrderByWithAggregationInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    gradeId?: SortOrderInput | SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+    _count?: ChargeReferenceGradeCountOrderByAggregateInput
+    _avg?: ChargeReferenceGradeAvgOrderByAggregateInput
+    _max?: ChargeReferenceGradeMaxOrderByAggregateInput
+    _min?: ChargeReferenceGradeMinOrderByAggregateInput
+    _sum?: ChargeReferenceGradeSumOrderByAggregateInput
+  }
+
+  export type ChargeReferenceGradeScalarWhereWithAggregatesInput = {
+    AND?: ChargeReferenceGradeScalarWhereWithAggregatesInput | ChargeReferenceGradeScalarWhereWithAggregatesInput[]
+    OR?: ChargeReferenceGradeScalarWhereWithAggregatesInput[]
+    NOT?: ChargeReferenceGradeScalarWhereWithAggregatesInput | ChargeReferenceGradeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ChargeReferenceGrade"> | string
+    rulesetId?: UuidWithAggregatesFilter<"ChargeReferenceGrade"> | string
+    gradeId?: UuidNullableWithAggregatesFilter<"ChargeReferenceGrade"> | string | null
+    coefficient?: DecimalWithAggregatesFilter<"ChargeReferenceGrade"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeWithAggregatesFilter<"ChargeReferenceGrade"> | Date | string
+  }
+
+  export type ChargeCoefficientWhereInput = {
+    AND?: ChargeCoefficientWhereInput | ChargeCoefficientWhereInput[]
+    OR?: ChargeCoefficientWhereInput[]
+    NOT?: ChargeCoefficientWhereInput | ChargeCoefficientWhereInput[]
+    id?: UuidFilter<"ChargeCoefficient"> | string
+    rulesetId?: UuidFilter<"ChargeCoefficient"> | string
+    typeId?: UuidFilter<"ChargeCoefficient"> | string
+    coefficient?: DecimalFilter<"ChargeCoefficient"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"ChargeCoefficient"> | Date | string
+    ruleset?: XOR<ChargeRuleSetScalarRelationFilter, ChargeRuleSetWhereInput>
+    type?: XOR<TypeEnseignementScalarRelationFilter, TypeEnseignementWhereInput>
+  }
+
+  export type ChargeCoefficientOrderByWithRelationInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    typeId?: SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+    ruleset?: ChargeRuleSetOrderByWithRelationInput
+    type?: TypeEnseignementOrderByWithRelationInput
+  }
+
+  export type ChargeCoefficientWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    rulesetId_typeId?: ChargeCoefficientRulesetIdTypeIdCompoundUniqueInput
+    AND?: ChargeCoefficientWhereInput | ChargeCoefficientWhereInput[]
+    OR?: ChargeCoefficientWhereInput[]
+    NOT?: ChargeCoefficientWhereInput | ChargeCoefficientWhereInput[]
+    rulesetId?: UuidFilter<"ChargeCoefficient"> | string
+    typeId?: UuidFilter<"ChargeCoefficient"> | string
+    coefficient?: DecimalFilter<"ChargeCoefficient"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"ChargeCoefficient"> | Date | string
+    ruleset?: XOR<ChargeRuleSetScalarRelationFilter, ChargeRuleSetWhereInput>
+    type?: XOR<TypeEnseignementScalarRelationFilter, TypeEnseignementWhereInput>
+  }, "id" | "rulesetId_typeId">
+
+  export type ChargeCoefficientOrderByWithAggregationInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    typeId?: SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+    _count?: ChargeCoefficientCountOrderByAggregateInput
+    _avg?: ChargeCoefficientAvgOrderByAggregateInput
+    _max?: ChargeCoefficientMaxOrderByAggregateInput
+    _min?: ChargeCoefficientMinOrderByAggregateInput
+    _sum?: ChargeCoefficientSumOrderByAggregateInput
+  }
+
+  export type ChargeCoefficientScalarWhereWithAggregatesInput = {
+    AND?: ChargeCoefficientScalarWhereWithAggregatesInput | ChargeCoefficientScalarWhereWithAggregatesInput[]
+    OR?: ChargeCoefficientScalarWhereWithAggregatesInput[]
+    NOT?: ChargeCoefficientScalarWhereWithAggregatesInput | ChargeCoefficientScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ChargeCoefficient"> | string
+    rulesetId?: UuidWithAggregatesFilter<"ChargeCoefficient"> | string
+    typeId?: UuidWithAggregatesFilter<"ChargeCoefficient"> | string
+    coefficient?: DecimalWithAggregatesFilter<"ChargeCoefficient"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeWithAggregatesFilter<"ChargeCoefficient"> | Date | string
   }
 
   export type ActivityTagWhereInput = {
@@ -64117,6 +68319,7 @@ export namespace Prisma {
     semestres?: SemestreCreateNestedManyWithoutAnneeInput
     departements?: DepartementCreateNestedManyWithoutAnneeInput
     enseignants?: EnseignantCreateNestedManyWithoutAnneeInput
+    chargeRuleSets?: ChargeRuleSetCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateInput = {
@@ -64130,6 +68333,7 @@ export namespace Prisma {
     semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
     departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutAnneeInput
+    chargeRuleSets?: ChargeRuleSetUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUpdateInput = {
@@ -64143,6 +68347,7 @@ export namespace Prisma {
     semestres?: SemestreUpdateManyWithoutAnneeNestedInput
     departements?: DepartementUpdateManyWithoutAnneeNestedInput
     enseignants?: EnseignantUpdateManyWithoutAnneeNestedInput
+    chargeRuleSets?: ChargeRuleSetUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateInput = {
@@ -64156,6 +68361,7 @@ export namespace Prisma {
     semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
     departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutAnneeNestedInput
+    chargeRuleSets?: ChargeRuleSetUncheckedUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeCreateManyInput = {
@@ -64793,6 +68999,7 @@ export namespace Prisma {
     activityTag?: ActivityTagCreateNestedOneWithoutTypesEnseignementInput
     modules?: ModuleCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
   }
 
   export type TypeEnseignementUncheckedCreateInput = {
@@ -64804,6 +69011,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
   }
 
   export type TypeEnseignementUpdateInput = {
@@ -64815,6 +69023,7 @@ export namespace Prisma {
     activityTag?: ActivityTagUpdateOneWithoutTypesEnseignementNestedInput
     modules?: ModuleUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateInput = {
@@ -64826,6 +69035,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
   }
 
   export type TypeEnseignementCreateManyInput = {
@@ -64862,6 +69072,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modules?: ModuleCreateNestedManyWithoutGradeInput
     enseignants?: EnseignantCreateNestedManyWithoutGradeInput
+    chargeReferenceGrades?: ChargeReferenceGradeCreateNestedManyWithoutGradeInput
   }
 
   export type GradeUncheckedCreateInput = {
@@ -64872,6 +69083,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modules?: ModuleUncheckedCreateNestedManyWithoutGradeInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutGradeInput
+    chargeReferenceGrades?: ChargeReferenceGradeUncheckedCreateNestedManyWithoutGradeInput
   }
 
   export type GradeUpdateInput = {
@@ -64882,6 +69094,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUpdateManyWithoutGradeNestedInput
     enseignants?: EnseignantUpdateManyWithoutGradeNestedInput
+    chargeReferenceGrades?: ChargeReferenceGradeUpdateManyWithoutGradeNestedInput
   }
 
   export type GradeUncheckedUpdateInput = {
@@ -64892,6 +69105,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUncheckedUpdateManyWithoutGradeNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutGradeNestedInput
+    chargeReferenceGrades?: ChargeReferenceGradeUncheckedUpdateManyWithoutGradeNestedInput
   }
 
   export type GradeCreateManyInput = {
@@ -65092,6 +69306,212 @@ export namespace Prisma {
     volume?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeRuleSetCreateInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee?: AnneeCreateNestedOneWithoutChargeRuleSetsInput
+    referenceGrades?: ChargeReferenceGradeCreateNestedManyWithoutRulesetInput
+    coefficients?: ChargeCoefficientCreateNestedManyWithoutRulesetInput
+  }
+
+  export type ChargeRuleSetUncheckedCreateInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    anneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    referenceGrades?: ChargeReferenceGradeUncheckedCreateNestedManyWithoutRulesetInput
+    coefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutRulesetInput
+  }
+
+  export type ChargeRuleSetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneWithoutChargeRuleSetsNestedInput
+    referenceGrades?: ChargeReferenceGradeUpdateManyWithoutRulesetNestedInput
+    coefficients?: ChargeCoefficientUpdateManyWithoutRulesetNestedInput
+  }
+
+  export type ChargeRuleSetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    anneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceGrades?: ChargeReferenceGradeUncheckedUpdateManyWithoutRulesetNestedInput
+    coefficients?: ChargeCoefficientUncheckedUpdateManyWithoutRulesetNestedInput
+  }
+
+  export type ChargeRuleSetCreateManyInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    anneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChargeRuleSetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeRuleSetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    anneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeReferenceGradeCreateInput = {
+    id?: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    ruleset: ChargeRuleSetCreateNestedOneWithoutReferenceGradesInput
+    grade?: GradeCreateNestedOneWithoutChargeReferenceGradesInput
+  }
+
+  export type ChargeReferenceGradeUncheckedCreateInput = {
+    id?: string
+    rulesetId: string
+    gradeId?: string | null
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeReferenceGradeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleset?: ChargeRuleSetUpdateOneRequiredWithoutReferenceGradesNestedInput
+    grade?: GradeUpdateOneWithoutChargeReferenceGradesNestedInput
+  }
+
+  export type ChargeReferenceGradeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rulesetId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeReferenceGradeCreateManyInput = {
+    id?: string
+    rulesetId: string
+    gradeId?: string | null
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeReferenceGradeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeReferenceGradeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rulesetId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeCoefficientCreateInput = {
+    id?: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    ruleset: ChargeRuleSetCreateNestedOneWithoutCoefficientsInput
+    type: TypeEnseignementCreateNestedOneWithoutChargeCoefficientsInput
+  }
+
+  export type ChargeCoefficientUncheckedCreateInput = {
+    id?: string
+    rulesetId: string
+    typeId: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeCoefficientUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleset?: ChargeRuleSetUpdateOneRequiredWithoutCoefficientsNestedInput
+    type?: TypeEnseignementUpdateOneRequiredWithoutChargeCoefficientsNestedInput
+  }
+
+  export type ChargeCoefficientUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rulesetId?: StringFieldUpdateOperationsInput | string
+    typeId?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeCoefficientCreateManyInput = {
+    id?: string
+    rulesetId: string
+    typeId: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeCoefficientUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeCoefficientUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rulesetId?: StringFieldUpdateOperationsInput | string
+    typeId?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ActivityTagCreateInput = {
@@ -67548,6 +71968,12 @@ export namespace Prisma {
     none?: EnseignantWhereInput
   }
 
+  export type ChargeRuleSetListRelationFilter = {
+    every?: ChargeRuleSetWhereInput
+    some?: ChargeRuleSetWhereInput
+    none?: ChargeRuleSetWhereInput
+  }
+
   export type SemestreOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -67557,6 +71983,10 @@ export namespace Prisma {
   }
 
   export type EnseignantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChargeRuleSetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -68138,7 +72568,17 @@ export namespace Prisma {
     none?: ExigenceEquipementWhereInput
   }
 
+  export type ChargeCoefficientListRelationFilter = {
+    every?: ChargeCoefficientWhereInput
+    some?: ChargeCoefficientWhereInput
+    none?: ChargeCoefficientWhereInput
+  }
+
   export type ExigenceEquipementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ChargeCoefficientOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -68184,6 +72624,16 @@ export namespace Prisma {
     in?: $Enums.GradeCode[] | ListEnumGradeCodeFieldRefInput<$PrismaModel>
     notIn?: $Enums.GradeCode[] | ListEnumGradeCodeFieldRefInput<$PrismaModel>
     not?: NestedEnumGradeCodeFilter<$PrismaModel> | $Enums.GradeCode
+  }
+
+  export type ChargeReferenceGradeListRelationFilter = {
+    every?: ChargeReferenceGradeWhereInput
+    some?: ChargeReferenceGradeWhereInput
+    none?: ChargeReferenceGradeWhereInput
+  }
+
+  export type ChargeReferenceGradeOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type GradeCountOrderByAggregateInput = {
@@ -68356,6 +72806,187 @@ export namespace Prisma {
 
   export type ModuleVolumeSumOrderByAggregateInput = {
     volume?: SortOrder
+  }
+
+  export type EnumPeriodeRegleFilter<$PrismaModel = never> = {
+    equals?: $Enums.PeriodeRegle | EnumPeriodeRegleFieldRefInput<$PrismaModel>
+    in?: $Enums.PeriodeRegle[] | ListEnumPeriodeRegleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PeriodeRegle[] | ListEnumPeriodeRegleFieldRefInput<$PrismaModel>
+    not?: NestedEnumPeriodeRegleFilter<$PrismaModel> | $Enums.PeriodeRegle
+  }
+
+  export type AnneeNullableScalarRelationFilter = {
+    is?: AnneeWhereInput | null
+    isNot?: AnneeWhereInput | null
+  }
+
+  export type ChargeRuleSetCountOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    periode?: SortOrder
+    seuil?: SortOrder
+    plafond?: SortOrder
+    arrondi?: SortOrder
+    publieLe?: SortOrder
+    anneeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChargeRuleSetAvgOrderByAggregateInput = {
+    numero?: SortOrder
+    seuil?: SortOrder
+    plafond?: SortOrder
+    arrondi?: SortOrder
+  }
+
+  export type ChargeRuleSetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    periode?: SortOrder
+    seuil?: SortOrder
+    plafond?: SortOrder
+    arrondi?: SortOrder
+    publieLe?: SortOrder
+    anneeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChargeRuleSetMinOrderByAggregateInput = {
+    id?: SortOrder
+    numero?: SortOrder
+    periode?: SortOrder
+    seuil?: SortOrder
+    plafond?: SortOrder
+    arrondi?: SortOrder
+    publieLe?: SortOrder
+    anneeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChargeRuleSetSumOrderByAggregateInput = {
+    numero?: SortOrder
+    seuil?: SortOrder
+    plafond?: SortOrder
+    arrondi?: SortOrder
+  }
+
+  export type EnumPeriodeRegleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PeriodeRegle | EnumPeriodeRegleFieldRefInput<$PrismaModel>
+    in?: $Enums.PeriodeRegle[] | ListEnumPeriodeRegleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PeriodeRegle[] | ListEnumPeriodeRegleFieldRefInput<$PrismaModel>
+    not?: NestedEnumPeriodeRegleWithAggregatesFilter<$PrismaModel> | $Enums.PeriodeRegle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPeriodeRegleFilter<$PrismaModel>
+    _max?: NestedEnumPeriodeRegleFilter<$PrismaModel>
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type ChargeRuleSetScalarRelationFilter = {
+    is?: ChargeRuleSetWhereInput
+    isNot?: ChargeRuleSetWhereInput
+  }
+
+  export type ChargeReferenceGradeRulesetIdGradeIdCompoundUniqueInput = {
+    rulesetId: string
+    gradeId: string
+  }
+
+  export type ChargeReferenceGradeCountOrderByAggregateInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    gradeId?: SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChargeReferenceGradeAvgOrderByAggregateInput = {
+    coefficient?: SortOrder
+  }
+
+  export type ChargeReferenceGradeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    gradeId?: SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChargeReferenceGradeMinOrderByAggregateInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    gradeId?: SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChargeReferenceGradeSumOrderByAggregateInput = {
+    coefficient?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type ChargeCoefficientRulesetIdTypeIdCompoundUniqueInput = {
+    rulesetId: string
+    typeId: string
+  }
+
+  export type ChargeCoefficientCountOrderByAggregateInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    typeId?: SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChargeCoefficientAvgOrderByAggregateInput = {
+    coefficient?: SortOrder
+  }
+
+  export type ChargeCoefficientMaxOrderByAggregateInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    typeId?: SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChargeCoefficientMinOrderByAggregateInput = {
+    id?: SortOrder
+    rulesetId?: SortOrder
+    typeId?: SortOrder
+    coefficient?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ChargeCoefficientSumOrderByAggregateInput = {
+    coefficient?: SortOrder
   }
 
   export type TypeEnseignementListRelationFilter = {
@@ -70430,6 +75061,13 @@ export namespace Prisma {
     connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
   }
 
+  export type ChargeRuleSetCreateNestedManyWithoutAnneeInput = {
+    create?: XOR<ChargeRuleSetCreateWithoutAnneeInput, ChargeRuleSetUncheckedCreateWithoutAnneeInput> | ChargeRuleSetCreateWithoutAnneeInput[] | ChargeRuleSetUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: ChargeRuleSetCreateOrConnectWithoutAnneeInput | ChargeRuleSetCreateOrConnectWithoutAnneeInput[]
+    createMany?: ChargeRuleSetCreateManyAnneeInputEnvelope
+    connect?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+  }
+
   export type SemestreUncheckedCreateNestedManyWithoutAnneeInput = {
     create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
     connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
@@ -70449,6 +75087,13 @@ export namespace Prisma {
     connectOrCreate?: EnseignantCreateOrConnectWithoutAnneeInput | EnseignantCreateOrConnectWithoutAnneeInput[]
     createMany?: EnseignantCreateManyAnneeInputEnvelope
     connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+  }
+
+  export type ChargeRuleSetUncheckedCreateNestedManyWithoutAnneeInput = {
+    create?: XOR<ChargeRuleSetCreateWithoutAnneeInput, ChargeRuleSetUncheckedCreateWithoutAnneeInput> | ChargeRuleSetCreateWithoutAnneeInput[] | ChargeRuleSetUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: ChargeRuleSetCreateOrConnectWithoutAnneeInput | ChargeRuleSetCreateOrConnectWithoutAnneeInput[]
+    createMany?: ChargeRuleSetCreateManyAnneeInputEnvelope
+    connect?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
   }
 
   export type EnumAnneeStatutFieldUpdateOperationsInput = {
@@ -70497,6 +75142,20 @@ export namespace Prisma {
     deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
   }
 
+  export type ChargeRuleSetUpdateManyWithoutAnneeNestedInput = {
+    create?: XOR<ChargeRuleSetCreateWithoutAnneeInput, ChargeRuleSetUncheckedCreateWithoutAnneeInput> | ChargeRuleSetCreateWithoutAnneeInput[] | ChargeRuleSetUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: ChargeRuleSetCreateOrConnectWithoutAnneeInput | ChargeRuleSetCreateOrConnectWithoutAnneeInput[]
+    upsert?: ChargeRuleSetUpsertWithWhereUniqueWithoutAnneeInput | ChargeRuleSetUpsertWithWhereUniqueWithoutAnneeInput[]
+    createMany?: ChargeRuleSetCreateManyAnneeInputEnvelope
+    set?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+    disconnect?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+    delete?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+    connect?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+    update?: ChargeRuleSetUpdateWithWhereUniqueWithoutAnneeInput | ChargeRuleSetUpdateWithWhereUniqueWithoutAnneeInput[]
+    updateMany?: ChargeRuleSetUpdateManyWithWhereWithoutAnneeInput | ChargeRuleSetUpdateManyWithWhereWithoutAnneeInput[]
+    deleteMany?: ChargeRuleSetScalarWhereInput | ChargeRuleSetScalarWhereInput[]
+  }
+
   export type SemestreUncheckedUpdateManyWithoutAnneeNestedInput = {
     create?: XOR<SemestreCreateWithoutAnneeInput, SemestreUncheckedCreateWithoutAnneeInput> | SemestreCreateWithoutAnneeInput[] | SemestreUncheckedCreateWithoutAnneeInput[]
     connectOrCreate?: SemestreCreateOrConnectWithoutAnneeInput | SemestreCreateOrConnectWithoutAnneeInput[]
@@ -70537,6 +75196,20 @@ export namespace Prisma {
     update?: EnseignantUpdateWithWhereUniqueWithoutAnneeInput | EnseignantUpdateWithWhereUniqueWithoutAnneeInput[]
     updateMany?: EnseignantUpdateManyWithWhereWithoutAnneeInput | EnseignantUpdateManyWithWhereWithoutAnneeInput[]
     deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
+  }
+
+  export type ChargeRuleSetUncheckedUpdateManyWithoutAnneeNestedInput = {
+    create?: XOR<ChargeRuleSetCreateWithoutAnneeInput, ChargeRuleSetUncheckedCreateWithoutAnneeInput> | ChargeRuleSetCreateWithoutAnneeInput[] | ChargeRuleSetUncheckedCreateWithoutAnneeInput[]
+    connectOrCreate?: ChargeRuleSetCreateOrConnectWithoutAnneeInput | ChargeRuleSetCreateOrConnectWithoutAnneeInput[]
+    upsert?: ChargeRuleSetUpsertWithWhereUniqueWithoutAnneeInput | ChargeRuleSetUpsertWithWhereUniqueWithoutAnneeInput[]
+    createMany?: ChargeRuleSetCreateManyAnneeInputEnvelope
+    set?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+    disconnect?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+    delete?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+    connect?: ChargeRuleSetWhereUniqueInput | ChargeRuleSetWhereUniqueInput[]
+    update?: ChargeRuleSetUpdateWithWhereUniqueWithoutAnneeInput | ChargeRuleSetUpdateWithWhereUniqueWithoutAnneeInput[]
+    updateMany?: ChargeRuleSetUpdateManyWithWhereWithoutAnneeInput | ChargeRuleSetUpdateManyWithWhereWithoutAnneeInput[]
+    deleteMany?: ChargeRuleSetScalarWhereInput | ChargeRuleSetScalarWhereInput[]
   }
 
   export type AnneeCreateNestedOneWithoutSemestresInput = {
@@ -71245,6 +75918,13 @@ export namespace Prisma {
     connect?: ExigenceEquipementWhereUniqueInput | ExigenceEquipementWhereUniqueInput[]
   }
 
+  export type ChargeCoefficientCreateNestedManyWithoutTypeInput = {
+    create?: XOR<ChargeCoefficientCreateWithoutTypeInput, ChargeCoefficientUncheckedCreateWithoutTypeInput> | ChargeCoefficientCreateWithoutTypeInput[] | ChargeCoefficientUncheckedCreateWithoutTypeInput[]
+    connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutTypeInput | ChargeCoefficientCreateOrConnectWithoutTypeInput[]
+    createMany?: ChargeCoefficientCreateManyTypeInputEnvelope
+    connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+  }
+
   export type ModuleUncheckedCreateNestedManyWithoutTypeInput = {
     create?: XOR<ModuleCreateWithoutTypeInput, ModuleUncheckedCreateWithoutTypeInput> | ModuleCreateWithoutTypeInput[] | ModuleUncheckedCreateWithoutTypeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutTypeInput | ModuleCreateOrConnectWithoutTypeInput[]
@@ -71257,6 +75937,13 @@ export namespace Prisma {
     connectOrCreate?: ExigenceEquipementCreateOrConnectWithoutTypeInput | ExigenceEquipementCreateOrConnectWithoutTypeInput[]
     createMany?: ExigenceEquipementCreateManyTypeInputEnvelope
     connect?: ExigenceEquipementWhereUniqueInput | ExigenceEquipementWhereUniqueInput[]
+  }
+
+  export type ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput = {
+    create?: XOR<ChargeCoefficientCreateWithoutTypeInput, ChargeCoefficientUncheckedCreateWithoutTypeInput> | ChargeCoefficientCreateWithoutTypeInput[] | ChargeCoefficientUncheckedCreateWithoutTypeInput[]
+    connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutTypeInput | ChargeCoefficientCreateOrConnectWithoutTypeInput[]
+    createMany?: ChargeCoefficientCreateManyTypeInputEnvelope
+    connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
   }
 
   export type EnumTypeEnseignementCodeFieldUpdateOperationsInput = {
@@ -71301,6 +75988,20 @@ export namespace Prisma {
     deleteMany?: ExigenceEquipementScalarWhereInput | ExigenceEquipementScalarWhereInput[]
   }
 
+  export type ChargeCoefficientUpdateManyWithoutTypeNestedInput = {
+    create?: XOR<ChargeCoefficientCreateWithoutTypeInput, ChargeCoefficientUncheckedCreateWithoutTypeInput> | ChargeCoefficientCreateWithoutTypeInput[] | ChargeCoefficientUncheckedCreateWithoutTypeInput[]
+    connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutTypeInput | ChargeCoefficientCreateOrConnectWithoutTypeInput[]
+    upsert?: ChargeCoefficientUpsertWithWhereUniqueWithoutTypeInput | ChargeCoefficientUpsertWithWhereUniqueWithoutTypeInput[]
+    createMany?: ChargeCoefficientCreateManyTypeInputEnvelope
+    set?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    disconnect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    delete?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    update?: ChargeCoefficientUpdateWithWhereUniqueWithoutTypeInput | ChargeCoefficientUpdateWithWhereUniqueWithoutTypeInput[]
+    updateMany?: ChargeCoefficientUpdateManyWithWhereWithoutTypeInput | ChargeCoefficientUpdateManyWithWhereWithoutTypeInput[]
+    deleteMany?: ChargeCoefficientScalarWhereInput | ChargeCoefficientScalarWhereInput[]
+  }
+
   export type ModuleUncheckedUpdateManyWithoutTypeNestedInput = {
     create?: XOR<ModuleCreateWithoutTypeInput, ModuleUncheckedCreateWithoutTypeInput> | ModuleCreateWithoutTypeInput[] | ModuleUncheckedCreateWithoutTypeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutTypeInput | ModuleCreateOrConnectWithoutTypeInput[]
@@ -71329,6 +76030,20 @@ export namespace Prisma {
     deleteMany?: ExigenceEquipementScalarWhereInput | ExigenceEquipementScalarWhereInput[]
   }
 
+  export type ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput = {
+    create?: XOR<ChargeCoefficientCreateWithoutTypeInput, ChargeCoefficientUncheckedCreateWithoutTypeInput> | ChargeCoefficientCreateWithoutTypeInput[] | ChargeCoefficientUncheckedCreateWithoutTypeInput[]
+    connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutTypeInput | ChargeCoefficientCreateOrConnectWithoutTypeInput[]
+    upsert?: ChargeCoefficientUpsertWithWhereUniqueWithoutTypeInput | ChargeCoefficientUpsertWithWhereUniqueWithoutTypeInput[]
+    createMany?: ChargeCoefficientCreateManyTypeInputEnvelope
+    set?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    disconnect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    delete?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    update?: ChargeCoefficientUpdateWithWhereUniqueWithoutTypeInput | ChargeCoefficientUpdateWithWhereUniqueWithoutTypeInput[]
+    updateMany?: ChargeCoefficientUpdateManyWithWhereWithoutTypeInput | ChargeCoefficientUpdateManyWithWhereWithoutTypeInput[]
+    deleteMany?: ChargeCoefficientScalarWhereInput | ChargeCoefficientScalarWhereInput[]
+  }
+
   export type ModuleCreateNestedManyWithoutGradeInput = {
     create?: XOR<ModuleCreateWithoutGradeInput, ModuleUncheckedCreateWithoutGradeInput> | ModuleCreateWithoutGradeInput[] | ModuleUncheckedCreateWithoutGradeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutGradeInput | ModuleCreateOrConnectWithoutGradeInput[]
@@ -71343,6 +76058,13 @@ export namespace Prisma {
     connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
   }
 
+  export type ChargeReferenceGradeCreateNestedManyWithoutGradeInput = {
+    create?: XOR<ChargeReferenceGradeCreateWithoutGradeInput, ChargeReferenceGradeUncheckedCreateWithoutGradeInput> | ChargeReferenceGradeCreateWithoutGradeInput[] | ChargeReferenceGradeUncheckedCreateWithoutGradeInput[]
+    connectOrCreate?: ChargeReferenceGradeCreateOrConnectWithoutGradeInput | ChargeReferenceGradeCreateOrConnectWithoutGradeInput[]
+    createMany?: ChargeReferenceGradeCreateManyGradeInputEnvelope
+    connect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+  }
+
   export type ModuleUncheckedCreateNestedManyWithoutGradeInput = {
     create?: XOR<ModuleCreateWithoutGradeInput, ModuleUncheckedCreateWithoutGradeInput> | ModuleCreateWithoutGradeInput[] | ModuleUncheckedCreateWithoutGradeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutGradeInput | ModuleCreateOrConnectWithoutGradeInput[]
@@ -71355,6 +76077,13 @@ export namespace Prisma {
     connectOrCreate?: EnseignantCreateOrConnectWithoutGradeInput | EnseignantCreateOrConnectWithoutGradeInput[]
     createMany?: EnseignantCreateManyGradeInputEnvelope
     connect?: EnseignantWhereUniqueInput | EnseignantWhereUniqueInput[]
+  }
+
+  export type ChargeReferenceGradeUncheckedCreateNestedManyWithoutGradeInput = {
+    create?: XOR<ChargeReferenceGradeCreateWithoutGradeInput, ChargeReferenceGradeUncheckedCreateWithoutGradeInput> | ChargeReferenceGradeCreateWithoutGradeInput[] | ChargeReferenceGradeUncheckedCreateWithoutGradeInput[]
+    connectOrCreate?: ChargeReferenceGradeCreateOrConnectWithoutGradeInput | ChargeReferenceGradeCreateOrConnectWithoutGradeInput[]
+    createMany?: ChargeReferenceGradeCreateManyGradeInputEnvelope
+    connect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
   }
 
   export type EnumGradeCodeFieldUpdateOperationsInput = {
@@ -71389,6 +76118,20 @@ export namespace Prisma {
     deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
   }
 
+  export type ChargeReferenceGradeUpdateManyWithoutGradeNestedInput = {
+    create?: XOR<ChargeReferenceGradeCreateWithoutGradeInput, ChargeReferenceGradeUncheckedCreateWithoutGradeInput> | ChargeReferenceGradeCreateWithoutGradeInput[] | ChargeReferenceGradeUncheckedCreateWithoutGradeInput[]
+    connectOrCreate?: ChargeReferenceGradeCreateOrConnectWithoutGradeInput | ChargeReferenceGradeCreateOrConnectWithoutGradeInput[]
+    upsert?: ChargeReferenceGradeUpsertWithWhereUniqueWithoutGradeInput | ChargeReferenceGradeUpsertWithWhereUniqueWithoutGradeInput[]
+    createMany?: ChargeReferenceGradeCreateManyGradeInputEnvelope
+    set?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    disconnect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    delete?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    connect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    update?: ChargeReferenceGradeUpdateWithWhereUniqueWithoutGradeInput | ChargeReferenceGradeUpdateWithWhereUniqueWithoutGradeInput[]
+    updateMany?: ChargeReferenceGradeUpdateManyWithWhereWithoutGradeInput | ChargeReferenceGradeUpdateManyWithWhereWithoutGradeInput[]
+    deleteMany?: ChargeReferenceGradeScalarWhereInput | ChargeReferenceGradeScalarWhereInput[]
+  }
+
   export type ModuleUncheckedUpdateManyWithoutGradeNestedInput = {
     create?: XOR<ModuleCreateWithoutGradeInput, ModuleUncheckedCreateWithoutGradeInput> | ModuleCreateWithoutGradeInput[] | ModuleUncheckedCreateWithoutGradeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutGradeInput | ModuleCreateOrConnectWithoutGradeInput[]
@@ -71415,6 +76158,20 @@ export namespace Prisma {
     update?: EnseignantUpdateWithWhereUniqueWithoutGradeInput | EnseignantUpdateWithWhereUniqueWithoutGradeInput[]
     updateMany?: EnseignantUpdateManyWithWhereWithoutGradeInput | EnseignantUpdateManyWithWhereWithoutGradeInput[]
     deleteMany?: EnseignantScalarWhereInput | EnseignantScalarWhereInput[]
+  }
+
+  export type ChargeReferenceGradeUncheckedUpdateManyWithoutGradeNestedInput = {
+    create?: XOR<ChargeReferenceGradeCreateWithoutGradeInput, ChargeReferenceGradeUncheckedCreateWithoutGradeInput> | ChargeReferenceGradeCreateWithoutGradeInput[] | ChargeReferenceGradeUncheckedCreateWithoutGradeInput[]
+    connectOrCreate?: ChargeReferenceGradeCreateOrConnectWithoutGradeInput | ChargeReferenceGradeCreateOrConnectWithoutGradeInput[]
+    upsert?: ChargeReferenceGradeUpsertWithWhereUniqueWithoutGradeInput | ChargeReferenceGradeUpsertWithWhereUniqueWithoutGradeInput[]
+    createMany?: ChargeReferenceGradeCreateManyGradeInputEnvelope
+    set?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    disconnect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    delete?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    connect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    update?: ChargeReferenceGradeUpdateWithWhereUniqueWithoutGradeInput | ChargeReferenceGradeUpdateWithWhereUniqueWithoutGradeInput[]
+    updateMany?: ChargeReferenceGradeUpdateManyWithWhereWithoutGradeInput | ChargeReferenceGradeUpdateManyWithWhereWithoutGradeInput[]
+    deleteMany?: ChargeReferenceGradeScalarWhereInput | ChargeReferenceGradeScalarWhereInput[]
   }
 
   export type NiveauCreateNestedOneWithoutModulesInput = {
@@ -71599,6 +76356,176 @@ export namespace Prisma {
     upsert?: ModuleUpsertWithoutModuleVolumesInput
     connect?: ModuleWhereUniqueInput
     update?: XOR<XOR<ModuleUpdateToOneWithWhereWithoutModuleVolumesInput, ModuleUpdateWithoutModuleVolumesInput>, ModuleUncheckedUpdateWithoutModuleVolumesInput>
+  }
+
+  export type AnneeCreateNestedOneWithoutChargeRuleSetsInput = {
+    create?: XOR<AnneeCreateWithoutChargeRuleSetsInput, AnneeUncheckedCreateWithoutChargeRuleSetsInput>
+    connectOrCreate?: AnneeCreateOrConnectWithoutChargeRuleSetsInput
+    connect?: AnneeWhereUniqueInput
+  }
+
+  export type ChargeReferenceGradeCreateNestedManyWithoutRulesetInput = {
+    create?: XOR<ChargeReferenceGradeCreateWithoutRulesetInput, ChargeReferenceGradeUncheckedCreateWithoutRulesetInput> | ChargeReferenceGradeCreateWithoutRulesetInput[] | ChargeReferenceGradeUncheckedCreateWithoutRulesetInput[]
+    connectOrCreate?: ChargeReferenceGradeCreateOrConnectWithoutRulesetInput | ChargeReferenceGradeCreateOrConnectWithoutRulesetInput[]
+    createMany?: ChargeReferenceGradeCreateManyRulesetInputEnvelope
+    connect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+  }
+
+  export type ChargeCoefficientCreateNestedManyWithoutRulesetInput = {
+    create?: XOR<ChargeCoefficientCreateWithoutRulesetInput, ChargeCoefficientUncheckedCreateWithoutRulesetInput> | ChargeCoefficientCreateWithoutRulesetInput[] | ChargeCoefficientUncheckedCreateWithoutRulesetInput[]
+    connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutRulesetInput | ChargeCoefficientCreateOrConnectWithoutRulesetInput[]
+    createMany?: ChargeCoefficientCreateManyRulesetInputEnvelope
+    connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+  }
+
+  export type ChargeReferenceGradeUncheckedCreateNestedManyWithoutRulesetInput = {
+    create?: XOR<ChargeReferenceGradeCreateWithoutRulesetInput, ChargeReferenceGradeUncheckedCreateWithoutRulesetInput> | ChargeReferenceGradeCreateWithoutRulesetInput[] | ChargeReferenceGradeUncheckedCreateWithoutRulesetInput[]
+    connectOrCreate?: ChargeReferenceGradeCreateOrConnectWithoutRulesetInput | ChargeReferenceGradeCreateOrConnectWithoutRulesetInput[]
+    createMany?: ChargeReferenceGradeCreateManyRulesetInputEnvelope
+    connect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+  }
+
+  export type ChargeCoefficientUncheckedCreateNestedManyWithoutRulesetInput = {
+    create?: XOR<ChargeCoefficientCreateWithoutRulesetInput, ChargeCoefficientUncheckedCreateWithoutRulesetInput> | ChargeCoefficientCreateWithoutRulesetInput[] | ChargeCoefficientUncheckedCreateWithoutRulesetInput[]
+    connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutRulesetInput | ChargeCoefficientCreateOrConnectWithoutRulesetInput[]
+    createMany?: ChargeCoefficientCreateManyRulesetInputEnvelope
+    connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+  }
+
+  export type EnumPeriodeRegleFieldUpdateOperationsInput = {
+    set?: $Enums.PeriodeRegle
+  }
+
+  export type AnneeUpdateOneWithoutChargeRuleSetsNestedInput = {
+    create?: XOR<AnneeCreateWithoutChargeRuleSetsInput, AnneeUncheckedCreateWithoutChargeRuleSetsInput>
+    connectOrCreate?: AnneeCreateOrConnectWithoutChargeRuleSetsInput
+    upsert?: AnneeUpsertWithoutChargeRuleSetsInput
+    disconnect?: AnneeWhereInput | boolean
+    delete?: AnneeWhereInput | boolean
+    connect?: AnneeWhereUniqueInput
+    update?: XOR<XOR<AnneeUpdateToOneWithWhereWithoutChargeRuleSetsInput, AnneeUpdateWithoutChargeRuleSetsInput>, AnneeUncheckedUpdateWithoutChargeRuleSetsInput>
+  }
+
+  export type ChargeReferenceGradeUpdateManyWithoutRulesetNestedInput = {
+    create?: XOR<ChargeReferenceGradeCreateWithoutRulesetInput, ChargeReferenceGradeUncheckedCreateWithoutRulesetInput> | ChargeReferenceGradeCreateWithoutRulesetInput[] | ChargeReferenceGradeUncheckedCreateWithoutRulesetInput[]
+    connectOrCreate?: ChargeReferenceGradeCreateOrConnectWithoutRulesetInput | ChargeReferenceGradeCreateOrConnectWithoutRulesetInput[]
+    upsert?: ChargeReferenceGradeUpsertWithWhereUniqueWithoutRulesetInput | ChargeReferenceGradeUpsertWithWhereUniqueWithoutRulesetInput[]
+    createMany?: ChargeReferenceGradeCreateManyRulesetInputEnvelope
+    set?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    disconnect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    delete?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    connect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    update?: ChargeReferenceGradeUpdateWithWhereUniqueWithoutRulesetInput | ChargeReferenceGradeUpdateWithWhereUniqueWithoutRulesetInput[]
+    updateMany?: ChargeReferenceGradeUpdateManyWithWhereWithoutRulesetInput | ChargeReferenceGradeUpdateManyWithWhereWithoutRulesetInput[]
+    deleteMany?: ChargeReferenceGradeScalarWhereInput | ChargeReferenceGradeScalarWhereInput[]
+  }
+
+  export type ChargeCoefficientUpdateManyWithoutRulesetNestedInput = {
+    create?: XOR<ChargeCoefficientCreateWithoutRulesetInput, ChargeCoefficientUncheckedCreateWithoutRulesetInput> | ChargeCoefficientCreateWithoutRulesetInput[] | ChargeCoefficientUncheckedCreateWithoutRulesetInput[]
+    connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutRulesetInput | ChargeCoefficientCreateOrConnectWithoutRulesetInput[]
+    upsert?: ChargeCoefficientUpsertWithWhereUniqueWithoutRulesetInput | ChargeCoefficientUpsertWithWhereUniqueWithoutRulesetInput[]
+    createMany?: ChargeCoefficientCreateManyRulesetInputEnvelope
+    set?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    disconnect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    delete?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    update?: ChargeCoefficientUpdateWithWhereUniqueWithoutRulesetInput | ChargeCoefficientUpdateWithWhereUniqueWithoutRulesetInput[]
+    updateMany?: ChargeCoefficientUpdateManyWithWhereWithoutRulesetInput | ChargeCoefficientUpdateManyWithWhereWithoutRulesetInput[]
+    deleteMany?: ChargeCoefficientScalarWhereInput | ChargeCoefficientScalarWhereInput[]
+  }
+
+  export type ChargeReferenceGradeUncheckedUpdateManyWithoutRulesetNestedInput = {
+    create?: XOR<ChargeReferenceGradeCreateWithoutRulesetInput, ChargeReferenceGradeUncheckedCreateWithoutRulesetInput> | ChargeReferenceGradeCreateWithoutRulesetInput[] | ChargeReferenceGradeUncheckedCreateWithoutRulesetInput[]
+    connectOrCreate?: ChargeReferenceGradeCreateOrConnectWithoutRulesetInput | ChargeReferenceGradeCreateOrConnectWithoutRulesetInput[]
+    upsert?: ChargeReferenceGradeUpsertWithWhereUniqueWithoutRulesetInput | ChargeReferenceGradeUpsertWithWhereUniqueWithoutRulesetInput[]
+    createMany?: ChargeReferenceGradeCreateManyRulesetInputEnvelope
+    set?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    disconnect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    delete?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    connect?: ChargeReferenceGradeWhereUniqueInput | ChargeReferenceGradeWhereUniqueInput[]
+    update?: ChargeReferenceGradeUpdateWithWhereUniqueWithoutRulesetInput | ChargeReferenceGradeUpdateWithWhereUniqueWithoutRulesetInput[]
+    updateMany?: ChargeReferenceGradeUpdateManyWithWhereWithoutRulesetInput | ChargeReferenceGradeUpdateManyWithWhereWithoutRulesetInput[]
+    deleteMany?: ChargeReferenceGradeScalarWhereInput | ChargeReferenceGradeScalarWhereInput[]
+  }
+
+  export type ChargeCoefficientUncheckedUpdateManyWithoutRulesetNestedInput = {
+    create?: XOR<ChargeCoefficientCreateWithoutRulesetInput, ChargeCoefficientUncheckedCreateWithoutRulesetInput> | ChargeCoefficientCreateWithoutRulesetInput[] | ChargeCoefficientUncheckedCreateWithoutRulesetInput[]
+    connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutRulesetInput | ChargeCoefficientCreateOrConnectWithoutRulesetInput[]
+    upsert?: ChargeCoefficientUpsertWithWhereUniqueWithoutRulesetInput | ChargeCoefficientUpsertWithWhereUniqueWithoutRulesetInput[]
+    createMany?: ChargeCoefficientCreateManyRulesetInputEnvelope
+    set?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    disconnect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    delete?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+    update?: ChargeCoefficientUpdateWithWhereUniqueWithoutRulesetInput | ChargeCoefficientUpdateWithWhereUniqueWithoutRulesetInput[]
+    updateMany?: ChargeCoefficientUpdateManyWithWhereWithoutRulesetInput | ChargeCoefficientUpdateManyWithWhereWithoutRulesetInput[]
+    deleteMany?: ChargeCoefficientScalarWhereInput | ChargeCoefficientScalarWhereInput[]
+  }
+
+  export type ChargeRuleSetCreateNestedOneWithoutReferenceGradesInput = {
+    create?: XOR<ChargeRuleSetCreateWithoutReferenceGradesInput, ChargeRuleSetUncheckedCreateWithoutReferenceGradesInput>
+    connectOrCreate?: ChargeRuleSetCreateOrConnectWithoutReferenceGradesInput
+    connect?: ChargeRuleSetWhereUniqueInput
+  }
+
+  export type GradeCreateNestedOneWithoutChargeReferenceGradesInput = {
+    create?: XOR<GradeCreateWithoutChargeReferenceGradesInput, GradeUncheckedCreateWithoutChargeReferenceGradesInput>
+    connectOrCreate?: GradeCreateOrConnectWithoutChargeReferenceGradesInput
+    connect?: GradeWhereUniqueInput
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type ChargeRuleSetUpdateOneRequiredWithoutReferenceGradesNestedInput = {
+    create?: XOR<ChargeRuleSetCreateWithoutReferenceGradesInput, ChargeRuleSetUncheckedCreateWithoutReferenceGradesInput>
+    connectOrCreate?: ChargeRuleSetCreateOrConnectWithoutReferenceGradesInput
+    upsert?: ChargeRuleSetUpsertWithoutReferenceGradesInput
+    connect?: ChargeRuleSetWhereUniqueInput
+    update?: XOR<XOR<ChargeRuleSetUpdateToOneWithWhereWithoutReferenceGradesInput, ChargeRuleSetUpdateWithoutReferenceGradesInput>, ChargeRuleSetUncheckedUpdateWithoutReferenceGradesInput>
+  }
+
+  export type GradeUpdateOneWithoutChargeReferenceGradesNestedInput = {
+    create?: XOR<GradeCreateWithoutChargeReferenceGradesInput, GradeUncheckedCreateWithoutChargeReferenceGradesInput>
+    connectOrCreate?: GradeCreateOrConnectWithoutChargeReferenceGradesInput
+    upsert?: GradeUpsertWithoutChargeReferenceGradesInput
+    disconnect?: GradeWhereInput | boolean
+    delete?: GradeWhereInput | boolean
+    connect?: GradeWhereUniqueInput
+    update?: XOR<XOR<GradeUpdateToOneWithWhereWithoutChargeReferenceGradesInput, GradeUpdateWithoutChargeReferenceGradesInput>, GradeUncheckedUpdateWithoutChargeReferenceGradesInput>
+  }
+
+  export type ChargeRuleSetCreateNestedOneWithoutCoefficientsInput = {
+    create?: XOR<ChargeRuleSetCreateWithoutCoefficientsInput, ChargeRuleSetUncheckedCreateWithoutCoefficientsInput>
+    connectOrCreate?: ChargeRuleSetCreateOrConnectWithoutCoefficientsInput
+    connect?: ChargeRuleSetWhereUniqueInput
+  }
+
+  export type TypeEnseignementCreateNestedOneWithoutChargeCoefficientsInput = {
+    create?: XOR<TypeEnseignementCreateWithoutChargeCoefficientsInput, TypeEnseignementUncheckedCreateWithoutChargeCoefficientsInput>
+    connectOrCreate?: TypeEnseignementCreateOrConnectWithoutChargeCoefficientsInput
+    connect?: TypeEnseignementWhereUniqueInput
+  }
+
+  export type ChargeRuleSetUpdateOneRequiredWithoutCoefficientsNestedInput = {
+    create?: XOR<ChargeRuleSetCreateWithoutCoefficientsInput, ChargeRuleSetUncheckedCreateWithoutCoefficientsInput>
+    connectOrCreate?: ChargeRuleSetCreateOrConnectWithoutCoefficientsInput
+    upsert?: ChargeRuleSetUpsertWithoutCoefficientsInput
+    connect?: ChargeRuleSetWhereUniqueInput
+    update?: XOR<XOR<ChargeRuleSetUpdateToOneWithWhereWithoutCoefficientsInput, ChargeRuleSetUpdateWithoutCoefficientsInput>, ChargeRuleSetUncheckedUpdateWithoutCoefficientsInput>
+  }
+
+  export type TypeEnseignementUpdateOneRequiredWithoutChargeCoefficientsNestedInput = {
+    create?: XOR<TypeEnseignementCreateWithoutChargeCoefficientsInput, TypeEnseignementUncheckedCreateWithoutChargeCoefficientsInput>
+    connectOrCreate?: TypeEnseignementCreateOrConnectWithoutChargeCoefficientsInput
+    upsert?: TypeEnseignementUpsertWithoutChargeCoefficientsInput
+    connect?: TypeEnseignementWhereUniqueInput
+    update?: XOR<XOR<TypeEnseignementUpdateToOneWithWhereWithoutChargeCoefficientsInput, TypeEnseignementUpdateWithoutChargeCoefficientsInput>, TypeEnseignementUncheckedUpdateWithoutChargeCoefficientsInput>
   }
 
   export type TypeEnseignementCreateNestedManyWithoutActivityTagInput = {
@@ -73063,6 +77990,50 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGradeCodeFilter<$PrismaModel>
     _max?: NestedEnumGradeCodeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPeriodeRegleFilter<$PrismaModel = never> = {
+    equals?: $Enums.PeriodeRegle | EnumPeriodeRegleFieldRefInput<$PrismaModel>
+    in?: $Enums.PeriodeRegle[] | ListEnumPeriodeRegleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PeriodeRegle[] | ListEnumPeriodeRegleFieldRefInput<$PrismaModel>
+    not?: NestedEnumPeriodeRegleFilter<$PrismaModel> | $Enums.PeriodeRegle
+  }
+
+  export type NestedEnumPeriodeRegleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PeriodeRegle | EnumPeriodeRegleFieldRefInput<$PrismaModel>
+    in?: $Enums.PeriodeRegle[] | ListEnumPeriodeRegleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PeriodeRegle[] | ListEnumPeriodeRegleFieldRefInput<$PrismaModel>
+    not?: NestedEnumPeriodeRegleWithAggregatesFilter<$PrismaModel> | $Enums.PeriodeRegle
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPeriodeRegleFilter<$PrismaModel>
+    _max?: NestedEnumPeriodeRegleFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -76941,6 +81912,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ChargeRuleSetCreateWithoutAnneeInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    referenceGrades?: ChargeReferenceGradeCreateNestedManyWithoutRulesetInput
+    coefficients?: ChargeCoefficientCreateNestedManyWithoutRulesetInput
+  }
+
+  export type ChargeRuleSetUncheckedCreateWithoutAnneeInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    referenceGrades?: ChargeReferenceGradeUncheckedCreateNestedManyWithoutRulesetInput
+    coefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutRulesetInput
+  }
+
+  export type ChargeRuleSetCreateOrConnectWithoutAnneeInput = {
+    where: ChargeRuleSetWhereUniqueInput
+    create: XOR<ChargeRuleSetCreateWithoutAnneeInput, ChargeRuleSetUncheckedCreateWithoutAnneeInput>
+  }
+
+  export type ChargeRuleSetCreateManyAnneeInputEnvelope = {
+    data: ChargeRuleSetCreateManyAnneeInput | ChargeRuleSetCreateManyAnneeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithWhereUniqueWithoutAnneeInput = {
     where: SemestreWhereUniqueInput
     update: XOR<SemestreUpdateWithoutAnneeInput, SemestreUncheckedUpdateWithoutAnneeInput>
@@ -77034,6 +82043,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Enseignant"> | Date | string
   }
 
+  export type ChargeRuleSetUpsertWithWhereUniqueWithoutAnneeInput = {
+    where: ChargeRuleSetWhereUniqueInput
+    update: XOR<ChargeRuleSetUpdateWithoutAnneeInput, ChargeRuleSetUncheckedUpdateWithoutAnneeInput>
+    create: XOR<ChargeRuleSetCreateWithoutAnneeInput, ChargeRuleSetUncheckedCreateWithoutAnneeInput>
+  }
+
+  export type ChargeRuleSetUpdateWithWhereUniqueWithoutAnneeInput = {
+    where: ChargeRuleSetWhereUniqueInput
+    data: XOR<ChargeRuleSetUpdateWithoutAnneeInput, ChargeRuleSetUncheckedUpdateWithoutAnneeInput>
+  }
+
+  export type ChargeRuleSetUpdateManyWithWhereWithoutAnneeInput = {
+    where: ChargeRuleSetScalarWhereInput
+    data: XOR<ChargeRuleSetUpdateManyMutationInput, ChargeRuleSetUncheckedUpdateManyWithoutAnneeInput>
+  }
+
+  export type ChargeRuleSetScalarWhereInput = {
+    AND?: ChargeRuleSetScalarWhereInput | ChargeRuleSetScalarWhereInput[]
+    OR?: ChargeRuleSetScalarWhereInput[]
+    NOT?: ChargeRuleSetScalarWhereInput | ChargeRuleSetScalarWhereInput[]
+    id?: UuidFilter<"ChargeRuleSet"> | string
+    numero?: IntFilter<"ChargeRuleSet"> | number
+    periode?: EnumPeriodeRegleFilter<"ChargeRuleSet"> | $Enums.PeriodeRegle
+    seuil?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    plafond?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    arrondi?: IntNullableFilter<"ChargeRuleSet"> | number | null
+    publieLe?: DateTimeNullableFilter<"ChargeRuleSet"> | Date | string | null
+    anneeId?: UuidNullableFilter<"ChargeRuleSet"> | string | null
+    createdAt?: DateTimeFilter<"ChargeRuleSet"> | Date | string
+    updatedAt?: DateTimeFilter<"ChargeRuleSet"> | Date | string
+  }
+
   export type AnneeCreateWithoutSemestresInput = {
     id?: string
     numero: number
@@ -77044,6 +82085,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     departements?: DepartementCreateNestedManyWithoutAnneeInput
     enseignants?: EnseignantCreateNestedManyWithoutAnneeInput
+    chargeRuleSets?: ChargeRuleSetCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateWithoutSemestresInput = {
@@ -77056,6 +82098,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutAnneeInput
+    chargeRuleSets?: ChargeRuleSetUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeCreateOrConnectWithoutSemestresInput = {
@@ -77260,6 +82303,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departements?: DepartementUpdateManyWithoutAnneeNestedInput
     enseignants?: EnseignantUpdateManyWithoutAnneeNestedInput
+    chargeRuleSets?: ChargeRuleSetUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateWithoutSemestresInput = {
@@ -77272,6 +82316,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutAnneeNestedInput
+    chargeRuleSets?: ChargeRuleSetUncheckedUpdateManyWithoutAnneeNestedInput
   }
 
   export type GroupeUpsertWithWhereUniqueWithoutSemestreInput = {
@@ -77636,6 +82681,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestres?: SemestreCreateNestedManyWithoutAnneeInput
     enseignants?: EnseignantCreateNestedManyWithoutAnneeInput
+    chargeRuleSets?: ChargeRuleSetCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateWithoutDepartementsInput = {
@@ -77648,6 +82694,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutAnneeInput
+    chargeRuleSets?: ChargeRuleSetUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeCreateOrConnectWithoutDepartementsInput = {
@@ -77800,6 +82847,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUpdateManyWithoutAnneeNestedInput
     enseignants?: EnseignantUpdateManyWithoutAnneeNestedInput
+    chargeRuleSets?: ChargeRuleSetUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateWithoutDepartementsInput = {
@@ -77812,6 +82860,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutAnneeNestedInput
+    chargeRuleSets?: ChargeRuleSetUncheckedUpdateManyWithoutAnneeNestedInput
   }
 
   export type FormationUpsertWithWhereUniqueWithoutDepartementInput = {
@@ -78581,6 +83630,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ChargeCoefficientCreateWithoutTypeInput = {
+    id?: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    ruleset: ChargeRuleSetCreateNestedOneWithoutCoefficientsInput
+  }
+
+  export type ChargeCoefficientUncheckedCreateWithoutTypeInput = {
+    id?: string
+    rulesetId: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeCoefficientCreateOrConnectWithoutTypeInput = {
+    where: ChargeCoefficientWhereUniqueInput
+    create: XOR<ChargeCoefficientCreateWithoutTypeInput, ChargeCoefficientUncheckedCreateWithoutTypeInput>
+  }
+
+  export type ChargeCoefficientCreateManyTypeInputEnvelope = {
+    data: ChargeCoefficientCreateManyTypeInput | ChargeCoefficientCreateManyTypeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ActivityTagUpsertWithoutTypesEnseignementInput = {
     update: XOR<ActivityTagUpdateWithoutTypesEnseignementInput, ActivityTagUncheckedUpdateWithoutTypesEnseignementInput>
     create: XOR<ActivityTagCreateWithoutTypesEnseignementInput, ActivityTagUncheckedCreateWithoutTypesEnseignementInput>
@@ -78652,6 +83725,33 @@ export namespace Prisma {
     typeEnseignementId?: UuidFilter<"ExigenceEquipement"> | string
     equipementId?: UuidFilter<"ExigenceEquipement"> | string
     niveau?: EnumExigenceNiveauFilter<"ExigenceEquipement"> | $Enums.ExigenceNiveau
+  }
+
+  export type ChargeCoefficientUpsertWithWhereUniqueWithoutTypeInput = {
+    where: ChargeCoefficientWhereUniqueInput
+    update: XOR<ChargeCoefficientUpdateWithoutTypeInput, ChargeCoefficientUncheckedUpdateWithoutTypeInput>
+    create: XOR<ChargeCoefficientCreateWithoutTypeInput, ChargeCoefficientUncheckedCreateWithoutTypeInput>
+  }
+
+  export type ChargeCoefficientUpdateWithWhereUniqueWithoutTypeInput = {
+    where: ChargeCoefficientWhereUniqueInput
+    data: XOR<ChargeCoefficientUpdateWithoutTypeInput, ChargeCoefficientUncheckedUpdateWithoutTypeInput>
+  }
+
+  export type ChargeCoefficientUpdateManyWithWhereWithoutTypeInput = {
+    where: ChargeCoefficientScalarWhereInput
+    data: XOR<ChargeCoefficientUpdateManyMutationInput, ChargeCoefficientUncheckedUpdateManyWithoutTypeInput>
+  }
+
+  export type ChargeCoefficientScalarWhereInput = {
+    AND?: ChargeCoefficientScalarWhereInput | ChargeCoefficientScalarWhereInput[]
+    OR?: ChargeCoefficientScalarWhereInput[]
+    NOT?: ChargeCoefficientScalarWhereInput | ChargeCoefficientScalarWhereInput[]
+    id?: UuidFilter<"ChargeCoefficient"> | string
+    rulesetId?: UuidFilter<"ChargeCoefficient"> | string
+    typeId?: UuidFilter<"ChargeCoefficient"> | string
+    coefficient?: DecimalFilter<"ChargeCoefficient"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"ChargeCoefficient"> | Date | string
   }
 
   export type ModuleCreateWithoutGradeInput = {
@@ -78742,6 +83842,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ChargeReferenceGradeCreateWithoutGradeInput = {
+    id?: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    ruleset: ChargeRuleSetCreateNestedOneWithoutReferenceGradesInput
+  }
+
+  export type ChargeReferenceGradeUncheckedCreateWithoutGradeInput = {
+    id?: string
+    rulesetId: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeReferenceGradeCreateOrConnectWithoutGradeInput = {
+    where: ChargeReferenceGradeWhereUniqueInput
+    create: XOR<ChargeReferenceGradeCreateWithoutGradeInput, ChargeReferenceGradeUncheckedCreateWithoutGradeInput>
+  }
+
+  export type ChargeReferenceGradeCreateManyGradeInputEnvelope = {
+    data: ChargeReferenceGradeCreateManyGradeInput | ChargeReferenceGradeCreateManyGradeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ModuleUpsertWithWhereUniqueWithoutGradeInput = {
     where: ModuleWhereUniqueInput
     update: XOR<ModuleUpdateWithoutGradeInput, ModuleUncheckedUpdateWithoutGradeInput>
@@ -78772,6 +83896,33 @@ export namespace Prisma {
   export type EnseignantUpdateManyWithWhereWithoutGradeInput = {
     where: EnseignantScalarWhereInput
     data: XOR<EnseignantUpdateManyMutationInput, EnseignantUncheckedUpdateManyWithoutGradeInput>
+  }
+
+  export type ChargeReferenceGradeUpsertWithWhereUniqueWithoutGradeInput = {
+    where: ChargeReferenceGradeWhereUniqueInput
+    update: XOR<ChargeReferenceGradeUpdateWithoutGradeInput, ChargeReferenceGradeUncheckedUpdateWithoutGradeInput>
+    create: XOR<ChargeReferenceGradeCreateWithoutGradeInput, ChargeReferenceGradeUncheckedCreateWithoutGradeInput>
+  }
+
+  export type ChargeReferenceGradeUpdateWithWhereUniqueWithoutGradeInput = {
+    where: ChargeReferenceGradeWhereUniqueInput
+    data: XOR<ChargeReferenceGradeUpdateWithoutGradeInput, ChargeReferenceGradeUncheckedUpdateWithoutGradeInput>
+  }
+
+  export type ChargeReferenceGradeUpdateManyWithWhereWithoutGradeInput = {
+    where: ChargeReferenceGradeScalarWhereInput
+    data: XOR<ChargeReferenceGradeUpdateManyMutationInput, ChargeReferenceGradeUncheckedUpdateManyWithoutGradeInput>
+  }
+
+  export type ChargeReferenceGradeScalarWhereInput = {
+    AND?: ChargeReferenceGradeScalarWhereInput | ChargeReferenceGradeScalarWhereInput[]
+    OR?: ChargeReferenceGradeScalarWhereInput[]
+    NOT?: ChargeReferenceGradeScalarWhereInput | ChargeReferenceGradeScalarWhereInput[]
+    id?: UuidFilter<"ChargeReferenceGrade"> | string
+    rulesetId?: UuidFilter<"ChargeReferenceGrade"> | string
+    gradeId?: UuidNullableFilter<"ChargeReferenceGrade"> | string | null
+    coefficient?: DecimalFilter<"ChargeReferenceGrade"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"ChargeReferenceGrade"> | Date | string
   }
 
   export type NiveauCreateWithoutModulesInput = {
@@ -78811,6 +83962,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     activityTag?: ActivityTagCreateNestedOneWithoutTypesEnseignementInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
   }
 
   export type TypeEnseignementUncheckedCreateWithoutModulesInput = {
@@ -78821,6 +83973,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
   }
 
   export type TypeEnseignementCreateOrConnectWithoutModulesInput = {
@@ -78835,6 +83988,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignants?: EnseignantCreateNestedManyWithoutGradeInput
+    chargeReferenceGrades?: ChargeReferenceGradeCreateNestedManyWithoutGradeInput
   }
 
   export type GradeUncheckedCreateWithoutModulesInput = {
@@ -78844,6 +83998,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutGradeInput
+    chargeReferenceGrades?: ChargeReferenceGradeUncheckedCreateNestedManyWithoutGradeInput
   }
 
   export type GradeCreateOrConnectWithoutModulesInput = {
@@ -78971,6 +84126,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     activityTag?: ActivityTagUpdateOneWithoutTypesEnseignementNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateWithoutModulesInput = {
@@ -78981,6 +84137,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
   }
 
   export type GradeUpsertWithoutModulesInput = {
@@ -79001,6 +84158,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignants?: EnseignantUpdateManyWithoutGradeNestedInput
+    chargeReferenceGrades?: ChargeReferenceGradeUpdateManyWithoutGradeNestedInput
   }
 
   export type GradeUncheckedUpdateWithoutModulesInput = {
@@ -79010,6 +84168,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignants?: EnseignantUncheckedUpdateManyWithoutGradeNestedInput
+    chargeReferenceGrades?: ChargeReferenceGradeUncheckedUpdateManyWithoutGradeNestedInput
   }
 
   export type EnseignantModuleUpsertWithWhereUniqueWithoutModuleInput = {
@@ -79164,6 +84323,414 @@ export namespace Prisma {
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
   }
 
+  export type AnneeCreateWithoutChargeRuleSetsInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    statut?: $Enums.AnneeStatut
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestres?: SemestreCreateNestedManyWithoutAnneeInput
+    departements?: DepartementCreateNestedManyWithoutAnneeInput
+    enseignants?: EnseignantCreateNestedManyWithoutAnneeInput
+  }
+
+  export type AnneeUncheckedCreateWithoutChargeRuleSetsInput = {
+    id?: string
+    numero: number
+    code: string
+    nbSemaines?: number
+    statut?: $Enums.AnneeStatut
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
+    departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutAnneeInput
+  }
+
+  export type AnneeCreateOrConnectWithoutChargeRuleSetsInput = {
+    where: AnneeWhereUniqueInput
+    create: XOR<AnneeCreateWithoutChargeRuleSetsInput, AnneeUncheckedCreateWithoutChargeRuleSetsInput>
+  }
+
+  export type ChargeReferenceGradeCreateWithoutRulesetInput = {
+    id?: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    grade?: GradeCreateNestedOneWithoutChargeReferenceGradesInput
+  }
+
+  export type ChargeReferenceGradeUncheckedCreateWithoutRulesetInput = {
+    id?: string
+    gradeId?: string | null
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeReferenceGradeCreateOrConnectWithoutRulesetInput = {
+    where: ChargeReferenceGradeWhereUniqueInput
+    create: XOR<ChargeReferenceGradeCreateWithoutRulesetInput, ChargeReferenceGradeUncheckedCreateWithoutRulesetInput>
+  }
+
+  export type ChargeReferenceGradeCreateManyRulesetInputEnvelope = {
+    data: ChargeReferenceGradeCreateManyRulesetInput | ChargeReferenceGradeCreateManyRulesetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ChargeCoefficientCreateWithoutRulesetInput = {
+    id?: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    type: TypeEnseignementCreateNestedOneWithoutChargeCoefficientsInput
+  }
+
+  export type ChargeCoefficientUncheckedCreateWithoutRulesetInput = {
+    id?: string
+    typeId: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeCoefficientCreateOrConnectWithoutRulesetInput = {
+    where: ChargeCoefficientWhereUniqueInput
+    create: XOR<ChargeCoefficientCreateWithoutRulesetInput, ChargeCoefficientUncheckedCreateWithoutRulesetInput>
+  }
+
+  export type ChargeCoefficientCreateManyRulesetInputEnvelope = {
+    data: ChargeCoefficientCreateManyRulesetInput | ChargeCoefficientCreateManyRulesetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AnneeUpsertWithoutChargeRuleSetsInput = {
+    update: XOR<AnneeUpdateWithoutChargeRuleSetsInput, AnneeUncheckedUpdateWithoutChargeRuleSetsInput>
+    create: XOR<AnneeCreateWithoutChargeRuleSetsInput, AnneeUncheckedCreateWithoutChargeRuleSetsInput>
+    where?: AnneeWhereInput
+  }
+
+  export type AnneeUpdateToOneWithWhereWithoutChargeRuleSetsInput = {
+    where?: AnneeWhereInput
+    data: XOR<AnneeUpdateWithoutChargeRuleSetsInput, AnneeUncheckedUpdateWithoutChargeRuleSetsInput>
+  }
+
+  export type AnneeUpdateWithoutChargeRuleSetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestres?: SemestreUpdateManyWithoutAnneeNestedInput
+    departements?: DepartementUpdateManyWithoutAnneeNestedInput
+    enseignants?: EnseignantUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type AnneeUncheckedUpdateWithoutChargeRuleSetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    code?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    statut?: EnumAnneeStatutFieldUpdateOperationsInput | $Enums.AnneeStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
+    departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutAnneeNestedInput
+  }
+
+  export type ChargeReferenceGradeUpsertWithWhereUniqueWithoutRulesetInput = {
+    where: ChargeReferenceGradeWhereUniqueInput
+    update: XOR<ChargeReferenceGradeUpdateWithoutRulesetInput, ChargeReferenceGradeUncheckedUpdateWithoutRulesetInput>
+    create: XOR<ChargeReferenceGradeCreateWithoutRulesetInput, ChargeReferenceGradeUncheckedCreateWithoutRulesetInput>
+  }
+
+  export type ChargeReferenceGradeUpdateWithWhereUniqueWithoutRulesetInput = {
+    where: ChargeReferenceGradeWhereUniqueInput
+    data: XOR<ChargeReferenceGradeUpdateWithoutRulesetInput, ChargeReferenceGradeUncheckedUpdateWithoutRulesetInput>
+  }
+
+  export type ChargeReferenceGradeUpdateManyWithWhereWithoutRulesetInput = {
+    where: ChargeReferenceGradeScalarWhereInput
+    data: XOR<ChargeReferenceGradeUpdateManyMutationInput, ChargeReferenceGradeUncheckedUpdateManyWithoutRulesetInput>
+  }
+
+  export type ChargeCoefficientUpsertWithWhereUniqueWithoutRulesetInput = {
+    where: ChargeCoefficientWhereUniqueInput
+    update: XOR<ChargeCoefficientUpdateWithoutRulesetInput, ChargeCoefficientUncheckedUpdateWithoutRulesetInput>
+    create: XOR<ChargeCoefficientCreateWithoutRulesetInput, ChargeCoefficientUncheckedCreateWithoutRulesetInput>
+  }
+
+  export type ChargeCoefficientUpdateWithWhereUniqueWithoutRulesetInput = {
+    where: ChargeCoefficientWhereUniqueInput
+    data: XOR<ChargeCoefficientUpdateWithoutRulesetInput, ChargeCoefficientUncheckedUpdateWithoutRulesetInput>
+  }
+
+  export type ChargeCoefficientUpdateManyWithWhereWithoutRulesetInput = {
+    where: ChargeCoefficientScalarWhereInput
+    data: XOR<ChargeCoefficientUpdateManyMutationInput, ChargeCoefficientUncheckedUpdateManyWithoutRulesetInput>
+  }
+
+  export type ChargeRuleSetCreateWithoutReferenceGradesInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee?: AnneeCreateNestedOneWithoutChargeRuleSetsInput
+    coefficients?: ChargeCoefficientCreateNestedManyWithoutRulesetInput
+  }
+
+  export type ChargeRuleSetUncheckedCreateWithoutReferenceGradesInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    anneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    coefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutRulesetInput
+  }
+
+  export type ChargeRuleSetCreateOrConnectWithoutReferenceGradesInput = {
+    where: ChargeRuleSetWhereUniqueInput
+    create: XOR<ChargeRuleSetCreateWithoutReferenceGradesInput, ChargeRuleSetUncheckedCreateWithoutReferenceGradesInput>
+  }
+
+  export type GradeCreateWithoutChargeReferenceGradesInput = {
+    id?: string
+    code: $Enums.GradeCode
+    libelle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modules?: ModuleCreateNestedManyWithoutGradeInput
+    enseignants?: EnseignantCreateNestedManyWithoutGradeInput
+  }
+
+  export type GradeUncheckedCreateWithoutChargeReferenceGradesInput = {
+    id?: string
+    code: $Enums.GradeCode
+    libelle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modules?: ModuleUncheckedCreateNestedManyWithoutGradeInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutGradeInput
+  }
+
+  export type GradeCreateOrConnectWithoutChargeReferenceGradesInput = {
+    where: GradeWhereUniqueInput
+    create: XOR<GradeCreateWithoutChargeReferenceGradesInput, GradeUncheckedCreateWithoutChargeReferenceGradesInput>
+  }
+
+  export type ChargeRuleSetUpsertWithoutReferenceGradesInput = {
+    update: XOR<ChargeRuleSetUpdateWithoutReferenceGradesInput, ChargeRuleSetUncheckedUpdateWithoutReferenceGradesInput>
+    create: XOR<ChargeRuleSetCreateWithoutReferenceGradesInput, ChargeRuleSetUncheckedCreateWithoutReferenceGradesInput>
+    where?: ChargeRuleSetWhereInput
+  }
+
+  export type ChargeRuleSetUpdateToOneWithWhereWithoutReferenceGradesInput = {
+    where?: ChargeRuleSetWhereInput
+    data: XOR<ChargeRuleSetUpdateWithoutReferenceGradesInput, ChargeRuleSetUncheckedUpdateWithoutReferenceGradesInput>
+  }
+
+  export type ChargeRuleSetUpdateWithoutReferenceGradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneWithoutChargeRuleSetsNestedInput
+    coefficients?: ChargeCoefficientUpdateManyWithoutRulesetNestedInput
+  }
+
+  export type ChargeRuleSetUncheckedUpdateWithoutReferenceGradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    anneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    coefficients?: ChargeCoefficientUncheckedUpdateManyWithoutRulesetNestedInput
+  }
+
+  export type GradeUpsertWithoutChargeReferenceGradesInput = {
+    update: XOR<GradeUpdateWithoutChargeReferenceGradesInput, GradeUncheckedUpdateWithoutChargeReferenceGradesInput>
+    create: XOR<GradeCreateWithoutChargeReferenceGradesInput, GradeUncheckedCreateWithoutChargeReferenceGradesInput>
+    where?: GradeWhereInput
+  }
+
+  export type GradeUpdateToOneWithWhereWithoutChargeReferenceGradesInput = {
+    where?: GradeWhereInput
+    data: XOR<GradeUpdateWithoutChargeReferenceGradesInput, GradeUncheckedUpdateWithoutChargeReferenceGradesInput>
+  }
+
+  export type GradeUpdateWithoutChargeReferenceGradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: EnumGradeCodeFieldUpdateOperationsInput | $Enums.GradeCode
+    libelle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modules?: ModuleUpdateManyWithoutGradeNestedInput
+    enseignants?: EnseignantUpdateManyWithoutGradeNestedInput
+  }
+
+  export type GradeUncheckedUpdateWithoutChargeReferenceGradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: EnumGradeCodeFieldUpdateOperationsInput | $Enums.GradeCode
+    libelle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modules?: ModuleUncheckedUpdateManyWithoutGradeNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutGradeNestedInput
+  }
+
+  export type ChargeRuleSetCreateWithoutCoefficientsInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee?: AnneeCreateNestedOneWithoutChargeRuleSetsInput
+    referenceGrades?: ChargeReferenceGradeCreateNestedManyWithoutRulesetInput
+  }
+
+  export type ChargeRuleSetUncheckedCreateWithoutCoefficientsInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    anneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    referenceGrades?: ChargeReferenceGradeUncheckedCreateNestedManyWithoutRulesetInput
+  }
+
+  export type ChargeRuleSetCreateOrConnectWithoutCoefficientsInput = {
+    where: ChargeRuleSetWhereUniqueInput
+    create: XOR<ChargeRuleSetCreateWithoutCoefficientsInput, ChargeRuleSetUncheckedCreateWithoutCoefficientsInput>
+  }
+
+  export type TypeEnseignementCreateWithoutChargeCoefficientsInput = {
+    id?: string
+    code: $Enums.TypeEnseignementCode
+    libelle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    activityTag?: ActivityTagCreateNestedOneWithoutTypesEnseignementInput
+    modules?: ModuleCreateNestedManyWithoutTypeInput
+    exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
+  }
+
+  export type TypeEnseignementUncheckedCreateWithoutChargeCoefficientsInput = {
+    id?: string
+    code: $Enums.TypeEnseignementCode
+    libelle: string
+    activityTagId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
+    exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
+  }
+
+  export type TypeEnseignementCreateOrConnectWithoutChargeCoefficientsInput = {
+    where: TypeEnseignementWhereUniqueInput
+    create: XOR<TypeEnseignementCreateWithoutChargeCoefficientsInput, TypeEnseignementUncheckedCreateWithoutChargeCoefficientsInput>
+  }
+
+  export type ChargeRuleSetUpsertWithoutCoefficientsInput = {
+    update: XOR<ChargeRuleSetUpdateWithoutCoefficientsInput, ChargeRuleSetUncheckedUpdateWithoutCoefficientsInput>
+    create: XOR<ChargeRuleSetCreateWithoutCoefficientsInput, ChargeRuleSetUncheckedCreateWithoutCoefficientsInput>
+    where?: ChargeRuleSetWhereInput
+  }
+
+  export type ChargeRuleSetUpdateToOneWithWhereWithoutCoefficientsInput = {
+    where?: ChargeRuleSetWhereInput
+    data: XOR<ChargeRuleSetUpdateWithoutCoefficientsInput, ChargeRuleSetUncheckedUpdateWithoutCoefficientsInput>
+  }
+
+  export type ChargeRuleSetUpdateWithoutCoefficientsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneWithoutChargeRuleSetsNestedInput
+    referenceGrades?: ChargeReferenceGradeUpdateManyWithoutRulesetNestedInput
+  }
+
+  export type ChargeRuleSetUncheckedUpdateWithoutCoefficientsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    anneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceGrades?: ChargeReferenceGradeUncheckedUpdateManyWithoutRulesetNestedInput
+  }
+
+  export type TypeEnseignementUpsertWithoutChargeCoefficientsInput = {
+    update: XOR<TypeEnseignementUpdateWithoutChargeCoefficientsInput, TypeEnseignementUncheckedUpdateWithoutChargeCoefficientsInput>
+    create: XOR<TypeEnseignementCreateWithoutChargeCoefficientsInput, TypeEnseignementUncheckedCreateWithoutChargeCoefficientsInput>
+    where?: TypeEnseignementWhereInput
+  }
+
+  export type TypeEnseignementUpdateToOneWithWhereWithoutChargeCoefficientsInput = {
+    where?: TypeEnseignementWhereInput
+    data: XOR<TypeEnseignementUpdateWithoutChargeCoefficientsInput, TypeEnseignementUncheckedUpdateWithoutChargeCoefficientsInput>
+  }
+
+  export type TypeEnseignementUpdateWithoutChargeCoefficientsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: EnumTypeEnseignementCodeFieldUpdateOperationsInput | $Enums.TypeEnseignementCode
+    libelle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    activityTag?: ActivityTagUpdateOneWithoutTypesEnseignementNestedInput
+    modules?: ModuleUpdateManyWithoutTypeNestedInput
+    exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
+  }
+
+  export type TypeEnseignementUncheckedUpdateWithoutChargeCoefficientsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: EnumTypeEnseignementCodeFieldUpdateOperationsInput | $Enums.TypeEnseignementCode
+    libelle?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
+    exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
+  }
+
   export type TypeEnseignementCreateWithoutActivityTagInput = {
     id?: string
     code: $Enums.TypeEnseignementCode
@@ -79172,6 +84739,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modules?: ModuleCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
   }
 
   export type TypeEnseignementUncheckedCreateWithoutActivityTagInput = {
@@ -79182,6 +84750,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
   }
 
   export type TypeEnseignementCreateOrConnectWithoutActivityTagInput = {
@@ -79274,6 +84843,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestres?: SemestreCreateNestedManyWithoutAnneeInput
     departements?: DepartementCreateNestedManyWithoutAnneeInput
+    chargeRuleSets?: ChargeRuleSetCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeUncheckedCreateWithoutEnseignantsInput = {
@@ -79286,6 +84856,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestres?: SemestreUncheckedCreateNestedManyWithoutAnneeInput
     departements?: DepartementUncheckedCreateNestedManyWithoutAnneeInput
+    chargeRuleSets?: ChargeRuleSetUncheckedCreateNestedManyWithoutAnneeInput
   }
 
   export type AnneeCreateOrConnectWithoutEnseignantsInput = {
@@ -79331,6 +84902,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     modules?: ModuleCreateNestedManyWithoutGradeInput
+    chargeReferenceGrades?: ChargeReferenceGradeCreateNestedManyWithoutGradeInput
   }
 
   export type GradeUncheckedCreateWithoutEnseignantsInput = {
@@ -79340,6 +84912,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     modules?: ModuleUncheckedCreateNestedManyWithoutGradeInput
+    chargeReferenceGrades?: ChargeReferenceGradeUncheckedCreateNestedManyWithoutGradeInput
   }
 
   export type GradeCreateOrConnectWithoutEnseignantsInput = {
@@ -79444,6 +85017,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUpdateManyWithoutAnneeNestedInput
     departements?: DepartementUpdateManyWithoutAnneeNestedInput
+    chargeRuleSets?: ChargeRuleSetUpdateManyWithoutAnneeNestedInput
   }
 
   export type AnneeUncheckedUpdateWithoutEnseignantsInput = {
@@ -79456,6 +85030,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestres?: SemestreUncheckedUpdateManyWithoutAnneeNestedInput
     departements?: DepartementUncheckedUpdateManyWithoutAnneeNestedInput
+    chargeRuleSets?: ChargeRuleSetUncheckedUpdateManyWithoutAnneeNestedInput
   }
 
   export type DepartementUpsertWithoutEnseignantsInput = {
@@ -79513,6 +85088,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUpdateManyWithoutGradeNestedInput
+    chargeReferenceGrades?: ChargeReferenceGradeUpdateManyWithoutGradeNestedInput
   }
 
   export type GradeUncheckedUpdateWithoutEnseignantsInput = {
@@ -79522,6 +85098,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUncheckedUpdateManyWithoutGradeNestedInput
+    chargeReferenceGrades?: ChargeReferenceGradeUncheckedUpdateManyWithoutGradeNestedInput
   }
 
   export type EnseignantModuleUpsertWithWhereUniqueWithoutEnseignantInput = {
@@ -80991,6 +86568,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     activityTag?: ActivityTagCreateNestedOneWithoutTypesEnseignementInput
     modules?: ModuleCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
   }
 
   export type TypeEnseignementUncheckedCreateWithoutExigencesEquipementInput = {
@@ -81001,6 +86579,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
   }
 
   export type TypeEnseignementCreateOrConnectWithoutExigencesEquipementInput = {
@@ -81099,6 +86678,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     activityTag?: ActivityTagUpdateOneWithoutTypesEnseignementNestedInput
     modules?: ModuleUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateWithoutExigencesEquipementInput = {
@@ -81109,6 +86689,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
   }
 
   export type EquipementUpsertWithoutExigencesEquipementInput = {
@@ -82405,6 +87986,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ChargeRuleSetCreateManyAnneeInput = {
+    id?: string
+    numero: number
+    periode: $Enums.PeriodeRegle
+    seuil?: number | null
+    plafond?: number | null
+    arrondi?: number | null
+    publieLe?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SemestreUpdateWithoutAnneeInput = {
     id?: StringFieldUpdateOperationsInput | string
     numero?: IntFieldUpdateOperationsInput | number
@@ -82522,6 +88115,46 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     departementId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeRuleSetUpdateWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceGrades?: ChargeReferenceGradeUpdateManyWithoutRulesetNestedInput
+    coefficients?: ChargeCoefficientUpdateManyWithoutRulesetNestedInput
+  }
+
+  export type ChargeRuleSetUncheckedUpdateWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceGrades?: ChargeReferenceGradeUncheckedUpdateManyWithoutRulesetNestedInput
+    coefficients?: ChargeCoefficientUncheckedUpdateManyWithoutRulesetNestedInput
+  }
+
+  export type ChargeRuleSetUncheckedUpdateManyWithoutAnneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    periode?: EnumPeriodeRegleFieldUpdateOperationsInput | $Enums.PeriodeRegle
+    seuil?: NullableIntFieldUpdateOperationsInput | number | null
+    plafond?: NullableIntFieldUpdateOperationsInput | number | null
+    arrondi?: NullableIntFieldUpdateOperationsInput | number | null
+    publieLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -83218,6 +88851,13 @@ export namespace Prisma {
     niveau?: $Enums.ExigenceNiveau
   }
 
+  export type ChargeCoefficientCreateManyTypeInput = {
+    id?: string
+    rulesetId: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
   export type ModuleUpdateWithoutTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -83284,6 +88924,27 @@ export namespace Prisma {
     niveau?: EnumExigenceNiveauFieldUpdateOperationsInput | $Enums.ExigenceNiveau
   }
 
+  export type ChargeCoefficientUpdateWithoutTypeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleset?: ChargeRuleSetUpdateOneRequiredWithoutCoefficientsNestedInput
+  }
+
+  export type ChargeCoefficientUncheckedUpdateWithoutTypeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rulesetId?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeCoefficientUncheckedUpdateManyWithoutTypeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rulesetId?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ModuleCreateManyGradeInput = {
     id?: string
     niveauId: string
@@ -83310,6 +88971,13 @@ export namespace Prisma {
     departementId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type ChargeReferenceGradeCreateManyGradeInput = {
+    id?: string
+    rulesetId: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
   }
 
   export type ModuleUpdateWithoutGradeInput = {
@@ -83408,6 +89076,27 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ChargeReferenceGradeUpdateWithoutGradeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ruleset?: ChargeRuleSetUpdateOneRequiredWithoutReferenceGradesNestedInput
+  }
+
+  export type ChargeReferenceGradeUncheckedUpdateWithoutGradeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rulesetId?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeReferenceGradeUncheckedUpdateManyWithoutGradeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rulesetId?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type EnseignantModuleCreateManyModuleInput = {
     enseignantId: string
   }
@@ -83480,6 +89169,62 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ChargeReferenceGradeCreateManyRulesetInput = {
+    id?: string
+    gradeId?: string | null
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeCoefficientCreateManyRulesetInput = {
+    id?: string
+    typeId: string
+    coefficient: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+  }
+
+  export type ChargeReferenceGradeUpdateWithoutRulesetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    grade?: GradeUpdateOneWithoutChargeReferenceGradesNestedInput
+  }
+
+  export type ChargeReferenceGradeUncheckedUpdateWithoutRulesetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeReferenceGradeUncheckedUpdateManyWithoutRulesetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeCoefficientUpdateWithoutRulesetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    type?: TypeEnseignementUpdateOneRequiredWithoutChargeCoefficientsNestedInput
+  }
+
+  export type ChargeCoefficientUncheckedUpdateWithoutRulesetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    typeId?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChargeCoefficientUncheckedUpdateManyWithoutRulesetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    typeId?: StringFieldUpdateOperationsInput | string
+    coefficient?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TypeEnseignementCreateManyActivityTagInput = {
     id?: string
     code: $Enums.TypeEnseignementCode
@@ -83500,6 +89245,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateWithoutActivityTagInput = {
@@ -83510,6 +89256,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateManyWithoutActivityTagInput = {
