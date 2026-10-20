@@ -73,6 +73,30 @@ describe('ImportsService', () => {
       const rows = (service as any).parseCsv(Buffer.from(csv));
       expect(rows).toHaveLength(2);
     });
+
+    it('devrait supprimer le BOM UTF-8 en début de fichier', () => {
+      const csv = '\uFEFFmatricule,nom\nM001,Doe\n';
+      const rows = (service as any).parseCsv(Buffer.from(csv));
+      expect(rows).toHaveLength(1);
+      expect(rows[0].matricule).toBe('M001');
+      expect(rows[0].nom).toBe('Doe');
+    });
+
+    it('devrait gérer les fins de ligne CRLF', () => {
+      const csv = 'matricule,nom\r\nM001,Doe\r\nM002,Smith\r\n';
+      const rows = (service as any).parseCsv(Buffer.from(csv));
+      expect(rows).toHaveLength(2);
+      expect(rows[0].matricule).toBe('M001');
+      expect(rows[1].nom).toBe('Smith');
+    });
+
+    it('devrait gérer les sauts de ligne dans les champs entre guillemets', () => {
+      const csv = 'matricule,adresse\nM001,"1 rue de Paris\n75001 Paris"\nM002,2 avenue Lyon\n';
+      const rows = (service as any).parseCsv(Buffer.from(csv));
+      expect(rows).toHaveLength(2);
+      expect(rows[0].adresse).toBe('1 rue de Paris\n75001 Paris');
+      expect(rows[1].matricule).toBe('M002');
+    });
   });
 
   describe('validateFileType', () => {

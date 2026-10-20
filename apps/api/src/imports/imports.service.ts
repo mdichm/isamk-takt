@@ -2,12 +2,8 @@
 // TAKT - Service d'import CSV/XLSX générique (L1-26)
 // Simulation (dryRun), rapport ligne par ligne, contrôle magic bytes,
 // parseur isolé, analyse d'impact, application transactionnelle, audit.
-import {
-  Injectable,
-  BadRequestException,
-  ConflictException,
-  Logger,
-} from '@nestjs/common';
+import { Injectable, BadRequestException, ConflictException, Logger } from '@nestjs/common';
+import { parse as parseCsvSync } from 'csv-parse/sync';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 import { WriteAuditDto } from '../audit/dto/audit.dto.js';
@@ -133,95 +129,35 @@ export class ImportsService {
 
   private parseCsv(buffer: Buffer): Record<string, string>[] {
     const text = buffer.toString('utf-8');
-    const lines = this.splitCsvLines(text);
-    if (lines.length < 2) {
+    // Supprimer le BOM (Byte Order Mark) UTF-8 s'il est présent
+    const cleanText = text.startsWith('\uFEFF') ? text.slice(1) : text;
+
+    // csv-parse gère nativement : CRLF/LF, guillemets, sauts de ligne dans les champs quoted,
+    // champs multivaleurs, et lignes vides.
+    const records = parseCsvSync(cleanText, {
+      columns: true,
+      skip_empty_lines: true,
+      relax_column_count: true,
+      relax_quotes: true,
+    });
+
+    if (records.length === 0) {
       return [];
     }
 
-    const header = this.parseCsvLine(lines[0]);
+    // Garantir la présence de toutes les colonnes d'en-tête dans chaque ligne
+    const header = Object.keys(records[0]);
     const rows: Record<string, string>[] = [];
 
-    for (let i = 1; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) continue;
-      const values = this.parseCsvLine(line);
+    for (const record of records) {
       const row: Record<string, string> = {};
-      for (let j = 0; j < header.length; j++) {
-        row[header[j]] = values[j] ?? '';
+      for (const col of header) {
+        row[col] = (record[col] ?? '').toString();
       }
       rows.push(row);
     }
 
     return rows;
-  }
-
-  private splitCsvLines(text: string): string[] {
-    const lines: string[] = [];
-    let current = '';
-    let inQuotes = false;
-    for (let i = 0; i < text.length; i++) {
-      const ch = text[i];
-      if (inQuotes) {
-        if (ch === '"') {
-          if (i + 1 < text.length && text[i + 1] === '"') {
-            current += '"';
-            i++;
-          } else {
-            inQuotes = false;
-            current += ch;
-          }
-        } else {
-          current += ch;
-        }
-      } else {
-        if (ch === '"') {
-          inQuotes = true;
-          current += ch;
-        } else if (ch === '\n') {
-          lines.push(current);
-          current = '';
-        } else if (ch === '\r') {
-        } else {
-          current += ch;
-        }
-      }
-    }
-    if (current.trim()) {
-      lines.push(current);
-    }
-    return lines;
-  }
-
-  private parseCsvLine(line: string): string[] {
-    const values: string[] = [];
-    let current = '';
-    let inQuotes = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (inQuotes) {
-        if (ch === '"') {
-          if (i + 1 < line.length && line[i + 1] === '"') {
-            current += '"';
-            i++;
-          } else {
-            inQuotes = false;
-          }
-        } else {
-          current += ch;
-        }
-      } else {
-        if (ch === '"') {
-          inQuotes = true;
-        } else if (ch === ',') {
-          values.push(current);
-          current = '';
-        } else {
-          current += ch;
-        }
-      }
-    }
-    values.push(current);
-    return values;
   }
 
   private parseXlsx(buffer: Buffer): Record<string, string>[] {

@@ -233,7 +233,7 @@ L1-27;L1;E1.8;Imports CSV/XLSX;Story;UI import;Dépôt de fichier, rapport d'err
 - Les impacts sur les données validées sont affichés";EX-IMP-01, EX-IMP-03;§3.3;FRONT;Should;3;L1-26, L0-29;Terminé;
 L1-28;L1;E1.9;Imports CSV/XLSX - Dette technique;DET;Parseur CSV : librairie dédiée;Remplacer le parseur CSV maison par une librairie dédiée (robustesse encodage UTF-8, BOM, guillemets, sauts de ligne dans les champs quoted).;"- Parseur robuste sur CSV complexes (encodage, BOM, virgules dans les champs)
 - Gestion des fins de ligne CRLF et LF
-- Pas de perte de données sur les champs multivaleurs";EX-IMP-01;§5.3;BACK;Should;3;L1-26;En cours;
+- Pas de perte de données sur les champs multivaleurs";EX-IMP-01;§5.3;BACK;Should;3;L1-26;Terminé;
 L1-29;L1;E1.9;Imports CSV/XLSX - Dette technique;DET;Parseur XLSX : librairie dédiée;Remplacer la lecture ZIP brute du XLSX par une librairie Excel (multi-feuilles, formules, styles, fichiers produits par divers outils).;"- Support plusieurs feuilles (sheet1, sheet2...)
 - Lecture des cellules avec formules et styles
 - Compatibilité fichiers XLSX produits par Excel, LibreOffice, Google Sheets";EX-IMP-01;§5.3;BACK;Should;3;L1-26;À faire;
