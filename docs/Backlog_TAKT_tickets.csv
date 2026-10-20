@@ -253,7 +253,7 @@ L2-01;L2;E2.1;Volumes prévus (maquette);DET;Volumes prévus par (module, type);
 - Écriture par l'Administrateur et le Responsable de son département
 - Volume en minutes multiple de 30";EX-REF-01;§2.2, §3.3;BACK;Must;3;L1-05, L1-17;Terminé;
 L2-02;L2;E2.1;Volumes prévus (maquette);DET;UI maquette pédagogique;Saisie des volumes par module et type, import possible.;"- Tableau éditable par niveau
-- Les volumes non multiples de 30 minutes sont signalés";EX-REF-01;§3.3;FRONT;Must;3;L2-01, L0-29;À faire;
+- Les volumes non multiples de 30 minutes sont signalés";EX-REF-01;§3.3;FRONT;Must;3;L2-01, L0-29;En cours;
 L2-03;L2;E2.2;Charge paramétrable;DET;Jeux de règles de charge et publication immuable;ChargeRuleSet, ChargeReferenceGrade, ChargeCoefficient (grade facultatif), publication.;"- Un jeu publié est immuable (trigger CHARGE_RULESET_PUBLISHED, 423)
 - Modifier un jeu publié impose d'en créer un nouveau (numéro +1)
 - Période HEBDOMADAIRE, SEMESTRIELLE ou ANNUELLE, seuil, plafond et arrondi paramétrables
