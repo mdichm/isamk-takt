@@ -4,6 +4,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Upload } from 'lucide-react';
 import {
   useImportFichierConfirm,
@@ -76,86 +77,90 @@ export default function ImportPage() {
     }
   }, [preview, file, entite, confirmMutation]);
 
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex items-center gap-2 mb-6">
-        <Upload className="h-5 w-5 text-muted-foreground" />
-        <h1 className="text-xl font-semibold">{messages.labelImportFichierTitre}</h1>
-      </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="max-w-4xl mx-auto p-6">
+        <div className="flex items-center gap-2 mb-6">
+          <Upload className="h-5 w-5 text-muted-foreground" />
+          <h1 className="text-xl font-semibold">{messages.labelImportFichierTitre}</h1>
+        </div>
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>{messages.labelImportFichierTitre}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>{messages.labelImportFichierEntite}</Label>
-              <Select value={entite} onValueChange={(value) => setEntite(value as ImportEntity)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {IMPORT_ENTITIES.map((e) => (
-                    <SelectItem key={e.value} value={e.value}>
-                      {messages[e.labelKey]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <ImportFileDropzone file={file} onFileChange={setFile} />
-          </div>
-          <Button
-            onClick={generatePreview}
-            disabled={!file || previewMutation.isPending}
-          >
-            {messages.btnImportFichierApercu}
-          </Button>
-        </CardContent>
-      </Card>
-
-      {hasPreview && (
-        <Card>
+        <Card className="mb-6">
           <CardHeader>
-            <CardTitle>{messages.importApercuTitre}</CardTitle>
+            <CardTitle>{messages.labelImportFichierTitre}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-5">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-              <div>
-                <span className="text-muted-foreground block text-xs">
-                  {messages.labelImportFichierEntite}
-                </span>
-                <span className="font-medium">{entiteLabel}</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>{messages.labelImportFichierEntite}</Label>
+                <Select value={entite} onValueChange={(value) => setEntite(value as ImportEntity)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {IMPORT_ENTITIES.map((e) => (
+                      <SelectItem key={e.value} value={e.value}>
+                        {messages[e.labelKey]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              <div>
-                <span className="text-muted-foreground block text-xs">
-                  {messages.importTotalLignes}
-                </span>
-                <span className="font-mono font-semibold">{preview.totalLignes}</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground block text-xs">
-                  {messages.importResumeTitre}
-                </span>
-                <span className="font-mono font-semibold">{preview.resume.ajout + preview.resume.modification + preview.resume.doublon + preview.resume.conflit + preview.resume.erreur}</span>
-              </div>
+              <ImportFileDropzone file={file} onFileChange={setFile} />
             </div>
-            <ImportReportTable items={preview.items} />
-            <ImportResume
-              preview={preview}
-              onConfirm={applyImport}
-              onNewPreview={() => setPreview(null)}
-              confirmLoading={confirmLoading}
-              canConfirm={canConfirm}
-            />
+            <Button
+              onClick={generatePreview}
+              disabled={!file || previewMutation.isPending}
+            >
+              {messages.btnImportFichierApercu}
+            </Button>
           </CardContent>
         </Card>
-      )}
-      <Separator />
-      <p className="text-xs text-muted-foreground mt-4">
-        {messages.importAidePiedDePage}
-      </p>
-    </div>
+
+        {hasPreview && (
+          <Card>
+            <CardHeader>
+              <CardTitle>{messages.importApercuTitre}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                <div>
+                  <span className="text-muted-foreground block text-xs">
+                    {messages.labelImportFichierEntite}
+                  </span>
+                  <span className="font-medium">{entiteLabel}</span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground block text-xs">
+                    {messages.importTotalLignes}
+                  </span>
+                  <span className="font-mono font-semibold">{preview.totalLignes}</span>
+                </div>
+                <div>
+                  <span className="text-muted-foreground block text-xs">
+                    {messages.importResumeTitre}
+                  </span>
+                  <span className="font-mono font-semibold">{preview.resume.ajout + preview.resume.modification + preview.resume.doublon + preview.resume.conflit + preview.resume.erreur}</span>
+                </div>
+              </div>
+              <ImportReportTable items={preview.items} />
+              <ImportResume
+                preview={preview}
+                onConfirm={applyImport}
+                onNewPreview={() => setPreview(null)}
+                confirmLoading={confirmLoading}
+                canConfirm={canConfirm}
+              />
+            </CardContent>
+          </Card>
+        )}
+        <Separator />
+        <p className="text-xs text-muted-foreground mt-4">
+          {messages.importAidePiedDePage}
+        </p>
+      </div>
+    </QueryClientProvider>
   );
 }
