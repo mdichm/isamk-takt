@@ -106,7 +106,7 @@ t('det-imp-06', 'L1', E, S, 'Tests d\'intégration : endpoint d\'import', 'Ajout
 
 # ============================== L2 ==============================
 E = "Volumes prévus (maquette)"
-t('volumes', 'L2', E, S, 'Volumes prévus par (module, type)', 'CRUD /modules/{id}/volumes (ModuleVolume).', ['Unicité (module, type)', "Écriture par l'Administrateur et le Responsable de son département", 'Volume en minutes multiple de 30'], 'EX-REF-01', '§2.2, §3.3', 'BACK', 'Must', 3, ['modules', 'creneaux'], "L2-01")
+t('volumes', 'L2', E, S, 'Volumes prévus par (module, type)', 'CRUD /modules/{id}/volumes (ModuleVolume).', ['Unicité (module, type)', "Écriture par l'Administrateur et le Responsable de son département", 'Volume en minutes multiple de 30'], 'EX-REF-01', '§2.2, §3.3', 'BACK', 'Must', 3, ['modules', 'creneaux'], "L2-01", statut='En cours')
 t('volumes_ui', 'L2', E, S, 'UI maquette pédagogique', 'Saisie des volumes par module et type, import possible.', ['Tableau éditable par niveau', 'Les volumes non multiples de 30 minutes sont signalés'], 'EX-REF-01', '§3.3', 'FRONT', 'Must', 3, ['volumes', 'shell'], "L2-02")
 E = "Charge paramétrable"
 t('ruleset', 'L2', E, S, 'Jeux de règles de charge et publication immuable', 'ChargeRuleSet, ChargeReferenceGrade, ChargeCoefficient (grade facultatif), publication.', ['Un jeu publié est immuable (trigger CHARGE_RULESET_PUBLISHED, 423)', "Modifier un jeu publié impose d'en créer un nouveau (numéro +1)", 'Période HEBDOMADAIRE, SEMESTRIELLE ou ANNUELLE, seuil, plafond et arrondi paramétrables', 'Un coefficient propre à un grade prime sur le coefficient du type'], 'EX-CHG-01', '§2.2, §2.4, §4.2', 'BACK', 'Must', 8, ['modules', 'audit_service'], "L2-03")
