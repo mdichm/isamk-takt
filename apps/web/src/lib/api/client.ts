@@ -12,10 +12,16 @@ export async function apiFetch(
 ): Promise<Response> {
   const url = input.startsWith('http') ? input : `${API_BASE}${input}`;
 
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    ...(init?.headers as Record<string, string> | undefined),
-  };
+  const isFormData = init?.body instanceof FormData;
+  const headers: Record<string, string> = {};
+  if (!isFormData) {
+    headers['Content-Type'] = 'application/json';
+  }
+  if (init?.headers) {
+    for (const [key, value] of Object.entries(init.headers as Record<string, string>)) {
+      headers[key] = value;
+    }
+  }
 
   const token = typeof document !== 'undefined'
     ? document.cookie.match(/(?:^|; )token=([^;]*)/)?.[1]
