@@ -269,7 +269,7 @@ L2-05;L2;E2.2;Charge paramétrable;DET;UI paramétrage de la charge;Édition d'u
 L2-06;L2;E2.3;Saisie de la répartition;DET;Répartitions par département et semestre;Une répartition par (semestre, département), statuts BROUILLON, VALIDEE, ROUVERTE.;"- Création automatique à l'ouverture du semestre
 - Consultation par Administrateur, Gestionnaire, Direction (lecture) et Responsable
 - Toutes les routes du contrôleur de répartitions sont protégées par @Permissions('repartition:read')/@Permissions('repartition:write')/@Permissions('repartition:validate') ; toute route non décorée est refusée par défaut (403)
-- ScopeGuard renvoie 404 pour une répartition hors du département du Responsable (pas de révélation d'existence)";EX-REP-01;§4.1.2, §3.3;BACK;Must;3;L1-01, L0-19;À faire;
+- ScopeGuard renvoie 404 pour une répartition hors du département du Responsable (pas de révélation d'existence)";EX-REP-01;§4.1.2, §3.3;BACK;Must;3;L1-01, L0-19;En cours;
 L2-07;L2;E2.3;Saisie de la répartition;DET;CRUD affectations;"POST/PATCH/DELETE /repartitions/{id}/affectations ; activité à un seul enseignant, séances par semaine, durée contiguë, CM commun, Activity Tag facultatif.";"- volumeHebdoMinutes calculé par le serveur
 - 403 OUT_OF_SCOPE hors département (sauf Administrateur), 409 sur doublon, 422 si enseignant inactif ou module hors niveau
 - Un seul enseignant par activité ; durée multiple de 30 minutes
