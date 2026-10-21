@@ -13,6 +13,7 @@ import {
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ChargesService } from './charges.service.js';
 import { ChargeQueryDto, PaginatedChargesDto, ChargeEnseignantDto } from './dto/charge.dto.js';
+import { AnnualChargesDto } from './dto/annual-charge.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
@@ -59,5 +60,20 @@ export class ChargesController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<ChargeEnseignantDto> {
     return this.chargesService.findChargeByEnseignant(id, currentUser);
+  }
+
+  @Get('annuelles')
+  @Permissions('charges:read')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Charges annuelles par enseignant (S1 + S2)' })
+  @ApiQuery({ name: 'departementId', required: false, type: String, description: 'Filtrer par département (UUID)' })
+  @ApiResponse({ status: 200, description: 'Charges annuelles par enseignant', type: AnnualChargesDto })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Aucune année active ou aucun jeu de règles publié' })
+  async getAnnualCharges(
+    @Query('departementId') departementId: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<AnnualChargesDto> {
+    return this.chargesService.getAnnualCharges(departementId, currentUser);
   }
 }
