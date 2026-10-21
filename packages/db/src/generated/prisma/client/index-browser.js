@@ -511,6 +511,7 @@ exports.Prisma.EnseignantScalarFieldEnum = {
   anneeId: 'anneeId',
   departementId: 'departementId',
   gradeId: 'gradeId',
+  originId: 'originId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
