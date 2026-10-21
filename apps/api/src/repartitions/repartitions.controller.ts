@@ -19,6 +19,7 @@ import {
   RepartitionResponseDto,
   PaginatedRepartitionsDto,
   RepartitionQueryDto,
+  ControlesResponseDto,
 } from './dto/repartition.dto.js';
 import {
   CreateAffectationDto,
@@ -101,6 +102,21 @@ export class RepartitionsController {
   @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
   async removeRepartition(@Param('id') id: string): Promise<void> {
     return this.repartitionsService.removeRepartition(id, 'system');
+  }
+
+  @Get(':id/controles')
+  @Permissions('repartition:read')
+  @Scope({ resource: 'repartition', idParam: 'id' })
+  @ApiOperation({ summary: 'Contrôles de cohérence des volumes d\'une répartition' })
+  @ApiParam({ name: 'id', description: 'ID de la répartition (UUID)' })
+  @ApiResponse({ status: 200, description: 'Contrôles de cohérence des volumes', type: ControlesResponseDto })
+  @ApiResponse({ status: 404, description: 'Répartition non trouvée' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  async getControles(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ControlesResponseDto> {
+    return this.repartitionsService.getControles(id, currentUser);
   }
 
   // ============================================

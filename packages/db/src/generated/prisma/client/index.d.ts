@@ -263,6 +263,11 @@ export type Repartition = $Result.DefaultSelection<Prisma.$RepartitionPayload>
  * 
  */
 export type Affectation = $Result.DefaultSelection<Prisma.$AffectationPayload>
+/**
+ * Model DemandeModification
+ * 
+ */
+export type DemandeModification = $Result.DefaultSelection<Prisma.$DemandeModificationPayload>
 
 /**
  * Enums
@@ -370,6 +375,23 @@ export const RepartitionStatut: {
 };
 
 export type RepartitionStatut = (typeof RepartitionStatut)[keyof typeof RepartitionStatut]
+
+
+export const DemandeType: {
+  ANOMALIE: 'ANOMALIE',
+  MODIFICATION: 'MODIFICATION'
+};
+
+export type DemandeType = (typeof DemandeType)[keyof typeof DemandeType]
+
+
+export const DemandeStatut: {
+  OUVERTE: 'OUVERTE',
+  TRAITEE: 'TRAITEE',
+  REFUSEE: 'REFUSEE'
+};
+
+export type DemandeStatut = (typeof DemandeStatut)[keyof typeof DemandeStatut]
 
 
 export const GroupeType: {
@@ -535,6 +557,14 @@ export const AnneeStatut: typeof $Enums.AnneeStatut
 export type RepartitionStatut = $Enums.RepartitionStatut
 
 export const RepartitionStatut: typeof $Enums.RepartitionStatut
+
+export type DemandeType = $Enums.DemandeType
+
+export const DemandeType: typeof $Enums.DemandeType
+
+export type DemandeStatut = $Enums.DemandeStatut
+
+export const DemandeStatut: typeof $Enums.DemandeStatut
 
 export type GroupeType = $Enums.GroupeType
 
@@ -1208,6 +1238,16 @@ export class PrismaClient<
     * ```
     */
   get affectation(): Prisma.AffectationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.demandeModification`: Exposes CRUD operations for the **DemandeModification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DemandeModifications
+    * const demandeModifications = await prisma.demandeModification.findMany()
+    * ```
+    */
+  get demandeModification(): Prisma.DemandeModificationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1704,7 +1744,8 @@ export namespace Prisma {
     ContrainteDefinition: 'ContrainteDefinition',
     ContrainteInstance: 'ContrainteInstance',
     Repartition: 'Repartition',
-    Affectation: 'Affectation'
+    Affectation: 'Affectation',
+    DemandeModification: 'DemandeModification'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1720,7 +1761,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "demandeModification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5424,6 +5465,80 @@ export namespace Prisma {
           }
         }
       }
+      DemandeModification: {
+        payload: Prisma.$DemandeModificationPayload<ExtArgs>
+        fields: Prisma.DemandeModificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DemandeModificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DemandeModificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>
+          }
+          findFirst: {
+            args: Prisma.DemandeModificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DemandeModificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>
+          }
+          findMany: {
+            args: Prisma.DemandeModificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>[]
+          }
+          create: {
+            args: Prisma.DemandeModificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>
+          }
+          createMany: {
+            args: Prisma.DemandeModificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DemandeModificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>[]
+          }
+          delete: {
+            args: Prisma.DemandeModificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>
+          }
+          update: {
+            args: Prisma.DemandeModificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.DemandeModificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DemandeModificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DemandeModificationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>[]
+          }
+          upsert: {
+            args: Prisma.DemandeModificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DemandeModificationPayload>
+          }
+          aggregate: {
+            args: Prisma.DemandeModificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDemandeModification>
+          }
+          groupBy: {
+            args: Prisma.DemandeModificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DemandeModificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DemandeModificationCountArgs<ExtArgs>
+            result: $Utils.Optional<DemandeModificationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -5597,6 +5712,7 @@ export namespace Prisma {
     contrainteInstance?: ContrainteInstanceOmit
     repartition?: RepartitionOmit
     affectation?: AffectationOmit
+    demandeModification?: DemandeModificationOmit
   }
 
   /* Types for Logging */
@@ -5687,6 +5803,7 @@ export namespace Prisma {
     refreshTokens: number
     passwordHistory: number
     resetTokens: number
+    demandesModification: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5700,6 +5817,7 @@ export namespace Prisma {
     refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
     passwordHistory?: boolean | UserCountOutputTypeCountPasswordHistoryArgs
     resetTokens?: boolean | UserCountOutputTypeCountResetTokensArgs
+    demandesModification?: boolean | UserCountOutputTypeCountDemandesModificationArgs
   }
 
   // Custom InputTypes
@@ -5781,6 +5899,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PasswordResetTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDemandesModificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DemandeModificationWhereInput
   }
 
 
@@ -6071,6 +6196,7 @@ export namespace Prisma {
     indisponibilites: number
     contrainteInstances: number
     repartitions: number
+    demandesModification: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6080,6 +6206,7 @@ export namespace Prisma {
     indisponibilites?: boolean | SemestreCountOutputTypeCountIndisponibilitesArgs
     contrainteInstances?: boolean | SemestreCountOutputTypeCountContrainteInstancesArgs
     repartitions?: boolean | SemestreCountOutputTypeCountRepartitionsArgs
+    demandesModification?: boolean | SemestreCountOutputTypeCountDemandesModificationArgs
   }
 
   // Custom InputTypes
@@ -6133,6 +6260,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountRepartitionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RepartitionWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountDemandesModificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DemandeModificationWhereInput
   }
 
 
@@ -7177,6 +7311,7 @@ export namespace Prisma {
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     passwordHistory?: boolean | User$passwordHistoryArgs<ExtArgs>
     resetTokens?: boolean | User$resetTokensArgs<ExtArgs>
+    demandesModification?: boolean | User$demandesModificationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -7255,6 +7390,7 @@ export namespace Prisma {
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     passwordHistory?: boolean | User$passwordHistoryArgs<ExtArgs>
     resetTokens?: boolean | User$resetTokensArgs<ExtArgs>
+    demandesModification?: boolean | User$demandesModificationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -7273,6 +7409,7 @@ export namespace Prisma {
       refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
       passwordHistory: Prisma.$PasswordHistoryPayload<ExtArgs>[]
       resetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+      demandesModification: Prisma.$DemandeModificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7697,6 +7834,7 @@ export namespace Prisma {
     refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordHistory<T extends User$passwordHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     resetTokens<T extends User$resetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$resetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    demandesModification<T extends User$demandesModificationArgs<ExtArgs> = {}>(args?: Subset<T, User$demandesModificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8374,6 +8512,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.demandesModification
+   */
+  export type User$demandesModificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    where?: DemandeModificationWhereInput
+    orderBy?: DemandeModificationOrderByWithRelationInput | DemandeModificationOrderByWithRelationInput[]
+    cursor?: DemandeModificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DemandeModificationScalarFieldEnum | DemandeModificationScalarFieldEnum[]
   }
 
   /**
@@ -30033,6 +30195,7 @@ export namespace Prisma {
     indisponibilites?: boolean | Semestre$indisponibilitesArgs<ExtArgs>
     contrainteInstances?: boolean | Semestre$contrainteInstancesArgs<ExtArgs>
     repartitions?: boolean | Semestre$repartitionsArgs<ExtArgs>
+    demandesModification?: boolean | Semestre$demandesModificationArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -30077,6 +30240,7 @@ export namespace Prisma {
     indisponibilites?: boolean | Semestre$indisponibilitesArgs<ExtArgs>
     contrainteInstances?: boolean | Semestre$contrainteInstancesArgs<ExtArgs>
     repartitions?: boolean | Semestre$repartitionsArgs<ExtArgs>
+    demandesModification?: boolean | Semestre$demandesModificationArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30096,6 +30260,7 @@ export namespace Prisma {
       indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
       contrainteInstances: Prisma.$ContrainteInstancePayload<ExtArgs>[]
       repartitions: Prisma.$RepartitionPayload<ExtArgs>[]
+      demandesModification: Prisma.$DemandeModificationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30506,6 +30671,7 @@ export namespace Prisma {
     indisponibilites<T extends Semestre$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     contrainteInstances<T extends Semestre$contrainteInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$contrainteInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     repartitions<T extends Semestre$repartitionsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$repartitionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    demandesModification<T extends Semestre$demandesModificationArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$demandesModificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31084,6 +31250,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: RepartitionScalarFieldEnum | RepartitionScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.demandesModification
+   */
+  export type Semestre$demandesModificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    where?: DemandeModificationWhereInput
+    orderBy?: DemandeModificationOrderByWithRelationInput | DemandeModificationOrderByWithRelationInput[]
+    cursor?: DemandeModificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DemandeModificationScalarFieldEnum | DemandeModificationScalarFieldEnum[]
   }
 
   /**
@@ -64954,6 +65144,1177 @@ export namespace Prisma {
 
 
   /**
+   * Model DemandeModification
+   */
+
+  export type AggregateDemandeModification = {
+    _count: DemandeModificationCountAggregateOutputType | null
+    _min: DemandeModificationMinAggregateOutputType | null
+    _max: DemandeModificationMaxAggregateOutputType | null
+  }
+
+  export type DemandeModificationMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    departementCode: string | null
+    auteurId: string | null
+    versionId: string | null
+    type: $Enums.DemandeType | null
+    motif: string | null
+    statut: $Enums.DemandeStatut | null
+    reponse: string | null
+    traiteePar: string | null
+    createdAt: Date | null
+    traiteeLe: Date | null
+  }
+
+  export type DemandeModificationMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    departementCode: string | null
+    auteurId: string | null
+    versionId: string | null
+    type: $Enums.DemandeType | null
+    motif: string | null
+    statut: $Enums.DemandeStatut | null
+    reponse: string | null
+    traiteePar: string | null
+    createdAt: Date | null
+    traiteeLe: Date | null
+  }
+
+  export type DemandeModificationCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    departementCode: number
+    auteurId: number
+    versionId: number
+    type: number
+    cible: number
+    motif: number
+    statut: number
+    reponse: number
+    traiteePar: number
+    createdAt: number
+    traiteeLe: number
+    _all: number
+  }
+
+
+  export type DemandeModificationMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    departementCode?: true
+    auteurId?: true
+    versionId?: true
+    type?: true
+    motif?: true
+    statut?: true
+    reponse?: true
+    traiteePar?: true
+    createdAt?: true
+    traiteeLe?: true
+  }
+
+  export type DemandeModificationMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    departementCode?: true
+    auteurId?: true
+    versionId?: true
+    type?: true
+    motif?: true
+    statut?: true
+    reponse?: true
+    traiteePar?: true
+    createdAt?: true
+    traiteeLe?: true
+  }
+
+  export type DemandeModificationCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    departementCode?: true
+    auteurId?: true
+    versionId?: true
+    type?: true
+    cible?: true
+    motif?: true
+    statut?: true
+    reponse?: true
+    traiteePar?: true
+    createdAt?: true
+    traiteeLe?: true
+    _all?: true
+  }
+
+  export type DemandeModificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DemandeModification to aggregate.
+     */
+    where?: DemandeModificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemandeModifications to fetch.
+     */
+    orderBy?: DemandeModificationOrderByWithRelationInput | DemandeModificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DemandeModificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemandeModifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemandeModifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DemandeModifications
+    **/
+    _count?: true | DemandeModificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DemandeModificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DemandeModificationMaxAggregateInputType
+  }
+
+  export type GetDemandeModificationAggregateType<T extends DemandeModificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateDemandeModification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDemandeModification[P]>
+      : GetScalarType<T[P], AggregateDemandeModification[P]>
+  }
+
+
+
+
+  export type DemandeModificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DemandeModificationWhereInput
+    orderBy?: DemandeModificationOrderByWithAggregationInput | DemandeModificationOrderByWithAggregationInput[]
+    by: DemandeModificationScalarFieldEnum[] | DemandeModificationScalarFieldEnum
+    having?: DemandeModificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DemandeModificationCountAggregateInputType | true
+    _min?: DemandeModificationMinAggregateInputType
+    _max?: DemandeModificationMaxAggregateInputType
+  }
+
+  export type DemandeModificationGroupByOutputType = {
+    id: string
+    semestreId: string
+    departementCode: string
+    auteurId: string
+    versionId: string | null
+    type: $Enums.DemandeType
+    cible: JsonValue
+    motif: string
+    statut: $Enums.DemandeStatut
+    reponse: string | null
+    traiteePar: string | null
+    createdAt: Date
+    traiteeLe: Date | null
+    _count: DemandeModificationCountAggregateOutputType | null
+    _min: DemandeModificationMinAggregateOutputType | null
+    _max: DemandeModificationMaxAggregateOutputType | null
+  }
+
+  type GetDemandeModificationGroupByPayload<T extends DemandeModificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DemandeModificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DemandeModificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DemandeModificationGroupByOutputType[P]>
+            : GetScalarType<T[P], DemandeModificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DemandeModificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    departementCode?: boolean
+    auteurId?: boolean
+    versionId?: boolean
+    type?: boolean
+    cible?: boolean
+    motif?: boolean
+    statut?: boolean
+    reponse?: boolean
+    traiteePar?: boolean
+    createdAt?: boolean
+    traiteeLe?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    auteur?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["demandeModification"]>
+
+  export type DemandeModificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    departementCode?: boolean
+    auteurId?: boolean
+    versionId?: boolean
+    type?: boolean
+    cible?: boolean
+    motif?: boolean
+    statut?: boolean
+    reponse?: boolean
+    traiteePar?: boolean
+    createdAt?: boolean
+    traiteeLe?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    auteur?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["demandeModification"]>
+
+  export type DemandeModificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    departementCode?: boolean
+    auteurId?: boolean
+    versionId?: boolean
+    type?: boolean
+    cible?: boolean
+    motif?: boolean
+    statut?: boolean
+    reponse?: boolean
+    traiteePar?: boolean
+    createdAt?: boolean
+    traiteeLe?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    auteur?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["demandeModification"]>
+
+  export type DemandeModificationSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    departementCode?: boolean
+    auteurId?: boolean
+    versionId?: boolean
+    type?: boolean
+    cible?: boolean
+    motif?: boolean
+    statut?: boolean
+    reponse?: boolean
+    traiteePar?: boolean
+    createdAt?: boolean
+    traiteeLe?: boolean
+  }
+
+  export type DemandeModificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "departementCode" | "auteurId" | "versionId" | "type" | "cible" | "motif" | "statut" | "reponse" | "traiteePar" | "createdAt" | "traiteeLe", ExtArgs["result"]["demandeModification"]>
+  export type DemandeModificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    auteur?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DemandeModificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    auteur?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DemandeModificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    auteur?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DemandeModificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DemandeModification"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      auteur: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      departementCode: string
+      auteurId: string
+      versionId: string | null
+      type: $Enums.DemandeType
+      cible: Prisma.JsonValue
+      motif: string
+      statut: $Enums.DemandeStatut
+      reponse: string | null
+      traiteePar: string | null
+      createdAt: Date
+      traiteeLe: Date | null
+    }, ExtArgs["result"]["demandeModification"]>
+    composites: {}
+  }
+
+  type DemandeModificationGetPayload<S extends boolean | null | undefined | DemandeModificationDefaultArgs> = $Result.GetResult<Prisma.$DemandeModificationPayload, S>
+
+  type DemandeModificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DemandeModificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DemandeModificationCountAggregateInputType | true
+    }
+
+  export interface DemandeModificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DemandeModification'], meta: { name: 'DemandeModification' } }
+    /**
+     * Find zero or one DemandeModification that matches the filter.
+     * @param {DemandeModificationFindUniqueArgs} args - Arguments to find a DemandeModification
+     * @example
+     * // Get one DemandeModification
+     * const demandeModification = await prisma.demandeModification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DemandeModificationFindUniqueArgs>(args: SelectSubset<T, DemandeModificationFindUniqueArgs<ExtArgs>>): Prisma__DemandeModificationClient<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DemandeModification that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DemandeModificationFindUniqueOrThrowArgs} args - Arguments to find a DemandeModification
+     * @example
+     * // Get one DemandeModification
+     * const demandeModification = await prisma.demandeModification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DemandeModificationFindUniqueOrThrowArgs>(args: SelectSubset<T, DemandeModificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DemandeModificationClient<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DemandeModification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemandeModificationFindFirstArgs} args - Arguments to find a DemandeModification
+     * @example
+     * // Get one DemandeModification
+     * const demandeModification = await prisma.demandeModification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DemandeModificationFindFirstArgs>(args?: SelectSubset<T, DemandeModificationFindFirstArgs<ExtArgs>>): Prisma__DemandeModificationClient<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DemandeModification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemandeModificationFindFirstOrThrowArgs} args - Arguments to find a DemandeModification
+     * @example
+     * // Get one DemandeModification
+     * const demandeModification = await prisma.demandeModification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DemandeModificationFindFirstOrThrowArgs>(args?: SelectSubset<T, DemandeModificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__DemandeModificationClient<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DemandeModifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemandeModificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DemandeModifications
+     * const demandeModifications = await prisma.demandeModification.findMany()
+     * 
+     * // Get first 10 DemandeModifications
+     * const demandeModifications = await prisma.demandeModification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const demandeModificationWithIdOnly = await prisma.demandeModification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DemandeModificationFindManyArgs>(args?: SelectSubset<T, DemandeModificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DemandeModification.
+     * @param {DemandeModificationCreateArgs} args - Arguments to create a DemandeModification.
+     * @example
+     * // Create one DemandeModification
+     * const DemandeModification = await prisma.demandeModification.create({
+     *   data: {
+     *     // ... data to create a DemandeModification
+     *   }
+     * })
+     * 
+     */
+    create<T extends DemandeModificationCreateArgs>(args: SelectSubset<T, DemandeModificationCreateArgs<ExtArgs>>): Prisma__DemandeModificationClient<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DemandeModifications.
+     * @param {DemandeModificationCreateManyArgs} args - Arguments to create many DemandeModifications.
+     * @example
+     * // Create many DemandeModifications
+     * const demandeModification = await prisma.demandeModification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DemandeModificationCreateManyArgs>(args?: SelectSubset<T, DemandeModificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DemandeModifications and returns the data saved in the database.
+     * @param {DemandeModificationCreateManyAndReturnArgs} args - Arguments to create many DemandeModifications.
+     * @example
+     * // Create many DemandeModifications
+     * const demandeModification = await prisma.demandeModification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DemandeModifications and only return the `id`
+     * const demandeModificationWithIdOnly = await prisma.demandeModification.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DemandeModificationCreateManyAndReturnArgs>(args?: SelectSubset<T, DemandeModificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DemandeModification.
+     * @param {DemandeModificationDeleteArgs} args - Arguments to delete one DemandeModification.
+     * @example
+     * // Delete one DemandeModification
+     * const DemandeModification = await prisma.demandeModification.delete({
+     *   where: {
+     *     // ... filter to delete one DemandeModification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DemandeModificationDeleteArgs>(args: SelectSubset<T, DemandeModificationDeleteArgs<ExtArgs>>): Prisma__DemandeModificationClient<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DemandeModification.
+     * @param {DemandeModificationUpdateArgs} args - Arguments to update one DemandeModification.
+     * @example
+     * // Update one DemandeModification
+     * const demandeModification = await prisma.demandeModification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DemandeModificationUpdateArgs>(args: SelectSubset<T, DemandeModificationUpdateArgs<ExtArgs>>): Prisma__DemandeModificationClient<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DemandeModifications.
+     * @param {DemandeModificationDeleteManyArgs} args - Arguments to filter DemandeModifications to delete.
+     * @example
+     * // Delete a few DemandeModifications
+     * const { count } = await prisma.demandeModification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DemandeModificationDeleteManyArgs>(args?: SelectSubset<T, DemandeModificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DemandeModifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemandeModificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DemandeModifications
+     * const demandeModification = await prisma.demandeModification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DemandeModificationUpdateManyArgs>(args: SelectSubset<T, DemandeModificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DemandeModifications and returns the data updated in the database.
+     * @param {DemandeModificationUpdateManyAndReturnArgs} args - Arguments to update many DemandeModifications.
+     * @example
+     * // Update many DemandeModifications
+     * const demandeModification = await prisma.demandeModification.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DemandeModifications and only return the `id`
+     * const demandeModificationWithIdOnly = await prisma.demandeModification.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DemandeModificationUpdateManyAndReturnArgs>(args: SelectSubset<T, DemandeModificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DemandeModification.
+     * @param {DemandeModificationUpsertArgs} args - Arguments to update or create a DemandeModification.
+     * @example
+     * // Update or create a DemandeModification
+     * const demandeModification = await prisma.demandeModification.upsert({
+     *   create: {
+     *     // ... data to create a DemandeModification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DemandeModification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DemandeModificationUpsertArgs>(args: SelectSubset<T, DemandeModificationUpsertArgs<ExtArgs>>): Prisma__DemandeModificationClient<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DemandeModifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemandeModificationCountArgs} args - Arguments to filter DemandeModifications to count.
+     * @example
+     * // Count the number of DemandeModifications
+     * const count = await prisma.demandeModification.count({
+     *   where: {
+     *     // ... the filter for the DemandeModifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends DemandeModificationCountArgs>(
+      args?: Subset<T, DemandeModificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DemandeModificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DemandeModification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemandeModificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DemandeModificationAggregateArgs>(args: Subset<T, DemandeModificationAggregateArgs>): Prisma.PrismaPromise<GetDemandeModificationAggregateType<T>>
+
+    /**
+     * Group by DemandeModification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DemandeModificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DemandeModificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DemandeModificationGroupByArgs['orderBy'] }
+        : { orderBy?: DemandeModificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DemandeModificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDemandeModificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DemandeModification model
+   */
+  readonly fields: DemandeModificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DemandeModification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DemandeModificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    auteur<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DemandeModification model
+   */
+  interface DemandeModificationFieldRefs {
+    readonly id: FieldRef<"DemandeModification", 'String'>
+    readonly semestreId: FieldRef<"DemandeModification", 'String'>
+    readonly departementCode: FieldRef<"DemandeModification", 'String'>
+    readonly auteurId: FieldRef<"DemandeModification", 'String'>
+    readonly versionId: FieldRef<"DemandeModification", 'String'>
+    readonly type: FieldRef<"DemandeModification", 'DemandeType'>
+    readonly cible: FieldRef<"DemandeModification", 'Json'>
+    readonly motif: FieldRef<"DemandeModification", 'String'>
+    readonly statut: FieldRef<"DemandeModification", 'DemandeStatut'>
+    readonly reponse: FieldRef<"DemandeModification", 'String'>
+    readonly traiteePar: FieldRef<"DemandeModification", 'String'>
+    readonly createdAt: FieldRef<"DemandeModification", 'DateTime'>
+    readonly traiteeLe: FieldRef<"DemandeModification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DemandeModification findUnique
+   */
+  export type DemandeModificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * Filter, which DemandeModification to fetch.
+     */
+    where: DemandeModificationWhereUniqueInput
+  }
+
+  /**
+   * DemandeModification findUniqueOrThrow
+   */
+  export type DemandeModificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * Filter, which DemandeModification to fetch.
+     */
+    where: DemandeModificationWhereUniqueInput
+  }
+
+  /**
+   * DemandeModification findFirst
+   */
+  export type DemandeModificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * Filter, which DemandeModification to fetch.
+     */
+    where?: DemandeModificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemandeModifications to fetch.
+     */
+    orderBy?: DemandeModificationOrderByWithRelationInput | DemandeModificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DemandeModifications.
+     */
+    cursor?: DemandeModificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemandeModifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemandeModifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DemandeModifications.
+     */
+    distinct?: DemandeModificationScalarFieldEnum | DemandeModificationScalarFieldEnum[]
+  }
+
+  /**
+   * DemandeModification findFirstOrThrow
+   */
+  export type DemandeModificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * Filter, which DemandeModification to fetch.
+     */
+    where?: DemandeModificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemandeModifications to fetch.
+     */
+    orderBy?: DemandeModificationOrderByWithRelationInput | DemandeModificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DemandeModifications.
+     */
+    cursor?: DemandeModificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemandeModifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemandeModifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DemandeModifications.
+     */
+    distinct?: DemandeModificationScalarFieldEnum | DemandeModificationScalarFieldEnum[]
+  }
+
+  /**
+   * DemandeModification findMany
+   */
+  export type DemandeModificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * Filter, which DemandeModifications to fetch.
+     */
+    where?: DemandeModificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DemandeModifications to fetch.
+     */
+    orderBy?: DemandeModificationOrderByWithRelationInput | DemandeModificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DemandeModifications.
+     */
+    cursor?: DemandeModificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DemandeModifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DemandeModifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DemandeModifications.
+     */
+    distinct?: DemandeModificationScalarFieldEnum | DemandeModificationScalarFieldEnum[]
+  }
+
+  /**
+   * DemandeModification create
+   */
+  export type DemandeModificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DemandeModification.
+     */
+    data: XOR<DemandeModificationCreateInput, DemandeModificationUncheckedCreateInput>
+  }
+
+  /**
+   * DemandeModification createMany
+   */
+  export type DemandeModificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DemandeModifications.
+     */
+    data: DemandeModificationCreateManyInput | DemandeModificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DemandeModification createManyAndReturn
+   */
+  export type DemandeModificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * The data used to create many DemandeModifications.
+     */
+    data: DemandeModificationCreateManyInput | DemandeModificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DemandeModification update
+   */
+  export type DemandeModificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DemandeModification.
+     */
+    data: XOR<DemandeModificationUpdateInput, DemandeModificationUncheckedUpdateInput>
+    /**
+     * Choose, which DemandeModification to update.
+     */
+    where: DemandeModificationWhereUniqueInput
+  }
+
+  /**
+   * DemandeModification updateMany
+   */
+  export type DemandeModificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DemandeModifications.
+     */
+    data: XOR<DemandeModificationUpdateManyMutationInput, DemandeModificationUncheckedUpdateManyInput>
+    /**
+     * Filter which DemandeModifications to update
+     */
+    where?: DemandeModificationWhereInput
+    /**
+     * Limit how many DemandeModifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DemandeModification updateManyAndReturn
+   */
+  export type DemandeModificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * The data used to update DemandeModifications.
+     */
+    data: XOR<DemandeModificationUpdateManyMutationInput, DemandeModificationUncheckedUpdateManyInput>
+    /**
+     * Filter which DemandeModifications to update
+     */
+    where?: DemandeModificationWhereInput
+    /**
+     * Limit how many DemandeModifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DemandeModification upsert
+   */
+  export type DemandeModificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DemandeModification to update in case it exists.
+     */
+    where: DemandeModificationWhereUniqueInput
+    /**
+     * In case the DemandeModification found by the `where` argument doesn't exist, create a new DemandeModification with this data.
+     */
+    create: XOR<DemandeModificationCreateInput, DemandeModificationUncheckedCreateInput>
+    /**
+     * In case the DemandeModification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DemandeModificationUpdateInput, DemandeModificationUncheckedUpdateInput>
+  }
+
+  /**
+   * DemandeModification delete
+   */
+  export type DemandeModificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+    /**
+     * Filter which DemandeModification to delete.
+     */
+    where: DemandeModificationWhereUniqueInput
+  }
+
+  /**
+   * DemandeModification deleteMany
+   */
+  export type DemandeModificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DemandeModifications to delete
+     */
+    where?: DemandeModificationWhereInput
+    /**
+     * Limit how many DemandeModifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DemandeModification without action
+   */
+  export type DemandeModificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DemandeModification
+     */
+    select?: DemandeModificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DemandeModification
+     */
+    omit?: DemandeModificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DemandeModificationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -65659,6 +67020,25 @@ export namespace Prisma {
   export type AffectationScalarFieldEnum = (typeof AffectationScalarFieldEnum)[keyof typeof AffectationScalarFieldEnum]
 
 
+  export const DemandeModificationScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    departementCode: 'departementCode',
+    auteurId: 'auteurId',
+    versionId: 'versionId',
+    type: 'type',
+    cible: 'cible',
+    motif: 'motif',
+    statut: 'statut',
+    reponse: 'reponse',
+    traiteePar: 'traiteePar',
+    createdAt: 'createdAt',
+    traiteeLe: 'traiteeLe'
+  };
+
+  export type DemandeModificationScalarFieldEnum = (typeof DemandeModificationScalarFieldEnum)[keyof typeof DemandeModificationScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -66137,6 +67517,34 @@ export namespace Prisma {
    */
   export type ListEnumRepartitionStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RepartitionStatut[]'>
     
+
+
+  /**
+   * Reference to a field of type 'DemandeType'
+   */
+  export type EnumDemandeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemandeType'>
+    
+
+
+  /**
+   * Reference to a field of type 'DemandeType[]'
+   */
+  export type ListEnumDemandeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemandeType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DemandeStatut'
+   */
+  export type EnumDemandeStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemandeStatut'>
+    
+
+
+  /**
+   * Reference to a field of type 'DemandeStatut[]'
+   */
+  export type ListEnumDemandeStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemandeStatut[]'>
+    
   /**
    * Deep Input Types
    */
@@ -66174,6 +67582,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenListRelationFilter
     passwordHistory?: PasswordHistoryListRelationFilter
     resetTokens?: PasswordResetTokenListRelationFilter
+    demandesModification?: DemandeModificationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -66205,6 +67614,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
     passwordHistory?: PasswordHistoryOrderByRelationAggregateInput
     resetTokens?: PasswordResetTokenOrderByRelationAggregateInput
+    demandesModification?: DemandeModificationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -66239,6 +67649,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenListRelationFilter
     passwordHistory?: PasswordHistoryListRelationFilter
     resetTokens?: PasswordResetTokenListRelationFilter
+    demandesModification?: DemandeModificationListRelationFilter
   }, "id" | "email" | "providerSubject">
 
   export type UserOrderByWithAggregationInput = {
@@ -67674,6 +69085,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteListRelationFilter
     contrainteInstances?: ContrainteInstanceListRelationFilter
     repartitions?: RepartitionListRelationFilter
+    demandesModification?: DemandeModificationListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -67691,6 +69103,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
     contrainteInstances?: ContrainteInstanceOrderByRelationAggregateInput
     repartitions?: RepartitionOrderByRelationAggregateInput
+    demandesModification?: DemandeModificationOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -67712,6 +69125,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteListRelationFilter
     contrainteInstances?: ContrainteInstanceListRelationFilter
     repartitions?: RepartitionListRelationFilter
+    demandesModification?: DemandeModificationListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -69950,6 +71364,104 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Affectation"> | Date | string
   }
 
+  export type DemandeModificationWhereInput = {
+    AND?: DemandeModificationWhereInput | DemandeModificationWhereInput[]
+    OR?: DemandeModificationWhereInput[]
+    NOT?: DemandeModificationWhereInput | DemandeModificationWhereInput[]
+    id?: UuidFilter<"DemandeModification"> | string
+    semestreId?: UuidFilter<"DemandeModification"> | string
+    departementCode?: StringFilter<"DemandeModification"> | string
+    auteurId?: UuidFilter<"DemandeModification"> | string
+    versionId?: UuidNullableFilter<"DemandeModification"> | string | null
+    type?: EnumDemandeTypeFilter<"DemandeModification"> | $Enums.DemandeType
+    cible?: JsonFilter<"DemandeModification">
+    motif?: StringFilter<"DemandeModification"> | string
+    statut?: EnumDemandeStatutFilter<"DemandeModification"> | $Enums.DemandeStatut
+    reponse?: StringNullableFilter<"DemandeModification"> | string | null
+    traiteePar?: UuidNullableFilter<"DemandeModification"> | string | null
+    createdAt?: DateTimeFilter<"DemandeModification"> | Date | string
+    traiteeLe?: DateTimeNullableFilter<"DemandeModification"> | Date | string | null
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    auteur?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DemandeModificationOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementCode?: SortOrder
+    auteurId?: SortOrder
+    versionId?: SortOrderInput | SortOrder
+    type?: SortOrder
+    cible?: SortOrder
+    motif?: SortOrder
+    statut?: SortOrder
+    reponse?: SortOrderInput | SortOrder
+    traiteePar?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    traiteeLe?: SortOrderInput | SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    auteur?: UserOrderByWithRelationInput
+  }
+
+  export type DemandeModificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DemandeModificationWhereInput | DemandeModificationWhereInput[]
+    OR?: DemandeModificationWhereInput[]
+    NOT?: DemandeModificationWhereInput | DemandeModificationWhereInput[]
+    semestreId?: UuidFilter<"DemandeModification"> | string
+    departementCode?: StringFilter<"DemandeModification"> | string
+    auteurId?: UuidFilter<"DemandeModification"> | string
+    versionId?: UuidNullableFilter<"DemandeModification"> | string | null
+    type?: EnumDemandeTypeFilter<"DemandeModification"> | $Enums.DemandeType
+    cible?: JsonFilter<"DemandeModification">
+    motif?: StringFilter<"DemandeModification"> | string
+    statut?: EnumDemandeStatutFilter<"DemandeModification"> | $Enums.DemandeStatut
+    reponse?: StringNullableFilter<"DemandeModification"> | string | null
+    traiteePar?: UuidNullableFilter<"DemandeModification"> | string | null
+    createdAt?: DateTimeFilter<"DemandeModification"> | Date | string
+    traiteeLe?: DateTimeNullableFilter<"DemandeModification"> | Date | string | null
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    auteur?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type DemandeModificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementCode?: SortOrder
+    auteurId?: SortOrder
+    versionId?: SortOrderInput | SortOrder
+    type?: SortOrder
+    cible?: SortOrder
+    motif?: SortOrder
+    statut?: SortOrder
+    reponse?: SortOrderInput | SortOrder
+    traiteePar?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    traiteeLe?: SortOrderInput | SortOrder
+    _count?: DemandeModificationCountOrderByAggregateInput
+    _max?: DemandeModificationMaxOrderByAggregateInput
+    _min?: DemandeModificationMinOrderByAggregateInput
+  }
+
+  export type DemandeModificationScalarWhereWithAggregatesInput = {
+    AND?: DemandeModificationScalarWhereWithAggregatesInput | DemandeModificationScalarWhereWithAggregatesInput[]
+    OR?: DemandeModificationScalarWhereWithAggregatesInput[]
+    NOT?: DemandeModificationScalarWhereWithAggregatesInput | DemandeModificationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"DemandeModification"> | string
+    semestreId?: UuidWithAggregatesFilter<"DemandeModification"> | string
+    departementCode?: StringWithAggregatesFilter<"DemandeModification"> | string
+    auteurId?: UuidWithAggregatesFilter<"DemandeModification"> | string
+    versionId?: UuidNullableWithAggregatesFilter<"DemandeModification"> | string | null
+    type?: EnumDemandeTypeWithAggregatesFilter<"DemandeModification"> | $Enums.DemandeType
+    cible?: JsonWithAggregatesFilter<"DemandeModification">
+    motif?: StringWithAggregatesFilter<"DemandeModification"> | string
+    statut?: EnumDemandeStatutWithAggregatesFilter<"DemandeModification"> | $Enums.DemandeStatut
+    reponse?: StringNullableWithAggregatesFilter<"DemandeModification"> | string | null
+    traiteePar?: UuidNullableWithAggregatesFilter<"DemandeModification"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DemandeModification"> | Date | string
+    traiteeLe?: DateTimeNullableWithAggregatesFilter<"DemandeModification"> | Date | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -69979,6 +71491,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -70010,6 +71523,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUpdateInput = {
@@ -70041,6 +71555,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -70072,6 +71587,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -71601,6 +73117,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -71617,6 +73134,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -71633,6 +73151,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -71649,6 +73168,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -73961,6 +75481,116 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DemandeModificationCreateInput = {
+    id?: string
+    departementCode: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
+    semestre: SemestreCreateNestedOneWithoutDemandesModificationInput
+    auteur: UserCreateNestedOneWithoutDemandesModificationInput
+  }
+
+  export type DemandeModificationUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    departementCode: string
+    auteurId: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
+  }
+
+  export type DemandeModificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    semestre?: SemestreUpdateOneRequiredWithoutDemandesModificationNestedInput
+    auteur?: UserUpdateOneRequiredWithoutDemandesModificationNestedInput
+  }
+
+  export type DemandeModificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DemandeModificationCreateManyInput = {
+    id?: string
+    semestreId: string
+    departementCode: string
+    auteurId: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
+  }
+
+  export type DemandeModificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DemandeModificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -74102,6 +75732,12 @@ export namespace Prisma {
     none?: PasswordResetTokenWhereInput
   }
 
+  export type DemandeModificationListRelationFilter = {
+    every?: DemandeModificationWhereInput
+    some?: DemandeModificationWhereInput
+    none?: DemandeModificationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -74140,6 +75776,10 @@ export namespace Prisma {
   }
 
   export type PasswordResetTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DemandeModificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -77279,6 +78919,86 @@ export namespace Prisma {
     workingRevision?: SortOrder
   }
 
+  export type EnumDemandeTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.DemandeType | EnumDemandeTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DemandeType[] | ListEnumDemandeTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DemandeType[] | ListEnumDemandeTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDemandeTypeFilter<$PrismaModel> | $Enums.DemandeType
+  }
+
+  export type EnumDemandeStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.DemandeStatut | EnumDemandeStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.DemandeStatut[] | ListEnumDemandeStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DemandeStatut[] | ListEnumDemandeStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumDemandeStatutFilter<$PrismaModel> | $Enums.DemandeStatut
+  }
+
+  export type DemandeModificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementCode?: SortOrder
+    auteurId?: SortOrder
+    versionId?: SortOrder
+    type?: SortOrder
+    cible?: SortOrder
+    motif?: SortOrder
+    statut?: SortOrder
+    reponse?: SortOrder
+    traiteePar?: SortOrder
+    createdAt?: SortOrder
+    traiteeLe?: SortOrder
+  }
+
+  export type DemandeModificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementCode?: SortOrder
+    auteurId?: SortOrder
+    versionId?: SortOrder
+    type?: SortOrder
+    motif?: SortOrder
+    statut?: SortOrder
+    reponse?: SortOrder
+    traiteePar?: SortOrder
+    createdAt?: SortOrder
+    traiteeLe?: SortOrder
+  }
+
+  export type DemandeModificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementCode?: SortOrder
+    auteurId?: SortOrder
+    versionId?: SortOrder
+    type?: SortOrder
+    motif?: SortOrder
+    statut?: SortOrder
+    reponse?: SortOrder
+    traiteePar?: SortOrder
+    createdAt?: SortOrder
+    traiteeLe?: SortOrder
+  }
+
+  export type EnumDemandeTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DemandeType | EnumDemandeTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DemandeType[] | ListEnumDemandeTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DemandeType[] | ListEnumDemandeTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDemandeTypeWithAggregatesFilter<$PrismaModel> | $Enums.DemandeType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDemandeTypeFilter<$PrismaModel>
+    _max?: NestedEnumDemandeTypeFilter<$PrismaModel>
+  }
+
+  export type EnumDemandeStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DemandeStatut | EnumDemandeStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.DemandeStatut[] | ListEnumDemandeStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DemandeStatut[] | ListEnumDemandeStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumDemandeStatutWithAggregatesFilter<$PrismaModel> | $Enums.DemandeStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDemandeStatutFilter<$PrismaModel>
+    _max?: NestedEnumDemandeStatutFilter<$PrismaModel>
+  }
+
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSystemRoleCreateWithoutUserInput, UserSystemRoleUncheckedCreateWithoutUserInput> | UserSystemRoleCreateWithoutUserInput[] | UserSystemRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSystemRoleCreateOrConnectWithoutUserInput | UserSystemRoleCreateOrConnectWithoutUserInput[]
@@ -77349,6 +79069,13 @@ export namespace Prisma {
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
   }
 
+  export type DemandeModificationCreateNestedManyWithoutAuteurInput = {
+    create?: XOR<DemandeModificationCreateWithoutAuteurInput, DemandeModificationUncheckedCreateWithoutAuteurInput> | DemandeModificationCreateWithoutAuteurInput[] | DemandeModificationUncheckedCreateWithoutAuteurInput[]
+    connectOrCreate?: DemandeModificationCreateOrConnectWithoutAuteurInput | DemandeModificationCreateOrConnectWithoutAuteurInput[]
+    createMany?: DemandeModificationCreateManyAuteurInputEnvelope
+    connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+  }
+
   export type UserSystemRoleUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSystemRoleCreateWithoutUserInput, UserSystemRoleUncheckedCreateWithoutUserInput> | UserSystemRoleCreateWithoutUserInput[] | UserSystemRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSystemRoleCreateOrConnectWithoutUserInput | UserSystemRoleCreateOrConnectWithoutUserInput[]
@@ -77417,6 +79144,13 @@ export namespace Prisma {
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
     createMany?: PasswordResetTokenCreateManyUserInputEnvelope
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput = {
+    create?: XOR<DemandeModificationCreateWithoutAuteurInput, DemandeModificationUncheckedCreateWithoutAuteurInput> | DemandeModificationCreateWithoutAuteurInput[] | DemandeModificationUncheckedCreateWithoutAuteurInput[]
+    connectOrCreate?: DemandeModificationCreateOrConnectWithoutAuteurInput | DemandeModificationCreateOrConnectWithoutAuteurInput[]
+    createMany?: DemandeModificationCreateManyAuteurInputEnvelope
+    connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -77591,6 +79325,20 @@ export namespace Prisma {
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
   }
 
+  export type DemandeModificationUpdateManyWithoutAuteurNestedInput = {
+    create?: XOR<DemandeModificationCreateWithoutAuteurInput, DemandeModificationUncheckedCreateWithoutAuteurInput> | DemandeModificationCreateWithoutAuteurInput[] | DemandeModificationUncheckedCreateWithoutAuteurInput[]
+    connectOrCreate?: DemandeModificationCreateOrConnectWithoutAuteurInput | DemandeModificationCreateOrConnectWithoutAuteurInput[]
+    upsert?: DemandeModificationUpsertWithWhereUniqueWithoutAuteurInput | DemandeModificationUpsertWithWhereUniqueWithoutAuteurInput[]
+    createMany?: DemandeModificationCreateManyAuteurInputEnvelope
+    set?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    disconnect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    delete?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    update?: DemandeModificationUpdateWithWhereUniqueWithoutAuteurInput | DemandeModificationUpdateWithWhereUniqueWithoutAuteurInput[]
+    updateMany?: DemandeModificationUpdateManyWithWhereWithoutAuteurInput | DemandeModificationUpdateManyWithWhereWithoutAuteurInput[]
+    deleteMany?: DemandeModificationScalarWhereInput | DemandeModificationScalarWhereInput[]
+  }
+
   export type UserSystemRoleUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserSystemRoleCreateWithoutUserInput, UserSystemRoleUncheckedCreateWithoutUserInput> | UserSystemRoleCreateWithoutUserInput[] | UserSystemRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSystemRoleCreateOrConnectWithoutUserInput | UserSystemRoleCreateOrConnectWithoutUserInput[]
@@ -77729,6 +79477,20 @@ export namespace Prisma {
     update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput = {
+    create?: XOR<DemandeModificationCreateWithoutAuteurInput, DemandeModificationUncheckedCreateWithoutAuteurInput> | DemandeModificationCreateWithoutAuteurInput[] | DemandeModificationUncheckedCreateWithoutAuteurInput[]
+    connectOrCreate?: DemandeModificationCreateOrConnectWithoutAuteurInput | DemandeModificationCreateOrConnectWithoutAuteurInput[]
+    upsert?: DemandeModificationUpsertWithWhereUniqueWithoutAuteurInput | DemandeModificationUpsertWithWhereUniqueWithoutAuteurInput[]
+    createMany?: DemandeModificationCreateManyAuteurInputEnvelope
+    set?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    disconnect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    delete?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    update?: DemandeModificationUpdateWithWhereUniqueWithoutAuteurInput | DemandeModificationUpdateWithWhereUniqueWithoutAuteurInput[]
+    updateMany?: DemandeModificationUpdateManyWithWhereWithoutAuteurInput | DemandeModificationUpdateManyWithWhereWithoutAuteurInput[]
+    deleteMany?: DemandeModificationScalarWhereInput | DemandeModificationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutRolesInput = {
@@ -78826,6 +80588,13 @@ export namespace Prisma {
     connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
   }
 
+  export type DemandeModificationCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<DemandeModificationCreateWithoutSemestreInput, DemandeModificationUncheckedCreateWithoutSemestreInput> | DemandeModificationCreateWithoutSemestreInput[] | DemandeModificationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: DemandeModificationCreateOrConnectWithoutSemestreInput | DemandeModificationCreateOrConnectWithoutSemestreInput[]
+    createMany?: DemandeModificationCreateManySemestreInputEnvelope
+    connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -78866,6 +80635,13 @@ export namespace Prisma {
     connectOrCreate?: RepartitionCreateOrConnectWithoutSemestreInput | RepartitionCreateOrConnectWithoutSemestreInput[]
     createMany?: RepartitionCreateManySemestreInputEnvelope
     connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+  }
+
+  export type DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<DemandeModificationCreateWithoutSemestreInput, DemandeModificationUncheckedCreateWithoutSemestreInput> | DemandeModificationCreateWithoutSemestreInput[] | DemandeModificationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: DemandeModificationCreateOrConnectWithoutSemestreInput | DemandeModificationCreateOrConnectWithoutSemestreInput[]
+    createMany?: DemandeModificationCreateManySemestreInputEnvelope
+    connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -78960,6 +80736,20 @@ export namespace Prisma {
     deleteMany?: RepartitionScalarWhereInput | RepartitionScalarWhereInput[]
   }
 
+  export type DemandeModificationUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<DemandeModificationCreateWithoutSemestreInput, DemandeModificationUncheckedCreateWithoutSemestreInput> | DemandeModificationCreateWithoutSemestreInput[] | DemandeModificationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: DemandeModificationCreateOrConnectWithoutSemestreInput | DemandeModificationCreateOrConnectWithoutSemestreInput[]
+    upsert?: DemandeModificationUpsertWithWhereUniqueWithoutSemestreInput | DemandeModificationUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: DemandeModificationCreateManySemestreInputEnvelope
+    set?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    disconnect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    delete?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    update?: DemandeModificationUpdateWithWhereUniqueWithoutSemestreInput | DemandeModificationUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: DemandeModificationUpdateManyWithWhereWithoutSemestreInput | DemandeModificationUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: DemandeModificationScalarWhereInput | DemandeModificationScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -79042,6 +80832,20 @@ export namespace Prisma {
     update?: RepartitionUpdateWithWhereUniqueWithoutSemestreInput | RepartitionUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: RepartitionUpdateManyWithWhereWithoutSemestreInput | RepartitionUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: RepartitionScalarWhereInput | RepartitionScalarWhereInput[]
+  }
+
+  export type DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<DemandeModificationCreateWithoutSemestreInput, DemandeModificationUncheckedCreateWithoutSemestreInput> | DemandeModificationCreateWithoutSemestreInput[] | DemandeModificationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: DemandeModificationCreateOrConnectWithoutSemestreInput | DemandeModificationCreateOrConnectWithoutSemestreInput[]
+    upsert?: DemandeModificationUpsertWithWhereUniqueWithoutSemestreInput | DemandeModificationUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: DemandeModificationCreateManySemestreInputEnvelope
+    set?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    disconnect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    delete?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+    update?: DemandeModificationUpdateWithWhereUniqueWithoutSemestreInput | DemandeModificationUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: DemandeModificationUpdateManyWithWhereWithoutSemestreInput | DemandeModificationUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: DemandeModificationScalarWhereInput | DemandeModificationScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -81452,6 +83256,42 @@ export namespace Prisma {
     update?: XOR<XOR<ActivityTagUpdateToOneWithWhereWithoutAffectationsInput, ActivityTagUpdateWithoutAffectationsInput>, ActivityTagUncheckedUpdateWithoutAffectationsInput>
   }
 
+  export type SemestreCreateNestedOneWithoutDemandesModificationInput = {
+    create?: XOR<SemestreCreateWithoutDemandesModificationInput, SemestreUncheckedCreateWithoutDemandesModificationInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutDemandesModificationInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDemandesModificationInput = {
+    create?: XOR<UserCreateWithoutDemandesModificationInput, UserUncheckedCreateWithoutDemandesModificationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDemandesModificationInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumDemandeTypeFieldUpdateOperationsInput = {
+    set?: $Enums.DemandeType
+  }
+
+  export type EnumDemandeStatutFieldUpdateOperationsInput = {
+    set?: $Enums.DemandeStatut
+  }
+
+  export type SemestreUpdateOneRequiredWithoutDemandesModificationNestedInput = {
+    create?: XOR<SemestreCreateWithoutDemandesModificationInput, SemestreUncheckedCreateWithoutDemandesModificationInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutDemandesModificationInput
+    upsert?: SemestreUpsertWithoutDemandesModificationInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutDemandesModificationInput, SemestreUpdateWithoutDemandesModificationInput>, SemestreUncheckedUpdateWithoutDemandesModificationInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDemandesModificationNestedInput = {
+    create?: XOR<UserCreateWithoutDemandesModificationInput, UserUncheckedCreateWithoutDemandesModificationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDemandesModificationInput
+    upsert?: UserUpsertWithoutDemandesModificationInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDemandesModificationInput, UserUpdateWithoutDemandesModificationInput>, UserUncheckedUpdateWithoutDemandesModificationInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -82210,6 +84050,40 @@ export namespace Prisma {
     _max?: NestedEnumRepartitionStatutFilter<$PrismaModel>
   }
 
+  export type NestedEnumDemandeTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.DemandeType | EnumDemandeTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DemandeType[] | ListEnumDemandeTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DemandeType[] | ListEnumDemandeTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDemandeTypeFilter<$PrismaModel> | $Enums.DemandeType
+  }
+
+  export type NestedEnumDemandeStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.DemandeStatut | EnumDemandeStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.DemandeStatut[] | ListEnumDemandeStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DemandeStatut[] | ListEnumDemandeStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumDemandeStatutFilter<$PrismaModel> | $Enums.DemandeStatut
+  }
+
+  export type NestedEnumDemandeTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DemandeType | EnumDemandeTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.DemandeType[] | ListEnumDemandeTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DemandeType[] | ListEnumDemandeTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumDemandeTypeWithAggregatesFilter<$PrismaModel> | $Enums.DemandeType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDemandeTypeFilter<$PrismaModel>
+    _max?: NestedEnumDemandeTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDemandeStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DemandeStatut | EnumDemandeStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.DemandeStatut[] | ListEnumDemandeStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DemandeStatut[] | ListEnumDemandeStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumDemandeStatutWithAggregatesFilter<$PrismaModel> | $Enums.DemandeStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDemandeStatutFilter<$PrismaModel>
+    _max?: NestedEnumDemandeStatutFilter<$PrismaModel>
+  }
+
   export type UserSystemRoleCreateWithoutUserInput = {
     id?: string
     role: $Enums.RoleCode
@@ -82534,6 +84408,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DemandeModificationCreateWithoutAuteurInput = {
+    id?: string
+    departementCode: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
+    semestre: SemestreCreateNestedOneWithoutDemandesModificationInput
+  }
+
+  export type DemandeModificationUncheckedCreateWithoutAuteurInput = {
+    id?: string
+    semestreId: string
+    departementCode: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
+  }
+
+  export type DemandeModificationCreateOrConnectWithoutAuteurInput = {
+    where: DemandeModificationWhereUniqueInput
+    create: XOR<DemandeModificationCreateWithoutAuteurInput, DemandeModificationUncheckedCreateWithoutAuteurInput>
+  }
+
+  export type DemandeModificationCreateManyAuteurInputEnvelope = {
+    data: DemandeModificationCreateManyAuteurInput | DemandeModificationCreateManyAuteurInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserSystemRoleUpsertWithWhereUniqueWithoutUserInput = {
     where: UserSystemRoleWhereUniqueInput
     update: XOR<UserSystemRoleUpdateWithoutUserInput, UserSystemRoleUncheckedUpdateWithoutUserInput>
@@ -82814,6 +84728,41 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
   }
 
+  export type DemandeModificationUpsertWithWhereUniqueWithoutAuteurInput = {
+    where: DemandeModificationWhereUniqueInput
+    update: XOR<DemandeModificationUpdateWithoutAuteurInput, DemandeModificationUncheckedUpdateWithoutAuteurInput>
+    create: XOR<DemandeModificationCreateWithoutAuteurInput, DemandeModificationUncheckedCreateWithoutAuteurInput>
+  }
+
+  export type DemandeModificationUpdateWithWhereUniqueWithoutAuteurInput = {
+    where: DemandeModificationWhereUniqueInput
+    data: XOR<DemandeModificationUpdateWithoutAuteurInput, DemandeModificationUncheckedUpdateWithoutAuteurInput>
+  }
+
+  export type DemandeModificationUpdateManyWithWhereWithoutAuteurInput = {
+    where: DemandeModificationScalarWhereInput
+    data: XOR<DemandeModificationUpdateManyMutationInput, DemandeModificationUncheckedUpdateManyWithoutAuteurInput>
+  }
+
+  export type DemandeModificationScalarWhereInput = {
+    AND?: DemandeModificationScalarWhereInput | DemandeModificationScalarWhereInput[]
+    OR?: DemandeModificationScalarWhereInput[]
+    NOT?: DemandeModificationScalarWhereInput | DemandeModificationScalarWhereInput[]
+    id?: UuidFilter<"DemandeModification"> | string
+    semestreId?: UuidFilter<"DemandeModification"> | string
+    departementCode?: StringFilter<"DemandeModification"> | string
+    auteurId?: UuidFilter<"DemandeModification"> | string
+    versionId?: UuidNullableFilter<"DemandeModification"> | string | null
+    type?: EnumDemandeTypeFilter<"DemandeModification"> | $Enums.DemandeType
+    cible?: JsonFilter<"DemandeModification">
+    motif?: StringFilter<"DemandeModification"> | string
+    statut?: EnumDemandeStatutFilter<"DemandeModification"> | $Enums.DemandeStatut
+    reponse?: StringNullableFilter<"DemandeModification"> | string | null
+    traiteePar?: UuidNullableFilter<"DemandeModification"> | string | null
+    createdAt?: DateTimeFilter<"DemandeModification"> | Date | string
+    traiteeLe?: DateTimeNullableFilter<"DemandeModification"> | Date | string | null
+  }
+
   export type UserCreateWithoutRolesInput = {
     id?: string
     email: string
@@ -82842,6 +84791,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutRolesInput = {
@@ -82872,6 +84822,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutRolesInput = {
@@ -82918,6 +84869,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRolesInput = {
@@ -82948,6 +84900,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserCreateWithoutRefreshTokensInput = {
@@ -82978,6 +84931,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -83008,6 +84962,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -83054,6 +85009,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -83084,6 +85040,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserCreateWithoutPasswordHistoryInput = {
@@ -83114,6 +85071,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutPasswordHistoryInput = {
@@ -83144,6 +85102,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUncheckedCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutPasswordHistoryInput = {
@@ -83190,6 +85149,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordHistoryInput = {
@@ -83220,6 +85180,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUncheckedUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserCreateWithoutResetTokensInput = {
@@ -83250,6 +85211,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutResetTokensInput = {
@@ -83280,6 +85242,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUncheckedCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutResetTokensInput = {
@@ -83326,6 +85289,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResetTokensInput = {
@@ -83356,6 +85320,7 @@ export namespace Prisma {
     sprintMembers?: SprintMemberUncheckedUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type ProjectMemberCreateWithoutProjectInput = {
@@ -83664,6 +85629,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutProjectMembersInput = {
@@ -83694,6 +85660,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutProjectMembersInput = {
@@ -83781,6 +85748,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectMembersInput = {
@@ -83811,6 +85779,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type ProjectCreateWithoutColumnsInput = {
@@ -84053,6 +86022,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
@@ -84083,6 +86053,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTasksInput = {
@@ -84118,6 +86089,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutCreatedTasksInput = {
@@ -84148,6 +86120,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutCreatedTasksInput = {
@@ -84486,6 +86459,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
@@ -84516,6 +86490,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUpsertWithoutCreatedTasksInput = {
@@ -84557,6 +86532,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedTasksInput = {
@@ -84587,6 +86563,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type SprintUpsertWithoutTasksInput = {
@@ -85002,6 +86979,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutSprintMembersInput = {
@@ -85032,6 +87010,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutSprintMembersInput = {
@@ -85115,6 +87094,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSprintMembersInput = {
@@ -85145,6 +87125,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type TaskCreateWithoutCommentsInput = {
@@ -85228,6 +87209,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -85258,6 +87240,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -85363,6 +87346,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -85393,6 +87377,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type TaskTagCreateWithoutTagInput = {
@@ -85666,6 +87651,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutAuteurInput
   }
 
   export type UserUncheckedCreateWithoutActivitiesInput = {
@@ -85696,6 +87682,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
     passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
     resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutAuteurInput
   }
 
   export type UserCreateOrConnectWithoutActivitiesInput = {
@@ -85801,6 +87788,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutAuteurNestedInput
   }
 
   export type UserUncheckedUpdateWithoutActivitiesInput = {
@@ -85831,6 +87819,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
     passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutAuteurNestedInput
   }
 
   export type SemestreCreateWithoutAnneeInput = {
@@ -85846,6 +87835,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -85861,6 +87851,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -86362,6 +88353,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DemandeModificationCreateWithoutSemestreInput = {
+    id?: string
+    departementCode: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
+    auteur: UserCreateNestedOneWithoutDemandesModificationInput
+  }
+
+  export type DemandeModificationUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    departementCode: string
+    auteurId: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
+  }
+
+  export type DemandeModificationCreateOrConnectWithoutSemestreInput = {
+    where: DemandeModificationWhereUniqueInput
+    create: XOR<DemandeModificationCreateWithoutSemestreInput, DemandeModificationUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type DemandeModificationCreateManySemestreInputEnvelope = {
+    data: DemandeModificationCreateManySemestreInput | DemandeModificationCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -86589,6 +88620,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Repartition"> | Date | string
   }
 
+  export type DemandeModificationUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: DemandeModificationWhereUniqueInput
+    update: XOR<DemandeModificationUpdateWithoutSemestreInput, DemandeModificationUncheckedUpdateWithoutSemestreInput>
+    create: XOR<DemandeModificationCreateWithoutSemestreInput, DemandeModificationUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type DemandeModificationUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: DemandeModificationWhereUniqueInput
+    data: XOR<DemandeModificationUpdateWithoutSemestreInput, DemandeModificationUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type DemandeModificationUpdateManyWithWhereWithoutSemestreInput = {
+    where: DemandeModificationScalarWhereInput
+    data: XOR<DemandeModificationUpdateManyMutationInput, DemandeModificationUncheckedUpdateManyWithoutSemestreInput>
+  }
+
   export type SemestreCreateWithoutCreneauxInput = {
     id?: string
     numero: number
@@ -86602,6 +88649,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -86617,6 +88665,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -86672,6 +88721,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -86687,6 +88737,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -87484,6 +89535,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -87499,6 +89551,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -87686,6 +89739,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -87701,6 +89755,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -89906,6 +91961,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -89921,6 +91977,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -90001,6 +92058,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -90016,6 +92074,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -90463,6 +92522,7 @@ export namespace Prisma {
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -90478,6 +92538,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -90595,6 +92656,7 @@ export namespace Prisma {
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -90610,6 +92672,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -91369,6 +93432,7 @@ export namespace Prisma {
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
@@ -91384,6 +93448,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
@@ -91446,6 +93511,7 @@ export namespace Prisma {
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
@@ -91461,6 +93527,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ContrainteDefinitionUpsertWithoutInstancesInput = {
@@ -91513,6 +93580,7 @@ export namespace Prisma {
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutRepartitionsInput = {
@@ -91528,6 +93596,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutRepartitionsInput = {
@@ -91634,6 +93703,7 @@ export namespace Prisma {
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutRepartitionsInput = {
@@ -91649,6 +93719,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type DepartementUpsertWithoutRepartitionsInput = {
@@ -92146,6 +94217,226 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutTagNestedInput
   }
 
+  export type SemestreCreateWithoutDemandesModificationInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutDemandesModificationInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutDemandesModificationInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutDemandesModificationInput, SemestreUncheckedCreateWithoutDemandesModificationInput>
+  }
+
+  export type UserCreateWithoutDemandesModificationInput = {
+    id?: string
+    email: string
+    passwordHash?: string | null
+    firstName: string
+    lastName: string
+    isActive?: boolean
+    desactiveLe?: Date | string | null
+    failedAttempts?: number
+    lockedUntil?: Date | string | null
+    mfaSecret?: string | null
+    mfaActive?: boolean
+    mustChangePassword?: boolean
+    passwordChangedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    provider?: $Enums.AuthProvider
+    providerSubject?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: UserSystemRoleCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput
+    createdTasks?: TaskCreateNestedManyWithoutCreatorInput
+    comments?: CommentCreateNestedManyWithoutUserInput
+    activities?: ActivityCreateNestedManyWithoutUserInput
+    projectMembers?: ProjectMemberCreateNestedManyWithoutUserInput
+    sprintMembers?: SprintMemberCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
+    passwordHistory?: PasswordHistoryCreateNestedManyWithoutUserInput
+    resetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDemandesModificationInput = {
+    id?: string
+    email: string
+    passwordHash?: string | null
+    firstName: string
+    lastName: string
+    isActive?: boolean
+    desactiveLe?: Date | string | null
+    failedAttempts?: number
+    lockedUntil?: Date | string | null
+    mfaSecret?: string | null
+    mfaActive?: boolean
+    mustChangePassword?: boolean
+    passwordChangedAt?: Date | string
+    lastLoginAt?: Date | string | null
+    provider?: $Enums.AuthProvider
+    providerSubject?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    roles?: UserSystemRoleUncheckedCreateNestedManyWithoutUserInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    createdTasks?: TaskUncheckedCreateNestedManyWithoutCreatorInput
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput
+    activities?: ActivityUncheckedCreateNestedManyWithoutUserInput
+    projectMembers?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    sprintMembers?: SprintMemberUncheckedCreateNestedManyWithoutUserInput
+    refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+    passwordHistory?: PasswordHistoryUncheckedCreateNestedManyWithoutUserInput
+    resetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDemandesModificationInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDemandesModificationInput, UserUncheckedCreateWithoutDemandesModificationInput>
+  }
+
+  export type SemestreUpsertWithoutDemandesModificationInput = {
+    update: XOR<SemestreUpdateWithoutDemandesModificationInput, SemestreUncheckedUpdateWithoutDemandesModificationInput>
+    create: XOR<SemestreCreateWithoutDemandesModificationInput, SemestreUncheckedCreateWithoutDemandesModificationInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutDemandesModificationInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutDemandesModificationInput, SemestreUncheckedUpdateWithoutDemandesModificationInput>
+  }
+
+  export type SemestreUpdateWithoutDemandesModificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutDemandesModificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type UserUpsertWithoutDemandesModificationInput = {
+    update: XOR<UserUpdateWithoutDemandesModificationInput, UserUncheckedUpdateWithoutDemandesModificationInput>
+    create: XOR<UserCreateWithoutDemandesModificationInput, UserUncheckedCreateWithoutDemandesModificationInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDemandesModificationInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDemandesModificationInput, UserUncheckedUpdateWithoutDemandesModificationInput>
+  }
+
+  export type UserUpdateWithoutDemandesModificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    desactiveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    mfaActive?: BoolFieldUpdateOperationsInput | boolean
+    mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
+    passwordChangedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    providerSubject?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: UserSystemRoleUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: TaskUpdateManyWithoutCreatorNestedInput
+    comments?: CommentUpdateManyWithoutUserNestedInput
+    activities?: ActivityUpdateManyWithoutUserNestedInput
+    projectMembers?: ProjectMemberUpdateManyWithoutUserNestedInput
+    sprintMembers?: SprintMemberUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
+    passwordHistory?: PasswordHistoryUpdateManyWithoutUserNestedInput
+    resetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDemandesModificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    desactiveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedAttempts?: IntFieldUpdateOperationsInput | number
+    lockedUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    mfaSecret?: NullableStringFieldUpdateOperationsInput | string | null
+    mfaActive?: BoolFieldUpdateOperationsInput | boolean
+    mustChangePassword?: BoolFieldUpdateOperationsInput | boolean
+    passwordChangedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    provider?: EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+    providerSubject?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    roles?: UserSystemRoleUncheckedUpdateManyWithoutUserNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatorNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
+    activities?: ActivityUncheckedUpdateManyWithoutUserNestedInput
+    projectMembers?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    sprintMembers?: SprintMemberUncheckedUpdateManyWithoutUserNestedInput
+    refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+    passwordHistory?: PasswordHistoryUncheckedUpdateManyWithoutUserNestedInput
+    resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserSystemRoleCreateManyUserInput = {
     id?: string
     role: $Enums.RoleCode
@@ -92248,6 +94539,21 @@ export namespace Prisma {
     usedAt?: Date | string | null
     demandePar: string
     createdAt?: Date | string
+  }
+
+  export type DemandeModificationCreateManyAuteurInput = {
+    id?: string
+    semestreId: string
+    departementCode: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
   }
 
   export type UserSystemRoleUpdateWithoutUserInput = {
@@ -92576,6 +94882,51 @@ export namespace Prisma {
     usedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     demandePar?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DemandeModificationUpdateWithoutAuteurInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    semestre?: SemestreUpdateOneRequiredWithoutDemandesModificationNestedInput
+  }
+
+  export type DemandeModificationUncheckedUpdateWithoutAuteurInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DemandeModificationUncheckedUpdateManyWithoutAuteurInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ProjectMemberCreateManyProjectInput = {
@@ -93235,6 +95586,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -93250,6 +95602,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -93460,6 +95813,21 @@ export namespace Prisma {
     libelle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type DemandeModificationCreateManySemestreInput = {
+    id?: string
+    departementCode: string
+    auteurId: string
+    versionId?: string | null
+    type: $Enums.DemandeType
+    cible: JsonNullValueInput | InputJsonValue
+    motif: string
+    statut?: $Enums.DemandeStatut
+    reponse?: string | null
+    traiteePar?: string | null
+    createdAt?: Date | string
+    traiteeLe?: Date | string | null
   }
 
   export type GroupeUpdateWithoutSemestreInput = {
@@ -93678,6 +96046,51 @@ export namespace Prisma {
     libelle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DemandeModificationUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auteur?: UserUpdateOneRequiredWithoutDemandesModificationNestedInput
+  }
+
+  export type DemandeModificationUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DemandeModificationUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementCode?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumDemandeTypeFieldUpdateOperationsInput | $Enums.DemandeType
+    cible?: JsonNullValueInput | InputJsonValue
+    motif?: StringFieldUpdateOperationsInput | string
+    statut?: EnumDemandeStatutFieldUpdateOperationsInput | $Enums.DemandeStatut
+    reponse?: NullableStringFieldUpdateOperationsInput | string | null
+    traiteePar?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CreneauAffichageCreateManyCreneauInput = {

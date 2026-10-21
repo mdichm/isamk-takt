@@ -90,6 +90,19 @@ enum RepartitionStatut {
   ROUVERTE
 }
 
+// Type de demande de modification — L2-15
+enum DemandeType {
+  ANOMALIE
+  MODIFICATION
+}
+
+// Statut de demande de modification — L2-15
+enum DemandeStatut {
+  OUVERTE
+  TRAITEE
+  REFUSEE
+}
+
 // Type de groupe hiérarchique — L1-04
 enum GroupeType {
   SECTION
@@ -187,16 +200,17 @@ model User {
   updatedAt          DateTime     @updatedAt
 
   // Relations
-  roles           UserSystemRole[]
-  assignedTasks   Task[]               @relation("AssignedTasks")
-  createdTasks    Task[]               @relation("CreatedTasks")
-  comments        Comment[]
-  activities      Activity[]
-  projectMembers  ProjectMember[]
-  sprintMembers   SprintMember[]
-  refreshTokens   RefreshToken[]
-  passwordHistory PasswordHistory[]
-  resetTokens     PasswordResetToken[]
+  roles                UserSystemRole[]
+  assignedTasks        Task[]                @relation("AssignedTasks")
+  createdTasks         Task[]                @relation("CreatedTasks")
+  comments             Comment[]
+  activities           Activity[]
+  projectMembers       ProjectMember[]
+  sprintMembers        SprintMember[]
+  refreshTokens        RefreshToken[]
+  passwordHistory      PasswordHistory[]
+  resetTokens          PasswordResetToken[]
+  demandesModification DemandeModification[]
 
   @@index([email])
   @@index([isActive])
@@ -548,12 +562,13 @@ model Semestre {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  groupes             Groupe[]
-  decharges           Decharge[]
-  creneaux            Creneau[]
-  indisponibilites    Indisponibilite[]
-  contrainteInstances ContrainteInstance[]
-  repartitions        Repartition[]
+  groupes              Groupe[]
+  decharges            Decharge[]
+  creneaux             Creneau[]
+  indisponibilites     Indisponibilite[]
+  contrainteInstances  ContrainteInstance[]
+  repartitions         Repartition[]
+  demandesModification DemandeModification[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -1193,4 +1208,32 @@ model Affectation {
   @@index([typeEnseignementId])
   @@index([groupeId])
   @@map("affectations")
+}
+
+// ============================================
+// Demandes de modification (L2-15)
+// Une demande signale une anomalie ou demande une modification
+// de répartition, liée à un semestre et à un département.
+// ============================================
+
+model DemandeModification {
+  id              String        @id @default(uuid()) @db.Uuid
+  semestreId      String        @db.Uuid
+  departementCode String
+  auteurId        String        @db.Uuid
+  versionId       String?       @db.Uuid
+  type            DemandeType
+  cible           Json
+  motif           String
+  statut          DemandeStatut @default(OUVERTE)
+  reponse         String?
+  traiteePar      String?       @db.Uuid
+  createdAt       DateTime      @default(now())
+  traiteeLe       DateTime?
+
+  semestre Semestre @relation(fields: [semestreId], references: [id])
+  auteur   User     @relation(fields: [auteurId], references: [id])
+
+  @@index([departementCode, statut])
+  @@map("demandes_modification")
 }
