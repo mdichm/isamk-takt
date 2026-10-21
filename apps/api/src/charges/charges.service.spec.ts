@@ -371,4 +371,219 @@ describe('ChargesService', () => {
       ).rejects.toThrow('OUT_OF_SCOPE');
     });
   });
+
+  describe('getChargeGlobale', () => {
+    it('should return charge globale with multiple departments', async () => {
+      const prismaMock = buildPrismaMock();
+      prismaMock.annee.findFirst.mockResolvedValue({
+        id: 'a1',
+        statut: 'ACTIVE',
+        semestres: [
+          { id: 's1', numero: 1, nbSemaines: 14 },
+          { id: 's2', numero: 2, nbSemaines: 14 },
+        ],
+      });
+      prismaMock.repartition.count.mockResolvedValue(1);
+
+      const enseignant = {
+        id: 'e1',
+        matricule: 'M001',
+        nom: 'Doe',
+        prenom: 'John',
+        departementId: 'd1',
+        departement: { id: 'd1', libelle: 'Math' },
+        grade: { id: 'g1' },
+        gradeId: 'g1',
+        decharges: [
+          { heures: 5, semestreId: 's1' },
+          { heures: 3, semestreId: 's2' },
+        ],
+      };
+
+      prismaMock.enseignant.findUnique.mockResolvedValue(enseignant);
+
+      prismaMock.repartition.findMany.mockResolvedValue([
+        {
+          id: 'r1',
+          semestreId: 's1',
+          departementId: 'd1',
+          statut: 'VALIDEE',
+          departement: { id: 'd1', libelle: 'Math' },
+          affectations: [
+            {
+              id: 'a1',
+              enseignantId: 'e1',
+              moduleId: 'm1',
+              typeEnseignementId: 't1',
+              groupeId: null,
+              estCmCommun: false,
+              volumeHebdoMinutes: 600,
+            },
+          ],
+        },
+        {
+          id: 'r2',
+          semestreId: 's2',
+          departementId: 'd1',
+          statut: 'VALIDEE',
+          departement: { id: 'd1', libelle: 'Math' },
+          affectations: [
+            {
+              id: 'a2',
+              enseignantId: 'e1',
+              moduleId: 'm1',
+              typeEnseignementId: 't1',
+              groupeId: null,
+              estCmCommun: false,
+              volumeHebdoMinutes: 600,
+            },
+          ],
+        },
+        {
+          id: 'r3',
+          semestreId: 's1',
+          departementId: 'd2',
+          statut: 'VALIDEE',
+          departement: { id: 'd2', libelle: 'Physique' },
+          affectations: [
+            {
+              id: 'a3',
+              enseignantId: 'e1',
+              moduleId: 'm2',
+              typeEnseignementId: 't1',
+              groupeId: null,
+              estCmCommun: false,
+              volumeHebdoMinutes: 300,
+            },
+          ],
+        },
+      ]);
+
+      prismaMock.chargeRuleSet.findFirst.mockResolvedValue({
+        id: 'rs1',
+        numero: 1,
+        periode: 'ANNUELLE',
+        seuil: 10,
+        plafond: 20,
+        arrondi: 2,
+        coefficients: [],
+        referenceGrades: [{ gradeId: 'g1', coefficient: '192' }],
+      });
+
+      const { module } = buildModule(prismaMock);
+      const service = (await module.compile()).get(ChargesService);
+
+      const result = await service.getChargeGlobale(
+        'e1',
+        { id: 'u1', role: 'GESTIONNAIRE', departments: [] },
+      );
+
+      expect(result.enseignantId).toBe('e1');
+      expect(result.matricule).toBe('M001');
+      expect(result.nom).toBe('Doe');
+      expect(result.prenom).toBe('John');
+      expect(result.parDepartement.length).toBe(2);
+      expect(result.totalVolumeBrut).toBeGreaterThanOrEqual(0);
+      expect(result.calculPartiel).toBe(false);
+    });
+
+    it('should enforce RBAC for Responsable out of scope', async () => {
+      const prismaMock = buildPrismaMock();
+      prismaMock.annee.findFirst.mockResolvedValue({
+        id: 'a1',
+        statut: 'ACTIVE',
+        semestres: [
+          { id: 's1', numero: 1, nbSemaines: 14 },
+          { id: 's2', numero: 2, nbSemaines: 14 },
+        ],
+      });
+
+      const enseignant = {
+        id: 'e1',
+        matricule: 'M001',
+        nom: 'Doe',
+        prenom: 'John',
+        departementId: 'd1',
+        departement: { id: 'd1', libelle: 'Math' },
+        grade: { id: 'g1' },
+        gradeId: 'g1',
+        decharges: [],
+      };
+
+      prismaMock.enseignant.findUnique.mockResolvedValue(enseignant);
+
+      const { module } = buildModule(prismaMock);
+      const service = (await module.compile()).get(ChargesService);
+
+      await expect(
+        service.getChargeGlobale(
+          'e1',
+          { id: 'u1', role: 'RESPONSABLE_DEPARTEMENT', departments: ['d9'] },
+        ),
+      ).rejects.toThrow('OUT_OF_SCOPE');
+    });
+
+    it('should return 404 for unknown enseignant', async () => {
+      const prismaMock = buildPrismaMock();
+      prismaMock.enseignant.findUnique.mockResolvedValue(null);
+
+      const { module } = buildModule(prismaMock);
+      const service = (await module.compile()).get(ChargesService);
+
+      await expect(
+        service.getChargeGlobale(
+          'unknown',
+          { id: 'u1', role: 'GESTIONNAIRE', departments: [] },
+        ),
+      ).rejects.toThrow('introuvable');
+    });
+
+    it('should only expose departements in responsable scope', async () => {
+      const prismaMock = buildPrismaMock();
+      prismaMock.annee.findFirst.mockResolvedValue({
+        id: 'a1',
+        statut: 'ACTIVE',
+        semestres: [
+          { id: 's1', numero: 1, nbSemaines: 14 },
+          { id: 's2', numero: 2, nbSemaines: 14 },
+        ],
+      });
+
+      const enseignant = {
+        id: 'e1',
+        matricule: 'M001',
+        nom: 'Doe',
+        prenom: 'John',
+        departementId: 'd1',
+        departement: { id: 'd1', libelle: 'Math' },
+        grade: { id: 'g1' },
+        gradeId: 'g1',
+        decharges: [],
+      };
+
+      prismaMock.enseignant.findUnique.mockResolvedValue(enseignant);
+      prismaMock.repartition.count.mockResolvedValue(1);
+      prismaMock.repartition.findMany.mockResolvedValue([]);
+      prismaMock.chargeRuleSet.findFirst.mockResolvedValue({
+        id: 'rs1',
+        numero: 1,
+        periode: 'ANNUELLE',
+        seuil: 10,
+        plafond: 20,
+        arrondi: 2,
+        coefficients: [],
+        referenceGrades: [{ gradeId: 'g1', coefficient: '192' }],
+      });
+
+      const { module } = buildModule(prismaMock);
+      const service = (await module.compile()).get(ChargesService);
+
+      const result = await service.getChargeGlobale(
+        'e1',
+        { id: 'u1', role: 'RESPONSABLE_DEPARTEMENT', departments: ['d1'] },
+      );
+
+      expect(result.parDepartement.length).toBe(0);
+    });
+  });
 });

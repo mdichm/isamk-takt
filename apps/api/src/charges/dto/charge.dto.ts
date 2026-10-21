@@ -157,6 +157,76 @@ export class ChargeEnseignantDto {
   detail: ChargeEnseignantDetail[];
 }
 
+export class ChargeParDepartementDto {
+  @ApiProperty({ description: 'ID du département' })
+  departementId: string;
+
+  @ApiProperty({ description: 'Libellé du département' })
+  libelle: string;
+
+  @ApiProperty({ description: 'Volume brut en heures' })
+  volumeBrut: number;
+
+  @ApiProperty({ description: 'Charge calculée en heures' })
+  chargeCalculee: number;
+
+  @ApiProperty({ description: 'Service dû en heures' })
+  serviceDu: number;
+
+  @ApiProperty({ description: 'Écart = charge calculée − service dû' })
+  ecart: number;
+
+  @ApiProperty({ description: 'Heures supplémentaires' })
+  heuresSup: number;
+}
+
+export class ChargeGlobaleDto {
+  @ApiProperty({ description: 'ID de l’enseignant' })
+  enseignantId: string;
+
+  @ApiProperty({ description: 'Matricule' })
+  matricule: string;
+
+  @ApiProperty({ description: 'Nom' })
+  nom: string;
+
+  @ApiProperty({ description: 'Prénom' })
+  prenom: string;
+
+  @ApiProperty({ description: 'Volume brut total en heures (tous départements)' })
+  totalVolumeBrut: number;
+
+  @ApiProperty({ description: 'Charge calculée totale en heures (tous départements)' })
+  totalChargeCalculee: number;
+
+  @ApiProperty({ description: 'Charge de référence du grade en heures' })
+  totalChargeReference: number;
+
+  @ApiProperty({ description: 'Décharges totales en heures' })
+  totalDecharges: number;
+
+  @ApiProperty({ description: 'Service dû total en heures' })
+  totalServiceDu: number;
+
+  @ApiProperty({ description: 'Écart total = charge calculée − service dû' })
+  totalEcart: number;
+
+  @ApiProperty({ description: 'Heures supplémentaires totales' })
+  totalHeuresSup: number;
+
+  @ApiProperty({ description: 'Alerte de dépassement du plafond sur le total' })
+  alerteDepassement: boolean;
+
+  @ApiProperty({ description: 'Calcul partiel (au moins un semestre sans répartition validée)' })
+  calculPartiel: boolean;
+
+  @ApiProperty({
+    type: [ChargeParDepartementDto],
+    description: 'Charge par département (sans détail module/groupe des autres départements)',
+  })
+  parDepartement: ChargeParDepartementDto[];
+}
+
 export class PaginatedChargesDto {
   @ApiProperty({ type: [ChargeAggregationDto], description: 'Données paginées' })
   data: ChargeAggregationDto[];
