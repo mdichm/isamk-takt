@@ -7,11 +7,12 @@ import { EnseignantFormDialog } from '@/components/enseignants/enseignant-form-d
 import { ModulesPanel } from '@/components/enseignants/modules-panel';
 import { DechargesPanel } from '@/components/enseignants/decharges-panel';
 import { messages } from '@/lib/messages/fr';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { findAllModules, type ModuleRef } from '@/lib/api/enseignants';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Edit2 } from 'lucide-react';
+import { Edit2, BarChart2 } from 'lucide-react';
 import { getErrorMessage } from '@/lib/api/errors';
 
 const queryClient = new QueryClient();
@@ -52,6 +53,12 @@ function EnseignantDetailContent({ id }: { id: string }) {
             <Edit2 size={18} className="mr-2" />
             {messages.editEnseignant}
           </Button>
+          <Link href={`/enseignants/${enseignant.id}/charge-globale`}>
+            <Button variant="outline">
+              <BarChart2 size={18} className="mr-2" />
+              {messages.btnVoirChargeGlobale}
+            </Button>
+          </Link>
         </div>
       </div>
 

@@ -62,6 +62,7 @@ const NAV_ENTRIES: NavEntry[] = [
   { label: t('modulesVolumes'), href: '/modules', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: VOLUMES },
   { label: t('parametrageCharge'), href: '/charge/rulesets', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: RULES },
   { label: t('charges'), href: '/charges', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: CHARGES },
+  { label: t('chargesAnnueles'), href: '/charges/annuelles', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: CHARGES },
 ];
 
 export default function Sidebar() {

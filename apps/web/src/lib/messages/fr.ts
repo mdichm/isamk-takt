@@ -804,6 +804,29 @@ export const messages = {
   erreurChargesNonTrouvees: 'Aucune année active ou aucun jeu de règles publié.',
   errorLoadCharges: 'Impossible de charger les charges.',
   errorChargeEnseignantNonTrouve: 'Enseignant introuvable.',
+
+  // Vue annuelle des charges (L2-19)
+  chargesAnnueles: 'Charges annuelles',
+  chargeGlobale: 'Charge globale',
+  chargeAnnuelle: 'Charge annuelle',
+  chargeGlobaleSubtitle: 'Charge totale toutes affectations confondues, par département.',
+  btnVoirChargeGlobale: 'Voir la charge globale',
+  retourEnseignant: 'Retour enseignant',
+  colonneSemestre: 'Semestre',
+  colonneS1: 'S1',
+  colonneS2: 'S2',
+  colonneTotal: 'Total',
+  totalAnnuel: 'Total annuel',
+  chargeParDepartement: 'Charge par département',
+  colonneSource: 'Source',
+  sourceSnapshotValide: 'Snapshot validé',
+  sourceCopieTravail: 'Copie de travail',
+  sourceAbsent: 'Absent',
+  alerteDepassement: 'Alerte dépassement de plafond',
+  depassePlafondGlobal: 'La charge totale dépasse le plafond autorisé.',
+  labelChargeCalculee: 'Charge calculée',
+  plus: '+',
+  moins: '–',
 } as const;
 
 export type Messages = typeof messages;
