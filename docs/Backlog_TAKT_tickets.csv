@@ -301,7 +301,7 @@ L2-14;L2;E2.5;Validation & snapshots;DET;Historique et consultation des snapshot
 - Consultation d'un snapshot en lecture seule";EX-REP-03;§3.3;FULL;Should;3;L2-12, L0-29;À faire;
 L2-15;L2;E2.6;Demandes de modification;DET;Demandes de modification (API);Création par le Gestionnaire, traitement par le Responsable.;"- Statuts OUVERTE, TRAITEE, REFUSEE avec réponse
 - Le Responsable ne voit que son département
-- Demande liée à une affectation ou une séance";EX-REP-05, EX-ROL-05;§3.3;BACK;Must;5;L2-06;En cours;
+- Demande liée à une affectation ou une séance";EX-REP-05, EX-ROL-05;§3.3;BACK;Must;5;L2-06;Terminé;
 L2-16;L2;E2.6;Demandes de modification;DET;UI demandes de modification;Création, suivi et traitement.;"- Le Gestionnaire crée une demande depuis une affectation
 - Le Responsable la traite avec motif";EX-REP-05;§3.3;FRONT;Must;3;L2-15, L0-29;À faire;
 L2-17;L2;E2.7;Vue annuelle des charges;DET;API de la vue annuelle des charges (S1 + S2);GET /charges/annuelles : cumul des deux semestres indépendant de la période du jeu de règles.;"- Par semestre : charge calculée et source (SNAPSHOT_VALIDE, COPIE_TRAVAIL, ABSENT)
