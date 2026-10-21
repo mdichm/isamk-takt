@@ -635,6 +635,16 @@ exports.Prisma.ContrainteInstanceScalarFieldEnum = {
   creeLe: 'creeLe'
 };
 
+exports.Prisma.RepartitionScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  departementId: 'departementId',
+  statut: 'statut',
+  libelle: 'libelle',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -816,6 +826,12 @@ exports.ContrainteNature = exports.$Enums.ContrainteNature = {
   VOEU: 'VOEU'
 };
 
+exports.RepartitionStatut = exports.$Enums.RepartitionStatut = {
+  BROUILLON: 'BROUILLON',
+  VALIDEE: 'VALIDEE',
+  ROUVERTE: 'ROUVERTE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserSystemRole: 'UserSystemRole',
@@ -864,7 +880,8 @@ exports.Prisma.ModelName = {
   SalleActivityTag: 'SalleActivityTag',
   ExigenceEquipement: 'ExigenceEquipement',
   ContrainteDefinition: 'ContrainteDefinition',
-  ContrainteInstance: 'ContrainteInstance'
+  ContrainteInstance: 'ContrainteInstance',
+  Repartition: 'Repartition'
 };
 
 /**

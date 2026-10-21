@@ -83,6 +83,13 @@ enum AnneeStatut {
   CLOTUREE
 }
 
+// Statut d'une répartition — L2-06
+enum RepartitionStatut {
+  BROUILLON
+  VALIDEE
+  ROUVERTE
+}
+
 // Type de groupe hiérarchique — L1-04
 enum GroupeType {
   SECTION
@@ -546,6 +553,7 @@ model Semestre {
   creneaux            Creneau[]
   indisponibilites    Indisponibilite[]
   contrainteInstances ContrainteInstance[]
+  repartitions        Repartition[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -609,9 +617,10 @@ model Departement {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  formations  Formation[]
-  enseignants Enseignant[]
-  salles      Salle[]
+  formations   Formation[]
+  enseignants  Enseignant[]
+  salles       Salle[]
+  repartitions Repartition[]
 
   @@unique([anneeId, code])
   @@index([anneeId, ordre])
@@ -1116,4 +1125,27 @@ model ContrainteInstance {
 
   @@index([semestreId, actif])
   @@map("contrainte_instances")
+}
+
+// ============================================
+// Répartitions (L2-06 : répartitions par département et semestre)
+// Une répartition lie un (semestre, département) avec un statut BROUILLON / VALIDEE / ROUVERTE.
+// ============================================
+
+model Repartition {
+  id            String            @id @default(uuid()) @db.Uuid
+  semestreId    String            @db.Uuid
+  departementId String            @db.Uuid
+  statut        RepartitionStatut @default(BROUILLON)
+  libelle       String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  semestre    Semestre    @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  departement Departement @relation(fields: [departementId], references: [id], onDelete: Cascade)
+
+  @@unique([semestreId, departementId])
+  @@index([semestreId])
+  @@index([departementId])
+  @@map("repartitions")
 }
