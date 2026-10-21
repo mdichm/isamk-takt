@@ -32,6 +32,7 @@ import { IndisponibiliteModule } from './indisponibilites/indisponibilite.module
 import { ContraintesModule } from './contraintes/contraintes.module.js';
 import { ImportsModule } from './imports/imports.module.js';
 import { RepartitionsModule } from './repartitions/repartitions.module.js';
+import { ChargesModule } from './charges/charges.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -104,6 +105,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     ContraintesModule,
     ImportsModule,
     RepartitionsModule,
+    ChargesModule,
     PolicyModule,
   ],
   controllers: [MetricsController, SecurityEventController],
