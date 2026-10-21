@@ -282,7 +282,7 @@ jobs:
           test -f dist/Backlog_TAKT_tickets.csv && \
           test -f dist/VELOCITE.md && \
           test -f dist/TRACABILITE_TAKT.md && \
-          test -f dist/tools/correspondance_tickets.json && \
+          test -f dist/correspondance_tickets.json && \
           echo "Backlog artifacts regenerated successfully in dist/"
 
   # ===========================================================================
