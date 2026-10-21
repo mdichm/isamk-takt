@@ -28,6 +28,11 @@ describe('ImportsService', () => {
       salle: { findFirst: vi.fn(), create: vi.fn() },
       groupe: { findFirst: vi.fn(), create: vi.fn() },
       module: { findFirst: vi.fn(), create: vi.fn() },
+      annee: { findUnique: vi.fn() },
+      departement: { findUnique: vi.fn() },
+      niveau: { findUnique: vi.fn() },
+      typeEnseignement: { findUnique: vi.fn() },
+      semestre: { findUnique: vi.fn() },
     };
 
     audit = {
@@ -129,6 +134,8 @@ describe('ImportsService', () => {
       const csv = 'matricule,nom,email,departementId,anneeId\nM001,Doe,doe@example.com,' + departementId + ',' + anneeId + '\n';
       const file = makeFile(Buffer.from(csv), 'test.csv');
       const dto: ImportCsvDto = { dryRun: true };
+      prisma.annee.findUnique.mockResolvedValue({ id: anneeId });
+      prisma.departement.findUnique.mockResolvedValue({ id: departementId });
 
       const result = await service.importCsv(ImportEntity.ENSEIGNANTS, dto, file, userId);
 
@@ -142,6 +149,8 @@ describe('ImportsService', () => {
       const csv = 'matricule,nom,email,departementId,anneeId\n,,,' + departementId + ',' + anneeId + '\n';
       const file = makeFile(Buffer.from(csv), 'test.csv');
       const dto: ImportCsvDto = { dryRun: true };
+      prisma.annee.findUnique.mockResolvedValue({ id: anneeId });
+      prisma.departement.findUnique.mockResolvedValue({ id: departementId });
 
       const result = await service.importCsv(ImportEntity.ENSEIGNANTS, dto, file, userId);
 
@@ -279,6 +288,138 @@ describe('ImportsService', () => {
       const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
       const rows = (service as any).parseXlsx(buffer);
       expect(rows).toEqual([]);
+    });
+  });
+
+  describe('controle referentiel (dryRun)', () => {
+    it('devrait signaler une anneeId enseignant introuvable en dryRun', async () => {
+      prisma.annee.findUnique.mockResolvedValue(null);
+      prisma.departement.findUnique.mockResolvedValue({ id: departementId });
+
+      const csv =
+        'matricule,nom,email,departementId,anneeId\nM001,Doe,doe@example.com,' +
+        departementId +
+        ',annee-inconnu\n';
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.ENSEIGNANTS, dto, file, userId);
+
+      const erreur = (result as any).items.find(
+        (i: any) => i.colonne === 'anneeId' && i.action === 'erreur',
+      );
+      expect(erreur).toBeDefined();
+      expect(erreur.correctionAttendue).toContain('anneeId');
+      expect((result as any).resume.erreur).toBeGreaterThan(0);
+    });
+
+    it('devrait signaler un departementId enseignant introuvable en dryRun', async () => {
+      prisma.annee.findUnique.mockResolvedValue({ id: anneeId });
+      prisma.departement.findUnique.mockResolvedValue(null);
+
+      const csv =
+        'matricule,nom,email,departementId,anneeId\nM001,Doe,doe@example.com,dep-inconnu,' +
+        anneeId +
+        '\n';
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.ENSEIGNANTS, dto, file, userId);
+
+      const erreur = (result as any).items.find(
+        (i: any) => i.colonne === 'departementId' && i.action === 'erreur',
+      );
+      expect(erreur).toBeDefined();
+      expect((result as any).resume.erreur).toBeGreaterThan(0);
+    });
+
+    it('devrait signaler un semestreId groupe introuvable en dryRun', async () => {
+      prisma.niveau.findUnique.mockResolvedValue({ id: 'niveau-id' });
+      prisma.semestre.findUnique.mockResolvedValue(null);
+
+      const csv = 'code,semestreId,niveauId\nINFO-L3-S1,sem-inconnu,niveau-id\n';
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.GROUPES, dto, file, userId);
+
+      const erreur = (result as any).items.find(
+        (i: any) => i.colonne === 'semestreId' && i.action === 'erreur',
+      );
+      expect(erreur).toBeDefined();
+    });
+
+    it('devrait signaler un niveauId groupe introuvable en dryRun', async () => {
+      prisma.niveau.findUnique.mockResolvedValue(null);
+      prisma.semestre.findUnique.mockResolvedValue({ id: 'semestre-id' });
+
+      const csv = 'code,semestreId,niveauId\nINFO-L3-S1,semestre-id,niveau-inconnu\n';
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.GROUPES, dto, file, userId);
+
+      const erreur = (result as any).items.find(
+        (i: any) => i.colonne === 'niveauId' && i.action === 'erreur',
+      );
+      expect(erreur).toBeDefined();
+    });
+
+    it('devrait signaler un niveauId module introuvable en dryRun', async () => {
+      prisma.niveau.findUnique.mockResolvedValue(null);
+      prisma.typeEnseignement.findUnique.mockResolvedValue({ id: 'type-id' });
+
+      const csv =
+        'code,libelle,semestreNumero,niveauId,typeId\nINFO301,Algo,1,niveau-inconnu,type-id\n';
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.MODULES, dto, file, userId);
+
+      const erreur = (result as any).items.find(
+        (i: any) => i.colonne === 'niveauId' && i.action === 'erreur',
+      );
+      expect(erreur).toBeDefined();
+    });
+
+    it('devrait signaler un typeId module introuvable en dryRun', async () => {
+      prisma.niveau.findUnique.mockResolvedValue({ id: 'niveau-id' });
+      prisma.typeEnseignement.findUnique.mockResolvedValue(null);
+
+      const csv =
+        'code,libelle,semestreNumero,niveauId,typeId\nINFO301,Algo,1,niveau-id,type-inconnu\n';
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.MODULES, dto, file, userId);
+
+      const erreur = (result as any).items.find(
+        (i: any) => i.colonne === 'typeId' && i.action === 'erreur',
+      );
+      expect(erreur).toBeDefined();
+    });
+
+    it('ne devrait signaler aucune erreur referentiel quand tous les IDs sont valides', async () => {
+      prisma.annee.findUnique.mockResolvedValue({ id: anneeId });
+      prisma.departement.findUnique.mockResolvedValue({ id: departementId });
+
+      const csv =
+        'matricule,nom,email,departementId,anneeId\nM001,Doe,doe@example.com,' +
+        departementId +
+        ',' +
+        anneeId +
+        '\n';
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.ENSEIGNANTS, dto, file, userId);
+
+      const erreursReferentiel = (result as any).items.filter(
+        (i: any) =>
+          i.action === 'erreur' && (i.colonne === 'anneeId' || i.colonne === 'departementId'),
+      );
+      expect(erreursReferentiel).toHaveLength(0);
+      expect((result as any).resume.erreur).toBe(0);
     });
   });
 });

@@ -210,9 +210,11 @@ export class ImportsService {
       const ligne = i + 2;
 
       const validation = this.validateRow(entite, row, ligne);
-      items.push(...validation.items);
+      const referentiel = await this.verifierReferentiel(entite, row, ligne);
+      const rowItems = [...validation.items, ...referentiel.items];
+      items.push(...rowItems);
 
-      for (const item of validation.items) {
+      for (const item of rowItems) {
         resume[item.action] = (resume[item.action] ?? 0) + 1;
         if (item.action === 'doublon' || item.action === 'conflit') {
           impacts.push({
@@ -266,6 +268,119 @@ export class ImportsService {
       case ImportEntity.MODULES:
         items.push(...this.validateModule(row, ligne));
         break;
+    }
+
+    return { items };
+  }
+
+  private async verifierReferentiel(
+    entite: ImportEntity,
+    row: Record<string, string>,
+    ligne: number,
+  ): Promise<{ items: ImportPreviewItem[] }> {
+    const items: ImportPreviewItem[] = [];
+    const verifications: {
+      champ: string;
+      valeur: string;
+      modele: string;
+      appel: () => Promise<any>;
+    }[] = [];
+
+    switch (entite) {
+      case ImportEntity.ENSEIGNANTS: {
+        const anneeId = (row.anneeId ?? '').trim();
+        const departementId = (row.departementId ?? '').trim();
+        if (anneeId) {
+          verifications.push({
+            champ: 'anneeId',
+            valeur: anneeId,
+            modele: 'Annee',
+            appel: () => this.prisma.annee.findUnique({ where: { id: anneeId } }),
+          });
+        }
+        if (departementId) {
+          verifications.push({
+            champ: 'departementId',
+            valeur: departementId,
+            modele: 'Departement',
+            appel: () =>
+              this.prisma.departement.findUnique({ where: { id: departementId } }),
+          });
+        }
+        break;
+      }
+      case ImportEntity.SALLES: {
+        const departementId = (row.departementId ?? '').trim();
+        if (departementId) {
+          verifications.push({
+            champ: 'departementId',
+            valeur: departementId,
+            modele: 'Departement',
+            appel: () =>
+              this.prisma.departement.findUnique({ where: { id: departementId } }),
+          });
+        }
+        break;
+      }
+      case ImportEntity.GROUPES: {
+        const niveauId = (row.niveauId ?? '').trim();
+        const semestreId = (row.semestreId ?? '').trim();
+        if (niveauId) {
+          verifications.push({
+            champ: 'niveauId',
+            valeur: niveauId,
+            modele: 'Niveau',
+            appel: () => this.prisma.niveau.findUnique({ where: { id: niveauId } }),
+          });
+        }
+        if (semestreId) {
+          verifications.push({
+            champ: 'semestreId',
+            valeur: semestreId,
+            modele: 'Semestre',
+            appel: () => this.prisma.semestre.findUnique({ where: { id: semestreId } }),
+          });
+        }
+        break;
+      }
+      case ImportEntity.MODULES: {
+        const niveauId = (row.niveauId ?? '').trim();
+        const typeId = (row.typeId ?? '').trim();
+        if (niveauId) {
+          verifications.push({
+            champ: 'niveauId',
+            valeur: niveauId,
+            modele: 'Niveau',
+            appel: () => this.prisma.niveau.findUnique({ where: { id: niveauId } }),
+          });
+        }
+        if (typeId) {
+          verifications.push({
+            champ: 'typeId',
+            valeur: typeId,
+            modele: 'TypeEnseignement',
+            appel: () =>
+              this.prisma.typeEnseignement.findUnique({ where: { id: typeId } }),
+          });
+        }
+        break;
+      }
+    }
+
+    const resultats = await Promise.all(
+      verifications.map((v) => v.appel().then((trouve) => ({ ...v, trouve }))),
+    );
+    for (const v of resultats) {
+      if (!v.trouve) {
+        items.push({
+          ligne,
+          colonne: v.champ,
+          valeur: v.valeur,
+          action: 'erreur',
+          message: `${v.modele} introuvable pour l'ID ${v.champ}`,
+          correctionAttendue: `Renseigner un ${v.champ} valide existant dans le référentiel`,
+        });
+      }
     }
 
     return { items };
