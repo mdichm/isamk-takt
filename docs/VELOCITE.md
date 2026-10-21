@@ -50,7 +50,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 | Lot | Points restants | Coeff. vélocité | Jours estimés | Date fin lot |
 |-----|----------------:|----------------:|--------------:|-------------:|
 | L1 | 5 | 1.0 | 0.1 j | 21/10/2026 |
-| L2 | 67 | 0.9 | 1.8 j | 22/10/2026 |
+| L2 | 67 | 0.9 | 1.8 j | 23/10/2026 |
 | L3 | 212 | 0.7 | 7.4 j | 28/10/2026 |
 | L4 | 148 | 0.85 | 4.3 j | 25/10/2026 |
 | L5 | 150 | 0.9 | 4.1 j | 25/10/2026 |
