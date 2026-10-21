@@ -44,6 +44,7 @@ const VOLUMES = icon('M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0
 const RULES = icon('M12 9v3.936c-.584.312-1 .995-1 1.564s.416 1.252 1 1.564V21h6v-3.5c0-.567-.224-1.067-.595-1.436M4.929 9.737c.577-.577 1.448-.577 2.025 0l.082.082a7 7 0 000 9.9l.082.082c.577.577 1.448.577 2.025 0l.082-.082a7 7 0 000-9.9l-.082-.082c-.577-.577-1.448-.577-2.025 0l-.082.082z');
 const REPARTITIONS = icon("M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z");
 const DEMANDES = icon("M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10");
+const CHARGES = icon('M13 10V3L4 14h7v7l9-11h-7z');
 
 const NAV_ENTRIES: NavEntry[] = [
   { label: t('home'), href: '/', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT', 'ETUDIANT'], icon: DASHBOARD },
@@ -60,6 +61,7 @@ const NAV_ENTRIES: NavEntry[] = [
   { label: t('adminSecurityEvents'), href: '/admin/security-events', roles: ['ADMINISTRATEUR'], icon: SECURITY },
   { label: t('modulesVolumes'), href: '/modules', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: VOLUMES },
   { label: t('parametrageCharge'), href: '/charge/rulesets', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: RULES },
+  { label: t('charges'), href: '/charges', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: CHARGES },
 ];
 
 export default function Sidebar() {

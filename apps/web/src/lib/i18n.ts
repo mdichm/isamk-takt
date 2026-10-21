@@ -32,6 +32,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     adminSecurityEvents: 'Journal de sécurité',
     modulesVolumes: 'Volumes par module',
     demandes: 'Demandes de modification',
+    charges: 'Charges',
 
     // Auth
     signInTitle: 'Connexion',
