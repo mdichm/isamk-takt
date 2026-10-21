@@ -20,8 +20,17 @@ import {
   PaginatedRepartitionsDto,
   RepartitionQueryDto,
 } from './dto/repartition.dto.js';
+import {
+  CreateAffectationDto,
+  UpdateAffectationDto,
+  AffectationResponseDto,
+  PaginatedAffectationsDto,
+  AffectationQueryDto,
+} from './dto/affectation.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
+import { Scope } from '../policy/decorators/permissions.decorator.js';
+import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 
 @ApiTags('Répartitions')
 @Controller('repartitions')
@@ -92,5 +101,97 @@ export class RepartitionsController {
   @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
   async removeRepartition(@Param('id') id: string): Promise<void> {
     return this.repartitionsService.removeRepartition(id, 'system');
+  }
+
+  // ============================================
+  // Affectations (L2-07) — routes imbriquées sous /repartitions/:repartitionId/affectations
+  // ============================================
+
+  @Post(':repartitionId/affectations')
+  @Permissions('repartition:write')
+  @Scope({ resource: 'repartition', idParam: 'repartitionId' })
+  @ApiOperation({ summary: 'Créer une affectation dans une répartition' })
+  @ApiParam({ name: 'repartitionId', description: 'ID de la répartition (UUID)' })
+  @ApiResponse({ status: 201, description: 'Affectation créée', type: AffectationResponseDto })
+  @ApiResponse({ status: 400, description: 'Paramètres invalides' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  @ApiResponse({ status: 404, description: 'Répartition, enseignant, module, type ou groupe introuvable' })
+  @ApiResponse({ status: 409, description: 'Affectation en doublon' })
+  @ApiResponse({ status: 422, description: 'Enseignant inactif ou module hors niveau' })
+  async createAffectation(
+    @Param('repartitionId') repartitionId: string,
+    @Body() dto: CreateAffectationDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<AffectationResponseDto> {
+    return this.repartitionsService.createAffectation(repartitionId, dto, currentUser);
+  }
+
+  @Get(':repartitionId/affectations')
+  @Permissions('repartition:read')
+  @Scope({ resource: 'repartition', idParam: 'repartitionId' })
+  @ApiOperation({ summary: 'Lister les affectations d\'une répartition' })
+  @ApiParam({ name: 'repartitionId', description: 'ID de la répartition (UUID)' })
+  @ApiResponse({ status: 200, description: 'Liste paginée des affectations', type: PaginatedAffectationsDto })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  async findAllAffectations(
+    @Param('repartitionId') repartitionId: string,
+    @Query() query: AffectationQueryDto,
+  ): Promise<PaginatedAffectationsDto> {
+    return this.repartitionsService.findAllAffectations(repartitionId, query);
+  }
+
+  @Get(':repartitionId/affectations/:id')
+  @Permissions('repartition:read')
+  @Scope({ resource: 'repartition', idParam: 'repartitionId' })
+  @ApiOperation({ summary: 'Obtenir une affectation par ID' })
+  @ApiParam({ name: 'repartitionId', description: 'ID de la répartition (UUID)' })
+  @ApiParam({ name: 'id', description: 'ID de l\'affectation (UUID)' })
+  @ApiResponse({ status: 200, description: 'Affectation trouvée', type: AffectationResponseDto })
+  @ApiResponse({ status: 404, description: 'Affectation non trouvée' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  async findAffectationById(
+    @Param('repartitionId') repartitionId: string,
+    @Param('id') id: string,
+  ): Promise<AffectationResponseDto> {
+    return this.repartitionsService.findAffectationById(id);
+  }
+
+  @Patch(':repartitionId/affectations/:id')
+  @Permissions('repartition:write')
+  @Scope({ resource: 'repartition', idParam: 'repartitionId' })
+  @ApiOperation({ summary: 'Mettre à jour une affectation' })
+  @ApiParam({ name: 'repartitionId', description: 'ID de la répartition (UUID)' })
+  @ApiParam({ name: 'id', description: 'ID de l\'affectation (UUID)' })
+  @ApiResponse({ status: 200, description: 'Affectation mise à jour', type: AffectationResponseDto })
+  @ApiResponse({ status: 400, description: 'Paramètres invalides' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  @ApiResponse({ status: 404, description: 'Affectation non trouvée' })
+  @ApiResponse({ status: 409, description: 'Affectation en doublon' })
+  @ApiResponse({ status: 422, description: 'Enseignant inactif ou module hors niveau' })
+  async updateAffectation(
+    @Param('repartitionId') repartitionId: string,
+    @Param('id') id: string,
+    @Body() dto: UpdateAffectationDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<AffectationResponseDto> {
+    return this.repartitionsService.updateAffectation(id, dto, currentUser);
+  }
+
+  @Delete(':repartitionId/affectations/:id')
+  @Permissions('repartition:write')
+  @Scope({ resource: 'repartition', idParam: 'repartitionId' })
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Supprimer une affectation' })
+  @ApiParam({ name: 'repartitionId', description: 'ID de la répartition (UUID)' })
+  @ApiParam({ name: 'id', description: 'ID de l\'affectation (UUID)' })
+  @ApiResponse({ status: 204, description: 'Affectation supprimée' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  @ApiResponse({ status: 404, description: 'Affectation non trouvée' })
+  async removeAffectation(
+    @Param('repartitionId') repartitionId: string,
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<void> {
+    return this.repartitionsService.removeAffectation(id, currentUser);
   }
 }
