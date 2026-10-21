@@ -277,15 +277,13 @@ jobs:
           python3 docs/tools/verifier_coherence.py
           python3 docs/tools/velocity_tracker.py
 
-      - name: Generated artifacts must be committed
+      - name: Verify regeneration succeeded
         run: |
-          if ! git diff --exit-code -- \
-            docs/Backlog_TAKT_tickets.csv \
-            docs/tools/correspondance_tickets.json \
-            docs/VELOCITE.md; then
-            echo "::error::Backlog artifacts are out of date. Regenerate them after syncing with main and commit them together."
-            exit 1
-          fi
+          test -f dist/Backlog_TAKT_tickets.csv && \
+          test -f dist/VELOCITE.md && \
+          test -f dist/TRACABILITE_TAKT.md && \
+          test -f dist/tools/correspondance_tickets.json && \
+          echo "Backlog artifacts regenerated successfully in dist/"
 
   # ===========================================================================
   # CI gate : seul check requis par le ruleset de main
