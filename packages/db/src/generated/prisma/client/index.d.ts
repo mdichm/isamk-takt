@@ -47238,6 +47238,7 @@ export namespace Prisma {
     anneeId: string | null
     departementId: string | null
     gradeId: string | null
+    originId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -47253,6 +47254,7 @@ export namespace Prisma {
     anneeId: string | null
     departementId: string | null
     gradeId: string | null
+    originId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -47268,6 +47270,7 @@ export namespace Prisma {
     anneeId: number
     departementId: number
     gradeId: number
+    originId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -47285,6 +47288,7 @@ export namespace Prisma {
     anneeId?: true
     departementId?: true
     gradeId?: true
+    originId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -47300,6 +47304,7 @@ export namespace Prisma {
     anneeId?: true
     departementId?: true
     gradeId?: true
+    originId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -47315,6 +47320,7 @@ export namespace Prisma {
     anneeId?: true
     departementId?: true
     gradeId?: true
+    originId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -47403,6 +47409,7 @@ export namespace Prisma {
     anneeId: string
     departementId: string
     gradeId: string | null
+    originId: string | null
     createdAt: Date
     updatedAt: Date
     _count: EnseignantCountAggregateOutputType | null
@@ -47435,6 +47442,7 @@ export namespace Prisma {
     anneeId?: boolean
     departementId?: boolean
     gradeId?: boolean
+    originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
@@ -47457,6 +47465,7 @@ export namespace Prisma {
     anneeId?: boolean
     departementId?: boolean
     gradeId?: boolean
+    originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
@@ -47475,6 +47484,7 @@ export namespace Prisma {
     anneeId?: boolean
     departementId?: boolean
     gradeId?: boolean
+    originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
@@ -47493,11 +47503,12 @@ export namespace Prisma {
     anneeId?: boolean
     departementId?: boolean
     gradeId?: boolean
+    originId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type EnseignantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "matricule" | "nom" | "prenom" | "email" | "telephone" | "isActive" | "anneeId" | "departementId" | "gradeId" | "createdAt" | "updatedAt", ExtArgs["result"]["enseignant"]>
+  export type EnseignantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "matricule" | "nom" | "prenom" | "email" | "telephone" | "isActive" | "anneeId" | "departementId" | "gradeId" | "originId" | "createdAt" | "updatedAt", ExtArgs["result"]["enseignant"]>
   export type EnseignantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     annee?: boolean | AnneeDefaultArgs<ExtArgs>
     departement?: boolean | DepartementDefaultArgs<ExtArgs>
@@ -47539,6 +47550,7 @@ export namespace Prisma {
       anneeId: string
       departementId: string
       gradeId: string | null
+      originId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["enseignant"]>
@@ -47980,6 +47992,7 @@ export namespace Prisma {
     readonly anneeId: FieldRef<"Enseignant", 'String'>
     readonly departementId: FieldRef<"Enseignant", 'String'>
     readonly gradeId: FieldRef<"Enseignant", 'String'>
+    readonly originId: FieldRef<"Enseignant", 'String'>
     readonly createdAt: FieldRef<"Enseignant", 'DateTime'>
     readonly updatedAt: FieldRef<"Enseignant", 'DateTime'>
   }
@@ -62534,6 +62547,7 @@ export namespace Prisma {
     anneeId: 'anneeId',
     departementId: 'departementId',
     gradeId: 'gradeId',
+    originId: 'originId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -65831,6 +65845,7 @@ export namespace Prisma {
     anneeId?: UuidFilter<"Enseignant"> | string
     departementId?: UuidFilter<"Enseignant"> | string
     gradeId?: UuidNullableFilter<"Enseignant"> | string | null
+    originId?: StringNullableFilter<"Enseignant"> | string | null
     createdAt?: DateTimeFilter<"Enseignant"> | Date | string
     updatedAt?: DateTimeFilter<"Enseignant"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
@@ -65852,6 +65867,7 @@ export namespace Prisma {
     anneeId?: SortOrder
     departementId?: SortOrder
     gradeId?: SortOrderInput | SortOrder
+    originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     annee?: AnneeOrderByWithRelationInput
@@ -65877,6 +65893,7 @@ export namespace Prisma {
     anneeId?: UuidFilter<"Enseignant"> | string
     departementId?: UuidFilter<"Enseignant"> | string
     gradeId?: UuidNullableFilter<"Enseignant"> | string | null
+    originId?: StringNullableFilter<"Enseignant"> | string | null
     createdAt?: DateTimeFilter<"Enseignant"> | Date | string
     updatedAt?: DateTimeFilter<"Enseignant"> | Date | string
     annee?: XOR<AnneeScalarRelationFilter, AnneeWhereInput>
@@ -65898,6 +65915,7 @@ export namespace Prisma {
     anneeId?: SortOrder
     departementId?: SortOrder
     gradeId?: SortOrderInput | SortOrder
+    originId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: EnseignantCountOrderByAggregateInput
@@ -65919,6 +65937,7 @@ export namespace Prisma {
     anneeId?: UuidWithAggregatesFilter<"Enseignant"> | string
     departementId?: UuidWithAggregatesFilter<"Enseignant"> | string
     gradeId?: UuidNullableWithAggregatesFilter<"Enseignant"> | string | null
+    originId?: StringNullableWithAggregatesFilter<"Enseignant"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Enseignant"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Enseignant"> | Date | string
   }
@@ -69593,6 +69612,7 @@ export namespace Prisma {
     email: string
     telephone?: string | null
     isActive?: boolean
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
@@ -69614,6 +69634,7 @@ export namespace Prisma {
     anneeId: string
     departementId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
@@ -69629,6 +69650,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     telephone?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
@@ -69650,6 +69672,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     departementId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
@@ -69668,6 +69691,7 @@ export namespace Prisma {
     anneeId: string
     departementId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -69680,6 +69704,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     telephone?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -69695,6 +69720,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     departementId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -73052,6 +73078,7 @@ export namespace Prisma {
     anneeId?: SortOrder
     departementId?: SortOrder
     gradeId?: SortOrder
+    originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -73067,6 +73094,7 @@ export namespace Prisma {
     anneeId?: SortOrder
     departementId?: SortOrder
     gradeId?: SortOrder
+    originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -73082,6 +73110,7 @@ export namespace Prisma {
     anneeId?: SortOrder
     departementId?: SortOrder
     gradeId?: SortOrder
+    originId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -81876,6 +81905,7 @@ export namespace Prisma {
     email: string
     telephone?: string | null
     isActive?: boolean
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     departement: DepartementCreateNestedOneWithoutEnseignantsInput
@@ -81895,6 +81925,7 @@ export namespace Prisma {
     isActive?: boolean
     departementId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
@@ -82039,6 +82070,7 @@ export namespace Prisma {
     anneeId?: UuidFilter<"Enseignant"> | string
     departementId?: UuidFilter<"Enseignant"> | string
     gradeId?: UuidNullableFilter<"Enseignant"> | string | null
+    originId?: StringNullableFilter<"Enseignant"> | string | null
     createdAt?: DateTimeFilter<"Enseignant"> | Date | string
     updatedAt?: DateTimeFilter<"Enseignant"> | Date | string
   }
@@ -82742,6 +82774,7 @@ export namespace Prisma {
     email: string
     telephone?: string | null
     isActive?: boolean
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
@@ -82761,6 +82794,7 @@ export namespace Prisma {
     isActive?: boolean
     anneeId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
@@ -83806,6 +83840,7 @@ export namespace Prisma {
     email: string
     telephone?: string | null
     isActive?: boolean
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
@@ -83825,6 +83860,7 @@ export namespace Prisma {
     isActive?: boolean
     anneeId: string
     departementId: string
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
@@ -85157,6 +85193,7 @@ export namespace Prisma {
     email: string
     telephone?: string | null
     isActive?: boolean
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
@@ -85177,6 +85214,7 @@ export namespace Prisma {
     anneeId: string
     departementId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
@@ -85246,6 +85284,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     telephone?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
@@ -85266,6 +85305,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     departementId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
@@ -85325,6 +85365,7 @@ export namespace Prisma {
     email: string
     telephone?: string | null
     isActive?: boolean
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
@@ -85345,6 +85386,7 @@ export namespace Prisma {
     anneeId: string
     departementId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
@@ -85408,6 +85450,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     telephone?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
@@ -85428,6 +85471,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     departementId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
@@ -85942,6 +85986,7 @@ export namespace Prisma {
     email: string
     telephone?: string | null
     isActive?: boolean
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     annee: AnneeCreateNestedOneWithoutEnseignantsInput
@@ -85962,6 +86007,7 @@ export namespace Prisma {
     anneeId: string
     departementId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
@@ -86074,6 +86120,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     telephone?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
@@ -86094,6 +86141,7 @@ export namespace Prisma {
     anneeId?: StringFieldUpdateOperationsInput | string
     departementId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
@@ -87982,6 +88030,7 @@ export namespace Prisma {
     isActive?: boolean
     departementId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -88079,6 +88128,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     telephone?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
@@ -88098,6 +88148,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     departementId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
@@ -88115,6 +88166,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     departementId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -88455,6 +88507,7 @@ export namespace Prisma {
     isActive?: boolean
     anneeId: string
     gradeId?: string | null
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -88515,6 +88568,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     telephone?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
@@ -88534,6 +88588,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     anneeId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
@@ -88551,6 +88606,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     anneeId?: StringFieldUpdateOperationsInput | string
     gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -88969,6 +89025,7 @@ export namespace Prisma {
     isActive?: boolean
     anneeId: string
     departementId: string
+    originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -89036,6 +89093,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     telephone?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
@@ -89055,6 +89113,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     anneeId?: StringFieldUpdateOperationsInput | string
     departementId?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
@@ -89072,6 +89131,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     anneeId?: StringFieldUpdateOperationsInput | string
     departementId?: StringFieldUpdateOperationsInput | string
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

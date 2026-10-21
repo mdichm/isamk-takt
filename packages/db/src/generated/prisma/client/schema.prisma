@@ -879,6 +879,7 @@ model Enseignant {
   departement       Departement        @relation(fields: [departementId], references: [id], onDelete: Cascade)
   gradeId           String?            @db.Uuid
   grade             Grade?             @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+  originId          String? // ID d'origine externe (synchronisation)
   enseignantModules EnseignantModule[]
   decharges         Decharge[]
   indisponibilites  Indisponibilite[]
