@@ -13,6 +13,9 @@ import {
   RepartitionResponseDto,
   PaginatedRepartitionsDto,
   RepartitionQueryDto,
+  ControleVolumeDto,
+  ControlesResponseDto,
+  ControleStatut,
 } from './dto/repartition.dto.js';
 import {
   CreateAffectationDto,
@@ -547,6 +550,125 @@ export class RepartitionsService {
         motif: 'Suppression affectation ' + id,
       },
     );
+  }
+
+  // ============================================
+  // Contrôles de cohérence des volumes (L2-09)
+  // ============================================
+
+  async getControles(
+    repartitionId: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ControlesResponseDto> {
+    const repartition = await this.prisma.repartition.findUnique({
+      where: { id: repartitionId },
+      include: {
+        departement: { select: { id: true } },
+      },
+    });
+    if (!repartition) {
+      throw new NotFoundException(`Répartition ${repartitionId} introuvable`);
+    }
+
+    if (
+      currentUser.role === 'RESPONSABLE_DEPARTEMENT' &&
+      currentUser.departments &&
+      !currentUser.departments.includes(repartition.departementId)
+    ) {
+      throw new BadRequestException(
+        'OUT_OF_SCOPE : cette répartition n\'appartient pas à votre département',
+      );
+    }
+
+    const affectations = await this.prisma.affectation.findMany({
+      where: { repartitionId },
+      include: {
+        groupe: { select: { id: true, libelle: true } },
+        module: { select: { id: true, libelle: true } },
+        typeEnseignement: { select: { id: true, code: true } },
+      },
+    });
+
+    // Index des ModuleVolume par (moduleId, type) pour le volume attendu
+    const moduleIds = [...new Set(affectations.map((a) => a.moduleId))];
+    const moduleVolumes = moduleIds.length > 0
+      ? await this.prisma.moduleVolume.findMany({
+          where: { moduleId: { in: moduleIds } },
+        })
+      : [];
+    const mvIndex = new Map<string, number>();
+    for (const mv of moduleVolumes) {
+      mvIndex.set(`${mv.moduleId}:${mv.type}`, mv.volume);
+    }
+
+    // Regrouper les affectations par (groupeId, moduleId, typeEnseignementId)
+    const groupes = new Map<string, {
+      groupeId: string | null;
+      groupeLibelle: string | null;
+      moduleId: string;
+      moduleLibelle: string;
+      typeEnseignementId: string;
+      typeCode: string;
+      volumeAffecte: number;
+    }>();
+
+    for (const a of affectations) {
+      const key = `${a.groupeId ?? 'null'}:${a.moduleId}:${a.typeEnseignementId}`;
+      const existing = groupes.get(key);
+      if (existing) {
+        existing.volumeAffecte += a.volumeHebdoMinutes;
+      } else {
+        groupes.set(key, {
+          groupeId: a.groupeId,
+          groupeLibelle: a.groupe?.libelle ?? null,
+          moduleId: a.module.id,
+          moduleLibelle: a.module.libelle,
+          typeEnseignementId: a.typeEnseignement.id,
+          typeCode: a.typeEnseignement.code,
+          volumeAffecte: a.volumeHebdoMinutes,
+        });
+      }
+    }
+
+    const controles: ControleVolumeDto[] = [];
+    for (const g of groupes.values()) {
+      const volumeAttendu = mvIndex.get(`${g.moduleId}:${g.typeCode}`) ?? 0;
+      const ecart = volumeAttendu - g.volumeAffecte;
+      let statut: ControleStatut;
+      if (ecart < 0) {
+        statut = ControleStatut.NON_COUVERT;
+      } else if (ecart > 0) {
+        statut = ControleStatut.EXCEDENT;
+      } else {
+        statut = ControleStatut.COUVERT;
+      }
+      controles.push({
+        groupeId: g.groupeId,
+        groupeLibelle: g.groupeLibelle,
+        moduleId: g.moduleId,
+        moduleLibelle: g.moduleLibelle,
+        typeEnseignementId: g.typeEnseignementId,
+        typeCode: g.typeCode,
+        volumeAttendu,
+        volumeAffecte: g.volumeAffecte,
+        ecart,
+        statut,
+      });
+    }
+
+    // Tri déterministe pour un affichage stable
+    controles.sort((a, b) => {
+      const ga = a.groupeId ?? '';
+      const gb = b.groupeId ?? '';
+      if (ga !== gb) return ga.localeCompare(gb);
+      if (a.moduleLibelle !== b.moduleLibelle) return a.moduleLibelle.localeCompare(b.moduleLibelle);
+      return a.typeCode.localeCompare(b.typeCode);
+    });
+
+    return {
+      repartitionId,
+      controles,
+    };
   }
 }
 
