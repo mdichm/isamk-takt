@@ -14,6 +14,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery }
 import { ChargesService } from './charges.service.js';
 import { ChargeQueryDto, PaginatedChargesDto, ChargeEnseignantDto } from './dto/charge.dto.js';
 import { AnnualChargesDto } from './dto/annual-charge.dto.js';
+import { ChargeGlobaleDto } from './dto/charge.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
@@ -75,5 +76,20 @@ export class ChargesController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<AnnualChargesDto> {
     return this.chargesService.getAnnualCharges(departementId, currentUser);
+  }
+
+  @Get('enseignants/:id/charge-globale')
+  @Permissions('charges:read')
+  @HttpCode(HttpStatus.OK)
+  @ApiParam({ name: 'id', description: 'ID de l’enseignant (UUID)' })
+  @ApiOperation({ summary: 'Charge globale d’un enseignant (multi-départements)' })
+  @ApiResponse({ status: 200, description: 'Charge globale de l’enseignant', type: ChargeGlobaleDto })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  @ApiResponse({ status: 404, description: 'Enseignant non trouvé' })
+  async getChargeGlobale(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ChargeGlobaleDto> {
+    return this.chargesService.getChargeGlobale(id, currentUser);
   }
 }

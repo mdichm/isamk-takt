@@ -16,6 +16,8 @@ import {
   ChargeAggregationItem,
   ChargeEnseignantDetail,
   ChargeDimension,
+  ChargeGlobaleDto,
+  ChargeParDepartementDto,
 } from './dto/charge.dto.js';
 import {
   AnnualChargesDto,
@@ -722,6 +724,260 @@ export class ChargesService {
     return {
       data: enseignantResults,
       total: enseignantResults.length,
+    };
+  }
+
+  async getChargeGlobale(
+    enseignantId: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ChargeGlobaleDto> {
+    const enseignant = await this.prisma.enseignant.findUnique({
+      where: { id: enseignantId },
+      include: {
+        grade: true,
+        departement: true,
+        decharges: true,
+      },
+    });
+    if (!enseignant) {
+      throw new NotFoundException(`Enseignant ${enseignantId} introuvable`);
+    }
+
+    if (
+      currentUser.role === 'RESPONSABLE_DEPARTEMENT' &&
+      currentUser.departments &&
+      !currentUser.departments.includes(enseignant.departementId)
+    ) {
+      throw new BadRequestException(
+        'OUT_OF_SCOPE : cet enseignant n’est pas dans votre périmètre',
+      );
+    }
+
+    const annee = await getActiveAnnee(this.prisma);
+    const semestres = annee.semestres;
+    if (semestres.length === 0) {
+      return this.buildEmptyChargeGlobale(enseignant);
+    }
+    const [semestre1, semestre2] = semestres;
+    const ruleSet = await getPublishedRuleSet(this.prisma, annee.id);
+
+    const where: any = {
+      semestreId: { in: [semestre1.id, semestre2.id] },
+    };
+    if (
+      currentUser.role === 'RESPONSABLE_DEPARTEMENT' &&
+      currentUser.departments?.length
+    ) {
+      where.departementId = { in: currentUser.departments };
+    }
+
+    const repartitions = await this.prisma.repartition.findMany({
+      where,
+      include: {
+        departement: true,
+        affectations: {
+          where: { enseignantId },
+        },
+      },
+    });
+
+    const deptMap = new Map<string, {
+      departement: any;
+      affectationsBySemestre: Map<string, any[]>;
+      dechargesBySemestre: Map<string, number[]>;
+      calculPartiel: boolean;
+    }>();
+
+    for (const repartition of repartitions) {
+      const semestreId = repartition.semestreId;
+      const departementId = repartition.departementId;
+
+      for (const aff of repartition.affectations) {
+        if (!deptMap.has(departementId)) {
+          deptMap.set(departementId, {
+            departement: repartition.departement,
+            affectationsBySemestre: new Map(),
+            dechargesBySemestre: new Map(),
+            calculPartiel: false,
+          });
+        }
+        const entry = deptMap.get(departementId)!;
+
+        let affs = entry.affectationsBySemestre.get(semestreId);
+        if (!affs) {
+          affs = [];
+          entry.affectationsBySemestre.set(semestreId, affs);
+        }
+        affs.push(aff);
+
+        if (!entry.dechargesBySemestre.has(semestreId)) {
+          const dheures = enseignant.decharges
+            .filter((d: any) => d.semestreId === semestreId)
+            .map((d: any) => Number(d.heures));
+          entry.dechargesBySemestre.set(semestreId, dheures);
+        }
+      }
+    }
+
+    const arrondi = ruleSet.arrondi ?? 2;
+    const round = (v: number) => Math.round(v * 10 ** arrondi) / 10 ** arrondi;
+
+    const gradeId = enseignant.grade?.id;
+    if (!gradeId) {
+      throw new BadRequestException(
+        `L’enseignant ${enseignantId} n’a pas de grade`,
+      );
+    }
+
+    const parDepartement: ChargeParDepartementDto[] = [];
+    let totalVolumeBrut = 0;
+    let totalChargeCalculee = 0;
+    let totalDecharges = 0;
+    let calculPartiel = false;
+
+    for (const [, entry] of deptMap) {
+      let deptVolumeBrut = 0;
+      let deptChargeCalculee = 0;
+      let deptDecharges = 0;
+
+      for (const semestre of semestres) {
+        const affs = entry.affectationsBySemestre.get(semestre.id) ?? [];
+        const decharges = entry.dechargesBySemestre.get(semestre.id) ?? [];
+
+        const estValidee = await hasValideeRepartition(
+          this.prisma,
+          semestre.id,
+          entry.departement.id,
+        );
+        if (!estValidee) {
+          entry.calculPartiel = true;
+          calculPartiel = true;
+        }
+
+        const semestreData = {
+          nbSemaines: semestre.nbSemaines,
+          affectations: affs.map((a: any) => ({
+            id: a.id,
+            groupeCommunKey: a.estCmCommun
+              ? `cm-${a.moduleId}-${a.typeEnseignementId}`
+              : undefined,
+            module: a.moduleId,
+            type: a.typeEnseignementId,
+            volumeHebdoMinutes: a.volumeHebdoMinutes,
+          })),
+        };
+
+        try {
+          const result = calculerCharge(
+            { id: enseignant.id, grade: gradeId, decharges },
+            {
+              numero: ruleSet.numero,
+              periode: ruleSet.periode as any,
+              seuilHeuresSup: ruleSet.seuil ?? undefined,
+              plafondHeuresSup: ruleSet.plafond ?? null,
+              arrondiDecimales: ruleSet.arrondi ?? 2,
+              coefficients: ruleSet.coefficients.map((c: any) => ({
+                type: c.typeId,
+                grade: undefined,
+                value: Number(c.coefficient),
+              })),
+              chargeReference: ruleSet.referenceGrades.map((g: any) => ({
+                grade: g.gradeId!,
+                value: Number(g.coefficient),
+              })),
+            },
+            semestreData,
+          );
+
+          deptVolumeBrut += result.volumeBrut;
+          deptChargeCalculee += result.chargeCalculee;
+          deptDecharges += result.decharges;
+        } catch (err) {
+          const error = err as Error;
+          if (error instanceof ConfigurationError) {
+            continue;
+          }
+          throw error;
+        }
+      }
+
+      const chargeReference = ruleSet.referenceGrades.find(
+        (g: any) => g.gradeId === gradeId,
+      );
+      const referenceValue = chargeReference
+        ? Number(chargeReference.coefficient)
+        : 0;
+
+      const serviceDu = Math.max(0, referenceValue - deptDecharges);
+      const ecart = deptChargeCalculee - serviceDu;
+      const seuil = ruleSet.seuil ?? 0;
+      const heuresSup = Math.max(0, ecart - seuil);
+
+      parDepartement.push({
+        departementId: entry.departement.id,
+        libelle: entry.departement.libelle,
+        volumeBrut: round(deptVolumeBrut),
+        chargeCalculee: round(deptChargeCalculee),
+        serviceDu: round(serviceDu),
+        ecart: round(ecart),
+        heuresSup: round(heuresSup),
+      });
+
+      totalVolumeBrut += deptVolumeBrut;
+      totalChargeCalculee += deptChargeCalculee;
+      totalDecharges += deptDecharges;
+    }
+
+    const totalChargeReference = ruleSet.referenceGrades.find(
+      (g: any) => g.gradeId === gradeId,
+    );
+    const referenceValue = totalChargeReference
+      ? Number(totalChargeReference.coefficient)
+      : 0;
+
+    const totalServiceDu = Math.max(0, referenceValue - totalDecharges);
+    const totalEcart = totalChargeCalculee - totalServiceDu;
+    const seuil = ruleSet.seuil ?? 0;
+    const totalHeuresSup = Math.max(0, totalEcart - seuil);
+    const plafond = ruleSet.plafond ?? null;
+    const alerteDepassement = plafond != null && totalHeuresSup > plafond;
+
+    return {
+      enseignantId: enseignant.id,
+      matricule: enseignant.matricule,
+      nom: enseignant.nom,
+      prenom: enseignant.prenom,
+      totalVolumeBrut: round(totalVolumeBrut),
+      totalChargeCalculee: round(totalChargeCalculee),
+      totalChargeReference: round(referenceValue),
+      totalDecharges: round(totalDecharges),
+      totalServiceDu: round(totalServiceDu),
+      totalEcart: round(totalEcart),
+      totalHeuresSup: round(totalHeuresSup),
+      alerteDepassement,
+      calculPartiel,
+      parDepartement,
+    };
+  }
+
+  private buildEmptyChargeGlobale(
+    enseignant: any,
+  ): ChargeGlobaleDto {
+    return {
+      enseignantId: enseignant.id,
+      matricule: enseignant.matricule,
+      nom: enseignant.nom,
+      prenom: enseignant.prenom,
+      totalVolumeBrut: 0,
+      totalChargeCalculee: 0,
+      totalChargeReference: 0,
+      totalDecharges: 0,
+      totalServiceDu: 0,
+      totalEcart: 0,
+      totalHeuresSup: 0,
+      alerteDepassement: false,
+      calculPartiel: true,
+      parDepartement: [],
     };
   }
 
