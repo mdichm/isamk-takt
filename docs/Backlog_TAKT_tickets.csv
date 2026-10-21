@@ -265,7 +265,7 @@ L2-04;L2;E2.2;Charge paramétrable;DET;Moteur de calcul de la charge (charge-eng
 - Détail par activité : type, volume, coefficient, contribution";EX-CHG-02, EX-CHG-05, EX-ACT-03;§4.2;BACK;Must;8;L0-03;Terminé;
 L2-05;L2;E2.2;Charge paramétrable;DET;UI paramétrage de la charge;Édition d'un jeu de règles, publication, création du suivant, affectation à l'année.;"- Édition impossible après publication
 - Affectation du jeu à l'année (garde d'activation)
-- Vocabulaire « charge » partout, aucun « DU »";EX-CHG-01;§4.2;FRONT;Must;5;L2-03, L0-29;À faire;
+- Vocabulaire « charge » partout, aucun « DU »";EX-CHG-01;§4.2;FRONT;Must;5;L2-03, L0-29;Terminé;
 L2-06;L2;E2.3;Saisie de la répartition;DET;Répartitions par département et semestre;Une répartition par (semestre, département), statuts BROUILLON, VALIDEE, ROUVERTE.;"- Création automatique à l'ouverture du semestre
 - Consultation par Administrateur, Gestionnaire, Direction (lecture) et Responsable
 - Toutes les routes du contrôleur de répartitions sont protégées par @Permissions('repartition:read')/@Permissions('repartition:write')/@Permissions('repartition:validate') ; toute route non décorée est refusée par défaut (403)
