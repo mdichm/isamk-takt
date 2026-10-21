@@ -280,7 +280,7 @@ L2-08;L2;E2.3;Saisie de la répartition;DET;UI saisie de la répartition;Tableau
 - Les écarts de volume sont visibles pendant la saisie
 - Le Responsable fixe l'Activity Tag d'une affectation";EX-REP-01, EX-CHG-03;§4.2;FRONT;Must;8;L2-07, L0-29;Terminé;
 L2-09;L2;E2.3;Saisie de la répartition;DET;Contrôles de cohérence des volumes;GET /repartitions/{id}/controles.;"- Écart par (groupe, module, type) = volume attendu − somme des affectations
-- Écarts négatifs « non couvert », positifs « excédent »";EX-REP-02;§4.2;BACK;Must;5;L2-07;En cours;
+- Écarts négatifs « non couvert », positifs « excédent »";EX-REP-02;§4.2;BACK;Must;5;L2-07;Terminé;
 L2-10;L2;E2.4;Charges;DET;API des charges et agrégations;GET /charges par enseignant, département, formation, module, groupe, type.;"- Volumes bruts et pondérés retournés
 - Calcul partiel signalé si un semestre n'a pas de répartition validée
 - Temps de calcul d'un département < 500 ms";EX-CHG-03;§4.2, §5.4;BACK;Must;5;L2-07;À faire;

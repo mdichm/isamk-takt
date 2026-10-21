@@ -122,3 +122,70 @@ export class RepartitionQueryDto {
   @IsUUID()
   departementId?: string;
 }
+
+// ============================================
+// Contrôles de cohérence des volumes (L2-09)
+// ============================================
+
+export type ControleStatut = 'COUVERT' | 'NON_COUVERT' | 'EXCEDENT';
+
+export const ControleStatut = {
+  COUVERT: 'COUVERT' as const,
+  NON_COUVERT: 'NON_COUVERT' as const,
+  EXCEDENT: 'EXCEDENT' as const,
+} as const;
+
+export class ControleVolumeDto {
+  @ApiPropertyOptional({ description: 'ID du groupe (null si affecté sans groupe)' })
+  @IsOptional()
+  @IsUUID()
+  groupeId?: string | null;
+
+  @ApiPropertyOptional({ description: 'Libellé du groupe' })
+  @IsOptional()
+  @IsString()
+  groupeLibelle?: string | null;
+
+  @ApiProperty({ description: 'ID du module' })
+  @IsUUID()
+  moduleId: string;
+
+  @ApiProperty({ description: 'Libellé du module' })
+  @IsString()
+  moduleLibelle: string;
+
+  @ApiProperty({ description: "ID du type d'enseignement" })
+  @IsUUID()
+  typeEnseignementId: string;
+
+  @ApiProperty({ description: "Code du type d'enseignement (CM, TD, TP, CI, AUTRE)", enum: ['CM', 'TD', 'TP', 'CI', 'AUTRE'] })
+  @IsString()
+  typeCode: string;
+
+  @ApiProperty({ description: 'Volume attendu en minutes (multiple de 30)' })
+  @IsInt()
+  @Min(0)
+  volumeAttendu: number;
+
+  @ApiProperty({ description: 'Volume affecté en minutes (somme des affectations)' })
+  @IsInt()
+  @Min(0)
+  volumeAffecte: number;
+
+  @ApiProperty({ description: 'Écart = volume attendu − volume affecté (en minutes)' })
+  @IsInt()
+  ecart: number;
+
+  @ApiProperty({ enum: ['COUVERT', 'NON_COUVERT', 'EXCEDENT'] })
+  @IsIn(['COUVERT', 'NON_COUVERT', 'EXCEDENT'])
+  statut: ControleStatut;
+}
+
+export class ControlesResponseDto {
+  @ApiProperty({ description: 'ID de la répartition' })
+  @IsUUID()
+  repartitionId: string;
+
+  @ApiProperty({ type: [ControleVolumeDto] })
+  controles: ControleVolumeDto[];
+}

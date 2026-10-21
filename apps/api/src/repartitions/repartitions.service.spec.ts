@@ -46,6 +46,12 @@ describe('RepartitionsService', () => {
         delete: vi.fn(),
         count: vi.fn(),
       },
+      affectation: {
+        findMany: vi.fn(),
+      },
+      moduleVolume: {
+        findMany: vi.fn(),
+      },
     };
 
     service = new RepartitionsService(prisma, audit);
@@ -489,4 +495,135 @@ describe('RepartitionsService', () => {
       });
     });
   });
+
+  describe('getControles', () => {
+    it('devrait retourner les contrôles de cohérence des volumes', async () => {
+      const currentUser = { id: 'user-1', role: 'RESPONSABLE_DEPARTEMENT', departments: [departementId] };
+      prisma.repartition.findUnique.mockResolvedValue({
+        id: repartitionId, departementId,
+      });
+
+      prisma.affectation.findMany.mockResolvedValue([
+        {
+          id: 'affectation-1', repartitionId, groupeId: 'groupe-1', moduleId: 'module-1',
+          typeEnseignementId: 'type-cm', volumeHebdoMinutes: 90,
+          groupe: { id: 'groupe-1', libelle: 'L3 INFO A' },
+          module: { id: 'module-1', libelle: 'Algorithmique' },
+          typeEnseignement: { id: 'type-cm', code: 'CM' },
+        },
+        {
+          id: 'affectation-2', repartitionId, groupeId: 'groupe-1', moduleId: 'module-1',
+          typeEnseignementId: 'type-cm', volumeHebdoMinutes: 45,
+          groupe: { id: 'groupe-1', libelle: 'L3 INFO A' },
+          module: { id: 'module-1', libelle: 'Algorithmique' },
+          typeEnseignement: { id: 'type-cm', code: 'CM' },
+        },
+      ]);
+
+      prisma.moduleVolume.findMany.mockResolvedValue([
+        { id: 'mv-1', moduleId: 'module-1', type: 'CM', volume: 150 },
+      ]);
+
+      const result = await service.getControles(repartitionId, currentUser);
+
+      expect(result.repartitionId).toBe(repartitionId);
+      expect(result.controles).toHaveLength(1);
+      expect(result.controles[0]).toMatchObject({
+        groupeId: 'groupe-1',
+        groupeLibelle: 'L3 INFO A',
+        moduleId: 'module-1',
+        moduleLibelle: 'Algorithmique',
+        typeEnseignementId: 'type-cm',
+        typeCode: 'CM',
+        volumeAttendu: 150,
+        volumeAffecte: 135,
+        ecart: 15,
+        statut: 'EXCEDENT',
+      });
+      expect(prisma.affectation.findMany).toHaveBeenCalledWith({
+        where: { repartitionId },
+        include: expect.objectContaining({
+          groupe: { select: { id: true, libelle: true } },
+          module: { select: { id: true, libelle: true } },
+          typeEnseignement: { select: { id: true, code: true } },
+        }),
+      });
+    });
+
+    it('devrait classer NON_COUVERT quand le volume affecté est inférieur au attendu', async () => {
+      const currentUser = { id: 'user-1', role: 'RESPONSABLE_DEPARTEMENT', departments: [departementId] };
+      prisma.repartition.findUnique.mockResolvedValue({
+        id: repartitionId, departementId,
+      });
+
+      prisma.affectation.findMany.mockResolvedValue([
+        {
+          id: 'affectation-1', repartitionId, groupeId: null, moduleId: 'module-1',
+          typeEnseignementId: 'type-td', volumeHebdoMinutes: 90,
+          groupe: null,
+          module: { id: 'module-1', libelle: 'Mathématiques' },
+          typeEnseignement: { id: 'type-td', code: 'TD' },
+        },
+      ]);
+
+      prisma.moduleVolume.findMany.mockResolvedValue([
+        { id: 'mv-2', moduleId: 'module-1', type: 'TD', volume: 45 },
+      ]);
+
+      const result = await service.getControles(repartitionId, currentUser);
+
+      expect(result.controles).toHaveLength(1);
+      expect(result.controles[0].statut).toBe('NON_COUVERT');
+      expect(result.controles[0].ecart).toBe(-45);
+      expect(result.controles[0].volumeAttendu).toBe(45);
+      expect(result.controles[0].volumeAffecte).toBe(90);
+    });
+
+    it('devrait classer COUVERT quand écart est nul', async () => {
+      const currentUser = { id: 'user-1', role: 'RESPONSABLE_DEPARTEMENT', departments: [departementId] };
+      prisma.repartition.findUnique.mockResolvedValue({
+        id: repartitionId, departementId,
+      });
+
+      prisma.affectation.findMany.mockResolvedValue([
+        {
+          id: 'affectation-1', repartitionId, groupeId: 'groupe-2', moduleId: 'module-2',
+          typeEnseignementId: 'type-tp', volumeHebdoMinutes: 60,
+          groupe: { id: 'groupe-2', libelle: 'L3 INFO B' },
+          module: { id: 'module-2', libelle: 'Physique' },
+          typeEnseignement: { id: 'type-tp', code: 'TP' },
+        },
+      ]);
+
+      prisma.moduleVolume.findMany.mockResolvedValue([
+        { id: 'mv-3', moduleId: 'module-2', type: 'TP', volume: 60 },
+      ]);
+
+      const result = await service.getControles(repartitionId, currentUser);
+
+      expect(result.controles).toHaveLength(1);
+      expect(result.controles[0].statut).toBe('COUVERT');
+      expect(result.controles[0].ecart).toBe(0);
+    });
+
+    it('devrait lever 404 si la répartition est introuvable', async () => {
+      const currentUser = { id: 'user-1', role: 'RESPONSABLE_DEPARTEMENT', departments: [departementId] };
+      prisma.repartition.findUnique.mockResolvedValue(null);
+
+      await expect(service.getControles('inconnu', currentUser)).rejects.toThrow(
+        'Répartition inconnu introuvable',
+      );
+    });
+
+    it('devrait lever 403 OUT_OF_SCOPE pour un responsable hors département', async () => {
+      const currentUser = { id: 'user-2', role: 'RESPONSABLE_DEPARTEMENT', departments: ['autre-departement'] };
+      prisma.repartition.findUnique.mockResolvedValue({
+        id: repartitionId, departementId,
+      });
+
+      await expect(service.getControles(repartitionId, currentUser)).rejects.toThrow(
+        'OUT_OF_SCOPE',
+      );
+    });
   });
+});
