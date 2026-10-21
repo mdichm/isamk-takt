@@ -253,6 +253,11 @@ export type ContrainteDefinition = $Result.DefaultSelection<Prisma.$ContrainteDe
  * 
  */
 export type ContrainteInstance = $Result.DefaultSelection<Prisma.$ContrainteInstancePayload>
+/**
+ * Model Repartition
+ * 
+ */
+export type Repartition = $Result.DefaultSelection<Prisma.$RepartitionPayload>
 
 /**
  * Enums
@@ -351,6 +356,15 @@ export const AnneeStatut: {
 };
 
 export type AnneeStatut = (typeof AnneeStatut)[keyof typeof AnneeStatut]
+
+
+export const RepartitionStatut: {
+  BROUILLON: 'BROUILLON',
+  VALIDEE: 'VALIDEE',
+  ROUVERTE: 'ROUVERTE'
+};
+
+export type RepartitionStatut = (typeof RepartitionStatut)[keyof typeof RepartitionStatut]
 
 
 export const GroupeType: {
@@ -512,6 +526,10 @@ export const ActivityType: typeof $Enums.ActivityType
 export type AnneeStatut = $Enums.AnneeStatut
 
 export const AnneeStatut: typeof $Enums.AnneeStatut
+
+export type RepartitionStatut = $Enums.RepartitionStatut
+
+export const RepartitionStatut: typeof $Enums.RepartitionStatut
 
 export type GroupeType = $Enums.GroupeType
 
@@ -1165,6 +1183,16 @@ export class PrismaClient<
     * ```
     */
   get contrainteInstance(): Prisma.ContrainteInstanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.repartition`: Exposes CRUD operations for the **Repartition** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Repartitions
+    * const repartitions = await prisma.repartition.findMany()
+    * ```
+    */
+  get repartition(): Prisma.RepartitionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1659,7 +1687,8 @@ export namespace Prisma {
     SalleActivityTag: 'SalleActivityTag',
     ExigenceEquipement: 'ExigenceEquipement',
     ContrainteDefinition: 'ContrainteDefinition',
-    ContrainteInstance: 'ContrainteInstance'
+    ContrainteInstance: 'ContrainteInstance',
+    Repartition: 'Repartition'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1675,7 +1704,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5231,6 +5260,80 @@ export namespace Prisma {
           }
         }
       }
+      Repartition: {
+        payload: Prisma.$RepartitionPayload<ExtArgs>
+        fields: Prisma.RepartitionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RepartitionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RepartitionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>
+          }
+          findFirst: {
+            args: Prisma.RepartitionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RepartitionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>
+          }
+          findMany: {
+            args: Prisma.RepartitionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>[]
+          }
+          create: {
+            args: Prisma.RepartitionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>
+          }
+          createMany: {
+            args: Prisma.RepartitionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RepartitionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>[]
+          }
+          delete: {
+            args: Prisma.RepartitionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>
+          }
+          update: {
+            args: Prisma.RepartitionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>
+          }
+          deleteMany: {
+            args: Prisma.RepartitionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RepartitionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RepartitionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>[]
+          }
+          upsert: {
+            args: Prisma.RepartitionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RepartitionPayload>
+          }
+          aggregate: {
+            args: Prisma.RepartitionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRepartition>
+          }
+          groupBy: {
+            args: Prisma.RepartitionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RepartitionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RepartitionCountArgs<ExtArgs>
+            result: $Utils.Optional<RepartitionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -5402,6 +5505,7 @@ export namespace Prisma {
     exigenceEquipement?: ExigenceEquipementOmit
     contrainteDefinition?: ContrainteDefinitionOmit
     contrainteInstance?: ContrainteInstanceOmit
+    repartition?: RepartitionOmit
   }
 
   /* Types for Logging */
@@ -5875,6 +5979,7 @@ export namespace Prisma {
     creneaux: number
     indisponibilites: number
     contrainteInstances: number
+    repartitions: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5883,6 +5988,7 @@ export namespace Prisma {
     creneaux?: boolean | SemestreCountOutputTypeCountCreneauxArgs
     indisponibilites?: boolean | SemestreCountOutputTypeCountIndisponibilitesArgs
     contrainteInstances?: boolean | SemestreCountOutputTypeCountContrainteInstancesArgs
+    repartitions?: boolean | SemestreCountOutputTypeCountRepartitionsArgs
   }
 
   // Custom InputTypes
@@ -5931,6 +6037,13 @@ export namespace Prisma {
     where?: ContrainteInstanceWhereInput
   }
 
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountRepartitionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RepartitionWhereInput
+  }
+
 
   /**
    * Count Type CreneauCountOutputType
@@ -5971,12 +6084,14 @@ export namespace Prisma {
     formations: number
     enseignants: number
     salles: number
+    repartitions: number
   }
 
   export type DepartementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     formations?: boolean | DepartementCountOutputTypeCountFormationsArgs
     enseignants?: boolean | DepartementCountOutputTypeCountEnseignantsArgs
     salles?: boolean | DepartementCountOutputTypeCountSallesArgs
+    repartitions?: boolean | DepartementCountOutputTypeCountRepartitionsArgs
   }
 
   // Custom InputTypes
@@ -6009,6 +6124,13 @@ export namespace Prisma {
    */
   export type DepartementCountOutputTypeCountSallesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SalleWhereInput
+  }
+
+  /**
+   * DepartementCountOutputType without action
+   */
+  export type DepartementCountOutputTypeCountRepartitionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RepartitionWhereInput
   }
 
 
@@ -29743,6 +29865,7 @@ export namespace Prisma {
     creneaux?: boolean | Semestre$creneauxArgs<ExtArgs>
     indisponibilites?: boolean | Semestre$indisponibilitesArgs<ExtArgs>
     contrainteInstances?: boolean | Semestre$contrainteInstancesArgs<ExtArgs>
+    repartitions?: boolean | Semestre$repartitionsArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -29786,6 +29909,7 @@ export namespace Prisma {
     creneaux?: boolean | Semestre$creneauxArgs<ExtArgs>
     indisponibilites?: boolean | Semestre$indisponibilitesArgs<ExtArgs>
     contrainteInstances?: boolean | Semestre$contrainteInstancesArgs<ExtArgs>
+    repartitions?: boolean | Semestre$repartitionsArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29804,6 +29928,7 @@ export namespace Prisma {
       creneaux: Prisma.$CreneauPayload<ExtArgs>[]
       indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
       contrainteInstances: Prisma.$ContrainteInstancePayload<ExtArgs>[]
+      repartitions: Prisma.$RepartitionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30213,6 +30338,7 @@ export namespace Prisma {
     creneaux<T extends Semestre$creneauxArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$creneauxArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     indisponibilites<T extends Semestre$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     contrainteInstances<T extends Semestre$contrainteInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$contrainteInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    repartitions<T extends Semestre$repartitionsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$repartitionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30767,6 +30893,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ContrainteInstanceScalarFieldEnum | ContrainteInstanceScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.repartitions
+   */
+  export type Semestre$repartitionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    where?: RepartitionWhereInput
+    orderBy?: RepartitionOrderByWithRelationInput | RepartitionOrderByWithRelationInput[]
+    cursor?: RepartitionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RepartitionScalarFieldEnum | RepartitionScalarFieldEnum[]
   }
 
   /**
@@ -33269,6 +33419,7 @@ export namespace Prisma {
     formations?: boolean | Departement$formationsArgs<ExtArgs>
     enseignants?: boolean | Departement$enseignantsArgs<ExtArgs>
     salles?: boolean | Departement$sallesArgs<ExtArgs>
+    repartitions?: boolean | Departement$repartitionsArgs<ExtArgs>
     _count?: boolean | DepartementCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["departement"]>
 
@@ -33313,6 +33464,7 @@ export namespace Prisma {
     formations?: boolean | Departement$formationsArgs<ExtArgs>
     enseignants?: boolean | Departement$enseignantsArgs<ExtArgs>
     salles?: boolean | Departement$sallesArgs<ExtArgs>
+    repartitions?: boolean | Departement$repartitionsArgs<ExtArgs>
     _count?: boolean | DepartementCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DepartementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -33329,6 +33481,7 @@ export namespace Prisma {
       formations: Prisma.$FormationPayload<ExtArgs>[]
       enseignants: Prisma.$EnseignantPayload<ExtArgs>[]
       salles: Prisma.$SallePayload<ExtArgs>[]
+      repartitions: Prisma.$RepartitionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -33737,6 +33890,7 @@ export namespace Prisma {
     formations<T extends Departement$formationsArgs<ExtArgs> = {}>(args?: Subset<T, Departement$formationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FormationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     enseignants<T extends Departement$enseignantsArgs<ExtArgs> = {}>(args?: Subset<T, Departement$enseignantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salles<T extends Departement$sallesArgs<ExtArgs> = {}>(args?: Subset<T, Departement$sallesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    repartitions<T extends Departement$repartitionsArgs<ExtArgs> = {}>(args?: Subset<T, Departement$repartitionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -34244,6 +34398,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SalleScalarFieldEnum | SalleScalarFieldEnum[]
+  }
+
+  /**
+   * Departement.repartitions
+   */
+  export type Departement$repartitionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    where?: RepartitionWhereInput
+    orderBy?: RepartitionOrderByWithRelationInput | RepartitionOrderByWithRelationInput[]
+    cursor?: RepartitionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RepartitionScalarFieldEnum | RepartitionScalarFieldEnum[]
   }
 
   /**
@@ -62038,6 +62216,1103 @@ export namespace Prisma {
 
 
   /**
+   * Model Repartition
+   */
+
+  export type AggregateRepartition = {
+    _count: RepartitionCountAggregateOutputType | null
+    _min: RepartitionMinAggregateOutputType | null
+    _max: RepartitionMaxAggregateOutputType | null
+  }
+
+  export type RepartitionMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    departementId: string | null
+    statut: $Enums.RepartitionStatut | null
+    libelle: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RepartitionMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    departementId: string | null
+    statut: $Enums.RepartitionStatut | null
+    libelle: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RepartitionCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    departementId: number
+    statut: number
+    libelle: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RepartitionMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    departementId?: true
+    statut?: true
+    libelle?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RepartitionMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    departementId?: true
+    statut?: true
+    libelle?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RepartitionCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    departementId?: true
+    statut?: true
+    libelle?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RepartitionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Repartition to aggregate.
+     */
+    where?: RepartitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Repartitions to fetch.
+     */
+    orderBy?: RepartitionOrderByWithRelationInput | RepartitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RepartitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Repartitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Repartitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Repartitions
+    **/
+    _count?: true | RepartitionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RepartitionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RepartitionMaxAggregateInputType
+  }
+
+  export type GetRepartitionAggregateType<T extends RepartitionAggregateArgs> = {
+        [P in keyof T & keyof AggregateRepartition]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRepartition[P]>
+      : GetScalarType<T[P], AggregateRepartition[P]>
+  }
+
+
+
+
+  export type RepartitionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RepartitionWhereInput
+    orderBy?: RepartitionOrderByWithAggregationInput | RepartitionOrderByWithAggregationInput[]
+    by: RepartitionScalarFieldEnum[] | RepartitionScalarFieldEnum
+    having?: RepartitionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RepartitionCountAggregateInputType | true
+    _min?: RepartitionMinAggregateInputType
+    _max?: RepartitionMaxAggregateInputType
+  }
+
+  export type RepartitionGroupByOutputType = {
+    id: string
+    semestreId: string
+    departementId: string
+    statut: $Enums.RepartitionStatut
+    libelle: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: RepartitionCountAggregateOutputType | null
+    _min: RepartitionMinAggregateOutputType | null
+    _max: RepartitionMaxAggregateOutputType | null
+  }
+
+  type GetRepartitionGroupByPayload<T extends RepartitionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RepartitionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RepartitionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RepartitionGroupByOutputType[P]>
+            : GetScalarType<T[P], RepartitionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RepartitionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    departementId?: boolean
+    statut?: boolean
+    libelle?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["repartition"]>
+
+  export type RepartitionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    departementId?: boolean
+    statut?: boolean
+    libelle?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["repartition"]>
+
+  export type RepartitionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    departementId?: boolean
+    statut?: boolean
+    libelle?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["repartition"]>
+
+  export type RepartitionSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    departementId?: boolean
+    statut?: boolean
+    libelle?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RepartitionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "departementId" | "statut" | "libelle" | "createdAt" | "updatedAt", ExtArgs["result"]["repartition"]>
+  export type RepartitionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }
+  export type RepartitionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }
+  export type RepartitionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    departement?: boolean | DepartementDefaultArgs<ExtArgs>
+  }
+
+  export type $RepartitionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Repartition"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      departement: Prisma.$DepartementPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      departementId: string
+      statut: $Enums.RepartitionStatut
+      libelle: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["repartition"]>
+    composites: {}
+  }
+
+  type RepartitionGetPayload<S extends boolean | null | undefined | RepartitionDefaultArgs> = $Result.GetResult<Prisma.$RepartitionPayload, S>
+
+  type RepartitionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RepartitionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RepartitionCountAggregateInputType | true
+    }
+
+  export interface RepartitionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Repartition'], meta: { name: 'Repartition' } }
+    /**
+     * Find zero or one Repartition that matches the filter.
+     * @param {RepartitionFindUniqueArgs} args - Arguments to find a Repartition
+     * @example
+     * // Get one Repartition
+     * const repartition = await prisma.repartition.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RepartitionFindUniqueArgs>(args: SelectSubset<T, RepartitionFindUniqueArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Repartition that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RepartitionFindUniqueOrThrowArgs} args - Arguments to find a Repartition
+     * @example
+     * // Get one Repartition
+     * const repartition = await prisma.repartition.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RepartitionFindUniqueOrThrowArgs>(args: SelectSubset<T, RepartitionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Repartition that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepartitionFindFirstArgs} args - Arguments to find a Repartition
+     * @example
+     * // Get one Repartition
+     * const repartition = await prisma.repartition.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RepartitionFindFirstArgs>(args?: SelectSubset<T, RepartitionFindFirstArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Repartition that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepartitionFindFirstOrThrowArgs} args - Arguments to find a Repartition
+     * @example
+     * // Get one Repartition
+     * const repartition = await prisma.repartition.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RepartitionFindFirstOrThrowArgs>(args?: SelectSubset<T, RepartitionFindFirstOrThrowArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Repartitions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepartitionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Repartitions
+     * const repartitions = await prisma.repartition.findMany()
+     * 
+     * // Get first 10 Repartitions
+     * const repartitions = await prisma.repartition.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const repartitionWithIdOnly = await prisma.repartition.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RepartitionFindManyArgs>(args?: SelectSubset<T, RepartitionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Repartition.
+     * @param {RepartitionCreateArgs} args - Arguments to create a Repartition.
+     * @example
+     * // Create one Repartition
+     * const Repartition = await prisma.repartition.create({
+     *   data: {
+     *     // ... data to create a Repartition
+     *   }
+     * })
+     * 
+     */
+    create<T extends RepartitionCreateArgs>(args: SelectSubset<T, RepartitionCreateArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Repartitions.
+     * @param {RepartitionCreateManyArgs} args - Arguments to create many Repartitions.
+     * @example
+     * // Create many Repartitions
+     * const repartition = await prisma.repartition.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RepartitionCreateManyArgs>(args?: SelectSubset<T, RepartitionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Repartitions and returns the data saved in the database.
+     * @param {RepartitionCreateManyAndReturnArgs} args - Arguments to create many Repartitions.
+     * @example
+     * // Create many Repartitions
+     * const repartition = await prisma.repartition.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Repartitions and only return the `id`
+     * const repartitionWithIdOnly = await prisma.repartition.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RepartitionCreateManyAndReturnArgs>(args?: SelectSubset<T, RepartitionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Repartition.
+     * @param {RepartitionDeleteArgs} args - Arguments to delete one Repartition.
+     * @example
+     * // Delete one Repartition
+     * const Repartition = await prisma.repartition.delete({
+     *   where: {
+     *     // ... filter to delete one Repartition
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RepartitionDeleteArgs>(args: SelectSubset<T, RepartitionDeleteArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Repartition.
+     * @param {RepartitionUpdateArgs} args - Arguments to update one Repartition.
+     * @example
+     * // Update one Repartition
+     * const repartition = await prisma.repartition.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RepartitionUpdateArgs>(args: SelectSubset<T, RepartitionUpdateArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Repartitions.
+     * @param {RepartitionDeleteManyArgs} args - Arguments to filter Repartitions to delete.
+     * @example
+     * // Delete a few Repartitions
+     * const { count } = await prisma.repartition.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RepartitionDeleteManyArgs>(args?: SelectSubset<T, RepartitionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Repartitions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepartitionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Repartitions
+     * const repartition = await prisma.repartition.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RepartitionUpdateManyArgs>(args: SelectSubset<T, RepartitionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Repartitions and returns the data updated in the database.
+     * @param {RepartitionUpdateManyAndReturnArgs} args - Arguments to update many Repartitions.
+     * @example
+     * // Update many Repartitions
+     * const repartition = await prisma.repartition.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Repartitions and only return the `id`
+     * const repartitionWithIdOnly = await prisma.repartition.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RepartitionUpdateManyAndReturnArgs>(args: SelectSubset<T, RepartitionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Repartition.
+     * @param {RepartitionUpsertArgs} args - Arguments to update or create a Repartition.
+     * @example
+     * // Update or create a Repartition
+     * const repartition = await prisma.repartition.upsert({
+     *   create: {
+     *     // ... data to create a Repartition
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Repartition we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RepartitionUpsertArgs>(args: SelectSubset<T, RepartitionUpsertArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Repartitions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepartitionCountArgs} args - Arguments to filter Repartitions to count.
+     * @example
+     * // Count the number of Repartitions
+     * const count = await prisma.repartition.count({
+     *   where: {
+     *     // ... the filter for the Repartitions we want to count
+     *   }
+     * })
+    **/
+    count<T extends RepartitionCountArgs>(
+      args?: Subset<T, RepartitionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RepartitionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Repartition.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepartitionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RepartitionAggregateArgs>(args: Subset<T, RepartitionAggregateArgs>): Prisma.PrismaPromise<GetRepartitionAggregateType<T>>
+
+    /**
+     * Group by Repartition.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RepartitionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RepartitionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RepartitionGroupByArgs['orderBy'] }
+        : { orderBy?: RepartitionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RepartitionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRepartitionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Repartition model
+   */
+  readonly fields: RepartitionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Repartition.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RepartitionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    departement<T extends DepartementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartementDefaultArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Repartition model
+   */
+  interface RepartitionFieldRefs {
+    readonly id: FieldRef<"Repartition", 'String'>
+    readonly semestreId: FieldRef<"Repartition", 'String'>
+    readonly departementId: FieldRef<"Repartition", 'String'>
+    readonly statut: FieldRef<"Repartition", 'RepartitionStatut'>
+    readonly libelle: FieldRef<"Repartition", 'String'>
+    readonly createdAt: FieldRef<"Repartition", 'DateTime'>
+    readonly updatedAt: FieldRef<"Repartition", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Repartition findUnique
+   */
+  export type RepartitionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * Filter, which Repartition to fetch.
+     */
+    where: RepartitionWhereUniqueInput
+  }
+
+  /**
+   * Repartition findUniqueOrThrow
+   */
+  export type RepartitionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * Filter, which Repartition to fetch.
+     */
+    where: RepartitionWhereUniqueInput
+  }
+
+  /**
+   * Repartition findFirst
+   */
+  export type RepartitionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * Filter, which Repartition to fetch.
+     */
+    where?: RepartitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Repartitions to fetch.
+     */
+    orderBy?: RepartitionOrderByWithRelationInput | RepartitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Repartitions.
+     */
+    cursor?: RepartitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Repartitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Repartitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Repartitions.
+     */
+    distinct?: RepartitionScalarFieldEnum | RepartitionScalarFieldEnum[]
+  }
+
+  /**
+   * Repartition findFirstOrThrow
+   */
+  export type RepartitionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * Filter, which Repartition to fetch.
+     */
+    where?: RepartitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Repartitions to fetch.
+     */
+    orderBy?: RepartitionOrderByWithRelationInput | RepartitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Repartitions.
+     */
+    cursor?: RepartitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Repartitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Repartitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Repartitions.
+     */
+    distinct?: RepartitionScalarFieldEnum | RepartitionScalarFieldEnum[]
+  }
+
+  /**
+   * Repartition findMany
+   */
+  export type RepartitionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * Filter, which Repartitions to fetch.
+     */
+    where?: RepartitionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Repartitions to fetch.
+     */
+    orderBy?: RepartitionOrderByWithRelationInput | RepartitionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Repartitions.
+     */
+    cursor?: RepartitionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Repartitions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Repartitions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Repartitions.
+     */
+    distinct?: RepartitionScalarFieldEnum | RepartitionScalarFieldEnum[]
+  }
+
+  /**
+   * Repartition create
+   */
+  export type RepartitionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Repartition.
+     */
+    data: XOR<RepartitionCreateInput, RepartitionUncheckedCreateInput>
+  }
+
+  /**
+   * Repartition createMany
+   */
+  export type RepartitionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Repartitions.
+     */
+    data: RepartitionCreateManyInput | RepartitionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Repartition createManyAndReturn
+   */
+  export type RepartitionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Repartitions.
+     */
+    data: RepartitionCreateManyInput | RepartitionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Repartition update
+   */
+  export type RepartitionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Repartition.
+     */
+    data: XOR<RepartitionUpdateInput, RepartitionUncheckedUpdateInput>
+    /**
+     * Choose, which Repartition to update.
+     */
+    where: RepartitionWhereUniqueInput
+  }
+
+  /**
+   * Repartition updateMany
+   */
+  export type RepartitionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Repartitions.
+     */
+    data: XOR<RepartitionUpdateManyMutationInput, RepartitionUncheckedUpdateManyInput>
+    /**
+     * Filter which Repartitions to update
+     */
+    where?: RepartitionWhereInput
+    /**
+     * Limit how many Repartitions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Repartition updateManyAndReturn
+   */
+  export type RepartitionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * The data used to update Repartitions.
+     */
+    data: XOR<RepartitionUpdateManyMutationInput, RepartitionUncheckedUpdateManyInput>
+    /**
+     * Filter which Repartitions to update
+     */
+    where?: RepartitionWhereInput
+    /**
+     * Limit how many Repartitions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Repartition upsert
+   */
+  export type RepartitionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Repartition to update in case it exists.
+     */
+    where: RepartitionWhereUniqueInput
+    /**
+     * In case the Repartition found by the `where` argument doesn't exist, create a new Repartition with this data.
+     */
+    create: XOR<RepartitionCreateInput, RepartitionUncheckedCreateInput>
+    /**
+     * In case the Repartition was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RepartitionUpdateInput, RepartitionUncheckedUpdateInput>
+  }
+
+  /**
+   * Repartition delete
+   */
+  export type RepartitionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+    /**
+     * Filter which Repartition to delete.
+     */
+    where: RepartitionWhereUniqueInput
+  }
+
+  /**
+   * Repartition deleteMany
+   */
+  export type RepartitionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Repartitions to delete
+     */
+    where?: RepartitionWhereInput
+    /**
+     * Limit how many Repartitions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Repartition without action
+   */
+  export type RepartitionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Repartition
+     */
+    select?: RepartitionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Repartition
+     */
+    omit?: RepartitionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RepartitionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -62710,6 +63985,19 @@ export namespace Prisma {
   export type ContrainteInstanceScalarFieldEnum = (typeof ContrainteInstanceScalarFieldEnum)[keyof typeof ContrainteInstanceScalarFieldEnum]
 
 
+  export const RepartitionScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    departementId: 'departementId',
+    statut: 'statut',
+    libelle: 'libelle',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RepartitionScalarFieldEnum = (typeof RepartitionScalarFieldEnum)[keyof typeof RepartitionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -63173,6 +64461,20 @@ export namespace Prisma {
    * Reference to a field of type 'ContrainteNature[]'
    */
   export type ListEnumContrainteNatureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContrainteNature[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RepartitionStatut'
+   */
+  export type EnumRepartitionStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RepartitionStatut'>
+    
+
+
+  /**
+   * Reference to a field of type 'RepartitionStatut[]'
+   */
+  export type ListEnumRepartitionStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RepartitionStatut[]'>
     
   /**
    * Deep Input Types
@@ -64710,6 +66012,7 @@ export namespace Prisma {
     creneaux?: CreneauListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
     contrainteInstances?: ContrainteInstanceListRelationFilter
+    repartitions?: RepartitionListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -64726,6 +66029,7 @@ export namespace Prisma {
     creneaux?: CreneauOrderByRelationAggregateInput
     indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
     contrainteInstances?: ContrainteInstanceOrderByRelationAggregateInput
+    repartitions?: RepartitionOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -64746,6 +66050,7 @@ export namespace Prisma {
     creneaux?: CreneauListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
     contrainteInstances?: ContrainteInstanceListRelationFilter
+    repartitions?: RepartitionListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -64934,6 +66239,7 @@ export namespace Prisma {
     formations?: FormationListRelationFilter
     enseignants?: EnseignantListRelationFilter
     salles?: SalleListRelationFilter
+    repartitions?: RepartitionListRelationFilter
   }
 
   export type DepartementOrderByWithRelationInput = {
@@ -64949,6 +66255,7 @@ export namespace Prisma {
     formations?: FormationOrderByRelationAggregateInput
     enseignants?: EnseignantOrderByRelationAggregateInput
     salles?: SalleOrderByRelationAggregateInput
+    repartitions?: RepartitionOrderByRelationAggregateInput
   }
 
   export type DepartementWhereUniqueInput = Prisma.AtLeast<{
@@ -64968,6 +66275,7 @@ export namespace Prisma {
     formations?: FormationListRelationFilter
     enseignants?: EnseignantListRelationFilter
     salles?: SalleListRelationFilter
+    repartitions?: RepartitionListRelationFilter
   }, "id" | "anneeId_code">
 
   export type DepartementOrderByWithAggregationInput = {
@@ -66776,6 +68084,75 @@ export namespace Prisma {
     creeLe?: DateTimeWithAggregatesFilter<"ContrainteInstance"> | Date | string
   }
 
+  export type RepartitionWhereInput = {
+    AND?: RepartitionWhereInput | RepartitionWhereInput[]
+    OR?: RepartitionWhereInput[]
+    NOT?: RepartitionWhereInput | RepartitionWhereInput[]
+    id?: UuidFilter<"Repartition"> | string
+    semestreId?: UuidFilter<"Repartition"> | string
+    departementId?: UuidFilter<"Repartition"> | string
+    statut?: EnumRepartitionStatutFilter<"Repartition"> | $Enums.RepartitionStatut
+    libelle?: StringNullableFilter<"Repartition"> | string | null
+    createdAt?: DateTimeFilter<"Repartition"> | Date | string
+    updatedAt?: DateTimeFilter<"Repartition"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
+  }
+
+  export type RepartitionOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementId?: SortOrder
+    statut?: SortOrder
+    libelle?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    departement?: DepartementOrderByWithRelationInput
+  }
+
+  export type RepartitionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    semestreId_departementId?: RepartitionSemestreIdDepartementIdCompoundUniqueInput
+    AND?: RepartitionWhereInput | RepartitionWhereInput[]
+    OR?: RepartitionWhereInput[]
+    NOT?: RepartitionWhereInput | RepartitionWhereInput[]
+    semestreId?: UuidFilter<"Repartition"> | string
+    departementId?: UuidFilter<"Repartition"> | string
+    statut?: EnumRepartitionStatutFilter<"Repartition"> | $Enums.RepartitionStatut
+    libelle?: StringNullableFilter<"Repartition"> | string | null
+    createdAt?: DateTimeFilter<"Repartition"> | Date | string
+    updatedAt?: DateTimeFilter<"Repartition"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
+  }, "id" | "semestreId_departementId">
+
+  export type RepartitionOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementId?: SortOrder
+    statut?: SortOrder
+    libelle?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RepartitionCountOrderByAggregateInput
+    _max?: RepartitionMaxOrderByAggregateInput
+    _min?: RepartitionMinOrderByAggregateInput
+  }
+
+  export type RepartitionScalarWhereWithAggregatesInput = {
+    AND?: RepartitionScalarWhereWithAggregatesInput | RepartitionScalarWhereWithAggregatesInput[]
+    OR?: RepartitionScalarWhereWithAggregatesInput[]
+    NOT?: RepartitionScalarWhereWithAggregatesInput | RepartitionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Repartition"> | string
+    semestreId?: UuidWithAggregatesFilter<"Repartition"> | string
+    departementId?: UuidWithAggregatesFilter<"Repartition"> | string
+    statut?: EnumRepartitionStatutWithAggregatesFilter<"Repartition"> | $Enums.RepartitionStatut
+    libelle?: StringNullableWithAggregatesFilter<"Repartition"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Repartition"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Repartition"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -68426,6 +69803,7 @@ export namespace Prisma {
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -68441,6 +69819,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -68456,6 +69835,7 @@ export namespace Prisma {
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -68471,6 +69851,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -68663,6 +70044,7 @@ export namespace Prisma {
     formations?: FormationCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
     salles?: SalleCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateInput = {
@@ -68677,6 +70059,7 @@ export namespace Prisma {
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
     salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUpdateInput = {
@@ -68691,6 +70074,7 @@ export namespace Prisma {
     formations?: FormationUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
     salles?: SalleUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateInput = {
@@ -68705,6 +70089,7 @@ export namespace Prisma {
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
     salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementCreateManyInput = {
@@ -70574,6 +71959,74 @@ export namespace Prisma {
     creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RepartitionCreateInput = {
+    id?: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutRepartitionsInput
+    departement: DepartementCreateNestedOneWithoutRepartitionsInput
+  }
+
+  export type RepartitionUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    departementId: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RepartitionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutRepartitionsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutRepartitionsNestedInput
+  }
+
+  export type RepartitionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RepartitionCreateManyInput = {
+    id?: string
+    semestreId: string
+    departementId: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RepartitionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RepartitionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -72101,6 +73554,12 @@ export namespace Prisma {
     none?: ContrainteInstanceWhereInput
   }
 
+  export type RepartitionListRelationFilter = {
+    every?: RepartitionWhereInput
+    some?: RepartitionWhereInput
+    none?: RepartitionWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -72118,6 +73577,10 @@ export namespace Prisma {
   }
 
   export type ContrainteInstanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RepartitionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -73742,6 +75205,58 @@ export namespace Prisma {
     _max?: NestedEnumContrainteNatureFilter<$PrismaModel>
   }
 
+  export type EnumRepartitionStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.RepartitionStatut | EnumRepartitionStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.RepartitionStatut[] | ListEnumRepartitionStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RepartitionStatut[] | ListEnumRepartitionStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumRepartitionStatutFilter<$PrismaModel> | $Enums.RepartitionStatut
+  }
+
+  export type RepartitionSemestreIdDepartementIdCompoundUniqueInput = {
+    semestreId: string
+    departementId: string
+  }
+
+  export type RepartitionCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementId?: SortOrder
+    statut?: SortOrder
+    libelle?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RepartitionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementId?: SortOrder
+    statut?: SortOrder
+    libelle?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RepartitionMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    departementId?: SortOrder
+    statut?: SortOrder
+    libelle?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumRepartitionStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RepartitionStatut | EnumRepartitionStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.RepartitionStatut[] | ListEnumRepartitionStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RepartitionStatut[] | ListEnumRepartitionStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumRepartitionStatutWithAggregatesFilter<$PrismaModel> | $Enums.RepartitionStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRepartitionStatutFilter<$PrismaModel>
+    _max?: NestedEnumRepartitionStatutFilter<$PrismaModel>
+  }
+
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSystemRoleCreateWithoutUserInput, UserSystemRoleUncheckedCreateWithoutUserInput> | UserSystemRoleCreateWithoutUserInput[] | UserSystemRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSystemRoleCreateOrConnectWithoutUserInput | UserSystemRoleCreateOrConnectWithoutUserInput[]
@@ -75282,6 +76797,13 @@ export namespace Prisma {
     connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
   }
 
+  export type RepartitionCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<RepartitionCreateWithoutSemestreInput, RepartitionUncheckedCreateWithoutSemestreInput> | RepartitionCreateWithoutSemestreInput[] | RepartitionUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: RepartitionCreateOrConnectWithoutSemestreInput | RepartitionCreateOrConnectWithoutSemestreInput[]
+    createMany?: RepartitionCreateManySemestreInputEnvelope
+    connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -75315,6 +76837,13 @@ export namespace Prisma {
     connectOrCreate?: ContrainteInstanceCreateOrConnectWithoutSemestreInput | ContrainteInstanceCreateOrConnectWithoutSemestreInput[]
     createMany?: ContrainteInstanceCreateManySemestreInputEnvelope
     connect?: ContrainteInstanceWhereUniqueInput | ContrainteInstanceWhereUniqueInput[]
+  }
+
+  export type RepartitionUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<RepartitionCreateWithoutSemestreInput, RepartitionUncheckedCreateWithoutSemestreInput> | RepartitionCreateWithoutSemestreInput[] | RepartitionUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: RepartitionCreateOrConnectWithoutSemestreInput | RepartitionCreateOrConnectWithoutSemestreInput[]
+    createMany?: RepartitionCreateManySemestreInputEnvelope
+    connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -75395,6 +76924,20 @@ export namespace Prisma {
     deleteMany?: ContrainteInstanceScalarWhereInput | ContrainteInstanceScalarWhereInput[]
   }
 
+  export type RepartitionUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<RepartitionCreateWithoutSemestreInput, RepartitionUncheckedCreateWithoutSemestreInput> | RepartitionCreateWithoutSemestreInput[] | RepartitionUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: RepartitionCreateOrConnectWithoutSemestreInput | RepartitionCreateOrConnectWithoutSemestreInput[]
+    upsert?: RepartitionUpsertWithWhereUniqueWithoutSemestreInput | RepartitionUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: RepartitionCreateManySemestreInputEnvelope
+    set?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    disconnect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    delete?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    update?: RepartitionUpdateWithWhereUniqueWithoutSemestreInput | RepartitionUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: RepartitionUpdateManyWithWhereWithoutSemestreInput | RepartitionUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: RepartitionScalarWhereInput | RepartitionScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -75463,6 +77006,20 @@ export namespace Prisma {
     update?: ContrainteInstanceUpdateWithWhereUniqueWithoutSemestreInput | ContrainteInstanceUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: ContrainteInstanceUpdateManyWithWhereWithoutSemestreInput | ContrainteInstanceUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: ContrainteInstanceScalarWhereInput | ContrainteInstanceScalarWhereInput[]
+  }
+
+  export type RepartitionUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<RepartitionCreateWithoutSemestreInput, RepartitionUncheckedCreateWithoutSemestreInput> | RepartitionCreateWithoutSemestreInput[] | RepartitionUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: RepartitionCreateOrConnectWithoutSemestreInput | RepartitionCreateOrConnectWithoutSemestreInput[]
+    upsert?: RepartitionUpsertWithWhereUniqueWithoutSemestreInput | RepartitionUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: RepartitionCreateManySemestreInputEnvelope
+    set?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    disconnect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    delete?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    update?: RepartitionUpdateWithWhereUniqueWithoutSemestreInput | RepartitionUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: RepartitionUpdateManyWithWhereWithoutSemestreInput | RepartitionUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: RepartitionScalarWhereInput | RepartitionScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -75570,6 +77127,13 @@ export namespace Prisma {
     connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
   }
 
+  export type RepartitionCreateNestedManyWithoutDepartementInput = {
+    create?: XOR<RepartitionCreateWithoutDepartementInput, RepartitionUncheckedCreateWithoutDepartementInput> | RepartitionCreateWithoutDepartementInput[] | RepartitionUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: RepartitionCreateOrConnectWithoutDepartementInput | RepartitionCreateOrConnectWithoutDepartementInput[]
+    createMany?: RepartitionCreateManyDepartementInputEnvelope
+    connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+  }
+
   export type FormationUncheckedCreateNestedManyWithoutDepartementInput = {
     create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
     connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
@@ -75589,6 +77153,13 @@ export namespace Prisma {
     connectOrCreate?: SalleCreateOrConnectWithoutDepartementInput | SalleCreateOrConnectWithoutDepartementInput[]
     createMany?: SalleCreateManyDepartementInputEnvelope
     connect?: SalleWhereUniqueInput | SalleWhereUniqueInput[]
+  }
+
+  export type RepartitionUncheckedCreateNestedManyWithoutDepartementInput = {
+    create?: XOR<RepartitionCreateWithoutDepartementInput, RepartitionUncheckedCreateWithoutDepartementInput> | RepartitionCreateWithoutDepartementInput[] | RepartitionUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: RepartitionCreateOrConnectWithoutDepartementInput | RepartitionCreateOrConnectWithoutDepartementInput[]
+    createMany?: RepartitionCreateManyDepartementInputEnvelope
+    connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutDepartementsNestedInput = {
@@ -75641,6 +77212,20 @@ export namespace Prisma {
     deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
   }
 
+  export type RepartitionUpdateManyWithoutDepartementNestedInput = {
+    create?: XOR<RepartitionCreateWithoutDepartementInput, RepartitionUncheckedCreateWithoutDepartementInput> | RepartitionCreateWithoutDepartementInput[] | RepartitionUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: RepartitionCreateOrConnectWithoutDepartementInput | RepartitionCreateOrConnectWithoutDepartementInput[]
+    upsert?: RepartitionUpsertWithWhereUniqueWithoutDepartementInput | RepartitionUpsertWithWhereUniqueWithoutDepartementInput[]
+    createMany?: RepartitionCreateManyDepartementInputEnvelope
+    set?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    disconnect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    delete?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    update?: RepartitionUpdateWithWhereUniqueWithoutDepartementInput | RepartitionUpdateWithWhereUniqueWithoutDepartementInput[]
+    updateMany?: RepartitionUpdateManyWithWhereWithoutDepartementInput | RepartitionUpdateManyWithWhereWithoutDepartementInput[]
+    deleteMany?: RepartitionScalarWhereInput | RepartitionScalarWhereInput[]
+  }
+
   export type FormationUncheckedUpdateManyWithoutDepartementNestedInput = {
     create?: XOR<FormationCreateWithoutDepartementInput, FormationUncheckedCreateWithoutDepartementInput> | FormationCreateWithoutDepartementInput[] | FormationUncheckedCreateWithoutDepartementInput[]
     connectOrCreate?: FormationCreateOrConnectWithoutDepartementInput | FormationCreateOrConnectWithoutDepartementInput[]
@@ -75681,6 +77266,20 @@ export namespace Prisma {
     update?: SalleUpdateWithWhereUniqueWithoutDepartementInput | SalleUpdateWithWhereUniqueWithoutDepartementInput[]
     updateMany?: SalleUpdateManyWithWhereWithoutDepartementInput | SalleUpdateManyWithWhereWithoutDepartementInput[]
     deleteMany?: SalleScalarWhereInput | SalleScalarWhereInput[]
+  }
+
+  export type RepartitionUncheckedUpdateManyWithoutDepartementNestedInput = {
+    create?: XOR<RepartitionCreateWithoutDepartementInput, RepartitionUncheckedCreateWithoutDepartementInput> | RepartitionCreateWithoutDepartementInput[] | RepartitionUncheckedCreateWithoutDepartementInput[]
+    connectOrCreate?: RepartitionCreateOrConnectWithoutDepartementInput | RepartitionCreateOrConnectWithoutDepartementInput[]
+    upsert?: RepartitionUpsertWithWhereUniqueWithoutDepartementInput | RepartitionUpsertWithWhereUniqueWithoutDepartementInput[]
+    createMany?: RepartitionCreateManyDepartementInputEnvelope
+    set?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    disconnect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    delete?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    connect?: RepartitionWhereUniqueInput | RepartitionWhereUniqueInput[]
+    update?: RepartitionUpdateWithWhereUniqueWithoutDepartementInput | RepartitionUpdateWithWhereUniqueWithoutDepartementInput[]
+    updateMany?: RepartitionUpdateManyWithWhereWithoutDepartementInput | RepartitionUpdateManyWithWhereWithoutDepartementInput[]
+    deleteMany?: RepartitionScalarWhereInput | RepartitionScalarWhereInput[]
   }
 
   export type DepartementCreateNestedOneWithoutFormationsInput = {
@@ -77459,6 +79058,38 @@ export namespace Prisma {
     update?: XOR<XOR<ContrainteDefinitionUpdateToOneWithWhereWithoutInstancesInput, ContrainteDefinitionUpdateWithoutInstancesInput>, ContrainteDefinitionUncheckedUpdateWithoutInstancesInput>
   }
 
+  export type SemestreCreateNestedOneWithoutRepartitionsInput = {
+    create?: XOR<SemestreCreateWithoutRepartitionsInput, SemestreUncheckedCreateWithoutRepartitionsInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutRepartitionsInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type DepartementCreateNestedOneWithoutRepartitionsInput = {
+    create?: XOR<DepartementCreateWithoutRepartitionsInput, DepartementUncheckedCreateWithoutRepartitionsInput>
+    connectOrCreate?: DepartementCreateOrConnectWithoutRepartitionsInput
+    connect?: DepartementWhereUniqueInput
+  }
+
+  export type EnumRepartitionStatutFieldUpdateOperationsInput = {
+    set?: $Enums.RepartitionStatut
+  }
+
+  export type SemestreUpdateOneRequiredWithoutRepartitionsNestedInput = {
+    create?: XOR<SemestreCreateWithoutRepartitionsInput, SemestreUncheckedCreateWithoutRepartitionsInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutRepartitionsInput
+    upsert?: SemestreUpsertWithoutRepartitionsInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutRepartitionsInput, SemestreUpdateWithoutRepartitionsInput>, SemestreUncheckedUpdateWithoutRepartitionsInput>
+  }
+
+  export type DepartementUpdateOneRequiredWithoutRepartitionsNestedInput = {
+    create?: XOR<DepartementCreateWithoutRepartitionsInput, DepartementUncheckedCreateWithoutRepartitionsInput>
+    connectOrCreate?: DepartementCreateOrConnectWithoutRepartitionsInput
+    upsert?: DepartementUpsertWithoutRepartitionsInput
+    connect?: DepartementWhereUniqueInput
+    update?: XOR<XOR<DepartementUpdateToOneWithWhereWithoutRepartitionsInput, DepartementUpdateWithoutRepartitionsInput>, DepartementUncheckedUpdateWithoutRepartitionsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -78198,6 +79829,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumContrainteNatureFilter<$PrismaModel>
     _max?: NestedEnumContrainteNatureFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRepartitionStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.RepartitionStatut | EnumRepartitionStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.RepartitionStatut[] | ListEnumRepartitionStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RepartitionStatut[] | ListEnumRepartitionStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumRepartitionStatutFilter<$PrismaModel> | $Enums.RepartitionStatut
+  }
+
+  export type NestedEnumRepartitionStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RepartitionStatut | EnumRepartitionStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.RepartitionStatut[] | ListEnumRepartitionStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RepartitionStatut[] | ListEnumRepartitionStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumRepartitionStatutWithAggregatesFilter<$PrismaModel> | $Enums.RepartitionStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRepartitionStatutFilter<$PrismaModel>
+    _max?: NestedEnumRepartitionStatutFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateWithoutUserInput = {
@@ -81835,6 +83483,7 @@ export namespace Prisma {
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -81849,6 +83498,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -81872,6 +83522,7 @@ export namespace Prisma {
     formations?: FormationCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
     salles?: SalleCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutAnneeInput = {
@@ -81885,6 +83536,7 @@ export namespace Prisma {
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
     salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutAnneeInput = {
@@ -82314,6 +83966,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RepartitionCreateWithoutSemestreInput = {
+    id?: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement: DepartementCreateNestedOneWithoutRepartitionsInput
+  }
+
+  export type RepartitionUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    departementId: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RepartitionCreateOrConnectWithoutSemestreInput = {
+    where: RepartitionWhereUniqueInput
+    create: XOR<RepartitionCreateWithoutSemestreInput, RepartitionUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type RepartitionCreateManySemestreInputEnvelope = {
+    data: RepartitionCreateManySemestreInput | RepartitionCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -82512,6 +84192,35 @@ export namespace Prisma {
     creeLe?: DateTimeFilter<"ContrainteInstance"> | Date | string
   }
 
+  export type RepartitionUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: RepartitionWhereUniqueInput
+    update: XOR<RepartitionUpdateWithoutSemestreInput, RepartitionUncheckedUpdateWithoutSemestreInput>
+    create: XOR<RepartitionCreateWithoutSemestreInput, RepartitionUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type RepartitionUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: RepartitionWhereUniqueInput
+    data: XOR<RepartitionUpdateWithoutSemestreInput, RepartitionUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type RepartitionUpdateManyWithWhereWithoutSemestreInput = {
+    where: RepartitionScalarWhereInput
+    data: XOR<RepartitionUpdateManyMutationInput, RepartitionUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type RepartitionScalarWhereInput = {
+    AND?: RepartitionScalarWhereInput | RepartitionScalarWhereInput[]
+    OR?: RepartitionScalarWhereInput[]
+    NOT?: RepartitionScalarWhereInput | RepartitionScalarWhereInput[]
+    id?: UuidFilter<"Repartition"> | string
+    semestreId?: UuidFilter<"Repartition"> | string
+    departementId?: UuidFilter<"Repartition"> | string
+    statut?: EnumRepartitionStatutFilter<"Repartition"> | $Enums.RepartitionStatut
+    libelle?: StringNullableFilter<"Repartition"> | string | null
+    createdAt?: DateTimeFilter<"Repartition"> | Date | string
+    updatedAt?: DateTimeFilter<"Repartition"> | Date | string
+  }
+
   export type SemestreCreateWithoutCreneauxInput = {
     id?: string
     numero: number
@@ -82524,6 +84233,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -82538,6 +84248,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -82592,6 +84303,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -82606,6 +84318,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -82860,6 +84573,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RepartitionCreateWithoutDepartementInput = {
+    id?: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutRepartitionsInput
+  }
+
+  export type RepartitionUncheckedCreateWithoutDepartementInput = {
+    id?: string
+    semestreId: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RepartitionCreateOrConnectWithoutDepartementInput = {
+    where: RepartitionWhereUniqueInput
+    create: XOR<RepartitionCreateWithoutDepartementInput, RepartitionUncheckedCreateWithoutDepartementInput>
+  }
+
+  export type RepartitionCreateManyDepartementInputEnvelope = {
+    data: RepartitionCreateManyDepartementInput | RepartitionCreateManyDepartementInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutDepartementsInput = {
     update: XOR<AnneeUpdateWithoutDepartementsInput, AnneeUncheckedUpdateWithoutDepartementsInput>
     create: XOR<AnneeCreateWithoutDepartementsInput, AnneeUncheckedCreateWithoutDepartementsInput>
@@ -82979,6 +84720,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Salle"> | Date | string
   }
 
+  export type RepartitionUpsertWithWhereUniqueWithoutDepartementInput = {
+    where: RepartitionWhereUniqueInput
+    update: XOR<RepartitionUpdateWithoutDepartementInput, RepartitionUncheckedUpdateWithoutDepartementInput>
+    create: XOR<RepartitionCreateWithoutDepartementInput, RepartitionUncheckedCreateWithoutDepartementInput>
+  }
+
+  export type RepartitionUpdateWithWhereUniqueWithoutDepartementInput = {
+    where: RepartitionWhereUniqueInput
+    data: XOR<RepartitionUpdateWithoutDepartementInput, RepartitionUncheckedUpdateWithoutDepartementInput>
+  }
+
+  export type RepartitionUpdateManyWithWhereWithoutDepartementInput = {
+    where: RepartitionScalarWhereInput
+    data: XOR<RepartitionUpdateManyMutationInput, RepartitionUncheckedUpdateManyWithoutDepartementInput>
+  }
+
   export type DepartementCreateWithoutFormationsInput = {
     id?: string
     code: string
@@ -82990,6 +84747,7 @@ export namespace Prisma {
     annee: AnneeCreateNestedOneWithoutDepartementsInput
     enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
     salles?: SalleCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutFormationsInput = {
@@ -83003,6 +84761,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
     salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutFormationsInput = {
@@ -83066,6 +84825,7 @@ export namespace Prisma {
     annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
     enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
     salles?: SalleUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutFormationsInput = {
@@ -83079,6 +84839,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
     salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type NiveauUpsertWithWhereUniqueWithoutFormationInput = {
@@ -83346,6 +85107,7 @@ export namespace Prisma {
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -83360,6 +85122,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -83500,6 +85263,7 @@ export namespace Prisma {
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -83514,6 +85278,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -84911,6 +86676,7 @@ export namespace Prisma {
     annee: AnneeCreateNestedOneWithoutDepartementsInput
     formations?: FormationCreateNestedManyWithoutDepartementInput
     salles?: SalleCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutEnseignantsInput = {
@@ -84924,6 +86690,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
     salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutEnseignantsInput = {
@@ -85091,6 +86858,7 @@ export namespace Prisma {
     annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
     formations?: FormationUpdateManyWithoutDepartementNestedInput
     salles?: SalleUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutEnseignantsInput = {
@@ -85104,6 +86872,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
     salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type GradeUpsertWithoutEnseignantsInput = {
@@ -85410,6 +87179,7 @@ export namespace Prisma {
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -85424,6 +87194,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -85501,6 +87272,7 @@ export namespace Prisma {
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -85515,6 +87287,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -85656,6 +87429,7 @@ export namespace Prisma {
     annee: AnneeCreateNestedOneWithoutDepartementsInput
     formations?: FormationCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementUncheckedCreateWithoutSallesInput = {
@@ -85669,6 +87443,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
     enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutDepartementInput
   }
 
   export type DepartementCreateOrConnectWithoutSallesInput = {
@@ -85814,6 +87589,7 @@ export namespace Prisma {
     annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
     formations?: FormationUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutSallesInput = {
@@ -85827,6 +87603,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type TypeSalleUpsertWithoutSallesInput = {
@@ -85957,6 +87734,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -85971,6 +87749,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -86085,6 +87864,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -86099,6 +87879,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -86843,6 +88624,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
@@ -86857,6 +88639,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
     creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
@@ -86918,6 +88701,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
@@ -86932,6 +88716,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ContrainteDefinitionUpsertWithoutInstancesInput = {
@@ -86969,6 +88754,154 @@ export namespace Prisma {
     paramsSchema?: JsonNullValueInput | InputJsonValue
     fetSupport?: EnumFetSupportFieldUpdateOperationsInput | $Enums.FetSupport
     actif?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type SemestreCreateWithoutRepartitionsInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutRepartitionsInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutRepartitionsInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutRepartitionsInput, SemestreUncheckedCreateWithoutRepartitionsInput>
+  }
+
+  export type DepartementCreateWithoutRepartitionsInput = {
+    id?: string
+    code: string
+    libelle: string
+    ordre?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutDepartementsInput
+    formations?: FormationCreateNestedManyWithoutDepartementInput
+    enseignants?: EnseignantCreateNestedManyWithoutDepartementInput
+    salles?: SalleCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementUncheckedCreateWithoutRepartitionsInput = {
+    id?: string
+    anneeId: string
+    code: string
+    libelle: string
+    ordre?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    formations?: FormationUncheckedCreateNestedManyWithoutDepartementInput
+    enseignants?: EnseignantUncheckedCreateNestedManyWithoutDepartementInput
+    salles?: SalleUncheckedCreateNestedManyWithoutDepartementInput
+  }
+
+  export type DepartementCreateOrConnectWithoutRepartitionsInput = {
+    where: DepartementWhereUniqueInput
+    create: XOR<DepartementCreateWithoutRepartitionsInput, DepartementUncheckedCreateWithoutRepartitionsInput>
+  }
+
+  export type SemestreUpsertWithoutRepartitionsInput = {
+    update: XOR<SemestreUpdateWithoutRepartitionsInput, SemestreUncheckedUpdateWithoutRepartitionsInput>
+    create: XOR<SemestreCreateWithoutRepartitionsInput, SemestreUncheckedCreateWithoutRepartitionsInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutRepartitionsInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutRepartitionsInput, SemestreUncheckedUpdateWithoutRepartitionsInput>
+  }
+
+  export type SemestreUpdateWithoutRepartitionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutRepartitionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type DepartementUpsertWithoutRepartitionsInput = {
+    update: XOR<DepartementUpdateWithoutRepartitionsInput, DepartementUncheckedUpdateWithoutRepartitionsInput>
+    create: XOR<DepartementCreateWithoutRepartitionsInput, DepartementUncheckedCreateWithoutRepartitionsInput>
+    where?: DepartementWhereInput
+  }
+
+  export type DepartementUpdateToOneWithWhereWithoutRepartitionsInput = {
+    where?: DepartementWhereInput
+    data: XOR<DepartementUpdateWithoutRepartitionsInput, DepartementUncheckedUpdateWithoutRepartitionsInput>
+  }
+
+  export type DepartementUpdateWithoutRepartitionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutDepartementsNestedInput
+    formations?: FormationUpdateManyWithoutDepartementNestedInput
+    enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type DepartementUncheckedUpdateWithoutRepartitionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    anneeId?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
+    enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
+    salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -88059,6 +89992,7 @@ export namespace Prisma {
     creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -88073,6 +90007,7 @@ export namespace Prisma {
     creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -88095,6 +90030,7 @@ export namespace Prisma {
     formations?: FormationUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUpdateManyWithoutDepartementNestedInput
     salles?: SalleUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateWithoutAnneeInput = {
@@ -88108,6 +90044,7 @@ export namespace Prisma {
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
     salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutDepartementNestedInput
   }
 
   export type DepartementUncheckedUpdateManyWithoutAnneeInput = {
@@ -88270,6 +90207,15 @@ export namespace Prisma {
     actif?: boolean
     creePar: string
     creeLe?: Date | string
+  }
+
+  export type RepartitionCreateManySemestreInput = {
+    id?: string
+    departementId: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type GroupeUpdateWithoutSemestreInput = {
@@ -88459,6 +90405,33 @@ export namespace Prisma {
     creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RepartitionUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneRequiredWithoutRepartitionsNestedInput
+  }
+
+  export type RepartitionUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RepartitionUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CreneauAffichageCreateManyCreneauInput = {
     id?: string
     grille?: $Enums.GrilleAffichage
@@ -88524,6 +90497,15 @@ export namespace Prisma {
     estActive?: boolean
     typeSalleId?: string | null
     originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RepartitionCreateManyDepartementInput = {
+    id?: string
+    semestreId: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -88661,6 +90643,33 @@ export namespace Prisma {
     estActive?: BoolFieldUpdateOperationsInput | boolean
     typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
     originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RepartitionUpdateWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutRepartitionsNestedInput
+  }
+
+  export type RepartitionUncheckedUpdateWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RepartitionUncheckedUpdateManyWithoutDepartementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

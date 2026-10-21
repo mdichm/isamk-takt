@@ -31,6 +31,7 @@ import { ChargeRuleSetModule } from './charge-ruleset/charge-ruleset.module.js';
 import { IndisponibiliteModule } from './indisponibilites/indisponibilite.module.js';
 import { ContraintesModule } from './contraintes/contraintes.module.js';
 import { ImportsModule } from './imports/imports.module.js';
+import { RepartitionsModule } from './repartitions/repartitions.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -102,6 +103,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     ChargeRuleSetModule,
     ContraintesModule,
     ImportsModule,
+    RepartitionsModule,
     PolicyModule,
   ],
   controllers: [MetricsController, SecurityEventController],
