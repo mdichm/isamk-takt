@@ -33,6 +33,7 @@ describe('ImportsService', () => {
       niveau: { findUnique: vi.fn() },
       typeEnseignement: { findUnique: vi.fn() },
       semestre: { findUnique: vi.fn() },
+      affectation: { findMany: vi.fn() },
     };
 
     audit = {
@@ -192,6 +193,28 @@ describe('ImportsService', () => {
       const dto: ImportCsvDto = { dryRun: false, confirmation: false };
 
       await expect(service.importCsv(ImportEntity.SALLES, dto, file, userId)).rejects.toThrow('confirmation');
+    });
+
+    it('devrait refuser limport si une donnée est utilisée dans une répartition validée', async () => {
+      prisma.annee.findUnique.mockResolvedValue({ id: anneeId });
+      prisma.departement.findUnique.mockResolvedValue({ id: departementId });
+      prisma.enseignant.findFirst.mockResolvedValue({ id: 'ens-id', matricule: 'M001' });
+      prisma.affectation.findMany.mockResolvedValue([
+        {
+          id: 'aff-1',
+          enseignantId: 'ens-id',
+          repartition: { id: 'rep-1', statut: 'VALIDEE' },
+        },
+      ]);
+
+      const csv = `matricule,nom,email,departementId,anneeId
+M001,Doe,doe@example.com,${departementId},${anneeId}`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: false, confirmation: true };
+
+      await expect(
+        service.importCsv(ImportEntity.ENSEIGNANTS, dto, file, userId),
+      ).rejects.toThrow('répartition validée');
     });
   });
 
@@ -420,6 +443,113 @@ describe('ImportsService', () => {
       );
       expect(erreursReferentiel).toHaveLength(0);
       expect((result as any).resume.erreur).toBe(0);
+    });
+
+    it('devrait détecter un enseignant utilisé dans une répartition validée en dryRun', async () => {
+      prisma.annee.findUnique.mockResolvedValue({ id: anneeId });
+      prisma.departement.findUnique.mockResolvedValue({ id: departementId });
+      prisma.enseignant.findFirst.mockResolvedValue({ id: 'ens-id', matricule: 'M001' });
+      prisma.affectation.findMany.mockResolvedValue([
+        {
+          id: 'aff-1',
+          enseignantId: 'ens-id',
+          repartition: { id: 'rep-1', statut: 'VALIDEE' },
+        },
+      ]);
+
+      const csv = `matricule,nom,email,departementId,anneeId
+M001,Doe,doe@example.com,${departementId},${anneeId}`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.ENSEIGNANTS, dto, file, userId);
+
+      const impact = (result as any).impacts.find(
+        (i: any) => i.code === 'M001' && i.utiliseDans?.some((d: string) => d.startsWith('repartition:')),
+      );
+      expect(impact).toBeDefined();
+      expect(impact.utiliseDans).toContain('repartition:rep-1');
+      const conflit = (result as any).items.find((i: any) => i.action === 'conflit');
+      expect(conflit).toBeDefined();
+      expect((result as any).resume.conflit).toBe(1);
+    });
+
+    it('ne devrait pas signaler de conflit si lenseignant est seulement dans une répartition brouillon', async () => {
+      prisma.annee.findUnique.mockResolvedValue({ id: anneeId });
+      prisma.departement.findUnique.mockResolvedValue({ id: departementId });
+      prisma.enseignant.findFirst.mockResolvedValue({ id: 'ens-id', matricule: 'M001' });
+      prisma.affectation.findMany.mockResolvedValue([
+        {
+          id: 'aff-1',
+          enseignantId: 'ens-id',
+          repartition: { id: 'rep-1', statut: 'BROUILLON' },
+        },
+      ]);
+
+      const csv = `matricule,nom,email,departementId,anneeId
+M001,Doe,doe@example.com,${departementId},${anneeId}`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.ENSEIGNANTS, dto, file, userId);
+
+      const conflit = (result as any).items.find((i: any) => i.action === 'conflit');
+      expect(conflit).toBeUndefined();
+      expect((result as any).resume.conflit).toBe(0);
+    });
+
+    it('devrait détecter un groupe utilisé dans une répartition validée en dryRun', async () => {
+      prisma.niveau.findUnique.mockResolvedValue({ id: 'niv-id' });
+      prisma.semestre.findUnique.mockResolvedValue({ id: 'sem-id' });
+      prisma.groupe.findFirst.mockResolvedValue({ id: 'grp-id', code: 'INFO-L3-S1' });
+      prisma.affectation.findMany.mockResolvedValue([
+        {
+          id: 'aff-1',
+          groupeId: 'grp-id',
+          repartition: { id: 'rep-1', statut: 'VALIDEE' },
+        },
+      ]);
+
+      const csv = `code,semestreId,niveauId
+INFO-L3-S1,sem-id,niv-id`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.GROUPES, dto, file, userId);
+
+      const impact = (result as any).impacts.find(
+        (i: any) => i.code === 'INFO-L3-S1' && i.utiliseDans?.some((d: string) => d.startsWith('repartition:')),
+      );
+      expect(impact).toBeDefined();
+      expect(impact.utiliseDans).toContain('repartition:rep-1');
+      expect((result as any).resume.conflit).toBe(1);
+    });
+
+    it('devrait détecter un module utilisé dans une répartition validée en dryRun', async () => {
+      prisma.niveau.findUnique.mockResolvedValue({ id: 'niv-id' });
+      prisma.typeEnseignement.findUnique.mockResolvedValue({ id: 'type-id' });
+      prisma.module.findFirst.mockResolvedValue({ id: 'mod-id', code: 'INFO301' });
+      prisma.affectation.findMany.mockResolvedValue([
+        {
+          id: 'aff-1',
+          moduleId: 'mod-id',
+          repartition: { id: 'rep-1', statut: 'VALIDEE' },
+        },
+      ]);
+
+      const csv = `code,libelle,semestreNumero,niveauId,typeId
+INFO301,Algo,1,niv-id,type-id`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.MODULES, dto, file, userId);
+
+      const impact = (result as any).impacts.find(
+        (i: any) => i.code === 'INFO301' && i.utiliseDans?.some((d: string) => d.startsWith('repartition:')),
+      );
+      expect(impact).toBeDefined();
+      expect(impact.utiliseDans).toContain('repartition:rep-1');
+      expect((result as any).resume.conflit).toBe(1);
     });
   });
 });
