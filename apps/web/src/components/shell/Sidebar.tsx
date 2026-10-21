@@ -41,6 +41,7 @@ const RAMADAN = icon('M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 1
 const IMPORT = icon('M11.586 15.692a1 1 0 00-1.172 0L8.5 14.692V3h5a1 1 0 011 1v9.692l2.293 2.293a1 1 0 001.172 0l3.293-3.293a1 1 0 011.172 0l3.293 3.293a1 1 0 001.172 0l3.293-3.293a1 1 0 011.172 0l3.293 3.293z');
 const SECURITY = icon('M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.047A7 7 0 003 11c0 1.611.55 3.093 1.456 4.233A10.077 10.077 0 015 20c-5.623 0-10-4.477-10-10a9.876 9.876 0 011.565-3.047c-.466-2.259.446-4.536 1.93-6.246A11.955 11.955 0 0112 2.944z');
 const VOLUMES = icon('M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z');
+const RULES = icon('M12 9v3.936c-.584.312-1 .995-1 1.564s.416 1.252 1 1.564V21h6v-3.5c0-.567-.224-1.067-.595-1.436M4.929 9.737c.577-.577 1.448-.577 2.025 0l.082.082a7 7 0 000 9.9l.082.082c.577.577 1.448.577 2.025 0l.082-.082a7 7 0 000-9.9l-.082-.082c-.577-.577-1.448-.577-2.025 0l-.082.082z');
 
 const NAV_ENTRIES: NavEntry[] = [
   { label: t('home'), href: '/', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT', 'ETUDIANT'], icon: DASHBOARD },
@@ -54,6 +55,7 @@ const NAV_ENTRIES: NavEntry[] = [
   { label: t('adminSecurity'), href: '/admin/security', roles: ['ADMINISTRATEUR'], icon: SECURITY },
   { label: t('adminSecurityEvents'), href: '/admin/security-events', roles: ['ADMINISTRATEUR'], icon: SECURITY },
   { label: t('modulesVolumes'), href: '/modules', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: VOLUMES },
+  { label: t('parametrageCharge'), href: '/charge/rulesets', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: RULES },
 ];
 
 export default function Sidebar() {
