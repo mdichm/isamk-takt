@@ -303,7 +303,7 @@ L2-15;L2;E2.6;Demandes de modification;DET;Demandes de modification (API);Créat
 - Le Responsable ne voit que son département
 - Demande liée à une affectation ou une séance";EX-REP-05, EX-ROL-05;§3.3;BACK;Must;5;L2-06;Terminé;
 L2-16;L2;E2.6;Demandes de modification;DET;UI demandes de modification;Création, suivi et traitement.;"- Le Gestionnaire crée une demande depuis une affectation
-- Le Responsable la traite avec motif";EX-REP-05;§3.3;FRONT;Must;3;L2-15, L0-29;En cours;
+- Le Responsable la traite avec motif";EX-REP-05;§3.3;FRONT;Must;3;L2-15, L0-29;Terminé;
 L2-17;L2;E2.7;Vue annuelle des charges;DET;API de la vue annuelle des charges (S1 + S2);GET /charges/annuelles : cumul des deux semestres indépendant de la période du jeu de règles.;"- Par semestre : charge calculée et source (SNAPSHOT_VALIDE, COPIE_TRAVAIL, ABSENT)
 - Heures supplémentaires calculées sur le cumul quand la période est ANNUELLE
 - Indicateur de divergence si un semestre a été rouvert après validation
