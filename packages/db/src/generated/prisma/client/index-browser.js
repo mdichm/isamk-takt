@@ -662,6 +662,22 @@ exports.Prisma.AffectationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DemandeModificationScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  departementCode: 'departementCode',
+  auteurId: 'auteurId',
+  versionId: 'versionId',
+  type: 'type',
+  cible: 'cible',
+  motif: 'motif',
+  statut: 'statut',
+  reponse: 'reponse',
+  traiteePar: 'traiteePar',
+  createdAt: 'createdAt',
+  traiteeLe: 'traiteeLe'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -849,6 +865,17 @@ exports.RepartitionStatut = exports.$Enums.RepartitionStatut = {
   ROUVERTE: 'ROUVERTE'
 };
 
+exports.DemandeType = exports.$Enums.DemandeType = {
+  ANOMALIE: 'ANOMALIE',
+  MODIFICATION: 'MODIFICATION'
+};
+
+exports.DemandeStatut = exports.$Enums.DemandeStatut = {
+  OUVERTE: 'OUVERTE',
+  TRAITEE: 'TRAITEE',
+  REFUSEE: 'REFUSEE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserSystemRole: 'UserSystemRole',
@@ -899,7 +926,8 @@ exports.Prisma.ModelName = {
   ContrainteDefinition: 'ContrainteDefinition',
   ContrainteInstance: 'ContrainteInstance',
   Repartition: 'Repartition',
-  Affectation: 'Affectation'
+  Affectation: 'Affectation',
+  DemandeModification: 'DemandeModification'
 };
 
 /**
