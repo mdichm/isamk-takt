@@ -211,7 +211,13 @@ export class ImportsService {
 
       const validation = this.validateRow(entite, row, ligne);
       const referentiel = await this.verifierReferentiel(entite, row, ligne);
-      const rowItems = [...validation.items, ...referentiel.items];
+      const impact = await this.detecterImpactRepartitionValidee(
+        this.prisma,
+        entite,
+        row,
+        ligne,
+      );
+      const rowItems = [...validation.items, ...referentiel.items, ...impact.items];
       items.push(...rowItems);
 
       for (const item of rowItems) {
@@ -223,6 +229,9 @@ export class ImportsService {
             utiliseDans: item.targetId ? [`${entite}:${item.targetId}`] : [],
           });
         }
+      }
+      for (const imp of impact.impacts) {
+        impacts.push(imp);
       }
     }
 
@@ -384,6 +393,117 @@ export class ImportsService {
     }
 
     return { items };
+  }
+
+  /**
+   * Détecte si une entité importée est déjà utilisée dans une Repartition dont le statut est VALIDEE.
+   * Retourne les impacts et les items de preview à afficher lors du dryRun.
+   *
+   * @param prisma client Prisma (this.prisma en dryRun, tx lors de l'application transactionnelle)
+   * @param entite entité importée
+   * @param row ligne CSV parsée
+   * @param ligne numéro de ligne du fichier (pour l'item de preview)
+   */
+  private async detecterImpactRepartitionValidee(
+    prisma: PrismaService,
+    entite: ImportEntity,
+    row: Record<string, string>,
+    ligne: number,
+  ): Promise<{ impacts: ImportImpact[]; items: ImportPreviewItem[] }> {
+    const impacts: ImportImpact[] = [];
+    const items: ImportPreviewItem[] = [];
+
+    switch (entite) {
+      case ImportEntity.ENSEIGNANTS: {
+        const matricule = (row.matricule ?? '').trim();
+        const anneeId = (row.anneeId ?? '').trim();
+        if (!matricule || !anneeId) break;
+        const enseignant = await prisma.enseignant.findFirst({
+          where: { matricule, anneeId },
+          select: { id: true, matricule: true },
+        });
+        if (!enseignant) break;
+        const affectations = await prisma.affectation.findMany({
+          where: { enseignantId: enseignant.id },
+          include: { repartition: { select: { id: true, statut: true } } },
+        });
+        const validees = affectations.filter((a) => a.repartition.statut === 'VALIDEE');
+        if (validees.length > 0) {
+          const ids = validees.map((a) => `repartition:${a.repartition.id}`);
+          impacts.push({ entite, code: matricule, utiliseDans: ids });
+          items.push({
+            ligne,
+            colonne: 'matricule',
+            valeur: matricule,
+            action: 'conflit',
+            message: `Enseignant "${matricule}" utilisé dans ${validees.length} répartition(s) validée(s)`,
+          });
+        }
+        break;
+      }
+      case ImportEntity.GROUPES: {
+        const code = (row.code ?? '').trim();
+        const niveauId = (row.niveauId ?? '').trim();
+        const semestreId = (row.semestreId ?? '').trim();
+        if (!code || !niveauId || !semestreId) break;
+        const groupe = await prisma.groupe.findFirst({
+          where: { code, niveauId, semestreId },
+          select: { id: true, code: true },
+        });
+        if (!groupe) break;
+        const affectations = await prisma.affectation.findMany({
+          where: { groupeId: groupe.id },
+          include: { repartition: { select: { id: true, statut: true } } },
+        });
+        const validees = affectations.filter((a) => a.repartition.statut === 'VALIDEE');
+        if (validees.length > 0) {
+          const ids = validees.map((a) => `repartition:${a.repartition.id}`);
+          impacts.push({ entite, code: groupe.code, utiliseDans: ids });
+          items.push({
+            ligne,
+            colonne: 'code',
+            valeur: code,
+            action: 'conflit',
+            message: `Groupe "${code}" utilisé dans ${validees.length} répartition(s) validée(s)`,
+          });
+        }
+        break;
+      }
+      case ImportEntity.MODULES: {
+        const code = (row.code ?? '').trim();
+        const niveauId = (row.niveauId ?? '').trim();
+        const semestreNumero = parseInt((row.semestreNumero ?? '').trim(), 10);
+        if (!code || !niveauId || !Number.isInteger(semestreNumero)) break;
+        const module = await prisma.module.findFirst({
+          where: { code, niveauId, semestreNumero },
+          select: { id: true, code: true },
+        });
+        if (!module) break;
+        const affectations = await prisma.affectation.findMany({
+          where: { moduleId: module.id },
+          include: { repartition: { select: { id: true, statut: true } } },
+        });
+        const validees = affectations.filter((a) => a.repartition.statut === 'VALIDEE');
+        if (validees.length > 0) {
+          const ids = validees.map((a) => `repartition:${a.repartition.id}`);
+          impacts.push({ entite, code: module.code, utiliseDans: ids });
+          items.push({
+            ligne,
+            colonne: 'code',
+            valeur: code,
+            action: 'conflit',
+            message: `Module "${code}" utilisé dans ${validees.length} répartition(s) validée(s)`,
+          });
+        }
+        break;
+      }
+      case ImportEntity.SALLES: {
+        // Pas de lien direct Affectation<Salle> dans le schéma actuel : aucun impact à signaler pour l'instant.
+        break;
+      }
+    }
+
+    return { impacts, items };
   }
 
   private validateEnseignant(row: Record<string, string>, ligne: number): ImportPreviewItem[] {
@@ -565,6 +685,12 @@ export class ImportsService {
 
     for (const row of rows) {
       try {
+        const impact = await this.detecterImpactRepartitionValidee(tx, entite, row, 0);
+        if (impact.impacts.length > 0) {
+          throw new ConflictException(
+            `Import bloqué : ${entite} "${impact.impacts[0].code}" utilisé dans une répartition validée (${impact.impacts[0].utiliseDans.join(', ')})`,
+          );
+        }
         const result = await this.upsertEntite(tx, entite, row, importId);
         if (result.action === 'created') {
           crees.push(result.id);
