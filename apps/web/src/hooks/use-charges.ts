@@ -8,9 +8,6 @@ import {
   type ChargeEnseignant,
   type PaginatedCharges,
 } from '@/lib/api/charges';
-import { getErrorMessage } from '@/lib/api/errors';
-import { toast } from 'sonner';
-import { messages } from '@/lib/messages/fr';
 
 // Clés de cache React Query
 export const chargesKeys = {

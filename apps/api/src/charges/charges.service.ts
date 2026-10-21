@@ -7,12 +7,10 @@ import {
   NotFoundException,
   BadRequestException,
 } from '@nestjs/common';
-import { Prisma } from '@takt/db';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 import {
   ChargeQueryDto,
-  ChargeAggregationDto,
   ChargeEnseignantDto,
   PaginatedChargesDto,
   ChargeAggregationItem,

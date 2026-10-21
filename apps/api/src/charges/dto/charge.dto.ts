@@ -2,15 +2,12 @@
 // TAKT - DTOs API des charges et agrégations (L2-10)
 
 import {
-  IsString,
   IsOptional,
   IsUUID,
   IsInt,
-  IsNumber,
   Min,
   Max,
   IsEnum,
-  IsBoolean,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
