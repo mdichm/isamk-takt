@@ -1211,6 +1211,62 @@ model Affectation {
 }
 
 // ============================================
+// Snapshots de validation (L2-12)
+// Un snapshot fige l'état d'une répartition validée
+// pour garantir l'immuabilité (ST §4.1.2).
+// ============================================
+
+model Snapshot {
+  id                String            @id @default(uuid()) @db.Uuid
+  repartitionId     String            @db.Uuid
+  tag               String // tag résolu (ex. numéro de version)
+  hash              String // hash de l'état figé
+  valideParId       String            @db.Uuid // userId du validateur
+  valideLe          DateTime          @default(now())
+  parAdministrateur Boolean           @default(false) // true si validé par un Administrateur
+  repartitionStatut RepartitionStatut
+  createdAt         DateTime          @default(now())
+
+  @@index([repartitionId])
+  @@map("snapshots")
+}
+
+model SnapshotAffectation {
+  id                 String  @id @default(uuid()) @db.Uuid
+  snapshotId         String  @db.Uuid
+  enseignantId       String  @db.Uuid
+  groupeId           String? @db.Uuid
+  moduleId           String  @db.Uuid
+  typeEnseignementId String  @db.Uuid
+  activityTagId      String? @db.Uuid
+  volumeHebdoMinutes Int
+  seancesParSemaine  Int
+  dureeMinutes       Int
+  estCmCommun        Boolean
+  workingRevision    Int
+
+  @@index([snapshotId])
+  @@map("snapshot_affectations")
+}
+
+model SnapshotCharge {
+  id              String   @id @default(uuid()) @db.Uuid
+  snapshotId      String   @db.Uuid
+  enseignantId    String   @db.Uuid
+  volumeBrut      Int // volume brut en minutes
+  chargeCalculee  Int // charge calculée en minutes
+  chargeReference Int // charge de référence en minutes
+  decharges       Int // décharges en minutes
+  serviceDu       Int // service dû en minutes
+  ecart           Int // écart en minutes
+  heuresSup       Int // heures supplémentaires en minutes
+  createdAt       DateTime @default(now())
+
+  @@index([snapshotId])
+  @@map("snapshot_charges")
+}
+
+// ============================================
 // Demandes de modification (L2-15)
 // Une demande signale une anomalie ou demande une modification
 // de répartition, liée à un semestre et à un département.

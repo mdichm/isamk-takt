@@ -200,16 +200,16 @@ model User {
   updatedAt          DateTime     @updatedAt
 
   // Relations
-  roles           UserSystemRole[]
-  assignedTasks   Task[]               @relation("AssignedTasks")
-  createdTasks    Task[]               @relation("CreatedTasks")
-  comments        Comment[]
-  activities      Activity[]
-  projectMembers  ProjectMember[]
-  sprintMembers   SprintMember[]
-  refreshTokens   RefreshToken[]
-  passwordHistory PasswordHistory[]
-  resetTokens     PasswordResetToken[]
+  roles                UserSystemRole[]
+  assignedTasks        Task[]                @relation("AssignedTasks")
+  createdTasks         Task[]                @relation("CreatedTasks")
+  comments             Comment[]
+  activities           Activity[]
+  projectMembers       ProjectMember[]
+  sprintMembers        SprintMember[]
+  refreshTokens        RefreshToken[]
+  passwordHistory      PasswordHistory[]
+  resetTokens          PasswordResetToken[]
   demandesModification DemandeModification[]
 
   @@index([email])
@@ -553,21 +553,21 @@ model Annee {
 }
 
 model Semestre {
-  id         String   @id @default(uuid()) @db.Uuid
-  numero     Int // 1 ou 2
-  anneeId    String   @db.Uuid
-  annee      Annee    @relation(fields: [anneeId], references: [id], onDelete: Cascade)
-  nbSemaines Int      @default(14)
-  grilleParams Json?  // {jours:[{jour, debut, fin, pauses:[{debut, fin}]}]} pour regenerer la grille
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id           String   @id @default(uuid()) @db.Uuid
+  numero       Int // 1 ou 2
+  anneeId      String   @db.Uuid
+  annee        Annee    @relation(fields: [anneeId], references: [id], onDelete: Cascade)
+  nbSemaines   Int      @default(14)
+  grilleParams Json? // {jours:[{jour, debut, fin, pauses:[{debut, fin}]}]} pour regenerer la grille
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  groupes    Groupe[]
-  decharges  Decharge[]
-  creneaux   Creneau[]
-  indisponibilites Indisponibilite[]
-  contrainteInstances ContrainteInstance[]
-  repartitions Repartition[]
+  groupes              Groupe[]
+  decharges            Decharge[]
+  creneaux             Creneau[]
+  indisponibilites     Indisponibilite[]
+  contrainteInstances  ContrainteInstance[]
+  repartitions         Repartition[]
   demandesModification DemandeModification[]
 
   @@unique([anneeId, numero])
@@ -579,17 +579,17 @@ model Semestre {
 // ============================================
 
 model Creneau {
-  id        String      @id @default(uuid()) @db.Uuid
-  semestreId String     @db.Uuid
-  semestre   Semestre   @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  id         String      @id @default(uuid()) @db.Uuid
+  semestreId String      @db.Uuid
+  semestre   Semestre    @relation(fields: [semestreId], references: [id], onDelete: Cascade)
   jour       JourSemaine
-  ordre      Int        // position dans la journée (1..n)
-  heureDebut DateTime   @db.Time
-  heureFin   DateTime   @db.Time
-  estPause   Boolean    @default(false)
-  estActive  Boolean    @default(true)
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  ordre      Int // position dans la journée (1..n)
+  heureDebut DateTime    @db.Time
+  heureFin   DateTime    @db.Time
+  estPause   Boolean     @default(false)
+  estActive  Boolean     @default(true)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
   affichages CreneauAffichage[]
 
@@ -632,9 +632,9 @@ model Departement {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  formations  Formation[]
-  enseignants Enseignant[]
-  salles      Salle[]
+  formations   Formation[]
+  enseignants  Enseignant[]
+  salles       Salle[]
   repartitions Repartition[]
 
   @@unique([anneeId, code])
@@ -684,23 +684,23 @@ model Niveau {
 // ============================================
 
 model Groupe {
-  id         String     @id @default(uuid()) @db.Uuid
-  niveauId   String     @db.Uuid
-  niveau     Niveau     @relation(fields: [niveauId], references: [id], onDelete: Cascade)
-  semestreId String     @db.Uuid
-  semestre   Semestre   @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  parentId   String?    @db.Uuid
-  parent     Groupe?    @relation("GroupesHierarchie", fields: [parentId], references: [id])
-  enfants    Groupe[]   @relation("GroupesHierarchie")
-  type       GroupeType
-  code       String // ex: "INFO-L3-S1"
-  libelle    String // ex: "L3 Informatique Semestre 1"
-  ordre      Int        @default(0)
-  effectif   Int        @default(0)
-  originId   String? // ID d'origine externe (synchronisation)
+  id           String        @id @default(uuid()) @db.Uuid
+  niveauId     String        @db.Uuid
+  niveau       Niveau        @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  semestreId   String        @db.Uuid
+  semestre     Semestre      @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  parentId     String?       @db.Uuid
+  parent       Groupe?       @relation("GroupesHierarchie", fields: [parentId], references: [id])
+  enfants      Groupe[]      @relation("GroupesHierarchie")
+  type         GroupeType
+  code         String // ex: "INFO-L3-S1"
+  libelle      String // ex: "L3 Informatique Semestre 1"
+  ordre        Int           @default(0)
+  effectif     Int           @default(0)
+  originId     String? // ID d'origine externe (synchronisation)
   affectations Affectation[]
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
   @@unique([niveauId, semestreId, code])
   @@index([niveauId, semestreId, ordre])
@@ -730,10 +730,10 @@ model TypeEnseignement {
   createdAt     DateTime             @default(now())
   updatedAt     DateTime             @updatedAt
 
-  modules                 Module[]
-  exigencesEquipement     ExigenceEquipement[] @relation("TypeExigenceEquipement")
-  chargeCoefficients      ChargeCoefficient[]
-  affectations            Affectation[]
+  modules             Module[]
+  exigencesEquipement ExigenceEquipement[] @relation("TypeExigenceEquipement")
+  chargeCoefficients  ChargeCoefficient[]
+  affectations        Affectation[]
 
   @@unique([code])
   @@map("types_enseignement")
@@ -754,34 +754,34 @@ model Grade {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
-  modules                   Module[]
-  enseignants               Enseignant[]
-  chargeReferenceGrades     ChargeReferenceGrade[]
+  modules               Module[]
+  enseignants           Enseignant[]
+  chargeReferenceGrades ChargeReferenceGrade[]
 
   @@unique([code])
   @@map("grades")
 }
 
 model Module {
-  id                String             @id @default(uuid()) @db.Uuid
-  niveauId          String             @db.Uuid
-  niveau            Niveau             @relation(fields: [niveauId], references: [id], onDelete: Cascade)
-  typeId            String             @db.Uuid
-  type              TypeEnseignement   @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  gradeId           String?            @db.Uuid
-  grade             Grade?             @relation(fields: [gradeId], references: [id], onDelete: SetNull)
-  code              String // ex: "INFO301"
-  libelle           String // ex: "Algorithmique avancée"
-  semestreNumero    Int // 1 ou 2
-  credits           Int?               @default(6)
-  effectifMax       Int? // capacité max du module
-  originId          String? // ID d'origine externe (synchronisation)
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  enseignantModules EnseignantModule[]
+  id                  String               @id @default(uuid()) @db.Uuid
+  niveauId            String               @db.Uuid
+  niveau              Niveau               @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  typeId              String               @db.Uuid
+  type                TypeEnseignement     @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  gradeId             String?              @db.Uuid
+  grade               Grade?               @relation(fields: [gradeId], references: [id], onDelete: SetNull)
+  code                String // ex: "INFO301"
+  libelle             String // ex: "Algorithmique avancée"
+  semestreNumero      Int // 1 ou 2
+  credits             Int?                 @default(6)
+  effectifMax         Int? // capacité max du module
+  originId            String? // ID d'origine externe (synchronisation)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  enseignantModules   EnseignantModule[]
   exigencesEquipement ExigenceEquipement[] @relation("ModuleExigenceEquipement")
-  moduleVolumes     ModuleVolume[]
-  affectations      Affectation[]
+  moduleVolumes       ModuleVolume[]
+  affectations        Affectation[]
 
   @@unique([niveauId, code, semestreNumero])
   @@index([niveauId])
@@ -798,8 +798,8 @@ model ModuleVolume {
   id        String   @id @default(uuid()) @db.Uuid
   moduleId  String   @db.Uuid
   module    Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-  type      String   // CM, TD, TP, CI, AUTRE
-  volume    Int      // en minutes, multiple de 30
+  type      String // CM, TD, TP, CI, AUTRE
+  volume    Int // en minutes, multiple de 30
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -807,7 +807,6 @@ model ModuleVolume {
   @@index([moduleId])
   @@map("module_volumes")
 }
-
 
 // ============================================
 // Jeux de règles de charge (L2-03)
@@ -820,20 +819,20 @@ enum PeriodeRegle {
 }
 
 model ChargeRuleSet {
-  id            String           @id @default(uuid()) @db.Uuid
-  numero        Int
-  periode       PeriodeRegle
-  seuil         Int?
-  plafond       Int?
-  arrondi       Int?
-  publieLe      DateTime?
-  anneeId       String?          @db.Uuid
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  id        String       @id @default(uuid()) @db.Uuid
+  numero    Int
+  periode   PeriodeRegle
+  seuil     Int?
+  plafond   Int?
+  arrondi   Int?
+  publieLe  DateTime?
+  anneeId   String?      @db.Uuid
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 
-  annee             Annee?           @relation(fields: [anneeId], references: [id], onDelete: SetNull)
-  referenceGrades   ChargeReferenceGrade[]
-  coefficients      ChargeCoefficient[]
+  annee           Annee?                 @relation(fields: [anneeId], references: [id], onDelete: SetNull)
+  referenceGrades ChargeReferenceGrade[]
+  coefficients    ChargeCoefficient[]
 
   @@unique([numero])
   @@index([periode])
@@ -843,7 +842,7 @@ model ChargeRuleSet {
 
 model ChargeReferenceGrade {
   id          String   @id @default(uuid()) @db.Uuid
-  rulesetId   String   @db.Uuid @map("ruleSetId")
+  rulesetId   String   @map("ruleSetId") @db.Uuid
   gradeId     String?  @db.Uuid
   coefficient Decimal  @db.Decimal
   createdAt   DateTime @default(now())
@@ -859,12 +858,12 @@ model ChargeReferenceGrade {
 
 model ChargeCoefficient {
   id          String   @id @default(uuid()) @db.Uuid
-  rulesetId   String   @db.Uuid @map("ruleSetId")
+  rulesetId   String   @map("ruleSetId") @db.Uuid
   typeId      String   @db.Uuid
   coefficient Decimal  @db.Decimal
   createdAt   DateTime @default(now())
 
-  ruleset ChargeRuleSet       @relation(fields: [rulesetId], references: [id], onDelete: Cascade)
+  ruleset ChargeRuleSet    @relation(fields: [rulesetId], references: [id], onDelete: Cascade)
   type    TypeEnseignement @relation(fields: [typeId], references: [id], onDelete: Cascade)
 
   @@unique([rulesetId, typeId])
@@ -908,14 +907,14 @@ model Enseignant {
   departement       Departement        @relation(fields: [departementId], references: [id], onDelete: Cascade)
   gradeId           String?            @db.Uuid
   grade             Grade?             @relation(fields: [gradeId], references: [id], onDelete: SetNull)
-  originId          String?            // ID d'origine externe (synchronisation)
+  originId          String? // ID d'origine externe (synchronisation)
   enseignantModules EnseignantModule[]
   decharges         Decharge[]
   indisponibilites  Indisponibilite[]
   affectations      Affectation[]
 
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([anneeId, matricule])
   @@index([departementId])
@@ -939,14 +938,14 @@ model EnseignantModule {
 // ============================================
 
 model Decharge {
-  id          String   @id @default(uuid()) @db.Uuid
-  heures      Float    // heures équivalentes de décharge
-  enseignantId String  @db.Uuid
-  enseignant  Enseignant @relation(fields: [enseignantId], references: [id], onDelete: Cascade)
-  semestreId  String   @db.Uuid
-  semestre    Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String     @id @default(uuid()) @db.Uuid
+  heures       Float // heures équivalentes de décharge
+  enseignantId String     @db.Uuid
+  enseignant   Enseignant @relation(fields: [enseignantId], references: [id], onDelete: Cascade)
+  semestreId   String     @db.Uuid
+  semestre     Semestre   @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 
   @@unique([enseignantId, semestreId])
   @@index([enseignantId])
@@ -960,10 +959,10 @@ model Decharge {
 
 model TypeSalle {
   id        String   @id @default(uuid()) @db.Uuid
-  code      String   // ex: "AMPHI", "TD", "TP", "BUREAU"
-  libelle   String   // ex: "Amphithéâtre", "Salle de TD", "Bureau"
+  code      String // ex: "AMPHI", "TD", "TP", "BUREAU"
+  libelle   String // ex: "Amphithéâtre", "Salle de TD", "Bureau"
   estActive Boolean  @default(true)
-  originId  String?  // ID d'origine externe (synchronisation)
+  originId  String? // ID d'origine externe (synchronisation)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -978,12 +977,12 @@ model TypeSalle {
 // ============================================
 
 model Site {
-  id          String   @id @default(uuid()) @db.Uuid
-  code        String   @unique // ex: "SITE-PRINCIPAL"
-  libelle     String   // ex: "Campus Principal"
-  estPrincipal Boolean @default(false) // un seul site principal par défaut
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(uuid()) @db.Uuid
+  code         String   @unique // ex: "SITE-PRINCIPAL"
+  libelle      String // ex: "Campus Principal"
+  estPrincipal Boolean  @default(false) // un seul site principal par défaut
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   salles Salle[]
 
@@ -992,27 +991,27 @@ model Site {
 }
 
 model Salle {
-  id                   String     @id @default(uuid()) @db.Uuid
-  code                 String     // ex: "AMPHI-A"
-  libelle              String     // ex: "Amphithéâtre A"
-  siteId               String?    @db.Uuid // rattachement à un site (null = non affecté)
-  capaciteMax          Int        // capacité maximale (> 0)
-  capaciteRecommandee  Int?       // capacité recommandée (<= capaciteMax)
-  accesPMR             Boolean    @default(false)
-  commentaire          String?
-  estActive            Boolean    @default(true)
-  departementId        String?    @db.Uuid // null = salle partagée
-  typeSalleId          String?    @db.Uuid
-  originId             String?    // ID d'origine externe (synchronisation)
-  createdAt            DateTime   @default(now())
-  updatedAt            DateTime   @updatedAt
+  id                  String   @id @default(uuid()) @db.Uuid
+  code                String // ex: "AMPHI-A"
+  libelle             String // ex: "Amphithéâtre A"
+  siteId              String?  @db.Uuid // rattachement à un site (null = non affecté)
+  capaciteMax         Int // capacité maximale (> 0)
+  capaciteRecommandee Int? // capacité recommandée (<= capaciteMax)
+  accesPMR            Boolean  @default(false)
+  commentaire         String?
+  estActive           Boolean  @default(true)
+  departementId       String?  @db.Uuid // null = salle partagée
+  typeSalleId         String?  @db.Uuid
+  originId            String? // ID d'origine externe (synchronisation)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-  departement Departement? @relation(fields: [departementId], references: [id], onDelete: SetNull)
-  typeSalle   TypeSalle?   @relation(fields: [typeSalleId], references: [id], onDelete: SetNull)
-  site        Site?        @relation(fields: [siteId], references: [id], onDelete: SetNull)
-  equipements SalleEquipement[]
+  departement       Departement?       @relation(fields: [departementId], references: [id], onDelete: SetNull)
+  typeSalle         TypeSalle?         @relation(fields: [typeSalleId], references: [id], onDelete: SetNull)
+  site              Site?              @relation(fields: [siteId], references: [id], onDelete: SetNull)
+  equipements       SalleEquipement[]
   salleActivityTags SalleActivityTag[] @relation("SalleActivityTag")
-  indisponibilites Indisponibilite[]
+  indisponibilites  Indisponibilite[]
 
   @@index([departementId])
   @@index([typeSalleId])
@@ -1029,7 +1028,7 @@ model Indisponibilite {
   semestreId   String      @db.Uuid
   semestre     Semestre    @relation(fields: [semestreId], references: [id], onDelete: Cascade)
   jour         JourSemaine
-  ordre        Int         // position dans la journée (1..n)
+  ordre        Int // position dans la journée (1..n)
   enseignantId String?     @db.Uuid
   enseignant   Enseignant? @relation(fields: [enseignantId], references: [id], onDelete: Cascade)
   salleId      String?     @db.Uuid
@@ -1047,14 +1046,14 @@ model Indisponibilite {
 
 model Equipement {
   id        String   @id @default(uuid()) @db.Uuid
-  code      String   // ex: "VIDEOPROJ", "TABLEAU"
-  libelle   String   // ex: "Vidéo projecteur", "Tableau blanc"
+  code      String // ex: "VIDEOPROJ", "TABLEAU"
+  libelle   String // ex: "Vidéo projecteur", "Tableau blanc"
   estActive Boolean  @default(true)
-  originId  String?  // ID d'origine externe (synchronisation)
+  originId  String? // ID d'origine externe (synchronisation)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  salles SalleEquipement[]
+  salles              SalleEquipement[]
   exigencesEquipement ExigenceEquipement[] @relation("EquipementExigenceEquipement")
 
   @@unique([code])
@@ -1062,9 +1061,9 @@ model Equipement {
 }
 
 model SalleEquipement {
-  salleId      String @db.Uuid
-  equipementId String @db.Uuid
-  salle        Salle  @relation(fields: [salleId], references: [id], onDelete: Cascade)
+  salleId      String     @db.Uuid
+  equipementId String     @db.Uuid
+  salle        Salle      @relation(fields: [salleId], references: [id], onDelete: Cascade)
   equipement   Equipement @relation(fields: [equipementId], references: [id], onDelete: Cascade)
 
   @@id([salleId, equipementId])
@@ -1076,11 +1075,11 @@ model SalleEquipement {
 // ============================================
 
 model SalleActivityTag {
-  salleId       String   @db.Uuid
-  activityTagId String   @db.Uuid
+  salleId       String @db.Uuid
+  activityTagId String @db.Uuid
 
-  salle  Salle    @relation("SalleActivityTag", fields: [salleId], references: [id], onDelete: Cascade)
-  tag    ActivityTag @relation("ActivityTagSalleActivityTag", fields: [activityTagId], references: [id], onDelete: Cascade)
+  salle Salle       @relation("SalleActivityTag", fields: [salleId], references: [id], onDelete: Cascade)
+  tag   ActivityTag @relation("ActivityTagSalleActivityTag", fields: [activityTagId], references: [id], onDelete: Cascade)
 
   @@id([salleId, activityTagId])
   @@map("salle_activity_tags")
@@ -1109,16 +1108,16 @@ model ExigenceEquipement {
 // ============================================
 
 model ContrainteDefinition {
-  id           String              @id @default(uuid()) @db.Uuid
-  code         String              @unique
-  libelle      String
-  categorie    ContrainteCategorie
-  portee       ContraintePortee
-  classe       ClasseRegle         @default(HARD_CONSTRAINT)
-  traductionFET TraductionFET     @default(FET_SUPPORTED)
-  paramsSchema Json
-  fetSupport   FetSupport          @default(NATIF)
-  actif        Boolean             @default(true)
+  id            String              @id @default(uuid()) @db.Uuid
+  code          String              @unique
+  libelle       String
+  categorie     ContrainteCategorie
+  portee        ContraintePortee
+  classe        ClasseRegle         @default(HARD_CONSTRAINT)
+  traductionFET TraductionFET       @default(FET_SUPPORTED)
+  paramsSchema  Json
+  fetSupport    FetSupport          @default(NATIF)
+  actif         Boolean             @default(true)
 
   instances ContrainteInstance[]
 
@@ -1154,16 +1153,16 @@ model ContrainteInstance {
 // ============================================
 
 model Repartition {
-  id           String            @id @default(uuid()) @db.Uuid
-  semestreId   String            @db.Uuid
-  departementId String           @db.Uuid
-  statut       RepartitionStatut @default(BROUILLON)
-  libelle      String?
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @updatedAt
+  id            String            @id @default(uuid()) @db.Uuid
+  semestreId    String            @db.Uuid
+  departementId String            @db.Uuid
+  statut        RepartitionStatut @default(BROUILLON)
+  libelle       String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
 
-  semestre    Semestre    @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  departement Departement @relation(fields: [departementId], references: [id], onDelete: Cascade)
+  semestre     Semestre      @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  departement  Departement   @relation(fields: [departementId], references: [id], onDelete: Cascade)
   affectations Affectation[]
 
   @@unique([semestreId, departementId])
@@ -1180,20 +1179,20 @@ model Repartition {
 // ============================================
 
 model Affectation {
-  id                String            @id @default(uuid()) @db.Uuid
-  repartitionId     String            @db.Uuid
-  enseignantId      String            @db.Uuid
-  groupeId          String?           @db.Uuid
-  moduleId          String            @db.Uuid
-  typeEnseignementId String           @db.Uuid
-  activityTagId     String?           @db.Uuid
-  volumeHebdoMinutes Int              // calculé par le serveur : seancesParSemaine * dureeMinutes
-  seancesParSemaine  Int              // >= 1
-  dureeMinutes       Int              // multiple de 30
-  estCmCommun        Boolean         @default(false)
-  workingRevision    Int             @default(1)
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
+  id                 String   @id @default(uuid()) @db.Uuid
+  repartitionId      String   @db.Uuid
+  enseignantId       String   @db.Uuid
+  groupeId           String?  @db.Uuid
+  moduleId           String   @db.Uuid
+  typeEnseignementId String   @db.Uuid
+  activityTagId      String?  @db.Uuid
+  volumeHebdoMinutes Int // calculé par le serveur : seancesParSemaine * dureeMinutes
+  seancesParSemaine  Int // >= 1
+  dureeMinutes       Int // multiple de 30
+  estCmCommun        Boolean  @default(false)
+  workingRevision    Int      @default(1)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   repartition      Repartition      @relation(fields: [repartitionId], references: [id], onDelete: Cascade)
   enseignant       Enseignant       @relation(fields: [enseignantId], references: [id], onDelete: Cascade)
@@ -1209,6 +1208,62 @@ model Affectation {
   @@index([typeEnseignementId])
   @@index([groupeId])
   @@map("affectations")
+}
+
+// ============================================
+// Snapshots de validation (L2-12)
+// Un snapshot fige l'état d'une répartition validée
+// pour garantir l'immuabilité (ST §4.1.2).
+// ============================================
+
+model Snapshot {
+  id                String            @id @default(uuid()) @db.Uuid
+  repartitionId     String            @db.Uuid
+  tag               String // tag résolu (ex. numéro de version)
+  hash              String // hash de l'état figé
+  valideParId       String            @db.Uuid // userId du validateur
+  valideLe          DateTime          @default(now())
+  parAdministrateur Boolean           @default(false) // true si validé par un Administrateur
+  repartitionStatut RepartitionStatut
+  createdAt         DateTime          @default(now())
+
+  @@index([repartitionId])
+  @@map("snapshots")
+}
+
+model SnapshotAffectation {
+  id                 String  @id @default(uuid()) @db.Uuid
+  snapshotId         String  @db.Uuid
+  enseignantId       String  @db.Uuid
+  groupeId           String? @db.Uuid
+  moduleId           String  @db.Uuid
+  typeEnseignementId String  @db.Uuid
+  activityTagId      String? @db.Uuid
+  volumeHebdoMinutes Int
+  seancesParSemaine  Int
+  dureeMinutes       Int
+  estCmCommun        Boolean
+  workingRevision    Int
+
+  @@index([snapshotId])
+  @@map("snapshot_affectations")
+}
+
+model SnapshotCharge {
+  id              String   @id @default(uuid()) @db.Uuid
+  snapshotId      String   @db.Uuid
+  enseignantId    String   @db.Uuid
+  volumeBrut      Int // volume brut en minutes
+  chargeCalculee  Int // charge calculée en minutes
+  chargeReference Int // charge de référence en minutes
+  decharges       Int // décharges en minutes
+  serviceDu       Int // service dû en minutes
+  ecart           Int // écart en minutes
+  heuresSup       Int // heures supplémentaires en minutes
+  createdAt       DateTime @default(now())
+
+  @@index([snapshotId])
+  @@map("snapshot_charges")
 }
 
 // ============================================
