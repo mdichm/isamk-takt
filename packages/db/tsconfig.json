@@ -5,8 +5,9 @@
     "rootDir": ".",
     "declaration": true,
     "declarationMap": true,
-    "module": "esnext",
-    "moduleResolution": "bundler"
+    "module": "commonjs",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src/**/*", "src/generated/**/*"],
   "exclude": ["node_modules", "dist"]
