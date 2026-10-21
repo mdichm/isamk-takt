@@ -17,6 +17,7 @@ import {
   ControlesResponseDto,
   ControleStatut,
   ValidateRepartitionDto,
+  SnapshotListDto,
   SnapshotAffectationDto,
   SnapshotChargeDto,
   ReopenRepartitionDto,
@@ -935,6 +936,105 @@ export class RepartitionsService {
       snapshotId: snapshot.id,
       divergence,
     } as ReopenRepartitionDto;
+  }
+
+  // ============================================
+  // Consultation des snapshots (L2-14) — lecture seule
+  // ============================================
+
+  async findSnapshots(
+    id: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<SnapshotListDto[]> {
+    // 1. La répartition doit exister
+    const repartition = await this.prisma.repartition.findUnique({
+      where: { id },
+      include: { departement: { select: { id: true } } },
+    });
+    if (!repartition) {
+      throw new NotFoundException(`Répartition ${id} introuvable`);
+    }
+
+    // 2. Vérifier la portée RBAC (département)
+    if (
+      currentUser.role === 'RESPONSABLE_DEPARTEMENT' &&
+      currentUser.departments &&
+      !currentUser.departments.includes(repartition.departementId)
+    ) {
+      throw new BadRequestException(
+        'OUT_OF_SCOPE : cette répartition n\'appartient pas à votre département',
+      );
+    }
+
+    // 3. Liste des snapshots triés par date de validation desc
+    const snapshots = await this.prisma.snapshot.findMany({
+      where: { repartitionId: id },
+      orderBy: { valideLe: 'desc' },
+    });
+
+    return snapshots.map((s) => ({
+      id: s.id,
+      tag: s.tag,
+      hash: s.hash,
+      valideParId: s.valideParId,
+      valideLe: s.valideLe,
+      parAdministrateur: s.parAdministrateur,
+      statut: s.repartitionStatut,
+      createdAt: s.createdAt,
+    }));
+  }
+
+  async findSnapshotById(
+    id: string,
+    snapshotId: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ValidateRepartitionDto> {
+    // 1. La répartition doit exister et être dans le périmètre
+    const repartition = await this.prisma.repartition.findUnique({
+      where: { id },
+      include: { departement: { select: { id: true } } },
+    });
+    if (!repartition) {
+      throw new NotFoundException(`Répartition ${id} introuvable`);
+    }
+
+    // 2. Vérifier la portée RBAC (département)
+    if (
+      currentUser.role === 'RESPONSABLE_DEPARTEMENT' &&
+      currentUser.departments &&
+      !currentUser.departments.includes(repartition.departementId)
+    ) {
+      throw new BadRequestException(
+        'OUT_OF_SCOPE : cette répartition n\'appartient pas à votre département',
+      );
+    }
+
+    // 3. Le snapshot doit exister et appartenir à cette répartition
+    const snapshot = await this.prisma.snapshot.findUnique({
+      where: { id: snapshotId },
+    });
+    if (!snapshot || snapshot.repartitionId !== id) {
+      throw new NotFoundException(`Snapshot ${snapshotId} introuvable`);
+    }
+
+    // 4. Charger les affectations et charges figées (requêtes ciblées, pas d'include profond)
+    const [affectations, charges] = await Promise.all([
+      this.prisma.snapshotAffectation.findMany({
+        where: { snapshotId },
+      }),
+      this.prisma.snapshotCharge.findMany({
+        where: { snapshotId },
+      }),
+    ]);
+
+    // 5. Retourner le DTO de détail (affectations + charges figées)
+    return this.toValidateRepartitionDto(
+      snapshot,
+      repartition,
+      id,
+      affectations,
+      charges,
+    );
   }
 
   private computeDivergence(

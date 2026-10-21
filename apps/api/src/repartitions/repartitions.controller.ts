@@ -21,6 +21,7 @@ import {
   RepartitionQueryDto,
   ControlesResponseDto,
   ValidateRepartitionDto,
+  SnapshotListDto,
   ReopenRepartitionDto,
 } from './dto/repartition.dto.js';
 import {
@@ -153,6 +154,42 @@ export class RepartitionsController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<ControlesResponseDto> {
     return this.repartitionsService.getControles(id, currentUser);
+  }
+
+  // ============================================
+  // Snapshots (L2-14) — historique en lecture seule
+  // ============================================
+
+  @Get(':id/snapshots')
+  @Permissions('repartition:read')
+  @Scope({ resource: 'repartition', idParam: 'id' })
+  @ApiOperation({ summary: 'Lister les snapshots (révisions) d\'une répartition' })
+  @ApiParam({ name: 'id', description: 'ID de la répartition (UUID)' })
+  @ApiResponse({ status: 200, description: 'Liste des snapshots triés par date desc', type: [SnapshotListDto] })
+  @ApiResponse({ status: 404, description: 'Répartition non trouvée' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  async findSnapshots(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<SnapshotListDto[]> {
+    return this.repartitionsService.findSnapshots(id, currentUser);
+  }
+
+  @Get(':id/snapshots/:snapshotId')
+  @Permissions('repartition:read')
+  @Scope({ resource: 'repartition', idParam: 'id' })
+  @ApiOperation({ summary: 'Obtenir un snapshot en lecture seule (affectations et charges figées)' })
+  @ApiParam({ name: 'id', description: 'ID de la répartition (UUID)' })
+  @ApiParam({ name: 'snapshotId', description: 'ID du snapshot (UUID)' })
+  @ApiResponse({ status: 200, description: 'Snapshot avec affectations et charges figées', type: ValidateRepartitionDto })
+  @ApiResponse({ status: 404, description: 'Répartition ou snapshot introuvable' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  async findSnapshotById(
+    @Param('id') id: string,
+    @Param('snapshotId') snapshotId: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ValidateRepartitionDto> {
+    return this.repartitionsService.findSnapshotById(id, snapshotId, currentUser);
   }
 
   // ============================================

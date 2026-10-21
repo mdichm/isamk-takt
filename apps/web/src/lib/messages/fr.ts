@@ -236,6 +236,25 @@ export const messages = {
   formTypeRequired: 'Le type d’enseignement est requis.',
   btnVoirAffectations: 'Voir les affectations',
 
+  // Snapshots (L2-14)
+  snapshots: 'Historique des snapshots',
+  snapshotsSubtitle: 'Révisions figées de cette répartition. Lecture seule.',
+  snapshotDetails: 'Détail du snapshot',
+  columnTag: 'Tag',
+  columnValidePar: 'Validé par',
+  columnValideLe: 'Date de validation',
+  columnParAdministrateur: 'Validé par l’Administrateur',
+  columnCreéLe: 'Créé le',
+  columnVolumeBrut: 'Volume brut (min)',
+  columnChargeCalculee: 'Charge calculée (min)',
+  noSnapshots: 'Aucun snapshot trouvé pour cette répartition.',
+  labelValideParAdministrateur: 'Oui — validé par l’Administrateur',
+  labelValideParResponsable: 'Non — validé par le Responsable',
+  buttonVoirDetail: 'Voir le détail',
+  errorLoadSnapshots: 'Impossible de charger l’historique des snapshots.',
+  errorLoadSnapshot: 'Impossible de charger le snapshot.',
+  snapshotLectureSeule: 'Ce snapshot est figé en lecture seule.',
+
   // Entités salles
   entitySalle: 'salle',
   entityTypeSalle: 'type de salle',
