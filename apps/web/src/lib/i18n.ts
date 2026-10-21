@@ -33,6 +33,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     modulesVolumes: 'Volumes par module',
     demandes: 'Demandes de modification',
     charges: 'Charges',
+    chargesAnnueles: 'Charges annuelles',
 
     // Auth
     signInTitle: 'Connexion',
