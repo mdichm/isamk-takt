@@ -22,6 +22,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     home: 'Accueil',
     structure: 'Structure académique',
     enseignants: 'Enseignants',
+    repartitions: "Répartitions",
     salles: 'Salles',
     creneaux: 'Créneaux',
     ramadan: 'Ramadan',
