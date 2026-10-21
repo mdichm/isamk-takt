@@ -62,16 +62,15 @@ If one of them is not empty, commit a WIP commit and push, or ask the user.
 
 ## 5. Generated backlog artifacts
 
-Never edit by hand: `docs/Backlog_TAKT_tickets.csv`, `docs/Backlog_TAKT.xlsx`, `docs/tools/correspondance_tickets.json`, `docs/VELOCITE.md`.
+Never edit by hand: `dist/Backlog_TAKT_tickets.csv`, `dist/Backlog_TAKT.xlsx`, `dist/tools/correspondance_tickets.json`, `dist/VELOCITE.md`, `dist/TRACABILITE_TAKT.md`.
 Source of truth: `docs/tools/tickets_data.py` (statuses: `À faire`, `En cours`, `Terminé`).
 
 ```bash
 python3 docs/tools/build_backlog.py && python3 docs/tools/verifier_coherence.py && python3 docs/tools/velocity_tracker.py
 ```
 
-- Regenerate only twice per ticket: at the claim (`En cours`) and in the last commit before `gh pr ready` (`Terminé`), always after syncing with `main` (section 7). Commit the four files together.
-- Conflict on these files: resolve `tickets_data.py` first (keep every ticket's status), regenerate, commit. Never merge the XLSX by hand: regenerate it (its bytes differ at every run, so a diff on it is meaningless).
-- CI job `Backlog consistency` regenerates the CSV, JSON and `VELOCITE.md` and fails if they differ from the committed ones.
+- Regenerate only twice per ticket: at the claim (`En cours`) and in the last commit before `gh pr ready` (`Terminé`), always after syncing with `main` (section 7). Les artefacts sont écrits dans `dist/` (non versionné, ignoré par Git) — ne pas les committer.
+- Conflict on these files: resolve `tickets_data.py` first (keep every ticket's status), regenerate. Never merge the XLSX by hand: regenerate it (its bytes differ at every run, so a diff on it is meaningless).
 
 ## 6. Pull requests, validation and push policy
 

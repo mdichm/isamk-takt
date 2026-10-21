@@ -81,7 +81,7 @@ bad = [(r"\bPlanificateur", "Planificateur (utiliser Gestionnaire)"), (r"\bDU\b"
 files = {"SF_TAKT.md": sf, "ST_TAKT.md": st}
 for p in ("ADR_S1_FET.md","ETAT_PROJET_TAKT.md"):
     if os.path.exists(os.path.join(DOCS,p)): files[p] = read(p)
-files["Backlog_TAKT_tickets.csv"] = open(os.path.join(DOCS,"Backlog_TAKT_tickets.csv"),encoding="utf-8-sig").read()
+files["Backlog_TAKT_tickets.csv"] = open(os.path.join(DIST,"Backlog_TAKT_tickets.csv"),encoding="utf-8-sig").read()
 for fn, txt in files.items():
     for pat, label in bad:
         for m in re.finditer(pat, txt):
