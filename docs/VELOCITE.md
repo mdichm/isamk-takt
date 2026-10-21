@@ -54,7 +54,7 @@ Trois méthodes sont utilisées pour estimer la date de fin du projet :
 | L3 | 212 | 0.7 | 7.2 j | 28/10/2026 |
 | L4 | 148 | 0.85 | 4.2 j | 25/10/2026 |
 | L5 | 150 | 0.9 | 4.0 j | 25/10/2026 |
-| L6 | 64 | 1.0 | 1.5 j | 23/10/2026 |
+| L6 | 64 | 1.0 | 1.5 j | 22/10/2026 |
 | L7 | 100 | 0.85 | 2.8 j | 24/10/2026 |
 
 *Le lot le plus long détermine la date de fin globale du projet.*
