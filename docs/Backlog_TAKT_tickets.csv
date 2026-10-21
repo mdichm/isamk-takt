@@ -275,7 +275,7 @@ L2-07;L2;E2.3;Saisie de la répartition;DET;CRUD affectations;"POST/PATCH/DELETE
 - Un seul enseignant par activité ; durée multiple de 30 minutes
 - Le tag par défaut du type s'applique si le tag n'est pas fixé
 - workingRevision incrémenté à chaque modification
-- Le Gestionnaire ne peut pas écrire";EX-REP-01, EX-ACT-01, EX-ACT-02, EX-ACT-03, EX-ROL-03;§3.4.2, §0.3;BACK;Must;8;L2-06, L1-10, L2-01, L2-04, L1-06;En cours;
+- Le Gestionnaire ne peut pas écrire";EX-REP-01, EX-ACT-01, EX-ACT-02, EX-ACT-03, EX-ROL-03;§3.4.2, §0.3;BACK;Must;8;L2-06, L1-10, L2-01, L2-04, L1-06;Terminé;
 L2-08;L2;E2.3;Saisie de la répartition;DET;UI saisie de la répartition;Tableau par groupe, module et type avec charges visibles en temps réel.;"- Ajout d'une affectation met à jour la charge de l'enseignant
 - Les écarts de volume sont visibles pendant la saisie
 - Le Responsable fixe l'Activity Tag d'une affectation";EX-REP-01, EX-CHG-03;§4.2;FRONT;Must;8;L2-07, L0-29;À faire;
