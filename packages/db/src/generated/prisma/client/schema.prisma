@@ -669,22 +669,23 @@ model Niveau {
 // ============================================
 
 model Groupe {
-  id         String     @id @default(uuid()) @db.Uuid
-  niveauId   String     @db.Uuid
-  niveau     Niveau     @relation(fields: [niveauId], references: [id], onDelete: Cascade)
-  semestreId String     @db.Uuid
-  semestre   Semestre   @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  parentId   String?    @db.Uuid
-  parent     Groupe?    @relation("GroupesHierarchie", fields: [parentId], references: [id])
-  enfants    Groupe[]   @relation("GroupesHierarchie")
-  type       GroupeType
-  code       String // ex: "INFO-L3-S1"
-  libelle    String // ex: "L3 Informatique Semestre 1"
-  ordre      Int        @default(0)
-  effectif   Int        @default(0)
-  originId   String? // ID d'origine externe (synchronisation)
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id           String        @id @default(uuid()) @db.Uuid
+  niveauId     String        @db.Uuid
+  niveau       Niveau        @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  semestreId   String        @db.Uuid
+  semestre     Semestre      @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  parentId     String?       @db.Uuid
+  parent       Groupe?       @relation("GroupesHierarchie", fields: [parentId], references: [id])
+  enfants      Groupe[]      @relation("GroupesHierarchie")
+  type         GroupeType
+  code         String // ex: "INFO-L3-S1"
+  libelle      String // ex: "L3 Informatique Semestre 1"
+  ordre        Int           @default(0)
+  effectif     Int           @default(0)
+  originId     String? // ID d'origine externe (synchronisation)
+  affectations Affectation[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
   @@unique([niveauId, semestreId, code])
   @@index([niveauId, semestreId, ordre])
@@ -717,6 +718,7 @@ model TypeEnseignement {
   modules             Module[]
   exigencesEquipement ExigenceEquipement[] @relation("TypeExigenceEquipement")
   chargeCoefficients  ChargeCoefficient[]
+  affectations        Affectation[]
 
   @@unique([code])
   @@map("types_enseignement")
@@ -764,6 +766,7 @@ model Module {
   enseignantModules   EnseignantModule[]
   exigencesEquipement ExigenceEquipement[] @relation("ModuleExigenceEquipement")
   moduleVolumes       ModuleVolume[]
+  affectations        Affectation[]
 
   @@unique([niveauId, code, semestreNumero])
   @@index([niveauId])
@@ -868,6 +871,7 @@ model ActivityTag {
 
   typesEnseignement TypeEnseignement[]
   salleActivityTags SalleActivityTag[] @relation("ActivityTagSalleActivityTag")
+  affectations      Affectation[]
 
   @@index([code])
   @@index([isActive])
@@ -892,6 +896,7 @@ model Enseignant {
   enseignantModules EnseignantModule[]
   decharges         Decharge[]
   indisponibilites  Indisponibilite[]
+  affectations      Affectation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1141,11 +1146,51 @@ model Repartition {
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 
-  semestre    Semestre    @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  departement Departement @relation(fields: [departementId], references: [id], onDelete: Cascade)
+  semestre     Semestre      @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  departement  Departement   @relation(fields: [departementId], references: [id], onDelete: Cascade)
+  affectations Affectation[]
 
   @@unique([semestreId, departementId])
   @@index([semestreId])
   @@index([departementId])
   @@map("repartitions")
+}
+
+// ============================================
+// Affectations d'enseignants aux cours/groupes (L2-07)
+// Une affectation lie un enseignant, un module, un type d'enseignement,
+// un groupe optionnel et une activité tag optionnel à une répartition.
+// Le volumeHebdoMinutes est calculé par le serveur (seancesParSemaine * dureeMinutes).
+// ============================================
+
+model Affectation {
+  id                 String   @id @default(uuid()) @db.Uuid
+  repartitionId      String   @db.Uuid
+  enseignantId       String   @db.Uuid
+  groupeId           String?  @db.Uuid
+  moduleId           String   @db.Uuid
+  typeEnseignementId String   @db.Uuid
+  activityTagId      String?  @db.Uuid
+  volumeHebdoMinutes Int // calculé par le serveur : seancesParSemaine * dureeMinutes
+  seancesParSemaine  Int // >= 1
+  dureeMinutes       Int // multiple de 30
+  estCmCommun        Boolean  @default(false)
+  workingRevision    Int      @default(1)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  repartition      Repartition      @relation(fields: [repartitionId], references: [id], onDelete: Cascade)
+  enseignant       Enseignant       @relation(fields: [enseignantId], references: [id], onDelete: Cascade)
+  groupe           Groupe?          @relation(fields: [groupeId], references: [id], onDelete: SetNull)
+  module           Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  typeEnseignement TypeEnseignement @relation(fields: [typeEnseignementId], references: [id], onDelete: Cascade)
+  activityTag      ActivityTag?     @relation(fields: [activityTagId], references: [id], onDelete: SetNull)
+
+  @@unique([repartitionId, enseignantId, moduleId, typeEnseignementId, groupeId])
+  @@index([repartitionId])
+  @@index([enseignantId])
+  @@index([moduleId])
+  @@index([typeEnseignementId])
+  @@index([groupeId])
+  @@map("affectations")
 }
