@@ -20,6 +20,7 @@ import {
   PaginatedRepartitionsDto,
   RepartitionQueryDto,
   ControlesResponseDto,
+  ValidateRepartitionDto,
 } from './dto/repartition.dto.js';
 import {
   CreateAffectationDto,
@@ -90,6 +91,23 @@ export class RepartitionsController {
     @Body() dto: UpdateRepartitionDto,
   ): Promise<RepartitionResponseDto> {
     return this.repartitionsService.updateRepartition(id, dto, 'system');
+  }
+
+  @Post(':id/validate')
+  @Permissions('repartition:validate')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Valider une répartition et créer un snapshot immuable' })
+  @ApiParam({ name: 'id', description: 'ID de la répartition (UUID)' })
+  @ApiResponse({ status: 200, description: 'Répartition validée et snapshot créé', type: ValidateRepartitionDto })
+  @ApiResponse({ status: 404, description: 'Répartition non trouvée' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  @ApiResponse({ status: 409, description: 'Répartition déjà validée' })
+  @ApiResponse({ status: 422, description: 'Écart de volume subsistant (REPARTITION_INVALID)' })
+  async validateRepartition(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ValidateRepartitionDto> {
+    return this.repartitionsService.validateRepartition(id, currentUser);
   }
 
   @Delete(':id')

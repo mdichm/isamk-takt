@@ -16,6 +16,9 @@ import {
   ControleVolumeDto,
   ControlesResponseDto,
   ControleStatut,
+  ValidateRepartitionDto,
+  SnapshotAffectationDto,
+  SnapshotChargeDto,
 } from './dto/repartition.dto.js';
 import {
   CreateAffectationDto,
@@ -197,6 +200,13 @@ export class RepartitionsService {
       throw new NotFoundException(`Répartition ${id} introuvable`);
     }
 
+    // ImmutabilityGuard : une répartition VALIDEE ne peut plus être modifiée
+    if (existing.statut === RepartitionStatut.VALIDEE) {
+      throw new ConflictException(
+        'IMMUTABILITY : cette répartition est déjà validée et ne peut plus être modifiée',
+      );
+    }
+
     const updated = await this.audit.auditTransaction<any>(
       async (tx) => {
         return tx.repartition.update({
@@ -225,6 +235,13 @@ export class RepartitionsService {
     });
     if (!existing) {
       throw new NotFoundException(`Répartition ${id} introuvable`);
+    }
+
+    // ImmutabilityGuard : une répartition VALIDEE ne peut plus être supprimée
+    if (existing.statut === RepartitionStatut.VALIDEE) {
+      throw new ConflictException(
+        'IMMUTABILITY : cette répartition est déjà validée et ne peut plus être supprimée',
+      );
     }
 
     await this.audit.auditTransaction<any>(
@@ -256,6 +273,13 @@ export class RepartitionsService {
     });
     if (!repartition) {
       throw new NotFoundException(`Répartition ${repartitionId} introuvable`);
+    }
+
+    // ImmutabilityGuard : aucune affectation sur une répartition VALIDEE
+    if (repartition.statut === RepartitionStatut.VALIDEE) {
+      throw new ConflictException(
+        'IMMUTABILITY : cette répartition est déjà validée, aucune affectation ne peut être ajoutée',
+      );
     }
 
     if (
@@ -668,6 +692,221 @@ export class RepartitionsService {
     return {
       repartitionId,
       controles,
+    };
+  }
+
+  // ============================================
+  // Validation de la répartition (L2-12)
+  // ============================================
+
+  async validateRepartition(
+    id: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ValidateRepartitionDto> {
+    // 1. Trouver la répartition
+    const repartition = await this.prisma.repartition.findUnique({
+      where: { id },
+      include: { departement: { select: { id: true } } },
+    });
+    if (!repartition) {
+      throw new NotFoundException(`Répartition ${id} introuvable`);
+    }
+
+    // 2. Vérifier la portée RBAC (département)
+    if (
+      currentUser.role === 'RESPONSABLE_DEPARTEMENT' &&
+      currentUser.departments &&
+      !currentUser.departments.includes(repartition.departementId)
+    ) {
+      throw new BadRequestException(
+        'OUT_OF_SCOPE : cette répartition n\'appartient pas à votre département',
+      );
+    }
+
+    // 3. Vérifier qu'elle n'est pas déjà validée
+    if (repartition.statut === RepartitionStatut.VALIDEE) {
+      throw new ConflictException(
+        'Cette répartition est déjà validée',
+      );
+    }
+
+    // 4. Contrôles de cohérence des volumes – refuser (422) s'il reste un écart
+    const controles = await this.getControles(id, currentUser);
+    const ecartsNonNuls = controles.controles.some((c) => c.ecart !== 0);
+    if (ecartsNonNuls) {
+      throw new UnprocessableEntityException({
+        code: 'REPARTITION_INVALID',
+        message: 'Des écarts de volume subsistent avant validation',
+        details: controles.controles.filter((c) => c.ecart !== 0),
+      });
+    }
+
+    // 5. Créer le snapshot dans une transaction
+    const parAdministrateur = currentUser.role === 'ADMINISTRATEUR';
+    const tag = `SNAP-${Date.now()}`;
+    const hash = this.computeSnapshotHash(id, controles);
+
+    await this.audit.auditTransaction<any>(
+      async (tx) => {
+        await tx.repartition.update({
+          where: { id },
+          data: { statut: RepartitionStatut.VALIDEE },
+        });
+
+        const snap = await tx.snapshot.create({
+          data: {
+            repartitionId: id,
+            tag,
+            hash,
+            valideParId: currentUser.id,
+            parAdministrateur,
+            repartitionStatut: RepartitionStatut.VALIDEE,
+          },
+        });
+
+        const affectations = await tx.affectation.findMany({
+          where: { repartitionId: id },
+        });
+        for (const a of affectations) {
+          await tx.snapshotAffectation.create({
+            data: {
+              snapshotId: snap.id,
+              enseignantId: a.enseignantId,
+              groupeId: a.groupeId,
+              moduleId: a.moduleId,
+              typeEnseignementId: a.typeEnseignementId,
+              activityTagId: a.activityTagId,
+              volumeHebdoMinutes: a.volumeHebdoMinutes,
+              seancesParSemaine: a.seancesParSemaine,
+              dureeMinutes: a.dureeMinutes,
+              estCmCommun: a.estCmCommun,
+              workingRevision: a.workingRevision,
+            },
+          });
+        }
+
+        const enseignantIds = [
+          ...new Set(affectations.map((a) => a.enseignantId)),
+        ];
+        for (const enseignantId of enseignantIds) {
+          const enseignantAffectations = affectations.filter(
+            (a) => a.enseignantId === enseignantId,
+          );
+          const volumeBrut = enseignantAffectations.reduce(
+            (sum, a) => sum + a.volumeHebdoMinutes,
+            0,
+          );
+          await tx.snapshotCharge.create({
+            data: {
+              snapshotId: snap.id,
+              enseignantId,
+              volumeBrut,
+              chargeCalculee: volumeBrut,
+              chargeReference: 0,
+              decharges: 0,
+              serviceDu: 0,
+              ecart: volumeBrut,
+              heuresSup: 0,
+            },
+          });
+        }
+      },
+      {
+        userId: currentUser.id,
+        action: 'VALIDATE',
+        objetType: 'Repartition',
+        objetId: id,
+        nouvelleValeur: {
+          statut: RepartitionStatut.VALIDEE,
+          snapshotId: tag,
+          parAdministrateur,
+        },
+        motif: `Validation répartition ${id}`,
+      },
+    );
+
+    const snapshot = await this.prisma.snapshot.findFirst({
+      where: { tag },
+    });
+    if (!snapshot) {
+      throw new NotFoundException(
+        `Snapshot ${tag} introuvable après création`,
+      );
+    }
+
+    const [affectations, charges] = await Promise.all([
+      this.prisma.snapshotAffectation.findMany({
+        where: { snapshotId: snapshot.id },
+      }),
+      this.prisma.snapshotCharge.findMany({
+        where: { snapshotId: snapshot.id },
+      }),
+    ]);
+
+    return this.toValidateRepartitionDto(snapshot, repartition, id, affectations, charges);
+  }
+  private computeSnapshotHash(
+    repartitionId: string,
+    controles: ControlesResponseDto,
+  ): string {
+    const payload = JSON.stringify({
+      repartitionId,
+      controles: controles.controles.map((c) => ({
+        groupeId: c.groupeId,
+        moduleId: c.moduleId,
+        typeEnseignementId: c.typeEnseignementId,
+        volumeAttendu: c.volumeAttendu,
+        volumeAffecte: c.volumeAffecte,
+        ecart: c.ecart,
+      })),
+    });
+    let hash = 0;
+    for (let i = 0; i < payload.length; i++) {
+      const char = payload.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash).toString(16).padStart(8, '0');
+  }
+
+  private toValidateRepartitionDto(
+    snapshot: any,
+    repartition: any,
+    repartitionId: string,
+    affectations: any[] = [],
+    charges: any[] = [],
+  ): ValidateRepartitionDto {
+    return {
+      snapshotId: snapshot.id,
+      repartitionId,
+      tag: snapshot.tag,
+      hash: snapshot.hash,
+      statut: RepartitionStatut.VALIDEE,
+      valideParId: snapshot.valideParId,
+      valideLe: snapshot.valideLe,
+      parAdministrateur: snapshot.parAdministrateur,
+      affectations: affectations.map((a) => ({
+        enseignantId: a.enseignantId,
+        groupeId: a.groupeId,
+        moduleId: a.moduleId,
+        typeEnseignementId: a.typeEnseignementId,
+        activityTagId: a.activityTagId,
+        volumeHebdoMinutes: a.volumeHebdoMinutes,
+        seancesParSemaine: a.seancesParSemaine,
+        dureeMinutes: a.dureeMinutes,
+        estCmCommun: a.estCmCommun,
+        workingRevision: a.workingRevision,
+      })),
+      charges: charges.map((c) => ({
+        enseignantId: c.enseignantId,
+        volumeBrut: c.volumeBrut,
+        chargeCalculee: c.chargeCalculee,
+        chargeReference: c.chargeReference,
+        decharges: c.decharges,
+        serviceDu: c.serviceDu,
+        ecart: c.ecart,
+        heuresSup: c.heuresSup,
+      })),
     };
   }
 }

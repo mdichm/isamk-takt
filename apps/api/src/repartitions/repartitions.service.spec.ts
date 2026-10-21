@@ -6,6 +6,7 @@ import {
   CreateRepartitionDto,
   UpdateRepartitionDto,
 } from './dto/repartition.dto.js';
+import { ControleStatut, ControlesResponseDto } from './dto/repartition.dto.js';
 
 vi.mock('@takt/db', () => ({
   PrismaClient: vi.fn(),
@@ -50,6 +51,18 @@ describe('RepartitionsService', () => {
         findMany: vi.fn(),
       },
       moduleVolume: {
+        findMany: vi.fn(),
+      },
+      snapshot: {
+        findFirst: vi.fn(),
+        create: vi.fn(),
+      },
+      snapshotAffectation: {
+        create: vi.fn(),
+        findMany: vi.fn(),
+      },
+      snapshotCharge: {
+        create: vi.fn(),
         findMany: vi.fn(),
       },
     };
@@ -624,6 +637,198 @@ describe('RepartitionsService', () => {
       await expect(service.getControles(repartitionId, currentUser)).rejects.toThrow(
         'OUT_OF_SCOPE',
       );
+    });
+  });
+
+  // ============================================
+  // Tests de validation (L2-12)
+  // ============================================
+
+  describe('validateRepartition', () => {
+    const currentUserResponsable = {
+      id: 'user-1',
+      role: 'RESPONSABLE_DEPARTEMENT',
+      departments: [departementId],
+    };
+    const currentUserAdmin = {
+      id: 'admin-1',
+      role: 'ADMINISTRATEUR',
+      departments: undefined,
+    };
+
+    const mockRepartition = {
+      id: repartitionId,
+      semestreId,
+      departementId,
+      statut: 'BROUILLON',
+      departement: { id: departementId },
+    };
+
+    const mockControles: ControlesResponseDto = {
+      repartitionId,
+      controles: [
+        {
+          groupeId: null,
+          groupeLibelle: null,
+          moduleId: 'module-1',
+          moduleLibelle: 'Mathématiques',
+          typeEnseignementId: 'type-td',
+          typeCode: 'TD',
+          volumeAttendu: 90,
+          volumeAffecte: 90,
+          ecart: 0,
+          statut: 'COUVERT' as ControleStatut,
+        },
+      ],
+    };
+
+    const mockAffectations = [
+      {
+        id: 'aff-1',
+        repartitionId,
+        enseignantId: 'ens-1',
+        groupeId: null,
+        moduleId: 'module-1',
+        typeEnseignementId: 'type-td',
+        activityTagId: null,
+        volumeHebdoMinutes: 90,
+        seancesParSemaine: 3,
+        dureeMinutes: 30,
+        estCmCommun: false,
+        workingRevision: 1,
+      },
+    ];
+
+    beforeEach(() => {
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartition);
+      prisma.affectation.findMany.mockResolvedValue([]);
+      prisma.moduleVolume.findMany.mockResolvedValue([]);
+      prisma.snapshot.findFirst.mockResolvedValue(null);
+      prisma.snapshot.create.mockResolvedValue({
+        id: 'snap-1',
+        repartitionId,
+        tag: 'SNAP-1234567890',
+        hash: 'abc123',
+        valideParId: currentUserResponsable.id,
+        valideLe: new Date(),
+        parAdministrateur: false,
+        repartitionStatut: 'VALIDEE',
+        createdAt: new Date(),
+      });
+      prisma.snapshotAffectation.create.mockResolvedValue({ id: 'sa-1' });
+      prisma.snapshotCharge.create.mockResolvedValue({ id: 'sc-1' });
+      prisma.snapshotAffectation.findMany.mockResolvedValue(mockAffectations);
+      prisma.snapshotCharge.findMany.mockResolvedValue([]);
+    });
+
+    it('devrait valider une répartition sans écart et créer un snapshot', async () => {
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartition);
+      prisma.snapshot.findFirst.mockResolvedValue({
+        id: 'snap-1',
+        repartitionId,
+        tag: 'SNAP-1234567890',
+        hash: 'abc123',
+        valideParId: currentUserResponsable.id,
+        valideLe: new Date(),
+        parAdministrateur: false,
+        repartitionStatut: 'VALIDEE',
+        createdAt: new Date(),
+      });
+      vi.spyOn(service, 'getControles').mockResolvedValue(mockControles);
+
+      const result = await service.validateRepartition(repartitionId, currentUserResponsable);
+
+      expect(result.repartitionId).toBe(repartitionId);
+      expect(result.statut).toBe('VALIDEE');
+      expect(result.parAdministrateur).toBe(false);
+      expect(result.valideParId).toBe(currentUserResponsable.id);
+      expect(result.affectations).toHaveLength(1);
+      expect(prisma.repartition.update).toHaveBeenCalledWith({
+        where: { id: repartitionId },
+        data: { statut: 'VALIDEE' },
+      });
+      expect(prisma.snapshot.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            tag: expect.stringMatching(/^SNAP-/),
+            hash: expect.any(String),
+            parAdministrateur: false,
+          }),
+        }),
+      );
+    });
+
+    it('devrait marquer parAdministrateur=true pour un Admin', async () => {
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartition);
+      prisma.snapshot.findFirst.mockResolvedValue({
+        id: 'snap-1',
+        repartitionId,
+        tag: 'SNAP-1234567890',
+        hash: 'abc123',
+        valideParId: currentUserAdmin.id,
+        valideLe: new Date(),
+        parAdministrateur: true,
+        repartitionStatut: 'VALIDEE',
+        createdAt: new Date(),
+      });
+      vi.spyOn(service, 'getControles').mockResolvedValue(mockControles);
+
+      const result = await service.validateRepartition(repartitionId, currentUserAdmin);
+
+      expect(result.parAdministrateur).toBe(true);
+      expect(result.valideParId).toBe(currentUserAdmin.id);
+    });
+
+    it('devrait lever 422 REPARTITION_INVALID quand il reste un écart', async () => {
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartition);
+      vi.spyOn(service, 'getControles').mockResolvedValue({
+        repartitionId,
+        controles: [
+          {
+            ...mockControles.controles[0],
+            ecart: 45,
+            statut: 'EXCEDENT' as ControleStatut,
+          },
+        ],
+      } as ControlesResponseDto);
+
+      await expect(
+        service.validateRepartition(repartitionId, currentUserResponsable),
+      ).rejects.toMatchObject({
+        response: { code: 'REPARTITION_INVALID' },
+      });
+    });
+
+    it('devrait lever 404 si la répartition est introuvable', async () => {
+      prisma.repartition.findUnique.mockResolvedValue(null);
+
+      await expect(
+        service.validateRepartition('inconnu', currentUserResponsable),
+      ).rejects.toThrow('Répartition inconnu introuvable');
+    });
+
+    it('devrait lever 403 OUT_OF_SCOPE pour un responsable hors département', async () => {
+      const currentUserHorsPerimetre = {
+        id: 'user-2',
+        role: 'RESPONSABLE_DEPARTEMENT',
+        departments: ['autre-departement'],
+      };
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartition);
+
+      await expect(
+        service.validateRepartition(repartitionId, currentUserHorsPerimetre),
+      ).rejects.toThrow('OUT_OF_SCOPE');
+    });
+
+    it('devrait lever 409 si la répartition est déjà validée', async () => {
+      prisma.repartition.findUnique.mockResolvedValue({
+        ...mockRepartition,
+        statut: 'VALIDEE',
+      });
+
+      await expect(
+        service.validateRepartition(repartitionId, currentUserResponsable),
+      ).rejects.toThrow('déjà validée');
     });
   });
 });

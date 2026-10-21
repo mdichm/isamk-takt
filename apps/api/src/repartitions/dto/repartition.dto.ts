@@ -189,3 +189,130 @@ export class ControlesResponseDto {
   @ApiProperty({ type: [ControleVolumeDto] })
   controles: ControleVolumeDto[];
 }
+
+// ============================================
+// Validation de la répartition (L2-12)
+// ============================================
+
+export class SnapshotAffectationDto {
+  @ApiProperty({ description: 'ID de l\'enseignant' })
+  @IsUUID()
+  enseignantId: string;
+
+  @ApiPropertyOptional({ description: 'ID du groupe' })
+  @IsOptional()
+  @IsUUID()
+  groupeId?: string | null;
+
+  @ApiProperty({ description: 'ID du module' })
+  @IsUUID()
+  moduleId: string;
+
+  @ApiProperty({ description: "ID du type d'enseignement" })
+  @IsUUID()
+  typeEnseignementId: string;
+
+  @ApiPropertyOptional({ description: 'ID du tag d\'activité' })
+  @IsOptional()
+  @IsUUID()
+  activityTagId?: string | null;
+
+  @ApiProperty({ description: 'Volume hebdomadaire en minutes' })
+  @IsInt()
+  @Min(0)
+  volumeHebdoMinutes: number;
+
+  @ApiProperty({ description: 'Séances par semaine' })
+  @IsInt()
+  @Min(1)
+  seancesParSemaine: number;
+
+  @ApiProperty({ description: 'Durée en minutes (multiple de 30)' })
+  @IsInt()
+  @Min(0)
+  dureeMinutes: number;
+
+  @ApiProperty({ description: 'Cours commun CM' })
+  estCmCommun: boolean;
+
+  @ApiProperty({ description: 'Révision de travail' })
+  @IsInt()
+  workingRevision: number;
+}
+
+export class SnapshotChargeDto {
+  @ApiProperty({ description: 'ID de l\'enseignant' })
+  @IsUUID()
+  enseignantId: string;
+
+  @ApiProperty({ description: 'Volume brut en minutes' })
+  @IsInt()
+  @Min(0)
+  volumeBrut: number;
+
+  @ApiProperty({ description: 'Charge calculée en minutes' })
+  @IsInt()
+  @Min(0)
+  chargeCalculee: number;
+
+  @ApiProperty({ description: 'Charge de référence en minutes' })
+  @IsInt()
+  @Min(0)
+  chargeReference: number;
+
+  @ApiProperty({ description: 'Décharges en minutes' })
+  @IsInt()
+  @Min(0)
+  decharges: number;
+
+  @ApiProperty({ description: 'Service dû en minutes' })
+  @IsInt()
+  @Min(0)
+  serviceDu: number;
+
+  @ApiProperty({ description: 'Écart en minutes (charge calculée − service dû)' })
+  @IsInt()
+  ecart: number;
+
+  @ApiProperty({ description: 'Heures supplémentaires en minutes' })
+  @IsInt()
+  @Min(0)
+  heuresSup: number;
+}
+
+export class ValidateRepartitionDto {
+  @ApiProperty({ description: 'ID du snapshot créé' })
+  @IsUUID()
+  snapshotId: string;
+
+  @ApiProperty({ description: 'ID de la répartition validée' })
+  @IsUUID()
+  repartitionId: string;
+
+  @ApiProperty({ description: 'Tag résolu du snapshot' })
+  @IsString()
+  tag: string;
+
+  @ApiProperty({ description: 'Hash de l\'état figé' })
+  @IsString()
+  hash: string;
+
+  @ApiProperty({ description: 'Statut de la répartition après validation' })
+  statut: RepartitionStatut;
+
+  @ApiProperty({ description: 'Validé par (userId)' })
+  @IsUUID()
+  valideParId: string;
+
+  @ApiProperty({ description: 'Date de validation' })
+  valideLe: Date;
+
+  @ApiProperty({ description: 'Validation par un Administrateur' })
+  parAdministrateur: boolean;
+
+  @ApiProperty({ type: [SnapshotAffectationDto], description: 'Affectations figées dans le snapshot' })
+  affectations: SnapshotAffectationDto[];
+
+  @ApiProperty({ type: [SnapshotChargeDto], description: 'Charges figées dans le snapshot' })
+  charges: SnapshotChargeDto[];
+}

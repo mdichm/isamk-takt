@@ -264,6 +264,21 @@ export type Repartition = $Result.DefaultSelection<Prisma.$RepartitionPayload>
  */
 export type Affectation = $Result.DefaultSelection<Prisma.$AffectationPayload>
 /**
+ * Model Snapshot
+ * 
+ */
+export type Snapshot = $Result.DefaultSelection<Prisma.$SnapshotPayload>
+/**
+ * Model SnapshotAffectation
+ * 
+ */
+export type SnapshotAffectation = $Result.DefaultSelection<Prisma.$SnapshotAffectationPayload>
+/**
+ * Model SnapshotCharge
+ * 
+ */
+export type SnapshotCharge = $Result.DefaultSelection<Prisma.$SnapshotChargePayload>
+/**
  * Model DemandeModification
  * 
  */
@@ -1240,6 +1255,36 @@ export class PrismaClient<
   get affectation(): Prisma.AffectationDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.snapshot`: Exposes CRUD operations for the **Snapshot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Snapshots
+    * const snapshots = await prisma.snapshot.findMany()
+    * ```
+    */
+  get snapshot(): Prisma.SnapshotDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.snapshotAffectation`: Exposes CRUD operations for the **SnapshotAffectation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SnapshotAffectations
+    * const snapshotAffectations = await prisma.snapshotAffectation.findMany()
+    * ```
+    */
+  get snapshotAffectation(): Prisma.SnapshotAffectationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.snapshotCharge`: Exposes CRUD operations for the **SnapshotCharge** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SnapshotCharges
+    * const snapshotCharges = await prisma.snapshotCharge.findMany()
+    * ```
+    */
+  get snapshotCharge(): Prisma.SnapshotChargeDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.demandeModification`: Exposes CRUD operations for the **DemandeModification** model.
     * Example usage:
     * ```ts
@@ -1745,6 +1790,9 @@ export namespace Prisma {
     ContrainteInstance: 'ContrainteInstance',
     Repartition: 'Repartition',
     Affectation: 'Affectation',
+    Snapshot: 'Snapshot',
+    SnapshotAffectation: 'SnapshotAffectation',
+    SnapshotCharge: 'SnapshotCharge',
     DemandeModification: 'DemandeModification'
   };
 
@@ -1761,7 +1809,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "demandeModification"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5465,6 +5513,228 @@ export namespace Prisma {
           }
         }
       }
+      Snapshot: {
+        payload: Prisma.$SnapshotPayload<ExtArgs>
+        fields: Prisma.SnapshotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SnapshotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SnapshotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>
+          }
+          findFirst: {
+            args: Prisma.SnapshotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SnapshotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>
+          }
+          findMany: {
+            args: Prisma.SnapshotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>[]
+          }
+          create: {
+            args: Prisma.SnapshotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>
+          }
+          createMany: {
+            args: Prisma.SnapshotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SnapshotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>[]
+          }
+          delete: {
+            args: Prisma.SnapshotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>
+          }
+          update: {
+            args: Prisma.SnapshotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>
+          }
+          deleteMany: {
+            args: Prisma.SnapshotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SnapshotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SnapshotUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>[]
+          }
+          upsert: {
+            args: Prisma.SnapshotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotPayload>
+          }
+          aggregate: {
+            args: Prisma.SnapshotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSnapshot>
+          }
+          groupBy: {
+            args: Prisma.SnapshotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SnapshotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SnapshotCountArgs<ExtArgs>
+            result: $Utils.Optional<SnapshotCountAggregateOutputType> | number
+          }
+        }
+      }
+      SnapshotAffectation: {
+        payload: Prisma.$SnapshotAffectationPayload<ExtArgs>
+        fields: Prisma.SnapshotAffectationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SnapshotAffectationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SnapshotAffectationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>
+          }
+          findFirst: {
+            args: Prisma.SnapshotAffectationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SnapshotAffectationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>
+          }
+          findMany: {
+            args: Prisma.SnapshotAffectationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>[]
+          }
+          create: {
+            args: Prisma.SnapshotAffectationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>
+          }
+          createMany: {
+            args: Prisma.SnapshotAffectationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SnapshotAffectationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>[]
+          }
+          delete: {
+            args: Prisma.SnapshotAffectationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>
+          }
+          update: {
+            args: Prisma.SnapshotAffectationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>
+          }
+          deleteMany: {
+            args: Prisma.SnapshotAffectationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SnapshotAffectationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SnapshotAffectationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>[]
+          }
+          upsert: {
+            args: Prisma.SnapshotAffectationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotAffectationPayload>
+          }
+          aggregate: {
+            args: Prisma.SnapshotAffectationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSnapshotAffectation>
+          }
+          groupBy: {
+            args: Prisma.SnapshotAffectationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SnapshotAffectationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SnapshotAffectationCountArgs<ExtArgs>
+            result: $Utils.Optional<SnapshotAffectationCountAggregateOutputType> | number
+          }
+        }
+      }
+      SnapshotCharge: {
+        payload: Prisma.$SnapshotChargePayload<ExtArgs>
+        fields: Prisma.SnapshotChargeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SnapshotChargeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SnapshotChargeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>
+          }
+          findFirst: {
+            args: Prisma.SnapshotChargeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SnapshotChargeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>
+          }
+          findMany: {
+            args: Prisma.SnapshotChargeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>[]
+          }
+          create: {
+            args: Prisma.SnapshotChargeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>
+          }
+          createMany: {
+            args: Prisma.SnapshotChargeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SnapshotChargeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>[]
+          }
+          delete: {
+            args: Prisma.SnapshotChargeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>
+          }
+          update: {
+            args: Prisma.SnapshotChargeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>
+          }
+          deleteMany: {
+            args: Prisma.SnapshotChargeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SnapshotChargeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SnapshotChargeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>[]
+          }
+          upsert: {
+            args: Prisma.SnapshotChargeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SnapshotChargePayload>
+          }
+          aggregate: {
+            args: Prisma.SnapshotChargeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSnapshotCharge>
+          }
+          groupBy: {
+            args: Prisma.SnapshotChargeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SnapshotChargeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SnapshotChargeCountArgs<ExtArgs>
+            result: $Utils.Optional<SnapshotChargeCountAggregateOutputType> | number
+          }
+        }
+      }
       DemandeModification: {
         payload: Prisma.$DemandeModificationPayload<ExtArgs>
         fields: Prisma.DemandeModificationFieldRefs
@@ -5712,6 +5982,9 @@ export namespace Prisma {
     contrainteInstance?: ContrainteInstanceOmit
     repartition?: RepartitionOmit
     affectation?: AffectationOmit
+    snapshot?: SnapshotOmit
+    snapshotAffectation?: SnapshotAffectationOmit
+    snapshotCharge?: SnapshotChargeOmit
     demandeModification?: DemandeModificationOmit
   }
 
@@ -65144,6 +65417,3331 @@ export namespace Prisma {
 
 
   /**
+   * Model Snapshot
+   */
+
+  export type AggregateSnapshot = {
+    _count: SnapshotCountAggregateOutputType | null
+    _min: SnapshotMinAggregateOutputType | null
+    _max: SnapshotMaxAggregateOutputType | null
+  }
+
+  export type SnapshotMinAggregateOutputType = {
+    id: string | null
+    repartitionId: string | null
+    tag: string | null
+    hash: string | null
+    valideParId: string | null
+    valideLe: Date | null
+    parAdministrateur: boolean | null
+    repartitionStatut: $Enums.RepartitionStatut | null
+    createdAt: Date | null
+  }
+
+  export type SnapshotMaxAggregateOutputType = {
+    id: string | null
+    repartitionId: string | null
+    tag: string | null
+    hash: string | null
+    valideParId: string | null
+    valideLe: Date | null
+    parAdministrateur: boolean | null
+    repartitionStatut: $Enums.RepartitionStatut | null
+    createdAt: Date | null
+  }
+
+  export type SnapshotCountAggregateOutputType = {
+    id: number
+    repartitionId: number
+    tag: number
+    hash: number
+    valideParId: number
+    valideLe: number
+    parAdministrateur: number
+    repartitionStatut: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SnapshotMinAggregateInputType = {
+    id?: true
+    repartitionId?: true
+    tag?: true
+    hash?: true
+    valideParId?: true
+    valideLe?: true
+    parAdministrateur?: true
+    repartitionStatut?: true
+    createdAt?: true
+  }
+
+  export type SnapshotMaxAggregateInputType = {
+    id?: true
+    repartitionId?: true
+    tag?: true
+    hash?: true
+    valideParId?: true
+    valideLe?: true
+    parAdministrateur?: true
+    repartitionStatut?: true
+    createdAt?: true
+  }
+
+  export type SnapshotCountAggregateInputType = {
+    id?: true
+    repartitionId?: true
+    tag?: true
+    hash?: true
+    valideParId?: true
+    valideLe?: true
+    parAdministrateur?: true
+    repartitionStatut?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SnapshotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Snapshot to aggregate.
+     */
+    where?: SnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Snapshots to fetch.
+     */
+    orderBy?: SnapshotOrderByWithRelationInput | SnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Snapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Snapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Snapshots
+    **/
+    _count?: true | SnapshotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SnapshotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SnapshotMaxAggregateInputType
+  }
+
+  export type GetSnapshotAggregateType<T extends SnapshotAggregateArgs> = {
+        [P in keyof T & keyof AggregateSnapshot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSnapshot[P]>
+      : GetScalarType<T[P], AggregateSnapshot[P]>
+  }
+
+
+
+
+  export type SnapshotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SnapshotWhereInput
+    orderBy?: SnapshotOrderByWithAggregationInput | SnapshotOrderByWithAggregationInput[]
+    by: SnapshotScalarFieldEnum[] | SnapshotScalarFieldEnum
+    having?: SnapshotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SnapshotCountAggregateInputType | true
+    _min?: SnapshotMinAggregateInputType
+    _max?: SnapshotMaxAggregateInputType
+  }
+
+  export type SnapshotGroupByOutputType = {
+    id: string
+    repartitionId: string
+    tag: string
+    hash: string
+    valideParId: string
+    valideLe: Date
+    parAdministrateur: boolean
+    repartitionStatut: $Enums.RepartitionStatut
+    createdAt: Date
+    _count: SnapshotCountAggregateOutputType | null
+    _min: SnapshotMinAggregateOutputType | null
+    _max: SnapshotMaxAggregateOutputType | null
+  }
+
+  type GetSnapshotGroupByPayload<T extends SnapshotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SnapshotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SnapshotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SnapshotGroupByOutputType[P]>
+            : GetScalarType<T[P], SnapshotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SnapshotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    repartitionId?: boolean
+    tag?: boolean
+    hash?: boolean
+    valideParId?: boolean
+    valideLe?: boolean
+    parAdministrateur?: boolean
+    repartitionStatut?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["snapshot"]>
+
+  export type SnapshotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    repartitionId?: boolean
+    tag?: boolean
+    hash?: boolean
+    valideParId?: boolean
+    valideLe?: boolean
+    parAdministrateur?: boolean
+    repartitionStatut?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["snapshot"]>
+
+  export type SnapshotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    repartitionId?: boolean
+    tag?: boolean
+    hash?: boolean
+    valideParId?: boolean
+    valideLe?: boolean
+    parAdministrateur?: boolean
+    repartitionStatut?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["snapshot"]>
+
+  export type SnapshotSelectScalar = {
+    id?: boolean
+    repartitionId?: boolean
+    tag?: boolean
+    hash?: boolean
+    valideParId?: boolean
+    valideLe?: boolean
+    parAdministrateur?: boolean
+    repartitionStatut?: boolean
+    createdAt?: boolean
+  }
+
+  export type SnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "repartitionId" | "tag" | "hash" | "valideParId" | "valideLe" | "parAdministrateur" | "repartitionStatut" | "createdAt", ExtArgs["result"]["snapshot"]>
+
+  export type $SnapshotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Snapshot"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      repartitionId: string
+      tag: string
+      hash: string
+      valideParId: string
+      valideLe: Date
+      parAdministrateur: boolean
+      repartitionStatut: $Enums.RepartitionStatut
+      createdAt: Date
+    }, ExtArgs["result"]["snapshot"]>
+    composites: {}
+  }
+
+  type SnapshotGetPayload<S extends boolean | null | undefined | SnapshotDefaultArgs> = $Result.GetResult<Prisma.$SnapshotPayload, S>
+
+  type SnapshotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SnapshotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SnapshotCountAggregateInputType | true
+    }
+
+  export interface SnapshotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Snapshot'], meta: { name: 'Snapshot' } }
+    /**
+     * Find zero or one Snapshot that matches the filter.
+     * @param {SnapshotFindUniqueArgs} args - Arguments to find a Snapshot
+     * @example
+     * // Get one Snapshot
+     * const snapshot = await prisma.snapshot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SnapshotFindUniqueArgs>(args: SelectSubset<T, SnapshotFindUniqueArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Snapshot that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SnapshotFindUniqueOrThrowArgs} args - Arguments to find a Snapshot
+     * @example
+     * // Get one Snapshot
+     * const snapshot = await prisma.snapshot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SnapshotFindUniqueOrThrowArgs>(args: SelectSubset<T, SnapshotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Snapshot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotFindFirstArgs} args - Arguments to find a Snapshot
+     * @example
+     * // Get one Snapshot
+     * const snapshot = await prisma.snapshot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SnapshotFindFirstArgs>(args?: SelectSubset<T, SnapshotFindFirstArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Snapshot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotFindFirstOrThrowArgs} args - Arguments to find a Snapshot
+     * @example
+     * // Get one Snapshot
+     * const snapshot = await prisma.snapshot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SnapshotFindFirstOrThrowArgs>(args?: SelectSubset<T, SnapshotFindFirstOrThrowArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Snapshots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Snapshots
+     * const snapshots = await prisma.snapshot.findMany()
+     * 
+     * // Get first 10 Snapshots
+     * const snapshots = await prisma.snapshot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const snapshotWithIdOnly = await prisma.snapshot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SnapshotFindManyArgs>(args?: SelectSubset<T, SnapshotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Snapshot.
+     * @param {SnapshotCreateArgs} args - Arguments to create a Snapshot.
+     * @example
+     * // Create one Snapshot
+     * const Snapshot = await prisma.snapshot.create({
+     *   data: {
+     *     // ... data to create a Snapshot
+     *   }
+     * })
+     * 
+     */
+    create<T extends SnapshotCreateArgs>(args: SelectSubset<T, SnapshotCreateArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Snapshots.
+     * @param {SnapshotCreateManyArgs} args - Arguments to create many Snapshots.
+     * @example
+     * // Create many Snapshots
+     * const snapshot = await prisma.snapshot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SnapshotCreateManyArgs>(args?: SelectSubset<T, SnapshotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Snapshots and returns the data saved in the database.
+     * @param {SnapshotCreateManyAndReturnArgs} args - Arguments to create many Snapshots.
+     * @example
+     * // Create many Snapshots
+     * const snapshot = await prisma.snapshot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Snapshots and only return the `id`
+     * const snapshotWithIdOnly = await prisma.snapshot.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SnapshotCreateManyAndReturnArgs>(args?: SelectSubset<T, SnapshotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Snapshot.
+     * @param {SnapshotDeleteArgs} args - Arguments to delete one Snapshot.
+     * @example
+     * // Delete one Snapshot
+     * const Snapshot = await prisma.snapshot.delete({
+     *   where: {
+     *     // ... filter to delete one Snapshot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SnapshotDeleteArgs>(args: SelectSubset<T, SnapshotDeleteArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Snapshot.
+     * @param {SnapshotUpdateArgs} args - Arguments to update one Snapshot.
+     * @example
+     * // Update one Snapshot
+     * const snapshot = await prisma.snapshot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SnapshotUpdateArgs>(args: SelectSubset<T, SnapshotUpdateArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Snapshots.
+     * @param {SnapshotDeleteManyArgs} args - Arguments to filter Snapshots to delete.
+     * @example
+     * // Delete a few Snapshots
+     * const { count } = await prisma.snapshot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SnapshotDeleteManyArgs>(args?: SelectSubset<T, SnapshotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Snapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Snapshots
+     * const snapshot = await prisma.snapshot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SnapshotUpdateManyArgs>(args: SelectSubset<T, SnapshotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Snapshots and returns the data updated in the database.
+     * @param {SnapshotUpdateManyAndReturnArgs} args - Arguments to update many Snapshots.
+     * @example
+     * // Update many Snapshots
+     * const snapshot = await prisma.snapshot.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Snapshots and only return the `id`
+     * const snapshotWithIdOnly = await prisma.snapshot.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SnapshotUpdateManyAndReturnArgs>(args: SelectSubset<T, SnapshotUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Snapshot.
+     * @param {SnapshotUpsertArgs} args - Arguments to update or create a Snapshot.
+     * @example
+     * // Update or create a Snapshot
+     * const snapshot = await prisma.snapshot.upsert({
+     *   create: {
+     *     // ... data to create a Snapshot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Snapshot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SnapshotUpsertArgs>(args: SelectSubset<T, SnapshotUpsertArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Snapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotCountArgs} args - Arguments to filter Snapshots to count.
+     * @example
+     * // Count the number of Snapshots
+     * const count = await prisma.snapshot.count({
+     *   where: {
+     *     // ... the filter for the Snapshots we want to count
+     *   }
+     * })
+    **/
+    count<T extends SnapshotCountArgs>(
+      args?: Subset<T, SnapshotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SnapshotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Snapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SnapshotAggregateArgs>(args: Subset<T, SnapshotAggregateArgs>): Prisma.PrismaPromise<GetSnapshotAggregateType<T>>
+
+    /**
+     * Group by Snapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SnapshotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SnapshotGroupByArgs['orderBy'] }
+        : { orderBy?: SnapshotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SnapshotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSnapshotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Snapshot model
+   */
+  readonly fields: SnapshotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Snapshot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SnapshotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Snapshot model
+   */
+  interface SnapshotFieldRefs {
+    readonly id: FieldRef<"Snapshot", 'String'>
+    readonly repartitionId: FieldRef<"Snapshot", 'String'>
+    readonly tag: FieldRef<"Snapshot", 'String'>
+    readonly hash: FieldRef<"Snapshot", 'String'>
+    readonly valideParId: FieldRef<"Snapshot", 'String'>
+    readonly valideLe: FieldRef<"Snapshot", 'DateTime'>
+    readonly parAdministrateur: FieldRef<"Snapshot", 'Boolean'>
+    readonly repartitionStatut: FieldRef<"Snapshot", 'RepartitionStatut'>
+    readonly createdAt: FieldRef<"Snapshot", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Snapshot findUnique
+   */
+  export type SnapshotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Filter, which Snapshot to fetch.
+     */
+    where: SnapshotWhereUniqueInput
+  }
+
+  /**
+   * Snapshot findUniqueOrThrow
+   */
+  export type SnapshotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Filter, which Snapshot to fetch.
+     */
+    where: SnapshotWhereUniqueInput
+  }
+
+  /**
+   * Snapshot findFirst
+   */
+  export type SnapshotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Filter, which Snapshot to fetch.
+     */
+    where?: SnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Snapshots to fetch.
+     */
+    orderBy?: SnapshotOrderByWithRelationInput | SnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Snapshots.
+     */
+    cursor?: SnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Snapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Snapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Snapshots.
+     */
+    distinct?: SnapshotScalarFieldEnum | SnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * Snapshot findFirstOrThrow
+   */
+  export type SnapshotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Filter, which Snapshot to fetch.
+     */
+    where?: SnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Snapshots to fetch.
+     */
+    orderBy?: SnapshotOrderByWithRelationInput | SnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Snapshots.
+     */
+    cursor?: SnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Snapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Snapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Snapshots.
+     */
+    distinct?: SnapshotScalarFieldEnum | SnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * Snapshot findMany
+   */
+  export type SnapshotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Filter, which Snapshots to fetch.
+     */
+    where?: SnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Snapshots to fetch.
+     */
+    orderBy?: SnapshotOrderByWithRelationInput | SnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Snapshots.
+     */
+    cursor?: SnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Snapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Snapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Snapshots.
+     */
+    distinct?: SnapshotScalarFieldEnum | SnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * Snapshot create
+   */
+  export type SnapshotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Snapshot.
+     */
+    data: XOR<SnapshotCreateInput, SnapshotUncheckedCreateInput>
+  }
+
+  /**
+   * Snapshot createMany
+   */
+  export type SnapshotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Snapshots.
+     */
+    data: SnapshotCreateManyInput | SnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Snapshot createManyAndReturn
+   */
+  export type SnapshotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * The data used to create many Snapshots.
+     */
+    data: SnapshotCreateManyInput | SnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Snapshot update
+   */
+  export type SnapshotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Snapshot.
+     */
+    data: XOR<SnapshotUpdateInput, SnapshotUncheckedUpdateInput>
+    /**
+     * Choose, which Snapshot to update.
+     */
+    where: SnapshotWhereUniqueInput
+  }
+
+  /**
+   * Snapshot updateMany
+   */
+  export type SnapshotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Snapshots.
+     */
+    data: XOR<SnapshotUpdateManyMutationInput, SnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which Snapshots to update
+     */
+    where?: SnapshotWhereInput
+    /**
+     * Limit how many Snapshots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Snapshot updateManyAndReturn
+   */
+  export type SnapshotUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * The data used to update Snapshots.
+     */
+    data: XOR<SnapshotUpdateManyMutationInput, SnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which Snapshots to update
+     */
+    where?: SnapshotWhereInput
+    /**
+     * Limit how many Snapshots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Snapshot upsert
+   */
+  export type SnapshotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Snapshot to update in case it exists.
+     */
+    where: SnapshotWhereUniqueInput
+    /**
+     * In case the Snapshot found by the `where` argument doesn't exist, create a new Snapshot with this data.
+     */
+    create: XOR<SnapshotCreateInput, SnapshotUncheckedCreateInput>
+    /**
+     * In case the Snapshot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SnapshotUpdateInput, SnapshotUncheckedUpdateInput>
+  }
+
+  /**
+   * Snapshot delete
+   */
+  export type SnapshotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Filter which Snapshot to delete.
+     */
+    where: SnapshotWhereUniqueInput
+  }
+
+  /**
+   * Snapshot deleteMany
+   */
+  export type SnapshotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Snapshots to delete
+     */
+    where?: SnapshotWhereInput
+    /**
+     * Limit how many Snapshots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Snapshot without action
+   */
+  export type SnapshotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Snapshot
+     */
+    select?: SnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Snapshot
+     */
+    omit?: SnapshotOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SnapshotAffectation
+   */
+
+  export type AggregateSnapshotAffectation = {
+    _count: SnapshotAffectationCountAggregateOutputType | null
+    _avg: SnapshotAffectationAvgAggregateOutputType | null
+    _sum: SnapshotAffectationSumAggregateOutputType | null
+    _min: SnapshotAffectationMinAggregateOutputType | null
+    _max: SnapshotAffectationMaxAggregateOutputType | null
+  }
+
+  export type SnapshotAffectationAvgAggregateOutputType = {
+    volumeHebdoMinutes: number | null
+    seancesParSemaine: number | null
+    dureeMinutes: number | null
+    workingRevision: number | null
+  }
+
+  export type SnapshotAffectationSumAggregateOutputType = {
+    volumeHebdoMinutes: number | null
+    seancesParSemaine: number | null
+    dureeMinutes: number | null
+    workingRevision: number | null
+  }
+
+  export type SnapshotAffectationMinAggregateOutputType = {
+    id: string | null
+    snapshotId: string | null
+    enseignantId: string | null
+    groupeId: string | null
+    moduleId: string | null
+    typeEnseignementId: string | null
+    activityTagId: string | null
+    volumeHebdoMinutes: number | null
+    seancesParSemaine: number | null
+    dureeMinutes: number | null
+    estCmCommun: boolean | null
+    workingRevision: number | null
+  }
+
+  export type SnapshotAffectationMaxAggregateOutputType = {
+    id: string | null
+    snapshotId: string | null
+    enseignantId: string | null
+    groupeId: string | null
+    moduleId: string | null
+    typeEnseignementId: string | null
+    activityTagId: string | null
+    volumeHebdoMinutes: number | null
+    seancesParSemaine: number | null
+    dureeMinutes: number | null
+    estCmCommun: boolean | null
+    workingRevision: number | null
+  }
+
+  export type SnapshotAffectationCountAggregateOutputType = {
+    id: number
+    snapshotId: number
+    enseignantId: number
+    groupeId: number
+    moduleId: number
+    typeEnseignementId: number
+    activityTagId: number
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun: number
+    workingRevision: number
+    _all: number
+  }
+
+
+  export type SnapshotAffectationAvgAggregateInputType = {
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    workingRevision?: true
+  }
+
+  export type SnapshotAffectationSumAggregateInputType = {
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    workingRevision?: true
+  }
+
+  export type SnapshotAffectationMinAggregateInputType = {
+    id?: true
+    snapshotId?: true
+    enseignantId?: true
+    groupeId?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    estCmCommun?: true
+    workingRevision?: true
+  }
+
+  export type SnapshotAffectationMaxAggregateInputType = {
+    id?: true
+    snapshotId?: true
+    enseignantId?: true
+    groupeId?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    estCmCommun?: true
+    workingRevision?: true
+  }
+
+  export type SnapshotAffectationCountAggregateInputType = {
+    id?: true
+    snapshotId?: true
+    enseignantId?: true
+    groupeId?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    estCmCommun?: true
+    workingRevision?: true
+    _all?: true
+  }
+
+  export type SnapshotAffectationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SnapshotAffectation to aggregate.
+     */
+    where?: SnapshotAffectationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SnapshotAffectations to fetch.
+     */
+    orderBy?: SnapshotAffectationOrderByWithRelationInput | SnapshotAffectationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SnapshotAffectationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SnapshotAffectations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SnapshotAffectations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SnapshotAffectations
+    **/
+    _count?: true | SnapshotAffectationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SnapshotAffectationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SnapshotAffectationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SnapshotAffectationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SnapshotAffectationMaxAggregateInputType
+  }
+
+  export type GetSnapshotAffectationAggregateType<T extends SnapshotAffectationAggregateArgs> = {
+        [P in keyof T & keyof AggregateSnapshotAffectation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSnapshotAffectation[P]>
+      : GetScalarType<T[P], AggregateSnapshotAffectation[P]>
+  }
+
+
+
+
+  export type SnapshotAffectationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SnapshotAffectationWhereInput
+    orderBy?: SnapshotAffectationOrderByWithAggregationInput | SnapshotAffectationOrderByWithAggregationInput[]
+    by: SnapshotAffectationScalarFieldEnum[] | SnapshotAffectationScalarFieldEnum
+    having?: SnapshotAffectationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SnapshotAffectationCountAggregateInputType | true
+    _avg?: SnapshotAffectationAvgAggregateInputType
+    _sum?: SnapshotAffectationSumAggregateInputType
+    _min?: SnapshotAffectationMinAggregateInputType
+    _max?: SnapshotAffectationMaxAggregateInputType
+  }
+
+  export type SnapshotAffectationGroupByOutputType = {
+    id: string
+    snapshotId: string
+    enseignantId: string
+    groupeId: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun: boolean
+    workingRevision: number
+    _count: SnapshotAffectationCountAggregateOutputType | null
+    _avg: SnapshotAffectationAvgAggregateOutputType | null
+    _sum: SnapshotAffectationSumAggregateOutputType | null
+    _min: SnapshotAffectationMinAggregateOutputType | null
+    _max: SnapshotAffectationMaxAggregateOutputType | null
+  }
+
+  type GetSnapshotAffectationGroupByPayload<T extends SnapshotAffectationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SnapshotAffectationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SnapshotAffectationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SnapshotAffectationGroupByOutputType[P]>
+            : GetScalarType<T[P], SnapshotAffectationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SnapshotAffectationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    snapshotId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    volumeHebdoMinutes?: boolean
+    seancesParSemaine?: boolean
+    dureeMinutes?: boolean
+    estCmCommun?: boolean
+    workingRevision?: boolean
+  }, ExtArgs["result"]["snapshotAffectation"]>
+
+  export type SnapshotAffectationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    snapshotId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    volumeHebdoMinutes?: boolean
+    seancesParSemaine?: boolean
+    dureeMinutes?: boolean
+    estCmCommun?: boolean
+    workingRevision?: boolean
+  }, ExtArgs["result"]["snapshotAffectation"]>
+
+  export type SnapshotAffectationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    snapshotId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    volumeHebdoMinutes?: boolean
+    seancesParSemaine?: boolean
+    dureeMinutes?: boolean
+    estCmCommun?: boolean
+    workingRevision?: boolean
+  }, ExtArgs["result"]["snapshotAffectation"]>
+
+  export type SnapshotAffectationSelectScalar = {
+    id?: boolean
+    snapshotId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    volumeHebdoMinutes?: boolean
+    seancesParSemaine?: boolean
+    dureeMinutes?: boolean
+    estCmCommun?: boolean
+    workingRevision?: boolean
+  }
+
+  export type SnapshotAffectationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "snapshotId" | "enseignantId" | "groupeId" | "moduleId" | "typeEnseignementId" | "activityTagId" | "volumeHebdoMinutes" | "seancesParSemaine" | "dureeMinutes" | "estCmCommun" | "workingRevision", ExtArgs["result"]["snapshotAffectation"]>
+
+  export type $SnapshotAffectationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SnapshotAffectation"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      snapshotId: string
+      enseignantId: string
+      groupeId: string | null
+      moduleId: string
+      typeEnseignementId: string
+      activityTagId: string | null
+      volumeHebdoMinutes: number
+      seancesParSemaine: number
+      dureeMinutes: number
+      estCmCommun: boolean
+      workingRevision: number
+    }, ExtArgs["result"]["snapshotAffectation"]>
+    composites: {}
+  }
+
+  type SnapshotAffectationGetPayload<S extends boolean | null | undefined | SnapshotAffectationDefaultArgs> = $Result.GetResult<Prisma.$SnapshotAffectationPayload, S>
+
+  type SnapshotAffectationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SnapshotAffectationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SnapshotAffectationCountAggregateInputType | true
+    }
+
+  export interface SnapshotAffectationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SnapshotAffectation'], meta: { name: 'SnapshotAffectation' } }
+    /**
+     * Find zero or one SnapshotAffectation that matches the filter.
+     * @param {SnapshotAffectationFindUniqueArgs} args - Arguments to find a SnapshotAffectation
+     * @example
+     * // Get one SnapshotAffectation
+     * const snapshotAffectation = await prisma.snapshotAffectation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SnapshotAffectationFindUniqueArgs>(args: SelectSubset<T, SnapshotAffectationFindUniqueArgs<ExtArgs>>): Prisma__SnapshotAffectationClient<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SnapshotAffectation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SnapshotAffectationFindUniqueOrThrowArgs} args - Arguments to find a SnapshotAffectation
+     * @example
+     * // Get one SnapshotAffectation
+     * const snapshotAffectation = await prisma.snapshotAffectation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SnapshotAffectationFindUniqueOrThrowArgs>(args: SelectSubset<T, SnapshotAffectationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SnapshotAffectationClient<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SnapshotAffectation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotAffectationFindFirstArgs} args - Arguments to find a SnapshotAffectation
+     * @example
+     * // Get one SnapshotAffectation
+     * const snapshotAffectation = await prisma.snapshotAffectation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SnapshotAffectationFindFirstArgs>(args?: SelectSubset<T, SnapshotAffectationFindFirstArgs<ExtArgs>>): Prisma__SnapshotAffectationClient<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SnapshotAffectation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotAffectationFindFirstOrThrowArgs} args - Arguments to find a SnapshotAffectation
+     * @example
+     * // Get one SnapshotAffectation
+     * const snapshotAffectation = await prisma.snapshotAffectation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SnapshotAffectationFindFirstOrThrowArgs>(args?: SelectSubset<T, SnapshotAffectationFindFirstOrThrowArgs<ExtArgs>>): Prisma__SnapshotAffectationClient<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SnapshotAffectations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotAffectationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SnapshotAffectations
+     * const snapshotAffectations = await prisma.snapshotAffectation.findMany()
+     * 
+     * // Get first 10 SnapshotAffectations
+     * const snapshotAffectations = await prisma.snapshotAffectation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const snapshotAffectationWithIdOnly = await prisma.snapshotAffectation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SnapshotAffectationFindManyArgs>(args?: SelectSubset<T, SnapshotAffectationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SnapshotAffectation.
+     * @param {SnapshotAffectationCreateArgs} args - Arguments to create a SnapshotAffectation.
+     * @example
+     * // Create one SnapshotAffectation
+     * const SnapshotAffectation = await prisma.snapshotAffectation.create({
+     *   data: {
+     *     // ... data to create a SnapshotAffectation
+     *   }
+     * })
+     * 
+     */
+    create<T extends SnapshotAffectationCreateArgs>(args: SelectSubset<T, SnapshotAffectationCreateArgs<ExtArgs>>): Prisma__SnapshotAffectationClient<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SnapshotAffectations.
+     * @param {SnapshotAffectationCreateManyArgs} args - Arguments to create many SnapshotAffectations.
+     * @example
+     * // Create many SnapshotAffectations
+     * const snapshotAffectation = await prisma.snapshotAffectation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SnapshotAffectationCreateManyArgs>(args?: SelectSubset<T, SnapshotAffectationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SnapshotAffectations and returns the data saved in the database.
+     * @param {SnapshotAffectationCreateManyAndReturnArgs} args - Arguments to create many SnapshotAffectations.
+     * @example
+     * // Create many SnapshotAffectations
+     * const snapshotAffectation = await prisma.snapshotAffectation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SnapshotAffectations and only return the `id`
+     * const snapshotAffectationWithIdOnly = await prisma.snapshotAffectation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SnapshotAffectationCreateManyAndReturnArgs>(args?: SelectSubset<T, SnapshotAffectationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SnapshotAffectation.
+     * @param {SnapshotAffectationDeleteArgs} args - Arguments to delete one SnapshotAffectation.
+     * @example
+     * // Delete one SnapshotAffectation
+     * const SnapshotAffectation = await prisma.snapshotAffectation.delete({
+     *   where: {
+     *     // ... filter to delete one SnapshotAffectation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SnapshotAffectationDeleteArgs>(args: SelectSubset<T, SnapshotAffectationDeleteArgs<ExtArgs>>): Prisma__SnapshotAffectationClient<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SnapshotAffectation.
+     * @param {SnapshotAffectationUpdateArgs} args - Arguments to update one SnapshotAffectation.
+     * @example
+     * // Update one SnapshotAffectation
+     * const snapshotAffectation = await prisma.snapshotAffectation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SnapshotAffectationUpdateArgs>(args: SelectSubset<T, SnapshotAffectationUpdateArgs<ExtArgs>>): Prisma__SnapshotAffectationClient<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SnapshotAffectations.
+     * @param {SnapshotAffectationDeleteManyArgs} args - Arguments to filter SnapshotAffectations to delete.
+     * @example
+     * // Delete a few SnapshotAffectations
+     * const { count } = await prisma.snapshotAffectation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SnapshotAffectationDeleteManyArgs>(args?: SelectSubset<T, SnapshotAffectationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SnapshotAffectations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotAffectationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SnapshotAffectations
+     * const snapshotAffectation = await prisma.snapshotAffectation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SnapshotAffectationUpdateManyArgs>(args: SelectSubset<T, SnapshotAffectationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SnapshotAffectations and returns the data updated in the database.
+     * @param {SnapshotAffectationUpdateManyAndReturnArgs} args - Arguments to update many SnapshotAffectations.
+     * @example
+     * // Update many SnapshotAffectations
+     * const snapshotAffectation = await prisma.snapshotAffectation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SnapshotAffectations and only return the `id`
+     * const snapshotAffectationWithIdOnly = await prisma.snapshotAffectation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SnapshotAffectationUpdateManyAndReturnArgs>(args: SelectSubset<T, SnapshotAffectationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SnapshotAffectation.
+     * @param {SnapshotAffectationUpsertArgs} args - Arguments to update or create a SnapshotAffectation.
+     * @example
+     * // Update or create a SnapshotAffectation
+     * const snapshotAffectation = await prisma.snapshotAffectation.upsert({
+     *   create: {
+     *     // ... data to create a SnapshotAffectation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SnapshotAffectation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SnapshotAffectationUpsertArgs>(args: SelectSubset<T, SnapshotAffectationUpsertArgs<ExtArgs>>): Prisma__SnapshotAffectationClient<$Result.GetResult<Prisma.$SnapshotAffectationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SnapshotAffectations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotAffectationCountArgs} args - Arguments to filter SnapshotAffectations to count.
+     * @example
+     * // Count the number of SnapshotAffectations
+     * const count = await prisma.snapshotAffectation.count({
+     *   where: {
+     *     // ... the filter for the SnapshotAffectations we want to count
+     *   }
+     * })
+    **/
+    count<T extends SnapshotAffectationCountArgs>(
+      args?: Subset<T, SnapshotAffectationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SnapshotAffectationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SnapshotAffectation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotAffectationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SnapshotAffectationAggregateArgs>(args: Subset<T, SnapshotAffectationAggregateArgs>): Prisma.PrismaPromise<GetSnapshotAffectationAggregateType<T>>
+
+    /**
+     * Group by SnapshotAffectation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotAffectationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SnapshotAffectationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SnapshotAffectationGroupByArgs['orderBy'] }
+        : { orderBy?: SnapshotAffectationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SnapshotAffectationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSnapshotAffectationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SnapshotAffectation model
+   */
+  readonly fields: SnapshotAffectationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SnapshotAffectation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SnapshotAffectationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SnapshotAffectation model
+   */
+  interface SnapshotAffectationFieldRefs {
+    readonly id: FieldRef<"SnapshotAffectation", 'String'>
+    readonly snapshotId: FieldRef<"SnapshotAffectation", 'String'>
+    readonly enseignantId: FieldRef<"SnapshotAffectation", 'String'>
+    readonly groupeId: FieldRef<"SnapshotAffectation", 'String'>
+    readonly moduleId: FieldRef<"SnapshotAffectation", 'String'>
+    readonly typeEnseignementId: FieldRef<"SnapshotAffectation", 'String'>
+    readonly activityTagId: FieldRef<"SnapshotAffectation", 'String'>
+    readonly volumeHebdoMinutes: FieldRef<"SnapshotAffectation", 'Int'>
+    readonly seancesParSemaine: FieldRef<"SnapshotAffectation", 'Int'>
+    readonly dureeMinutes: FieldRef<"SnapshotAffectation", 'Int'>
+    readonly estCmCommun: FieldRef<"SnapshotAffectation", 'Boolean'>
+    readonly workingRevision: FieldRef<"SnapshotAffectation", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SnapshotAffectation findUnique
+   */
+  export type SnapshotAffectationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotAffectation to fetch.
+     */
+    where: SnapshotAffectationWhereUniqueInput
+  }
+
+  /**
+   * SnapshotAffectation findUniqueOrThrow
+   */
+  export type SnapshotAffectationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotAffectation to fetch.
+     */
+    where: SnapshotAffectationWhereUniqueInput
+  }
+
+  /**
+   * SnapshotAffectation findFirst
+   */
+  export type SnapshotAffectationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotAffectation to fetch.
+     */
+    where?: SnapshotAffectationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SnapshotAffectations to fetch.
+     */
+    orderBy?: SnapshotAffectationOrderByWithRelationInput | SnapshotAffectationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SnapshotAffectations.
+     */
+    cursor?: SnapshotAffectationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SnapshotAffectations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SnapshotAffectations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SnapshotAffectations.
+     */
+    distinct?: SnapshotAffectationScalarFieldEnum | SnapshotAffectationScalarFieldEnum[]
+  }
+
+  /**
+   * SnapshotAffectation findFirstOrThrow
+   */
+  export type SnapshotAffectationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotAffectation to fetch.
+     */
+    where?: SnapshotAffectationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SnapshotAffectations to fetch.
+     */
+    orderBy?: SnapshotAffectationOrderByWithRelationInput | SnapshotAffectationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SnapshotAffectations.
+     */
+    cursor?: SnapshotAffectationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SnapshotAffectations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SnapshotAffectations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SnapshotAffectations.
+     */
+    distinct?: SnapshotAffectationScalarFieldEnum | SnapshotAffectationScalarFieldEnum[]
+  }
+
+  /**
+   * SnapshotAffectation findMany
+   */
+  export type SnapshotAffectationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotAffectations to fetch.
+     */
+    where?: SnapshotAffectationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SnapshotAffectations to fetch.
+     */
+    orderBy?: SnapshotAffectationOrderByWithRelationInput | SnapshotAffectationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SnapshotAffectations.
+     */
+    cursor?: SnapshotAffectationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SnapshotAffectations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SnapshotAffectations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SnapshotAffectations.
+     */
+    distinct?: SnapshotAffectationScalarFieldEnum | SnapshotAffectationScalarFieldEnum[]
+  }
+
+  /**
+   * SnapshotAffectation create
+   */
+  export type SnapshotAffectationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SnapshotAffectation.
+     */
+    data: XOR<SnapshotAffectationCreateInput, SnapshotAffectationUncheckedCreateInput>
+  }
+
+  /**
+   * SnapshotAffectation createMany
+   */
+  export type SnapshotAffectationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SnapshotAffectations.
+     */
+    data: SnapshotAffectationCreateManyInput | SnapshotAffectationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SnapshotAffectation createManyAndReturn
+   */
+  export type SnapshotAffectationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * The data used to create many SnapshotAffectations.
+     */
+    data: SnapshotAffectationCreateManyInput | SnapshotAffectationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SnapshotAffectation update
+   */
+  export type SnapshotAffectationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SnapshotAffectation.
+     */
+    data: XOR<SnapshotAffectationUpdateInput, SnapshotAffectationUncheckedUpdateInput>
+    /**
+     * Choose, which SnapshotAffectation to update.
+     */
+    where: SnapshotAffectationWhereUniqueInput
+  }
+
+  /**
+   * SnapshotAffectation updateMany
+   */
+  export type SnapshotAffectationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SnapshotAffectations.
+     */
+    data: XOR<SnapshotAffectationUpdateManyMutationInput, SnapshotAffectationUncheckedUpdateManyInput>
+    /**
+     * Filter which SnapshotAffectations to update
+     */
+    where?: SnapshotAffectationWhereInput
+    /**
+     * Limit how many SnapshotAffectations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SnapshotAffectation updateManyAndReturn
+   */
+  export type SnapshotAffectationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * The data used to update SnapshotAffectations.
+     */
+    data: XOR<SnapshotAffectationUpdateManyMutationInput, SnapshotAffectationUncheckedUpdateManyInput>
+    /**
+     * Filter which SnapshotAffectations to update
+     */
+    where?: SnapshotAffectationWhereInput
+    /**
+     * Limit how many SnapshotAffectations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SnapshotAffectation upsert
+   */
+  export type SnapshotAffectationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SnapshotAffectation to update in case it exists.
+     */
+    where: SnapshotAffectationWhereUniqueInput
+    /**
+     * In case the SnapshotAffectation found by the `where` argument doesn't exist, create a new SnapshotAffectation with this data.
+     */
+    create: XOR<SnapshotAffectationCreateInput, SnapshotAffectationUncheckedCreateInput>
+    /**
+     * In case the SnapshotAffectation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SnapshotAffectationUpdateInput, SnapshotAffectationUncheckedUpdateInput>
+  }
+
+  /**
+   * SnapshotAffectation delete
+   */
+  export type SnapshotAffectationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+    /**
+     * Filter which SnapshotAffectation to delete.
+     */
+    where: SnapshotAffectationWhereUniqueInput
+  }
+
+  /**
+   * SnapshotAffectation deleteMany
+   */
+  export type SnapshotAffectationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SnapshotAffectations to delete
+     */
+    where?: SnapshotAffectationWhereInput
+    /**
+     * Limit how many SnapshotAffectations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SnapshotAffectation without action
+   */
+  export type SnapshotAffectationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotAffectation
+     */
+    select?: SnapshotAffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotAffectation
+     */
+    omit?: SnapshotAffectationOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SnapshotCharge
+   */
+
+  export type AggregateSnapshotCharge = {
+    _count: SnapshotChargeCountAggregateOutputType | null
+    _avg: SnapshotChargeAvgAggregateOutputType | null
+    _sum: SnapshotChargeSumAggregateOutputType | null
+    _min: SnapshotChargeMinAggregateOutputType | null
+    _max: SnapshotChargeMaxAggregateOutputType | null
+  }
+
+  export type SnapshotChargeAvgAggregateOutputType = {
+    volumeBrut: number | null
+    chargeCalculee: number | null
+    chargeReference: number | null
+    decharges: number | null
+    serviceDu: number | null
+    ecart: number | null
+    heuresSup: number | null
+  }
+
+  export type SnapshotChargeSumAggregateOutputType = {
+    volumeBrut: number | null
+    chargeCalculee: number | null
+    chargeReference: number | null
+    decharges: number | null
+    serviceDu: number | null
+    ecart: number | null
+    heuresSup: number | null
+  }
+
+  export type SnapshotChargeMinAggregateOutputType = {
+    id: string | null
+    snapshotId: string | null
+    enseignantId: string | null
+    volumeBrut: number | null
+    chargeCalculee: number | null
+    chargeReference: number | null
+    decharges: number | null
+    serviceDu: number | null
+    ecart: number | null
+    heuresSup: number | null
+    createdAt: Date | null
+  }
+
+  export type SnapshotChargeMaxAggregateOutputType = {
+    id: string | null
+    snapshotId: string | null
+    enseignantId: string | null
+    volumeBrut: number | null
+    chargeCalculee: number | null
+    chargeReference: number | null
+    decharges: number | null
+    serviceDu: number | null
+    ecart: number | null
+    heuresSup: number | null
+    createdAt: Date | null
+  }
+
+  export type SnapshotChargeCountAggregateOutputType = {
+    id: number
+    snapshotId: number
+    enseignantId: number
+    volumeBrut: number
+    chargeCalculee: number
+    chargeReference: number
+    decharges: number
+    serviceDu: number
+    ecart: number
+    heuresSup: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SnapshotChargeAvgAggregateInputType = {
+    volumeBrut?: true
+    chargeCalculee?: true
+    chargeReference?: true
+    decharges?: true
+    serviceDu?: true
+    ecart?: true
+    heuresSup?: true
+  }
+
+  export type SnapshotChargeSumAggregateInputType = {
+    volumeBrut?: true
+    chargeCalculee?: true
+    chargeReference?: true
+    decharges?: true
+    serviceDu?: true
+    ecart?: true
+    heuresSup?: true
+  }
+
+  export type SnapshotChargeMinAggregateInputType = {
+    id?: true
+    snapshotId?: true
+    enseignantId?: true
+    volumeBrut?: true
+    chargeCalculee?: true
+    chargeReference?: true
+    decharges?: true
+    serviceDu?: true
+    ecart?: true
+    heuresSup?: true
+    createdAt?: true
+  }
+
+  export type SnapshotChargeMaxAggregateInputType = {
+    id?: true
+    snapshotId?: true
+    enseignantId?: true
+    volumeBrut?: true
+    chargeCalculee?: true
+    chargeReference?: true
+    decharges?: true
+    serviceDu?: true
+    ecart?: true
+    heuresSup?: true
+    createdAt?: true
+  }
+
+  export type SnapshotChargeCountAggregateInputType = {
+    id?: true
+    snapshotId?: true
+    enseignantId?: true
+    volumeBrut?: true
+    chargeCalculee?: true
+    chargeReference?: true
+    decharges?: true
+    serviceDu?: true
+    ecart?: true
+    heuresSup?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SnapshotChargeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SnapshotCharge to aggregate.
+     */
+    where?: SnapshotChargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SnapshotCharges to fetch.
+     */
+    orderBy?: SnapshotChargeOrderByWithRelationInput | SnapshotChargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SnapshotChargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SnapshotCharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SnapshotCharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SnapshotCharges
+    **/
+    _count?: true | SnapshotChargeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SnapshotChargeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SnapshotChargeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SnapshotChargeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SnapshotChargeMaxAggregateInputType
+  }
+
+  export type GetSnapshotChargeAggregateType<T extends SnapshotChargeAggregateArgs> = {
+        [P in keyof T & keyof AggregateSnapshotCharge]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSnapshotCharge[P]>
+      : GetScalarType<T[P], AggregateSnapshotCharge[P]>
+  }
+
+
+
+
+  export type SnapshotChargeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SnapshotChargeWhereInput
+    orderBy?: SnapshotChargeOrderByWithAggregationInput | SnapshotChargeOrderByWithAggregationInput[]
+    by: SnapshotChargeScalarFieldEnum[] | SnapshotChargeScalarFieldEnum
+    having?: SnapshotChargeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SnapshotChargeCountAggregateInputType | true
+    _avg?: SnapshotChargeAvgAggregateInputType
+    _sum?: SnapshotChargeSumAggregateInputType
+    _min?: SnapshotChargeMinAggregateInputType
+    _max?: SnapshotChargeMaxAggregateInputType
+  }
+
+  export type SnapshotChargeGroupByOutputType = {
+    id: string
+    snapshotId: string
+    enseignantId: string
+    volumeBrut: number
+    chargeCalculee: number
+    chargeReference: number
+    decharges: number
+    serviceDu: number
+    ecart: number
+    heuresSup: number
+    createdAt: Date
+    _count: SnapshotChargeCountAggregateOutputType | null
+    _avg: SnapshotChargeAvgAggregateOutputType | null
+    _sum: SnapshotChargeSumAggregateOutputType | null
+    _min: SnapshotChargeMinAggregateOutputType | null
+    _max: SnapshotChargeMaxAggregateOutputType | null
+  }
+
+  type GetSnapshotChargeGroupByPayload<T extends SnapshotChargeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SnapshotChargeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SnapshotChargeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SnapshotChargeGroupByOutputType[P]>
+            : GetScalarType<T[P], SnapshotChargeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SnapshotChargeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    snapshotId?: boolean
+    enseignantId?: boolean
+    volumeBrut?: boolean
+    chargeCalculee?: boolean
+    chargeReference?: boolean
+    decharges?: boolean
+    serviceDu?: boolean
+    ecart?: boolean
+    heuresSup?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["snapshotCharge"]>
+
+  export type SnapshotChargeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    snapshotId?: boolean
+    enseignantId?: boolean
+    volumeBrut?: boolean
+    chargeCalculee?: boolean
+    chargeReference?: boolean
+    decharges?: boolean
+    serviceDu?: boolean
+    ecart?: boolean
+    heuresSup?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["snapshotCharge"]>
+
+  export type SnapshotChargeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    snapshotId?: boolean
+    enseignantId?: boolean
+    volumeBrut?: boolean
+    chargeCalculee?: boolean
+    chargeReference?: boolean
+    decharges?: boolean
+    serviceDu?: boolean
+    ecart?: boolean
+    heuresSup?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["snapshotCharge"]>
+
+  export type SnapshotChargeSelectScalar = {
+    id?: boolean
+    snapshotId?: boolean
+    enseignantId?: boolean
+    volumeBrut?: boolean
+    chargeCalculee?: boolean
+    chargeReference?: boolean
+    decharges?: boolean
+    serviceDu?: boolean
+    ecart?: boolean
+    heuresSup?: boolean
+    createdAt?: boolean
+  }
+
+  export type SnapshotChargeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "snapshotId" | "enseignantId" | "volumeBrut" | "chargeCalculee" | "chargeReference" | "decharges" | "serviceDu" | "ecart" | "heuresSup" | "createdAt", ExtArgs["result"]["snapshotCharge"]>
+
+  export type $SnapshotChargePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SnapshotCharge"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      snapshotId: string
+      enseignantId: string
+      volumeBrut: number
+      chargeCalculee: number
+      chargeReference: number
+      decharges: number
+      serviceDu: number
+      ecart: number
+      heuresSup: number
+      createdAt: Date
+    }, ExtArgs["result"]["snapshotCharge"]>
+    composites: {}
+  }
+
+  type SnapshotChargeGetPayload<S extends boolean | null | undefined | SnapshotChargeDefaultArgs> = $Result.GetResult<Prisma.$SnapshotChargePayload, S>
+
+  type SnapshotChargeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SnapshotChargeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SnapshotChargeCountAggregateInputType | true
+    }
+
+  export interface SnapshotChargeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SnapshotCharge'], meta: { name: 'SnapshotCharge' } }
+    /**
+     * Find zero or one SnapshotCharge that matches the filter.
+     * @param {SnapshotChargeFindUniqueArgs} args - Arguments to find a SnapshotCharge
+     * @example
+     * // Get one SnapshotCharge
+     * const snapshotCharge = await prisma.snapshotCharge.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SnapshotChargeFindUniqueArgs>(args: SelectSubset<T, SnapshotChargeFindUniqueArgs<ExtArgs>>): Prisma__SnapshotChargeClient<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SnapshotCharge that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SnapshotChargeFindUniqueOrThrowArgs} args - Arguments to find a SnapshotCharge
+     * @example
+     * // Get one SnapshotCharge
+     * const snapshotCharge = await prisma.snapshotCharge.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SnapshotChargeFindUniqueOrThrowArgs>(args: SelectSubset<T, SnapshotChargeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SnapshotChargeClient<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SnapshotCharge that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotChargeFindFirstArgs} args - Arguments to find a SnapshotCharge
+     * @example
+     * // Get one SnapshotCharge
+     * const snapshotCharge = await prisma.snapshotCharge.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SnapshotChargeFindFirstArgs>(args?: SelectSubset<T, SnapshotChargeFindFirstArgs<ExtArgs>>): Prisma__SnapshotChargeClient<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SnapshotCharge that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotChargeFindFirstOrThrowArgs} args - Arguments to find a SnapshotCharge
+     * @example
+     * // Get one SnapshotCharge
+     * const snapshotCharge = await prisma.snapshotCharge.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SnapshotChargeFindFirstOrThrowArgs>(args?: SelectSubset<T, SnapshotChargeFindFirstOrThrowArgs<ExtArgs>>): Prisma__SnapshotChargeClient<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SnapshotCharges that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotChargeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SnapshotCharges
+     * const snapshotCharges = await prisma.snapshotCharge.findMany()
+     * 
+     * // Get first 10 SnapshotCharges
+     * const snapshotCharges = await prisma.snapshotCharge.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const snapshotChargeWithIdOnly = await prisma.snapshotCharge.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SnapshotChargeFindManyArgs>(args?: SelectSubset<T, SnapshotChargeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SnapshotCharge.
+     * @param {SnapshotChargeCreateArgs} args - Arguments to create a SnapshotCharge.
+     * @example
+     * // Create one SnapshotCharge
+     * const SnapshotCharge = await prisma.snapshotCharge.create({
+     *   data: {
+     *     // ... data to create a SnapshotCharge
+     *   }
+     * })
+     * 
+     */
+    create<T extends SnapshotChargeCreateArgs>(args: SelectSubset<T, SnapshotChargeCreateArgs<ExtArgs>>): Prisma__SnapshotChargeClient<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SnapshotCharges.
+     * @param {SnapshotChargeCreateManyArgs} args - Arguments to create many SnapshotCharges.
+     * @example
+     * // Create many SnapshotCharges
+     * const snapshotCharge = await prisma.snapshotCharge.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SnapshotChargeCreateManyArgs>(args?: SelectSubset<T, SnapshotChargeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SnapshotCharges and returns the data saved in the database.
+     * @param {SnapshotChargeCreateManyAndReturnArgs} args - Arguments to create many SnapshotCharges.
+     * @example
+     * // Create many SnapshotCharges
+     * const snapshotCharge = await prisma.snapshotCharge.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SnapshotCharges and only return the `id`
+     * const snapshotChargeWithIdOnly = await prisma.snapshotCharge.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SnapshotChargeCreateManyAndReturnArgs>(args?: SelectSubset<T, SnapshotChargeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SnapshotCharge.
+     * @param {SnapshotChargeDeleteArgs} args - Arguments to delete one SnapshotCharge.
+     * @example
+     * // Delete one SnapshotCharge
+     * const SnapshotCharge = await prisma.snapshotCharge.delete({
+     *   where: {
+     *     // ... filter to delete one SnapshotCharge
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SnapshotChargeDeleteArgs>(args: SelectSubset<T, SnapshotChargeDeleteArgs<ExtArgs>>): Prisma__SnapshotChargeClient<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SnapshotCharge.
+     * @param {SnapshotChargeUpdateArgs} args - Arguments to update one SnapshotCharge.
+     * @example
+     * // Update one SnapshotCharge
+     * const snapshotCharge = await prisma.snapshotCharge.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SnapshotChargeUpdateArgs>(args: SelectSubset<T, SnapshotChargeUpdateArgs<ExtArgs>>): Prisma__SnapshotChargeClient<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SnapshotCharges.
+     * @param {SnapshotChargeDeleteManyArgs} args - Arguments to filter SnapshotCharges to delete.
+     * @example
+     * // Delete a few SnapshotCharges
+     * const { count } = await prisma.snapshotCharge.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SnapshotChargeDeleteManyArgs>(args?: SelectSubset<T, SnapshotChargeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SnapshotCharges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotChargeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SnapshotCharges
+     * const snapshotCharge = await prisma.snapshotCharge.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SnapshotChargeUpdateManyArgs>(args: SelectSubset<T, SnapshotChargeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SnapshotCharges and returns the data updated in the database.
+     * @param {SnapshotChargeUpdateManyAndReturnArgs} args - Arguments to update many SnapshotCharges.
+     * @example
+     * // Update many SnapshotCharges
+     * const snapshotCharge = await prisma.snapshotCharge.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SnapshotCharges and only return the `id`
+     * const snapshotChargeWithIdOnly = await prisma.snapshotCharge.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SnapshotChargeUpdateManyAndReturnArgs>(args: SelectSubset<T, SnapshotChargeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SnapshotCharge.
+     * @param {SnapshotChargeUpsertArgs} args - Arguments to update or create a SnapshotCharge.
+     * @example
+     * // Update or create a SnapshotCharge
+     * const snapshotCharge = await prisma.snapshotCharge.upsert({
+     *   create: {
+     *     // ... data to create a SnapshotCharge
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SnapshotCharge we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SnapshotChargeUpsertArgs>(args: SelectSubset<T, SnapshotChargeUpsertArgs<ExtArgs>>): Prisma__SnapshotChargeClient<$Result.GetResult<Prisma.$SnapshotChargePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SnapshotCharges.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotChargeCountArgs} args - Arguments to filter SnapshotCharges to count.
+     * @example
+     * // Count the number of SnapshotCharges
+     * const count = await prisma.snapshotCharge.count({
+     *   where: {
+     *     // ... the filter for the SnapshotCharges we want to count
+     *   }
+     * })
+    **/
+    count<T extends SnapshotChargeCountArgs>(
+      args?: Subset<T, SnapshotChargeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SnapshotChargeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SnapshotCharge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotChargeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SnapshotChargeAggregateArgs>(args: Subset<T, SnapshotChargeAggregateArgs>): Prisma.PrismaPromise<GetSnapshotChargeAggregateType<T>>
+
+    /**
+     * Group by SnapshotCharge.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SnapshotChargeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SnapshotChargeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SnapshotChargeGroupByArgs['orderBy'] }
+        : { orderBy?: SnapshotChargeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SnapshotChargeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSnapshotChargeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SnapshotCharge model
+   */
+  readonly fields: SnapshotChargeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SnapshotCharge.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SnapshotChargeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SnapshotCharge model
+   */
+  interface SnapshotChargeFieldRefs {
+    readonly id: FieldRef<"SnapshotCharge", 'String'>
+    readonly snapshotId: FieldRef<"SnapshotCharge", 'String'>
+    readonly enseignantId: FieldRef<"SnapshotCharge", 'String'>
+    readonly volumeBrut: FieldRef<"SnapshotCharge", 'Int'>
+    readonly chargeCalculee: FieldRef<"SnapshotCharge", 'Int'>
+    readonly chargeReference: FieldRef<"SnapshotCharge", 'Int'>
+    readonly decharges: FieldRef<"SnapshotCharge", 'Int'>
+    readonly serviceDu: FieldRef<"SnapshotCharge", 'Int'>
+    readonly ecart: FieldRef<"SnapshotCharge", 'Int'>
+    readonly heuresSup: FieldRef<"SnapshotCharge", 'Int'>
+    readonly createdAt: FieldRef<"SnapshotCharge", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SnapshotCharge findUnique
+   */
+  export type SnapshotChargeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotCharge to fetch.
+     */
+    where: SnapshotChargeWhereUniqueInput
+  }
+
+  /**
+   * SnapshotCharge findUniqueOrThrow
+   */
+  export type SnapshotChargeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotCharge to fetch.
+     */
+    where: SnapshotChargeWhereUniqueInput
+  }
+
+  /**
+   * SnapshotCharge findFirst
+   */
+  export type SnapshotChargeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotCharge to fetch.
+     */
+    where?: SnapshotChargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SnapshotCharges to fetch.
+     */
+    orderBy?: SnapshotChargeOrderByWithRelationInput | SnapshotChargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SnapshotCharges.
+     */
+    cursor?: SnapshotChargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SnapshotCharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SnapshotCharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SnapshotCharges.
+     */
+    distinct?: SnapshotChargeScalarFieldEnum | SnapshotChargeScalarFieldEnum[]
+  }
+
+  /**
+   * SnapshotCharge findFirstOrThrow
+   */
+  export type SnapshotChargeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotCharge to fetch.
+     */
+    where?: SnapshotChargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SnapshotCharges to fetch.
+     */
+    orderBy?: SnapshotChargeOrderByWithRelationInput | SnapshotChargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SnapshotCharges.
+     */
+    cursor?: SnapshotChargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SnapshotCharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SnapshotCharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SnapshotCharges.
+     */
+    distinct?: SnapshotChargeScalarFieldEnum | SnapshotChargeScalarFieldEnum[]
+  }
+
+  /**
+   * SnapshotCharge findMany
+   */
+  export type SnapshotChargeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * Filter, which SnapshotCharges to fetch.
+     */
+    where?: SnapshotChargeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SnapshotCharges to fetch.
+     */
+    orderBy?: SnapshotChargeOrderByWithRelationInput | SnapshotChargeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SnapshotCharges.
+     */
+    cursor?: SnapshotChargeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SnapshotCharges from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SnapshotCharges.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SnapshotCharges.
+     */
+    distinct?: SnapshotChargeScalarFieldEnum | SnapshotChargeScalarFieldEnum[]
+  }
+
+  /**
+   * SnapshotCharge create
+   */
+  export type SnapshotChargeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SnapshotCharge.
+     */
+    data: XOR<SnapshotChargeCreateInput, SnapshotChargeUncheckedCreateInput>
+  }
+
+  /**
+   * SnapshotCharge createMany
+   */
+  export type SnapshotChargeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SnapshotCharges.
+     */
+    data: SnapshotChargeCreateManyInput | SnapshotChargeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SnapshotCharge createManyAndReturn
+   */
+  export type SnapshotChargeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * The data used to create many SnapshotCharges.
+     */
+    data: SnapshotChargeCreateManyInput | SnapshotChargeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SnapshotCharge update
+   */
+  export type SnapshotChargeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SnapshotCharge.
+     */
+    data: XOR<SnapshotChargeUpdateInput, SnapshotChargeUncheckedUpdateInput>
+    /**
+     * Choose, which SnapshotCharge to update.
+     */
+    where: SnapshotChargeWhereUniqueInput
+  }
+
+  /**
+   * SnapshotCharge updateMany
+   */
+  export type SnapshotChargeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SnapshotCharges.
+     */
+    data: XOR<SnapshotChargeUpdateManyMutationInput, SnapshotChargeUncheckedUpdateManyInput>
+    /**
+     * Filter which SnapshotCharges to update
+     */
+    where?: SnapshotChargeWhereInput
+    /**
+     * Limit how many SnapshotCharges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SnapshotCharge updateManyAndReturn
+   */
+  export type SnapshotChargeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * The data used to update SnapshotCharges.
+     */
+    data: XOR<SnapshotChargeUpdateManyMutationInput, SnapshotChargeUncheckedUpdateManyInput>
+    /**
+     * Filter which SnapshotCharges to update
+     */
+    where?: SnapshotChargeWhereInput
+    /**
+     * Limit how many SnapshotCharges to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SnapshotCharge upsert
+   */
+  export type SnapshotChargeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SnapshotCharge to update in case it exists.
+     */
+    where: SnapshotChargeWhereUniqueInput
+    /**
+     * In case the SnapshotCharge found by the `where` argument doesn't exist, create a new SnapshotCharge with this data.
+     */
+    create: XOR<SnapshotChargeCreateInput, SnapshotChargeUncheckedCreateInput>
+    /**
+     * In case the SnapshotCharge was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SnapshotChargeUpdateInput, SnapshotChargeUncheckedUpdateInput>
+  }
+
+  /**
+   * SnapshotCharge delete
+   */
+  export type SnapshotChargeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+    /**
+     * Filter which SnapshotCharge to delete.
+     */
+    where: SnapshotChargeWhereUniqueInput
+  }
+
+  /**
+   * SnapshotCharge deleteMany
+   */
+  export type SnapshotChargeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SnapshotCharges to delete
+     */
+    where?: SnapshotChargeWhereInput
+    /**
+     * Limit how many SnapshotCharges to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SnapshotCharge without action
+   */
+  export type SnapshotChargeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCharge
+     */
+    select?: SnapshotChargeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SnapshotCharge
+     */
+    omit?: SnapshotChargeOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model DemandeModification
    */
 
@@ -67018,6 +70616,56 @@ export namespace Prisma {
   };
 
   export type AffectationScalarFieldEnum = (typeof AffectationScalarFieldEnum)[keyof typeof AffectationScalarFieldEnum]
+
+
+  export const SnapshotScalarFieldEnum: {
+    id: 'id',
+    repartitionId: 'repartitionId',
+    tag: 'tag',
+    hash: 'hash',
+    valideParId: 'valideParId',
+    valideLe: 'valideLe',
+    parAdministrateur: 'parAdministrateur',
+    repartitionStatut: 'repartitionStatut',
+    createdAt: 'createdAt'
+  };
+
+  export type SnapshotScalarFieldEnum = (typeof SnapshotScalarFieldEnum)[keyof typeof SnapshotScalarFieldEnum]
+
+
+  export const SnapshotAffectationScalarFieldEnum: {
+    id: 'id',
+    snapshotId: 'snapshotId',
+    enseignantId: 'enseignantId',
+    groupeId: 'groupeId',
+    moduleId: 'moduleId',
+    typeEnseignementId: 'typeEnseignementId',
+    activityTagId: 'activityTagId',
+    volumeHebdoMinutes: 'volumeHebdoMinutes',
+    seancesParSemaine: 'seancesParSemaine',
+    dureeMinutes: 'dureeMinutes',
+    estCmCommun: 'estCmCommun',
+    workingRevision: 'workingRevision'
+  };
+
+  export type SnapshotAffectationScalarFieldEnum = (typeof SnapshotAffectationScalarFieldEnum)[keyof typeof SnapshotAffectationScalarFieldEnum]
+
+
+  export const SnapshotChargeScalarFieldEnum: {
+    id: 'id',
+    snapshotId: 'snapshotId',
+    enseignantId: 'enseignantId',
+    volumeBrut: 'volumeBrut',
+    chargeCalculee: 'chargeCalculee',
+    chargeReference: 'chargeReference',
+    decharges: 'decharges',
+    serviceDu: 'serviceDu',
+    ecart: 'ecart',
+    heuresSup: 'heuresSup',
+    createdAt: 'createdAt'
+  };
+
+  export type SnapshotChargeScalarFieldEnum = (typeof SnapshotChargeScalarFieldEnum)[keyof typeof SnapshotChargeScalarFieldEnum]
 
 
   export const DemandeModificationScalarFieldEnum: {
@@ -71364,6 +75012,251 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Affectation"> | Date | string
   }
 
+  export type SnapshotWhereInput = {
+    AND?: SnapshotWhereInput | SnapshotWhereInput[]
+    OR?: SnapshotWhereInput[]
+    NOT?: SnapshotWhereInput | SnapshotWhereInput[]
+    id?: UuidFilter<"Snapshot"> | string
+    repartitionId?: UuidFilter<"Snapshot"> | string
+    tag?: StringFilter<"Snapshot"> | string
+    hash?: StringFilter<"Snapshot"> | string
+    valideParId?: UuidFilter<"Snapshot"> | string
+    valideLe?: DateTimeFilter<"Snapshot"> | Date | string
+    parAdministrateur?: BoolFilter<"Snapshot"> | boolean
+    repartitionStatut?: EnumRepartitionStatutFilter<"Snapshot"> | $Enums.RepartitionStatut
+    createdAt?: DateTimeFilter<"Snapshot"> | Date | string
+  }
+
+  export type SnapshotOrderByWithRelationInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    tag?: SortOrder
+    hash?: SortOrder
+    valideParId?: SortOrder
+    valideLe?: SortOrder
+    parAdministrateur?: SortOrder
+    repartitionStatut?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SnapshotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SnapshotWhereInput | SnapshotWhereInput[]
+    OR?: SnapshotWhereInput[]
+    NOT?: SnapshotWhereInput | SnapshotWhereInput[]
+    repartitionId?: UuidFilter<"Snapshot"> | string
+    tag?: StringFilter<"Snapshot"> | string
+    hash?: StringFilter<"Snapshot"> | string
+    valideParId?: UuidFilter<"Snapshot"> | string
+    valideLe?: DateTimeFilter<"Snapshot"> | Date | string
+    parAdministrateur?: BoolFilter<"Snapshot"> | boolean
+    repartitionStatut?: EnumRepartitionStatutFilter<"Snapshot"> | $Enums.RepartitionStatut
+    createdAt?: DateTimeFilter<"Snapshot"> | Date | string
+  }, "id">
+
+  export type SnapshotOrderByWithAggregationInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    tag?: SortOrder
+    hash?: SortOrder
+    valideParId?: SortOrder
+    valideLe?: SortOrder
+    parAdministrateur?: SortOrder
+    repartitionStatut?: SortOrder
+    createdAt?: SortOrder
+    _count?: SnapshotCountOrderByAggregateInput
+    _max?: SnapshotMaxOrderByAggregateInput
+    _min?: SnapshotMinOrderByAggregateInput
+  }
+
+  export type SnapshotScalarWhereWithAggregatesInput = {
+    AND?: SnapshotScalarWhereWithAggregatesInput | SnapshotScalarWhereWithAggregatesInput[]
+    OR?: SnapshotScalarWhereWithAggregatesInput[]
+    NOT?: SnapshotScalarWhereWithAggregatesInput | SnapshotScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Snapshot"> | string
+    repartitionId?: UuidWithAggregatesFilter<"Snapshot"> | string
+    tag?: StringWithAggregatesFilter<"Snapshot"> | string
+    hash?: StringWithAggregatesFilter<"Snapshot"> | string
+    valideParId?: UuidWithAggregatesFilter<"Snapshot"> | string
+    valideLe?: DateTimeWithAggregatesFilter<"Snapshot"> | Date | string
+    parAdministrateur?: BoolWithAggregatesFilter<"Snapshot"> | boolean
+    repartitionStatut?: EnumRepartitionStatutWithAggregatesFilter<"Snapshot"> | $Enums.RepartitionStatut
+    createdAt?: DateTimeWithAggregatesFilter<"Snapshot"> | Date | string
+  }
+
+  export type SnapshotAffectationWhereInput = {
+    AND?: SnapshotAffectationWhereInput | SnapshotAffectationWhereInput[]
+    OR?: SnapshotAffectationWhereInput[]
+    NOT?: SnapshotAffectationWhereInput | SnapshotAffectationWhereInput[]
+    id?: UuidFilter<"SnapshotAffectation"> | string
+    snapshotId?: UuidFilter<"SnapshotAffectation"> | string
+    enseignantId?: UuidFilter<"SnapshotAffectation"> | string
+    groupeId?: UuidNullableFilter<"SnapshotAffectation"> | string | null
+    moduleId?: UuidFilter<"SnapshotAffectation"> | string
+    typeEnseignementId?: UuidFilter<"SnapshotAffectation"> | string
+    activityTagId?: UuidNullableFilter<"SnapshotAffectation"> | string | null
+    volumeHebdoMinutes?: IntFilter<"SnapshotAffectation"> | number
+    seancesParSemaine?: IntFilter<"SnapshotAffectation"> | number
+    dureeMinutes?: IntFilter<"SnapshotAffectation"> | number
+    estCmCommun?: BoolFilter<"SnapshotAffectation"> | boolean
+    workingRevision?: IntFilter<"SnapshotAffectation"> | number
+  }
+
+  export type SnapshotAffectationOrderByWithRelationInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrderInput | SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrderInput | SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+  }
+
+  export type SnapshotAffectationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SnapshotAffectationWhereInput | SnapshotAffectationWhereInput[]
+    OR?: SnapshotAffectationWhereInput[]
+    NOT?: SnapshotAffectationWhereInput | SnapshotAffectationWhereInput[]
+    snapshotId?: UuidFilter<"SnapshotAffectation"> | string
+    enseignantId?: UuidFilter<"SnapshotAffectation"> | string
+    groupeId?: UuidNullableFilter<"SnapshotAffectation"> | string | null
+    moduleId?: UuidFilter<"SnapshotAffectation"> | string
+    typeEnseignementId?: UuidFilter<"SnapshotAffectation"> | string
+    activityTagId?: UuidNullableFilter<"SnapshotAffectation"> | string | null
+    volumeHebdoMinutes?: IntFilter<"SnapshotAffectation"> | number
+    seancesParSemaine?: IntFilter<"SnapshotAffectation"> | number
+    dureeMinutes?: IntFilter<"SnapshotAffectation"> | number
+    estCmCommun?: BoolFilter<"SnapshotAffectation"> | boolean
+    workingRevision?: IntFilter<"SnapshotAffectation"> | number
+  }, "id">
+
+  export type SnapshotAffectationOrderByWithAggregationInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrderInput | SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrderInput | SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+    _count?: SnapshotAffectationCountOrderByAggregateInput
+    _avg?: SnapshotAffectationAvgOrderByAggregateInput
+    _max?: SnapshotAffectationMaxOrderByAggregateInput
+    _min?: SnapshotAffectationMinOrderByAggregateInput
+    _sum?: SnapshotAffectationSumOrderByAggregateInput
+  }
+
+  export type SnapshotAffectationScalarWhereWithAggregatesInput = {
+    AND?: SnapshotAffectationScalarWhereWithAggregatesInput | SnapshotAffectationScalarWhereWithAggregatesInput[]
+    OR?: SnapshotAffectationScalarWhereWithAggregatesInput[]
+    NOT?: SnapshotAffectationScalarWhereWithAggregatesInput | SnapshotAffectationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"SnapshotAffectation"> | string
+    snapshotId?: UuidWithAggregatesFilter<"SnapshotAffectation"> | string
+    enseignantId?: UuidWithAggregatesFilter<"SnapshotAffectation"> | string
+    groupeId?: UuidNullableWithAggregatesFilter<"SnapshotAffectation"> | string | null
+    moduleId?: UuidWithAggregatesFilter<"SnapshotAffectation"> | string
+    typeEnseignementId?: UuidWithAggregatesFilter<"SnapshotAffectation"> | string
+    activityTagId?: UuidNullableWithAggregatesFilter<"SnapshotAffectation"> | string | null
+    volumeHebdoMinutes?: IntWithAggregatesFilter<"SnapshotAffectation"> | number
+    seancesParSemaine?: IntWithAggregatesFilter<"SnapshotAffectation"> | number
+    dureeMinutes?: IntWithAggregatesFilter<"SnapshotAffectation"> | number
+    estCmCommun?: BoolWithAggregatesFilter<"SnapshotAffectation"> | boolean
+    workingRevision?: IntWithAggregatesFilter<"SnapshotAffectation"> | number
+  }
+
+  export type SnapshotChargeWhereInput = {
+    AND?: SnapshotChargeWhereInput | SnapshotChargeWhereInput[]
+    OR?: SnapshotChargeWhereInput[]
+    NOT?: SnapshotChargeWhereInput | SnapshotChargeWhereInput[]
+    id?: UuidFilter<"SnapshotCharge"> | string
+    snapshotId?: UuidFilter<"SnapshotCharge"> | string
+    enseignantId?: UuidFilter<"SnapshotCharge"> | string
+    volumeBrut?: IntFilter<"SnapshotCharge"> | number
+    chargeCalculee?: IntFilter<"SnapshotCharge"> | number
+    chargeReference?: IntFilter<"SnapshotCharge"> | number
+    decharges?: IntFilter<"SnapshotCharge"> | number
+    serviceDu?: IntFilter<"SnapshotCharge"> | number
+    ecart?: IntFilter<"SnapshotCharge"> | number
+    heuresSup?: IntFilter<"SnapshotCharge"> | number
+    createdAt?: DateTimeFilter<"SnapshotCharge"> | Date | string
+  }
+
+  export type SnapshotChargeOrderByWithRelationInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    volumeBrut?: SortOrder
+    chargeCalculee?: SortOrder
+    chargeReference?: SortOrder
+    decharges?: SortOrder
+    serviceDu?: SortOrder
+    ecart?: SortOrder
+    heuresSup?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SnapshotChargeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SnapshotChargeWhereInput | SnapshotChargeWhereInput[]
+    OR?: SnapshotChargeWhereInput[]
+    NOT?: SnapshotChargeWhereInput | SnapshotChargeWhereInput[]
+    snapshotId?: UuidFilter<"SnapshotCharge"> | string
+    enseignantId?: UuidFilter<"SnapshotCharge"> | string
+    volumeBrut?: IntFilter<"SnapshotCharge"> | number
+    chargeCalculee?: IntFilter<"SnapshotCharge"> | number
+    chargeReference?: IntFilter<"SnapshotCharge"> | number
+    decharges?: IntFilter<"SnapshotCharge"> | number
+    serviceDu?: IntFilter<"SnapshotCharge"> | number
+    ecart?: IntFilter<"SnapshotCharge"> | number
+    heuresSup?: IntFilter<"SnapshotCharge"> | number
+    createdAt?: DateTimeFilter<"SnapshotCharge"> | Date | string
+  }, "id">
+
+  export type SnapshotChargeOrderByWithAggregationInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    volumeBrut?: SortOrder
+    chargeCalculee?: SortOrder
+    chargeReference?: SortOrder
+    decharges?: SortOrder
+    serviceDu?: SortOrder
+    ecart?: SortOrder
+    heuresSup?: SortOrder
+    createdAt?: SortOrder
+    _count?: SnapshotChargeCountOrderByAggregateInput
+    _avg?: SnapshotChargeAvgOrderByAggregateInput
+    _max?: SnapshotChargeMaxOrderByAggregateInput
+    _min?: SnapshotChargeMinOrderByAggregateInput
+    _sum?: SnapshotChargeSumOrderByAggregateInput
+  }
+
+  export type SnapshotChargeScalarWhereWithAggregatesInput = {
+    AND?: SnapshotChargeScalarWhereWithAggregatesInput | SnapshotChargeScalarWhereWithAggregatesInput[]
+    OR?: SnapshotChargeScalarWhereWithAggregatesInput[]
+    NOT?: SnapshotChargeScalarWhereWithAggregatesInput | SnapshotChargeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"SnapshotCharge"> | string
+    snapshotId?: UuidWithAggregatesFilter<"SnapshotCharge"> | string
+    enseignantId?: UuidWithAggregatesFilter<"SnapshotCharge"> | string
+    volumeBrut?: IntWithAggregatesFilter<"SnapshotCharge"> | number
+    chargeCalculee?: IntWithAggregatesFilter<"SnapshotCharge"> | number
+    chargeReference?: IntWithAggregatesFilter<"SnapshotCharge"> | number
+    decharges?: IntWithAggregatesFilter<"SnapshotCharge"> | number
+    serviceDu?: IntWithAggregatesFilter<"SnapshotCharge"> | number
+    ecart?: IntWithAggregatesFilter<"SnapshotCharge"> | number
+    heuresSup?: IntWithAggregatesFilter<"SnapshotCharge"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"SnapshotCharge"> | Date | string
+  }
+
   export type DemandeModificationWhereInput = {
     AND?: DemandeModificationWhereInput | DemandeModificationWhereInput[]
     OR?: DemandeModificationWhereInput[]
@@ -75481,6 +79374,293 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SnapshotCreateInput = {
+    id?: string
+    repartitionId: string
+    tag: string
+    hash: string
+    valideParId: string
+    valideLe?: Date | string
+    parAdministrateur?: boolean
+    repartitionStatut: $Enums.RepartitionStatut
+    createdAt?: Date | string
+  }
+
+  export type SnapshotUncheckedCreateInput = {
+    id?: string
+    repartitionId: string
+    tag: string
+    hash: string
+    valideParId: string
+    valideLe?: Date | string
+    parAdministrateur?: boolean
+    repartitionStatut: $Enums.RepartitionStatut
+    createdAt?: Date | string
+  }
+
+  export type SnapshotUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    tag?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    valideParId?: StringFieldUpdateOperationsInput | string
+    valideLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
+    repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnapshotUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    tag?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    valideParId?: StringFieldUpdateOperationsInput | string
+    valideLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
+    repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnapshotCreateManyInput = {
+    id?: string
+    repartitionId: string
+    tag: string
+    hash: string
+    valideParId: string
+    valideLe?: Date | string
+    parAdministrateur?: boolean
+    repartitionStatut: $Enums.RepartitionStatut
+    createdAt?: Date | string
+  }
+
+  export type SnapshotUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    tag?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    valideParId?: StringFieldUpdateOperationsInput | string
+    valideLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
+    repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnapshotUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    tag?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    valideParId?: StringFieldUpdateOperationsInput | string
+    valideLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
+    repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnapshotAffectationCreateInput = {
+    id?: string
+    snapshotId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun: boolean
+    workingRevision: number
+  }
+
+  export type SnapshotAffectationUncheckedCreateInput = {
+    id?: string
+    snapshotId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun: boolean
+    workingRevision: number
+  }
+
+  export type SnapshotAffectationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SnapshotAffectationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SnapshotAffectationCreateManyInput = {
+    id?: string
+    snapshotId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun: boolean
+    workingRevision: number
+  }
+
+  export type SnapshotAffectationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SnapshotAffectationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SnapshotChargeCreateInput = {
+    id?: string
+    snapshotId: string
+    enseignantId: string
+    volumeBrut: number
+    chargeCalculee: number
+    chargeReference: number
+    decharges: number
+    serviceDu: number
+    ecart: number
+    heuresSup: number
+    createdAt?: Date | string
+  }
+
+  export type SnapshotChargeUncheckedCreateInput = {
+    id?: string
+    snapshotId: string
+    enseignantId: string
+    volumeBrut: number
+    chargeCalculee: number
+    chargeReference: number
+    decharges: number
+    serviceDu: number
+    ecart: number
+    heuresSup: number
+    createdAt?: Date | string
+  }
+
+  export type SnapshotChargeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    volumeBrut?: IntFieldUpdateOperationsInput | number
+    chargeCalculee?: IntFieldUpdateOperationsInput | number
+    chargeReference?: IntFieldUpdateOperationsInput | number
+    decharges?: IntFieldUpdateOperationsInput | number
+    serviceDu?: IntFieldUpdateOperationsInput | number
+    ecart?: IntFieldUpdateOperationsInput | number
+    heuresSup?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnapshotChargeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    volumeBrut?: IntFieldUpdateOperationsInput | number
+    chargeCalculee?: IntFieldUpdateOperationsInput | number
+    chargeReference?: IntFieldUpdateOperationsInput | number
+    decharges?: IntFieldUpdateOperationsInput | number
+    serviceDu?: IntFieldUpdateOperationsInput | number
+    ecart?: IntFieldUpdateOperationsInput | number
+    heuresSup?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnapshotChargeCreateManyInput = {
+    id?: string
+    snapshotId: string
+    enseignantId: string
+    volumeBrut: number
+    chargeCalculee: number
+    chargeReference: number
+    decharges: number
+    serviceDu: number
+    ecart: number
+    heuresSup: number
+    createdAt?: Date | string
+  }
+
+  export type SnapshotChargeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    volumeBrut?: IntFieldUpdateOperationsInput | number
+    chargeCalculee?: IntFieldUpdateOperationsInput | number
+    chargeReference?: IntFieldUpdateOperationsInput | number
+    decharges?: IntFieldUpdateOperationsInput | number
+    serviceDu?: IntFieldUpdateOperationsInput | number
+    ecart?: IntFieldUpdateOperationsInput | number
+    heuresSup?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnapshotChargeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    volumeBrut?: IntFieldUpdateOperationsInput | number
+    chargeCalculee?: IntFieldUpdateOperationsInput | number
+    chargeReference?: IntFieldUpdateOperationsInput | number
+    decharges?: IntFieldUpdateOperationsInput | number
+    serviceDu?: IntFieldUpdateOperationsInput | number
+    ecart?: IntFieldUpdateOperationsInput | number
+    heuresSup?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DemandeModificationCreateInput = {
     id?: string
     departementCode: string
@@ -78917,6 +83097,163 @@ export namespace Prisma {
     seancesParSemaine?: SortOrder
     dureeMinutes?: SortOrder
     workingRevision?: SortOrder
+  }
+
+  export type SnapshotCountOrderByAggregateInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    tag?: SortOrder
+    hash?: SortOrder
+    valideParId?: SortOrder
+    valideLe?: SortOrder
+    parAdministrateur?: SortOrder
+    repartitionStatut?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SnapshotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    tag?: SortOrder
+    hash?: SortOrder
+    valideParId?: SortOrder
+    valideLe?: SortOrder
+    parAdministrateur?: SortOrder
+    repartitionStatut?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SnapshotMinOrderByAggregateInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    tag?: SortOrder
+    hash?: SortOrder
+    valideParId?: SortOrder
+    valideLe?: SortOrder
+    parAdministrateur?: SortOrder
+    repartitionStatut?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SnapshotAffectationCountOrderByAggregateInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+  }
+
+  export type SnapshotAffectationAvgOrderByAggregateInput = {
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    workingRevision?: SortOrder
+  }
+
+  export type SnapshotAffectationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+  }
+
+  export type SnapshotAffectationMinOrderByAggregateInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+  }
+
+  export type SnapshotAffectationSumOrderByAggregateInput = {
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    workingRevision?: SortOrder
+  }
+
+  export type SnapshotChargeCountOrderByAggregateInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    volumeBrut?: SortOrder
+    chargeCalculee?: SortOrder
+    chargeReference?: SortOrder
+    decharges?: SortOrder
+    serviceDu?: SortOrder
+    ecart?: SortOrder
+    heuresSup?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SnapshotChargeAvgOrderByAggregateInput = {
+    volumeBrut?: SortOrder
+    chargeCalculee?: SortOrder
+    chargeReference?: SortOrder
+    decharges?: SortOrder
+    serviceDu?: SortOrder
+    ecart?: SortOrder
+    heuresSup?: SortOrder
+  }
+
+  export type SnapshotChargeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    volumeBrut?: SortOrder
+    chargeCalculee?: SortOrder
+    chargeReference?: SortOrder
+    decharges?: SortOrder
+    serviceDu?: SortOrder
+    ecart?: SortOrder
+    heuresSup?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SnapshotChargeMinOrderByAggregateInput = {
+    id?: SortOrder
+    snapshotId?: SortOrder
+    enseignantId?: SortOrder
+    volumeBrut?: SortOrder
+    chargeCalculee?: SortOrder
+    chargeReference?: SortOrder
+    decharges?: SortOrder
+    serviceDu?: SortOrder
+    ecart?: SortOrder
+    heuresSup?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SnapshotChargeSumOrderByAggregateInput = {
+    volumeBrut?: SortOrder
+    chargeCalculee?: SortOrder
+    chargeReference?: SortOrder
+    decharges?: SortOrder
+    serviceDu?: SortOrder
+    ecart?: SortOrder
+    heuresSup?: SortOrder
   }
 
   export type EnumDemandeTypeFilter<$PrismaModel = never> = {

@@ -662,6 +662,47 @@ exports.Prisma.AffectationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SnapshotScalarFieldEnum = {
+  id: 'id',
+  repartitionId: 'repartitionId',
+  tag: 'tag',
+  hash: 'hash',
+  valideParId: 'valideParId',
+  valideLe: 'valideLe',
+  parAdministrateur: 'parAdministrateur',
+  repartitionStatut: 'repartitionStatut',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SnapshotAffectationScalarFieldEnum = {
+  id: 'id',
+  snapshotId: 'snapshotId',
+  enseignantId: 'enseignantId',
+  groupeId: 'groupeId',
+  moduleId: 'moduleId',
+  typeEnseignementId: 'typeEnseignementId',
+  activityTagId: 'activityTagId',
+  volumeHebdoMinutes: 'volumeHebdoMinutes',
+  seancesParSemaine: 'seancesParSemaine',
+  dureeMinutes: 'dureeMinutes',
+  estCmCommun: 'estCmCommun',
+  workingRevision: 'workingRevision'
+};
+
+exports.Prisma.SnapshotChargeScalarFieldEnum = {
+  id: 'id',
+  snapshotId: 'snapshotId',
+  enseignantId: 'enseignantId',
+  volumeBrut: 'volumeBrut',
+  chargeCalculee: 'chargeCalculee',
+  chargeReference: 'chargeReference',
+  decharges: 'decharges',
+  serviceDu: 'serviceDu',
+  ecart: 'ecart',
+  heuresSup: 'heuresSup',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.DemandeModificationScalarFieldEnum = {
   id: 'id',
   semestreId: 'semestreId',
@@ -927,6 +968,9 @@ exports.Prisma.ModelName = {
   ContrainteInstance: 'ContrainteInstance',
   Repartition: 'Repartition',
   Affectation: 'Affectation',
+  Snapshot: 'Snapshot',
+  SnapshotAffectation: 'SnapshotAffectation',
+  SnapshotCharge: 'SnapshotCharge',
   DemandeModification: 'DemandeModification'
 };
 
