@@ -20,6 +20,7 @@ COPY package.json ./
 COPY apps/api/package.json ./apps/api/package.json
 COPY packages/contracts/package.json ./packages/contracts/package.json
 COPY packages/db/package.json ./packages/db/package.json
+COPY packages/charge-engine/package.json ./packages/charge-engine/package.json
 # Disable supply-chain policy (minimumReleaseAge) for CI builds
 RUN pnpm config set minimumReleaseAge 0
 RUN pnpm install --filter=@takt/api... --prod --ignore-scripts
@@ -34,6 +35,7 @@ COPY package.json ./
 COPY apps/api/package.json ./apps/api/package.json
 COPY packages/contracts/package.json ./packages/contracts/package.json
 COPY packages/db/package.json ./packages/db/package.json
+COPY packages/charge-engine/package.json ./packages/charge-engine/package.json
 # Disable supply-chain policy (minimumReleaseAge) for CI builds
 RUN pnpm config set minimumReleaseAge 0
 RUN pnpm install
