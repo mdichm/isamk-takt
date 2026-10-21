@@ -645,6 +645,23 @@ exports.Prisma.RepartitionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AffectationScalarFieldEnum = {
+  id: 'id',
+  repartitionId: 'repartitionId',
+  enseignantId: 'enseignantId',
+  groupeId: 'groupeId',
+  moduleId: 'moduleId',
+  typeEnseignementId: 'typeEnseignementId',
+  activityTagId: 'activityTagId',
+  volumeHebdoMinutes: 'volumeHebdoMinutes',
+  seancesParSemaine: 'seancesParSemaine',
+  dureeMinutes: 'dureeMinutes',
+  estCmCommun: 'estCmCommun',
+  workingRevision: 'workingRevision',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -881,7 +898,8 @@ exports.Prisma.ModelName = {
   ExigenceEquipement: 'ExigenceEquipement',
   ContrainteDefinition: 'ContrainteDefinition',
   ContrainteInstance: 'ContrainteInstance',
-  Repartition: 'Repartition'
+  Repartition: 'Repartition',
+  Affectation: 'Affectation'
 };
 
 /**

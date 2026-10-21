@@ -258,6 +258,11 @@ export type ContrainteInstance = $Result.DefaultSelection<Prisma.$ContrainteInst
  * 
  */
 export type Repartition = $Result.DefaultSelection<Prisma.$RepartitionPayload>
+/**
+ * Model Affectation
+ * 
+ */
+export type Affectation = $Result.DefaultSelection<Prisma.$AffectationPayload>
 
 /**
  * Enums
@@ -1193,6 +1198,16 @@ export class PrismaClient<
     * ```
     */
   get repartition(): Prisma.RepartitionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.affectation`: Exposes CRUD operations for the **Affectation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Affectations
+    * const affectations = await prisma.affectation.findMany()
+    * ```
+    */
+  get affectation(): Prisma.AffectationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1688,7 +1703,8 @@ export namespace Prisma {
     ExigenceEquipement: 'ExigenceEquipement',
     ContrainteDefinition: 'ContrainteDefinition',
     ContrainteInstance: 'ContrainteInstance',
-    Repartition: 'Repartition'
+    Repartition: 'Repartition',
+    Affectation: 'Affectation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1704,7 +1720,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5334,6 +5350,80 @@ export namespace Prisma {
           }
         }
       }
+      Affectation: {
+        payload: Prisma.$AffectationPayload<ExtArgs>
+        fields: Prisma.AffectationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AffectationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AffectationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>
+          }
+          findFirst: {
+            args: Prisma.AffectationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AffectationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>
+          }
+          findMany: {
+            args: Prisma.AffectationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>[]
+          }
+          create: {
+            args: Prisma.AffectationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>
+          }
+          createMany: {
+            args: Prisma.AffectationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AffectationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>[]
+          }
+          delete: {
+            args: Prisma.AffectationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>
+          }
+          update: {
+            args: Prisma.AffectationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>
+          }
+          deleteMany: {
+            args: Prisma.AffectationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AffectationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AffectationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>[]
+          }
+          upsert: {
+            args: Prisma.AffectationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AffectationPayload>
+          }
+          aggregate: {
+            args: Prisma.AffectationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAffectation>
+          }
+          groupBy: {
+            args: Prisma.AffectationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AffectationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AffectationCountArgs<ExtArgs>
+            result: $Utils.Optional<AffectationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -5506,6 +5596,7 @@ export namespace Prisma {
     contrainteDefinition?: ContrainteDefinitionOmit
     contrainteInstance?: ContrainteInstanceOmit
     repartition?: RepartitionOmit
+    affectation?: AffectationOmit
   }
 
   /* Types for Logging */
@@ -6211,10 +6302,12 @@ export namespace Prisma {
 
   export type GroupeCountOutputType = {
     enfants: number
+    affectations: number
   }
 
   export type GroupeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enfants?: boolean | GroupeCountOutputTypeCountEnfantsArgs
+    affectations?: boolean | GroupeCountOutputTypeCountAffectationsArgs
   }
 
   // Custom InputTypes
@@ -6235,6 +6328,13 @@ export namespace Prisma {
     where?: GroupeWhereInput
   }
 
+  /**
+   * GroupeCountOutputType without action
+   */
+  export type GroupeCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AffectationWhereInput
+  }
+
 
   /**
    * Count Type TypeEnseignementCountOutputType
@@ -6244,12 +6344,14 @@ export namespace Prisma {
     modules: number
     exigencesEquipement: number
     chargeCoefficients: number
+    affectations: number
   }
 
   export type TypeEnseignementCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     modules?: boolean | TypeEnseignementCountOutputTypeCountModulesArgs
     exigencesEquipement?: boolean | TypeEnseignementCountOutputTypeCountExigencesEquipementArgs
     chargeCoefficients?: boolean | TypeEnseignementCountOutputTypeCountChargeCoefficientsArgs
+    affectations?: boolean | TypeEnseignementCountOutputTypeCountAffectationsArgs
   }
 
   // Custom InputTypes
@@ -6282,6 +6384,13 @@ export namespace Prisma {
    */
   export type TypeEnseignementCountOutputTypeCountChargeCoefficientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChargeCoefficientWhereInput
+  }
+
+  /**
+   * TypeEnseignementCountOutputType without action
+   */
+  export type TypeEnseignementCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AffectationWhereInput
   }
 
 
@@ -6342,12 +6451,14 @@ export namespace Prisma {
     enseignantModules: number
     exigencesEquipement: number
     moduleVolumes: number
+    affectations: number
   }
 
   export type ModuleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enseignantModules?: boolean | ModuleCountOutputTypeCountEnseignantModulesArgs
     exigencesEquipement?: boolean | ModuleCountOutputTypeCountExigencesEquipementArgs
     moduleVolumes?: boolean | ModuleCountOutputTypeCountModuleVolumesArgs
+    affectations?: boolean | ModuleCountOutputTypeCountAffectationsArgs
   }
 
   // Custom InputTypes
@@ -6380,6 +6491,13 @@ export namespace Prisma {
    */
   export type ModuleCountOutputTypeCountModuleVolumesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ModuleVolumeWhereInput
+  }
+
+  /**
+   * ModuleCountOutputType without action
+   */
+  export type ModuleCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AffectationWhereInput
   }
 
 
@@ -6430,11 +6548,13 @@ export namespace Prisma {
   export type ActivityTagCountOutputType = {
     typesEnseignement: number
     salleActivityTags: number
+    affectations: number
   }
 
   export type ActivityTagCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     typesEnseignement?: boolean | ActivityTagCountOutputTypeCountTypesEnseignementArgs
     salleActivityTags?: boolean | ActivityTagCountOutputTypeCountSalleActivityTagsArgs
+    affectations?: boolean | ActivityTagCountOutputTypeCountAffectationsArgs
   }
 
   // Custom InputTypes
@@ -6462,6 +6582,13 @@ export namespace Prisma {
     where?: SalleActivityTagWhereInput
   }
 
+  /**
+   * ActivityTagCountOutputType without action
+   */
+  export type ActivityTagCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AffectationWhereInput
+  }
+
 
   /**
    * Count Type EnseignantCountOutputType
@@ -6471,12 +6598,14 @@ export namespace Prisma {
     enseignantModules: number
     decharges: number
     indisponibilites: number
+    affectations: number
   }
 
   export type EnseignantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enseignantModules?: boolean | EnseignantCountOutputTypeCountEnseignantModulesArgs
     decharges?: boolean | EnseignantCountOutputTypeCountDechargesArgs
     indisponibilites?: boolean | EnseignantCountOutputTypeCountIndisponibilitesArgs
+    affectations?: boolean | EnseignantCountOutputTypeCountAffectationsArgs
   }
 
   // Custom InputTypes
@@ -6509,6 +6638,13 @@ export namespace Prisma {
    */
   export type EnseignantCountOutputTypeCountIndisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IndisponibiliteWhereInput
+  }
+
+  /**
+   * EnseignantCountOutputType without action
+   */
+  export type EnseignantCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AffectationWhereInput
   }
 
 
@@ -6691,6 +6827,37 @@ export namespace Prisma {
    */
   export type ContrainteDefinitionCountOutputTypeCountInstancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ContrainteInstanceWhereInput
+  }
+
+
+  /**
+   * Count Type RepartitionCountOutputType
+   */
+
+  export type RepartitionCountOutputType = {
+    affectations: number
+  }
+
+  export type RepartitionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    affectations?: boolean | RepartitionCountOutputTypeCountAffectationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RepartitionCountOutputType without action
+   */
+  export type RepartitionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RepartitionCountOutputType
+     */
+    select?: RepartitionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RepartitionCountOutputType without action
+   */
+  export type RepartitionCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AffectationWhereInput
   }
 
 
@@ -37065,6 +37232,7 @@ export namespace Prisma {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     parent?: boolean | Groupe$parentArgs<ExtArgs>
     enfants?: boolean | Groupe$enfantsArgs<ExtArgs>
+    affectations?: boolean | Groupe$affectationsArgs<ExtArgs>
     _count?: boolean | GroupeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["groupe"]>
 
@@ -37125,6 +37293,7 @@ export namespace Prisma {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     parent?: boolean | Groupe$parentArgs<ExtArgs>
     enfants?: boolean | Groupe$enfantsArgs<ExtArgs>
+    affectations?: boolean | Groupe$affectationsArgs<ExtArgs>
     _count?: boolean | GroupeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GroupeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -37145,6 +37314,7 @@ export namespace Prisma {
       semestre: Prisma.$SemestrePayload<ExtArgs>
       parent: Prisma.$GroupePayload<ExtArgs> | null
       enfants: Prisma.$GroupePayload<ExtArgs>[]
+      affectations: Prisma.$AffectationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -37557,6 +37727,7 @@ export namespace Prisma {
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     parent<T extends Groupe$parentArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$parentArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     enfants<T extends Groupe$enfantsArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$enfantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    affectations<T extends Groupe$affectationsArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$affectationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -38042,6 +38213,30 @@ export namespace Prisma {
   }
 
   /**
+   * Groupe.affectations
+   */
+  export type Groupe$affectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    where?: AffectationWhereInput
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    cursor?: AffectationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
+  }
+
+  /**
    * Groupe without action
    */
   export type GroupeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38236,6 +38431,7 @@ export namespace Prisma {
     modules?: boolean | TypeEnseignement$modulesArgs<ExtArgs>
     exigencesEquipement?: boolean | TypeEnseignement$exigencesEquipementArgs<ExtArgs>
     chargeCoefficients?: boolean | TypeEnseignement$chargeCoefficientsArgs<ExtArgs>
+    affectations?: boolean | TypeEnseignement$affectationsArgs<ExtArgs>
     _count?: boolean | TypeEnseignementCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["typeEnseignement"]>
 
@@ -38274,6 +38470,7 @@ export namespace Prisma {
     modules?: boolean | TypeEnseignement$modulesArgs<ExtArgs>
     exigencesEquipement?: boolean | TypeEnseignement$exigencesEquipementArgs<ExtArgs>
     chargeCoefficients?: boolean | TypeEnseignement$chargeCoefficientsArgs<ExtArgs>
+    affectations?: boolean | TypeEnseignement$affectationsArgs<ExtArgs>
     _count?: boolean | TypeEnseignementCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TypeEnseignementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38290,6 +38487,7 @@ export namespace Prisma {
       modules: Prisma.$ModulePayload<ExtArgs>[]
       exigencesEquipement: Prisma.$ExigenceEquipementPayload<ExtArgs>[]
       chargeCoefficients: Prisma.$ChargeCoefficientPayload<ExtArgs>[]
+      affectations: Prisma.$AffectationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -38696,6 +38894,7 @@ export namespace Prisma {
     modules<T extends TypeEnseignement$modulesArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignement$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exigencesEquipement<T extends TypeEnseignement$exigencesEquipementArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignement$exigencesEquipementArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chargeCoefficients<T extends TypeEnseignement$chargeCoefficientsArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignement$chargeCoefficientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChargeCoefficientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    affectations<T extends TypeEnseignement$affectationsArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignement$affectationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39220,6 +39419,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChargeCoefficientScalarFieldEnum | ChargeCoefficientScalarFieldEnum[]
+  }
+
+  /**
+   * TypeEnseignement.affectations
+   */
+  export type TypeEnseignement$affectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    where?: AffectationWhereInput
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    cursor?: AffectationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
   }
 
   /**
@@ -40640,6 +40863,7 @@ export namespace Prisma {
     enseignantModules?: boolean | Module$enseignantModulesArgs<ExtArgs>
     exigencesEquipement?: boolean | Module$exigencesEquipementArgs<ExtArgs>
     moduleVolumes?: boolean | Module$moduleVolumesArgs<ExtArgs>
+    affectations?: boolean | Module$affectationsArgs<ExtArgs>
     _count?: boolean | ModuleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["module"]>
 
@@ -40702,6 +40926,7 @@ export namespace Prisma {
     enseignantModules?: boolean | Module$enseignantModulesArgs<ExtArgs>
     exigencesEquipement?: boolean | Module$exigencesEquipementArgs<ExtArgs>
     moduleVolumes?: boolean | Module$moduleVolumesArgs<ExtArgs>
+    affectations?: boolean | Module$affectationsArgs<ExtArgs>
     _count?: boolean | ModuleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ModuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -40724,6 +40949,7 @@ export namespace Prisma {
       enseignantModules: Prisma.$EnseignantModulePayload<ExtArgs>[]
       exigencesEquipement: Prisma.$ExigenceEquipementPayload<ExtArgs>[]
       moduleVolumes: Prisma.$ModuleVolumePayload<ExtArgs>[]
+      affectations: Prisma.$AffectationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -41138,6 +41364,7 @@ export namespace Prisma {
     enseignantModules<T extends Module$enseignantModulesArgs<ExtArgs> = {}>(args?: Subset<T, Module$enseignantModulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exigencesEquipement<T extends Module$exigencesEquipementArgs<ExtArgs> = {}>(args?: Subset<T, Module$exigencesEquipementArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     moduleVolumes<T extends Module$moduleVolumesArgs<ExtArgs> = {}>(args?: Subset<T, Module$moduleVolumesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModuleVolumePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    affectations<T extends Module$affectationsArgs<ExtArgs> = {}>(args?: Subset<T, Module$affectationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -41668,6 +41895,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ModuleVolumeScalarFieldEnum | ModuleVolumeScalarFieldEnum[]
+  }
+
+  /**
+   * Module.affectations
+   */
+  export type Module$affectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    where?: AffectationWhereInput
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    cursor?: AffectationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
   }
 
   /**
@@ -46453,6 +46704,7 @@ export namespace Prisma {
     updatedAt?: boolean
     typesEnseignement?: boolean | ActivityTag$typesEnseignementArgs<ExtArgs>
     salleActivityTags?: boolean | ActivityTag$salleActivityTagsArgs<ExtArgs>
+    affectations?: boolean | ActivityTag$affectationsArgs<ExtArgs>
     _count?: boolean | ActivityTagCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["activityTag"]>
 
@@ -46487,6 +46739,7 @@ export namespace Prisma {
   export type ActivityTagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     typesEnseignement?: boolean | ActivityTag$typesEnseignementArgs<ExtArgs>
     salleActivityTags?: boolean | ActivityTag$salleActivityTagsArgs<ExtArgs>
+    affectations?: boolean | ActivityTag$affectationsArgs<ExtArgs>
     _count?: boolean | ActivityTagCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ActivityTagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -46497,6 +46750,7 @@ export namespace Prisma {
     objects: {
       typesEnseignement: Prisma.$TypeEnseignementPayload<ExtArgs>[]
       salleActivityTags: Prisma.$SalleActivityTagPayload<ExtArgs>[]
+      affectations: Prisma.$AffectationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -46901,6 +47155,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     typesEnseignement<T extends ActivityTag$typesEnseignementArgs<ExtArgs> = {}>(args?: Subset<T, ActivityTag$typesEnseignementArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TypeEnseignementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salleActivityTags<T extends ActivityTag$salleActivityTagsArgs<ExtArgs> = {}>(args?: Subset<T, ActivityTag$salleActivityTagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleActivityTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    affectations<T extends ActivityTag$affectationsArgs<ExtArgs> = {}>(args?: Subset<T, ActivityTag$affectationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -47377,6 +47632,30 @@ export namespace Prisma {
   }
 
   /**
+   * ActivityTag.affectations
+   */
+  export type ActivityTag$affectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    where?: AffectationWhereInput
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    cursor?: AffectationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
+  }
+
+  /**
    * ActivityTag without action
    */
   export type ActivityTagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -47629,6 +47908,7 @@ export namespace Prisma {
     enseignantModules?: boolean | Enseignant$enseignantModulesArgs<ExtArgs>
     decharges?: boolean | Enseignant$dechargesArgs<ExtArgs>
     indisponibilites?: boolean | Enseignant$indisponibilitesArgs<ExtArgs>
+    affectations?: boolean | Enseignant$affectationsArgs<ExtArgs>
     _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enseignant"]>
 
@@ -47694,6 +47974,7 @@ export namespace Prisma {
     enseignantModules?: boolean | Enseignant$enseignantModulesArgs<ExtArgs>
     decharges?: boolean | Enseignant$dechargesArgs<ExtArgs>
     indisponibilites?: boolean | Enseignant$indisponibilitesArgs<ExtArgs>
+    affectations?: boolean | Enseignant$affectationsArgs<ExtArgs>
     _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EnseignantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -47716,6 +47997,7 @@ export namespace Prisma {
       enseignantModules: Prisma.$EnseignantModulePayload<ExtArgs>[]
       decharges: Prisma.$DechargePayload<ExtArgs>[]
       indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
+      affectations: Prisma.$AffectationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -48131,6 +48413,7 @@ export namespace Prisma {
     enseignantModules<T extends Enseignant$enseignantModulesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$enseignantModulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnseignantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     decharges<T extends Enseignant$dechargesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$dechargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     indisponibilites<T extends Enseignant$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    affectations<T extends Enseignant$affectationsArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$affectationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -48662,6 +48945,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
+  }
+
+  /**
+   * Enseignant.affectations
+   */
+  export type Enseignant$affectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    where?: AffectationWhereInput
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    cursor?: AffectationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
   }
 
   /**
@@ -62397,6 +62704,8 @@ export namespace Prisma {
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    affectations?: boolean | Repartition$affectationsArgs<ExtArgs>
+    _count?: boolean | RepartitionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["repartition"]>
 
   export type RepartitionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -62437,6 +62746,8 @@ export namespace Prisma {
   export type RepartitionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     departement?: boolean | DepartementDefaultArgs<ExtArgs>
+    affectations?: boolean | Repartition$affectationsArgs<ExtArgs>
+    _count?: boolean | RepartitionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RepartitionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -62452,6 +62763,7 @@ export namespace Prisma {
     objects: {
       semestre: Prisma.$SemestrePayload<ExtArgs>
       departement: Prisma.$DepartementPayload<ExtArgs>
+      affectations: Prisma.$AffectationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -62857,6 +63169,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     departement<T extends DepartementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartementDefaultArgs<ExtArgs>>): Prisma__DepartementClient<$Result.GetResult<Prisma.$DepartementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    affectations<T extends Repartition$affectationsArgs<ExtArgs> = {}>(args?: Subset<T, Repartition$affectationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -63294,6 +63607,30 @@ export namespace Prisma {
   }
 
   /**
+   * Repartition.affectations
+   */
+  export type Repartition$affectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    where?: AffectationWhereInput
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    cursor?: AffectationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
+  }
+
+  /**
    * Repartition without action
    */
   export type RepartitionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -63309,6 +63646,1310 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: RepartitionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Affectation
+   */
+
+  export type AggregateAffectation = {
+    _count: AffectationCountAggregateOutputType | null
+    _avg: AffectationAvgAggregateOutputType | null
+    _sum: AffectationSumAggregateOutputType | null
+    _min: AffectationMinAggregateOutputType | null
+    _max: AffectationMaxAggregateOutputType | null
+  }
+
+  export type AffectationAvgAggregateOutputType = {
+    volumeHebdoMinutes: number | null
+    seancesParSemaine: number | null
+    dureeMinutes: number | null
+    workingRevision: number | null
+  }
+
+  export type AffectationSumAggregateOutputType = {
+    volumeHebdoMinutes: number | null
+    seancesParSemaine: number | null
+    dureeMinutes: number | null
+    workingRevision: number | null
+  }
+
+  export type AffectationMinAggregateOutputType = {
+    id: string | null
+    repartitionId: string | null
+    enseignantId: string | null
+    groupeId: string | null
+    moduleId: string | null
+    typeEnseignementId: string | null
+    activityTagId: string | null
+    volumeHebdoMinutes: number | null
+    seancesParSemaine: number | null
+    dureeMinutes: number | null
+    estCmCommun: boolean | null
+    workingRevision: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AffectationMaxAggregateOutputType = {
+    id: string | null
+    repartitionId: string | null
+    enseignantId: string | null
+    groupeId: string | null
+    moduleId: string | null
+    typeEnseignementId: string | null
+    activityTagId: string | null
+    volumeHebdoMinutes: number | null
+    seancesParSemaine: number | null
+    dureeMinutes: number | null
+    estCmCommun: boolean | null
+    workingRevision: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AffectationCountAggregateOutputType = {
+    id: number
+    repartitionId: number
+    enseignantId: number
+    groupeId: number
+    moduleId: number
+    typeEnseignementId: number
+    activityTagId: number
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun: number
+    workingRevision: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AffectationAvgAggregateInputType = {
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    workingRevision?: true
+  }
+
+  export type AffectationSumAggregateInputType = {
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    workingRevision?: true
+  }
+
+  export type AffectationMinAggregateInputType = {
+    id?: true
+    repartitionId?: true
+    enseignantId?: true
+    groupeId?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    estCmCommun?: true
+    workingRevision?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AffectationMaxAggregateInputType = {
+    id?: true
+    repartitionId?: true
+    enseignantId?: true
+    groupeId?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    estCmCommun?: true
+    workingRevision?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AffectationCountAggregateInputType = {
+    id?: true
+    repartitionId?: true
+    enseignantId?: true
+    groupeId?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    volumeHebdoMinutes?: true
+    seancesParSemaine?: true
+    dureeMinutes?: true
+    estCmCommun?: true
+    workingRevision?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AffectationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Affectation to aggregate.
+     */
+    where?: AffectationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Affectations to fetch.
+     */
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AffectationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Affectations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Affectations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Affectations
+    **/
+    _count?: true | AffectationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AffectationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AffectationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AffectationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AffectationMaxAggregateInputType
+  }
+
+  export type GetAffectationAggregateType<T extends AffectationAggregateArgs> = {
+        [P in keyof T & keyof AggregateAffectation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAffectation[P]>
+      : GetScalarType<T[P], AggregateAffectation[P]>
+  }
+
+
+
+
+  export type AffectationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AffectationWhereInput
+    orderBy?: AffectationOrderByWithAggregationInput | AffectationOrderByWithAggregationInput[]
+    by: AffectationScalarFieldEnum[] | AffectationScalarFieldEnum
+    having?: AffectationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AffectationCountAggregateInputType | true
+    _avg?: AffectationAvgAggregateInputType
+    _sum?: AffectationSumAggregateInputType
+    _min?: AffectationMinAggregateInputType
+    _max?: AffectationMaxAggregateInputType
+  }
+
+  export type AffectationGroupByOutputType = {
+    id: string
+    repartitionId: string
+    enseignantId: string
+    groupeId: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun: boolean
+    workingRevision: number
+    createdAt: Date
+    updatedAt: Date
+    _count: AffectationCountAggregateOutputType | null
+    _avg: AffectationAvgAggregateOutputType | null
+    _sum: AffectationSumAggregateOutputType | null
+    _min: AffectationMinAggregateOutputType | null
+    _max: AffectationMaxAggregateOutputType | null
+  }
+
+  type GetAffectationGroupByPayload<T extends AffectationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AffectationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AffectationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AffectationGroupByOutputType[P]>
+            : GetScalarType<T[P], AffectationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AffectationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    repartitionId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    volumeHebdoMinutes?: boolean
+    seancesParSemaine?: boolean
+    dureeMinutes?: boolean
+    estCmCommun?: boolean
+    workingRevision?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    repartition?: boolean | RepartitionDefaultArgs<ExtArgs>
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    groupe?: boolean | Affectation$groupeArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+    typeEnseignement?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+    activityTag?: boolean | Affectation$activityTagArgs<ExtArgs>
+  }, ExtArgs["result"]["affectation"]>
+
+  export type AffectationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    repartitionId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    volumeHebdoMinutes?: boolean
+    seancesParSemaine?: boolean
+    dureeMinutes?: boolean
+    estCmCommun?: boolean
+    workingRevision?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    repartition?: boolean | RepartitionDefaultArgs<ExtArgs>
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    groupe?: boolean | Affectation$groupeArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+    typeEnseignement?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+    activityTag?: boolean | Affectation$activityTagArgs<ExtArgs>
+  }, ExtArgs["result"]["affectation"]>
+
+  export type AffectationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    repartitionId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    volumeHebdoMinutes?: boolean
+    seancesParSemaine?: boolean
+    dureeMinutes?: boolean
+    estCmCommun?: boolean
+    workingRevision?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    repartition?: boolean | RepartitionDefaultArgs<ExtArgs>
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    groupe?: boolean | Affectation$groupeArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+    typeEnseignement?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+    activityTag?: boolean | Affectation$activityTagArgs<ExtArgs>
+  }, ExtArgs["result"]["affectation"]>
+
+  export type AffectationSelectScalar = {
+    id?: boolean
+    repartitionId?: boolean
+    enseignantId?: boolean
+    groupeId?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    volumeHebdoMinutes?: boolean
+    seancesParSemaine?: boolean
+    dureeMinutes?: boolean
+    estCmCommun?: boolean
+    workingRevision?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AffectationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "repartitionId" | "enseignantId" | "groupeId" | "moduleId" | "typeEnseignementId" | "activityTagId" | "volumeHebdoMinutes" | "seancesParSemaine" | "dureeMinutes" | "estCmCommun" | "workingRevision" | "createdAt" | "updatedAt", ExtArgs["result"]["affectation"]>
+  export type AffectationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    repartition?: boolean | RepartitionDefaultArgs<ExtArgs>
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    groupe?: boolean | Affectation$groupeArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+    typeEnseignement?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+    activityTag?: boolean | Affectation$activityTagArgs<ExtArgs>
+  }
+  export type AffectationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    repartition?: boolean | RepartitionDefaultArgs<ExtArgs>
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    groupe?: boolean | Affectation$groupeArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+    typeEnseignement?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+    activityTag?: boolean | Affectation$activityTagArgs<ExtArgs>
+  }
+  export type AffectationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    repartition?: boolean | RepartitionDefaultArgs<ExtArgs>
+    enseignant?: boolean | EnseignantDefaultArgs<ExtArgs>
+    groupe?: boolean | Affectation$groupeArgs<ExtArgs>
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+    typeEnseignement?: boolean | TypeEnseignementDefaultArgs<ExtArgs>
+    activityTag?: boolean | Affectation$activityTagArgs<ExtArgs>
+  }
+
+  export type $AffectationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Affectation"
+    objects: {
+      repartition: Prisma.$RepartitionPayload<ExtArgs>
+      enseignant: Prisma.$EnseignantPayload<ExtArgs>
+      groupe: Prisma.$GroupePayload<ExtArgs> | null
+      module: Prisma.$ModulePayload<ExtArgs>
+      typeEnseignement: Prisma.$TypeEnseignementPayload<ExtArgs>
+      activityTag: Prisma.$ActivityTagPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      repartitionId: string
+      enseignantId: string
+      groupeId: string | null
+      moduleId: string
+      typeEnseignementId: string
+      activityTagId: string | null
+      volumeHebdoMinutes: number
+      seancesParSemaine: number
+      dureeMinutes: number
+      estCmCommun: boolean
+      workingRevision: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["affectation"]>
+    composites: {}
+  }
+
+  type AffectationGetPayload<S extends boolean | null | undefined | AffectationDefaultArgs> = $Result.GetResult<Prisma.$AffectationPayload, S>
+
+  type AffectationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AffectationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AffectationCountAggregateInputType | true
+    }
+
+  export interface AffectationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Affectation'], meta: { name: 'Affectation' } }
+    /**
+     * Find zero or one Affectation that matches the filter.
+     * @param {AffectationFindUniqueArgs} args - Arguments to find a Affectation
+     * @example
+     * // Get one Affectation
+     * const affectation = await prisma.affectation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AffectationFindUniqueArgs>(args: SelectSubset<T, AffectationFindUniqueArgs<ExtArgs>>): Prisma__AffectationClient<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Affectation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AffectationFindUniqueOrThrowArgs} args - Arguments to find a Affectation
+     * @example
+     * // Get one Affectation
+     * const affectation = await prisma.affectation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AffectationFindUniqueOrThrowArgs>(args: SelectSubset<T, AffectationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AffectationClient<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Affectation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AffectationFindFirstArgs} args - Arguments to find a Affectation
+     * @example
+     * // Get one Affectation
+     * const affectation = await prisma.affectation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AffectationFindFirstArgs>(args?: SelectSubset<T, AffectationFindFirstArgs<ExtArgs>>): Prisma__AffectationClient<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Affectation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AffectationFindFirstOrThrowArgs} args - Arguments to find a Affectation
+     * @example
+     * // Get one Affectation
+     * const affectation = await prisma.affectation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AffectationFindFirstOrThrowArgs>(args?: SelectSubset<T, AffectationFindFirstOrThrowArgs<ExtArgs>>): Prisma__AffectationClient<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Affectations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AffectationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Affectations
+     * const affectations = await prisma.affectation.findMany()
+     * 
+     * // Get first 10 Affectations
+     * const affectations = await prisma.affectation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const affectationWithIdOnly = await prisma.affectation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AffectationFindManyArgs>(args?: SelectSubset<T, AffectationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Affectation.
+     * @param {AffectationCreateArgs} args - Arguments to create a Affectation.
+     * @example
+     * // Create one Affectation
+     * const Affectation = await prisma.affectation.create({
+     *   data: {
+     *     // ... data to create a Affectation
+     *   }
+     * })
+     * 
+     */
+    create<T extends AffectationCreateArgs>(args: SelectSubset<T, AffectationCreateArgs<ExtArgs>>): Prisma__AffectationClient<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Affectations.
+     * @param {AffectationCreateManyArgs} args - Arguments to create many Affectations.
+     * @example
+     * // Create many Affectations
+     * const affectation = await prisma.affectation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AffectationCreateManyArgs>(args?: SelectSubset<T, AffectationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Affectations and returns the data saved in the database.
+     * @param {AffectationCreateManyAndReturnArgs} args - Arguments to create many Affectations.
+     * @example
+     * // Create many Affectations
+     * const affectation = await prisma.affectation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Affectations and only return the `id`
+     * const affectationWithIdOnly = await prisma.affectation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AffectationCreateManyAndReturnArgs>(args?: SelectSubset<T, AffectationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Affectation.
+     * @param {AffectationDeleteArgs} args - Arguments to delete one Affectation.
+     * @example
+     * // Delete one Affectation
+     * const Affectation = await prisma.affectation.delete({
+     *   where: {
+     *     // ... filter to delete one Affectation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AffectationDeleteArgs>(args: SelectSubset<T, AffectationDeleteArgs<ExtArgs>>): Prisma__AffectationClient<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Affectation.
+     * @param {AffectationUpdateArgs} args - Arguments to update one Affectation.
+     * @example
+     * // Update one Affectation
+     * const affectation = await prisma.affectation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AffectationUpdateArgs>(args: SelectSubset<T, AffectationUpdateArgs<ExtArgs>>): Prisma__AffectationClient<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Affectations.
+     * @param {AffectationDeleteManyArgs} args - Arguments to filter Affectations to delete.
+     * @example
+     * // Delete a few Affectations
+     * const { count } = await prisma.affectation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AffectationDeleteManyArgs>(args?: SelectSubset<T, AffectationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Affectations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AffectationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Affectations
+     * const affectation = await prisma.affectation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AffectationUpdateManyArgs>(args: SelectSubset<T, AffectationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Affectations and returns the data updated in the database.
+     * @param {AffectationUpdateManyAndReturnArgs} args - Arguments to update many Affectations.
+     * @example
+     * // Update many Affectations
+     * const affectation = await prisma.affectation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Affectations and only return the `id`
+     * const affectationWithIdOnly = await prisma.affectation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AffectationUpdateManyAndReturnArgs>(args: SelectSubset<T, AffectationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Affectation.
+     * @param {AffectationUpsertArgs} args - Arguments to update or create a Affectation.
+     * @example
+     * // Update or create a Affectation
+     * const affectation = await prisma.affectation.upsert({
+     *   create: {
+     *     // ... data to create a Affectation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Affectation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AffectationUpsertArgs>(args: SelectSubset<T, AffectationUpsertArgs<ExtArgs>>): Prisma__AffectationClient<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Affectations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AffectationCountArgs} args - Arguments to filter Affectations to count.
+     * @example
+     * // Count the number of Affectations
+     * const count = await prisma.affectation.count({
+     *   where: {
+     *     // ... the filter for the Affectations we want to count
+     *   }
+     * })
+    **/
+    count<T extends AffectationCountArgs>(
+      args?: Subset<T, AffectationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AffectationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Affectation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AffectationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AffectationAggregateArgs>(args: Subset<T, AffectationAggregateArgs>): Prisma.PrismaPromise<GetAffectationAggregateType<T>>
+
+    /**
+     * Group by Affectation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AffectationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AffectationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AffectationGroupByArgs['orderBy'] }
+        : { orderBy?: AffectationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AffectationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAffectationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Affectation model
+   */
+  readonly fields: AffectationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Affectation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AffectationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    repartition<T extends RepartitionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RepartitionDefaultArgs<ExtArgs>>): Prisma__RepartitionClient<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    enseignant<T extends EnseignantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EnseignantDefaultArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    groupe<T extends Affectation$groupeArgs<ExtArgs> = {}>(args?: Subset<T, Affectation$groupeArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    module<T extends ModuleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ModuleDefaultArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    typeEnseignement<T extends TypeEnseignementDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TypeEnseignementDefaultArgs<ExtArgs>>): Prisma__TypeEnseignementClient<$Result.GetResult<Prisma.$TypeEnseignementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    activityTag<T extends Affectation$activityTagArgs<ExtArgs> = {}>(args?: Subset<T, Affectation$activityTagArgs<ExtArgs>>): Prisma__ActivityTagClient<$Result.GetResult<Prisma.$ActivityTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Affectation model
+   */
+  interface AffectationFieldRefs {
+    readonly id: FieldRef<"Affectation", 'String'>
+    readonly repartitionId: FieldRef<"Affectation", 'String'>
+    readonly enseignantId: FieldRef<"Affectation", 'String'>
+    readonly groupeId: FieldRef<"Affectation", 'String'>
+    readonly moduleId: FieldRef<"Affectation", 'String'>
+    readonly typeEnseignementId: FieldRef<"Affectation", 'String'>
+    readonly activityTagId: FieldRef<"Affectation", 'String'>
+    readonly volumeHebdoMinutes: FieldRef<"Affectation", 'Int'>
+    readonly seancesParSemaine: FieldRef<"Affectation", 'Int'>
+    readonly dureeMinutes: FieldRef<"Affectation", 'Int'>
+    readonly estCmCommun: FieldRef<"Affectation", 'Boolean'>
+    readonly workingRevision: FieldRef<"Affectation", 'Int'>
+    readonly createdAt: FieldRef<"Affectation", 'DateTime'>
+    readonly updatedAt: FieldRef<"Affectation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Affectation findUnique
+   */
+  export type AffectationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * Filter, which Affectation to fetch.
+     */
+    where: AffectationWhereUniqueInput
+  }
+
+  /**
+   * Affectation findUniqueOrThrow
+   */
+  export type AffectationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * Filter, which Affectation to fetch.
+     */
+    where: AffectationWhereUniqueInput
+  }
+
+  /**
+   * Affectation findFirst
+   */
+  export type AffectationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * Filter, which Affectation to fetch.
+     */
+    where?: AffectationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Affectations to fetch.
+     */
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Affectations.
+     */
+    cursor?: AffectationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Affectations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Affectations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Affectations.
+     */
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
+  }
+
+  /**
+   * Affectation findFirstOrThrow
+   */
+  export type AffectationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * Filter, which Affectation to fetch.
+     */
+    where?: AffectationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Affectations to fetch.
+     */
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Affectations.
+     */
+    cursor?: AffectationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Affectations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Affectations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Affectations.
+     */
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
+  }
+
+  /**
+   * Affectation findMany
+   */
+  export type AffectationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * Filter, which Affectations to fetch.
+     */
+    where?: AffectationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Affectations to fetch.
+     */
+    orderBy?: AffectationOrderByWithRelationInput | AffectationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Affectations.
+     */
+    cursor?: AffectationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Affectations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Affectations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Affectations.
+     */
+    distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
+  }
+
+  /**
+   * Affectation create
+   */
+  export type AffectationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Affectation.
+     */
+    data: XOR<AffectationCreateInput, AffectationUncheckedCreateInput>
+  }
+
+  /**
+   * Affectation createMany
+   */
+  export type AffectationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Affectations.
+     */
+    data: AffectationCreateManyInput | AffectationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Affectation createManyAndReturn
+   */
+  export type AffectationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Affectations.
+     */
+    data: AffectationCreateManyInput | AffectationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Affectation update
+   */
+  export type AffectationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Affectation.
+     */
+    data: XOR<AffectationUpdateInput, AffectationUncheckedUpdateInput>
+    /**
+     * Choose, which Affectation to update.
+     */
+    where: AffectationWhereUniqueInput
+  }
+
+  /**
+   * Affectation updateMany
+   */
+  export type AffectationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Affectations.
+     */
+    data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyInput>
+    /**
+     * Filter which Affectations to update
+     */
+    where?: AffectationWhereInput
+    /**
+     * Limit how many Affectations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Affectation updateManyAndReturn
+   */
+  export type AffectationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * The data used to update Affectations.
+     */
+    data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyInput>
+    /**
+     * Filter which Affectations to update
+     */
+    where?: AffectationWhereInput
+    /**
+     * Limit how many Affectations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Affectation upsert
+   */
+  export type AffectationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Affectation to update in case it exists.
+     */
+    where: AffectationWhereUniqueInput
+    /**
+     * In case the Affectation found by the `where` argument doesn't exist, create a new Affectation with this data.
+     */
+    create: XOR<AffectationCreateInput, AffectationUncheckedCreateInput>
+    /**
+     * In case the Affectation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AffectationUpdateInput, AffectationUncheckedUpdateInput>
+  }
+
+  /**
+   * Affectation delete
+   */
+  export type AffectationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
+    /**
+     * Filter which Affectation to delete.
+     */
+    where: AffectationWhereUniqueInput
+  }
+
+  /**
+   * Affectation deleteMany
+   */
+  export type AffectationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Affectations to delete
+     */
+    where?: AffectationWhereInput
+    /**
+     * Limit how many Affectations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Affectation.groupe
+   */
+  export type Affectation$groupeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groupe
+     */
+    select?: GroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Groupe
+     */
+    omit?: GroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeInclude<ExtArgs> | null
+    where?: GroupeWhereInput
+  }
+
+  /**
+   * Affectation.activityTag
+   */
+  export type Affectation$activityTagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityTag
+     */
+    select?: ActivityTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityTag
+     */
+    omit?: ActivityTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityTagInclude<ExtArgs> | null
+    where?: ActivityTagWhereInput
+  }
+
+  /**
+   * Affectation without action
+   */
+  export type AffectationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Affectation
+     */
+    select?: AffectationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Affectation
+     */
+    omit?: AffectationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AffectationInclude<ExtArgs> | null
   }
 
 
@@ -63996,6 +65637,26 @@ export namespace Prisma {
   };
 
   export type RepartitionScalarFieldEnum = (typeof RepartitionScalarFieldEnum)[keyof typeof RepartitionScalarFieldEnum]
+
+
+  export const AffectationScalarFieldEnum: {
+    id: 'id',
+    repartitionId: 'repartitionId',
+    enseignantId: 'enseignantId',
+    groupeId: 'groupeId',
+    moduleId: 'moduleId',
+    typeEnseignementId: 'typeEnseignementId',
+    activityTagId: 'activityTagId',
+    volumeHebdoMinutes: 'volumeHebdoMinutes',
+    seancesParSemaine: 'seancesParSemaine',
+    dureeMinutes: 'dureeMinutes',
+    estCmCommun: 'estCmCommun',
+    workingRevision: 'workingRevision',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AffectationScalarFieldEnum = (typeof AffectationScalarFieldEnum)[keyof typeof AffectationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -66483,6 +68144,7 @@ export namespace Prisma {
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     parent?: XOR<GroupeNullableScalarRelationFilter, GroupeWhereInput> | null
     enfants?: GroupeListRelationFilter
+    affectations?: AffectationListRelationFilter
   }
 
   export type GroupeOrderByWithRelationInput = {
@@ -66502,6 +68164,7 @@ export namespace Prisma {
     semestre?: SemestreOrderByWithRelationInput
     parent?: GroupeOrderByWithRelationInput
     enfants?: GroupeOrderByRelationAggregateInput
+    affectations?: AffectationOrderByRelationAggregateInput
   }
 
   export type GroupeWhereUniqueInput = Prisma.AtLeast<{
@@ -66525,6 +68188,7 @@ export namespace Prisma {
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     parent?: XOR<GroupeNullableScalarRelationFilter, GroupeWhereInput> | null
     enfants?: GroupeListRelationFilter
+    affectations?: AffectationListRelationFilter
   }, "id" | "niveauId_semestreId_code">
 
   export type GroupeOrderByWithAggregationInput = {
@@ -66579,6 +68243,7 @@ export namespace Prisma {
     modules?: ModuleListRelationFilter
     exigencesEquipement?: ExigenceEquipementListRelationFilter
     chargeCoefficients?: ChargeCoefficientListRelationFilter
+    affectations?: AffectationListRelationFilter
   }
 
   export type TypeEnseignementOrderByWithRelationInput = {
@@ -66592,6 +68257,7 @@ export namespace Prisma {
     modules?: ModuleOrderByRelationAggregateInput
     exigencesEquipement?: ExigenceEquipementOrderByRelationAggregateInput
     chargeCoefficients?: ChargeCoefficientOrderByRelationAggregateInput
+    affectations?: AffectationOrderByRelationAggregateInput
   }
 
   export type TypeEnseignementWhereUniqueInput = Prisma.AtLeast<{
@@ -66608,6 +68274,7 @@ export namespace Prisma {
     modules?: ModuleListRelationFilter
     exigencesEquipement?: ExigenceEquipementListRelationFilter
     chargeCoefficients?: ChargeCoefficientListRelationFilter
+    affectations?: AffectationListRelationFilter
   }, "id" | "code">
 
   export type TypeEnseignementOrderByWithAggregationInput = {
@@ -66717,6 +68384,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleListRelationFilter
     exigencesEquipement?: ExigenceEquipementListRelationFilter
     moduleVolumes?: ModuleVolumeListRelationFilter
+    affectations?: AffectationListRelationFilter
   }
 
   export type ModuleOrderByWithRelationInput = {
@@ -66738,6 +68406,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleOrderByRelationAggregateInput
     exigencesEquipement?: ExigenceEquipementOrderByRelationAggregateInput
     moduleVolumes?: ModuleVolumeOrderByRelationAggregateInput
+    affectations?: AffectationOrderByRelationAggregateInput
   }
 
   export type ModuleWhereUniqueInput = Prisma.AtLeast<{
@@ -66763,6 +68432,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleListRelationFilter
     exigencesEquipement?: ExigenceEquipementListRelationFilter
     moduleVolumes?: ModuleVolumeListRelationFilter
+    affectations?: AffectationListRelationFilter
   }, "id" | "niveauId_code_semestreNumero">
 
   export type ModuleOrderByWithAggregationInput = {
@@ -67088,6 +68758,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ActivityTag"> | Date | string
     typesEnseignement?: TypeEnseignementListRelationFilter
     salleActivityTags?: SalleActivityTagListRelationFilter
+    affectations?: AffectationListRelationFilter
   }
 
   export type ActivityTagOrderByWithRelationInput = {
@@ -67099,6 +68770,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     typesEnseignement?: TypeEnseignementOrderByRelationAggregateInput
     salleActivityTags?: SalleActivityTagOrderByRelationAggregateInput
+    affectations?: AffectationOrderByRelationAggregateInput
   }
 
   export type ActivityTagWhereUniqueInput = Prisma.AtLeast<{
@@ -67113,6 +68785,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ActivityTag"> | Date | string
     typesEnseignement?: TypeEnseignementListRelationFilter
     salleActivityTags?: SalleActivityTagListRelationFilter
+    affectations?: AffectationListRelationFilter
   }, "id" | "code">
 
   export type ActivityTagOrderByWithAggregationInput = {
@@ -67162,6 +68835,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleListRelationFilter
     decharges?: DechargeListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
+    affectations?: AffectationListRelationFilter
   }
 
   export type EnseignantOrderByWithRelationInput = {
@@ -67184,6 +68858,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleOrderByRelationAggregateInput
     decharges?: DechargeOrderByRelationAggregateInput
     indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
+    affectations?: AffectationOrderByRelationAggregateInput
   }
 
   export type EnseignantWhereUniqueInput = Prisma.AtLeast<{
@@ -67210,6 +68885,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleListRelationFilter
     decharges?: DechargeListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
+    affectations?: AffectationListRelationFilter
   }, "id" | "email" | "anneeId_matricule">
 
   export type EnseignantOrderByWithAggregationInput = {
@@ -68097,6 +69773,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Repartition"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
+    affectations?: AffectationListRelationFilter
   }
 
   export type RepartitionOrderByWithRelationInput = {
@@ -68109,6 +69786,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
     departement?: DepartementOrderByWithRelationInput
+    affectations?: AffectationOrderByRelationAggregateInput
   }
 
   export type RepartitionWhereUniqueInput = Prisma.AtLeast<{
@@ -68125,6 +69803,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Repartition"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     departement?: XOR<DepartementScalarRelationFilter, DepartementWhereInput>
+    affectations?: AffectationListRelationFilter
   }, "id" | "semestreId_departementId">
 
   export type RepartitionOrderByWithAggregationInput = {
@@ -68151,6 +69830,124 @@ export namespace Prisma {
     libelle?: StringNullableWithAggregatesFilter<"Repartition"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Repartition"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Repartition"> | Date | string
+  }
+
+  export type AffectationWhereInput = {
+    AND?: AffectationWhereInput | AffectationWhereInput[]
+    OR?: AffectationWhereInput[]
+    NOT?: AffectationWhereInput | AffectationWhereInput[]
+    id?: UuidFilter<"Affectation"> | string
+    repartitionId?: UuidFilter<"Affectation"> | string
+    enseignantId?: UuidFilter<"Affectation"> | string
+    groupeId?: UuidNullableFilter<"Affectation"> | string | null
+    moduleId?: UuidFilter<"Affectation"> | string
+    typeEnseignementId?: UuidFilter<"Affectation"> | string
+    activityTagId?: UuidNullableFilter<"Affectation"> | string | null
+    volumeHebdoMinutes?: IntFilter<"Affectation"> | number
+    seancesParSemaine?: IntFilter<"Affectation"> | number
+    dureeMinutes?: IntFilter<"Affectation"> | number
+    estCmCommun?: BoolFilter<"Affectation"> | boolean
+    workingRevision?: IntFilter<"Affectation"> | number
+    createdAt?: DateTimeFilter<"Affectation"> | Date | string
+    updatedAt?: DateTimeFilter<"Affectation"> | Date | string
+    repartition?: XOR<RepartitionScalarRelationFilter, RepartitionWhereInput>
+    enseignant?: XOR<EnseignantScalarRelationFilter, EnseignantWhereInput>
+    groupe?: XOR<GroupeNullableScalarRelationFilter, GroupeWhereInput> | null
+    module?: XOR<ModuleScalarRelationFilter, ModuleWhereInput>
+    typeEnseignement?: XOR<TypeEnseignementScalarRelationFilter, TypeEnseignementWhereInput>
+    activityTag?: XOR<ActivityTagNullableScalarRelationFilter, ActivityTagWhereInput> | null
+  }
+
+  export type AffectationOrderByWithRelationInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrderInput | SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrderInput | SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    repartition?: RepartitionOrderByWithRelationInput
+    enseignant?: EnseignantOrderByWithRelationInput
+    groupe?: GroupeOrderByWithRelationInput
+    module?: ModuleOrderByWithRelationInput
+    typeEnseignement?: TypeEnseignementOrderByWithRelationInput
+    activityTag?: ActivityTagOrderByWithRelationInput
+  }
+
+  export type AffectationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    repartitionId_enseignantId_moduleId_typeEnseignementId_groupeId?: AffectationRepartitionIdEnseignantIdModuleIdTypeEnseignementIdGroupeIdCompoundUniqueInput
+    AND?: AffectationWhereInput | AffectationWhereInput[]
+    OR?: AffectationWhereInput[]
+    NOT?: AffectationWhereInput | AffectationWhereInput[]
+    repartitionId?: UuidFilter<"Affectation"> | string
+    enseignantId?: UuidFilter<"Affectation"> | string
+    groupeId?: UuidNullableFilter<"Affectation"> | string | null
+    moduleId?: UuidFilter<"Affectation"> | string
+    typeEnseignementId?: UuidFilter<"Affectation"> | string
+    activityTagId?: UuidNullableFilter<"Affectation"> | string | null
+    volumeHebdoMinutes?: IntFilter<"Affectation"> | number
+    seancesParSemaine?: IntFilter<"Affectation"> | number
+    dureeMinutes?: IntFilter<"Affectation"> | number
+    estCmCommun?: BoolFilter<"Affectation"> | boolean
+    workingRevision?: IntFilter<"Affectation"> | number
+    createdAt?: DateTimeFilter<"Affectation"> | Date | string
+    updatedAt?: DateTimeFilter<"Affectation"> | Date | string
+    repartition?: XOR<RepartitionScalarRelationFilter, RepartitionWhereInput>
+    enseignant?: XOR<EnseignantScalarRelationFilter, EnseignantWhereInput>
+    groupe?: XOR<GroupeNullableScalarRelationFilter, GroupeWhereInput> | null
+    module?: XOR<ModuleScalarRelationFilter, ModuleWhereInput>
+    typeEnseignement?: XOR<TypeEnseignementScalarRelationFilter, TypeEnseignementWhereInput>
+    activityTag?: XOR<ActivityTagNullableScalarRelationFilter, ActivityTagWhereInput> | null
+  }, "id" | "repartitionId_enseignantId_moduleId_typeEnseignementId_groupeId">
+
+  export type AffectationOrderByWithAggregationInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrderInput | SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrderInput | SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AffectationCountOrderByAggregateInput
+    _avg?: AffectationAvgOrderByAggregateInput
+    _max?: AffectationMaxOrderByAggregateInput
+    _min?: AffectationMinOrderByAggregateInput
+    _sum?: AffectationSumOrderByAggregateInput
+  }
+
+  export type AffectationScalarWhereWithAggregatesInput = {
+    AND?: AffectationScalarWhereWithAggregatesInput | AffectationScalarWhereWithAggregatesInput[]
+    OR?: AffectationScalarWhereWithAggregatesInput[]
+    NOT?: AffectationScalarWhereWithAggregatesInput | AffectationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Affectation"> | string
+    repartitionId?: UuidWithAggregatesFilter<"Affectation"> | string
+    enseignantId?: UuidWithAggregatesFilter<"Affectation"> | string
+    groupeId?: UuidNullableWithAggregatesFilter<"Affectation"> | string | null
+    moduleId?: UuidWithAggregatesFilter<"Affectation"> | string
+    typeEnseignementId?: UuidWithAggregatesFilter<"Affectation"> | string
+    activityTagId?: UuidNullableWithAggregatesFilter<"Affectation"> | string | null
+    volumeHebdoMinutes?: IntWithAggregatesFilter<"Affectation"> | number
+    seancesParSemaine?: IntWithAggregatesFilter<"Affectation"> | number
+    dureeMinutes?: IntWithAggregatesFilter<"Affectation"> | number
+    estCmCommun?: BoolWithAggregatesFilter<"Affectation"> | boolean
+    workingRevision?: IntWithAggregatesFilter<"Affectation"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Affectation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Affectation"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -70302,6 +72099,7 @@ export namespace Prisma {
     semestre: SemestreCreateNestedOneWithoutGroupesInput
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
+    affectations?: AffectationCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateInput = {
@@ -70318,6 +72116,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUpdateInput = {
@@ -70334,6 +72133,7 @@ export namespace Prisma {
     semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateInput = {
@@ -70350,6 +72150,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeCreateManyInput = {
@@ -70404,6 +72205,7 @@ export namespace Prisma {
     modules?: ModuleCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
     chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
+    affectations?: AffectationCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementUncheckedCreateInput = {
@@ -70416,6 +72218,7 @@ export namespace Prisma {
     modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
     chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementUpdateInput = {
@@ -70428,6 +72231,7 @@ export namespace Prisma {
     modules?: ModuleUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
     chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateInput = {
@@ -70440,6 +72244,7 @@ export namespace Prisma {
     modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
     chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type TypeEnseignementCreateManyInput = {
@@ -70552,6 +72357,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
+    affectations?: AffectationCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateInput = {
@@ -70570,6 +72376,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUpdateInput = {
@@ -70588,6 +72395,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateInput = {
@@ -70606,6 +72414,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleCreateManyInput = {
@@ -70927,6 +72736,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     typesEnseignement?: TypeEnseignementCreateNestedManyWithoutActivityTagInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutTagInput
+    affectations?: AffectationCreateNestedManyWithoutActivityTagInput
   }
 
   export type ActivityTagUncheckedCreateInput = {
@@ -70938,6 +72748,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     typesEnseignement?: TypeEnseignementUncheckedCreateNestedManyWithoutActivityTagInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutTagInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutActivityTagInput
   }
 
   export type ActivityTagUpdateInput = {
@@ -70949,6 +72760,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     typesEnseignement?: TypeEnseignementUpdateManyWithoutActivityTagNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutTagNestedInput
+    affectations?: AffectationUpdateManyWithoutActivityTagNestedInput
   }
 
   export type ActivityTagUncheckedUpdateInput = {
@@ -70960,6 +72772,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     typesEnseignement?: TypeEnseignementUncheckedUpdateManyWithoutActivityTagNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutTagNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutActivityTagNestedInput
   }
 
   export type ActivityTagCreateManyInput = {
@@ -71006,6 +72819,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateInput = {
@@ -71025,6 +72839,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUpdateInput = {
@@ -71044,6 +72859,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateInput = {
@@ -71063,6 +72879,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantCreateManyInput = {
@@ -71967,6 +73784,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutRepartitionsInput
     departement: DepartementCreateNestedOneWithoutRepartitionsInput
+    affectations?: AffectationCreateNestedManyWithoutRepartitionInput
   }
 
   export type RepartitionUncheckedCreateInput = {
@@ -71977,6 +73795,7 @@ export namespace Prisma {
     libelle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    affectations?: AffectationUncheckedCreateNestedManyWithoutRepartitionInput
   }
 
   export type RepartitionUpdateInput = {
@@ -71987,6 +73806,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutRepartitionsNestedInput
     departement?: DepartementUpdateOneRequiredWithoutRepartitionsNestedInput
+    affectations?: AffectationUpdateManyWithoutRepartitionNestedInput
   }
 
   export type RepartitionUncheckedUpdateInput = {
@@ -71997,6 +73817,7 @@ export namespace Prisma {
     libelle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    affectations?: AffectationUncheckedUpdateManyWithoutRepartitionNestedInput
   }
 
   export type RepartitionCreateManyInput = {
@@ -72023,6 +73844,119 @@ export namespace Prisma {
     departementId?: StringFieldUpdateOperationsInput | string
     statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
     libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationCreateInput = {
+    id?: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    repartition: RepartitionCreateNestedOneWithoutAffectationsInput
+    enseignant: EnseignantCreateNestedOneWithoutAffectationsInput
+    groupe?: GroupeCreateNestedOneWithoutAffectationsInput
+    module: ModuleCreateNestedOneWithoutAffectationsInput
+    typeEnseignement: TypeEnseignementCreateNestedOneWithoutAffectationsInput
+    activityTag?: ActivityTagCreateNestedOneWithoutAffectationsInput
+  }
+
+  export type AffectationUncheckedCreateInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    repartition?: RepartitionUpdateOneRequiredWithoutAffectationsNestedInput
+    enseignant?: EnseignantUpdateOneRequiredWithoutAffectationsNestedInput
+    groupe?: GroupeUpdateOneWithoutAffectationsNestedInput
+    module?: ModuleUpdateOneRequiredWithoutAffectationsNestedInput
+    typeEnseignement?: TypeEnseignementUpdateOneRequiredWithoutAffectationsNestedInput
+    activityTag?: ActivityTagUpdateOneWithoutAffectationsNestedInput
+  }
+
+  export type AffectationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationCreateManyInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -73968,6 +75902,16 @@ export namespace Prisma {
     isNot?: GroupeWhereInput | null
   }
 
+  export type AffectationListRelationFilter = {
+    every?: AffectationWhereInput
+    some?: AffectationWhereInput
+    none?: AffectationWhereInput
+  }
+
+  export type AffectationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type GroupeNiveauIdSemestreIdCodeCompoundUniqueInput = {
     niveauId: string
     semestreId: string
@@ -75255,6 +77199,84 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRepartitionStatutFilter<$PrismaModel>
     _max?: NestedEnumRepartitionStatutFilter<$PrismaModel>
+  }
+
+  export type RepartitionScalarRelationFilter = {
+    is?: RepartitionWhereInput
+    isNot?: RepartitionWhereInput
+  }
+
+  export type AffectationRepartitionIdEnseignantIdModuleIdTypeEnseignementIdGroupeIdCompoundUniqueInput = {
+    repartitionId: string
+    enseignantId: string
+    moduleId: string
+    typeEnseignementId: string
+    groupeId: string
+  }
+
+  export type AffectationCountOrderByAggregateInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AffectationAvgOrderByAggregateInput = {
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    workingRevision?: SortOrder
+  }
+
+  export type AffectationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AffectationMinOrderByAggregateInput = {
+    id?: SortOrder
+    repartitionId?: SortOrder
+    enseignantId?: SortOrder
+    groupeId?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    estCmCommun?: SortOrder
+    workingRevision?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AffectationSumOrderByAggregateInput = {
+    volumeHebdoMinutes?: SortOrder
+    seancesParSemaine?: SortOrder
+    dureeMinutes?: SortOrder
+    workingRevision?: SortOrder
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -77461,11 +79483,25 @@ export namespace Prisma {
     connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
   }
 
+  export type AffectationCreateNestedManyWithoutGroupeInput = {
+    create?: XOR<AffectationCreateWithoutGroupeInput, AffectationUncheckedCreateWithoutGroupeInput> | AffectationCreateWithoutGroupeInput[] | AffectationUncheckedCreateWithoutGroupeInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutGroupeInput | AffectationCreateOrConnectWithoutGroupeInput[]
+    createMany?: AffectationCreateManyGroupeInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutParentInput = {
     create?: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput> | GroupeCreateWithoutParentInput[] | GroupeUncheckedCreateWithoutParentInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutParentInput | GroupeCreateOrConnectWithoutParentInput[]
     createMany?: GroupeCreateManyParentInputEnvelope
     connect?: GroupeWhereUniqueInput | GroupeWhereUniqueInput[]
+  }
+
+  export type AffectationUncheckedCreateNestedManyWithoutGroupeInput = {
+    create?: XOR<AffectationCreateWithoutGroupeInput, AffectationUncheckedCreateWithoutGroupeInput> | AffectationCreateWithoutGroupeInput[] | AffectationUncheckedCreateWithoutGroupeInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutGroupeInput | AffectationCreateOrConnectWithoutGroupeInput[]
+    createMany?: AffectationCreateManyGroupeInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
   }
 
   export type EnumGroupeTypeFieldUpdateOperationsInput = {
@@ -77512,6 +79548,20 @@ export namespace Prisma {
     deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
   }
 
+  export type AffectationUpdateManyWithoutGroupeNestedInput = {
+    create?: XOR<AffectationCreateWithoutGroupeInput, AffectationUncheckedCreateWithoutGroupeInput> | AffectationCreateWithoutGroupeInput[] | AffectationUncheckedCreateWithoutGroupeInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutGroupeInput | AffectationCreateOrConnectWithoutGroupeInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutGroupeInput | AffectationUpsertWithWhereUniqueWithoutGroupeInput[]
+    createMany?: AffectationCreateManyGroupeInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutGroupeInput | AffectationUpdateWithWhereUniqueWithoutGroupeInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutGroupeInput | AffectationUpdateManyWithWhereWithoutGroupeInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutParentNestedInput = {
     create?: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput> | GroupeCreateWithoutParentInput[] | GroupeUncheckedCreateWithoutParentInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutParentInput | GroupeCreateOrConnectWithoutParentInput[]
@@ -77524,6 +79574,20 @@ export namespace Prisma {
     update?: GroupeUpdateWithWhereUniqueWithoutParentInput | GroupeUpdateWithWhereUniqueWithoutParentInput[]
     updateMany?: GroupeUpdateManyWithWhereWithoutParentInput | GroupeUpdateManyWithWhereWithoutParentInput[]
     deleteMany?: GroupeScalarWhereInput | GroupeScalarWhereInput[]
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutGroupeNestedInput = {
+    create?: XOR<AffectationCreateWithoutGroupeInput, AffectationUncheckedCreateWithoutGroupeInput> | AffectationCreateWithoutGroupeInput[] | AffectationUncheckedCreateWithoutGroupeInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutGroupeInput | AffectationCreateOrConnectWithoutGroupeInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutGroupeInput | AffectationUpsertWithWhereUniqueWithoutGroupeInput[]
+    createMany?: AffectationCreateManyGroupeInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutGroupeInput | AffectationUpdateWithWhereUniqueWithoutGroupeInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutGroupeInput | AffectationUpdateManyWithWhereWithoutGroupeInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
   }
 
   export type ActivityTagCreateNestedOneWithoutTypesEnseignementInput = {
@@ -77553,6 +79617,13 @@ export namespace Prisma {
     connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
   }
 
+  export type AffectationCreateNestedManyWithoutTypeEnseignementInput = {
+    create?: XOR<AffectationCreateWithoutTypeEnseignementInput, AffectationUncheckedCreateWithoutTypeEnseignementInput> | AffectationCreateWithoutTypeEnseignementInput[] | AffectationUncheckedCreateWithoutTypeEnseignementInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutTypeEnseignementInput | AffectationCreateOrConnectWithoutTypeEnseignementInput[]
+    createMany?: AffectationCreateManyTypeEnseignementInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
   export type ModuleUncheckedCreateNestedManyWithoutTypeInput = {
     create?: XOR<ModuleCreateWithoutTypeInput, ModuleUncheckedCreateWithoutTypeInput> | ModuleCreateWithoutTypeInput[] | ModuleUncheckedCreateWithoutTypeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutTypeInput | ModuleCreateOrConnectWithoutTypeInput[]
@@ -77572,6 +79643,13 @@ export namespace Prisma {
     connectOrCreate?: ChargeCoefficientCreateOrConnectWithoutTypeInput | ChargeCoefficientCreateOrConnectWithoutTypeInput[]
     createMany?: ChargeCoefficientCreateManyTypeInputEnvelope
     connect?: ChargeCoefficientWhereUniqueInput | ChargeCoefficientWhereUniqueInput[]
+  }
+
+  export type AffectationUncheckedCreateNestedManyWithoutTypeEnseignementInput = {
+    create?: XOR<AffectationCreateWithoutTypeEnseignementInput, AffectationUncheckedCreateWithoutTypeEnseignementInput> | AffectationCreateWithoutTypeEnseignementInput[] | AffectationUncheckedCreateWithoutTypeEnseignementInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutTypeEnseignementInput | AffectationCreateOrConnectWithoutTypeEnseignementInput[]
+    createMany?: AffectationCreateManyTypeEnseignementInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
   }
 
   export type EnumTypeEnseignementCodeFieldUpdateOperationsInput = {
@@ -77630,6 +79708,20 @@ export namespace Prisma {
     deleteMany?: ChargeCoefficientScalarWhereInput | ChargeCoefficientScalarWhereInput[]
   }
 
+  export type AffectationUpdateManyWithoutTypeEnseignementNestedInput = {
+    create?: XOR<AffectationCreateWithoutTypeEnseignementInput, AffectationUncheckedCreateWithoutTypeEnseignementInput> | AffectationCreateWithoutTypeEnseignementInput[] | AffectationUncheckedCreateWithoutTypeEnseignementInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutTypeEnseignementInput | AffectationCreateOrConnectWithoutTypeEnseignementInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutTypeEnseignementInput | AffectationUpsertWithWhereUniqueWithoutTypeEnseignementInput[]
+    createMany?: AffectationCreateManyTypeEnseignementInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutTypeEnseignementInput | AffectationUpdateWithWhereUniqueWithoutTypeEnseignementInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutTypeEnseignementInput | AffectationUpdateManyWithWhereWithoutTypeEnseignementInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
   export type ModuleUncheckedUpdateManyWithoutTypeNestedInput = {
     create?: XOR<ModuleCreateWithoutTypeInput, ModuleUncheckedCreateWithoutTypeInput> | ModuleCreateWithoutTypeInput[] | ModuleUncheckedCreateWithoutTypeInput[]
     connectOrCreate?: ModuleCreateOrConnectWithoutTypeInput | ModuleCreateOrConnectWithoutTypeInput[]
@@ -77670,6 +79762,20 @@ export namespace Prisma {
     update?: ChargeCoefficientUpdateWithWhereUniqueWithoutTypeInput | ChargeCoefficientUpdateWithWhereUniqueWithoutTypeInput[]
     updateMany?: ChargeCoefficientUpdateManyWithWhereWithoutTypeInput | ChargeCoefficientUpdateManyWithWhereWithoutTypeInput[]
     deleteMany?: ChargeCoefficientScalarWhereInput | ChargeCoefficientScalarWhereInput[]
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutTypeEnseignementNestedInput = {
+    create?: XOR<AffectationCreateWithoutTypeEnseignementInput, AffectationUncheckedCreateWithoutTypeEnseignementInput> | AffectationCreateWithoutTypeEnseignementInput[] | AffectationUncheckedCreateWithoutTypeEnseignementInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutTypeEnseignementInput | AffectationCreateOrConnectWithoutTypeEnseignementInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutTypeEnseignementInput | AffectationUpsertWithWhereUniqueWithoutTypeEnseignementInput[]
+    createMany?: AffectationCreateManyTypeEnseignementInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutTypeEnseignementInput | AffectationUpdateWithWhereUniqueWithoutTypeEnseignementInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutTypeEnseignementInput | AffectationUpdateManyWithWhereWithoutTypeEnseignementInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
   }
 
   export type ModuleCreateNestedManyWithoutGradeInput = {
@@ -77841,6 +79947,13 @@ export namespace Prisma {
     connect?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
   }
 
+  export type AffectationCreateNestedManyWithoutModuleInput = {
+    create?: XOR<AffectationCreateWithoutModuleInput, AffectationUncheckedCreateWithoutModuleInput> | AffectationCreateWithoutModuleInput[] | AffectationUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutModuleInput | AffectationCreateOrConnectWithoutModuleInput[]
+    createMany?: AffectationCreateManyModuleInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
   export type EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput = {
     create?: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput> | EnseignantModuleCreateWithoutModuleInput[] | EnseignantModuleUncheckedCreateWithoutModuleInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutModuleInput | EnseignantModuleCreateOrConnectWithoutModuleInput[]
@@ -77860,6 +79973,13 @@ export namespace Prisma {
     connectOrCreate?: ModuleVolumeCreateOrConnectWithoutModuleInput | ModuleVolumeCreateOrConnectWithoutModuleInput[]
     createMany?: ModuleVolumeCreateManyModuleInputEnvelope
     connect?: ModuleVolumeWhereUniqueInput | ModuleVolumeWhereUniqueInput[]
+  }
+
+  export type AffectationUncheckedCreateNestedManyWithoutModuleInput = {
+    create?: XOR<AffectationCreateWithoutModuleInput, AffectationUncheckedCreateWithoutModuleInput> | AffectationCreateWithoutModuleInput[] | AffectationUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutModuleInput | AffectationCreateOrConnectWithoutModuleInput[]
+    createMany?: AffectationCreateManyModuleInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
   }
 
   export type NiveauUpdateOneRequiredWithoutModulesNestedInput = {
@@ -77930,6 +80050,20 @@ export namespace Prisma {
     deleteMany?: ModuleVolumeScalarWhereInput | ModuleVolumeScalarWhereInput[]
   }
 
+  export type AffectationUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<AffectationCreateWithoutModuleInput, AffectationUncheckedCreateWithoutModuleInput> | AffectationCreateWithoutModuleInput[] | AffectationUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutModuleInput | AffectationCreateOrConnectWithoutModuleInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutModuleInput | AffectationUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: AffectationCreateManyModuleInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutModuleInput | AffectationUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutModuleInput | AffectationUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
   export type EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput = {
     create?: XOR<EnseignantModuleCreateWithoutModuleInput, EnseignantModuleUncheckedCreateWithoutModuleInput> | EnseignantModuleCreateWithoutModuleInput[] | EnseignantModuleUncheckedCreateWithoutModuleInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutModuleInput | EnseignantModuleCreateOrConnectWithoutModuleInput[]
@@ -77970,6 +80104,20 @@ export namespace Prisma {
     update?: ModuleVolumeUpdateWithWhereUniqueWithoutModuleInput | ModuleVolumeUpdateWithWhereUniqueWithoutModuleInput[]
     updateMany?: ModuleVolumeUpdateManyWithWhereWithoutModuleInput | ModuleVolumeUpdateManyWithWhereWithoutModuleInput[]
     deleteMany?: ModuleVolumeScalarWhereInput | ModuleVolumeScalarWhereInput[]
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<AffectationCreateWithoutModuleInput, AffectationUncheckedCreateWithoutModuleInput> | AffectationCreateWithoutModuleInput[] | AffectationUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutModuleInput | AffectationCreateOrConnectWithoutModuleInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutModuleInput | AffectationUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: AffectationCreateManyModuleInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutModuleInput | AffectationUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutModuleInput | AffectationUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
   }
 
   export type ModuleCreateNestedOneWithoutModuleVolumesInput = {
@@ -78170,6 +80318,13 @@ export namespace Prisma {
     connect?: SalleActivityTagWhereUniqueInput | SalleActivityTagWhereUniqueInput[]
   }
 
+  export type AffectationCreateNestedManyWithoutActivityTagInput = {
+    create?: XOR<AffectationCreateWithoutActivityTagInput, AffectationUncheckedCreateWithoutActivityTagInput> | AffectationCreateWithoutActivityTagInput[] | AffectationUncheckedCreateWithoutActivityTagInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutActivityTagInput | AffectationCreateOrConnectWithoutActivityTagInput[]
+    createMany?: AffectationCreateManyActivityTagInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
   export type TypeEnseignementUncheckedCreateNestedManyWithoutActivityTagInput = {
     create?: XOR<TypeEnseignementCreateWithoutActivityTagInput, TypeEnseignementUncheckedCreateWithoutActivityTagInput> | TypeEnseignementCreateWithoutActivityTagInput[] | TypeEnseignementUncheckedCreateWithoutActivityTagInput[]
     connectOrCreate?: TypeEnseignementCreateOrConnectWithoutActivityTagInput | TypeEnseignementCreateOrConnectWithoutActivityTagInput[]
@@ -78182,6 +80337,13 @@ export namespace Prisma {
     connectOrCreate?: SalleActivityTagCreateOrConnectWithoutTagInput | SalleActivityTagCreateOrConnectWithoutTagInput[]
     createMany?: SalleActivityTagCreateManyTagInputEnvelope
     connect?: SalleActivityTagWhereUniqueInput | SalleActivityTagWhereUniqueInput[]
+  }
+
+  export type AffectationUncheckedCreateNestedManyWithoutActivityTagInput = {
+    create?: XOR<AffectationCreateWithoutActivityTagInput, AffectationUncheckedCreateWithoutActivityTagInput> | AffectationCreateWithoutActivityTagInput[] | AffectationUncheckedCreateWithoutActivityTagInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutActivityTagInput | AffectationCreateOrConnectWithoutActivityTagInput[]
+    createMany?: AffectationCreateManyActivityTagInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
   }
 
   export type TypeEnseignementUpdateManyWithoutActivityTagNestedInput = {
@@ -78212,6 +80374,20 @@ export namespace Prisma {
     deleteMany?: SalleActivityTagScalarWhereInput | SalleActivityTagScalarWhereInput[]
   }
 
+  export type AffectationUpdateManyWithoutActivityTagNestedInput = {
+    create?: XOR<AffectationCreateWithoutActivityTagInput, AffectationUncheckedCreateWithoutActivityTagInput> | AffectationCreateWithoutActivityTagInput[] | AffectationUncheckedCreateWithoutActivityTagInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutActivityTagInput | AffectationCreateOrConnectWithoutActivityTagInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutActivityTagInput | AffectationUpsertWithWhereUniqueWithoutActivityTagInput[]
+    createMany?: AffectationCreateManyActivityTagInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutActivityTagInput | AffectationUpdateWithWhereUniqueWithoutActivityTagInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutActivityTagInput | AffectationUpdateManyWithWhereWithoutActivityTagInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
   export type TypeEnseignementUncheckedUpdateManyWithoutActivityTagNestedInput = {
     create?: XOR<TypeEnseignementCreateWithoutActivityTagInput, TypeEnseignementUncheckedCreateWithoutActivityTagInput> | TypeEnseignementCreateWithoutActivityTagInput[] | TypeEnseignementUncheckedCreateWithoutActivityTagInput[]
     connectOrCreate?: TypeEnseignementCreateOrConnectWithoutActivityTagInput | TypeEnseignementCreateOrConnectWithoutActivityTagInput[]
@@ -78238,6 +80414,20 @@ export namespace Prisma {
     update?: SalleActivityTagUpdateWithWhereUniqueWithoutTagInput | SalleActivityTagUpdateWithWhereUniqueWithoutTagInput[]
     updateMany?: SalleActivityTagUpdateManyWithWhereWithoutTagInput | SalleActivityTagUpdateManyWithWhereWithoutTagInput[]
     deleteMany?: SalleActivityTagScalarWhereInput | SalleActivityTagScalarWhereInput[]
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutActivityTagNestedInput = {
+    create?: XOR<AffectationCreateWithoutActivityTagInput, AffectationUncheckedCreateWithoutActivityTagInput> | AffectationCreateWithoutActivityTagInput[] | AffectationUncheckedCreateWithoutActivityTagInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutActivityTagInput | AffectationCreateOrConnectWithoutActivityTagInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutActivityTagInput | AffectationUpsertWithWhereUniqueWithoutActivityTagInput[]
+    createMany?: AffectationCreateManyActivityTagInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutActivityTagInput | AffectationUpdateWithWhereUniqueWithoutActivityTagInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutActivityTagInput | AffectationUpdateManyWithWhereWithoutActivityTagInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
   }
 
   export type AnneeCreateNestedOneWithoutEnseignantsInput = {
@@ -78279,6 +80469,13 @@ export namespace Prisma {
     connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
   }
 
+  export type AffectationCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<AffectationCreateWithoutEnseignantInput, AffectationUncheckedCreateWithoutEnseignantInput> | AffectationCreateWithoutEnseignantInput[] | AffectationUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutEnseignantInput | AffectationCreateOrConnectWithoutEnseignantInput[]
+    createMany?: AffectationCreateManyEnseignantInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
   export type EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput = {
     create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
@@ -78298,6 +80495,13 @@ export namespace Prisma {
     connectOrCreate?: IndisponibiliteCreateOrConnectWithoutEnseignantInput | IndisponibiliteCreateOrConnectWithoutEnseignantInput[]
     createMany?: IndisponibiliteCreateManyEnseignantInputEnvelope
     connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+  }
+
+  export type AffectationUncheckedCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<AffectationCreateWithoutEnseignantInput, AffectationUncheckedCreateWithoutEnseignantInput> | AffectationCreateWithoutEnseignantInput[] | AffectationUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutEnseignantInput | AffectationCreateOrConnectWithoutEnseignantInput[]
+    createMany?: AffectationCreateManyEnseignantInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutEnseignantsNestedInput = {
@@ -78368,6 +80572,20 @@ export namespace Prisma {
     deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
   }
 
+  export type AffectationUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<AffectationCreateWithoutEnseignantInput, AffectationUncheckedCreateWithoutEnseignantInput> | AffectationCreateWithoutEnseignantInput[] | AffectationUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutEnseignantInput | AffectationCreateOrConnectWithoutEnseignantInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutEnseignantInput | AffectationUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: AffectationCreateManyEnseignantInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutEnseignantInput | AffectationUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutEnseignantInput | AffectationUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
   export type EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput = {
     create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
@@ -78408,6 +80626,20 @@ export namespace Prisma {
     update?: IndisponibiliteUpdateWithWhereUniqueWithoutEnseignantInput | IndisponibiliteUpdateWithWhereUniqueWithoutEnseignantInput[]
     updateMany?: IndisponibiliteUpdateManyWithWhereWithoutEnseignantInput | IndisponibiliteUpdateManyWithWhereWithoutEnseignantInput[]
     deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<AffectationCreateWithoutEnseignantInput, AffectationUncheckedCreateWithoutEnseignantInput> | AffectationCreateWithoutEnseignantInput[] | AffectationUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutEnseignantInput | AffectationCreateOrConnectWithoutEnseignantInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutEnseignantInput | AffectationUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: AffectationCreateManyEnseignantInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutEnseignantInput | AffectationUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutEnseignantInput | AffectationUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
   }
 
   export type EnseignantCreateNestedOneWithoutEnseignantModulesInput = {
@@ -79070,6 +81302,20 @@ export namespace Prisma {
     connect?: DepartementWhereUniqueInput
   }
 
+  export type AffectationCreateNestedManyWithoutRepartitionInput = {
+    create?: XOR<AffectationCreateWithoutRepartitionInput, AffectationUncheckedCreateWithoutRepartitionInput> | AffectationCreateWithoutRepartitionInput[] | AffectationUncheckedCreateWithoutRepartitionInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutRepartitionInput | AffectationCreateOrConnectWithoutRepartitionInput[]
+    createMany?: AffectationCreateManyRepartitionInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
+  export type AffectationUncheckedCreateNestedManyWithoutRepartitionInput = {
+    create?: XOR<AffectationCreateWithoutRepartitionInput, AffectationUncheckedCreateWithoutRepartitionInput> | AffectationCreateWithoutRepartitionInput[] | AffectationUncheckedCreateWithoutRepartitionInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutRepartitionInput | AffectationCreateOrConnectWithoutRepartitionInput[]
+    createMany?: AffectationCreateManyRepartitionInputEnvelope
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
   export type EnumRepartitionStatutFieldUpdateOperationsInput = {
     set?: $Enums.RepartitionStatut
   }
@@ -79088,6 +81334,122 @@ export namespace Prisma {
     upsert?: DepartementUpsertWithoutRepartitionsInput
     connect?: DepartementWhereUniqueInput
     update?: XOR<XOR<DepartementUpdateToOneWithWhereWithoutRepartitionsInput, DepartementUpdateWithoutRepartitionsInput>, DepartementUncheckedUpdateWithoutRepartitionsInput>
+  }
+
+  export type AffectationUpdateManyWithoutRepartitionNestedInput = {
+    create?: XOR<AffectationCreateWithoutRepartitionInput, AffectationUncheckedCreateWithoutRepartitionInput> | AffectationCreateWithoutRepartitionInput[] | AffectationUncheckedCreateWithoutRepartitionInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutRepartitionInput | AffectationCreateOrConnectWithoutRepartitionInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutRepartitionInput | AffectationUpsertWithWhereUniqueWithoutRepartitionInput[]
+    createMany?: AffectationCreateManyRepartitionInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutRepartitionInput | AffectationUpdateWithWhereUniqueWithoutRepartitionInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutRepartitionInput | AffectationUpdateManyWithWhereWithoutRepartitionInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutRepartitionNestedInput = {
+    create?: XOR<AffectationCreateWithoutRepartitionInput, AffectationUncheckedCreateWithoutRepartitionInput> | AffectationCreateWithoutRepartitionInput[] | AffectationUncheckedCreateWithoutRepartitionInput[]
+    connectOrCreate?: AffectationCreateOrConnectWithoutRepartitionInput | AffectationCreateOrConnectWithoutRepartitionInput[]
+    upsert?: AffectationUpsertWithWhereUniqueWithoutRepartitionInput | AffectationUpsertWithWhereUniqueWithoutRepartitionInput[]
+    createMany?: AffectationCreateManyRepartitionInputEnvelope
+    set?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    disconnect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    delete?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+    update?: AffectationUpdateWithWhereUniqueWithoutRepartitionInput | AffectationUpdateWithWhereUniqueWithoutRepartitionInput[]
+    updateMany?: AffectationUpdateManyWithWhereWithoutRepartitionInput | AffectationUpdateManyWithWhereWithoutRepartitionInput[]
+    deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
+  export type RepartitionCreateNestedOneWithoutAffectationsInput = {
+    create?: XOR<RepartitionCreateWithoutAffectationsInput, RepartitionUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: RepartitionCreateOrConnectWithoutAffectationsInput
+    connect?: RepartitionWhereUniqueInput
+  }
+
+  export type EnseignantCreateNestedOneWithoutAffectationsInput = {
+    create?: XOR<EnseignantCreateWithoutAffectationsInput, EnseignantUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutAffectationsInput
+    connect?: EnseignantWhereUniqueInput
+  }
+
+  export type GroupeCreateNestedOneWithoutAffectationsInput = {
+    create?: XOR<GroupeCreateWithoutAffectationsInput, GroupeUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: GroupeCreateOrConnectWithoutAffectationsInput
+    connect?: GroupeWhereUniqueInput
+  }
+
+  export type ModuleCreateNestedOneWithoutAffectationsInput = {
+    create?: XOR<ModuleCreateWithoutAffectationsInput, ModuleUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: ModuleCreateOrConnectWithoutAffectationsInput
+    connect?: ModuleWhereUniqueInput
+  }
+
+  export type TypeEnseignementCreateNestedOneWithoutAffectationsInput = {
+    create?: XOR<TypeEnseignementCreateWithoutAffectationsInput, TypeEnseignementUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: TypeEnseignementCreateOrConnectWithoutAffectationsInput
+    connect?: TypeEnseignementWhereUniqueInput
+  }
+
+  export type ActivityTagCreateNestedOneWithoutAffectationsInput = {
+    create?: XOR<ActivityTagCreateWithoutAffectationsInput, ActivityTagUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: ActivityTagCreateOrConnectWithoutAffectationsInput
+    connect?: ActivityTagWhereUniqueInput
+  }
+
+  export type RepartitionUpdateOneRequiredWithoutAffectationsNestedInput = {
+    create?: XOR<RepartitionCreateWithoutAffectationsInput, RepartitionUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: RepartitionCreateOrConnectWithoutAffectationsInput
+    upsert?: RepartitionUpsertWithoutAffectationsInput
+    connect?: RepartitionWhereUniqueInput
+    update?: XOR<XOR<RepartitionUpdateToOneWithWhereWithoutAffectationsInput, RepartitionUpdateWithoutAffectationsInput>, RepartitionUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type EnseignantUpdateOneRequiredWithoutAffectationsNestedInput = {
+    create?: XOR<EnseignantCreateWithoutAffectationsInput, EnseignantUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutAffectationsInput
+    upsert?: EnseignantUpsertWithoutAffectationsInput
+    connect?: EnseignantWhereUniqueInput
+    update?: XOR<XOR<EnseignantUpdateToOneWithWhereWithoutAffectationsInput, EnseignantUpdateWithoutAffectationsInput>, EnseignantUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type GroupeUpdateOneWithoutAffectationsNestedInput = {
+    create?: XOR<GroupeCreateWithoutAffectationsInput, GroupeUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: GroupeCreateOrConnectWithoutAffectationsInput
+    upsert?: GroupeUpsertWithoutAffectationsInput
+    disconnect?: GroupeWhereInput | boolean
+    delete?: GroupeWhereInput | boolean
+    connect?: GroupeWhereUniqueInput
+    update?: XOR<XOR<GroupeUpdateToOneWithWhereWithoutAffectationsInput, GroupeUpdateWithoutAffectationsInput>, GroupeUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type ModuleUpdateOneRequiredWithoutAffectationsNestedInput = {
+    create?: XOR<ModuleCreateWithoutAffectationsInput, ModuleUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: ModuleCreateOrConnectWithoutAffectationsInput
+    upsert?: ModuleUpsertWithoutAffectationsInput
+    connect?: ModuleWhereUniqueInput
+    update?: XOR<XOR<ModuleUpdateToOneWithWhereWithoutAffectationsInput, ModuleUpdateWithoutAffectationsInput>, ModuleUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type TypeEnseignementUpdateOneRequiredWithoutAffectationsNestedInput = {
+    create?: XOR<TypeEnseignementCreateWithoutAffectationsInput, TypeEnseignementUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: TypeEnseignementCreateOrConnectWithoutAffectationsInput
+    upsert?: TypeEnseignementUpsertWithoutAffectationsInput
+    connect?: TypeEnseignementWhereUniqueInput
+    update?: XOR<XOR<TypeEnseignementUpdateToOneWithWhereWithoutAffectationsInput, TypeEnseignementUpdateWithoutAffectationsInput>, TypeEnseignementUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type ActivityTagUpdateOneWithoutAffectationsNestedInput = {
+    create?: XOR<ActivityTagCreateWithoutAffectationsInput, ActivityTagUncheckedCreateWithoutAffectationsInput>
+    connectOrCreate?: ActivityTagCreateOrConnectWithoutAffectationsInput
+    upsert?: ActivityTagUpsertWithoutAffectationsInput
+    disconnect?: ActivityTagWhereInput | boolean
+    delete?: ActivityTagWhereInput | boolean
+    connect?: ActivityTagWhereUniqueInput
+    update?: XOR<XOR<ActivityTagUpdateToOneWithWhereWithoutAffectationsInput, ActivityTagUpdateWithoutAffectationsInput>, ActivityTagUncheckedUpdateWithoutAffectationsInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -83565,6 +85927,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutAnneeInput = {
@@ -83583,6 +85946,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutAnneeInput = {
@@ -83803,6 +86167,7 @@ export namespace Prisma {
     niveau: NiveauCreateNestedOneWithoutGroupesInput
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
+    affectations?: AffectationCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutSemestreInput = {
@@ -83818,6 +86183,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutSemestreInput = {
@@ -83973,6 +86339,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     departement: DepartementCreateNestedOneWithoutRepartitionsInput
+    affectations?: AffectationCreateNestedManyWithoutRepartitionInput
   }
 
   export type RepartitionUncheckedCreateWithoutSemestreInput = {
@@ -83982,6 +86349,7 @@ export namespace Prisma {
     libelle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    affectations?: AffectationUncheckedCreateNestedManyWithoutRepartitionInput
   }
 
   export type RepartitionCreateOrConnectWithoutSemestreInput = {
@@ -84495,6 +86863,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutDepartementInput = {
@@ -84513,6 +86882,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutDepartementInput = {
@@ -84580,6 +86950,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutRepartitionsInput
+    affectations?: AffectationCreateNestedManyWithoutRepartitionInput
   }
 
   export type RepartitionUncheckedCreateWithoutDepartementInput = {
@@ -84589,6 +86960,7 @@ export namespace Prisma {
     libelle?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    affectations?: AffectationUncheckedCreateNestedManyWithoutRepartitionInput
   }
 
   export type RepartitionCreateOrConnectWithoutDepartementInput = {
@@ -84912,6 +87284,7 @@ export namespace Prisma {
     semestre: SemestreCreateNestedOneWithoutGroupesInput
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
+    affectations?: AffectationCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutNiveauInput = {
@@ -84927,6 +87300,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutNiveauInput = {
@@ -84954,6 +87328,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
+    affectations?: AffectationCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutNiveauInput = {
@@ -84971,6 +87346,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutNiveauInput = {
@@ -85143,6 +87519,7 @@ export namespace Prisma {
     niveau: NiveauCreateNestedOneWithoutGroupesInput
     semestre: SemestreCreateNestedOneWithoutGroupesInput
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
+    affectations?: AffectationCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutEnfantsInput = {
@@ -85158,6 +87535,7 @@ export namespace Prisma {
     originId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutEnfantsInput = {
@@ -85178,6 +87556,7 @@ export namespace Prisma {
     niveau: NiveauCreateNestedOneWithoutGroupesInput
     semestre: SemestreCreateNestedOneWithoutGroupesInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
+    affectations?: AffectationCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutParentInput = {
@@ -85193,6 +87572,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutParentInput = {
@@ -85202,6 +87582,48 @@ export namespace Prisma {
 
   export type GroupeCreateManyParentInputEnvelope = {
     data: GroupeCreateManyParentInput | GroupeCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AffectationCreateWithoutGroupeInput = {
+    id?: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    repartition: RepartitionCreateNestedOneWithoutAffectationsInput
+    enseignant: EnseignantCreateNestedOneWithoutAffectationsInput
+    module: ModuleCreateNestedOneWithoutAffectationsInput
+    typeEnseignement: TypeEnseignementCreateNestedOneWithoutAffectationsInput
+    activityTag?: ActivityTagCreateNestedOneWithoutAffectationsInput
+  }
+
+  export type AffectationUncheckedCreateWithoutGroupeInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationCreateOrConnectWithoutGroupeInput = {
+    where: AffectationWhereUniqueInput
+    create: XOR<AffectationCreateWithoutGroupeInput, AffectationUncheckedCreateWithoutGroupeInput>
+  }
+
+  export type AffectationCreateManyGroupeInputEnvelope = {
+    data: AffectationCreateManyGroupeInput | AffectationCreateManyGroupeInput[]
     skipDuplicates?: boolean
   }
 
@@ -85305,6 +87727,7 @@ export namespace Prisma {
     niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
     semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
+    affectations?: AffectationUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutEnfantsInput = {
@@ -85320,6 +87743,7 @@ export namespace Prisma {
     originId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUpsertWithWhereUniqueWithoutParentInput = {
@@ -85338,6 +87762,42 @@ export namespace Prisma {
     data: XOR<GroupeUpdateManyMutationInput, GroupeUncheckedUpdateManyWithoutParentInput>
   }
 
+  export type AffectationUpsertWithWhereUniqueWithoutGroupeInput = {
+    where: AffectationWhereUniqueInput
+    update: XOR<AffectationUpdateWithoutGroupeInput, AffectationUncheckedUpdateWithoutGroupeInput>
+    create: XOR<AffectationCreateWithoutGroupeInput, AffectationUncheckedCreateWithoutGroupeInput>
+  }
+
+  export type AffectationUpdateWithWhereUniqueWithoutGroupeInput = {
+    where: AffectationWhereUniqueInput
+    data: XOR<AffectationUpdateWithoutGroupeInput, AffectationUncheckedUpdateWithoutGroupeInput>
+  }
+
+  export type AffectationUpdateManyWithWhereWithoutGroupeInput = {
+    where: AffectationScalarWhereInput
+    data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyWithoutGroupeInput>
+  }
+
+  export type AffectationScalarWhereInput = {
+    AND?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+    OR?: AffectationScalarWhereInput[]
+    NOT?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+    id?: UuidFilter<"Affectation"> | string
+    repartitionId?: UuidFilter<"Affectation"> | string
+    enseignantId?: UuidFilter<"Affectation"> | string
+    groupeId?: UuidNullableFilter<"Affectation"> | string | null
+    moduleId?: UuidFilter<"Affectation"> | string
+    typeEnseignementId?: UuidFilter<"Affectation"> | string
+    activityTagId?: UuidNullableFilter<"Affectation"> | string | null
+    volumeHebdoMinutes?: IntFilter<"Affectation"> | number
+    seancesParSemaine?: IntFilter<"Affectation"> | number
+    dureeMinutes?: IntFilter<"Affectation"> | number
+    estCmCommun?: BoolFilter<"Affectation"> | boolean
+    workingRevision?: IntFilter<"Affectation"> | number
+    createdAt?: DateTimeFilter<"Affectation"> | Date | string
+    updatedAt?: DateTimeFilter<"Affectation"> | Date | string
+  }
+
   export type ActivityTagCreateWithoutTypesEnseignementInput = {
     id?: string
     code: string
@@ -85346,6 +87806,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutTagInput
+    affectations?: AffectationCreateNestedManyWithoutActivityTagInput
   }
 
   export type ActivityTagUncheckedCreateWithoutTypesEnseignementInput = {
@@ -85356,6 +87817,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutTagInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutActivityTagInput
   }
 
   export type ActivityTagCreateOrConnectWithoutTypesEnseignementInput = {
@@ -85378,6 +87840,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
+    affectations?: AffectationCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutTypeInput = {
@@ -85395,6 +87858,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutTypeInput = {
@@ -85453,6 +87917,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AffectationCreateWithoutTypeEnseignementInput = {
+    id?: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    repartition: RepartitionCreateNestedOneWithoutAffectationsInput
+    enseignant: EnseignantCreateNestedOneWithoutAffectationsInput
+    groupe?: GroupeCreateNestedOneWithoutAffectationsInput
+    module: ModuleCreateNestedOneWithoutAffectationsInput
+    activityTag?: ActivityTagCreateNestedOneWithoutAffectationsInput
+  }
+
+  export type AffectationUncheckedCreateWithoutTypeEnseignementInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationCreateOrConnectWithoutTypeEnseignementInput = {
+    where: AffectationWhereUniqueInput
+    create: XOR<AffectationCreateWithoutTypeEnseignementInput, AffectationUncheckedCreateWithoutTypeEnseignementInput>
+  }
+
+  export type AffectationCreateManyTypeEnseignementInputEnvelope = {
+    data: AffectationCreateManyTypeEnseignementInput | AffectationCreateManyTypeEnseignementInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ActivityTagUpsertWithoutTypesEnseignementInput = {
     update: XOR<ActivityTagUpdateWithoutTypesEnseignementInput, ActivityTagUncheckedUpdateWithoutTypesEnseignementInput>
     create: XOR<ActivityTagCreateWithoutTypesEnseignementInput, ActivityTagUncheckedCreateWithoutTypesEnseignementInput>
@@ -85472,6 +87978,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salleActivityTags?: SalleActivityTagUpdateManyWithoutTagNestedInput
+    affectations?: AffectationUpdateManyWithoutActivityTagNestedInput
   }
 
   export type ActivityTagUncheckedUpdateWithoutTypesEnseignementInput = {
@@ -85482,6 +87989,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutTagNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutActivityTagNestedInput
   }
 
   export type ModuleUpsertWithWhereUniqueWithoutTypeInput = {
@@ -85553,6 +88061,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ChargeCoefficient"> | Date | string
   }
 
+  export type AffectationUpsertWithWhereUniqueWithoutTypeEnseignementInput = {
+    where: AffectationWhereUniqueInput
+    update: XOR<AffectationUpdateWithoutTypeEnseignementInput, AffectationUncheckedUpdateWithoutTypeEnseignementInput>
+    create: XOR<AffectationCreateWithoutTypeEnseignementInput, AffectationUncheckedCreateWithoutTypeEnseignementInput>
+  }
+
+  export type AffectationUpdateWithWhereUniqueWithoutTypeEnseignementInput = {
+    where: AffectationWhereUniqueInput
+    data: XOR<AffectationUpdateWithoutTypeEnseignementInput, AffectationUncheckedUpdateWithoutTypeEnseignementInput>
+  }
+
+  export type AffectationUpdateManyWithWhereWithoutTypeEnseignementInput = {
+    where: AffectationScalarWhereInput
+    data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyWithoutTypeEnseignementInput>
+  }
+
   export type ModuleCreateWithoutGradeInput = {
     id?: string
     code: string
@@ -85568,6 +88092,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
+    affectations?: AffectationCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutGradeInput = {
@@ -85585,6 +88110,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutGradeInput = {
@@ -85613,6 +88139,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutGradeInput = {
@@ -85631,6 +88158,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutGradeInput = {
@@ -85764,6 +88292,7 @@ export namespace Prisma {
     activityTag?: ActivityTagCreateNestedOneWithoutTypesEnseignementInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
     chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
+    affectations?: AffectationCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementUncheckedCreateWithoutModulesInput = {
@@ -85775,6 +88304,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
     chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementCreateOrConnectWithoutModulesInput = {
@@ -85873,6 +88403,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AffectationCreateWithoutModuleInput = {
+    id?: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    repartition: RepartitionCreateNestedOneWithoutAffectationsInput
+    enseignant: EnseignantCreateNestedOneWithoutAffectationsInput
+    groupe?: GroupeCreateNestedOneWithoutAffectationsInput
+    typeEnseignement: TypeEnseignementCreateNestedOneWithoutAffectationsInput
+    activityTag?: ActivityTagCreateNestedOneWithoutAffectationsInput
+  }
+
+  export type AffectationUncheckedCreateWithoutModuleInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    groupeId?: string | null
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationCreateOrConnectWithoutModuleInput = {
+    where: AffectationWhereUniqueInput
+    create: XOR<AffectationCreateWithoutModuleInput, AffectationUncheckedCreateWithoutModuleInput>
+  }
+
+  export type AffectationCreateManyModuleInputEnvelope = {
+    data: AffectationCreateManyModuleInput | AffectationCreateManyModuleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NiveauUpsertWithoutModulesInput = {
     update: XOR<NiveauUpdateWithoutModulesInput, NiveauUncheckedUpdateWithoutModulesInput>
     create: XOR<NiveauCreateWithoutModulesInput, NiveauUncheckedCreateWithoutModulesInput>
@@ -85928,6 +88500,7 @@ export namespace Prisma {
     activityTag?: ActivityTagUpdateOneWithoutTypesEnseignementNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
     chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateWithoutModulesInput = {
@@ -85939,6 +88512,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
     chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type GradeUpsertWithoutModulesInput = {
@@ -86040,6 +88614,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ModuleVolume"> | Date | string
   }
 
+  export type AffectationUpsertWithWhereUniqueWithoutModuleInput = {
+    where: AffectationWhereUniqueInput
+    update: XOR<AffectationUpdateWithoutModuleInput, AffectationUncheckedUpdateWithoutModuleInput>
+    create: XOR<AffectationCreateWithoutModuleInput, AffectationUncheckedCreateWithoutModuleInput>
+  }
+
+  export type AffectationUpdateWithWhereUniqueWithoutModuleInput = {
+    where: AffectationWhereUniqueInput
+    data: XOR<AffectationUpdateWithoutModuleInput, AffectationUncheckedUpdateWithoutModuleInput>
+  }
+
+  export type AffectationUpdateManyWithWhereWithoutModuleInput = {
+    where: AffectationScalarWhereInput
+    data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyWithoutModuleInput>
+  }
+
   export type ModuleCreateWithoutModuleVolumesInput = {
     id?: string
     code: string
@@ -86055,6 +88645,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutModulesInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
+    affectations?: AffectationCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutModuleVolumesInput = {
@@ -86072,6 +88663,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutModuleVolumesInput = {
@@ -86105,6 +88697,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutModulesNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutModuleVolumesInput = {
@@ -86122,6 +88715,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type AnneeCreateWithoutChargeRuleSetsInput = {
@@ -86442,6 +89036,7 @@ export namespace Prisma {
     activityTag?: ActivityTagCreateNestedOneWithoutTypesEnseignementInput
     modules?: ModuleCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
+    affectations?: AffectationCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementUncheckedCreateWithoutChargeCoefficientsInput = {
@@ -86453,6 +89048,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementCreateOrConnectWithoutChargeCoefficientsInput = {
@@ -86519,6 +89115,7 @@ export namespace Prisma {
     activityTag?: ActivityTagUpdateOneWithoutTypesEnseignementNestedInput
     modules?: ModuleUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateWithoutChargeCoefficientsInput = {
@@ -86530,6 +89127,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type TypeEnseignementCreateWithoutActivityTagInput = {
@@ -86541,6 +89139,7 @@ export namespace Prisma {
     modules?: ModuleCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
     chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
+    affectations?: AffectationCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementUncheckedCreateWithoutActivityTagInput = {
@@ -86552,6 +89151,7 @@ export namespace Prisma {
     modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
     chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementCreateOrConnectWithoutActivityTagInput = {
@@ -86579,6 +89179,48 @@ export namespace Prisma {
 
   export type SalleActivityTagCreateManyTagInputEnvelope = {
     data: SalleActivityTagCreateManyTagInput | SalleActivityTagCreateManyTagInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AffectationCreateWithoutActivityTagInput = {
+    id?: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    repartition: RepartitionCreateNestedOneWithoutAffectationsInput
+    enseignant: EnseignantCreateNestedOneWithoutAffectationsInput
+    groupe?: GroupeCreateNestedOneWithoutAffectationsInput
+    module: ModuleCreateNestedOneWithoutAffectationsInput
+    typeEnseignement: TypeEnseignementCreateNestedOneWithoutAffectationsInput
+  }
+
+  export type AffectationUncheckedCreateWithoutActivityTagInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationCreateOrConnectWithoutActivityTagInput = {
+    where: AffectationWhereUniqueInput
+    create: XOR<AffectationCreateWithoutActivityTagInput, AffectationUncheckedCreateWithoutActivityTagInput>
+  }
+
+  export type AffectationCreateManyActivityTagInputEnvelope = {
+    data: AffectationCreateManyActivityTagInput | AffectationCreateManyActivityTagInput[]
     skipDuplicates?: boolean
   }
 
@@ -86632,6 +89274,22 @@ export namespace Prisma {
     NOT?: SalleActivityTagScalarWhereInput | SalleActivityTagScalarWhereInput[]
     salleId?: UuidFilter<"SalleActivityTag"> | string
     activityTagId?: UuidFilter<"SalleActivityTag"> | string
+  }
+
+  export type AffectationUpsertWithWhereUniqueWithoutActivityTagInput = {
+    where: AffectationWhereUniqueInput
+    update: XOR<AffectationUpdateWithoutActivityTagInput, AffectationUncheckedUpdateWithoutActivityTagInput>
+    create: XOR<AffectationCreateWithoutActivityTagInput, AffectationUncheckedCreateWithoutActivityTagInput>
+  }
+
+  export type AffectationUpdateWithWhereUniqueWithoutActivityTagInput = {
+    where: AffectationWhereUniqueInput
+    data: XOR<AffectationUpdateWithoutActivityTagInput, AffectationUncheckedUpdateWithoutActivityTagInput>
+  }
+
+  export type AffectationUpdateManyWithWhereWithoutActivityTagInput = {
+    where: AffectationScalarWhereInput
+    data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyWithoutActivityTagInput>
   }
 
   export type AnneeCreateWithoutEnseignantsInput = {
@@ -86799,6 +89457,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AffectationCreateWithoutEnseignantInput = {
+    id?: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    repartition: RepartitionCreateNestedOneWithoutAffectationsInput
+    groupe?: GroupeCreateNestedOneWithoutAffectationsInput
+    module: ModuleCreateNestedOneWithoutAffectationsInput
+    typeEnseignement: TypeEnseignementCreateNestedOneWithoutAffectationsInput
+    activityTag?: ActivityTagCreateNestedOneWithoutAffectationsInput
+  }
+
+  export type AffectationUncheckedCreateWithoutEnseignantInput = {
+    id?: string
+    repartitionId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationCreateOrConnectWithoutEnseignantInput = {
+    where: AffectationWhereUniqueInput
+    create: XOR<AffectationCreateWithoutEnseignantInput, AffectationUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type AffectationCreateManyEnseignantInputEnvelope = {
+    data: AffectationCreateManyEnseignantInput | AffectationCreateManyEnseignantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutEnseignantsInput = {
     update: XOR<AnneeUpdateWithoutEnseignantsInput, AnneeUncheckedUpdateWithoutEnseignantsInput>
     create: XOR<AnneeCreateWithoutEnseignantsInput, AnneeUncheckedCreateWithoutEnseignantsInput>
@@ -86954,6 +89654,22 @@ export namespace Prisma {
     data: XOR<IndisponibiliteUpdateManyMutationInput, IndisponibiliteUncheckedUpdateManyWithoutEnseignantInput>
   }
 
+  export type AffectationUpsertWithWhereUniqueWithoutEnseignantInput = {
+    where: AffectationWhereUniqueInput
+    update: XOR<AffectationUpdateWithoutEnseignantInput, AffectationUncheckedUpdateWithoutEnseignantInput>
+    create: XOR<AffectationCreateWithoutEnseignantInput, AffectationUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type AffectationUpdateWithWhereUniqueWithoutEnseignantInput = {
+    where: AffectationWhereUniqueInput
+    data: XOR<AffectationUpdateWithoutEnseignantInput, AffectationUncheckedUpdateWithoutEnseignantInput>
+  }
+
+  export type AffectationUpdateManyWithWhereWithoutEnseignantInput = {
+    where: AffectationScalarWhereInput
+    data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyWithoutEnseignantInput>
+  }
+
   export type EnseignantCreateWithoutEnseignantModulesInput = {
     id?: string
     matricule: string
@@ -86970,6 +89686,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutEnseignantModulesInput = {
@@ -86988,6 +89705,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutEnseignantModulesInput = {
@@ -87010,6 +89728,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutModulesInput
     exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
+    affectations?: AffectationCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutEnseignantModulesInput = {
@@ -87027,6 +89746,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutEnseignantModulesInput = {
@@ -87061,6 +89781,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutEnseignantModulesInput = {
@@ -87079,6 +89800,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type ModuleUpsertWithoutEnseignantModulesInput = {
@@ -87107,6 +89829,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutModulesNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutEnseignantModulesInput = {
@@ -87124,6 +89847,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type EnseignantCreateWithoutDechargesInput = {
@@ -87142,6 +89866,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutDechargesInput = {
@@ -87160,6 +89885,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutDechargesInput = {
@@ -87229,6 +89955,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutDechargesInput = {
@@ -87247,6 +89974,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type SemestreUpsertWithoutDechargesInput = {
@@ -87773,6 +90501,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutEnseignantsInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutIndisponibilitesInput = {
@@ -87791,6 +90520,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutIndisponibilitesInput = {
@@ -87909,6 +90639,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutEnseignantsNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -87927,6 +90658,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type SalleUpsertWithoutIndisponibilitesInput = {
@@ -88253,6 +90985,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     typesEnseignement?: TypeEnseignementCreateNestedManyWithoutActivityTagInput
+    affectations?: AffectationCreateNestedManyWithoutActivityTagInput
   }
 
   export type ActivityTagUncheckedCreateWithoutSalleActivityTagsInput = {
@@ -88263,6 +90996,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     typesEnseignement?: TypeEnseignementUncheckedCreateNestedManyWithoutActivityTagInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutActivityTagInput
   }
 
   export type ActivityTagCreateOrConnectWithoutSalleActivityTagsInput = {
@@ -88338,6 +91072,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     typesEnseignement?: TypeEnseignementUpdateManyWithoutActivityTagNestedInput
+    affectations?: AffectationUpdateManyWithoutActivityTagNestedInput
   }
 
   export type ActivityTagUncheckedUpdateWithoutSalleActivityTagsInput = {
@@ -88348,6 +91083,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     typesEnseignement?: TypeEnseignementUncheckedUpdateManyWithoutActivityTagNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutActivityTagNestedInput
   }
 
   export type ModuleCreateWithoutExigencesEquipementInput = {
@@ -88365,6 +91101,7 @@ export namespace Prisma {
     grade?: GradeCreateNestedOneWithoutModulesInput
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
+    affectations?: AffectationCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleUncheckedCreateWithoutExigencesEquipementInput = {
@@ -88382,6 +91119,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
     moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutModuleInput
   }
 
   export type ModuleCreateOrConnectWithoutExigencesEquipementInput = {
@@ -88398,6 +91136,7 @@ export namespace Prisma {
     activityTag?: ActivityTagCreateNestedOneWithoutTypesEnseignementInput
     modules?: ModuleCreateNestedManyWithoutTypeInput
     chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
+    affectations?: AffectationCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementUncheckedCreateWithoutExigencesEquipementInput = {
@@ -88409,6 +91148,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
     chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutTypeEnseignementInput
   }
 
   export type TypeEnseignementCreateOrConnectWithoutExigencesEquipementInput = {
@@ -88469,6 +91209,7 @@ export namespace Prisma {
     grade?: GradeUpdateOneWithoutModulesNestedInput
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutExigencesEquipementInput = {
@@ -88486,6 +91227,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type TypeEnseignementUpsertWithoutExigencesEquipementInput = {
@@ -88508,6 +91250,7 @@ export namespace Prisma {
     activityTag?: ActivityTagUpdateOneWithoutTypesEnseignementNestedInput
     modules?: ModuleUpdateManyWithoutTypeNestedInput
     chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateWithoutExigencesEquipementInput = {
@@ -88519,6 +91262,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
     chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type EquipementUpsertWithoutExigencesEquipementInput = {
@@ -88824,6 +91568,48 @@ export namespace Prisma {
     create: XOR<DepartementCreateWithoutRepartitionsInput, DepartementUncheckedCreateWithoutRepartitionsInput>
   }
 
+  export type AffectationCreateWithoutRepartitionInput = {
+    id?: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignant: EnseignantCreateNestedOneWithoutAffectationsInput
+    groupe?: GroupeCreateNestedOneWithoutAffectationsInput
+    module: ModuleCreateNestedOneWithoutAffectationsInput
+    typeEnseignement: TypeEnseignementCreateNestedOneWithoutAffectationsInput
+    activityTag?: ActivityTagCreateNestedOneWithoutAffectationsInput
+  }
+
+  export type AffectationUncheckedCreateWithoutRepartitionInput = {
+    id?: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationCreateOrConnectWithoutRepartitionInput = {
+    where: AffectationWhereUniqueInput
+    create: XOR<AffectationCreateWithoutRepartitionInput, AffectationUncheckedCreateWithoutRepartitionInput>
+  }
+
+  export type AffectationCreateManyRepartitionInputEnvelope = {
+    data: AffectationCreateManyRepartitionInput | AffectationCreateManyRepartitionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutRepartitionsInput = {
     update: XOR<SemestreUpdateWithoutRepartitionsInput, SemestreUncheckedUpdateWithoutRepartitionsInput>
     create: XOR<SemestreCreateWithoutRepartitionsInput, SemestreUncheckedCreateWithoutRepartitionsInput>
@@ -88902,6 +91688,462 @@ export namespace Prisma {
     formations?: FormationUncheckedUpdateManyWithoutDepartementNestedInput
     enseignants?: EnseignantUncheckedUpdateManyWithoutDepartementNestedInput
     salles?: SalleUncheckedUpdateManyWithoutDepartementNestedInput
+  }
+
+  export type AffectationUpsertWithWhereUniqueWithoutRepartitionInput = {
+    where: AffectationWhereUniqueInput
+    update: XOR<AffectationUpdateWithoutRepartitionInput, AffectationUncheckedUpdateWithoutRepartitionInput>
+    create: XOR<AffectationCreateWithoutRepartitionInput, AffectationUncheckedCreateWithoutRepartitionInput>
+  }
+
+  export type AffectationUpdateWithWhereUniqueWithoutRepartitionInput = {
+    where: AffectationWhereUniqueInput
+    data: XOR<AffectationUpdateWithoutRepartitionInput, AffectationUncheckedUpdateWithoutRepartitionInput>
+  }
+
+  export type AffectationUpdateManyWithWhereWithoutRepartitionInput = {
+    where: AffectationScalarWhereInput
+    data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyWithoutRepartitionInput>
+  }
+
+  export type RepartitionCreateWithoutAffectationsInput = {
+    id?: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutRepartitionsInput
+    departement: DepartementCreateNestedOneWithoutRepartitionsInput
+  }
+
+  export type RepartitionUncheckedCreateWithoutAffectationsInput = {
+    id?: string
+    semestreId: string
+    departementId: string
+    statut?: $Enums.RepartitionStatut
+    libelle?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RepartitionCreateOrConnectWithoutAffectationsInput = {
+    where: RepartitionWhereUniqueInput
+    create: XOR<RepartitionCreateWithoutAffectationsInput, RepartitionUncheckedCreateWithoutAffectationsInput>
+  }
+
+  export type EnseignantCreateWithoutAffectationsInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutEnseignantsInput
+    departement: DepartementCreateNestedOneWithoutEnseignantsInput
+    grade?: GradeCreateNestedOneWithoutEnseignantsInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUncheckedCreateWithoutAffectationsInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    gradeId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantCreateOrConnectWithoutAffectationsInput = {
+    where: EnseignantWhereUniqueInput
+    create: XOR<EnseignantCreateWithoutAffectationsInput, EnseignantUncheckedCreateWithoutAffectationsInput>
+  }
+
+  export type GroupeCreateWithoutAffectationsInput = {
+    id?: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    ordre?: number
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutGroupesInput
+    semestre: SemestreCreateNestedOneWithoutGroupesInput
+    parent?: GroupeCreateNestedOneWithoutEnfantsInput
+    enfants?: GroupeCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeUncheckedCreateWithoutAffectationsInput = {
+    id?: string
+    niveauId: string
+    semestreId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    ordre?: number
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type GroupeCreateOrConnectWithoutAffectationsInput = {
+    where: GroupeWhereUniqueInput
+    create: XOR<GroupeCreateWithoutAffectationsInput, GroupeUncheckedCreateWithoutAffectationsInput>
+  }
+
+  export type ModuleCreateWithoutAffectationsInput = {
+    id?: string
+    code: string
+    libelle: string
+    semestreNumero: number
+    credits?: number | null
+    effectifMax?: number | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutModulesInput
+    type: TypeEnseignementCreateNestedOneWithoutModulesInput
+    grade?: GradeCreateNestedOneWithoutModulesInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutModuleInput
+    exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeCreateNestedManyWithoutModuleInput
+  }
+
+  export type ModuleUncheckedCreateWithoutAffectationsInput = {
+    id?: string
+    niveauId: string
+    typeId: string
+    gradeId?: string | null
+    code: string
+    libelle: string
+    semestreNumero: number
+    credits?: number | null
+    effectifMax?: number | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutModuleInput
+    exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutModuleInput
+    moduleVolumes?: ModuleVolumeUncheckedCreateNestedManyWithoutModuleInput
+  }
+
+  export type ModuleCreateOrConnectWithoutAffectationsInput = {
+    where: ModuleWhereUniqueInput
+    create: XOR<ModuleCreateWithoutAffectationsInput, ModuleUncheckedCreateWithoutAffectationsInput>
+  }
+
+  export type TypeEnseignementCreateWithoutAffectationsInput = {
+    id?: string
+    code: $Enums.TypeEnseignementCode
+    libelle: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    activityTag?: ActivityTagCreateNestedOneWithoutTypesEnseignementInput
+    modules?: ModuleCreateNestedManyWithoutTypeInput
+    exigencesEquipement?: ExigenceEquipementCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientCreateNestedManyWithoutTypeInput
+  }
+
+  export type TypeEnseignementUncheckedCreateWithoutAffectationsInput = {
+    id?: string
+    code: $Enums.TypeEnseignementCode
+    libelle: string
+    activityTagId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    modules?: ModuleUncheckedCreateNestedManyWithoutTypeInput
+    exigencesEquipement?: ExigenceEquipementUncheckedCreateNestedManyWithoutTypeInput
+    chargeCoefficients?: ChargeCoefficientUncheckedCreateNestedManyWithoutTypeInput
+  }
+
+  export type TypeEnseignementCreateOrConnectWithoutAffectationsInput = {
+    where: TypeEnseignementWhereUniqueInput
+    create: XOR<TypeEnseignementCreateWithoutAffectationsInput, TypeEnseignementUncheckedCreateWithoutAffectationsInput>
+  }
+
+  export type ActivityTagCreateWithoutAffectationsInput = {
+    id?: string
+    code: string
+    libelle: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    typesEnseignement?: TypeEnseignementCreateNestedManyWithoutActivityTagInput
+    salleActivityTags?: SalleActivityTagCreateNestedManyWithoutTagInput
+  }
+
+  export type ActivityTagUncheckedCreateWithoutAffectationsInput = {
+    id?: string
+    code: string
+    libelle: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    typesEnseignement?: TypeEnseignementUncheckedCreateNestedManyWithoutActivityTagInput
+    salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutTagInput
+  }
+
+  export type ActivityTagCreateOrConnectWithoutAffectationsInput = {
+    where: ActivityTagWhereUniqueInput
+    create: XOR<ActivityTagCreateWithoutAffectationsInput, ActivityTagUncheckedCreateWithoutAffectationsInput>
+  }
+
+  export type RepartitionUpsertWithoutAffectationsInput = {
+    update: XOR<RepartitionUpdateWithoutAffectationsInput, RepartitionUncheckedUpdateWithoutAffectationsInput>
+    create: XOR<RepartitionCreateWithoutAffectationsInput, RepartitionUncheckedCreateWithoutAffectationsInput>
+    where?: RepartitionWhereInput
+  }
+
+  export type RepartitionUpdateToOneWithWhereWithoutAffectationsInput = {
+    where?: RepartitionWhereInput
+    data: XOR<RepartitionUpdateWithoutAffectationsInput, RepartitionUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type RepartitionUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutRepartitionsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutRepartitionsNestedInput
+  }
+
+  export type RepartitionUncheckedUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    libelle?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EnseignantUpsertWithoutAffectationsInput = {
+    update: XOR<EnseignantUpdateWithoutAffectationsInput, EnseignantUncheckedUpdateWithoutAffectationsInput>
+    create: XOR<EnseignantCreateWithoutAffectationsInput, EnseignantUncheckedCreateWithoutAffectationsInput>
+    where?: EnseignantWhereInput
+  }
+
+  export type EnseignantUpdateToOneWithWhereWithoutAffectationsInput = {
+    where?: EnseignantWhereInput
+    data: XOR<EnseignantUpdateWithoutAffectationsInput, EnseignantUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type EnseignantUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
+    grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type GroupeUpsertWithoutAffectationsInput = {
+    update: XOR<GroupeUpdateWithoutAffectationsInput, GroupeUncheckedUpdateWithoutAffectationsInput>
+    create: XOR<GroupeCreateWithoutAffectationsInput, GroupeUncheckedCreateWithoutAffectationsInput>
+    where?: GroupeWhereInput
+  }
+
+  export type GroupeUpdateToOneWithWhereWithoutAffectationsInput = {
+    where?: GroupeWhereInput
+    data: XOR<GroupeUpdateWithoutAffectationsInput, GroupeUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type GroupeUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
+    semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
+    parent?: GroupeUpdateOneWithoutEnfantsNestedInput
+    enfants?: GroupeUpdateManyWithoutParentNestedInput
+  }
+
+  export type GroupeUncheckedUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type ModuleUpsertWithoutAffectationsInput = {
+    update: XOR<ModuleUpdateWithoutAffectationsInput, ModuleUncheckedUpdateWithoutAffectationsInput>
+    create: XOR<ModuleCreateWithoutAffectationsInput, ModuleUncheckedCreateWithoutAffectationsInput>
+    where?: ModuleWhereInput
+  }
+
+  export type ModuleUpdateToOneWithWhereWithoutAffectationsInput = {
+    where?: ModuleWhereInput
+    data: XOR<ModuleUpdateWithoutAffectationsInput, ModuleUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type ModuleUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    semestreNumero?: IntFieldUpdateOperationsInput | number
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    effectifMax?: NullableIntFieldUpdateOperationsInput | number | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutModulesNestedInput
+    type?: TypeEnseignementUpdateOneRequiredWithoutModulesNestedInput
+    grade?: GradeUpdateOneWithoutModulesNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
+    exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
+  }
+
+  export type ModuleUncheckedUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    typeId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    semestreNumero?: IntFieldUpdateOperationsInput | number
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    effectifMax?: NullableIntFieldUpdateOperationsInput | number | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
+    exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
+    moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
+  }
+
+  export type TypeEnseignementUpsertWithoutAffectationsInput = {
+    update: XOR<TypeEnseignementUpdateWithoutAffectationsInput, TypeEnseignementUncheckedUpdateWithoutAffectationsInput>
+    create: XOR<TypeEnseignementCreateWithoutAffectationsInput, TypeEnseignementUncheckedCreateWithoutAffectationsInput>
+    where?: TypeEnseignementWhereInput
+  }
+
+  export type TypeEnseignementUpdateToOneWithWhereWithoutAffectationsInput = {
+    where?: TypeEnseignementWhereInput
+    data: XOR<TypeEnseignementUpdateWithoutAffectationsInput, TypeEnseignementUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type TypeEnseignementUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: EnumTypeEnseignementCodeFieldUpdateOperationsInput | $Enums.TypeEnseignementCode
+    libelle?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    activityTag?: ActivityTagUpdateOneWithoutTypesEnseignementNestedInput
+    modules?: ModuleUpdateManyWithoutTypeNestedInput
+    exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
+  }
+
+  export type TypeEnseignementUncheckedUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: EnumTypeEnseignementCodeFieldUpdateOperationsInput | $Enums.TypeEnseignementCode
+    libelle?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
+    exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
+    chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
+  }
+
+  export type ActivityTagUpsertWithoutAffectationsInput = {
+    update: XOR<ActivityTagUpdateWithoutAffectationsInput, ActivityTagUncheckedUpdateWithoutAffectationsInput>
+    create: XOR<ActivityTagCreateWithoutAffectationsInput, ActivityTagUncheckedCreateWithoutAffectationsInput>
+    where?: ActivityTagWhereInput
+  }
+
+  export type ActivityTagUpdateToOneWithWhereWithoutAffectationsInput = {
+    where?: ActivityTagWhereInput
+    data: XOR<ActivityTagUpdateWithoutAffectationsInput, ActivityTagUncheckedUpdateWithoutAffectationsInput>
+  }
+
+  export type ActivityTagUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    typesEnseignement?: TypeEnseignementUpdateManyWithoutActivityTagNestedInput
+    salleActivityTags?: SalleActivityTagUpdateManyWithoutTagNestedInput
+  }
+
+  export type ActivityTagUncheckedUpdateWithoutAffectationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    typesEnseignement?: TypeEnseignementUncheckedUpdateManyWithoutActivityTagNestedInput
+    salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutTagNestedInput
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -90073,6 +93315,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutAnneeInput = {
@@ -90091,6 +93334,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutAnneeInput = {
@@ -90231,6 +93475,7 @@ export namespace Prisma {
     niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutSemestreInput = {
@@ -90246,6 +93491,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateManyWithoutSemestreInput = {
@@ -90412,6 +93658,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departement?: DepartementUpdateOneRequiredWithoutRepartitionsNestedInput
+    affectations?: AffectationUpdateManyWithoutRepartitionNestedInput
   }
 
   export type RepartitionUncheckedUpdateWithoutSemestreInput = {
@@ -90421,6 +93668,7 @@ export namespace Prisma {
     libelle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    affectations?: AffectationUncheckedUpdateManyWithoutRepartitionNestedInput
   }
 
   export type RepartitionUncheckedUpdateManyWithoutSemestreInput = {
@@ -90558,6 +93806,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutDepartementInput = {
@@ -90576,6 +93825,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutDepartementInput = {
@@ -90654,6 +93904,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutRepartitionsNestedInput
+    affectations?: AffectationUpdateManyWithoutRepartitionNestedInput
   }
 
   export type RepartitionUncheckedUpdateWithoutDepartementInput = {
@@ -90663,6 +93914,7 @@ export namespace Prisma {
     libelle?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    affectations?: AffectationUncheckedUpdateManyWithoutRepartitionNestedInput
   }
 
   export type RepartitionUncheckedUpdateManyWithoutDepartementInput = {
@@ -90759,6 +94011,7 @@ export namespace Prisma {
     semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutNiveauInput = {
@@ -90774,6 +94027,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateManyWithoutNiveauInput = {
@@ -90805,6 +94059,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutNiveauInput = {
@@ -90822,6 +94077,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutNiveauInput = {
@@ -90852,6 +94108,22 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type AffectationCreateManyGroupeInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type GroupeUpdateWithoutParentInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
@@ -90865,6 +94137,7 @@ export namespace Prisma {
     niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
     semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutParentInput = {
@@ -90880,6 +94153,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateManyWithoutParentInput = {
@@ -90892,6 +94166,54 @@ export namespace Prisma {
     ordre?: IntFieldUpdateOperationsInput | number
     effectif?: IntFieldUpdateOperationsInput | number
     originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUpdateWithoutGroupeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    repartition?: RepartitionUpdateOneRequiredWithoutAffectationsNestedInput
+    enseignant?: EnseignantUpdateOneRequiredWithoutAffectationsNestedInput
+    module?: ModuleUpdateOneRequiredWithoutAffectationsNestedInput
+    typeEnseignement?: TypeEnseignementUpdateOneRequiredWithoutAffectationsNestedInput
+    activityTag?: ActivityTagUpdateOneWithoutAffectationsNestedInput
+  }
+
+  export type AffectationUncheckedUpdateWithoutGroupeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutGroupeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -90923,6 +94245,22 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type AffectationCreateManyTypeEnseignementInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ModuleUpdateWithoutTypeInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
@@ -90938,6 +94276,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutTypeInput = {
@@ -90955,6 +94294,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutTypeInput = {
@@ -91010,6 +94350,54 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AffectationUpdateWithoutTypeEnseignementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    repartition?: RepartitionUpdateOneRequiredWithoutAffectationsNestedInput
+    enseignant?: EnseignantUpdateOneRequiredWithoutAffectationsNestedInput
+    groupe?: GroupeUpdateOneWithoutAffectationsNestedInput
+    module?: ModuleUpdateOneRequiredWithoutAffectationsNestedInput
+    activityTag?: ActivityTagUpdateOneWithoutAffectationsNestedInput
+  }
+
+  export type AffectationUncheckedUpdateWithoutTypeEnseignementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutTypeEnseignementInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ModuleCreateManyGradeInput = {
     id?: string
     niveauId: string
@@ -91061,6 +94449,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateWithoutGradeInput = {
@@ -91078,6 +94467,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutModuleNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutModuleNestedInput
     moduleVolumes?: ModuleVolumeUncheckedUpdateManyWithoutModuleNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutModuleNestedInput
   }
 
   export type ModuleUncheckedUpdateManyWithoutGradeInput = {
@@ -91110,6 +94500,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutGradeInput = {
@@ -91128,6 +94519,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutGradeInput = {
@@ -91184,6 +94576,22 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type AffectationCreateManyModuleInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    groupeId?: string | null
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EnseignantModuleUpdateWithoutModuleInput = {
     enseignant?: EnseignantUpdateOneRequiredWithoutEnseignantModulesNestedInput
   }
@@ -91234,6 +94642,54 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     volume?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUpdateWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    repartition?: RepartitionUpdateOneRequiredWithoutAffectationsNestedInput
+    enseignant?: EnseignantUpdateOneRequiredWithoutAffectationsNestedInput
+    groupe?: GroupeUpdateOneWithoutAffectationsNestedInput
+    typeEnseignement?: TypeEnseignementUpdateOneRequiredWithoutAffectationsNestedInput
+    activityTag?: ActivityTagUpdateOneWithoutAffectationsNestedInput
+  }
+
+  export type AffectationUncheckedUpdateWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -91306,6 +94762,22 @@ export namespace Prisma {
     salleId: string
   }
 
+  export type AffectationCreateManyActivityTagInput = {
+    id?: string
+    repartitionId: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type TypeEnseignementUpdateWithoutActivityTagInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: EnumTypeEnseignementCodeFieldUpdateOperationsInput | $Enums.TypeEnseignementCode
@@ -91315,6 +94787,7 @@ export namespace Prisma {
     modules?: ModuleUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUpdateManyWithoutTypeNestedInput
     chargeCoefficients?: ChargeCoefficientUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateWithoutActivityTagInput = {
@@ -91326,6 +94799,7 @@ export namespace Prisma {
     modules?: ModuleUncheckedUpdateManyWithoutTypeNestedInput
     exigencesEquipement?: ExigenceEquipementUncheckedUpdateManyWithoutTypeNestedInput
     chargeCoefficients?: ChargeCoefficientUncheckedUpdateManyWithoutTypeNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutTypeEnseignementNestedInput
   }
 
   export type TypeEnseignementUncheckedUpdateManyWithoutActivityTagInput = {
@@ -91348,6 +94822,54 @@ export namespace Prisma {
     salleId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type AffectationUpdateWithoutActivityTagInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    repartition?: RepartitionUpdateOneRequiredWithoutAffectationsNestedInput
+    enseignant?: EnseignantUpdateOneRequiredWithoutAffectationsNestedInput
+    groupe?: GroupeUpdateOneWithoutAffectationsNestedInput
+    module?: ModuleUpdateOneRequiredWithoutAffectationsNestedInput
+    typeEnseignement?: TypeEnseignementUpdateOneRequiredWithoutAffectationsNestedInput
+  }
+
+  export type AffectationUncheckedUpdateWithoutActivityTagInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutActivityTagInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type EnseignantModuleCreateManyEnseignantInput = {
     moduleId: string
   }
@@ -91367,6 +94889,22 @@ export namespace Prisma {
     ordre: number
     salleId?: string | null
     estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationCreateManyEnseignantInput = {
+    id?: string
+    repartitionId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -91436,6 +94974,54 @@ export namespace Prisma {
     ordre?: IntFieldUpdateOperationsInput | number
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUpdateWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    repartition?: RepartitionUpdateOneRequiredWithoutAffectationsNestedInput
+    groupe?: GroupeUpdateOneWithoutAffectationsNestedInput
+    module?: ModuleUpdateOneRequiredWithoutAffectationsNestedInput
+    typeEnseignement?: TypeEnseignementUpdateOneRequiredWithoutAffectationsNestedInput
+    activityTag?: ActivityTagUpdateOneWithoutAffectationsNestedInput
+  }
+
+  export type AffectationUncheckedUpdateWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -91758,6 +95344,70 @@ export namespace Prisma {
     actif?: BoolFieldUpdateOperationsInput | boolean
     creePar?: StringFieldUpdateOperationsInput | string
     creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationCreateManyRepartitionInput = {
+    id?: string
+    enseignantId: string
+    groupeId?: string | null
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId?: string | null
+    volumeHebdoMinutes: number
+    seancesParSemaine: number
+    dureeMinutes: number
+    estCmCommun?: boolean
+    workingRevision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AffectationUpdateWithoutRepartitionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignant?: EnseignantUpdateOneRequiredWithoutAffectationsNestedInput
+    groupe?: GroupeUpdateOneWithoutAffectationsNestedInput
+    module?: ModuleUpdateOneRequiredWithoutAffectationsNestedInput
+    typeEnseignement?: TypeEnseignementUpdateOneRequiredWithoutAffectationsNestedInput
+    activityTag?: ActivityTagUpdateOneWithoutAffectationsNestedInput
+  }
+
+  export type AffectationUncheckedUpdateWithoutRepartitionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AffectationUncheckedUpdateManyWithoutRepartitionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    groupeId?: NullableStringFieldUpdateOperationsInput | string | null
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: NullableStringFieldUpdateOperationsInput | string | null
+    volumeHebdoMinutes?: IntFieldUpdateOperationsInput | number
+    seancesParSemaine?: IntFieldUpdateOperationsInput | number
+    dureeMinutes?: IntFieldUpdateOperationsInput | number
+    estCmCommun?: BoolFieldUpdateOperationsInput | boolean
+    workingRevision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
