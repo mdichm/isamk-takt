@@ -55,6 +55,8 @@ describe('RepartitionsService', () => {
       },
       snapshot: {
         findFirst: vi.fn(),
+        findUnique: vi.fn(),
+        findMany: vi.fn(),
         create: vi.fn(),
       },
       snapshotAffectation: {
@@ -1076,6 +1078,174 @@ describe('RepartitionsService', () => {
       );
       expect(ecartEns3).toBeDefined();
       expect(ecartEns3!.ecart).toBe(-45);
+    });
+  });
+
+  // ============================================
+  // Tests de consultation des snapshots (L2-14)
+  // ============================================
+
+  describe('findSnapshots / findSnapshotById', () => {
+    const currentUserResponsable = {
+      id: 'user-1',
+      role: 'RESPONSABLE_DEPARTEMENT',
+      departments: [departementId],
+    };
+    const currentUserAdmin = {
+      id: 'admin-1',
+      role: 'ADMINISTRATEUR',
+      departments: undefined,
+    };
+
+    const snapshot1 = {
+      id: 'snap-1',
+      repartitionId,
+      tag: 'SNAP-0000000001',
+      hash: 'hash1',
+      valideParId: currentUserResponsable.id,
+      valideLe: new Date('2025-01-10T10:00:00Z'),
+      parAdministrateur: false,
+      repartitionStatut: 'VALIDEE',
+      createdAt: new Date('2025-01-10T10:00:00Z'),
+    };
+    const snapshot2 = {
+      id: 'snap-2',
+      repartitionId,
+      tag: 'SNAP-0000000002',
+      hash: 'hash2',
+      valideParId: currentUserAdmin.id,
+      valideLe: new Date('2025-01-15T10:00:00Z'),
+      parAdministrateur: true,
+      repartitionStatut: 'VALIDEE',
+      createdAt: new Date('2025-01-15T10:00:00Z'),
+    };
+
+    const mockAffectationsFigurees = [
+      {
+        id: 'sa-1',
+        snapshotId: 'snap-1',
+        enseignantId: 'ens-1',
+        groupeId: null,
+        moduleId: 'module-1',
+        typeEnseignementId: 'type-td',
+        activityTagId: null,
+        volumeHebdoMinutes: 90,
+        seancesParSemaine: 3,
+        dureeMinutes: 30,
+        estCmCommun: false,
+        workingRevision: 1,
+      },
+    ];
+
+    const mockChargesFigurees = [
+      {
+        id: 'sc-1',
+        snapshotId: 'snap-1',
+        enseignantId: 'ens-1',
+        volumeBrut: 90,
+        chargeCalculee: 90,
+        chargeReference: 0,
+        decharges: 0,
+        serviceDu: 0,
+        ecart: 0,
+        heuresSup: 0,
+      },
+    ];
+
+    beforeEach(() => {
+      vi.clearAllMocks();
+      prisma.repartition.findUnique.mockResolvedValue({
+        id: repartitionId,
+        semestreId,
+        departementId,
+        departement: { id: departementId },
+      });
+    });
+
+    it('devrait lister les snapshots triés par date desc', async () => {
+      prisma.snapshot.findMany.mockResolvedValue([snapshot2, snapshot1]);
+
+      const result = await service.findSnapshots(repartitionId, currentUserResponsable);
+
+      expect(result).toHaveLength(2);
+      expect(result[0].id).toBe('snap-2');
+      expect(result[1].id).toBe('snap-1');
+      expect(result[0].tag).toBe('SNAP-0000000002');
+      expect(result[0].parAdministrateur).toBe(true);
+      expect(result[1].parAdministrateur).toBe(false);
+      expect(prisma.snapshot.findMany).toHaveBeenCalledWith({
+        where: { repartitionId },
+        orderBy: { valideLe: 'desc' },
+      });
+    });
+
+    it('devrait retourner le détail d\'un snapshot (affectations + charges)', async () => {
+      prisma.snapshot.findUnique.mockResolvedValue(snapshot1);
+      prisma.snapshotAffectation.findMany.mockResolvedValue(mockAffectationsFigurees);
+      prisma.snapshotCharge.findMany.mockResolvedValue(mockChargesFigurees);
+
+      const result = await service.findSnapshotById(repartitionId, 'snap-1', currentUserResponsable);
+
+      expect(result.snapshotId).toBe('snap-1');
+      expect(result.tag).toBe('SNAP-0000000001');
+      expect(result.parAdministrateur).toBe(false);
+      expect(result.affectations).toHaveLength(1);
+      expect(result.affectations[0].enseignantId).toBe('ens-1');
+      expect(result.charges).toHaveLength(1);
+      expect(result.charges[0].volumeBrut).toBe(90);
+      expect(prisma.snapshot.findUnique).toHaveBeenCalledWith({
+        where: { id: 'snap-1' },
+      });
+      expect(prisma.snapshotAffectation.findMany).toHaveBeenCalledWith({
+        where: { snapshotId: 'snap-1' },
+      });
+      expect(prisma.snapshotCharge.findMany).toHaveBeenCalledWith({
+        where: { snapshotId: 'snap-1' },
+      });
+    });
+
+    it('devrait lever 404 si la répartition est introuvable', async () => {
+      prisma.repartition.findUnique.mockResolvedValue(null);
+
+      await expect(
+        service.findSnapshots('inconnu', currentUserResponsable),
+      ).rejects.toThrow('Répartition inconnu introuvable');
+    });
+
+    it('devrait lever 404 si le snapshot est introuvable', async () => {
+      prisma.snapshot.findUnique.mockResolvedValue(null);
+
+      await expect(
+        service.findSnapshotById(repartitionId, 'inconnu', currentUserResponsable),
+      ).rejects.toThrow('Snapshot inconnu introuvable');
+    });
+
+    it('devrait lever 404 si le snapshot n\'appartient pas à la répartition', async () => {
+      prisma.snapshot.findUnique.mockResolvedValue({
+        ...snapshot1,
+        repartitionId: 'autre-repartition',
+      });
+
+      await expect(
+        service.findSnapshotById(repartitionId, 'snap-1', currentUserResponsable),
+      ).rejects.toThrow('Snapshot snap-1 introuvable');
+    });
+
+    it('devrait lever 403 OUT_OF_SCOPE pour un responsable hors département', async () => {
+      const currentUserHorsPerimetre = {
+        id: 'user-2',
+        role: 'RESPONSABLE_DEPARTEMENT',
+        departments: ['autre-departement'],
+      };
+      prisma.repartition.findUnique.mockResolvedValue({
+        id: repartitionId,
+        departementId,
+        departement: { id: departementId },
+      });
+
+      await expect(
+        service.findSnapshots(repartitionId, currentUserHorsPerimetre),
+      ).rejects.toThrow('OUT_OF_SCOPE');
     });
   });
 });

@@ -280,6 +280,40 @@ export class SnapshotChargeDto {
   heuresSup: number;
 }
 
+// ============================================
+// Liste des snapshots (historique) (L2-14)
+// ============================================
+
+export class SnapshotListDto {
+  @ApiProperty({ description: 'ID du snapshot' })
+  @IsUUID()
+  id: string;
+
+  @ApiProperty({ description: 'Tag résolu du snapshot' })
+  @IsString()
+  tag: string;
+
+  @ApiProperty({ description: 'Hash de l\'état figé' })
+  @IsString()
+  hash: string;
+
+  @ApiProperty({ description: 'Validé par (userId)' })
+  @IsUUID()
+  valideParId: string;
+
+  @ApiProperty({ description: 'Date de validation' })
+  valideLe: Date;
+
+  @ApiProperty({ description: 'Validation par un Administrateur' })
+  parAdministrateur: boolean;
+
+  @ApiProperty({ description: 'Statut de la répartition au moment du snapshot' })
+  statut: RepartitionStatut;
+
+  @ApiProperty({ description: 'Date de création du snapshot' })
+  createdAt: Date;
+}
+
 export class ValidateRepartitionDto {
   @ApiProperty({ description: 'ID du snapshot créé' })
   @IsUUID()
