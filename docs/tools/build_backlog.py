@@ -6,7 +6,8 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-HERE = os.path.dirname(os.path.abspath(__file__)); DOCS = os.path.dirname(HERE)
+HERE = os.path.dirname(os.path.abspath(__file__)); DOCS = os.path.dirname(HERE); DIST = os.path.join(os.path.dirname(DOCS), "dist")
+os.makedirs(DIST, exist_ok=True)
 exec(open(os.path.join(HERE, "tickets_data.py"), encoding="utf-8").read())
 
 LOTS = OrderedDict([
@@ -38,12 +39,12 @@ def row(tk):
             ", ".join(tk["deps_ids"]),tk["statut"],""]
 
 # CSV
-with open(os.path.join(DOCS,"Backlog_TAKT_tickets.csv"),"w",encoding="utf-8-sig",newline="") as f:
+with open(os.path.join(DIST,"Backlog_TAKT_tickets.csv"),"w",encoding="utf-8-sig",newline="") as f:
     w = csv.writer(f, delimiter=";", quoting=csv.QUOTE_MINIMAL); w.writerow(HEAD)
     for tk in TICKETS: w.writerow(row(tk))
 
 # correspondance anciens numéros
-with open(os.path.join(DOCS,"tools","correspondance_tickets.json"),"w",encoding="utf-8") as f:
+with open(os.path.join(DIST,"correspondance_tickets.json"),"w",encoding="utf-8") as f:
     json.dump({tk["old"]:tk["id"] for tk in TICKETS if tk["old"]}, f, ensure_ascii=False, indent=1)
 
 # XLSX
@@ -110,5 +111,5 @@ we.cell(row=r,column=1,value="Total").font=bold
 for col in "DE":
     c = we[f"{col}{r}"]; c.value=f"=SUM({col}2:{col}{r-1})"; c.font=bold
 for j,wd in enumerate([9,6,46,10,10],1): we.column_dimensions[get_column_letter(j)].width = wd
-wb.save(os.path.join(DOCS,"Backlog_TAKT.xlsx"))
+wb.save(os.path.join(DIST,"Backlog_TAKT.xlsx"))
 print(len(TICKETS),"tickets,",len(epics),"epics,",sum(t["pts"] for t in TICKETS),"points")

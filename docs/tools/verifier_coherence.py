@@ -3,13 +3,14 @@
 Usage : python3 tools/verifier_coherence.py   (code de sortie 1 en cas d'écart)"""
 import csv, re, os, sys, json
 from collections import defaultdict, OrderedDict
-HERE = os.path.dirname(os.path.abspath(__file__)); DOCS = os.path.dirname(HERE)
+HERE = os.path.dirname(os.path.abspath(__file__)); DOCS = os.path.dirname(HERE); DIST = os.path.join(os.path.dirname(DOCS), "dist")
+os.makedirs(DIST, exist_ok=True)
 read = lambda p: open(os.path.join(DOCS, p), encoding="utf-8-sig").read()
 errors, warnings = [], []
 def err(m): errors.append(m)
 
 sf = read("SF_TAKT.md"); st = read("ST_TAKT.md")
-rows = list(csv.DictReader(open(os.path.join(DOCS,"Backlog_TAKT_tickets.csv"),encoding="utf-8-sig"), delimiter=";"))
+rows = list(csv.DictReader(open(os.path.join(DIST,"Backlog_TAKT_tickets.csv"),encoding="utf-8-sig"), delimiter=";"))
 
 # --- 1. exigences de la SF
 ex_def = re.findall(r"\*\*(EX-[A-Z]+-\d{2})\*\*", sf)
@@ -113,7 +114,7 @@ for mdl in re.finditer(r"^model (\w+) \{(.*?)^\}", body, flags=re.M|re.S):
 
 # --- 8. génération de la matrice
 # Le JSON de correspondance est une source versionnée : son absence ne doit jamais amputer la matrice en silence.
-CORR_PATH = os.path.join(HERE, "correspondance_tickets.json")
+CORR_PATH = os.path.join(DIST, "correspondance_tickets.json")
 if not os.path.exists(CORR_PATH):
     err("tools/correspondance_tickets.json absent : la matrice serait amputée de sa section "
         "« Correspondance » (restaurer le fichier depuis Git ou relancer build_backlog.py)")
@@ -138,7 +139,7 @@ if corr:
     for k, v in sorted(corr.items(), key=lambda kv: (kv[0][:2], int(kv[0].split('-')[1]))): lines.append(f"| {k} | {v} |")
 # On n'écrase la matrice que si tous les contrôles ont réussi (évite d'écrire un fichier incomplet).
 if not errors:
-    with open(os.path.join(DOCS, "TRACABILITE_TAKT.md"), "w", encoding="utf-8", newline="\n") as f:
+    with open(os.path.join(DIST, "TRACABILITE_TAKT.md"), "w", encoding="utf-8", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
 print(f"{len(EX)} exigences · {len(rows)} tickets · {pts} points · {len(models)} modèles Prisma")
 if errors:

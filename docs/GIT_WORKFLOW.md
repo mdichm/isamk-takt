@@ -13,11 +13,19 @@ Chaque push sur une branche de Pull Request déclenche un nouveau run de CI. Pou
 
 1. **Implémentez le code et les tests** → commit local (`feat: ...`)
 2. **Mettez à jour la documentation** (README, OpenAPI, `.env.example`, etc.) → commit local (`docs: ...`)
-3. **Mettez à jour le backlog et la vélocité** (`tickets_data.py`, backlog, `VELOCITE.md`) → commit local (`docs: ...`)
-4. **Validez localement** : lint, typecheck, tests, build
-5. **Un seul `git push -u origin <branche>`** — tous les commits locaux sont poussés d'un coup
-6. **Créez la PR avec `gh pr create` uniquement après ce push unique**
+3. **Mettez à jour le statut des tickets** (`tickets_data.py` uniquement) → commit local (`docs: ...`)
+4. **Générez les artefacts localement** (backlog CSV/XLSX, VELOCITE.md, traçabilité) → écrits dans `dist/` (non versionné, `.gitignore`)
+   ```bash
+   python3 docs/tools/build_backlog.py
+   python3 docs/tools/velocity_tracker.py
+   python3 docs/tools/verifier_coherence.py
+   ```
+5. **Validez localement** : lint, typecheck, tests, build
+6. **Un seul `git push -u origin <branche>`** — tous les commits locaux sont poussés d'un coup
+7. **Créez la PR avec `gh pr create` uniquement après ce push unique**
 
+> ⚠️ Les artefacts générés (`Backlog_TAKT_tickets.csv`, `Backlog_TAKT.xlsx`, `VELOCITE.md`, `TRACABILITE_TAKT.md`, `correspondance_tickets.json`) ne sont **jamais committés**. Ils sont régénérés dans `dist/` à chaque besoin et ignorés par Git (`.gitignore` ligne 7 `dist`).
+>
 > ⚠️ Ne faites **pas** un push pour le code, puis un second push pour la documentation/backlog. Cela lancerait la CI deux fois pour le même ticket.
 
 Si des corrections sont nécessaires après revue, un push supplémentaire est inévitable mais doit rester exceptionnel.

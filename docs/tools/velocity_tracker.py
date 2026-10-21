@@ -19,8 +19,10 @@ from datetime import datetime, timedelta
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.dirname(HERE)
-CSV_PATH = os.path.join(DOCS, "Backlog_TAKT_tickets.csv")
-OUT_PATH = os.path.join(DOCS, "VELOCITE.md")
+DIST = os.path.join(os.path.dirname(DOCS), "dist")
+os.makedirs(DIST, exist_ok=True)
+CSV_PATH = os.path.join(DIST, "Backlog_TAKT_tickets.csv")
+OUT_PATH = os.path.join(DIST, "VELOCITE.md")
 
 # Configuration
 SPRINT_LENGTH_DAYS = 14  # 2 semaines
