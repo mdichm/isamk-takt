@@ -38,7 +38,7 @@ export class PolicyService {
           'enseignant:write','salle:read','salle:write','import:write',
           'creneau-affichage:read','creneau-affichage:write','indisponibilite:write',
           'volume:write','volume:read',
-          'repartition:read','repartition:write','repartition:validate',
+          'repartition:read','repartition:write','repartition:validate','repartition:reopen',
           'charges:read',
           'contrainte:read','contrainte:write','voeu:write','covoiturage:write','exigence-salle:write','profil:write',
           'version:create','generation:launch','seance:edit','verrou:write','avertissement:accept',
@@ -73,7 +73,7 @@ export class PolicyService {
       {
         permissions: [
           'referentiel:read','salle:read','salle:write','enseignant:write','repartition:read','repartition:write',
-          'repartition:validate','charges:read','charge-ruleset:read','version:read','version:validate','annee:read',
+          'repartition:validate','repartition:reopen','charges:read','charge-ruleset:read','version:read','version:validate','annee:read',
           'volume:write','volume:read',
           'demande:handle',
           'project:read','project:write','task:read','task:write','sprint:read','sprint:write','comment:read','comment:write','activity:read','tag:read','tag:write',

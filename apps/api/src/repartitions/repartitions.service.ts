@@ -19,6 +19,10 @@ import {
   ValidateRepartitionDto,
   SnapshotAffectationDto,
   SnapshotChargeDto,
+  ReopenRepartitionDto,
+  RepartitionDivergenceDto,
+  DivergenceAffectationDto,
+  EcartVolumeEnseignantDto,
 } from './dto/repartition.dto.js';
 import {
   CreateAffectationDto,
@@ -845,6 +849,174 @@ export class RepartitionsService {
 
     return this.toValidateRepartitionDto(snapshot, repartition, id, affectations, charges);
   }
+
+  async reopenRepartition(
+    id: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ReopenRepartitionDto> {
+    // 1. La répartition doit exister
+    const repartition = await this.prisma.repartition.findUnique({
+      where: { id },
+      include: { departement: { select: { id: true } } },
+    });
+    if (!repartition) {
+      throw new NotFoundException(`Répartition ${id} introuvable`);
+    }
+
+    // 2. Scope département (pas de révélation d'existence hors périmètre)
+    if (
+      currentUser.role === 'RESPONSABLE_DEPARTEMENT' &&
+      currentUser.departments &&
+      !currentUser.departments.includes(repartition.departementId)
+    ) {
+      throw new BadRequestException(
+        'OUT_OF_SCOPE : cette répartition n\'appartient pas à votre département',
+      );
+    }
+
+    // 3. Seulement une répartition VALIDEE peut être rouverte
+    if (repartition.statut !== RepartitionStatut.VALIDEE) {
+      throw new ConflictException(
+        'Cette répartition n\'est pas dans un état validé (impossible à rouvrir)',
+      );
+    }
+
+    // 4. Récupérer le dernier snapshot figé de la répartition
+    const snapshot = await this.prisma.snapshot.findFirst({
+      where: { repartitionId: id },
+      orderBy: { valideLe: 'desc' },
+    });
+    if (!snapshot) {
+      throw new NotFoundException(
+        `Aucun snapshot figé trouvé pour la répartition ${id}`,
+      );
+    }
+
+    // 5. État actuel vs état figé
+    const [actuelles, figurees, chargesFigurees] = await Promise.all([
+      this.prisma.affectation.findMany({ where: { repartitionId: id } }),
+      this.prisma.snapshotAffectation.findMany({
+        where: { snapshotId: snapshot.id },
+      }),
+      this.prisma.snapshotCharge.findMany({
+        where: { snapshotId: snapshot.id },
+      }),
+    ]);
+
+    const divergence = this.computeDivergence(actuelles, figurees, chargesFigurees);
+
+    // 6. Passer la répartition en ROUVERTE + audit (même transaction)
+    const result = await this.audit.auditTransaction<any>(
+      async (tx) => {
+        return tx.repartition.update({
+          where: { id },
+          data: { statut: RepartitionStatut.ROUVERTE },
+        });
+      },
+      {
+        userId: currentUser.id,
+        action: 'REOPEN',
+        objetType: 'Repartition',
+        objetId: id,
+        ancienneValeur: { statut: RepartitionStatut.VALIDEE },
+        nouvelleValeur: {
+          statut: RepartitionStatut.ROUVERTE,
+          snapshotId: snapshot.id,
+        },
+        motif: `Réouverture répartition ${id}`,
+      },
+    );
+
+    return {
+      repartitionId: id,
+      statut: RepartitionStatut.ROUVERTE,
+      reopenParId: currentUser.id,
+      reopenLe: new Date(),
+      snapshotId: snapshot.id,
+      divergence,
+    } as ReopenRepartitionDto;
+  }
+
+  private computeDivergence(
+    actuelles: any[],
+    figurees: any[],
+    chargesFigurees: any[],
+  ): RepartitionDivergenceDto {
+    const cle = (a: any) =>
+      `${a.enseignantId}:${a.groupeId ?? 'null'}:${a.moduleId}:${a.typeEnseignementId}:${a.activityTagId ?? 'null'}`;
+
+    const figMap = new Map<string, any>();
+    for (const f of figurees) {
+      figMap.set(cle(f), f);
+    }
+
+    const affectationsAjoutees: DivergenceAffectationDto[] = [];
+    const affectationsSupprimees: DivergenceAffectationDto[] = [];
+    const affectationsModifiees: { ancienne: DivergenceAffectationDto; nouvelle: DivergenceAffectationDto }[] = [];
+
+    for (const a of actuelles) {
+      const k = cle(a);
+      const f = figMap.get(k);
+      if (!f) {
+        affectationsAjoutees.push(a);
+      } else if (
+        a.volumeHebdoMinutes !== f.volumeHebdoMinutes ||
+        a.seancesParSemaine !== f.seancesParSemaine ||
+        a.dureeMinutes !== f.dureeMinutes ||
+        a.estCmCommun !== f.estCmCommun ||
+        a.workingRevision !== f.workingRevision
+      ) {
+        affectationsModifiees.push({ ancienne: f, nouvelle: a });
+      }
+    }
+
+    for (const f of figurees) {
+      if (!actuelles.some((a) => cle(a) === cle(f))) {
+        affectationsSupprimees.push(f);
+      }
+    }
+
+    // Écart de volume par enseignant (snapshot vs actuel)
+    const volumeParEnseignantActuel = new Map<string, number>();
+    for (const a of actuelles) {
+      volumeParEnseignantActuel.set(
+        a.enseignantId,
+        (volumeParEnseignantActuel.get(a.enseignantId) ?? 0) + a.volumeHebdoMinutes,
+      );
+    }
+
+    const volumeParEnseignantSnapshot = new Map<string, number>();
+    for (const c of chargesFigurees) {
+      volumeParEnseignantSnapshot.set(c.enseignantId, c.volumeBrut);
+    }
+
+    const tousLesEnseignants = new Set([
+      ...volumeParEnseignantActuel.keys(),
+      ...volumeParEnseignantSnapshot.keys(),
+    ]);
+
+    const ecartsVolumeParEnseignant: EcartVolumeEnseignantDto[] = [];
+    for (const enseignantId of tousLesEnseignants) {
+      const volumeSnapshot = volumeParEnseignantSnapshot.get(enseignantId) ?? 0;
+      const volumeActuel = volumeParEnseignantActuel.get(enseignantId) ?? 0;
+      if (volumeActuel !== volumeSnapshot) {
+        ecartsVolumeParEnseignant.push({
+          enseignantId,
+          volumeSnapshot,
+          volumeActuel,
+          ecart: volumeActuel - volumeSnapshot,
+        });
+      }
+    }
+
+    return {
+      affectationsAjoutees,
+      affectationsSupprimees,
+      affectationsModifiees,
+      ecartsVolumeParEnseignant,
+    } as RepartitionDivergenceDto;
+  }
+
   private computeSnapshotHash(
     repartitionId: string,
     controles: ControlesResponseDto,
