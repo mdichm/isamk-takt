@@ -831,4 +831,251 @@ describe('RepartitionsService', () => {
       ).rejects.toThrow('déjà validée');
     });
   });
+
+  // ============================================
+  // Tests de réouverture (L2-13)
+  // ============================================
+
+  describe('reopenRepartition', () => {
+    const currentUserResponsable = {
+      id: 'user-1',
+      role: 'RESPONSABLE_DEPARTEMENT',
+      departments: [departementId],
+    };
+
+    const mockRepartitionValidee = {
+      id: repartitionId,
+      semestreId,
+      departementId,
+      statut: 'VALIDEE',
+      departement: { id: departementId },
+    };
+
+    const mockSnapshot = {
+      id: 'snap-1',
+      repartitionId,
+      tag: 'SNAP-1234567890',
+      hash: 'abc123',
+      valideParId: currentUserResponsable.id,
+      valideLe: new Date(),
+      parAdministrateur: false,
+      repartitionStatut: 'VALIDEE',
+      createdAt: new Date(),
+    };
+
+    const mockAffectationsActuelles = [
+      {
+        id: 'aff-1',
+        repartitionId,
+        enseignantId: 'ens-1',
+        groupeId: null,
+        moduleId: 'module-1',
+        typeEnseignementId: 'type-td',
+        activityTagId: null,
+        volumeHebdoMinutes: 90,
+        seancesParSemaine: 3,
+        dureeMinutes: 30,
+        estCmCommun: false,
+        workingRevision: 1,
+      },
+    ];
+
+    const mockAffectationsFigurees = [
+      {
+        id: 'saff-1',
+        snapshotId: 'snap-1',
+        enseignantId: 'ens-1',
+        groupeId: null,
+        moduleId: 'module-1',
+        typeEnseignementId: 'type-td',
+        activityTagId: null,
+        volumeHebdoMinutes: 90,
+        seancesParSemaine: 3,
+        dureeMinutes: 30,
+        estCmCommun: false,
+        workingRevision: 1,
+      },
+    ];
+
+    const mockChargesFigurees = [
+      {
+        id: 'sch-1',
+        snapshotId: 'snap-1',
+        enseignantId: 'ens-1',
+        volumeBrut: 90,
+        chargeCalculee: 90,
+        chargeReference: 0,
+        decharges: 0,
+        serviceDu: 0,
+        ecart: 90,
+        heuresSup: 0,
+      },
+    ];
+
+    beforeEach(() => {
+      vi.clearAllMocks();
+      prisma.repartition.update.mockResolvedValue({
+        ...mockRepartitionValidee,
+        statut: 'ROUVERTE',
+      });
+      audit.auditTransaction.mockImplementation(async (callback: any) =>
+        callback(prisma),
+      );
+    });
+
+    it('devrait rouvrir une répartition validée et retourner la divergence', async () => {
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartitionValidee);
+      prisma.snapshot.findFirst.mockResolvedValue(mockSnapshot);
+      prisma.affectation.findMany.mockResolvedValue(mockAffectationsActuelles);
+      prisma.snapshotAffectation.findMany.mockResolvedValue(
+        mockAffectationsFigurees,
+      );
+      prisma.snapshotCharge.findMany.mockResolvedValue(mockChargesFigurees);
+
+      const result = await service.reopenRepartition(
+        repartitionId,
+        currentUserResponsable,
+      );
+
+      expect(result.repartitionId).toBe(repartitionId);
+      expect(result.statut).toBe('ROUVERTE');
+      expect(result.reopenParId).toBe(currentUserResponsable.id);
+      expect(result.snapshotId).toBe('snap-1');
+      expect(result.divergence.affectationsAjoutees).toEqual([]);
+      expect(result.divergence.affectationsSupprimees).toEqual([]);
+      expect(result.divergence.affectationsModifiees).toEqual([]);
+      expect(result.divergence.ecartsVolumeParEnseignant).toEqual([]);
+      expect(prisma.repartition.update).toHaveBeenCalledWith({
+        where: { id: repartitionId },
+        data: { statut: 'ROUVERTE' },
+      });
+    });
+
+    it('devrait lever 404 si la répartition est introuvable', async () => {
+      prisma.repartition.findUnique.mockResolvedValue(null);
+
+      await expect(
+        service.reopenRepartition('inconnu', currentUserResponsable),
+      ).rejects.toThrow('Répartition inconnu introuvable');
+    });
+
+    it('devrait lever 403 OUT_OF_SCOPE pour un responsable hors département', async () => {
+      const currentUserHorsPerimetre = {
+        id: 'user-2',
+        role: 'RESPONSABLE_DEPARTEMENT',
+        departments: ['autre-departement'],
+      };
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartitionValidee);
+
+      await expect(
+        service.reopenRepartition(repartitionId, currentUserHorsPerimetre),
+      ).rejects.toThrow('OUT_OF_SCOPE');
+    });
+
+    it('devrait lever 409 si la répartition n\'est pas validée', async () => {
+      const mockRepartitionBrouillon = {
+        id: repartitionId,
+        semestreId,
+        departementId,
+        statut: 'BROUILLON',
+        departement: { id: departementId },
+      };
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartitionBrouillon);
+
+      await expect(
+        service.reopenRepartition(repartitionId, currentUserResponsable),
+      ).rejects.toThrow('impossible à rouvrir');
+    });
+
+    it('devrait lever 404 si aucun snapshot n\'existe', async () => {
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartitionValidee);
+      prisma.snapshot.findFirst.mockResolvedValue(null);
+
+      await expect(
+        service.reopenRepartition(repartitionId, currentUserResponsable),
+      ).rejects.toThrow('Aucun snapshot figé trouvé');
+    });
+
+    it('devrait calculer la divergence (ajout, suppression, modification, écart volume)', async () => {
+      const ajout = {
+        id: 'aff-2',
+        repartitionId,
+        enseignantId: 'ens-2',
+        groupeId: null,
+        moduleId: 'module-2',
+        typeEnseignementId: 'type-cours',
+        activityTagId: null,
+        volumeHebdoMinutes: 60,
+        seancesParSemaine: 2,
+        dureeMinutes: 30,
+        estCmCommun: false,
+        workingRevision: 1,
+      };
+      const suppression = {
+        ...mockAffectationsFigurees[0],
+        id: 'saff-2',
+        enseignantId: 'ens-3',
+        volumeHebdoMinutes: 45,
+      };
+      const modifieeActuelle = {
+        ...mockAffectationsActuelles[0],
+        volumeHebdoMinutes: 120,
+      };
+      const modifieeFiguree = { ...mockAffectationsFigurees[0] };
+
+      prisma.repartition.findUnique.mockResolvedValue(mockRepartitionValidee);
+      prisma.snapshot.findFirst.mockResolvedValue(mockSnapshot);
+      prisma.affectation.findMany.mockResolvedValue([modifieeActuelle, ajout]);
+      prisma.snapshotAffectation.findMany.mockResolvedValue([
+        modifieeFiguree,
+        suppression,
+      ]);
+      prisma.snapshotCharge.findMany.mockResolvedValue([
+        { ...mockChargesFigurees[0], volumeBrut: 90 },
+        {
+          id: 'sch-2',
+          snapshotId: 'snap-1',
+          enseignantId: 'ens-3',
+          volumeBrut: 45,
+          chargeCalculee: 45,
+          chargeReference: 0,
+          decharges: 0,
+          serviceDu: 0,
+          ecart: 45,
+          heuresSup: 0,
+        },
+      ]);
+
+      const result = await service.reopenRepartition(
+        repartitionId,
+        currentUserResponsable,
+      );
+
+      expect(result.divergence.affectationsAjoutees).toHaveLength(1);
+      expect(result.divergence.affectationsAjoutees[0].enseignantId).toBe(
+        'ens-2',
+      );
+      expect(result.divergence.affectationsSupprimees).toHaveLength(1);
+      expect(result.divergence.affectationsSupprimees[0].enseignantId).toBe(
+        'ens-3',
+      );
+      expect(result.divergence.affectationsModifiees).toHaveLength(1);
+      expect(
+        result.divergence.affectationsModifiees[0].nouvelle.volumeHebdoMinutes,
+      ).toBe(120);
+      expect(
+        result.divergence.affectationsModifiees[0].ancienne.volumeHebdoMinutes,
+      ).toBe(90);
+      const ecartEns1 = result.divergence.ecartsVolumeParEnseignant.find(
+        (e) => e.enseignantId === 'ens-1',
+      );
+      expect(ecartEns1).toBeDefined();
+      expect(ecartEns1!.ecart).toBe(30);
+      const ecartEns3 = result.divergence.ecartsVolumeParEnseignant.find(
+        (e) => e.enseignantId === 'ens-3',
+      );
+      expect(ecartEns3).toBeDefined();
+      expect(ecartEns3!.ecart).toBe(-45);
+    });
+  });
 });

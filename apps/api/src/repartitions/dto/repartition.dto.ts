@@ -316,3 +316,115 @@ export class ValidateRepartitionDto {
   @ApiProperty({ type: [SnapshotChargeDto], description: 'Charges figées dans le snapshot' })
   charges: SnapshotChargeDto[];
 }
+
+// ============================================
+// Réouverture de la répartition (L2-13)
+// ============================================
+
+export class DivergenceAffectationDto {
+  @ApiProperty({ description: 'ID de l\'enseignant' })
+  @IsUUID()
+  enseignantId: string;
+
+  @ApiPropertyOptional({ description: 'ID du groupe' })
+  @IsOptional()
+  @IsUUID()
+  groupeId?: string | null;
+
+  @ApiProperty({ description: 'ID du module' })
+  @IsUUID()
+  moduleId: string;
+
+  @ApiProperty({ description: "ID du type d'enseignement" })
+  @IsUUID()
+  typeEnseignementId: string;
+
+  @ApiPropertyOptional({ description: 'ID du tag d\'activité' })
+  @IsOptional()
+  @IsUUID()
+  activityTagId?: string | null;
+
+  @ApiProperty({ description: 'Volume hebdomadaire en minutes' })
+  @IsInt()
+  @Min(0)
+  volumeHebdoMinutes: number;
+
+  @ApiProperty({ description: 'Séances par semaine' })
+  @IsInt()
+  @Min(1)
+  seancesParSemaine: number;
+
+  @ApiProperty({ description: 'Durée en minutes (multiple de 30)' })
+  @IsInt()
+  @Min(0)
+  dureeMinutes: number;
+
+  @ApiProperty({ description: 'Cours commun CM' })
+  estCmCommun: boolean;
+
+  @ApiProperty({ description: 'Révision de travail' })
+  @IsInt()
+  workingRevision: number;
+}
+
+export class EcartVolumeEnseignantDto {
+  @ApiProperty({ description: 'ID de l\'enseignant' })
+  @IsUUID()
+  enseignantId: string;
+
+  @ApiProperty({ description: 'Volume figé dans le snapshot (minutes)' })
+  @IsInt()
+  @Min(0)
+  volumeSnapshot: number;
+
+  @ApiProperty({ description: 'Volume actuel (minutes)' })
+  @IsInt()
+  @Min(0)
+  volumeActuel: number;
+
+  @ApiProperty({ description: 'Écart (actuel − figé) en minutes' })
+  @IsInt()
+  ecart: number;
+}
+
+export class RepartitionDivergenceDto {
+  @ApiProperty({ type: [DivergenceAffectationDto], description: 'Affectations ajoutées depuis le snapshot' })
+  affectationsAjoutees: DivergenceAffectationDto[];
+
+  @ApiProperty({ type: [DivergenceAffectationDto], description: 'Affectations supprimées depuis le snapshot' })
+  affectationsSupprimees: DivergenceAffectationDto[];
+
+  @ApiProperty({
+    description: 'Affectations modifiées depuis le snapshot (ancienne / nouvelle valeur)',
+  })
+  affectationsModifiees: {
+    ancienne: DivergenceAffectationDto;
+    nouvelle: DivergenceAffectationDto;
+  }[];
+
+  @ApiProperty({ type: [EcartVolumeEnseignantDto], description: 'Écart de volume par enseignant' })
+  ecartsVolumeParEnseignant: EcartVolumeEnseignantDto[];
+}
+
+export class ReopenRepartitionDto {
+  @ApiProperty({ description: 'ID de la répartition rouverte' })
+  @IsUUID()
+  repartitionId: string;
+
+  @ApiProperty({ description: 'Statut après réouverture' })
+  statut: RepartitionStatut;
+
+  @ApiProperty({ description: 'Utilisateur ayant procédé à la réouverture' })
+  @IsUUID()
+  reopenParId: string;
+
+  @ApiProperty({ description: 'Date de réouverture' })
+  reopenLe: Date;
+
+  @ApiProperty({ description: 'ID du snapshot figé de référence' })
+  @IsUUID()
+  snapshotId: string;
+
+  @ApiProperty({ description: 'Divergence entre le snapshot et l\'état actuel' })
+  divergence: RepartitionDivergenceDto;
+}

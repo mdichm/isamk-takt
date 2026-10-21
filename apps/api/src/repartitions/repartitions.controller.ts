@@ -21,6 +21,7 @@ import {
   RepartitionQueryDto,
   ControlesResponseDto,
   ValidateRepartitionDto,
+  ReopenRepartitionDto,
 } from './dto/repartition.dto.js';
 import {
   CreateAffectationDto,
@@ -108,6 +109,23 @@ export class RepartitionsController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<ValidateRepartitionDto> {
     return this.repartitionsService.validateRepartition(id, currentUser);
+  }
+
+  @Post(':id/reopen')
+  @Permissions('repartition:reopen')
+  @Scope({ resource: 'repartition', idParam: 'id' })
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Rouvre une répartition validée et calcule la divergence' })
+  @ApiParam({ name: 'id', description: 'ID de la répartition (UUID)' })
+  @ApiResponse({ status: 200, description: 'Répartition rouverte avec divergence', type: ReopenRepartitionDto })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou hors portée' })
+  @ApiResponse({ status: 404, description: 'Répartition ou snapshot introuvable' })
+  @ApiResponse({ status: 409, description: 'Répartition non validée (impossible à rouvrir)' })
+  async reopenRepartition(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ReopenRepartitionDto> {
+    return this.repartitionsService.reopenRepartition(id, currentUser);
   }
 
   @Delete(':id')
