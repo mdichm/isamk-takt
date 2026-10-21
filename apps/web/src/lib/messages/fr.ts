@@ -779,6 +779,31 @@ export const messages = {
   errorCreateDemande: 'Impossible de créer la demande.',
   errorTraiterDemande: 'Impossible de traiter la demande.',
   formSelectDecision: 'Sélectionner une décision',
+
+  // Charges et agrégations (L2-10)
+  // ============================================
+  entityCharge: 'charge',
+  charges: 'Charges et agrégations',
+  chargesSubtitle: 'Consultation des charges d’enseignement par dimension et détail par enseignant.',
+  noCharges: 'Aucune charge à afficher.',
+  labelChargePonderee: 'Charge pondérée',
+  labelVolumeBrut: 'Volume brut',
+  labelChargeReference: 'Charge de référence',
+  labelServiceDu: 'Service dû',
+  labelEcart: 'Écart',
+  labelHeuresSup: 'Heures supplémentaires',
+  labelDecharges: 'Décharges',
+  labelCalculPartiel: 'Calcul partiel',
+  labelDepassePlafond: 'Dépassement plafond',
+  labelDetailActivite: 'Détail par activité',
+  chargeLabelType: 'Type',
+  chargeLabelVolume: 'Volume',
+  chargeLabelCoefficient: 'Coefficient',
+  chargeLabelContribution: 'Contribution',
+  btnVoirDetail: 'Voir le détail',
+  erreurChargesNonTrouvees: 'Aucune année active ou aucun jeu de règles publié.',
+  errorLoadCharges: 'Impossible de charger les charges.',
+  errorChargeEnseignantNonTrouve: 'Enseignant introuvable.',
 } as const;
 
 export type Messages = typeof messages;
