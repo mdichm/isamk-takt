@@ -12,7 +12,7 @@ import {
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import type { ContrainteNature } from '@takt/db';
+import type { ContrainteCategorie, ContrainteNature, ContraintePortee } from '@takt/db';
 
 // ============================================
 // Instances de contraintes (L3-03)
@@ -254,69 +254,156 @@ export class PaginatedContrainteInstancesDto {
 }
 
 // ============================================
-// Duplication de contraintes (L3-07)
+// Résolution de précédence (L3-06)
 // ============================================
 
-export class ContrainteDuplicateDto {
-  @ApiProperty({ example: 'uuid-semestre-source', description: 'ID du semestre source' })
+export class ContrainteResolusQueryDto {
+  @ApiProperty({ description: 'ID du semestre' })
   @IsUUID()
-  sourceSemestreId: string;
+  semestreId: string;
 
-  @ApiProperty({ example: 'uuid-semestre-cible', description: 'ID du semestre cible' })
-  @IsUUID()
-  cibleSemestreId: string;
+  @ApiProperty({
+    enum: ['GLOBALE', 'ENSEIGNANT', 'GROUPE', 'SALLE', 'MODULE'],
+    description: 'Type de sujet (portée de la contrainte)',
+  })
+  @IsIn(['GLOBALE', 'ENSEIGNANT', 'GROUPE', 'SALLE', 'MODULE'])
+  sujetType: ContraintePortee;
 
   @ApiPropertyOptional({
-    enum: ['REGLE', 'VOEU'],
-    example: ['REGLE', 'VOEU'],
-    description: 'Filtrer par nature (règle ou vœu). Toutes les natures par défaut.',
+    description: 'ID du sujet (enseignant, groupe, salle ou module). Requis sauf si sujetType = GLOBALE.',
   })
   @IsOptional()
-  @IsIn(['REGLE', 'VOEU'], { each: true })
-  natures?: ContrainteNature[];
+  @IsUUID()
+  sujetId?: string;
 }
 
-export class ContrainteNonCopieeDto {
-  @ApiProperty({ description: 'ID de la définition de contrainte' })
+export class ResoluContrainteDto {
+  @ApiProperty()
+  id: string;
+
+  @ApiProperty()
+  semestreId: string;
+
+  @ApiProperty()
   definitionId: string;
 
-  @ApiProperty({ description: 'Type de sujet (enseignant, groupe, salle, module)' })
-  sujetType: string;
+  @ApiProperty({ description: 'Code de la définition de contrainte' })
+  code: string;
 
-  @ApiProperty({ description: 'ID du sujet cible' })
-  sujetId: string;
+  @ApiProperty({ description: 'Catégorie (DURE ou SOUPLE)' })
+  categorie: ContrainteCategorie;
 
-  @ApiProperty({ description: 'Raison du non-copiage' })
-  raison: string;
+  @ApiProperty({ description: 'Portée de l\'instance' })
+  portee: ContraintePortee;
+
+  @ApiPropertyOptional({ description: 'ID de l\'enseignant cible' })
+  enseignantId?: string;
+
+  @ApiPropertyOptional({ description: 'ID du groupe cible' })
+  groupeId?: string;
+
+  @ApiPropertyOptional({ description: 'ID de la salle cible' })
+  salleId?: string;
+
+  @ApiPropertyOptional({ description: 'ID du module cible' })
+  moduleId?: string;
+
+  @ApiProperty({ description: 'Paramètres de la contrainte (JSON)' })
+  params: Record<string, unknown>;
+
+  @ApiPropertyOptional({ minimum: 0, maximum: 100, description: 'Poids 0-100 (null pour contraintes dures)' })
+  poids?: number;
+
+  @ApiProperty({ enum: ['REGLE', 'VOEU'] })
+  nature: ContrainteNature;
+
+  @ApiPropertyOptional({ description: 'Commentaire libre' })
+  commentaire?: string;
+
+  @ApiProperty({ description: 'Indique si cette instance a été overridée par une instance plus spécifique' })
+  overridenBy: string | null;
+
+  @ApiProperty()
+  actif: boolean;
+
+  @ApiProperty()
+  creePar: string;
+
+  @ApiProperty()
+  creeLe: Date;
 }
 
-export class IndisponibiliteNonCopieeDto {
-  @ApiProperty({ example: 'LUNDI', description: 'Jour de la semaine' })
-  jour: string;
+export class ContrainteResolutionResponseDto {
+  @ApiProperty()
+  semestreId: string;
 
-  @ApiProperty({ example: 3, description: 'Ordre du créneau dans la journée' })
-  ordre: number;
+  @ApiProperty({
+    enum: ['GLOBALE', 'ENSEIGNANT', 'GROUPE', 'SALLE', 'MODULE'],
+  })
+  sujetType: ContraintePortee;
 
-  @ApiProperty({ description: 'Raison du non-copiage' })
-  raison: string;
+  @ApiPropertyOptional({ description: 'ID du sujet (null si GLOBALE)' })
+  sujetId?: string;
+
+  @ApiProperty({ type: [ResoluContrainteDto] })
+  contraintes: ResoluContrainteDto[];
+
+  @ApiProperty()
+  total: number;
 }
 
-export class ContrainteDuplicateResponseDto {
-  @ApiProperty({ example: 5, description: 'Nombre de contraintes créées' })
-  contraintesCrees: number;
+// ============================================
+// Contrôle de cohérence (L3-06)
+// ============================================
 
-  @ApiProperty({ type: [String], example: ['uuid-1', 'uuid-2'], description: 'IDs des contraintes créées' })
-  contraintesIds: string[];
+export class ContrainteCoherenceQueryDto {
+  @ApiProperty({ description: 'ID du semestre' })
+  @IsUUID()
+  semestreId: string;
+}
 
-  @ApiProperty({ type: [ContrainteNonCopieeDto], description: 'Contraintes non copiées avec raison' })
-  contraintesNonCopiees: ContrainteNonCopieeDto[];
+export class IncoherenceDto {
+  @ApiProperty({
+    enum: ['MIN_MAX', 'VOLUME_GROUPE', 'DOUBLON', 'WARNING'],
+    description: "Type d'incohérence ou d'avertissement",
+  })
+  type: 'MIN_MAX' | 'VOLUME_GROUPE' | 'DOUBLON' | 'WARNING';
 
-  @ApiProperty({ example: 3, description: 'Nombre d\'indisponibilités créées' })
-  indisponibilitesCrees: number;
+  @ApiProperty({ description: 'Code de la définition de contrainte concernée' })
+  code: string;
 
-  @ApiProperty({ type: [String], example: ['uuid-1', 'uuid-2'], description: 'IDs des indisponibilités créées' })
-  indisponibilitesIds: string[];
+  @ApiProperty({
+    enum: ['GLOBALE', 'ENSEIGNANT', 'GROUPE', 'SALLE', 'MODULE'],
+    description: 'Type de sujet concerné',
+  })
+  sujetType: ContraintePortee;
 
-  @ApiProperty({ type: [IndisponibiliteNonCopieeDto], description: 'Indisponibilités non copiées avec raison' })
-  indisponibilitesNonCopiees: IndisponibiliteNonCopieeDto[];
+  @ApiPropertyOptional({ description: 'ID du sujet concerné' })
+  sujetId?: string;
+
+  @ApiProperty({ description: 'Message descriptif de l\'incohérence ou avertissement' })
+  message: string;
+
+  @ApiProperty({ enum: ['ERREUR', 'AVERTISSEMENT'], description: 'Sévérité' })
+  severite: 'ERREUR' | 'AVERTISSEMENT';
+
+  @ApiPropertyOptional({ description: 'Détails supplémentaires (valeurs détectées, etc.)' })
+  details?: Record<string, unknown>;
+}
+
+export class CoherenceReportDto {
+  @ApiProperty()
+  semestreId: string;
+
+  @ApiProperty({ type: [IncoherenceDto] })
+  incoherences: IncoherenceDto[];
+
+  @ApiProperty({ description: 'Nombre d\'erreurs bloquantes' })
+  totalErreurs: number;
+
+  @ApiProperty({ description: 'Nombre d\'avertissements' })
+  totalAvertissements: number;
+
+  @ApiProperty({ description: 'Indique si le semestre est cohérent (aucune erreur bloquante)' })
+  estCoherent: boolean;
 }

@@ -1,306 +1,317 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-// eslint-disable @typescript-eslint/no-explicit-any
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+// TAKT - Tests unitaires du service ContrainteInstance (L3-06 : précédence et cohérence)
+import { NotFoundException } from '@nestjs/common';
+import { vi } from 'vitest';
+import type { PrismaService } from '../prisma/prisma.service.js';
+import type {
+  ContrainteInstance,
+  ContrainteDefinition,
+  ContrainteCategorie,
+  ContraintePortee,
+} from '@takt/db';
 import { ContrainteInstanceService } from './contrainte-instance.service.js';
 
-vi.mock('@takt/db', () => ({ PrismaClient: class {} }));
+// ============================================
+// Mock PrismaService pour les tests unitaires
+// ============================================
 
-vi.mock('../audit/audit.service.js', () => ({
-  AuditService: vi.fn().mockImplementation(() => ({
-    auditTransaction: vi.fn(async (operation: any) => operation({} as any)),
-  })),
-}));
+class MockPrismaService {
+  semestre = {
+    findUnique: vi.fn(),
+  };
+  contrainteInstance = {
+    findMany: vi.fn(),
+  };
+  affectation = {
+    aggregate: vi.fn(),
+  };
+}
 
-describe('ContrainteInstanceService (duplicate - L3-07)', () => {
+function makeSemestre(id: string) {
+  return { id, code: 'S1', libelle: 'Semestre 1' } as any;
+}
+
+function makeDefinition(
+  code: string,
+  categorie: ContrainteCategorie,
+  portee: ContraintePortee,
+  params: Record<string, unknown> = {},
+): ContrainteDefinition {
+  return {
+    id: 'uuid-definition',
+    code,
+    libelle: `Libelle ${code}`,
+    categorie,
+    portee,
+    classe: categorie === 'DURE' ? 'HARD_CONSTRAINT' : 'SOFT_CONSTRAINT',
+    traductionFET: 'FET_SUPPORTED',
+    paramsSchema: { type: 'object', properties: params, required: Object.keys(params) },
+    fetSupport: 'NATIF',
+    actif: true,
+  } as ContrainteDefinition;
+}
+
+function makeInstance(
+  id: string,
+  definition: ContrainteDefinition,
+  overrides: {
+    enseignantId?: string | null;
+    groupeId?: string | null;
+    salleId?: string | null;
+    moduleId?: string | null;
+    poids?: number | null;
+    actif?: boolean;
+    params?: Record<string, unknown>;
+  } = {},
+): ContrainteInstance & { definition: ContrainteDefinition } {
+  return {
+    id,
+    semestreId: 'uuid-semestre',
+    definitionId: definition.id,
+    enseignantId: overrides.enseignantId ?? null,
+    groupeId: overrides.groupeId ?? null,
+    salleId: overrides.salleId ?? null,
+    moduleId: overrides.moduleId ?? null,
+    params: overrides.params ?? { heures: 8 },
+    poids: overrides.poids ?? null,
+    nature: 'REGLE',
+    commentaire: null,
+    actif: overrides.actif ?? true,
+    creePar: 'system',
+    creeLe: new Date(),
+    definition,
+  } as ContrainteInstance & { definition: ContrainteDefinition };
+}
+
+// ============================================
+// Tests unitaires
+// ============================================
+
+describe('ContrainteInstanceService (L3-06 - précédence et cohérence)', () => {
   let service: ContrainteInstanceService;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let prisma: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let audit: any;
-
-  const userId = '550e8400-e29b-41d4-a716-446655440000';
-  const sourceSemestreId = '550e8400-e29b-41d4-a716-446655440001';
-  const cibleSemestreId = '550e8400-e29b-41d4-a716-446655440002';
-  const enseignantId = '550e8400-e29b-41d4-a716-446655440003';
-  const defId = '550e8400-e29b-41d4-a716-446655440007';
-  const instanceId = '550e8400-e29b-41d4-a716-446655440008';
-  const newInstanceId = '550e8400-e29b-41d4-a716-446655440009';
-  const indispoId = '550e8400-e29b-41d4-a716-446655440010';
-  const newIndispoId = '550e8400-e29b-41d4-a716-446655440011';
-  const creneauId = '550e8400-e29b-41d4-a716-446655440012';
+  let prisma: MockPrismaService;
 
   beforeEach(() => {
-    vi.clearAllMocks();
-    prisma = {
-      semestre: { findUnique: vi.fn() },
-      contrainteInstance: {
-        findMany: vi.fn(),
-        findFirst: vi.fn(),
-        create: vi.fn(),
-      },
-      enseignant: { findUnique: vi.fn() },
-      groupe: { findUnique: vi.fn() },
-      salle: { findUnique: vi.fn() },
-      module: { findUnique: vi.fn() },
-      indisponibilite: {
-        findMany: vi.fn(),
-        create: vi.fn(),
-      },
-      creneau: { findFirst: vi.fn() },
-    };
-    audit = {
-      auditTransaction: vi.fn(async (operation: any) => operation(prisma)),
-    };
-    service = new ContrainteInstanceService(prisma as any, audit as any);
+    prisma = new MockPrismaService();
+    service = new ContrainteInstanceService(prisma as unknown as PrismaService);
   });
 
-  it('should throw BadRequest when source and cible semestres are identical', async () => {
-    await expect(
-      service.duplicate(sourceSemestreId, sourceSemestreId, undefined, userId),
-    ).rejects.toThrow('doivent être différents');
-  });
+  describe('resolveContraintesPourSujet', () => {
+    const semestreId = 'uuid-semestre';
+    const sujetId = 'uuid-sujet';
 
-  it('should throw NotFound when semestre source does not exist', async () => {
-    prisma.semestre.findUnique.mockResolvedValueOnce(null);
-    await expect(
-      service.duplicate(sourceSemestreId, cibleSemestreId, undefined, userId),
-    ).rejects.toThrow('Semestre source');
-  });
+    it('retourne une contrainte dure globale quand aucune spécifique nest definie', async () => {
+      const defMax = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const instMax = makeInstance('inst-max', defMax, {});
 
-  it('should copy constraints and indisponibilités successfully', async () => {
-    prisma.semestre.findUnique
-      .mockResolvedValueOnce({ id: sourceSemestreId })
-      .mockResolvedValueOnce({ id: cibleSemestreId });
-    prisma.contrainteInstance.findMany.mockResolvedValue([
-      {
-        id: instanceId,
-        semestreId: sourceSemestreId,
-        definitionId: defId,
-        enseignantId: enseignantId,
-        groupeId: null,
-        salleId: null,
-        moduleId: null,
-        originId: null,
-        params: {},
-        poids: null,
-        nature: 'REGLE',
-        commentaire: null,
-        actif: true,
-        creePar: userId,
-        creeLe: new Date(),
-        definition: { portee: 'ENSEIGNANT', categorie: 'DURE' },
-      },
-    ]);
-    prisma.enseignant.findUnique.mockResolvedValue({ id: enseignantId });
-    prisma.contrainteInstance.findFirst.mockResolvedValue(null);
-    prisma.contrainteInstance.create.mockResolvedValue({
-      id: newInstanceId,
-      semestreId: cibleSemestreId,
-      definitionId: defId,
-      enseignantId,
-      groupeId: null,
-      salleId: null,
-      moduleId: null,
-      originId: instanceId,
-      params: {},
-      poids: null,
-      nature: 'REGLE',
-      commentaire: null,
-      actif: true,
-      creePar: userId,
-      creeLe: new Date(),
-    });
-    prisma.indisponibilite.findMany.mockResolvedValue([
-      {
-        id: indispoId,
-        semestreId: sourceSemestreId,
-        jour: 'LUNDI',
-        ordre: 3,
-        enseignantId: enseignantId,
-        salleId: null,
-        estActive: true,
-      },
-    ]);
-    prisma.creneau.findFirst.mockResolvedValue({ id: creneauId });
-    prisma.indisponibilite.create.mockResolvedValue({
-      id: newIndispoId,
-      semestreId: cibleSemestreId,
-      jour: 'LUNDI',
-      ordre: 3,
-      enseignantId: enseignantId,
-      salleId: null,
-      estActive: true,
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([instMax]);
+
+      const result = await service.resolveContraintesPourSujet(
+        semestreId,
+        'GLOBALE',
+      );
+
+      expect(result.sujetType).toBe('GLOBALE');
+      expect(result.sujetId).toBeUndefined();
+      expect(result.contraintes).toHaveLength(1);
+      expect(result.contraintes[0].code).toBe('MAX_HOURS_PER_DAY');
+      expect(result.contraintes[0].overridenBy).toBeNull();
+      expect(result.total).toBe(1);
     });
 
-    const result = await service.duplicate(
-      sourceSemestreId,
-      cibleSemestreId,
-      undefined,
-      userId,
-    );
+    it('une dure specifique remplace la dure globale de meme code (precedence)', async () => {
+      const defMaxGlobal = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const instMaxGlobal = makeInstance('inst-max-global', defMaxGlobal, {});
 
-    expect(result.contraintesCrees).toBe(1);
-    expect(result.contraintesIds).toContain(newInstanceId);
-    expect(result.contraintesNonCopiees).toEqual([]);
-    expect(result.indisponibilitesCrees).toBe(1);
-    expect(result.indisponibilitesIds).toContain(newIndispoId);
-    expect(result.indisponibilitesNonCopiees).toEqual([]);
-    expect(prisma.contrainteInstance.create).toHaveBeenCalledWith(
-      expect.objectContaining({
-        data: expect.objectContaining({
-          originId: instanceId,
-          semestreId: cibleSemestreId,
-        }),
-      }),
-    );
-  });
+      const defMaxSpec = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'ENSEIGNANT', {});
+      const instMaxSpec = makeInstance('inst-max-spec', defMaxSpec, { enseignantId: sujetId });
 
-  it('should skip existing constraints (idempotence via originId)', async () => {
-    prisma.semestre.findUnique
-      .mockResolvedValueOnce({ id: sourceSemestreId })
-      .mockResolvedValueOnce({ id: cibleSemestreId });
-    prisma.contrainteInstance.findMany.mockResolvedValue([
-      {
-        id: instanceId,
-        semestreId: sourceSemestreId,
-        definitionId: defId,
-        enseignantId: null,
-        groupeId: null,
-        salleId: null,
-        moduleId: null,
-        originId: null,
-        params: {},
-        poids: null,
-        nature: 'REGLE',
-        commentaire: null,
-        actif: true,
-        creePar: userId,
-        creeLe: new Date(),
-        definition: { portee: 'GLOBALE', categorie: 'DURE' },
-      },
-    ]);
-    prisma.contrainteInstance.findFirst.mockResolvedValue({
-      id: 'already-copied',
-      semestreId: cibleSemestreId,
-      originId: instanceId,
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([
+        instMaxGlobal,
+        instMaxSpec,
+      ]);
+
+      const result = await service.resolveContraintesPourSujet(
+        semestreId,
+        'ENSEIGNANT',
+        sujetId,
+      );
+
+      expect(result.contraintes).toHaveLength(2);
+
+      const spec = result.contraintes.find((c) => c.id === 'inst-max-spec');
+      const glob = result.contraintes.find((c) => c.id === 'inst-max-global');
+
+      expect(spec?.overridenBy).toBeNull();
+      expect(spec?.code).toBe('MAX_HOURS_PER_DAY');
+      expect(glob?.overridenBy).toBe('inst-max-spec');
+      expect(glob?.code).toBe('MAX_HOURS_PER_DAY');
     });
-    prisma.indisponibilite.findMany.mockResolvedValue([]);
 
-    const result = await service.duplicate(
-      sourceSemestreId,
-      cibleSemestreId,
-      undefined,
-      userId,
-    );
+    it('les contraintes souples de meme code saccumulent', async () => {
+      const defSoft1 = makeDefinition('MAX_SPAN_PER_DAY', 'SOUPLE', 'GLOBALE', {});
+      const instSoft1 = makeInstance('inst-soft-1', defSoft1, {});
 
-    expect(result.contraintesCrees).toBe(0);
-    expect(result.contraintesIds).toEqual([]);
-    expect(prisma.contrainteInstance.create).not.toHaveBeenCalled();
-  });
+      const defSoft2 = makeDefinition('MAX_SPAN_PER_DAY', 'SOUPLE', 'ENSEIGNANT', {});
+      const instSoft2 = makeInstance('inst-soft-2', defSoft2, { enseignantId: sujetId });
 
-  it('should not copy constraint when target enseignant does not exist', async () => {
-    prisma.semestre.findUnique
-      .mockResolvedValueOnce({ id: sourceSemestreId })
-      .mockResolvedValueOnce({ id: cibleSemestreId });
-    prisma.contrainteInstance.findMany.mockResolvedValue([
-      {
-        id: instanceId,
-        semestreId: sourceSemestreId,
-        definitionId: defId,
-        enseignantId: enseignantId,
-        groupeId: null,
-        salleId: null,
-        moduleId: null,
-        originId: null,
-        params: {},
-        poids: null,
-        nature: 'REGLE',
-        commentaire: null,
-        actif: true,
-        creePar: userId,
-        creeLe: new Date(),
-        definition: { portee: 'ENSEIGNANT', categorie: 'DURE' },
-      },
-    ]);
-    prisma.contrainteInstance.findFirst.mockResolvedValue(null);
-    prisma.enseignant.findUnique.mockResolvedValue(null);
-    prisma.indisponibilite.findMany.mockResolvedValue([]);
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([instSoft1, instSoft2]);
 
-    const result = await service.duplicate(
-      sourceSemestreId,
-      cibleSemestreId,
-      undefined,
-      userId,
-    );
+      const result = await service.resolveContraintesPourSujet(
+        semestreId,
+        'ENSEIGNANT',
+        sujetId,
+      );
 
-    expect(result.contraintesCrees).toBe(0);
-    expect(result.contraintesNonCopiees).toHaveLength(1);
-    expect(result.contraintesNonCopiees[0]).toMatchObject({
-      definitionId: defId,
-      sujetType: 'enseignant',
-      sujetId: enseignantId,
-      raison: 'Enseignant cible introuvable',
+      const softConstraints = result.contraintes.filter(
+        (c) => c.code === 'MAX_SPAN_PER_DAY' && c.categorie === 'SOUPLE',
+      );
+      expect(softConstraints).toHaveLength(2);
+      expect(softConstraints[0].overridenBy).toBeNull();
+      expect(softConstraints[1].overridenBy).toBeNull();
     });
-    expect(prisma.contrainteInstance.create).not.toHaveBeenCalled();
-  });
 
-  it('should not copy indisponibilité when no creneau cible found', async () => {
-    prisma.semestre.findUnique
-      .mockResolvedValueOnce({ id: sourceSemestreId })
-      .mockResolvedValueOnce({ id: cibleSemestreId });
-    prisma.contrainteInstance.findMany.mockResolvedValue([]);
-    prisma.indisponibilite.findMany.mockResolvedValue([
-      {
-        id: indispoId,
-        semestreId: sourceSemestreId,
-        jour: 'LUNDI',
-        ordre: 3,
-        enseignantId: enseignantId,
-        salleId: null,
-        estActive: true,
-      },
-    ]);
-    prisma.creneau.findFirst.mockResolvedValue(null);
+    it('une instance inactive nest pas prise en compte', async () => {
+      const defMax = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const instMax = makeInstance('inst-max', defMax, { actif: false });
 
-    const result = await service.duplicate(
-      sourceSemestreId,
-      cibleSemestreId,
-      undefined,
-      userId,
-    );
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      // Le filtre actif: true est applique au niveau Prisma, le mock retourne vide
+      prisma.contrainteInstance.findMany.mockResolvedValue([]);
 
-    expect(result.indisponibilitesCrees).toBe(0);
-    expect(result.indisponibilitesNonCopiees).toHaveLength(1);
-    expect(result.indisponibilitesNonCopiees[0]).toMatchObject({
-      jour: 'LUNDI',
-      ordre: 3,
-      raison: expect.stringContaining('Aucun créneau cible trouvé'),
+      const result = await service.resolveContraintesPourSujet(
+        semestreId,
+        'GLOBALE',
+      );
+
+      expect(result.contraintes).toHaveLength(0);
+      expect(result.total).toBe(0);
     });
-    expect(prisma.indisponibilite.create).not.toHaveBeenCalled();
+
+    it('lance NotFoundException si le semestre est introuvable', async () => {
+      prisma.semestre.findUnique.mockResolvedValue(null);
+
+      await expect(
+        service.resolveContraintesPourSujet('unknown-semestre', 'GLOBALE'),
+      ).rejects.toBeInstanceOf(NotFoundException);
+    });
+
+    it('filtre les instances par portee correspondant au sujet', async () => {
+      const defGlobal = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const instGlobal = makeInstance('inst-global', defGlobal, {});
+
+      const defOther = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'ENSEIGNANT', {});
+      const instOther = makeInstance('inst-other', defOther, { enseignantId: 'autre-enseignant' });
+
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([instGlobal, instOther]);
+
+      const result = await service.resolveContraintesPourSujet(
+        semestreId,
+        'ENSEIGNANT',
+        sujetId,
+      );
+
+      expect(result.contraintes).toHaveLength(1);
+      expect(result.contraintes[0].id).toBe('inst-global');
+    });
   });
 
-  it('should filter by natures when provided', async () => {
-    prisma.semestre.findUnique
-      .mockResolvedValueOnce({ id: sourceSemestreId })
-      .mockResolvedValueOnce({ id: cibleSemestreId });
-    prisma.contrainteInstance.findMany.mockResolvedValue([]);
-    prisma.indisponibilite.findMany.mockResolvedValue([]);
+  describe('verifierCoherenceSemestre', () => {
+    const semestreId = 'uuid-semestre';
 
-    await service.duplicate(
-      sourceSemestreId,
-      cibleSemestreId,
-      ['VOEU'],
-      userId,
-    );
+    it('retourne estCoherent true quand pas dincoherence', async () => {
+      const defMax = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const defMin = makeDefinition('MIN_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const instMax = makeInstance('inst-max', defMax, {});
+      const instMin = makeInstance('inst-min', defMin, {});
 
-    expect(prisma.contrainteInstance.findMany).toHaveBeenCalledWith(
-      expect.objectContaining({
-        where: expect.objectContaining({
-          semestreId: sourceSemestreId,
-          actif: true,
-          nature: { in: ['VOEU'] },
-        }),
-      }),
-    );
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([instMax, instMin]);
+      prisma.affectation.aggregate.mockResolvedValue({
+        _sum: { volumeHebdoMinutes: 0 },
+      });
+
+      const result = await service.verifierCoherenceSemestre(semestreId);
+
+      expect(result.estCoherent).toBe(true);
+      expect(result.totalErreurs).toBe(0);
+      expect(result.semestreId).toBe(semestreId);
+    });
+
+    it('detecte min > max comme erreur bloquante', async () => {
+      const defMin = makeDefinition('MIN_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const defMax = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const instMin = makeInstance('inst-min', defMin, { params: { heures: 8 } as any });
+      const instMax = makeInstance('inst-max', defMax, { params: { heures: 4 } as any });
+
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([instMin, instMax]);
+      prisma.affectation.aggregate.mockResolvedValue({
+        _sum: { volumeHebdoMinutes: 0 },
+      });
+
+      const result = await service.verifierCoherenceSemestre(semestreId);
+
+      expect(result.estCoherent).toBe(false);
+      expect(result.totalErreurs).toBe(1);
+      const minMaxError = result.incoherences.find((i) => i.type === 'MIN_MAX');
+      expect(minMaxError).toBeDefined();
+      expect(minMaxError?.severite).toBe('ERREUR');
+      expect(minMaxError?.code).toBe('MIN_HOURS_PER_DAY');
+    });
+
+    it('detecte les doublons de meme code sur un meme sujet', async () => {
+      const def = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'GLOBALE', {});
+      const inst1 = makeInstance('inst-1', def, {});
+      const inst2 = makeInstance('inst-2', def, {});
+
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([inst1, inst2]);
+      prisma.affectation.aggregate.mockResolvedValue({
+        _sum: { volumeHebdoMinutes: 0 },
+      });
+
+      const result = await service.verifierCoherenceSemestre(semestreId);
+
+      expect(result.estCoherent).toBe(false);
+      expect(result.totalErreurs).toBe(1);
+      const doublon = result.incoherences.find((i) => i.type === 'DOUBLON');
+      expect(doublon).toBeDefined();
+      expect(doublon?.severite).toBe('ERREUR');
+    });
+
+    it('lance NotFoundException si le semestre est introuvable', async () => {
+      prisma.semestre.findUnique.mockResolvedValue(null);
+
+      await expect(service.verifierCoherenceSemestre('unknown-semestre')).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
+    });
+
+    it('verifie le volume groupe comme avertissement', async () => {
+      const defMaxHeures = makeDefinition('MAX_HOURS_PER_DAY', 'DURE', 'GROUPE', {});
+      const defMaxJours = makeDefinition('MAX_DAYS_PER_WEEK', 'DURE', 'GROUPE', {});
+      const instMaxHeures = makeInstance('inst-max-h', defMaxHeures, { groupeId: 'uuid-groupe', params: { heures: 6 } as any });
+      const instMaxJours = makeInstance('inst-max-j', defMaxJours, { groupeId: 'uuid-groupe', params: { jours: 5 } as any });
+
+      // Plafond = 6 * 5 * 60 = 1800 minutes
+      // Volume reellement affecte = 2000 minutes > 1800 -> avertissement
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([instMaxHeures, instMaxJours]);
+      prisma.affectation.aggregate.mockResolvedValue({
+        _sum: { volumeHebdoMinutes: 2000 },
+      });
+
+      const result = await service.verifierCoherenceSemestre(semestreId);
+
+      expect(result.totalAvertissements).toBe(1);
+      const volumeWarning = result.incoherences.find((i) => i.type === 'VOLUME_GROUPE');
+      expect(volumeWarning).toBeDefined();
+      expect(volumeWarning?.severite).toBe('AVERTISSEMENT');
+    });
   });
 });

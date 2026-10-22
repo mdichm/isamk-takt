@@ -1144,6 +1144,9 @@ model ContrainteInstance {
   semestre   Semestre             @relation(fields: [semestreId], references: [id], onDelete: Cascade)
   definition ContrainteDefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
 
+  // Unicité : une instance de même définition ne peut cibler qu'un seul sujet par semestre.
+  // Les index partiels (migration SQL brute) gèrent le cas des NULL (globales) proprement sous PostgreSQL.
+  @@unique([semestreId, definitionId, enseignantId, groupeId, salleId, moduleId])
   @@index([semestreId, actif])
   @@map("contrainte_instances")
 }

@@ -74776,6 +74776,7 @@ export namespace Prisma {
 
   export type ContrainteInstanceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    semestreId_definitionId_enseignantId_groupeId_salleId_moduleId?: ContrainteInstanceSemestreIdDefinitionIdEnseignantIdGroupeIdSalleIdModuleIdCompoundUniqueInput
     AND?: ContrainteInstanceWhereInput | ContrainteInstanceWhereInput[]
     OR?: ContrainteInstanceWhereInput[]
     NOT?: ContrainteInstanceWhereInput | ContrainteInstanceWhereInput[]
@@ -74795,7 +74796,7 @@ export namespace Prisma {
     creeLe?: DateTimeFilter<"ContrainteInstance"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     definition?: XOR<ContrainteDefinitionScalarRelationFilter, ContrainteDefinitionWhereInput>
-  }, "id">
+  }, "id" | "semestreId_definitionId_enseignantId_groupeId_salleId_moduleId">
 
   export type ContrainteInstanceOrderByWithAggregationInput = {
     id?: SortOrder
@@ -82926,6 +82927,15 @@ export namespace Prisma {
   export type ContrainteDefinitionScalarRelationFilter = {
     is?: ContrainteDefinitionWhereInput
     isNot?: ContrainteDefinitionWhereInput
+  }
+
+  export type ContrainteInstanceSemestreIdDefinitionIdEnseignantIdGroupeIdSalleIdModuleIdCompoundUniqueInput = {
+    semestreId: string
+    definitionId: string
+    enseignantId: string
+    groupeId: string
+    salleId: string
+    moduleId: string
   }
 
   export type ContrainteInstanceCountOrderByAggregateInput = {
