@@ -20,3 +20,9 @@ export {
   type ValidatePlacementCtx,
   type SalleData,
 } from './validate-placement.js';
+export {
+  computeConflicts,
+  impactedSeances,
+  type SeancePlacement,
+  type Placement,
+} from './recompute.js';

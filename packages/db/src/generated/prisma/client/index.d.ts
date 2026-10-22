@@ -308,6 +308,11 @@ export type SnapshotCharge = $Result.DefaultSelection<Prisma.$SnapshotChargePayl
  * 
  */
 export type DemandeModification = $Result.DefaultSelection<Prisma.$DemandeModificationPayload>
+/**
+ * Model Conflit
+ * 
+ */
+export type Conflit = $Result.DefaultSelection<Prisma.$ConflitPayload>
 
 /**
  * Enums
@@ -594,6 +599,32 @@ export const PeriodeRegle: {
 
 export type PeriodeRegle = (typeof PeriodeRegle)[keyof typeof PeriodeRegle]
 
+
+export const ConflitType: {
+  ENSEIGNANT: 'ENSEIGNANT',
+  SALLE: 'SALLE',
+  GROUPE: 'GROUPE',
+  CAPACITE: 'CAPACITE',
+  DISPONIBILITE: 'DISPONIBILITE',
+  COMPATIBILITE: 'COMPATIBILITE',
+  PEDAGOGIQUE: 'PEDAGOGIQUE',
+  COMPLETUDE: 'COMPLETUDE',
+  VERROU: 'VERROU',
+  COVOITURAGE: 'COVOITURAGE',
+  VOEU: 'VOEU'
+};
+
+export type ConflitType = (typeof ConflitType)[keyof typeof ConflitType]
+
+
+export const ConflitSeverite: {
+  BLOQUANT: 'BLOQUANT',
+  AVERTISSEMENT: 'AVERTISSEMENT',
+  INFORMATION: 'INFORMATION'
+};
+
+export type ConflitSeverite = (typeof ConflitSeverite)[keyof typeof ConflitSeverite]
+
 }
 
 export type RoleCode = $Enums.RoleCode
@@ -711,6 +742,14 @@ export const GradeCode: typeof $Enums.GradeCode
 export type PeriodeRegle = $Enums.PeriodeRegle
 
 export const PeriodeRegle: typeof $Enums.PeriodeRegle
+
+export type ConflitType = $Enums.ConflitType
+
+export const ConflitType: typeof $Enums.ConflitType
+
+export type ConflitSeverite = $Enums.ConflitSeverite
+
+export const ConflitSeverite: typeof $Enums.ConflitSeverite
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1422,6 +1461,16 @@ export class PrismaClient<
     * ```
     */
   get demandeModification(): Prisma.DemandeModificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.conflit`: Exposes CRUD operations for the **Conflit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Conflits
+    * const conflits = await prisma.conflit.findMany()
+    * ```
+    */
+  get conflit(): Prisma.ConflitDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1927,7 +1976,8 @@ export namespace Prisma {
     Snapshot: 'Snapshot',
     SnapshotAffectation: 'SnapshotAffectation',
     SnapshotCharge: 'SnapshotCharge',
-    DemandeModification: 'DemandeModification'
+    DemandeModification: 'DemandeModification',
+    Conflit: 'Conflit'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1943,7 +1993,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6313,6 +6363,80 @@ export namespace Prisma {
           }
         }
       }
+      Conflit: {
+        payload: Prisma.$ConflitPayload<ExtArgs>
+        fields: Prisma.ConflitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ConflitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ConflitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>
+          }
+          findFirst: {
+            args: Prisma.ConflitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ConflitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>
+          }
+          findMany: {
+            args: Prisma.ConflitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>[]
+          }
+          create: {
+            args: Prisma.ConflitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>
+          }
+          createMany: {
+            args: Prisma.ConflitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ConflitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>[]
+          }
+          delete: {
+            args: Prisma.ConflitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>
+          }
+          update: {
+            args: Prisma.ConflitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>
+          }
+          deleteMany: {
+            args: Prisma.ConflitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ConflitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ConflitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>[]
+          }
+          upsert: {
+            args: Prisma.ConflitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ConflitPayload>
+          }
+          aggregate: {
+            args: Prisma.ConflitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateConflit>
+          }
+          groupBy: {
+            args: Prisma.ConflitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ConflitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ConflitCountArgs<ExtArgs>
+            result: $Utils.Optional<ConflitCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -6495,6 +6619,7 @@ export namespace Prisma {
     snapshotAffectation?: SnapshotAffectationOmit
     snapshotCharge?: SnapshotChargeOmit
     demandeModification?: DemandeModificationOmit
+    conflit?: ConflitOmit
   }
 
   /* Types for Logging */
@@ -7158,12 +7283,14 @@ export namespace Prisma {
     seances: number
     occupations: number
     snapshots: number
+    conflits: number
   }
 
   export type VersionEdtCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     seances?: boolean | VersionEdtCountOutputTypeCountSeancesArgs
     occupations?: boolean | VersionEdtCountOutputTypeCountOccupationsArgs
     snapshots?: boolean | VersionEdtCountOutputTypeCountSnapshotsArgs
+    conflits?: boolean | VersionEdtCountOutputTypeCountConflitsArgs
   }
 
   // Custom InputTypes
@@ -7196,6 +7323,13 @@ export namespace Prisma {
    */
   export type VersionEdtCountOutputTypeCountSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VersionSnapshotWhereInput
+  }
+
+  /**
+   * VersionEdtCountOutputType without action
+   */
+  export type VersionEdtCountOutputTypeCountConflitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConflitWhereInput
   }
 
 
@@ -38317,6 +38451,7 @@ export namespace Prisma {
     seances?: boolean | VersionEdt$seancesArgs<ExtArgs>
     occupations?: boolean | VersionEdt$occupationsArgs<ExtArgs>
     snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
+    conflits?: boolean | VersionEdt$conflitsArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["versionEdt"]>
 
@@ -38358,6 +38493,7 @@ export namespace Prisma {
     seances?: boolean | VersionEdt$seancesArgs<ExtArgs>
     occupations?: boolean | VersionEdt$occupationsArgs<ExtArgs>
     snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
+    conflits?: boolean | VersionEdt$conflitsArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VersionEdtIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38374,6 +38510,7 @@ export namespace Prisma {
       seances: Prisma.$SeancePayload<ExtArgs>[]
       occupations: Prisma.$OccupationPayload<ExtArgs>[]
       snapshots: Prisma.$VersionSnapshotPayload<ExtArgs>[]
+      conflits: Prisma.$ConflitPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -38781,6 +38918,7 @@ export namespace Prisma {
     seances<T extends VersionEdt$seancesArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     occupations<T extends VersionEdt$occupationsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$occupationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     snapshots<T extends VersionEdt$snapshotsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$snapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    conflits<T extends VersionEdt$conflitsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$conflitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39287,6 +39425,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VersionSnapshotScalarFieldEnum | VersionSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt.conflits
+   */
+  export type VersionEdt$conflitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    where?: ConflitWhereInput
+    orderBy?: ConflitOrderByWithRelationInput | ConflitOrderByWithRelationInput[]
+    cursor?: ConflitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConflitScalarFieldEnum | ConflitScalarFieldEnum[]
   }
 
   /**
@@ -76602,6 +76764,1165 @@ export namespace Prisma {
 
 
   /**
+   * Model Conflit
+   */
+
+  export type AggregateConflit = {
+    _count: ConflitCountAggregateOutputType | null
+    _min: ConflitMinAggregateOutputType | null
+    _max: ConflitMaxAggregateOutputType | null
+  }
+
+  export type ConflitMinAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    regleCode: string | null
+    type: $Enums.ConflitType | null
+    severite: $Enums.ConflitSeverite | null
+    objetType: string | null
+    objetId: string | null
+    message: string | null
+    signature: string | null
+    resoluLe: Date | null
+    createdAt: Date | null
+  }
+
+  export type ConflitMaxAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    regleCode: string | null
+    type: $Enums.ConflitType | null
+    severite: $Enums.ConflitSeverite | null
+    objetType: string | null
+    objetId: string | null
+    message: string | null
+    signature: string | null
+    resoluLe: Date | null
+    createdAt: Date | null
+  }
+
+  export type ConflitCountAggregateOutputType = {
+    id: number
+    versionId: number
+    regleCode: number
+    type: number
+    severite: number
+    objetType: number
+    objetId: number
+    seanceIds: number
+    message: number
+    signature: number
+    details: number
+    resoluLe: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ConflitMinAggregateInputType = {
+    id?: true
+    versionId?: true
+    regleCode?: true
+    type?: true
+    severite?: true
+    objetType?: true
+    objetId?: true
+    message?: true
+    signature?: true
+    resoluLe?: true
+    createdAt?: true
+  }
+
+  export type ConflitMaxAggregateInputType = {
+    id?: true
+    versionId?: true
+    regleCode?: true
+    type?: true
+    severite?: true
+    objetType?: true
+    objetId?: true
+    message?: true
+    signature?: true
+    resoluLe?: true
+    createdAt?: true
+  }
+
+  export type ConflitCountAggregateInputType = {
+    id?: true
+    versionId?: true
+    regleCode?: true
+    type?: true
+    severite?: true
+    objetType?: true
+    objetId?: true
+    seanceIds?: true
+    message?: true
+    signature?: true
+    details?: true
+    resoluLe?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ConflitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Conflit to aggregate.
+     */
+    where?: ConflitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conflits to fetch.
+     */
+    orderBy?: ConflitOrderByWithRelationInput | ConflitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ConflitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conflits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conflits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Conflits
+    **/
+    _count?: true | ConflitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ConflitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ConflitMaxAggregateInputType
+  }
+
+  export type GetConflitAggregateType<T extends ConflitAggregateArgs> = {
+        [P in keyof T & keyof AggregateConflit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateConflit[P]>
+      : GetScalarType<T[P], AggregateConflit[P]>
+  }
+
+
+
+
+  export type ConflitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConflitWhereInput
+    orderBy?: ConflitOrderByWithAggregationInput | ConflitOrderByWithAggregationInput[]
+    by: ConflitScalarFieldEnum[] | ConflitScalarFieldEnum
+    having?: ConflitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ConflitCountAggregateInputType | true
+    _min?: ConflitMinAggregateInputType
+    _max?: ConflitMaxAggregateInputType
+  }
+
+  export type ConflitGroupByOutputType = {
+    id: string
+    versionId: string
+    regleCode: string
+    type: $Enums.ConflitType
+    severite: $Enums.ConflitSeverite
+    objetType: string
+    objetId: string
+    seanceIds: string[]
+    message: string
+    signature: string
+    details: JsonValue | null
+    resoluLe: Date | null
+    createdAt: Date
+    _count: ConflitCountAggregateOutputType | null
+    _min: ConflitMinAggregateOutputType | null
+    _max: ConflitMaxAggregateOutputType | null
+  }
+
+  type GetConflitGroupByPayload<T extends ConflitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ConflitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ConflitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ConflitGroupByOutputType[P]>
+            : GetScalarType<T[P], ConflitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ConflitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    regleCode?: boolean
+    type?: boolean
+    severite?: boolean
+    objetType?: boolean
+    objetId?: boolean
+    seanceIds?: boolean
+    message?: boolean
+    signature?: boolean
+    details?: boolean
+    resoluLe?: boolean
+    createdAt?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conflit"]>
+
+  export type ConflitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    regleCode?: boolean
+    type?: boolean
+    severite?: boolean
+    objetType?: boolean
+    objetId?: boolean
+    seanceIds?: boolean
+    message?: boolean
+    signature?: boolean
+    details?: boolean
+    resoluLe?: boolean
+    createdAt?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conflit"]>
+
+  export type ConflitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    regleCode?: boolean
+    type?: boolean
+    severite?: boolean
+    objetType?: boolean
+    objetId?: boolean
+    seanceIds?: boolean
+    message?: boolean
+    signature?: boolean
+    details?: boolean
+    resoluLe?: boolean
+    createdAt?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["conflit"]>
+
+  export type ConflitSelectScalar = {
+    id?: boolean
+    versionId?: boolean
+    regleCode?: boolean
+    type?: boolean
+    severite?: boolean
+    objetType?: boolean
+    objetId?: boolean
+    seanceIds?: boolean
+    message?: boolean
+    signature?: boolean
+    details?: boolean
+    resoluLe?: boolean
+    createdAt?: boolean
+  }
+
+  export type ConflitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "versionId" | "regleCode" | "type" | "severite" | "objetType" | "objetId" | "seanceIds" | "message" | "signature" | "details" | "resoluLe" | "createdAt", ExtArgs["result"]["conflit"]>
+  export type ConflitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+  export type ConflitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+  export type ConflitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+
+  export type $ConflitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Conflit"
+    objects: {
+      version: Prisma.$VersionEdtPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      versionId: string
+      regleCode: string
+      type: $Enums.ConflitType
+      severite: $Enums.ConflitSeverite
+      objetType: string
+      objetId: string
+      seanceIds: string[]
+      message: string
+      signature: string
+      details: Prisma.JsonValue | null
+      resoluLe: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["conflit"]>
+    composites: {}
+  }
+
+  type ConflitGetPayload<S extends boolean | null | undefined | ConflitDefaultArgs> = $Result.GetResult<Prisma.$ConflitPayload, S>
+
+  type ConflitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ConflitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ConflitCountAggregateInputType | true
+    }
+
+  export interface ConflitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Conflit'], meta: { name: 'Conflit' } }
+    /**
+     * Find zero or one Conflit that matches the filter.
+     * @param {ConflitFindUniqueArgs} args - Arguments to find a Conflit
+     * @example
+     * // Get one Conflit
+     * const conflit = await prisma.conflit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ConflitFindUniqueArgs>(args: SelectSubset<T, ConflitFindUniqueArgs<ExtArgs>>): Prisma__ConflitClient<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Conflit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ConflitFindUniqueOrThrowArgs} args - Arguments to find a Conflit
+     * @example
+     * // Get one Conflit
+     * const conflit = await prisma.conflit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ConflitFindUniqueOrThrowArgs>(args: SelectSubset<T, ConflitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ConflitClient<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Conflit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConflitFindFirstArgs} args - Arguments to find a Conflit
+     * @example
+     * // Get one Conflit
+     * const conflit = await prisma.conflit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ConflitFindFirstArgs>(args?: SelectSubset<T, ConflitFindFirstArgs<ExtArgs>>): Prisma__ConflitClient<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Conflit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConflitFindFirstOrThrowArgs} args - Arguments to find a Conflit
+     * @example
+     * // Get one Conflit
+     * const conflit = await prisma.conflit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ConflitFindFirstOrThrowArgs>(args?: SelectSubset<T, ConflitFindFirstOrThrowArgs<ExtArgs>>): Prisma__ConflitClient<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Conflits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConflitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Conflits
+     * const conflits = await prisma.conflit.findMany()
+     * 
+     * // Get first 10 Conflits
+     * const conflits = await prisma.conflit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const conflitWithIdOnly = await prisma.conflit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ConflitFindManyArgs>(args?: SelectSubset<T, ConflitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Conflit.
+     * @param {ConflitCreateArgs} args - Arguments to create a Conflit.
+     * @example
+     * // Create one Conflit
+     * const Conflit = await prisma.conflit.create({
+     *   data: {
+     *     // ... data to create a Conflit
+     *   }
+     * })
+     * 
+     */
+    create<T extends ConflitCreateArgs>(args: SelectSubset<T, ConflitCreateArgs<ExtArgs>>): Prisma__ConflitClient<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Conflits.
+     * @param {ConflitCreateManyArgs} args - Arguments to create many Conflits.
+     * @example
+     * // Create many Conflits
+     * const conflit = await prisma.conflit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ConflitCreateManyArgs>(args?: SelectSubset<T, ConflitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Conflits and returns the data saved in the database.
+     * @param {ConflitCreateManyAndReturnArgs} args - Arguments to create many Conflits.
+     * @example
+     * // Create many Conflits
+     * const conflit = await prisma.conflit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Conflits and only return the `id`
+     * const conflitWithIdOnly = await prisma.conflit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ConflitCreateManyAndReturnArgs>(args?: SelectSubset<T, ConflitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Conflit.
+     * @param {ConflitDeleteArgs} args - Arguments to delete one Conflit.
+     * @example
+     * // Delete one Conflit
+     * const Conflit = await prisma.conflit.delete({
+     *   where: {
+     *     // ... filter to delete one Conflit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ConflitDeleteArgs>(args: SelectSubset<T, ConflitDeleteArgs<ExtArgs>>): Prisma__ConflitClient<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Conflit.
+     * @param {ConflitUpdateArgs} args - Arguments to update one Conflit.
+     * @example
+     * // Update one Conflit
+     * const conflit = await prisma.conflit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ConflitUpdateArgs>(args: SelectSubset<T, ConflitUpdateArgs<ExtArgs>>): Prisma__ConflitClient<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Conflits.
+     * @param {ConflitDeleteManyArgs} args - Arguments to filter Conflits to delete.
+     * @example
+     * // Delete a few Conflits
+     * const { count } = await prisma.conflit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ConflitDeleteManyArgs>(args?: SelectSubset<T, ConflitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Conflits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConflitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Conflits
+     * const conflit = await prisma.conflit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ConflitUpdateManyArgs>(args: SelectSubset<T, ConflitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Conflits and returns the data updated in the database.
+     * @param {ConflitUpdateManyAndReturnArgs} args - Arguments to update many Conflits.
+     * @example
+     * // Update many Conflits
+     * const conflit = await prisma.conflit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Conflits and only return the `id`
+     * const conflitWithIdOnly = await prisma.conflit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ConflitUpdateManyAndReturnArgs>(args: SelectSubset<T, ConflitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Conflit.
+     * @param {ConflitUpsertArgs} args - Arguments to update or create a Conflit.
+     * @example
+     * // Update or create a Conflit
+     * const conflit = await prisma.conflit.upsert({
+     *   create: {
+     *     // ... data to create a Conflit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Conflit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ConflitUpsertArgs>(args: SelectSubset<T, ConflitUpsertArgs<ExtArgs>>): Prisma__ConflitClient<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Conflits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConflitCountArgs} args - Arguments to filter Conflits to count.
+     * @example
+     * // Count the number of Conflits
+     * const count = await prisma.conflit.count({
+     *   where: {
+     *     // ... the filter for the Conflits we want to count
+     *   }
+     * })
+    **/
+    count<T extends ConflitCountArgs>(
+      args?: Subset<T, ConflitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ConflitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Conflit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConflitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ConflitAggregateArgs>(args: Subset<T, ConflitAggregateArgs>): Prisma.PrismaPromise<GetConflitAggregateType<T>>
+
+    /**
+     * Group by Conflit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ConflitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ConflitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ConflitGroupByArgs['orderBy'] }
+        : { orderBy?: ConflitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ConflitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetConflitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Conflit model
+   */
+  readonly fields: ConflitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Conflit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ConflitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Conflit model
+   */
+  interface ConflitFieldRefs {
+    readonly id: FieldRef<"Conflit", 'String'>
+    readonly versionId: FieldRef<"Conflit", 'String'>
+    readonly regleCode: FieldRef<"Conflit", 'String'>
+    readonly type: FieldRef<"Conflit", 'ConflitType'>
+    readonly severite: FieldRef<"Conflit", 'ConflitSeverite'>
+    readonly objetType: FieldRef<"Conflit", 'String'>
+    readonly objetId: FieldRef<"Conflit", 'String'>
+    readonly seanceIds: FieldRef<"Conflit", 'String[]'>
+    readonly message: FieldRef<"Conflit", 'String'>
+    readonly signature: FieldRef<"Conflit", 'String'>
+    readonly details: FieldRef<"Conflit", 'Json'>
+    readonly resoluLe: FieldRef<"Conflit", 'DateTime'>
+    readonly createdAt: FieldRef<"Conflit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Conflit findUnique
+   */
+  export type ConflitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * Filter, which Conflit to fetch.
+     */
+    where: ConflitWhereUniqueInput
+  }
+
+  /**
+   * Conflit findUniqueOrThrow
+   */
+  export type ConflitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * Filter, which Conflit to fetch.
+     */
+    where: ConflitWhereUniqueInput
+  }
+
+  /**
+   * Conflit findFirst
+   */
+  export type ConflitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * Filter, which Conflit to fetch.
+     */
+    where?: ConflitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conflits to fetch.
+     */
+    orderBy?: ConflitOrderByWithRelationInput | ConflitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Conflits.
+     */
+    cursor?: ConflitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conflits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conflits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Conflits.
+     */
+    distinct?: ConflitScalarFieldEnum | ConflitScalarFieldEnum[]
+  }
+
+  /**
+   * Conflit findFirstOrThrow
+   */
+  export type ConflitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * Filter, which Conflit to fetch.
+     */
+    where?: ConflitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conflits to fetch.
+     */
+    orderBy?: ConflitOrderByWithRelationInput | ConflitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Conflits.
+     */
+    cursor?: ConflitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conflits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conflits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Conflits.
+     */
+    distinct?: ConflitScalarFieldEnum | ConflitScalarFieldEnum[]
+  }
+
+  /**
+   * Conflit findMany
+   */
+  export type ConflitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * Filter, which Conflits to fetch.
+     */
+    where?: ConflitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Conflits to fetch.
+     */
+    orderBy?: ConflitOrderByWithRelationInput | ConflitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Conflits.
+     */
+    cursor?: ConflitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Conflits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Conflits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Conflits.
+     */
+    distinct?: ConflitScalarFieldEnum | ConflitScalarFieldEnum[]
+  }
+
+  /**
+   * Conflit create
+   */
+  export type ConflitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Conflit.
+     */
+    data: XOR<ConflitCreateInput, ConflitUncheckedCreateInput>
+  }
+
+  /**
+   * Conflit createMany
+   */
+  export type ConflitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Conflits.
+     */
+    data: ConflitCreateManyInput | ConflitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Conflit createManyAndReturn
+   */
+  export type ConflitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * The data used to create many Conflits.
+     */
+    data: ConflitCreateManyInput | ConflitCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Conflit update
+   */
+  export type ConflitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Conflit.
+     */
+    data: XOR<ConflitUpdateInput, ConflitUncheckedUpdateInput>
+    /**
+     * Choose, which Conflit to update.
+     */
+    where: ConflitWhereUniqueInput
+  }
+
+  /**
+   * Conflit updateMany
+   */
+  export type ConflitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Conflits.
+     */
+    data: XOR<ConflitUpdateManyMutationInput, ConflitUncheckedUpdateManyInput>
+    /**
+     * Filter which Conflits to update
+     */
+    where?: ConflitWhereInput
+    /**
+     * Limit how many Conflits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Conflit updateManyAndReturn
+   */
+  export type ConflitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * The data used to update Conflits.
+     */
+    data: XOR<ConflitUpdateManyMutationInput, ConflitUncheckedUpdateManyInput>
+    /**
+     * Filter which Conflits to update
+     */
+    where?: ConflitWhereInput
+    /**
+     * Limit how many Conflits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Conflit upsert
+   */
+  export type ConflitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Conflit to update in case it exists.
+     */
+    where: ConflitWhereUniqueInput
+    /**
+     * In case the Conflit found by the `where` argument doesn't exist, create a new Conflit with this data.
+     */
+    create: XOR<ConflitCreateInput, ConflitUncheckedCreateInput>
+    /**
+     * In case the Conflit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ConflitUpdateInput, ConflitUncheckedUpdateInput>
+  }
+
+  /**
+   * Conflit delete
+   */
+  export type ConflitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+    /**
+     * Filter which Conflit to delete.
+     */
+    where: ConflitWhereUniqueInput
+  }
+
+  /**
+   * Conflit deleteMany
+   */
+  export type ConflitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Conflits to delete
+     */
+    where?: ConflitWhereInput
+    /**
+     * Limit how many Conflits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Conflit without action
+   */
+  export type ConflitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Conflit
+     */
+    select?: ConflitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Conflit
+     */
+    omit?: ConflitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConflitInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -77441,6 +78762,25 @@ export namespace Prisma {
   export type DemandeModificationScalarFieldEnum = (typeof DemandeModificationScalarFieldEnum)[keyof typeof DemandeModificationScalarFieldEnum]
 
 
+  export const ConflitScalarFieldEnum: {
+    id: 'id',
+    versionId: 'versionId',
+    regleCode: 'regleCode',
+    type: 'type',
+    severite: 'severite',
+    objetType: 'objetType',
+    objetId: 'objetId',
+    seanceIds: 'seanceIds',
+    message: 'message',
+    signature: 'signature',
+    details: 'details',
+    resoluLe: 'resoluLe',
+    createdAt: 'createdAt'
+  };
+
+  export type ConflitScalarFieldEnum = (typeof ConflitScalarFieldEnum)[keyof typeof ConflitScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -78002,6 +79342,34 @@ export namespace Prisma {
    * Reference to a field of type 'DemandeStatut[]'
    */
   export type ListEnumDemandeStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DemandeStatut[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ConflitType'
+   */
+  export type EnumConflitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConflitType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ConflitType[]'
+   */
+  export type ListEnumConflitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConflitType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ConflitSeverite'
+   */
+  export type EnumConflitSeveriteFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConflitSeverite'>
+    
+
+
+  /**
+   * Reference to a field of type 'ConflitSeverite[]'
+   */
+  export type ListEnumConflitSeveriteFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConflitSeverite[]'>
     
   /**
    * Deep Input Types
@@ -80024,6 +81392,7 @@ export namespace Prisma {
     seances?: SeanceListRelationFilter
     occupations?: OccupationListRelationFilter
     snapshots?: VersionSnapshotListRelationFilter
+    conflits?: ConflitListRelationFilter
   }
 
   export type VersionEdtOrderByWithRelationInput = {
@@ -80038,6 +81407,7 @@ export namespace Prisma {
     seances?: SeanceOrderByRelationAggregateInput
     occupations?: OccupationOrderByRelationAggregateInput
     snapshots?: VersionSnapshotOrderByRelationAggregateInput
+    conflits?: ConflitOrderByRelationAggregateInput
   }
 
   export type VersionEdtWhereUniqueInput = Prisma.AtLeast<{
@@ -80055,6 +81425,7 @@ export namespace Prisma {
     seances?: SeanceListRelationFilter
     occupations?: OccupationListRelationFilter
     snapshots?: VersionSnapshotListRelationFilter
+    conflits?: ConflitListRelationFilter
   }, "id">
 
   export type VersionEdtOrderByWithAggregationInput = {
@@ -82554,6 +83925,101 @@ export namespace Prisma {
     traiteeLe?: DateTimeNullableWithAggregatesFilter<"DemandeModification"> | Date | string | null
   }
 
+  export type ConflitWhereInput = {
+    AND?: ConflitWhereInput | ConflitWhereInput[]
+    OR?: ConflitWhereInput[]
+    NOT?: ConflitWhereInput | ConflitWhereInput[]
+    id?: UuidFilter<"Conflit"> | string
+    versionId?: UuidFilter<"Conflit"> | string
+    regleCode?: StringFilter<"Conflit"> | string
+    type?: EnumConflitTypeFilter<"Conflit"> | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFilter<"Conflit"> | $Enums.ConflitSeverite
+    objetType?: StringFilter<"Conflit"> | string
+    objetId?: StringFilter<"Conflit"> | string
+    seanceIds?: StringNullableListFilter<"Conflit">
+    message?: StringFilter<"Conflit"> | string
+    signature?: StringFilter<"Conflit"> | string
+    details?: JsonNullableFilter<"Conflit">
+    resoluLe?: DateTimeNullableFilter<"Conflit"> | Date | string | null
+    createdAt?: DateTimeFilter<"Conflit"> | Date | string
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+  }
+
+  export type ConflitOrderByWithRelationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    type?: SortOrder
+    severite?: SortOrder
+    objetType?: SortOrder
+    objetId?: SortOrder
+    seanceIds?: SortOrder
+    message?: SortOrder
+    signature?: SortOrder
+    details?: SortOrderInput | SortOrder
+    resoluLe?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    version?: VersionEdtOrderByWithRelationInput
+  }
+
+  export type ConflitWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ConflitWhereInput | ConflitWhereInput[]
+    OR?: ConflitWhereInput[]
+    NOT?: ConflitWhereInput | ConflitWhereInput[]
+    versionId?: UuidFilter<"Conflit"> | string
+    regleCode?: StringFilter<"Conflit"> | string
+    type?: EnumConflitTypeFilter<"Conflit"> | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFilter<"Conflit"> | $Enums.ConflitSeverite
+    objetType?: StringFilter<"Conflit"> | string
+    objetId?: StringFilter<"Conflit"> | string
+    seanceIds?: StringNullableListFilter<"Conflit">
+    message?: StringFilter<"Conflit"> | string
+    signature?: StringFilter<"Conflit"> | string
+    details?: JsonNullableFilter<"Conflit">
+    resoluLe?: DateTimeNullableFilter<"Conflit"> | Date | string | null
+    createdAt?: DateTimeFilter<"Conflit"> | Date | string
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+  }, "id">
+
+  export type ConflitOrderByWithAggregationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    type?: SortOrder
+    severite?: SortOrder
+    objetType?: SortOrder
+    objetId?: SortOrder
+    seanceIds?: SortOrder
+    message?: SortOrder
+    signature?: SortOrder
+    details?: SortOrderInput | SortOrder
+    resoluLe?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: ConflitCountOrderByAggregateInput
+    _max?: ConflitMaxOrderByAggregateInput
+    _min?: ConflitMinOrderByAggregateInput
+  }
+
+  export type ConflitScalarWhereWithAggregatesInput = {
+    AND?: ConflitScalarWhereWithAggregatesInput | ConflitScalarWhereWithAggregatesInput[]
+    OR?: ConflitScalarWhereWithAggregatesInput[]
+    NOT?: ConflitScalarWhereWithAggregatesInput | ConflitScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Conflit"> | string
+    versionId?: UuidWithAggregatesFilter<"Conflit"> | string
+    regleCode?: StringWithAggregatesFilter<"Conflit"> | string
+    type?: EnumConflitTypeWithAggregatesFilter<"Conflit"> | $Enums.ConflitType
+    severite?: EnumConflitSeveriteWithAggregatesFilter<"Conflit"> | $Enums.ConflitSeverite
+    objetType?: StringWithAggregatesFilter<"Conflit"> | string
+    objetId?: StringWithAggregatesFilter<"Conflit"> | string
+    seanceIds?: StringNullableListFilter<"Conflit">
+    message?: StringWithAggregatesFilter<"Conflit"> | string
+    signature?: StringWithAggregatesFilter<"Conflit"> | string
+    details?: JsonNullableWithAggregatesFilter<"Conflit">
+    resoluLe?: DateTimeNullableWithAggregatesFilter<"Conflit"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Conflit"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -84702,6 +86168,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutVersionInput
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateInput = {
@@ -84715,6 +86182,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUpdateInput = {
@@ -84728,6 +86196,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateInput = {
@@ -84741,6 +86210,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtCreateManyInput = {
@@ -87358,6 +88828,117 @@ export namespace Prisma {
     traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type ConflitCreateInput = {
+    id?: string
+    regleCode: string
+    type: $Enums.ConflitType
+    severite: $Enums.ConflitSeverite
+    objetType: string
+    objetId: string
+    seanceIds?: ConflitCreateseanceIdsInput | string[]
+    message: string
+    signature: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: Date | string | null
+    createdAt?: Date | string
+    version: VersionEdtCreateNestedOneWithoutConflitsInput
+  }
+
+  export type ConflitUncheckedCreateInput = {
+    id?: string
+    versionId: string
+    regleCode: string
+    type: $Enums.ConflitType
+    severite: $Enums.ConflitSeverite
+    objetType: string
+    objetId: string
+    seanceIds?: ConflitCreateseanceIdsInput | string[]
+    message: string
+    signature: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ConflitUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    type?: EnumConflitTypeFieldUpdateOperationsInput | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFieldUpdateOperationsInput | $Enums.ConflitSeverite
+    objetType?: StringFieldUpdateOperationsInput | string
+    objetId?: StringFieldUpdateOperationsInput | string
+    seanceIds?: ConflitUpdateseanceIdsInput | string[]
+    message?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    version?: VersionEdtUpdateOneRequiredWithoutConflitsNestedInput
+  }
+
+  export type ConflitUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    type?: EnumConflitTypeFieldUpdateOperationsInput | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFieldUpdateOperationsInput | $Enums.ConflitSeverite
+    objetType?: StringFieldUpdateOperationsInput | string
+    objetId?: StringFieldUpdateOperationsInput | string
+    seanceIds?: ConflitUpdateseanceIdsInput | string[]
+    message?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConflitCreateManyInput = {
+    id?: string
+    versionId: string
+    regleCode: string
+    type: $Enums.ConflitType
+    severite: $Enums.ConflitSeverite
+    objetType: string
+    objetId: string
+    seanceIds?: ConflitCreateseanceIdsInput | string[]
+    message: string
+    signature: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ConflitUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    type?: EnumConflitTypeFieldUpdateOperationsInput | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFieldUpdateOperationsInput | $Enums.ConflitSeverite
+    objetType?: StringFieldUpdateOperationsInput | string
+    objetId?: StringFieldUpdateOperationsInput | string
+    seanceIds?: ConflitUpdateseanceIdsInput | string[]
+    message?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConflitUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    type?: EnumConflitTypeFieldUpdateOperationsInput | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFieldUpdateOperationsInput | $Enums.ConflitSeverite
+    objetType?: StringFieldUpdateOperationsInput | string
+    objetId?: StringFieldUpdateOperationsInput | string
+    seanceIds?: ConflitUpdateseanceIdsInput | string[]
+    message?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -89393,7 +90974,17 @@ export namespace Prisma {
     none?: VersionSnapshotWhereInput
   }
 
+  export type ConflitListRelationFilter = {
+    every?: ConflitWhereInput
+    some?: ConflitWhereInput
+    none?: ConflitWhereInput
+  }
+
   export type VersionSnapshotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ConflitOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -91281,6 +92872,92 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDemandeStatutFilter<$PrismaModel>
     _max?: NestedEnumDemandeStatutFilter<$PrismaModel>
+  }
+
+  export type EnumConflitTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConflitType | EnumConflitTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ConflitType[] | ListEnumConflitTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConflitType[] | ListEnumConflitTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumConflitTypeFilter<$PrismaModel> | $Enums.ConflitType
+  }
+
+  export type EnumConflitSeveriteFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConflitSeverite | EnumConflitSeveriteFieldRefInput<$PrismaModel>
+    in?: $Enums.ConflitSeverite[] | ListEnumConflitSeveriteFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConflitSeverite[] | ListEnumConflitSeveriteFieldRefInput<$PrismaModel>
+    not?: NestedEnumConflitSeveriteFilter<$PrismaModel> | $Enums.ConflitSeverite
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type ConflitCountOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    type?: SortOrder
+    severite?: SortOrder
+    objetType?: SortOrder
+    objetId?: SortOrder
+    seanceIds?: SortOrder
+    message?: SortOrder
+    signature?: SortOrder
+    details?: SortOrder
+    resoluLe?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ConflitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    type?: SortOrder
+    severite?: SortOrder
+    objetType?: SortOrder
+    objetId?: SortOrder
+    message?: SortOrder
+    signature?: SortOrder
+    resoluLe?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ConflitMinOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    type?: SortOrder
+    severite?: SortOrder
+    objetType?: SortOrder
+    objetId?: SortOrder
+    message?: SortOrder
+    signature?: SortOrder
+    resoluLe?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumConflitTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConflitType | EnumConflitTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ConflitType[] | ListEnumConflitTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConflitType[] | ListEnumConflitTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumConflitTypeWithAggregatesFilter<$PrismaModel> | $Enums.ConflitType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConflitTypeFilter<$PrismaModel>
+    _max?: NestedEnumConflitTypeFilter<$PrismaModel>
+  }
+
+  export type EnumConflitSeveriteWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConflitSeverite | EnumConflitSeveriteFieldRefInput<$PrismaModel>
+    in?: $Enums.ConflitSeverite[] | ListEnumConflitSeveriteFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConflitSeverite[] | ListEnumConflitSeveriteFieldRefInput<$PrismaModel>
+    not?: NestedEnumConflitSeveriteWithAggregatesFilter<$PrismaModel> | $Enums.ConflitSeverite
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConflitSeveriteFilter<$PrismaModel>
+    _max?: NestedEnumConflitSeveriteFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -93597,6 +95274,13 @@ export namespace Prisma {
     connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
   }
 
+  export type ConflitCreateNestedManyWithoutVersionInput = {
+    create?: XOR<ConflitCreateWithoutVersionInput, ConflitUncheckedCreateWithoutVersionInput> | ConflitCreateWithoutVersionInput[] | ConflitUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: ConflitCreateOrConnectWithoutVersionInput | ConflitCreateOrConnectWithoutVersionInput[]
+    createMany?: ConflitCreateManyVersionInputEnvelope
+    connect?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+  }
+
   export type SeanceUncheckedCreateNestedManyWithoutVersionInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -93616,6 +95300,13 @@ export namespace Prisma {
     connectOrCreate?: VersionSnapshotCreateOrConnectWithoutVersionInput | VersionSnapshotCreateOrConnectWithoutVersionInput[]
     createMany?: VersionSnapshotCreateManyVersionInputEnvelope
     connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+  }
+
+  export type ConflitUncheckedCreateNestedManyWithoutVersionInput = {
+    create?: XOR<ConflitCreateWithoutVersionInput, ConflitUncheckedCreateWithoutVersionInput> | ConflitCreateWithoutVersionInput[] | ConflitUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: ConflitCreateOrConnectWithoutVersionInput | ConflitCreateOrConnectWithoutVersionInput[]
+    createMany?: ConflitCreateManyVersionInputEnvelope
+    connect?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
   }
 
   export type EnumVersionStatutFieldUpdateOperationsInput = {
@@ -93672,6 +95363,20 @@ export namespace Prisma {
     deleteMany?: VersionSnapshotScalarWhereInput | VersionSnapshotScalarWhereInput[]
   }
 
+  export type ConflitUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<ConflitCreateWithoutVersionInput, ConflitUncheckedCreateWithoutVersionInput> | ConflitCreateWithoutVersionInput[] | ConflitUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: ConflitCreateOrConnectWithoutVersionInput | ConflitCreateOrConnectWithoutVersionInput[]
+    upsert?: ConflitUpsertWithWhereUniqueWithoutVersionInput | ConflitUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: ConflitCreateManyVersionInputEnvelope
+    set?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+    disconnect?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+    delete?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+    connect?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+    update?: ConflitUpdateWithWhereUniqueWithoutVersionInput | ConflitUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: ConflitUpdateManyWithWhereWithoutVersionInput | ConflitUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: ConflitScalarWhereInput | ConflitScalarWhereInput[]
+  }
+
   export type SeanceUncheckedUpdateManyWithoutVersionNestedInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -93712,6 +95417,20 @@ export namespace Prisma {
     update?: VersionSnapshotUpdateWithWhereUniqueWithoutVersionInput | VersionSnapshotUpdateWithWhereUniqueWithoutVersionInput[]
     updateMany?: VersionSnapshotUpdateManyWithWhereWithoutVersionInput | VersionSnapshotUpdateManyWithWhereWithoutVersionInput[]
     deleteMany?: VersionSnapshotScalarWhereInput | VersionSnapshotScalarWhereInput[]
+  }
+
+  export type ConflitUncheckedUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<ConflitCreateWithoutVersionInput, ConflitUncheckedCreateWithoutVersionInput> | ConflitCreateWithoutVersionInput[] | ConflitUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: ConflitCreateOrConnectWithoutVersionInput | ConflitCreateOrConnectWithoutVersionInput[]
+    upsert?: ConflitUpsertWithWhereUniqueWithoutVersionInput | ConflitUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: ConflitCreateManyVersionInputEnvelope
+    set?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+    disconnect?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+    delete?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+    connect?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+    update?: ConflitUpdateWithWhereUniqueWithoutVersionInput | ConflitUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: ConflitUpdateManyWithWhereWithoutVersionInput | ConflitUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: ConflitScalarWhereInput | ConflitScalarWhereInput[]
   }
 
   export type VersionEdtCreateNestedOneWithoutSnapshotsInput = {
@@ -96276,6 +97995,37 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDemandesModificationInput, UserUpdateWithoutDemandesModificationInput>, UserUncheckedUpdateWithoutDemandesModificationInput>
   }
 
+  export type ConflitCreateseanceIdsInput = {
+    set: string[]
+  }
+
+  export type VersionEdtCreateNestedOneWithoutConflitsInput = {
+    create?: XOR<VersionEdtCreateWithoutConflitsInput, VersionEdtUncheckedCreateWithoutConflitsInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutConflitsInput
+    connect?: VersionEdtWhereUniqueInput
+  }
+
+  export type EnumConflitTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ConflitType
+  }
+
+  export type EnumConflitSeveriteFieldUpdateOperationsInput = {
+    set?: $Enums.ConflitSeverite
+  }
+
+  export type ConflitUpdateseanceIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type VersionEdtUpdateOneRequiredWithoutConflitsNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutConflitsInput, VersionEdtUncheckedCreateWithoutConflitsInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutConflitsInput
+    upsert?: VersionEdtUpsertWithoutConflitsInput
+    connect?: VersionEdtWhereUniqueInput
+    update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutConflitsInput, VersionEdtUpdateWithoutConflitsInput>, VersionEdtUncheckedUpdateWithoutConflitsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -97151,6 +98901,40 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDemandeStatutFilter<$PrismaModel>
     _max?: NestedEnumDemandeStatutFilter<$PrismaModel>
+  }
+
+  export type NestedEnumConflitTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConflitType | EnumConflitTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ConflitType[] | ListEnumConflitTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConflitType[] | ListEnumConflitTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumConflitTypeFilter<$PrismaModel> | $Enums.ConflitType
+  }
+
+  export type NestedEnumConflitSeveriteFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConflitSeverite | EnumConflitSeveriteFieldRefInput<$PrismaModel>
+    in?: $Enums.ConflitSeverite[] | ListEnumConflitSeveriteFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConflitSeverite[] | ListEnumConflitSeveriteFieldRefInput<$PrismaModel>
+    not?: NestedEnumConflitSeveriteFilter<$PrismaModel> | $Enums.ConflitSeverite
+  }
+
+  export type NestedEnumConflitTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConflitType | EnumConflitTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ConflitType[] | ListEnumConflitTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConflitType[] | ListEnumConflitTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumConflitTypeWithAggregatesFilter<$PrismaModel> | $Enums.ConflitType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConflitTypeFilter<$PrismaModel>
+    _max?: NestedEnumConflitTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumConflitSeveriteWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ConflitSeverite | EnumConflitSeveriteFieldRefInput<$PrismaModel>
+    in?: $Enums.ConflitSeverite[] | ListEnumConflitSeveriteFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ConflitSeverite[] | ListEnumConflitSeveriteFieldRefInput<$PrismaModel>
+    not?: NestedEnumConflitSeveriteWithAggregatesFilter<$PrismaModel> | $Enums.ConflitSeverite
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumConflitSeveriteFilter<$PrismaModel>
+    _max?: NestedEnumConflitSeveriteFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateWithoutUserInput = {
@@ -101534,6 +103318,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutVersionInput
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSemestreInput = {
@@ -101546,6 +103331,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSemestreInput = {
@@ -102197,6 +103983,7 @@ export namespace Prisma {
     semestre: SemestreCreateNestedOneWithoutVersionsInput
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSeancesInput = {
@@ -102209,6 +103996,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSeancesInput = {
@@ -102453,6 +104241,7 @@ export namespace Prisma {
     semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSeancesInput = {
@@ -102465,6 +104254,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type EnseignantUpsertWithoutSeancesInput = {
@@ -102851,6 +104641,7 @@ export namespace Prisma {
     semestre: SemestreCreateNestedOneWithoutVersionsInput
     seances?: SeanceCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutOccupationsInput = {
@@ -102863,6 +104654,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutOccupationsInput = {
@@ -102936,6 +104728,7 @@ export namespace Prisma {
     semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
     seances?: SeanceUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutOccupationsInput = {
@@ -102948,6 +104741,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SeanceUpsertWithoutOccupationsInput = {
@@ -103138,6 +104932,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ConflitCreateWithoutVersionInput = {
+    id?: string
+    regleCode: string
+    type: $Enums.ConflitType
+    severite: $Enums.ConflitSeverite
+    objetType: string
+    objetId: string
+    seanceIds?: ConflitCreateseanceIdsInput | string[]
+    message: string
+    signature: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ConflitUncheckedCreateWithoutVersionInput = {
+    id?: string
+    regleCode: string
+    type: $Enums.ConflitType
+    severite: $Enums.ConflitSeverite
+    objetType: string
+    objetId: string
+    seanceIds?: ConflitCreateseanceIdsInput | string[]
+    message: string
+    signature: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ConflitCreateOrConnectWithoutVersionInput = {
+    where: ConflitWhereUniqueInput
+    create: XOR<ConflitCreateWithoutVersionInput, ConflitUncheckedCreateWithoutVersionInput>
+  }
+
+  export type ConflitCreateManyVersionInputEnvelope = {
+    data: ConflitCreateManyVersionInput | ConflitCreateManyVersionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutVersionsInput = {
     update: XOR<SemestreUpdateWithoutVersionsInput, SemestreUncheckedUpdateWithoutVersionsInput>
     create: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
@@ -103241,6 +105075,41 @@ export namespace Prisma {
     snapshotId?: UuidFilter<"VersionSnapshot"> | string
   }
 
+  export type ConflitUpsertWithWhereUniqueWithoutVersionInput = {
+    where: ConflitWhereUniqueInput
+    update: XOR<ConflitUpdateWithoutVersionInput, ConflitUncheckedUpdateWithoutVersionInput>
+    create: XOR<ConflitCreateWithoutVersionInput, ConflitUncheckedCreateWithoutVersionInput>
+  }
+
+  export type ConflitUpdateWithWhereUniqueWithoutVersionInput = {
+    where: ConflitWhereUniqueInput
+    data: XOR<ConflitUpdateWithoutVersionInput, ConflitUncheckedUpdateWithoutVersionInput>
+  }
+
+  export type ConflitUpdateManyWithWhereWithoutVersionInput = {
+    where: ConflitScalarWhereInput
+    data: XOR<ConflitUpdateManyMutationInput, ConflitUncheckedUpdateManyWithoutVersionInput>
+  }
+
+  export type ConflitScalarWhereInput = {
+    AND?: ConflitScalarWhereInput | ConflitScalarWhereInput[]
+    OR?: ConflitScalarWhereInput[]
+    NOT?: ConflitScalarWhereInput | ConflitScalarWhereInput[]
+    id?: UuidFilter<"Conflit"> | string
+    versionId?: UuidFilter<"Conflit"> | string
+    regleCode?: StringFilter<"Conflit"> | string
+    type?: EnumConflitTypeFilter<"Conflit"> | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFilter<"Conflit"> | $Enums.ConflitSeverite
+    objetType?: StringFilter<"Conflit"> | string
+    objetId?: StringFilter<"Conflit"> | string
+    seanceIds?: StringNullableListFilter<"Conflit">
+    message?: StringFilter<"Conflit"> | string
+    signature?: StringFilter<"Conflit"> | string
+    details?: JsonNullableFilter<"Conflit">
+    resoluLe?: DateTimeNullableFilter<"Conflit"> | Date | string | null
+    createdAt?: DateTimeFilter<"Conflit"> | Date | string
+  }
+
   export type VersionEdtCreateWithoutSnapshotsInput = {
     id?: string
     numero: string
@@ -103251,6 +105120,7 @@ export namespace Prisma {
     semestre: SemestreCreateNestedOneWithoutVersionsInput
     seances?: SeanceCreateNestedManyWithoutVersionInput
     occupations?: OccupationCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSnapshotsInput = {
@@ -103263,6 +105133,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSnapshotsInput = {
@@ -103320,6 +105191,7 @@ export namespace Prisma {
     semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
     seances?: SeanceUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSnapshotsInput = {
@@ -103332,6 +105204,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SnapshotUpsertWithoutVersionSnapshotsInput = {
@@ -109271,6 +111144,74 @@ export namespace Prisma {
     resetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type VersionEdtCreateWithoutConflitsInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutConflitsInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutConflitsInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutConflitsInput, VersionEdtUncheckedCreateWithoutConflitsInput>
+  }
+
+  export type VersionEdtUpsertWithoutConflitsInput = {
+    update: XOR<VersionEdtUpdateWithoutConflitsInput, VersionEdtUncheckedUpdateWithoutConflitsInput>
+    create: XOR<VersionEdtCreateWithoutConflitsInput, VersionEdtUncheckedCreateWithoutConflitsInput>
+    where?: VersionEdtWhereInput
+  }
+
+  export type VersionEdtUpdateToOneWithWhereWithoutConflitsInput = {
+    where?: VersionEdtWhereInput
+    data: XOR<VersionEdtUpdateWithoutConflitsInput, VersionEdtUncheckedUpdateWithoutConflitsInput>
+  }
+
+  export type VersionEdtUpdateWithoutConflitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutConflitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
   export type UserSystemRoleCreateManyUserInput = {
     id?: string
     role: $Enums.RoleCode
@@ -111036,6 +112977,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSemestreInput = {
@@ -111048,6 +112990,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateManyWithoutSemestreInput = {
@@ -111246,6 +113189,21 @@ export namespace Prisma {
     snapshotId: string
   }
 
+  export type ConflitCreateManyVersionInput = {
+    id?: string
+    regleCode: string
+    type: $Enums.ConflitType
+    severite: $Enums.ConflitSeverite
+    objetType: string
+    objetId: string
+    seanceIds?: ConflitCreateseanceIdsInput | string[]
+    message: string
+    signature: string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: Date | string | null
+    createdAt?: Date | string
+  }
+
   export type SeanceUpdateWithoutVersionInput = {
     id?: StringFieldUpdateOperationsInput | string
     affectationKey?: StringFieldUpdateOperationsInput | string
@@ -111341,6 +113299,51 @@ export namespace Prisma {
 
   export type VersionSnapshotUncheckedUpdateManyWithoutVersionInput = {
     snapshotId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ConflitUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    type?: EnumConflitTypeFieldUpdateOperationsInput | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFieldUpdateOperationsInput | $Enums.ConflitSeverite
+    objetType?: StringFieldUpdateOperationsInput | string
+    objetId?: StringFieldUpdateOperationsInput | string
+    seanceIds?: ConflitUpdateseanceIdsInput | string[]
+    message?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConflitUncheckedUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    type?: EnumConflitTypeFieldUpdateOperationsInput | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFieldUpdateOperationsInput | $Enums.ConflitSeverite
+    objetType?: StringFieldUpdateOperationsInput | string
+    objetId?: StringFieldUpdateOperationsInput | string
+    seanceIds?: ConflitUpdateseanceIdsInput | string[]
+    message?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConflitUncheckedUpdateManyWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    type?: EnumConflitTypeFieldUpdateOperationsInput | $Enums.ConflitType
+    severite?: EnumConflitSeveriteFieldUpdateOperationsInput | $Enums.ConflitSeverite
+    objetType?: StringFieldUpdateOperationsInput | string
+    objetId?: StringFieldUpdateOperationsInput | string
+    seanceIds?: ConflitUpdateseanceIdsInput | string[]
+    message?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    details?: NullableJsonNullValueInput | InputJsonValue
+    resoluLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormationCreateManyDepartementInput = {
