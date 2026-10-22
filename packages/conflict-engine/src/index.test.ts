@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import fc from 'fast-check';
 import {
   computeSignature,
+  computeConflicts,
   OccupancyIndex,
   GroupeClosure,
   IndispoSet,
@@ -11,9 +12,13 @@ import {
   validatePlacement,
   validatePlacementWithGroups,
   type SeanceInput,
+  type SeancePlacement,
+  type Placement,
   type PlacementCandidat,
   type ConflictContext,
   type ValidatePlacementCtx,
+  type Conflit,
+  type OccupationInput,
   type SalleData,
 } from './index.js';
 
@@ -660,6 +665,60 @@ describe('propriétés (fast-check)', () => {
           if (avecPrecedent) {
             expect(c.some(x => x.regleCode === 'ROOM_MOVE_FORBIDDEN')).toBe(false);
           }
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+
+  it('recalcul incrémental = recalcul complet sur des déplacements aléatoires', () => {
+    fc.assert(
+      fc.property(
+        fc.array(
+          fc.tuple(
+            fc.string({ minLength: 1 }),
+            fc.string({ minLength: 1 }),
+            fc.string({ minLength: 1 }),
+            fc.integer({ min: 1, max: 4 }),
+          ),
+          { minLength: 1, maxLength: 10 },
+        ),
+        (params: [string, string, string, number][]) => {
+          const ctx = makeCtx();
+          const seancesAvecPlacement: SeancePlacement[] = [];
+          const occInputs: OccupationInput[] = [];
+
+          params.forEach(([id, ens, salle, nbCreneaux], i) => {
+            const seance: SeanceInput = {
+              id, enseignantId: ens, salleId: salle, groupes: [`g${i % 3}`],
+              nbCreneaux, tag: 'CM', moduleId: 'm1', typeEnseignementId: 't1',
+              statut: 'PLACEE', versionId: 'v1',
+            };
+            const placement: Placement = { jour: 'LUNDI', creneauDebut: 'c1', salle };
+            seancesAvecPlacement.push({ seance, ...placement });
+
+            occInputs.push(
+              { seanceId: id, jour: 'LUNDI', creneauId: 'c1', ressourceType: 'ENSEIGNANT', ressourceId: ens },
+              { seanceId: id, jour: 'LUNDI', creneauId: 'c1', ressourceType: 'SALLE', ressourceId: salle },
+              { seanceId: id, jour: 'LUNDI', creneauId: 'c1', ressourceType: 'GROUPE', ressourceId: `g${i % 3}` },
+            );
+          });
+          ctx.occ.build(occInputs);
+
+          // Conflits complets (référence)
+          const complet = computeConflicts(seancesAvecPlacement, ctx);
+
+          // Union des conflits individuels (recalcul par séance, comme l'incrémental)
+          const individuels: Conflit[] = [];
+          for (const { seance, jour, creneauDebut, salle } of seancesAvecPlacement) {
+            individuels.push(...validatePlacement(seance, { jour, creneauDebut, salle }, ctx));
+          }
+
+          const normalize = (c: Conflit) => `${c.regleCode}|${c.seanceIds.sort().join(',')}`;
+          const setComplet = new Set(complet.map(normalize));
+          const setIndividuels = new Set(individuels.map(normalize));
+
+          expect([...setComplet].sort()).toEqual([...setIndividuels].sort());
         },
       ),
       { numRuns: 100 },
