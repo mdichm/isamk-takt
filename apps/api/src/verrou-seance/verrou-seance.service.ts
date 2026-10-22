@@ -11,7 +11,9 @@ import type { PrismaService } from '../prisma/prisma.service.js';
 import type { AuditService } from '../audit/audit.service.js';
 import type { WriteAuditDto } from '../audit/dto/audit.dto.js';
 import { VerrouSeanceResponseDto } from './dto/verrou-seance-response.dto.js';
-import { RoleCode, VerrouType } from '@takt/db';
+import { BulkPoseResponseDto } from './dto/bulk-pose-response.dto.js';
+import { VerrouPreviewResponseDto } from './dto/verrou-preview-response.dto.js';
+import { RoleCode, VerrouType, VersionStatut } from '@takt/db';
 
 /**
  * Vérifie que l'utilisateur courant est autorisé à poser/lever un verrou
@@ -184,5 +186,257 @@ export class VerrouSeanceService {
       orderBy: { creeLe: 'desc' },
     });
     return verrous.map((v) => VerrouSeanceResponseDto.fromPrisma(v));
+  }
+
+  /**
+   * Vérifie que la version est dans un état éditable.
+   * Lève une erreur 423 VERSION_IMMUTABLE si la version est PUBLIE ou ARCHIVE.
+   */
+  private async checkVersionEditable(versionId: string): Promise<void> {
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: { statut: true },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version ${versionId} introuvable`);
+    }
+    if (
+      version.statut === VersionStatut.PUBLIE ||
+      version.statut === VersionStatut.ARCHIVE
+    ) {
+      throw new ConflictException({
+        code: 'VERSION_IMMUTABLE',
+        message: `Cette version est ${version.statut} et ne peut pas être modifiée`,
+      } as any);
+    }
+  }
+
+  /**
+   * Récupère les IDs de séances correspondant à une cible (groupe, enseignant, salle).
+   */
+  private async getSeanceIdsForCible(
+    versionId: string,
+    cible: { type: 'GROUPE' | 'ENSEIGNANT' | 'SALLE'; id: string },
+  ): Promise<string[]> {
+    switch (cible.type) {
+      case 'GROUPE': {
+        const seanceGroupes = await this.prisma.seanceGroupe.findMany({
+          where: { groupeId: cible.id },
+          select: { seanceId: true },
+        });
+        const seanceIds = seanceGroupes.map((sg) => sg.seanceId);
+        const seances = await this.prisma.seance.findMany({
+          where: { id: { in: seanceIds }, versionId },
+          select: { id: true },
+        });
+        return seances.map((s) => s.id);
+      }
+      case 'ENSEIGNANT': {
+        const seances = await this.prisma.seance.findMany({
+          where: { versionId, enseignantId: cible.id },
+          select: { id: true },
+        });
+        return seances.map((s) => s.id);
+      }
+      case 'SALLE': {
+        const seances = await this.prisma.seance.findMany({
+          where: { versionId, salleId: cible.id },
+          select: { id: true },
+        });
+        return seances.map((s) => s.id);
+      }
+    }
+  }
+
+  /**
+   * Pose des verrous en masse sur toutes les séances d'un groupe, enseignant ou salle.
+   * Retourne le nombre de poses effectuées, ignorées (déjà existantes) et le détail.
+   */
+  async bulkPose(
+    versionId: string,
+    cible: { type: 'GROUPE' | 'ENSEIGNANT' | 'SALLE'; id: string },
+    type: VerrouType,
+    justification: string | undefined,
+    auteurId: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<BulkPoseResponseDto> {
+    verrouAutorise(currentUser.role);
+    await this.checkVersionEditable(versionId);
+
+    const seanceIds = await this.getSeanceIdsForCible(versionId, cible);
+
+    let poses = 0;
+    let ignores = 0;
+    const details: { seanceId: string; status: 'POSED' | 'SKIPPED_EXISTING' }[] = [];
+
+    for (const seanceId of seanceIds) {
+      const existing = await this.prisma.verrouSeance.findFirst({
+        where: { seanceId, type, leveLe: null },
+      });
+
+      if (existing) {
+        ignores++;
+        details.push({ seanceId, status: 'SKIPPED_EXISTING' });
+        continue;
+      }
+
+      await this.prisma.$transaction(async (tx) => {
+        const verrou = await (tx as unknown as PrismaService).verrouSeance.create({
+          data: {
+            seanceId,
+            versionId,
+            type,
+            auteurId,
+            justification,
+          },
+        });
+
+        const auditData: WriteAuditDto = {
+          userId: currentUser.id,
+          action: 'VERROU_POSE',
+          objetType: 'VerrouSeance',
+          objetId: verrou.id,
+          ancienneValeur: undefined,
+          nouvelleValeur: {
+            seanceId: verrou.seanceId,
+            type: verrou.type,
+            auteurId: verrou.auteurId,
+            justification: verrou.justification,
+            creeLe: verrou.creeLe,
+          },
+          versionId,
+          motif: `Pose d'un verrou ${type} sur la séance ${seanceId} (bulk)`,
+          ip: undefined,
+          requestId: undefined,
+        };
+
+        await this.audit.writeAudit(tx as unknown as PrismaService, auditData);
+      });
+
+      poses++;
+      details.push({ seanceId, status: 'POSED' });
+    }
+
+    const response = new BulkPoseResponseDto();
+    response.poses = poses;
+    response.ignores = ignores;
+    response.details = details;
+    return response;
+  }
+
+  /**
+   * Prévisualise l'impact de la levée d'un verrou (sans persister).
+   * Retourne le nombre de séances concernées et un avertissement.
+   */
+  async previewLeve(
+    verrouId: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<VerrouPreviewResponseDto> {
+    verrouAutorise(currentUser.role);
+
+    const verrou = await this.prisma.verrouSeance.findUnique({
+      where: { id: verrouId },
+      select: {
+        id: true,
+        seanceId: true,
+        versionId: true,
+        type: true,
+        auteurId: true,
+        justification: true,
+        creeLe: true,
+        leveLe: true,
+      },
+    });
+
+    if (!verrou) {
+      throw new NotFoundException(`Verrou ${verrouId} introuvable`);
+    }
+
+    if (verrou.leveLe) {
+      throw new ConflictException({
+        code: 'VERROU_DEJA_LEVE',
+        message: 'Ce verrou a déjà été levé',
+      } as any);
+    }
+
+    const response = new VerrouPreviewResponseDto();
+    response.seancesConcernees = 1;
+    response.avertissement = 'La prochaine génération pourra déplacer cette séance.';
+    response.verrouId = verrou.id;
+
+    return response;
+  }
+
+  /**
+   * Lève un verrou, avec option de preview.
+   * Si preview=true, retourne l'impact sans persister.
+   * Si preview=false, lève réellement le verrou.
+   */
+  async leveWithPreview(
+    verrouId: string,
+    currentUser: { id: string; role: string; departments?: string[] },
+    preview: boolean,
+  ): Promise<VerrouSeanceResponseDto | VerrouPreviewResponseDto> {
+    if (preview) {
+      return this.previewLeve(verrouId, currentUser);
+    }
+
+    verrouAutorise(currentUser.role);
+
+    const existing = await this.prisma.verrouSeance.findUnique({
+      where: { id: verrouId },
+    });
+
+    if (!existing) {
+      throw new NotFoundException(`Verrou ${verrouId} introuvable`);
+    }
+
+    if (existing.leveLe) {
+      throw new ConflictException({
+        code: 'VERROU_DEJA_LEVE',
+        message: 'Ce verrou a déjà été levé',
+      } as any);
+    }
+
+    const result = await this.prisma.$transaction(async (tx) => {
+      const verrou = await (tx as unknown as PrismaService).verrouSeance.update({
+        where: { id: existing.id },
+        data: {
+          leveLe: new Date(),
+          levePar: currentUser.id,
+        },
+      });
+
+      const auditData: WriteAuditDto = {
+        userId: currentUser.id,
+        action: 'VERROU_LEVE',
+        objetType: 'VerrouSeance',
+        objetId: verrou.id,
+        ancienneValeur: {
+          seanceId: existing.seanceId,
+          type: existing.type,
+          auteurId: existing.auteurId,
+          leveLe: null,
+          levePar: null,
+        },
+        nouvelleValeur: {
+          seanceId: verrou.seanceId,
+          type: verrou.type,
+          auteurId: verrou.auteurId,
+          leveLe: verrou.leveLe,
+          levePar: verrou.levePar,
+        },
+        versionId: existing.versionId!,
+        motif: `Levée du verrou ${existing.type} sur la séance ${existing.seanceId}`,
+        ip: undefined,
+        requestId: undefined,
+      };
+
+      await this.audit.writeAudit(tx as unknown as PrismaService, auditData);
+
+      return verrou;
+    });
+
+    return VerrouSeanceResponseDto.fromPrisma(result);
   }
 }
