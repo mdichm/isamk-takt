@@ -231,6 +231,33 @@ export class ConflitService {
     }));
   }
 
+  async getConflictContext(versionId: string): Promise<ConflictContext> {
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: { id: true, semestreId: true },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+
+    const seancesRaw = await this.prisma.seance.findMany({
+      where: { versionId },
+      include: {
+        seanceGroupes: { select: { groupeId: true } },
+        occupations: {
+          select: {
+            jour: true,
+            creneauId: true,
+            ressourceType: true,
+            ressourceId: true,
+          },
+        },
+      },
+    });
+
+    return this.buildConflictContext(seancesRaw, version);
+  }
+
   private async buildConflictContext(
     seancesRaw: any[],
     version: { id: string; semestreId: string },

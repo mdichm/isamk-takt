@@ -6,6 +6,8 @@ import {
   Get,
   Param,
   Query,
+  Post,
+  Body,
   UseGuards,
   HttpCode,
   HttpStatus,
@@ -24,6 +26,11 @@ import { SeancesService } from './seances.service.js';
 import type { SeanceQueryDto } from './dto/seance-query.dto.js';
 import { SeanceResponseDto } from './dto/seance-response.dto.js';
 import { PaginatedSeancesDto } from './dto/seance-query.dto.js';
+import { SimulateSeanceService } from './simulate-seance.service.js';
+import {
+  SimulatePlacementDto,
+  SimulatePlacementResponseDto,
+} from './dto/simulate-placement.dto.js';
 
 // ============================================
 // Seance (L3-11)
@@ -36,7 +43,10 @@ import { PaginatedSeancesDto } from './dto/seance-query.dto.js';
 @ApiTags('seances')
 @Controller('seances')
 export class SeancesController {
-  constructor(private readonly service: SeancesService) {}
+  constructor(
+    private readonly service: SeancesService,
+    private readonly simulateService: SimulateSeanceService,
+  ) {}
 
   @Get('versions/:versionId/seances')
   @HttpCode(HttpStatus.OK)
@@ -94,5 +104,28 @@ export class SeancesController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<SeanceResponseDto> {
     return this.service.findSeanceById(id, currentUser);
+  }
+
+  @Post(':id/placement:simulate')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({
+    summary:
+      'Simulation de placement sans écriture en base (L3-21). Retourne les conflits respectés/violés et les impacts.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Résultat de la simulation de placement',
+    type: SimulatePlacementResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Séance introuvable (ou hors portée)' })
+  async simulatePlacement(
+    @Param('id') id: string,
+    @Body() dto: SimulatePlacementDto,
+    @CurrentUser()
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<SimulatePlacementResponseDto> {
+    return this.simulateService.simulate(id, dto, currentUser);
   }
 }
