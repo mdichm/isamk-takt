@@ -570,6 +570,7 @@ model Semestre {
   repartitions         Repartition[]
   demandesModification DemandeModification[]
   seances              Seance[]
+  versions             VersionEdt[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -628,13 +629,18 @@ model Seance {
   id           String      @id @default(uuid()) @db.Uuid
   semestreId   String      @db.Uuid
   semestre     Semestre    @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  versionId    String?     @db.Uuid
+  version      VersionEdt? @relation(fields: [versionId], references: [id], onDelete: SetNull)
   enseignantId String?     @db.Uuid
   enseignant   Enseignant? @relation(fields: [enseignantId], references: [id], onDelete: SetNull)
   salleId      String?     @db.Uuid
   salle        Salle?      @relation(fields: [salleId], references: [id], onDelete: SetNull)
-  jour         JourSemaine
-  creneauDebutId String    @db.Uuid
-  creneauDebut Creneau     @relation(fields: [creneauDebutId], references: [id])
+  affectationKey String   // `${groupeId}:${moduleId}:${typeEnseignementId}:${enseignantId}`
+  rang         Int         @default(1) // index de la séance dans l'affectation
+  tag          String?     // tag résolu du snapshot
+  jour         JourSemaine? // renseigné lors du placement (L3-10)
+  creneauDebutId String?   @db.Uuid // renseigné lors du placement (L3-10)
+  creneauDebut Creneau?    @relation(fields: [creneauDebutId], references: [id], onDelete: SetNull)
   nbCreneaux   Int         @default(1)
   statut       String      @default("PLACEE") // PLACEE | ANNULEE | ...
   groupes      SeanceGroupe[]
@@ -644,6 +650,8 @@ model Seance {
   @@index([semestreId])
   @@index([enseignantId])
   @@index([salleId])
+  @@index([versionId])
+  @@unique([versionId, affectationKey, rang])
   @@map("seances")
 }
 
@@ -655,6 +663,50 @@ model SeanceGroupe {
 
   @@id([seanceId, groupeId])
   @@map("seance_groupes")
+}
+
+// ============================================
+// Versions & séances (L3-09 : création de version)
+// Une version de travail porte un numéro (majeur.mineur), un statut et
+// référence les snapshots de répartition qui la composent.
+// ============================================
+
+enum VersionStatut {
+  BROUILLON
+  EDITION
+  EN_VALIDATION
+  VALIDE
+  PUBLIE
+  ARCHIVE
+  CORRECTION
+}
+
+model VersionEdt {
+  id          String        @id @default(uuid()) @db.Uuid
+  semestreId  String        @db.Uuid
+  semestre    Semestre      @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  numero      String        // ex. "1.0", "2.0"
+  statut      VersionStatut @default(BROUILLON)
+  motif       String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  seances     Seance[]
+  snapshots   VersionSnapshot[]
+
+  @@index([semestreId])
+  @@index([statut])
+  @@map("versions_edt")
+}
+
+model VersionSnapshot {
+  versionId  String @db.Uuid
+  snapshotId String @db.Uuid
+  version    VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  snapshot   Snapshot   @relation(fields: [snapshotId], references: [id])
+
+  @@id([versionId, snapshotId])
+  @@map("version_snapshots")
 }
 
 // ============================================
@@ -1273,6 +1325,8 @@ model Snapshot {
   parAdministrateur Boolean           @default(false) // true si validé par un Administrateur
   repartitionStatut RepartitionStatut
   createdAt         DateTime          @default(now())
+
+  versionSnapshots  VersionSnapshot[]
 
   @@index([repartitionId])
   @@map("snapshots")

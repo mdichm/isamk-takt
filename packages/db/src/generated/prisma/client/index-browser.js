@@ -376,8 +376,12 @@ exports.Prisma.CreneauAffichageScalarFieldEnum = {
 exports.Prisma.SeanceScalarFieldEnum = {
   id: 'id',
   semestreId: 'semestreId',
+  versionId: 'versionId',
   enseignantId: 'enseignantId',
   salleId: 'salleId',
+  affectationKey: 'affectationKey',
+  rang: 'rang',
+  tag: 'tag',
   jour: 'jour',
   creneauDebutId: 'creneauDebutId',
   nbCreneaux: 'nbCreneaux',
@@ -389,6 +393,21 @@ exports.Prisma.SeanceScalarFieldEnum = {
 exports.Prisma.SeanceGroupeScalarFieldEnum = {
   seanceId: 'seanceId',
   groupeId: 'groupeId'
+};
+
+exports.Prisma.VersionEdtScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  numero: 'numero',
+  statut: 'statut',
+  motif: 'motif',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VersionSnapshotScalarFieldEnum = {
+  versionId: 'versionId',
+  snapshotId: 'snapshotId'
 };
 
 exports.Prisma.DepartementScalarFieldEnum = {
@@ -849,6 +868,16 @@ exports.GrilleAffichage = exports.$Enums.GrilleAffichage = {
   RAMADAN: 'RAMADAN'
 };
 
+exports.VersionStatut = exports.$Enums.VersionStatut = {
+  BROUILLON: 'BROUILLON',
+  EDITION: 'EDITION',
+  EN_VALIDATION: 'EN_VALIDATION',
+  VALIDE: 'VALIDE',
+  PUBLIE: 'PUBLIE',
+  ARCHIVE: 'ARCHIVE',
+  CORRECTION: 'CORRECTION'
+};
+
 exports.GroupeType = exports.$Enums.GroupeType = {
   SECTION: 'SECTION',
   GROUPE: 'GROUPE',
@@ -962,6 +991,8 @@ exports.Prisma.ModelName = {
   CreneauAffichage: 'CreneauAffichage',
   Seance: 'Seance',
   SeanceGroupe: 'SeanceGroupe',
+  VersionEdt: 'VersionEdt',
+  VersionSnapshot: 'VersionSnapshot',
   Departement: 'Departement',
   Formation: 'Formation',
   Niveau: 'Niveau',

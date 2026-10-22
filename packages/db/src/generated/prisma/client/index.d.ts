@@ -139,6 +139,16 @@ export type Seance = $Result.DefaultSelection<Prisma.$SeancePayload>
  */
 export type SeanceGroupe = $Result.DefaultSelection<Prisma.$SeanceGroupePayload>
 /**
+ * Model VersionEdt
+ * 
+ */
+export type VersionEdt = $Result.DefaultSelection<Prisma.$VersionEdtPayload>
+/**
+ * Model VersionSnapshot
+ * 
+ */
+export type VersionSnapshot = $Result.DefaultSelection<Prisma.$VersionSnapshotPayload>
+/**
  * Model Departement
  * 
  */
@@ -511,6 +521,19 @@ export const TraductionFET: {
 export type TraductionFET = (typeof TraductionFET)[keyof typeof TraductionFET]
 
 
+export const VersionStatut: {
+  BROUILLON: 'BROUILLON',
+  EDITION: 'EDITION',
+  EN_VALIDATION: 'EN_VALIDATION',
+  VALIDE: 'VALIDE',
+  PUBLIE: 'PUBLIE',
+  ARCHIVE: 'ARCHIVE',
+  CORRECTION: 'CORRECTION'
+};
+
+export type VersionStatut = (typeof VersionStatut)[keyof typeof VersionStatut]
+
+
 export const TypeEnseignementCode: {
   CM: 'CM',
   TD: 'TD',
@@ -630,6 +653,10 @@ export const ClasseRegle: typeof $Enums.ClasseRegle
 export type TraductionFET = $Enums.TraductionFET
 
 export const TraductionFET: typeof $Enums.TraductionFET
+
+export type VersionStatut = $Enums.VersionStatut
+
+export const VersionStatut: typeof $Enums.VersionStatut
 
 export type TypeEnseignementCode = $Enums.TypeEnseignementCode
 
@@ -1013,6 +1040,26 @@ export class PrismaClient<
     * ```
     */
   get seanceGroupe(): Prisma.SeanceGroupeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.versionEdt`: Exposes CRUD operations for the **VersionEdt** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VersionEdts
+    * const versionEdts = await prisma.versionEdt.findMany()
+    * ```
+    */
+  get versionEdt(): Prisma.VersionEdtDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.versionSnapshot`: Exposes CRUD operations for the **VersionSnapshot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VersionSnapshots
+    * const versionSnapshots = await prisma.versionSnapshot.findMany()
+    * ```
+    */
+  get versionSnapshot(): Prisma.VersionSnapshotDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.departement`: Exposes CRUD operations for the **Departement** model.
@@ -1795,6 +1842,8 @@ export namespace Prisma {
     CreneauAffichage: 'CreneauAffichage',
     Seance: 'Seance',
     SeanceGroupe: 'SeanceGroupe',
+    VersionEdt: 'VersionEdt',
+    VersionSnapshot: 'VersionSnapshot',
     Departement: 'Departement',
     Formation: 'Formation',
     Niveau: 'Niveau',
@@ -1841,7 +1890,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "versionEdt" | "versionSnapshot" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3692,6 +3741,154 @@ export namespace Prisma {
           count: {
             args: Prisma.SeanceGroupeCountArgs<ExtArgs>
             result: $Utils.Optional<SeanceGroupeCountAggregateOutputType> | number
+          }
+        }
+      }
+      VersionEdt: {
+        payload: Prisma.$VersionEdtPayload<ExtArgs>
+        fields: Prisma.VersionEdtFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VersionEdtFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VersionEdtFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>
+          }
+          findFirst: {
+            args: Prisma.VersionEdtFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VersionEdtFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>
+          }
+          findMany: {
+            args: Prisma.VersionEdtFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>[]
+          }
+          create: {
+            args: Prisma.VersionEdtCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>
+          }
+          createMany: {
+            args: Prisma.VersionEdtCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VersionEdtCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>[]
+          }
+          delete: {
+            args: Prisma.VersionEdtDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>
+          }
+          update: {
+            args: Prisma.VersionEdtUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>
+          }
+          deleteMany: {
+            args: Prisma.VersionEdtDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VersionEdtUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VersionEdtUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>[]
+          }
+          upsert: {
+            args: Prisma.VersionEdtUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionEdtPayload>
+          }
+          aggregate: {
+            args: Prisma.VersionEdtAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVersionEdt>
+          }
+          groupBy: {
+            args: Prisma.VersionEdtGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VersionEdtGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VersionEdtCountArgs<ExtArgs>
+            result: $Utils.Optional<VersionEdtCountAggregateOutputType> | number
+          }
+        }
+      }
+      VersionSnapshot: {
+        payload: Prisma.$VersionSnapshotPayload<ExtArgs>
+        fields: Prisma.VersionSnapshotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VersionSnapshotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VersionSnapshotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>
+          }
+          findFirst: {
+            args: Prisma.VersionSnapshotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VersionSnapshotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>
+          }
+          findMany: {
+            args: Prisma.VersionSnapshotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>[]
+          }
+          create: {
+            args: Prisma.VersionSnapshotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>
+          }
+          createMany: {
+            args: Prisma.VersionSnapshotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VersionSnapshotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>[]
+          }
+          delete: {
+            args: Prisma.VersionSnapshotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>
+          }
+          update: {
+            args: Prisma.VersionSnapshotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>
+          }
+          deleteMany: {
+            args: Prisma.VersionSnapshotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VersionSnapshotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VersionSnapshotUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>[]
+          }
+          upsert: {
+            args: Prisma.VersionSnapshotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VersionSnapshotPayload>
+          }
+          aggregate: {
+            args: Prisma.VersionSnapshotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVersionSnapshot>
+          }
+          groupBy: {
+            args: Prisma.VersionSnapshotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VersionSnapshotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VersionSnapshotCountArgs<ExtArgs>
+            result: $Utils.Optional<VersionSnapshotCountAggregateOutputType> | number
           }
         }
       }
@@ -6137,6 +6334,8 @@ export namespace Prisma {
     creneauAffichage?: CreneauAffichageOmit
     seance?: SeanceOmit
     seanceGroupe?: SeanceGroupeOmit
+    versionEdt?: VersionEdtOmit
+    versionSnapshot?: VersionSnapshotOmit
     departement?: DepartementOmit
     formation?: FormationOmit
     niveau?: NiveauOmit
@@ -6653,6 +6852,7 @@ export namespace Prisma {
     repartitions: number
     demandesModification: number
     seances: number
+    versions: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6664,6 +6864,7 @@ export namespace Prisma {
     repartitions?: boolean | SemestreCountOutputTypeCountRepartitionsArgs
     demandesModification?: boolean | SemestreCountOutputTypeCountDemandesModificationArgs
     seances?: boolean | SemestreCountOutputTypeCountSeancesArgs
+    versions?: boolean | SemestreCountOutputTypeCountVersionsArgs
   }
 
   // Custom InputTypes
@@ -6731,6 +6932,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SeanceWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountVersionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VersionEdtWhereInput
   }
 
 
@@ -6802,6 +7010,46 @@ export namespace Prisma {
    */
   export type SeanceCountOutputTypeCountGroupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SeanceGroupeWhereInput
+  }
+
+
+  /**
+   * Count Type VersionEdtCountOutputType
+   */
+
+  export type VersionEdtCountOutputType = {
+    seances: number
+    snapshots: number
+  }
+
+  export type VersionEdtCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seances?: boolean | VersionEdtCountOutputTypeCountSeancesArgs
+    snapshots?: boolean | VersionEdtCountOutputTypeCountSnapshotsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * VersionEdtCountOutputType without action
+   */
+  export type VersionEdtCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdtCountOutputType
+     */
+    select?: VersionEdtCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * VersionEdtCountOutputType without action
+   */
+  export type VersionEdtCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceWhereInput
+  }
+
+  /**
+   * VersionEdtCountOutputType without action
+   */
+  export type VersionEdtCountOutputTypeCountSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VersionSnapshotWhereInput
   }
 
 
@@ -7523,6 +7771,37 @@ export namespace Prisma {
    */
   export type RepartitionCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AffectationWhereInput
+  }
+
+
+  /**
+   * Count Type SnapshotCountOutputType
+   */
+
+  export type SnapshotCountOutputType = {
+    versionSnapshots: number
+  }
+
+  export type SnapshotCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    versionSnapshots?: boolean | SnapshotCountOutputTypeCountVersionSnapshotsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SnapshotCountOutputType without action
+   */
+  export type SnapshotCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SnapshotCountOutputType
+     */
+    select?: SnapshotCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SnapshotCountOutputType without action
+   */
+  export type SnapshotCountOutputTypeCountVersionSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VersionSnapshotWhereInput
   }
 
 
@@ -30728,6 +31007,7 @@ export namespace Prisma {
     repartitions?: boolean | Semestre$repartitionsArgs<ExtArgs>
     demandesModification?: boolean | Semestre$demandesModificationArgs<ExtArgs>
     seances?: boolean | Semestre$seancesArgs<ExtArgs>
+    versions?: boolean | Semestre$versionsArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -30774,6 +31054,7 @@ export namespace Prisma {
     repartitions?: boolean | Semestre$repartitionsArgs<ExtArgs>
     demandesModification?: boolean | Semestre$demandesModificationArgs<ExtArgs>
     seances?: boolean | Semestre$seancesArgs<ExtArgs>
+    versions?: boolean | Semestre$versionsArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30795,6 +31076,7 @@ export namespace Prisma {
       repartitions: Prisma.$RepartitionPayload<ExtArgs>[]
       demandesModification: Prisma.$DemandeModificationPayload<ExtArgs>[]
       seances: Prisma.$SeancePayload<ExtArgs>[]
+      versions: Prisma.$VersionEdtPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -31207,6 +31489,7 @@ export namespace Prisma {
     repartitions<T extends Semestre$repartitionsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$repartitionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     demandesModification<T extends Semestre$demandesModificationArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$demandesModificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     seances<T extends Semestre$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    versions<T extends Semestre$versionsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31833,6 +32116,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.versions
+   */
+  export type Semestre$versionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    where?: VersionEdtWhereInput
+    orderBy?: VersionEdtOrderByWithRelationInput | VersionEdtOrderByWithRelationInput[]
+    cursor?: VersionEdtWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VersionEdtScalarFieldEnum | VersionEdtScalarFieldEnum[]
   }
 
   /**
@@ -34150,18 +34457,24 @@ export namespace Prisma {
   }
 
   export type SeanceAvgAggregateOutputType = {
+    rang: number | null
     nbCreneaux: number | null
   }
 
   export type SeanceSumAggregateOutputType = {
+    rang: number | null
     nbCreneaux: number | null
   }
 
   export type SeanceMinAggregateOutputType = {
     id: string | null
     semestreId: string | null
+    versionId: string | null
     enseignantId: string | null
     salleId: string | null
+    affectationKey: string | null
+    rang: number | null
+    tag: string | null
     jour: $Enums.JourSemaine | null
     creneauDebutId: string | null
     nbCreneaux: number | null
@@ -34173,8 +34486,12 @@ export namespace Prisma {
   export type SeanceMaxAggregateOutputType = {
     id: string | null
     semestreId: string | null
+    versionId: string | null
     enseignantId: string | null
     salleId: string | null
+    affectationKey: string | null
+    rang: number | null
+    tag: string | null
     jour: $Enums.JourSemaine | null
     creneauDebutId: string | null
     nbCreneaux: number | null
@@ -34186,8 +34503,12 @@ export namespace Prisma {
   export type SeanceCountAggregateOutputType = {
     id: number
     semestreId: number
+    versionId: number
     enseignantId: number
     salleId: number
+    affectationKey: number
+    rang: number
+    tag: number
     jour: number
     creneauDebutId: number
     nbCreneaux: number
@@ -34199,18 +34520,24 @@ export namespace Prisma {
 
 
   export type SeanceAvgAggregateInputType = {
+    rang?: true
     nbCreneaux?: true
   }
 
   export type SeanceSumAggregateInputType = {
+    rang?: true
     nbCreneaux?: true
   }
 
   export type SeanceMinAggregateInputType = {
     id?: true
     semestreId?: true
+    versionId?: true
     enseignantId?: true
     salleId?: true
+    affectationKey?: true
+    rang?: true
+    tag?: true
     jour?: true
     creneauDebutId?: true
     nbCreneaux?: true
@@ -34222,8 +34549,12 @@ export namespace Prisma {
   export type SeanceMaxAggregateInputType = {
     id?: true
     semestreId?: true
+    versionId?: true
     enseignantId?: true
     salleId?: true
+    affectationKey?: true
+    rang?: true
+    tag?: true
     jour?: true
     creneauDebutId?: true
     nbCreneaux?: true
@@ -34235,8 +34566,12 @@ export namespace Prisma {
   export type SeanceCountAggregateInputType = {
     id?: true
     semestreId?: true
+    versionId?: true
     enseignantId?: true
     salleId?: true
+    affectationKey?: true
+    rang?: true
+    tag?: true
     jour?: true
     creneauDebutId?: true
     nbCreneaux?: true
@@ -34335,10 +34670,14 @@ export namespace Prisma {
   export type SeanceGroupByOutputType = {
     id: string
     semestreId: string
+    versionId: string | null
     enseignantId: string | null
     salleId: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang: number
+    tag: string | null
+    jour: $Enums.JourSemaine | null
+    creneauDebutId: string | null
     nbCreneaux: number
     statut: string
     createdAt: Date
@@ -34367,8 +34706,12 @@ export namespace Prisma {
   export type SeanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     semestreId?: boolean
+    versionId?: boolean
     enseignantId?: boolean
     salleId?: boolean
+    affectationKey?: boolean
+    rang?: boolean
+    tag?: boolean
     jour?: boolean
     creneauDebutId?: boolean
     nbCreneaux?: boolean
@@ -34376,9 +34719,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | Seance$versionArgs<ExtArgs>
     enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
     salle?: boolean | Seance$salleArgs<ExtArgs>
-    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+    creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
     groupes?: boolean | Seance$groupesArgs<ExtArgs>
     _count?: boolean | SeanceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["seance"]>
@@ -34386,8 +34730,12 @@ export namespace Prisma {
   export type SeanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     semestreId?: boolean
+    versionId?: boolean
     enseignantId?: boolean
     salleId?: boolean
+    affectationKey?: boolean
+    rang?: boolean
+    tag?: boolean
     jour?: boolean
     creneauDebutId?: boolean
     nbCreneaux?: boolean
@@ -34395,16 +34743,21 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | Seance$versionArgs<ExtArgs>
     enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
     salle?: boolean | Seance$salleArgs<ExtArgs>
-    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+    creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
   }, ExtArgs["result"]["seance"]>
 
   export type SeanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     semestreId?: boolean
+    versionId?: boolean
     enseignantId?: boolean
     salleId?: boolean
+    affectationKey?: boolean
+    rang?: boolean
+    tag?: boolean
     jour?: boolean
     creneauDebutId?: boolean
     nbCreneaux?: boolean
@@ -34412,16 +34765,21 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | Seance$versionArgs<ExtArgs>
     enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
     salle?: boolean | Seance$salleArgs<ExtArgs>
-    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+    creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
   }, ExtArgs["result"]["seance"]>
 
   export type SeanceSelectScalar = {
     id?: boolean
     semestreId?: boolean
+    versionId?: boolean
     enseignantId?: boolean
     salleId?: boolean
+    affectationKey?: boolean
+    rang?: boolean
+    tag?: boolean
     jour?: boolean
     creneauDebutId?: boolean
     nbCreneaux?: boolean
@@ -34430,44 +34788,52 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SeanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "enseignantId" | "salleId" | "jour" | "creneauDebutId" | "nbCreneaux" | "statut" | "createdAt" | "updatedAt", ExtArgs["result"]["seance"]>
+  export type SeanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "versionId" | "enseignantId" | "salleId" | "affectationKey" | "rang" | "tag" | "jour" | "creneauDebutId" | "nbCreneaux" | "statut" | "createdAt" | "updatedAt", ExtArgs["result"]["seance"]>
   export type SeanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | Seance$versionArgs<ExtArgs>
     enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
     salle?: boolean | Seance$salleArgs<ExtArgs>
-    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+    creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
     groupes?: boolean | Seance$groupesArgs<ExtArgs>
     _count?: boolean | SeanceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SeanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | Seance$versionArgs<ExtArgs>
     enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
     salle?: boolean | Seance$salleArgs<ExtArgs>
-    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+    creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
   }
   export type SeanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | Seance$versionArgs<ExtArgs>
     enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
     salle?: boolean | Seance$salleArgs<ExtArgs>
-    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+    creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
   }
 
   export type $SeancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Seance"
     objects: {
       semestre: Prisma.$SemestrePayload<ExtArgs>
+      version: Prisma.$VersionEdtPayload<ExtArgs> | null
       enseignant: Prisma.$EnseignantPayload<ExtArgs> | null
       salle: Prisma.$SallePayload<ExtArgs> | null
-      creneauDebut: Prisma.$CreneauPayload<ExtArgs>
+      creneauDebut: Prisma.$CreneauPayload<ExtArgs> | null
       groupes: Prisma.$SeanceGroupePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       semestreId: string
+      versionId: string | null
       enseignantId: string | null
       salleId: string | null
-      jour: $Enums.JourSemaine
-      creneauDebutId: string
+      affectationKey: string
+      rang: number
+      tag: string | null
+      jour: $Enums.JourSemaine | null
+      creneauDebutId: string | null
       nbCreneaux: number
       statut: string
       createdAt: Date
@@ -34867,9 +35233,10 @@ export namespace Prisma {
   export interface Prisma__SeanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    version<T extends Seance$versionArgs<ExtArgs> = {}>(args?: Subset<T, Seance$versionArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     enseignant<T extends Seance$enseignantArgs<ExtArgs> = {}>(args?: Subset<T, Seance$enseignantArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     salle<T extends Seance$salleArgs<ExtArgs> = {}>(args?: Subset<T, Seance$salleArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    creneauDebut<T extends CreneauDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CreneauDefaultArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    creneauDebut<T extends Seance$creneauDebutArgs<ExtArgs> = {}>(args?: Subset<T, Seance$creneauDebutArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     groupes<T extends Seance$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Seance$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -34902,8 +35269,12 @@ export namespace Prisma {
   interface SeanceFieldRefs {
     readonly id: FieldRef<"Seance", 'String'>
     readonly semestreId: FieldRef<"Seance", 'String'>
+    readonly versionId: FieldRef<"Seance", 'String'>
     readonly enseignantId: FieldRef<"Seance", 'String'>
     readonly salleId: FieldRef<"Seance", 'String'>
+    readonly affectationKey: FieldRef<"Seance", 'String'>
+    readonly rang: FieldRef<"Seance", 'Int'>
+    readonly tag: FieldRef<"Seance", 'String'>
     readonly jour: FieldRef<"Seance", 'JourSemaine'>
     readonly creneauDebutId: FieldRef<"Seance", 'String'>
     readonly nbCreneaux: FieldRef<"Seance", 'Int'>
@@ -35311,6 +35682,25 @@ export namespace Prisma {
   }
 
   /**
+   * Seance.version
+   */
+  export type Seance$versionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    where?: VersionEdtWhereInput
+  }
+
+  /**
    * Seance.enseignant
    */
   export type Seance$enseignantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -35346,6 +35736,25 @@ export namespace Prisma {
      */
     include?: SalleInclude<ExtArgs> | null
     where?: SalleWhereInput
+  }
+
+  /**
+   * Seance.creneauDebut
+   */
+  export type Seance$creneauDebutArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Creneau
+     */
+    select?: CreneauSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Creneau
+     */
+    omit?: CreneauOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreneauInclude<ExtArgs> | null
+    where?: CreneauWhereInput
   }
 
   /**
@@ -36420,6 +36829,2185 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SeanceGroupeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VersionEdt
+   */
+
+  export type AggregateVersionEdt = {
+    _count: VersionEdtCountAggregateOutputType | null
+    _min: VersionEdtMinAggregateOutputType | null
+    _max: VersionEdtMaxAggregateOutputType | null
+  }
+
+  export type VersionEdtMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    numero: string | null
+    statut: $Enums.VersionStatut | null
+    motif: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VersionEdtMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    numero: string | null
+    statut: $Enums.VersionStatut | null
+    motif: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type VersionEdtCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    numero: number
+    statut: number
+    motif: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type VersionEdtMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    numero?: true
+    statut?: true
+    motif?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VersionEdtMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    numero?: true
+    statut?: true
+    motif?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type VersionEdtCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    numero?: true
+    statut?: true
+    motif?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type VersionEdtAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VersionEdt to aggregate.
+     */
+    where?: VersionEdtWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VersionEdts to fetch.
+     */
+    orderBy?: VersionEdtOrderByWithRelationInput | VersionEdtOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VersionEdtWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VersionEdts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VersionEdts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VersionEdts
+    **/
+    _count?: true | VersionEdtCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VersionEdtMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VersionEdtMaxAggregateInputType
+  }
+
+  export type GetVersionEdtAggregateType<T extends VersionEdtAggregateArgs> = {
+        [P in keyof T & keyof AggregateVersionEdt]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVersionEdt[P]>
+      : GetScalarType<T[P], AggregateVersionEdt[P]>
+  }
+
+
+
+
+  export type VersionEdtGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VersionEdtWhereInput
+    orderBy?: VersionEdtOrderByWithAggregationInput | VersionEdtOrderByWithAggregationInput[]
+    by: VersionEdtScalarFieldEnum[] | VersionEdtScalarFieldEnum
+    having?: VersionEdtScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VersionEdtCountAggregateInputType | true
+    _min?: VersionEdtMinAggregateInputType
+    _max?: VersionEdtMaxAggregateInputType
+  }
+
+  export type VersionEdtGroupByOutputType = {
+    id: string
+    semestreId: string
+    numero: string
+    statut: $Enums.VersionStatut
+    motif: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: VersionEdtCountAggregateOutputType | null
+    _min: VersionEdtMinAggregateOutputType | null
+    _max: VersionEdtMaxAggregateOutputType | null
+  }
+
+  type GetVersionEdtGroupByPayload<T extends VersionEdtGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VersionEdtGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VersionEdtGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VersionEdtGroupByOutputType[P]>
+            : GetScalarType<T[P], VersionEdtGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VersionEdtSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    numero?: boolean
+    statut?: boolean
+    motif?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    seances?: boolean | VersionEdt$seancesArgs<ExtArgs>
+    snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
+    _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["versionEdt"]>
+
+  export type VersionEdtSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    numero?: boolean
+    statut?: boolean
+    motif?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["versionEdt"]>
+
+  export type VersionEdtSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    numero?: boolean
+    statut?: boolean
+    motif?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["versionEdt"]>
+
+  export type VersionEdtSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    numero?: boolean
+    statut?: boolean
+    motif?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type VersionEdtOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "numero" | "statut" | "motif" | "createdAt" | "updatedAt", ExtArgs["result"]["versionEdt"]>
+  export type VersionEdtInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    seances?: boolean | VersionEdt$seancesArgs<ExtArgs>
+    snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
+    _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type VersionEdtIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type VersionEdtIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+
+  export type $VersionEdtPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VersionEdt"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      seances: Prisma.$SeancePayload<ExtArgs>[]
+      snapshots: Prisma.$VersionSnapshotPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      numero: string
+      statut: $Enums.VersionStatut
+      motif: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["versionEdt"]>
+    composites: {}
+  }
+
+  type VersionEdtGetPayload<S extends boolean | null | undefined | VersionEdtDefaultArgs> = $Result.GetResult<Prisma.$VersionEdtPayload, S>
+
+  type VersionEdtCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VersionEdtFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VersionEdtCountAggregateInputType | true
+    }
+
+  export interface VersionEdtDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VersionEdt'], meta: { name: 'VersionEdt' } }
+    /**
+     * Find zero or one VersionEdt that matches the filter.
+     * @param {VersionEdtFindUniqueArgs} args - Arguments to find a VersionEdt
+     * @example
+     * // Get one VersionEdt
+     * const versionEdt = await prisma.versionEdt.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VersionEdtFindUniqueArgs>(args: SelectSubset<T, VersionEdtFindUniqueArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VersionEdt that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VersionEdtFindUniqueOrThrowArgs} args - Arguments to find a VersionEdt
+     * @example
+     * // Get one VersionEdt
+     * const versionEdt = await prisma.versionEdt.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VersionEdtFindUniqueOrThrowArgs>(args: SelectSubset<T, VersionEdtFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VersionEdt that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionEdtFindFirstArgs} args - Arguments to find a VersionEdt
+     * @example
+     * // Get one VersionEdt
+     * const versionEdt = await prisma.versionEdt.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VersionEdtFindFirstArgs>(args?: SelectSubset<T, VersionEdtFindFirstArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VersionEdt that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionEdtFindFirstOrThrowArgs} args - Arguments to find a VersionEdt
+     * @example
+     * // Get one VersionEdt
+     * const versionEdt = await prisma.versionEdt.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VersionEdtFindFirstOrThrowArgs>(args?: SelectSubset<T, VersionEdtFindFirstOrThrowArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VersionEdts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionEdtFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VersionEdts
+     * const versionEdts = await prisma.versionEdt.findMany()
+     * 
+     * // Get first 10 VersionEdts
+     * const versionEdts = await prisma.versionEdt.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const versionEdtWithIdOnly = await prisma.versionEdt.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VersionEdtFindManyArgs>(args?: SelectSubset<T, VersionEdtFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VersionEdt.
+     * @param {VersionEdtCreateArgs} args - Arguments to create a VersionEdt.
+     * @example
+     * // Create one VersionEdt
+     * const VersionEdt = await prisma.versionEdt.create({
+     *   data: {
+     *     // ... data to create a VersionEdt
+     *   }
+     * })
+     * 
+     */
+    create<T extends VersionEdtCreateArgs>(args: SelectSubset<T, VersionEdtCreateArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VersionEdts.
+     * @param {VersionEdtCreateManyArgs} args - Arguments to create many VersionEdts.
+     * @example
+     * // Create many VersionEdts
+     * const versionEdt = await prisma.versionEdt.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VersionEdtCreateManyArgs>(args?: SelectSubset<T, VersionEdtCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VersionEdts and returns the data saved in the database.
+     * @param {VersionEdtCreateManyAndReturnArgs} args - Arguments to create many VersionEdts.
+     * @example
+     * // Create many VersionEdts
+     * const versionEdt = await prisma.versionEdt.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VersionEdts and only return the `id`
+     * const versionEdtWithIdOnly = await prisma.versionEdt.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VersionEdtCreateManyAndReturnArgs>(args?: SelectSubset<T, VersionEdtCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VersionEdt.
+     * @param {VersionEdtDeleteArgs} args - Arguments to delete one VersionEdt.
+     * @example
+     * // Delete one VersionEdt
+     * const VersionEdt = await prisma.versionEdt.delete({
+     *   where: {
+     *     // ... filter to delete one VersionEdt
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VersionEdtDeleteArgs>(args: SelectSubset<T, VersionEdtDeleteArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VersionEdt.
+     * @param {VersionEdtUpdateArgs} args - Arguments to update one VersionEdt.
+     * @example
+     * // Update one VersionEdt
+     * const versionEdt = await prisma.versionEdt.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VersionEdtUpdateArgs>(args: SelectSubset<T, VersionEdtUpdateArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VersionEdts.
+     * @param {VersionEdtDeleteManyArgs} args - Arguments to filter VersionEdts to delete.
+     * @example
+     * // Delete a few VersionEdts
+     * const { count } = await prisma.versionEdt.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VersionEdtDeleteManyArgs>(args?: SelectSubset<T, VersionEdtDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VersionEdts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionEdtUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VersionEdts
+     * const versionEdt = await prisma.versionEdt.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VersionEdtUpdateManyArgs>(args: SelectSubset<T, VersionEdtUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VersionEdts and returns the data updated in the database.
+     * @param {VersionEdtUpdateManyAndReturnArgs} args - Arguments to update many VersionEdts.
+     * @example
+     * // Update many VersionEdts
+     * const versionEdt = await prisma.versionEdt.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VersionEdts and only return the `id`
+     * const versionEdtWithIdOnly = await prisma.versionEdt.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VersionEdtUpdateManyAndReturnArgs>(args: SelectSubset<T, VersionEdtUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VersionEdt.
+     * @param {VersionEdtUpsertArgs} args - Arguments to update or create a VersionEdt.
+     * @example
+     * // Update or create a VersionEdt
+     * const versionEdt = await prisma.versionEdt.upsert({
+     *   create: {
+     *     // ... data to create a VersionEdt
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VersionEdt we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VersionEdtUpsertArgs>(args: SelectSubset<T, VersionEdtUpsertArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VersionEdts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionEdtCountArgs} args - Arguments to filter VersionEdts to count.
+     * @example
+     * // Count the number of VersionEdts
+     * const count = await prisma.versionEdt.count({
+     *   where: {
+     *     // ... the filter for the VersionEdts we want to count
+     *   }
+     * })
+    **/
+    count<T extends VersionEdtCountArgs>(
+      args?: Subset<T, VersionEdtCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VersionEdtCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VersionEdt.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionEdtAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VersionEdtAggregateArgs>(args: Subset<T, VersionEdtAggregateArgs>): Prisma.PrismaPromise<GetVersionEdtAggregateType<T>>
+
+    /**
+     * Group by VersionEdt.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionEdtGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VersionEdtGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VersionEdtGroupByArgs['orderBy'] }
+        : { orderBy?: VersionEdtGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VersionEdtGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVersionEdtGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VersionEdt model
+   */
+  readonly fields: VersionEdtFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VersionEdt.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VersionEdtClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    seances<T extends VersionEdt$seancesArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    snapshots<T extends VersionEdt$snapshotsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$snapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VersionEdt model
+   */
+  interface VersionEdtFieldRefs {
+    readonly id: FieldRef<"VersionEdt", 'String'>
+    readonly semestreId: FieldRef<"VersionEdt", 'String'>
+    readonly numero: FieldRef<"VersionEdt", 'String'>
+    readonly statut: FieldRef<"VersionEdt", 'VersionStatut'>
+    readonly motif: FieldRef<"VersionEdt", 'String'>
+    readonly createdAt: FieldRef<"VersionEdt", 'DateTime'>
+    readonly updatedAt: FieldRef<"VersionEdt", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VersionEdt findUnique
+   */
+  export type VersionEdtFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionEdt to fetch.
+     */
+    where: VersionEdtWhereUniqueInput
+  }
+
+  /**
+   * VersionEdt findUniqueOrThrow
+   */
+  export type VersionEdtFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionEdt to fetch.
+     */
+    where: VersionEdtWhereUniqueInput
+  }
+
+  /**
+   * VersionEdt findFirst
+   */
+  export type VersionEdtFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionEdt to fetch.
+     */
+    where?: VersionEdtWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VersionEdts to fetch.
+     */
+    orderBy?: VersionEdtOrderByWithRelationInput | VersionEdtOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VersionEdts.
+     */
+    cursor?: VersionEdtWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VersionEdts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VersionEdts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VersionEdts.
+     */
+    distinct?: VersionEdtScalarFieldEnum | VersionEdtScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt findFirstOrThrow
+   */
+  export type VersionEdtFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionEdt to fetch.
+     */
+    where?: VersionEdtWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VersionEdts to fetch.
+     */
+    orderBy?: VersionEdtOrderByWithRelationInput | VersionEdtOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VersionEdts.
+     */
+    cursor?: VersionEdtWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VersionEdts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VersionEdts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VersionEdts.
+     */
+    distinct?: VersionEdtScalarFieldEnum | VersionEdtScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt findMany
+   */
+  export type VersionEdtFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionEdts to fetch.
+     */
+    where?: VersionEdtWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VersionEdts to fetch.
+     */
+    orderBy?: VersionEdtOrderByWithRelationInput | VersionEdtOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VersionEdts.
+     */
+    cursor?: VersionEdtWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VersionEdts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VersionEdts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VersionEdts.
+     */
+    distinct?: VersionEdtScalarFieldEnum | VersionEdtScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt create
+   */
+  export type VersionEdtCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VersionEdt.
+     */
+    data: XOR<VersionEdtCreateInput, VersionEdtUncheckedCreateInput>
+  }
+
+  /**
+   * VersionEdt createMany
+   */
+  export type VersionEdtCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VersionEdts.
+     */
+    data: VersionEdtCreateManyInput | VersionEdtCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VersionEdt createManyAndReturn
+   */
+  export type VersionEdtCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * The data used to create many VersionEdts.
+     */
+    data: VersionEdtCreateManyInput | VersionEdtCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VersionEdt update
+   */
+  export type VersionEdtUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VersionEdt.
+     */
+    data: XOR<VersionEdtUpdateInput, VersionEdtUncheckedUpdateInput>
+    /**
+     * Choose, which VersionEdt to update.
+     */
+    where: VersionEdtWhereUniqueInput
+  }
+
+  /**
+   * VersionEdt updateMany
+   */
+  export type VersionEdtUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VersionEdts.
+     */
+    data: XOR<VersionEdtUpdateManyMutationInput, VersionEdtUncheckedUpdateManyInput>
+    /**
+     * Filter which VersionEdts to update
+     */
+    where?: VersionEdtWhereInput
+    /**
+     * Limit how many VersionEdts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VersionEdt updateManyAndReturn
+   */
+  export type VersionEdtUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * The data used to update VersionEdts.
+     */
+    data: XOR<VersionEdtUpdateManyMutationInput, VersionEdtUncheckedUpdateManyInput>
+    /**
+     * Filter which VersionEdts to update
+     */
+    where?: VersionEdtWhereInput
+    /**
+     * Limit how many VersionEdts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VersionEdt upsert
+   */
+  export type VersionEdtUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VersionEdt to update in case it exists.
+     */
+    where: VersionEdtWhereUniqueInput
+    /**
+     * In case the VersionEdt found by the `where` argument doesn't exist, create a new VersionEdt with this data.
+     */
+    create: XOR<VersionEdtCreateInput, VersionEdtUncheckedCreateInput>
+    /**
+     * In case the VersionEdt was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VersionEdtUpdateInput, VersionEdtUncheckedUpdateInput>
+  }
+
+  /**
+   * VersionEdt delete
+   */
+  export type VersionEdtDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+    /**
+     * Filter which VersionEdt to delete.
+     */
+    where: VersionEdtWhereUniqueInput
+  }
+
+  /**
+   * VersionEdt deleteMany
+   */
+  export type VersionEdtDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VersionEdts to delete
+     */
+    where?: VersionEdtWhereInput
+    /**
+     * Limit how many VersionEdts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VersionEdt.seances
+   */
+  export type VersionEdt$seancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    where?: SeanceWhereInput
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    cursor?: SeanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt.snapshots
+   */
+  export type VersionEdt$snapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    where?: VersionSnapshotWhereInput
+    orderBy?: VersionSnapshotOrderByWithRelationInput | VersionSnapshotOrderByWithRelationInput[]
+    cursor?: VersionSnapshotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VersionSnapshotScalarFieldEnum | VersionSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt without action
+   */
+  export type VersionEdtDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionEdt
+     */
+    select?: VersionEdtSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionEdt
+     */
+    omit?: VersionEdtOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionEdtInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VersionSnapshot
+   */
+
+  export type AggregateVersionSnapshot = {
+    _count: VersionSnapshotCountAggregateOutputType | null
+    _min: VersionSnapshotMinAggregateOutputType | null
+    _max: VersionSnapshotMaxAggregateOutputType | null
+  }
+
+  export type VersionSnapshotMinAggregateOutputType = {
+    versionId: string | null
+    snapshotId: string | null
+  }
+
+  export type VersionSnapshotMaxAggregateOutputType = {
+    versionId: string | null
+    snapshotId: string | null
+  }
+
+  export type VersionSnapshotCountAggregateOutputType = {
+    versionId: number
+    snapshotId: number
+    _all: number
+  }
+
+
+  export type VersionSnapshotMinAggregateInputType = {
+    versionId?: true
+    snapshotId?: true
+  }
+
+  export type VersionSnapshotMaxAggregateInputType = {
+    versionId?: true
+    snapshotId?: true
+  }
+
+  export type VersionSnapshotCountAggregateInputType = {
+    versionId?: true
+    snapshotId?: true
+    _all?: true
+  }
+
+  export type VersionSnapshotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VersionSnapshot to aggregate.
+     */
+    where?: VersionSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VersionSnapshots to fetch.
+     */
+    orderBy?: VersionSnapshotOrderByWithRelationInput | VersionSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VersionSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VersionSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VersionSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VersionSnapshots
+    **/
+    _count?: true | VersionSnapshotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VersionSnapshotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VersionSnapshotMaxAggregateInputType
+  }
+
+  export type GetVersionSnapshotAggregateType<T extends VersionSnapshotAggregateArgs> = {
+        [P in keyof T & keyof AggregateVersionSnapshot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVersionSnapshot[P]>
+      : GetScalarType<T[P], AggregateVersionSnapshot[P]>
+  }
+
+
+
+
+  export type VersionSnapshotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VersionSnapshotWhereInput
+    orderBy?: VersionSnapshotOrderByWithAggregationInput | VersionSnapshotOrderByWithAggregationInput[]
+    by: VersionSnapshotScalarFieldEnum[] | VersionSnapshotScalarFieldEnum
+    having?: VersionSnapshotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VersionSnapshotCountAggregateInputType | true
+    _min?: VersionSnapshotMinAggregateInputType
+    _max?: VersionSnapshotMaxAggregateInputType
+  }
+
+  export type VersionSnapshotGroupByOutputType = {
+    versionId: string
+    snapshotId: string
+    _count: VersionSnapshotCountAggregateOutputType | null
+    _min: VersionSnapshotMinAggregateOutputType | null
+    _max: VersionSnapshotMaxAggregateOutputType | null
+  }
+
+  type GetVersionSnapshotGroupByPayload<T extends VersionSnapshotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VersionSnapshotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VersionSnapshotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VersionSnapshotGroupByOutputType[P]>
+            : GetScalarType<T[P], VersionSnapshotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VersionSnapshotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    versionId?: boolean
+    snapshotId?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    snapshot?: boolean | SnapshotDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["versionSnapshot"]>
+
+  export type VersionSnapshotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    versionId?: boolean
+    snapshotId?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    snapshot?: boolean | SnapshotDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["versionSnapshot"]>
+
+  export type VersionSnapshotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    versionId?: boolean
+    snapshotId?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    snapshot?: boolean | SnapshotDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["versionSnapshot"]>
+
+  export type VersionSnapshotSelectScalar = {
+    versionId?: boolean
+    snapshotId?: boolean
+  }
+
+  export type VersionSnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"versionId" | "snapshotId", ExtArgs["result"]["versionSnapshot"]>
+  export type VersionSnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    snapshot?: boolean | SnapshotDefaultArgs<ExtArgs>
+  }
+  export type VersionSnapshotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    snapshot?: boolean | SnapshotDefaultArgs<ExtArgs>
+  }
+  export type VersionSnapshotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    snapshot?: boolean | SnapshotDefaultArgs<ExtArgs>
+  }
+
+  export type $VersionSnapshotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VersionSnapshot"
+    objects: {
+      version: Prisma.$VersionEdtPayload<ExtArgs>
+      snapshot: Prisma.$SnapshotPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      versionId: string
+      snapshotId: string
+    }, ExtArgs["result"]["versionSnapshot"]>
+    composites: {}
+  }
+
+  type VersionSnapshotGetPayload<S extends boolean | null | undefined | VersionSnapshotDefaultArgs> = $Result.GetResult<Prisma.$VersionSnapshotPayload, S>
+
+  type VersionSnapshotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VersionSnapshotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VersionSnapshotCountAggregateInputType | true
+    }
+
+  export interface VersionSnapshotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VersionSnapshot'], meta: { name: 'VersionSnapshot' } }
+    /**
+     * Find zero or one VersionSnapshot that matches the filter.
+     * @param {VersionSnapshotFindUniqueArgs} args - Arguments to find a VersionSnapshot
+     * @example
+     * // Get one VersionSnapshot
+     * const versionSnapshot = await prisma.versionSnapshot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VersionSnapshotFindUniqueArgs>(args: SelectSubset<T, VersionSnapshotFindUniqueArgs<ExtArgs>>): Prisma__VersionSnapshotClient<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VersionSnapshot that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VersionSnapshotFindUniqueOrThrowArgs} args - Arguments to find a VersionSnapshot
+     * @example
+     * // Get one VersionSnapshot
+     * const versionSnapshot = await prisma.versionSnapshot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VersionSnapshotFindUniqueOrThrowArgs>(args: SelectSubset<T, VersionSnapshotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VersionSnapshotClient<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VersionSnapshot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionSnapshotFindFirstArgs} args - Arguments to find a VersionSnapshot
+     * @example
+     * // Get one VersionSnapshot
+     * const versionSnapshot = await prisma.versionSnapshot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VersionSnapshotFindFirstArgs>(args?: SelectSubset<T, VersionSnapshotFindFirstArgs<ExtArgs>>): Prisma__VersionSnapshotClient<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VersionSnapshot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionSnapshotFindFirstOrThrowArgs} args - Arguments to find a VersionSnapshot
+     * @example
+     * // Get one VersionSnapshot
+     * const versionSnapshot = await prisma.versionSnapshot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VersionSnapshotFindFirstOrThrowArgs>(args?: SelectSubset<T, VersionSnapshotFindFirstOrThrowArgs<ExtArgs>>): Prisma__VersionSnapshotClient<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VersionSnapshots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionSnapshotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VersionSnapshots
+     * const versionSnapshots = await prisma.versionSnapshot.findMany()
+     * 
+     * // Get first 10 VersionSnapshots
+     * const versionSnapshots = await prisma.versionSnapshot.findMany({ take: 10 })
+     * 
+     * // Only select the `versionId`
+     * const versionSnapshotWithVersionIdOnly = await prisma.versionSnapshot.findMany({ select: { versionId: true } })
+     * 
+     */
+    findMany<T extends VersionSnapshotFindManyArgs>(args?: SelectSubset<T, VersionSnapshotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VersionSnapshot.
+     * @param {VersionSnapshotCreateArgs} args - Arguments to create a VersionSnapshot.
+     * @example
+     * // Create one VersionSnapshot
+     * const VersionSnapshot = await prisma.versionSnapshot.create({
+     *   data: {
+     *     // ... data to create a VersionSnapshot
+     *   }
+     * })
+     * 
+     */
+    create<T extends VersionSnapshotCreateArgs>(args: SelectSubset<T, VersionSnapshotCreateArgs<ExtArgs>>): Prisma__VersionSnapshotClient<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VersionSnapshots.
+     * @param {VersionSnapshotCreateManyArgs} args - Arguments to create many VersionSnapshots.
+     * @example
+     * // Create many VersionSnapshots
+     * const versionSnapshot = await prisma.versionSnapshot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VersionSnapshotCreateManyArgs>(args?: SelectSubset<T, VersionSnapshotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VersionSnapshots and returns the data saved in the database.
+     * @param {VersionSnapshotCreateManyAndReturnArgs} args - Arguments to create many VersionSnapshots.
+     * @example
+     * // Create many VersionSnapshots
+     * const versionSnapshot = await prisma.versionSnapshot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VersionSnapshots and only return the `versionId`
+     * const versionSnapshotWithVersionIdOnly = await prisma.versionSnapshot.createManyAndReturn({
+     *   select: { versionId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VersionSnapshotCreateManyAndReturnArgs>(args?: SelectSubset<T, VersionSnapshotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VersionSnapshot.
+     * @param {VersionSnapshotDeleteArgs} args - Arguments to delete one VersionSnapshot.
+     * @example
+     * // Delete one VersionSnapshot
+     * const VersionSnapshot = await prisma.versionSnapshot.delete({
+     *   where: {
+     *     // ... filter to delete one VersionSnapshot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VersionSnapshotDeleteArgs>(args: SelectSubset<T, VersionSnapshotDeleteArgs<ExtArgs>>): Prisma__VersionSnapshotClient<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VersionSnapshot.
+     * @param {VersionSnapshotUpdateArgs} args - Arguments to update one VersionSnapshot.
+     * @example
+     * // Update one VersionSnapshot
+     * const versionSnapshot = await prisma.versionSnapshot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VersionSnapshotUpdateArgs>(args: SelectSubset<T, VersionSnapshotUpdateArgs<ExtArgs>>): Prisma__VersionSnapshotClient<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VersionSnapshots.
+     * @param {VersionSnapshotDeleteManyArgs} args - Arguments to filter VersionSnapshots to delete.
+     * @example
+     * // Delete a few VersionSnapshots
+     * const { count } = await prisma.versionSnapshot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VersionSnapshotDeleteManyArgs>(args?: SelectSubset<T, VersionSnapshotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VersionSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionSnapshotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VersionSnapshots
+     * const versionSnapshot = await prisma.versionSnapshot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VersionSnapshotUpdateManyArgs>(args: SelectSubset<T, VersionSnapshotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VersionSnapshots and returns the data updated in the database.
+     * @param {VersionSnapshotUpdateManyAndReturnArgs} args - Arguments to update many VersionSnapshots.
+     * @example
+     * // Update many VersionSnapshots
+     * const versionSnapshot = await prisma.versionSnapshot.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VersionSnapshots and only return the `versionId`
+     * const versionSnapshotWithVersionIdOnly = await prisma.versionSnapshot.updateManyAndReturn({
+     *   select: { versionId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VersionSnapshotUpdateManyAndReturnArgs>(args: SelectSubset<T, VersionSnapshotUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VersionSnapshot.
+     * @param {VersionSnapshotUpsertArgs} args - Arguments to update or create a VersionSnapshot.
+     * @example
+     * // Update or create a VersionSnapshot
+     * const versionSnapshot = await prisma.versionSnapshot.upsert({
+     *   create: {
+     *     // ... data to create a VersionSnapshot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VersionSnapshot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VersionSnapshotUpsertArgs>(args: SelectSubset<T, VersionSnapshotUpsertArgs<ExtArgs>>): Prisma__VersionSnapshotClient<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VersionSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionSnapshotCountArgs} args - Arguments to filter VersionSnapshots to count.
+     * @example
+     * // Count the number of VersionSnapshots
+     * const count = await prisma.versionSnapshot.count({
+     *   where: {
+     *     // ... the filter for the VersionSnapshots we want to count
+     *   }
+     * })
+    **/
+    count<T extends VersionSnapshotCountArgs>(
+      args?: Subset<T, VersionSnapshotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VersionSnapshotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VersionSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionSnapshotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VersionSnapshotAggregateArgs>(args: Subset<T, VersionSnapshotAggregateArgs>): Prisma.PrismaPromise<GetVersionSnapshotAggregateType<T>>
+
+    /**
+     * Group by VersionSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VersionSnapshotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VersionSnapshotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VersionSnapshotGroupByArgs['orderBy'] }
+        : { orderBy?: VersionSnapshotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VersionSnapshotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVersionSnapshotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VersionSnapshot model
+   */
+  readonly fields: VersionSnapshotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VersionSnapshot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VersionSnapshotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    snapshot<T extends SnapshotDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SnapshotDefaultArgs<ExtArgs>>): Prisma__SnapshotClient<$Result.GetResult<Prisma.$SnapshotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VersionSnapshot model
+   */
+  interface VersionSnapshotFieldRefs {
+    readonly versionId: FieldRef<"VersionSnapshot", 'String'>
+    readonly snapshotId: FieldRef<"VersionSnapshot", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VersionSnapshot findUnique
+   */
+  export type VersionSnapshotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionSnapshot to fetch.
+     */
+    where: VersionSnapshotWhereUniqueInput
+  }
+
+  /**
+   * VersionSnapshot findUniqueOrThrow
+   */
+  export type VersionSnapshotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionSnapshot to fetch.
+     */
+    where: VersionSnapshotWhereUniqueInput
+  }
+
+  /**
+   * VersionSnapshot findFirst
+   */
+  export type VersionSnapshotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionSnapshot to fetch.
+     */
+    where?: VersionSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VersionSnapshots to fetch.
+     */
+    orderBy?: VersionSnapshotOrderByWithRelationInput | VersionSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VersionSnapshots.
+     */
+    cursor?: VersionSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VersionSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VersionSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VersionSnapshots.
+     */
+    distinct?: VersionSnapshotScalarFieldEnum | VersionSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * VersionSnapshot findFirstOrThrow
+   */
+  export type VersionSnapshotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionSnapshot to fetch.
+     */
+    where?: VersionSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VersionSnapshots to fetch.
+     */
+    orderBy?: VersionSnapshotOrderByWithRelationInput | VersionSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VersionSnapshots.
+     */
+    cursor?: VersionSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VersionSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VersionSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VersionSnapshots.
+     */
+    distinct?: VersionSnapshotScalarFieldEnum | VersionSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * VersionSnapshot findMany
+   */
+  export type VersionSnapshotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which VersionSnapshots to fetch.
+     */
+    where?: VersionSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VersionSnapshots to fetch.
+     */
+    orderBy?: VersionSnapshotOrderByWithRelationInput | VersionSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VersionSnapshots.
+     */
+    cursor?: VersionSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VersionSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VersionSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VersionSnapshots.
+     */
+    distinct?: VersionSnapshotScalarFieldEnum | VersionSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * VersionSnapshot create
+   */
+  export type VersionSnapshotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VersionSnapshot.
+     */
+    data: XOR<VersionSnapshotCreateInput, VersionSnapshotUncheckedCreateInput>
+  }
+
+  /**
+   * VersionSnapshot createMany
+   */
+  export type VersionSnapshotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VersionSnapshots.
+     */
+    data: VersionSnapshotCreateManyInput | VersionSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VersionSnapshot createManyAndReturn
+   */
+  export type VersionSnapshotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * The data used to create many VersionSnapshots.
+     */
+    data: VersionSnapshotCreateManyInput | VersionSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VersionSnapshot update
+   */
+  export type VersionSnapshotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VersionSnapshot.
+     */
+    data: XOR<VersionSnapshotUpdateInput, VersionSnapshotUncheckedUpdateInput>
+    /**
+     * Choose, which VersionSnapshot to update.
+     */
+    where: VersionSnapshotWhereUniqueInput
+  }
+
+  /**
+   * VersionSnapshot updateMany
+   */
+  export type VersionSnapshotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VersionSnapshots.
+     */
+    data: XOR<VersionSnapshotUpdateManyMutationInput, VersionSnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which VersionSnapshots to update
+     */
+    where?: VersionSnapshotWhereInput
+    /**
+     * Limit how many VersionSnapshots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VersionSnapshot updateManyAndReturn
+   */
+  export type VersionSnapshotUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * The data used to update VersionSnapshots.
+     */
+    data: XOR<VersionSnapshotUpdateManyMutationInput, VersionSnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which VersionSnapshots to update
+     */
+    where?: VersionSnapshotWhereInput
+    /**
+     * Limit how many VersionSnapshots to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VersionSnapshot upsert
+   */
+  export type VersionSnapshotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VersionSnapshot to update in case it exists.
+     */
+    where: VersionSnapshotWhereUniqueInput
+    /**
+     * In case the VersionSnapshot found by the `where` argument doesn't exist, create a new VersionSnapshot with this data.
+     */
+    create: XOR<VersionSnapshotCreateInput, VersionSnapshotUncheckedCreateInput>
+    /**
+     * In case the VersionSnapshot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VersionSnapshotUpdateInput, VersionSnapshotUncheckedUpdateInput>
+  }
+
+  /**
+   * VersionSnapshot delete
+   */
+  export type VersionSnapshotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter which VersionSnapshot to delete.
+     */
+    where: VersionSnapshotWhereUniqueInput
+  }
+
+  /**
+   * VersionSnapshot deleteMany
+   */
+  export type VersionSnapshotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VersionSnapshots to delete
+     */
+    where?: VersionSnapshotWhereInput
+    /**
+     * Limit how many VersionSnapshots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VersionSnapshot without action
+   */
+  export type VersionSnapshotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
   }
 
 
@@ -68309,6 +70897,8 @@ export namespace Prisma {
     parAdministrateur?: boolean
     repartitionStatut?: boolean
     createdAt?: boolean
+    versionSnapshots?: boolean | Snapshot$versionSnapshotsArgs<ExtArgs>
+    _count?: boolean | SnapshotCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["snapshot"]>
 
   export type SnapshotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -68348,10 +70938,18 @@ export namespace Prisma {
   }
 
   export type SnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "repartitionId" | "tag" | "hash" | "valideParId" | "valideLe" | "parAdministrateur" | "repartitionStatut" | "createdAt", ExtArgs["result"]["snapshot"]>
+  export type SnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    versionSnapshots?: boolean | Snapshot$versionSnapshotsArgs<ExtArgs>
+    _count?: boolean | SnapshotCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SnapshotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SnapshotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $SnapshotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Snapshot"
-    objects: {}
+    objects: {
+      versionSnapshots: Prisma.$VersionSnapshotPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       repartitionId: string
@@ -68756,6 +71354,7 @@ export namespace Prisma {
    */
   export interface Prisma__SnapshotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    versionSnapshots<T extends Snapshot$versionSnapshotsArgs<ExtArgs> = {}>(args?: Subset<T, Snapshot$versionSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -68811,6 +71410,10 @@ export namespace Prisma {
      */
     omit?: SnapshotOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
+    /**
      * Filter, which Snapshot to fetch.
      */
     where: SnapshotWhereUniqueInput
@@ -68829,6 +71432,10 @@ export namespace Prisma {
      */
     omit?: SnapshotOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
+    /**
      * Filter, which Snapshot to fetch.
      */
     where: SnapshotWhereUniqueInput
@@ -68846,6 +71453,10 @@ export namespace Prisma {
      * Omit specific fields from the Snapshot
      */
     omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
     /**
      * Filter, which Snapshot to fetch.
      */
@@ -68895,6 +71506,10 @@ export namespace Prisma {
      */
     omit?: SnapshotOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
+    /**
      * Filter, which Snapshot to fetch.
      */
     where?: SnapshotWhereInput
@@ -68942,6 +71557,10 @@ export namespace Prisma {
      * Omit specific fields from the Snapshot
      */
     omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
     /**
      * Filter, which Snapshots to fetch.
      */
@@ -68991,6 +71610,10 @@ export namespace Prisma {
      */
     omit?: SnapshotOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
+    /**
      * The data needed to create a Snapshot.
      */
     data: XOR<SnapshotCreateInput, SnapshotUncheckedCreateInput>
@@ -69038,6 +71661,10 @@ export namespace Prisma {
      * Omit specific fields from the Snapshot
      */
     omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
     /**
      * The data needed to update a Snapshot.
      */
@@ -69105,6 +71732,10 @@ export namespace Prisma {
      */
     omit?: SnapshotOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
+    /**
      * The filter to search for the Snapshot to update in case it exists.
      */
     where: SnapshotWhereUniqueInput
@@ -69131,6 +71762,10 @@ export namespace Prisma {
      */
     omit?: SnapshotOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
+    /**
      * Filter which Snapshot to delete.
      */
     where: SnapshotWhereUniqueInput
@@ -69151,6 +71786,30 @@ export namespace Prisma {
   }
 
   /**
+   * Snapshot.versionSnapshots
+   */
+  export type Snapshot$versionSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VersionSnapshot
+     */
+    select?: VersionSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VersionSnapshot
+     */
+    omit?: VersionSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VersionSnapshotInclude<ExtArgs> | null
+    where?: VersionSnapshotWhereInput
+    orderBy?: VersionSnapshotOrderByWithRelationInput | VersionSnapshotOrderByWithRelationInput[]
+    cursor?: VersionSnapshotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VersionSnapshotScalarFieldEnum | VersionSnapshotScalarFieldEnum[]
+  }
+
+  /**
    * Snapshot without action
    */
   export type SnapshotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -69162,6 +71821,10 @@ export namespace Prisma {
      * Omit specific fields from the Snapshot
      */
     omit?: SnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SnapshotInclude<ExtArgs> | null
   }
 
 
@@ -72948,8 +75611,12 @@ export namespace Prisma {
   export const SeanceScalarFieldEnum: {
     id: 'id',
     semestreId: 'semestreId',
+    versionId: 'versionId',
     enseignantId: 'enseignantId',
     salleId: 'salleId',
+    affectationKey: 'affectationKey',
+    rang: 'rang',
+    tag: 'tag',
     jour: 'jour',
     creneauDebutId: 'creneauDebutId',
     nbCreneaux: 'nbCreneaux',
@@ -72967,6 +75634,27 @@ export namespace Prisma {
   };
 
   export type SeanceGroupeScalarFieldEnum = (typeof SeanceGroupeScalarFieldEnum)[keyof typeof SeanceGroupeScalarFieldEnum]
+
+
+  export const VersionEdtScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    numero: 'numero',
+    statut: 'statut',
+    motif: 'motif',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type VersionEdtScalarFieldEnum = (typeof VersionEdtScalarFieldEnum)[keyof typeof VersionEdtScalarFieldEnum]
+
+
+  export const VersionSnapshotScalarFieldEnum: {
+    versionId: 'versionId',
+    snapshotId: 'snapshotId'
+  };
+
+  export type VersionSnapshotScalarFieldEnum = (typeof VersionSnapshotScalarFieldEnum)[keyof typeof VersionSnapshotScalarFieldEnum]
 
 
   export const DepartementScalarFieldEnum: {
@@ -73690,6 +76378,20 @@ export namespace Prisma {
    * Reference to a field of type 'GrilleAffichage[]'
    */
   export type ListEnumGrilleAffichageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GrilleAffichage[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'VersionStatut'
+   */
+  export type EnumVersionStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VersionStatut'>
+    
+
+
+  /**
+   * Reference to a field of type 'VersionStatut[]'
+   */
+  export type ListEnumVersionStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VersionStatut[]'>
     
 
 
@@ -75457,6 +78159,7 @@ export namespace Prisma {
     repartitions?: RepartitionListRelationFilter
     demandesModification?: DemandeModificationListRelationFilter
     seances?: SeanceListRelationFilter
+    versions?: VersionEdtListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -75476,6 +78179,7 @@ export namespace Prisma {
     repartitions?: RepartitionOrderByRelationAggregateInput
     demandesModification?: DemandeModificationOrderByRelationAggregateInput
     seances?: SeanceOrderByRelationAggregateInput
+    versions?: VersionEdtOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -75499,6 +78203,7 @@ export namespace Prisma {
     repartitions?: RepartitionListRelationFilter
     demandesModification?: DemandeModificationListRelationFilter
     seances?: SeanceListRelationFilter
+    versions?: VersionEdtListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -75680,33 +78385,43 @@ export namespace Prisma {
     NOT?: SeanceWhereInput | SeanceWhereInput[]
     id?: UuidFilter<"Seance"> | string
     semestreId?: UuidFilter<"Seance"> | string
+    versionId?: UuidNullableFilter<"Seance"> | string | null
     enseignantId?: UuidNullableFilter<"Seance"> | string | null
     salleId?: UuidNullableFilter<"Seance"> | string | null
-    jour?: EnumJourSemaineFilter<"Seance"> | $Enums.JourSemaine
-    creneauDebutId?: UuidFilter<"Seance"> | string
+    affectationKey?: StringFilter<"Seance"> | string
+    rang?: IntFilter<"Seance"> | number
+    tag?: StringNullableFilter<"Seance"> | string | null
+    jour?: EnumJourSemaineNullableFilter<"Seance"> | $Enums.JourSemaine | null
+    creneauDebutId?: UuidNullableFilter<"Seance"> | string | null
     nbCreneaux?: IntFilter<"Seance"> | number
     statut?: StringFilter<"Seance"> | string
     createdAt?: DateTimeFilter<"Seance"> | Date | string
     updatedAt?: DateTimeFilter<"Seance"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    version?: XOR<VersionEdtNullableScalarRelationFilter, VersionEdtWhereInput> | null
     enseignant?: XOR<EnseignantNullableScalarRelationFilter, EnseignantWhereInput> | null
     salle?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
-    creneauDebut?: XOR<CreneauScalarRelationFilter, CreneauWhereInput>
+    creneauDebut?: XOR<CreneauNullableScalarRelationFilter, CreneauWhereInput> | null
     groupes?: SeanceGroupeListRelationFilter
   }
 
   export type SeanceOrderByWithRelationInput = {
     id?: SortOrder
     semestreId?: SortOrder
+    versionId?: SortOrderInput | SortOrder
     enseignantId?: SortOrderInput | SortOrder
     salleId?: SortOrderInput | SortOrder
-    jour?: SortOrder
-    creneauDebutId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    tag?: SortOrderInput | SortOrder
+    jour?: SortOrderInput | SortOrder
+    creneauDebutId?: SortOrderInput | SortOrder
     nbCreneaux?: SortOrder
     statut?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
+    version?: VersionEdtOrderByWithRelationInput
     enseignant?: EnseignantOrderByWithRelationInput
     salle?: SalleOrderByWithRelationInput
     creneauDebut?: CreneauOrderByWithRelationInput
@@ -75715,32 +78430,42 @@ export namespace Prisma {
 
   export type SeanceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    versionId_affectationKey_rang?: SeanceVersionIdAffectationKeyRangCompoundUniqueInput
     AND?: SeanceWhereInput | SeanceWhereInput[]
     OR?: SeanceWhereInput[]
     NOT?: SeanceWhereInput | SeanceWhereInput[]
     semestreId?: UuidFilter<"Seance"> | string
+    versionId?: UuidNullableFilter<"Seance"> | string | null
     enseignantId?: UuidNullableFilter<"Seance"> | string | null
     salleId?: UuidNullableFilter<"Seance"> | string | null
-    jour?: EnumJourSemaineFilter<"Seance"> | $Enums.JourSemaine
-    creneauDebutId?: UuidFilter<"Seance"> | string
+    affectationKey?: StringFilter<"Seance"> | string
+    rang?: IntFilter<"Seance"> | number
+    tag?: StringNullableFilter<"Seance"> | string | null
+    jour?: EnumJourSemaineNullableFilter<"Seance"> | $Enums.JourSemaine | null
+    creneauDebutId?: UuidNullableFilter<"Seance"> | string | null
     nbCreneaux?: IntFilter<"Seance"> | number
     statut?: StringFilter<"Seance"> | string
     createdAt?: DateTimeFilter<"Seance"> | Date | string
     updatedAt?: DateTimeFilter<"Seance"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    version?: XOR<VersionEdtNullableScalarRelationFilter, VersionEdtWhereInput> | null
     enseignant?: XOR<EnseignantNullableScalarRelationFilter, EnseignantWhereInput> | null
     salle?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
-    creneauDebut?: XOR<CreneauScalarRelationFilter, CreneauWhereInput>
+    creneauDebut?: XOR<CreneauNullableScalarRelationFilter, CreneauWhereInput> | null
     groupes?: SeanceGroupeListRelationFilter
-  }, "id">
+  }, "id" | "versionId_affectationKey_rang">
 
   export type SeanceOrderByWithAggregationInput = {
     id?: SortOrder
     semestreId?: SortOrder
+    versionId?: SortOrderInput | SortOrder
     enseignantId?: SortOrderInput | SortOrder
     salleId?: SortOrderInput | SortOrder
-    jour?: SortOrder
-    creneauDebutId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    tag?: SortOrderInput | SortOrder
+    jour?: SortOrderInput | SortOrder
+    creneauDebutId?: SortOrderInput | SortOrder
     nbCreneaux?: SortOrder
     statut?: SortOrder
     createdAt?: SortOrder
@@ -75758,10 +78483,14 @@ export namespace Prisma {
     NOT?: SeanceScalarWhereWithAggregatesInput | SeanceScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"Seance"> | string
     semestreId?: UuidWithAggregatesFilter<"Seance"> | string
+    versionId?: UuidNullableWithAggregatesFilter<"Seance"> | string | null
     enseignantId?: UuidNullableWithAggregatesFilter<"Seance"> | string | null
     salleId?: UuidNullableWithAggregatesFilter<"Seance"> | string | null
-    jour?: EnumJourSemaineWithAggregatesFilter<"Seance"> | $Enums.JourSemaine
-    creneauDebutId?: UuidWithAggregatesFilter<"Seance"> | string
+    affectationKey?: StringWithAggregatesFilter<"Seance"> | string
+    rang?: IntWithAggregatesFilter<"Seance"> | number
+    tag?: StringNullableWithAggregatesFilter<"Seance"> | string | null
+    jour?: EnumJourSemaineNullableWithAggregatesFilter<"Seance"> | $Enums.JourSemaine | null
+    creneauDebutId?: UuidNullableWithAggregatesFilter<"Seance"> | string | null
     nbCreneaux?: IntWithAggregatesFilter<"Seance"> | number
     statut?: StringWithAggregatesFilter<"Seance"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Seance"> | Date | string
@@ -75810,6 +78539,121 @@ export namespace Prisma {
     NOT?: SeanceGroupeScalarWhereWithAggregatesInput | SeanceGroupeScalarWhereWithAggregatesInput[]
     seanceId?: UuidWithAggregatesFilter<"SeanceGroupe"> | string
     groupeId?: UuidWithAggregatesFilter<"SeanceGroupe"> | string
+  }
+
+  export type VersionEdtWhereInput = {
+    AND?: VersionEdtWhereInput | VersionEdtWhereInput[]
+    OR?: VersionEdtWhereInput[]
+    NOT?: VersionEdtWhereInput | VersionEdtWhereInput[]
+    id?: UuidFilter<"VersionEdt"> | string
+    semestreId?: UuidFilter<"VersionEdt"> | string
+    numero?: StringFilter<"VersionEdt"> | string
+    statut?: EnumVersionStatutFilter<"VersionEdt"> | $Enums.VersionStatut
+    motif?: StringNullableFilter<"VersionEdt"> | string | null
+    createdAt?: DateTimeFilter<"VersionEdt"> | Date | string
+    updatedAt?: DateTimeFilter<"VersionEdt"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    seances?: SeanceListRelationFilter
+    snapshots?: VersionSnapshotListRelationFilter
+  }
+
+  export type VersionEdtOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    seances?: SeanceOrderByRelationAggregateInput
+    snapshots?: VersionSnapshotOrderByRelationAggregateInput
+  }
+
+  export type VersionEdtWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VersionEdtWhereInput | VersionEdtWhereInput[]
+    OR?: VersionEdtWhereInput[]
+    NOT?: VersionEdtWhereInput | VersionEdtWhereInput[]
+    semestreId?: UuidFilter<"VersionEdt"> | string
+    numero?: StringFilter<"VersionEdt"> | string
+    statut?: EnumVersionStatutFilter<"VersionEdt"> | $Enums.VersionStatut
+    motif?: StringNullableFilter<"VersionEdt"> | string | null
+    createdAt?: DateTimeFilter<"VersionEdt"> | Date | string
+    updatedAt?: DateTimeFilter<"VersionEdt"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    seances?: SeanceListRelationFilter
+    snapshots?: VersionSnapshotListRelationFilter
+  }, "id">
+
+  export type VersionEdtOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: VersionEdtCountOrderByAggregateInput
+    _max?: VersionEdtMaxOrderByAggregateInput
+    _min?: VersionEdtMinOrderByAggregateInput
+  }
+
+  export type VersionEdtScalarWhereWithAggregatesInput = {
+    AND?: VersionEdtScalarWhereWithAggregatesInput | VersionEdtScalarWhereWithAggregatesInput[]
+    OR?: VersionEdtScalarWhereWithAggregatesInput[]
+    NOT?: VersionEdtScalarWhereWithAggregatesInput | VersionEdtScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"VersionEdt"> | string
+    semestreId?: UuidWithAggregatesFilter<"VersionEdt"> | string
+    numero?: StringWithAggregatesFilter<"VersionEdt"> | string
+    statut?: EnumVersionStatutWithAggregatesFilter<"VersionEdt"> | $Enums.VersionStatut
+    motif?: StringNullableWithAggregatesFilter<"VersionEdt"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"VersionEdt"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"VersionEdt"> | Date | string
+  }
+
+  export type VersionSnapshotWhereInput = {
+    AND?: VersionSnapshotWhereInput | VersionSnapshotWhereInput[]
+    OR?: VersionSnapshotWhereInput[]
+    NOT?: VersionSnapshotWhereInput | VersionSnapshotWhereInput[]
+    versionId?: UuidFilter<"VersionSnapshot"> | string
+    snapshotId?: UuidFilter<"VersionSnapshot"> | string
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+    snapshot?: XOR<SnapshotScalarRelationFilter, SnapshotWhereInput>
+  }
+
+  export type VersionSnapshotOrderByWithRelationInput = {
+    versionId?: SortOrder
+    snapshotId?: SortOrder
+    version?: VersionEdtOrderByWithRelationInput
+    snapshot?: SnapshotOrderByWithRelationInput
+  }
+
+  export type VersionSnapshotWhereUniqueInput = Prisma.AtLeast<{
+    versionId_snapshotId?: VersionSnapshotVersionIdSnapshotIdCompoundUniqueInput
+    AND?: VersionSnapshotWhereInput | VersionSnapshotWhereInput[]
+    OR?: VersionSnapshotWhereInput[]
+    NOT?: VersionSnapshotWhereInput | VersionSnapshotWhereInput[]
+    versionId?: UuidFilter<"VersionSnapshot"> | string
+    snapshotId?: UuidFilter<"VersionSnapshot"> | string
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+    snapshot?: XOR<SnapshotScalarRelationFilter, SnapshotWhereInput>
+  }, "versionId_snapshotId">
+
+  export type VersionSnapshotOrderByWithAggregationInput = {
+    versionId?: SortOrder
+    snapshotId?: SortOrder
+    _count?: VersionSnapshotCountOrderByAggregateInput
+    _max?: VersionSnapshotMaxOrderByAggregateInput
+    _min?: VersionSnapshotMinOrderByAggregateInput
+  }
+
+  export type VersionSnapshotScalarWhereWithAggregatesInput = {
+    AND?: VersionSnapshotScalarWhereWithAggregatesInput | VersionSnapshotScalarWhereWithAggregatesInput[]
+    OR?: VersionSnapshotScalarWhereWithAggregatesInput[]
+    NOT?: VersionSnapshotScalarWhereWithAggregatesInput | VersionSnapshotScalarWhereWithAggregatesInput[]
+    versionId?: UuidWithAggregatesFilter<"VersionSnapshot"> | string
+    snapshotId?: UuidWithAggregatesFilter<"VersionSnapshot"> | string
   }
 
   export type DepartementWhereInput = {
@@ -77906,6 +80750,7 @@ export namespace Prisma {
     parAdministrateur?: BoolFilter<"Snapshot"> | boolean
     repartitionStatut?: EnumRepartitionStatutFilter<"Snapshot"> | $Enums.RepartitionStatut
     createdAt?: DateTimeFilter<"Snapshot"> | Date | string
+    versionSnapshots?: VersionSnapshotListRelationFilter
   }
 
   export type SnapshotOrderByWithRelationInput = {
@@ -77918,6 +80763,7 @@ export namespace Prisma {
     parAdministrateur?: SortOrder
     repartitionStatut?: SortOrder
     createdAt?: SortOrder
+    versionSnapshots?: VersionSnapshotOrderByRelationAggregateInput
   }
 
   export type SnapshotWhereUniqueInput = Prisma.AtLeast<{
@@ -77933,6 +80779,7 @@ export namespace Prisma {
     parAdministrateur?: BoolFilter<"Snapshot"> | boolean
     repartitionStatut?: EnumRepartitionStatutFilter<"Snapshot"> | $Enums.RepartitionStatut
     createdAt?: DateTimeFilter<"Snapshot"> | Date | string
+    versionSnapshots?: VersionSnapshotListRelationFilter
   }, "id">
 
   export type SnapshotOrderByWithAggregationInput = {
@@ -79893,6 +82740,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -79911,6 +82759,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -79929,6 +82778,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -79947,6 +82797,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -80133,25 +82984,33 @@ export namespace Prisma {
 
   export type SeanceCreateInput = {
     id?: string
-    jour: $Enums.JourSemaine
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
+    version?: VersionEdtCreateNestedOneWithoutSeancesInput
     enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
     salle?: SalleCreateNestedOneWithoutSeancesInput
-    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     enseignantId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -80161,25 +83020,33 @@ export namespace Prisma {
 
   export type SeanceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    version?: VersionEdtUpdateOneWithoutSeancesNestedInput
     enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
     salle?: SalleUpdateOneWithoutSeancesNestedInput
-    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80190,10 +83057,14 @@ export namespace Prisma {
   export type SeanceCreateManyInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     enseignantId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -80202,7 +83073,10 @@ export namespace Prisma {
 
   export type SeanceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80212,10 +83086,14 @@ export namespace Prisma {
   export type SeanceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -80254,6 +83132,117 @@ export namespace Prisma {
   export type SeanceGroupeUncheckedUpdateManyInput = {
     seanceId?: StringFieldUpdateOperationsInput | string
     groupeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VersionEdtCreateInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtCreateManyInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VersionEdtUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VersionEdtUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VersionSnapshotCreateInput = {
+    version: VersionEdtCreateNestedOneWithoutSnapshotsInput
+    snapshot: SnapshotCreateNestedOneWithoutVersionSnapshotsInput
+  }
+
+  export type VersionSnapshotUncheckedCreateInput = {
+    versionId: string
+    snapshotId: string
+  }
+
+  export type VersionSnapshotUpdateInput = {
+    version?: VersionEdtUpdateOneRequiredWithoutSnapshotsNestedInput
+    snapshot?: SnapshotUpdateOneRequiredWithoutVersionSnapshotsNestedInput
+  }
+
+  export type VersionSnapshotUncheckedUpdateInput = {
+    versionId?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VersionSnapshotCreateManyInput = {
+    versionId: string
+    snapshotId: string
+  }
+
+  export type VersionSnapshotUpdateManyMutationInput = {
+
+  }
+
+  export type VersionSnapshotUncheckedUpdateManyInput = {
+    versionId?: StringFieldUpdateOperationsInput | string
+    snapshotId?: StringFieldUpdateOperationsInput | string
   }
 
   export type DepartementCreateInput = {
@@ -82417,6 +85406,7 @@ export namespace Prisma {
     parAdministrateur?: boolean
     repartitionStatut: $Enums.RepartitionStatut
     createdAt?: Date | string
+    versionSnapshots?: VersionSnapshotCreateNestedManyWithoutSnapshotInput
   }
 
   export type SnapshotUncheckedCreateInput = {
@@ -82429,6 +85419,7 @@ export namespace Prisma {
     parAdministrateur?: boolean
     repartitionStatut: $Enums.RepartitionStatut
     createdAt?: Date | string
+    versionSnapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutSnapshotInput
   }
 
   export type SnapshotUpdateInput = {
@@ -82441,6 +85432,7 @@ export namespace Prisma {
     parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
     repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versionSnapshots?: VersionSnapshotUpdateManyWithoutSnapshotNestedInput
   }
 
   export type SnapshotUncheckedUpdateInput = {
@@ -82453,6 +85445,7 @@ export namespace Prisma {
     parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
     repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versionSnapshots?: VersionSnapshotUncheckedUpdateManyWithoutSnapshotNestedInput
   }
 
   export type SnapshotCreateManyInput = {
@@ -84353,6 +87346,12 @@ export namespace Prisma {
     none?: SeanceWhereInput
   }
 
+  export type VersionEdtListRelationFilter = {
+    every?: VersionEdtWhereInput
+    some?: VersionEdtWhereInput
+    none?: VersionEdtWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -84378,6 +87377,10 @@ export namespace Prisma {
   }
 
   export type SeanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VersionEdtOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -84560,6 +87563,18 @@ export namespace Prisma {
     _max?: NestedEnumGrilleAffichageFilter<$PrismaModel>
   }
 
+  export type EnumJourSemaineNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel> | null
+    in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumJourSemaineNullableFilter<$PrismaModel> | $Enums.JourSemaine | null
+  }
+
+  export type VersionEdtNullableScalarRelationFilter = {
+    is?: VersionEdtWhereInput | null
+    isNot?: VersionEdtWhereInput | null
+  }
+
   export type EnseignantNullableScalarRelationFilter = {
     is?: EnseignantWhereInput | null
     isNot?: EnseignantWhereInput | null
@@ -84568,6 +87583,11 @@ export namespace Prisma {
   export type SalleNullableScalarRelationFilter = {
     is?: SalleWhereInput | null
     isNot?: SalleWhereInput | null
+  }
+
+  export type CreneauNullableScalarRelationFilter = {
+    is?: CreneauWhereInput | null
+    isNot?: CreneauWhereInput | null
   }
 
   export type SeanceGroupeListRelationFilter = {
@@ -84580,11 +87600,21 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type SeanceVersionIdAffectationKeyRangCompoundUniqueInput = {
+    versionId: string
+    affectationKey: string
+    rang: number
+  }
+
   export type SeanceCountOrderByAggregateInput = {
     id?: SortOrder
     semestreId?: SortOrder
+    versionId?: SortOrder
     enseignantId?: SortOrder
     salleId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    tag?: SortOrder
     jour?: SortOrder
     creneauDebutId?: SortOrder
     nbCreneaux?: SortOrder
@@ -84594,14 +87624,19 @@ export namespace Prisma {
   }
 
   export type SeanceAvgOrderByAggregateInput = {
+    rang?: SortOrder
     nbCreneaux?: SortOrder
   }
 
   export type SeanceMaxOrderByAggregateInput = {
     id?: SortOrder
     semestreId?: SortOrder
+    versionId?: SortOrder
     enseignantId?: SortOrder
     salleId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    tag?: SortOrder
     jour?: SortOrder
     creneauDebutId?: SortOrder
     nbCreneaux?: SortOrder
@@ -84613,8 +87648,12 @@ export namespace Prisma {
   export type SeanceMinOrderByAggregateInput = {
     id?: SortOrder
     semestreId?: SortOrder
+    versionId?: SortOrder
     enseignantId?: SortOrder
     salleId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    tag?: SortOrder
     jour?: SortOrder
     creneauDebutId?: SortOrder
     nbCreneaux?: SortOrder
@@ -84624,7 +87663,18 @@ export namespace Prisma {
   }
 
   export type SeanceSumOrderByAggregateInput = {
+    rang?: SortOrder
     nbCreneaux?: SortOrder
+  }
+
+  export type EnumJourSemaineNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel> | null
+    in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumJourSemaineNullableWithAggregatesFilter<$PrismaModel> | $Enums.JourSemaine | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumJourSemaineNullableFilter<$PrismaModel>
+    _max?: NestedEnumJourSemaineNullableFilter<$PrismaModel>
   }
 
   export type SeanceScalarRelationFilter = {
@@ -84655,6 +87705,93 @@ export namespace Prisma {
   export type SeanceGroupeMinOrderByAggregateInput = {
     seanceId?: SortOrder
     groupeId?: SortOrder
+  }
+
+  export type EnumVersionStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.VersionStatut | EnumVersionStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.VersionStatut[] | ListEnumVersionStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VersionStatut[] | ListEnumVersionStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumVersionStatutFilter<$PrismaModel> | $Enums.VersionStatut
+  }
+
+  export type VersionSnapshotListRelationFilter = {
+    every?: VersionSnapshotWhereInput
+    some?: VersionSnapshotWhereInput
+    none?: VersionSnapshotWhereInput
+  }
+
+  export type VersionSnapshotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VersionEdtCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VersionEdtMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type VersionEdtMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    numero?: SortOrder
+    statut?: SortOrder
+    motif?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumVersionStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VersionStatut | EnumVersionStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.VersionStatut[] | ListEnumVersionStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VersionStatut[] | ListEnumVersionStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumVersionStatutWithAggregatesFilter<$PrismaModel> | $Enums.VersionStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVersionStatutFilter<$PrismaModel>
+    _max?: NestedEnumVersionStatutFilter<$PrismaModel>
+  }
+
+  export type VersionEdtScalarRelationFilter = {
+    is?: VersionEdtWhereInput
+    isNot?: VersionEdtWhereInput
+  }
+
+  export type SnapshotScalarRelationFilter = {
+    is?: SnapshotWhereInput
+    isNot?: SnapshotWhereInput
+  }
+
+  export type VersionSnapshotVersionIdSnapshotIdCompoundUniqueInput = {
+    versionId: string
+    snapshotId: string
+  }
+
+  export type VersionSnapshotCountOrderByAggregateInput = {
+    versionId?: SortOrder
+    snapshotId?: SortOrder
+  }
+
+  export type VersionSnapshotMaxOrderByAggregateInput = {
+    versionId?: SortOrder
+    snapshotId?: SortOrder
+  }
+
+  export type VersionSnapshotMinOrderByAggregateInput = {
+    versionId?: SortOrder
+    snapshotId?: SortOrder
   }
 
   export type FormationListRelationFilter = {
@@ -88081,6 +91218,13 @@ export namespace Prisma {
     connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
   }
 
+  export type VersionEdtCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<VersionEdtCreateWithoutSemestreInput, VersionEdtUncheckedCreateWithoutSemestreInput> | VersionEdtCreateWithoutSemestreInput[] | VersionEdtUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutSemestreInput | VersionEdtCreateOrConnectWithoutSemestreInput[]
+    createMany?: VersionEdtCreateManySemestreInputEnvelope
+    connect?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -88135,6 +91279,13 @@ export namespace Prisma {
     connectOrCreate?: SeanceCreateOrConnectWithoutSemestreInput | SeanceCreateOrConnectWithoutSemestreInput[]
     createMany?: SeanceCreateManySemestreInputEnvelope
     connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
+  export type VersionEdtUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<VersionEdtCreateWithoutSemestreInput, VersionEdtUncheckedCreateWithoutSemestreInput> | VersionEdtCreateWithoutSemestreInput[] | VersionEdtUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutSemestreInput | VersionEdtCreateOrConnectWithoutSemestreInput[]
+    createMany?: VersionEdtCreateManySemestreInputEnvelope
+    connect?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -88257,6 +91408,20 @@ export namespace Prisma {
     deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
   }
 
+  export type VersionEdtUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutSemestreInput, VersionEdtUncheckedCreateWithoutSemestreInput> | VersionEdtCreateWithoutSemestreInput[] | VersionEdtUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutSemestreInput | VersionEdtCreateOrConnectWithoutSemestreInput[]
+    upsert?: VersionEdtUpsertWithWhereUniqueWithoutSemestreInput | VersionEdtUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: VersionEdtCreateManySemestreInputEnvelope
+    set?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+    disconnect?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+    delete?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+    connect?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+    update?: VersionEdtUpdateWithWhereUniqueWithoutSemestreInput | VersionEdtUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: VersionEdtUpdateManyWithWhereWithoutSemestreInput | VersionEdtUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: VersionEdtScalarWhereInput | VersionEdtScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -88367,6 +91532,20 @@ export namespace Prisma {
     update?: SeanceUpdateWithWhereUniqueWithoutSemestreInput | SeanceUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: SeanceUpdateManyWithWhereWithoutSemestreInput | SeanceUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
+  export type VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutSemestreInput, VersionEdtUncheckedCreateWithoutSemestreInput> | VersionEdtCreateWithoutSemestreInput[] | VersionEdtUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutSemestreInput | VersionEdtCreateOrConnectWithoutSemestreInput[]
+    upsert?: VersionEdtUpsertWithWhereUniqueWithoutSemestreInput | VersionEdtUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: VersionEdtCreateManySemestreInputEnvelope
+    set?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+    disconnect?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+    delete?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+    connect?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+    update?: VersionEdtUpdateWithWhereUniqueWithoutSemestreInput | VersionEdtUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: VersionEdtUpdateManyWithWhereWithoutSemestreInput | VersionEdtUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: VersionEdtScalarWhereInput | VersionEdtScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -88495,6 +91674,12 @@ export namespace Prisma {
     connect?: SemestreWhereUniqueInput
   }
 
+  export type VersionEdtCreateNestedOneWithoutSeancesInput = {
+    create?: XOR<VersionEdtCreateWithoutSeancesInput, VersionEdtUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutSeancesInput
+    connect?: VersionEdtWhereUniqueInput
+  }
+
   export type EnseignantCreateNestedOneWithoutSeancesInput = {
     create?: XOR<EnseignantCreateWithoutSeancesInput, EnseignantUncheckedCreateWithoutSeancesInput>
     connectOrCreate?: EnseignantCreateOrConnectWithoutSeancesInput
@@ -88527,12 +91712,26 @@ export namespace Prisma {
     connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
   }
 
+  export type NullableEnumJourSemaineFieldUpdateOperationsInput = {
+    set?: $Enums.JourSemaine | null
+  }
+
   export type SemestreUpdateOneRequiredWithoutSeancesNestedInput = {
     create?: XOR<SemestreCreateWithoutSeancesInput, SemestreUncheckedCreateWithoutSeancesInput>
     connectOrCreate?: SemestreCreateOrConnectWithoutSeancesInput
     upsert?: SemestreUpsertWithoutSeancesInput
     connect?: SemestreWhereUniqueInput
     update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutSeancesInput, SemestreUpdateWithoutSeancesInput>, SemestreUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type VersionEdtUpdateOneWithoutSeancesNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutSeancesInput, VersionEdtUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutSeancesInput
+    upsert?: VersionEdtUpsertWithoutSeancesInput
+    disconnect?: VersionEdtWhereInput | boolean
+    delete?: VersionEdtWhereInput | boolean
+    connect?: VersionEdtWhereUniqueInput
+    update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutSeancesInput, VersionEdtUpdateWithoutSeancesInput>, VersionEdtUncheckedUpdateWithoutSeancesInput>
   }
 
   export type EnseignantUpdateOneWithoutSeancesNestedInput = {
@@ -88555,10 +91754,12 @@ export namespace Prisma {
     update?: XOR<XOR<SalleUpdateToOneWithWhereWithoutSeancesInput, SalleUpdateWithoutSeancesInput>, SalleUncheckedUpdateWithoutSeancesInput>
   }
 
-  export type CreneauUpdateOneRequiredWithoutSeancesNestedInput = {
+  export type CreneauUpdateOneWithoutSeancesNestedInput = {
     create?: XOR<CreneauCreateWithoutSeancesInput, CreneauUncheckedCreateWithoutSeancesInput>
     connectOrCreate?: CreneauCreateOrConnectWithoutSeancesInput
     upsert?: CreneauUpsertWithoutSeancesInput
+    disconnect?: CreneauWhereInput | boolean
+    delete?: CreneauWhereInput | boolean
     connect?: CreneauWhereUniqueInput
     update?: XOR<XOR<CreneauUpdateToOneWithWhereWithoutSeancesInput, CreneauUpdateWithoutSeancesInput>, CreneauUncheckedUpdateWithoutSeancesInput>
   }
@@ -88617,6 +91818,136 @@ export namespace Prisma {
     upsert?: GroupeUpsertWithoutSeanceGroupesInput
     connect?: GroupeWhereUniqueInput
     update?: XOR<XOR<GroupeUpdateToOneWithWhereWithoutSeanceGroupesInput, GroupeUpdateWithoutSeanceGroupesInput>, GroupeUncheckedUpdateWithoutSeanceGroupesInput>
+  }
+
+  export type SemestreCreateNestedOneWithoutVersionsInput = {
+    create?: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutVersionsInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type SeanceCreateNestedManyWithoutVersionInput = {
+    create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
+    createMany?: SeanceCreateManyVersionInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
+  export type VersionSnapshotCreateNestedManyWithoutVersionInput = {
+    create?: XOR<VersionSnapshotCreateWithoutVersionInput, VersionSnapshotUncheckedCreateWithoutVersionInput> | VersionSnapshotCreateWithoutVersionInput[] | VersionSnapshotUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: VersionSnapshotCreateOrConnectWithoutVersionInput | VersionSnapshotCreateOrConnectWithoutVersionInput[]
+    createMany?: VersionSnapshotCreateManyVersionInputEnvelope
+    connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+  }
+
+  export type SeanceUncheckedCreateNestedManyWithoutVersionInput = {
+    create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
+    createMany?: SeanceCreateManyVersionInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
+  export type VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput = {
+    create?: XOR<VersionSnapshotCreateWithoutVersionInput, VersionSnapshotUncheckedCreateWithoutVersionInput> | VersionSnapshotCreateWithoutVersionInput[] | VersionSnapshotUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: VersionSnapshotCreateOrConnectWithoutVersionInput | VersionSnapshotCreateOrConnectWithoutVersionInput[]
+    createMany?: VersionSnapshotCreateManyVersionInputEnvelope
+    connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+  }
+
+  export type EnumVersionStatutFieldUpdateOperationsInput = {
+    set?: $Enums.VersionStatut
+  }
+
+  export type SemestreUpdateOneRequiredWithoutVersionsNestedInput = {
+    create?: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutVersionsInput
+    upsert?: SemestreUpsertWithoutVersionsInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutVersionsInput, SemestreUpdateWithoutVersionsInput>, SemestreUncheckedUpdateWithoutVersionsInput>
+  }
+
+  export type SeanceUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutVersionInput | SeanceUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: SeanceCreateManyVersionInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutVersionInput | SeanceUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutVersionInput | SeanceUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
+  export type VersionSnapshotUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<VersionSnapshotCreateWithoutVersionInput, VersionSnapshotUncheckedCreateWithoutVersionInput> | VersionSnapshotCreateWithoutVersionInput[] | VersionSnapshotUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: VersionSnapshotCreateOrConnectWithoutVersionInput | VersionSnapshotCreateOrConnectWithoutVersionInput[]
+    upsert?: VersionSnapshotUpsertWithWhereUniqueWithoutVersionInput | VersionSnapshotUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: VersionSnapshotCreateManyVersionInputEnvelope
+    set?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    disconnect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    delete?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    update?: VersionSnapshotUpdateWithWhereUniqueWithoutVersionInput | VersionSnapshotUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: VersionSnapshotUpdateManyWithWhereWithoutVersionInput | VersionSnapshotUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: VersionSnapshotScalarWhereInput | VersionSnapshotScalarWhereInput[]
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutVersionInput | SeanceUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: SeanceCreateManyVersionInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutVersionInput | SeanceUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutVersionInput | SeanceUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
+  export type VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<VersionSnapshotCreateWithoutVersionInput, VersionSnapshotUncheckedCreateWithoutVersionInput> | VersionSnapshotCreateWithoutVersionInput[] | VersionSnapshotUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: VersionSnapshotCreateOrConnectWithoutVersionInput | VersionSnapshotCreateOrConnectWithoutVersionInput[]
+    upsert?: VersionSnapshotUpsertWithWhereUniqueWithoutVersionInput | VersionSnapshotUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: VersionSnapshotCreateManyVersionInputEnvelope
+    set?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    disconnect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    delete?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    update?: VersionSnapshotUpdateWithWhereUniqueWithoutVersionInput | VersionSnapshotUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: VersionSnapshotUpdateManyWithWhereWithoutVersionInput | VersionSnapshotUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: VersionSnapshotScalarWhereInput | VersionSnapshotScalarWhereInput[]
+  }
+
+  export type VersionEdtCreateNestedOneWithoutSnapshotsInput = {
+    create?: XOR<VersionEdtCreateWithoutSnapshotsInput, VersionEdtUncheckedCreateWithoutSnapshotsInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutSnapshotsInput
+    connect?: VersionEdtWhereUniqueInput
+  }
+
+  export type SnapshotCreateNestedOneWithoutVersionSnapshotsInput = {
+    create?: XOR<SnapshotCreateWithoutVersionSnapshotsInput, SnapshotUncheckedCreateWithoutVersionSnapshotsInput>
+    connectOrCreate?: SnapshotCreateOrConnectWithoutVersionSnapshotsInput
+    connect?: SnapshotWhereUniqueInput
+  }
+
+  export type VersionEdtUpdateOneRequiredWithoutSnapshotsNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutSnapshotsInput, VersionEdtUncheckedCreateWithoutSnapshotsInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutSnapshotsInput
+    upsert?: VersionEdtUpsertWithoutSnapshotsInput
+    connect?: VersionEdtWhereUniqueInput
+    update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutSnapshotsInput, VersionEdtUpdateWithoutSnapshotsInput>, VersionEdtUncheckedUpdateWithoutSnapshotsInput>
+  }
+
+  export type SnapshotUpdateOneRequiredWithoutVersionSnapshotsNestedInput = {
+    create?: XOR<SnapshotCreateWithoutVersionSnapshotsInput, SnapshotUncheckedCreateWithoutVersionSnapshotsInput>
+    connectOrCreate?: SnapshotCreateOrConnectWithoutVersionSnapshotsInput
+    upsert?: SnapshotUpsertWithoutVersionSnapshotsInput
+    connect?: SnapshotWhereUniqueInput
+    update?: XOR<XOR<SnapshotUpdateToOneWithWhereWithoutVersionSnapshotsInput, SnapshotUpdateWithoutVersionSnapshotsInput>, SnapshotUncheckedUpdateWithoutVersionSnapshotsInput>
   }
 
   export type AnneeCreateNestedOneWithoutDepartementsInput = {
@@ -91075,6 +94406,48 @@ export namespace Prisma {
     update?: XOR<XOR<ActivityTagUpdateToOneWithWhereWithoutAffectationsInput, ActivityTagUpdateWithoutAffectationsInput>, ActivityTagUncheckedUpdateWithoutAffectationsInput>
   }
 
+  export type VersionSnapshotCreateNestedManyWithoutSnapshotInput = {
+    create?: XOR<VersionSnapshotCreateWithoutSnapshotInput, VersionSnapshotUncheckedCreateWithoutSnapshotInput> | VersionSnapshotCreateWithoutSnapshotInput[] | VersionSnapshotUncheckedCreateWithoutSnapshotInput[]
+    connectOrCreate?: VersionSnapshotCreateOrConnectWithoutSnapshotInput | VersionSnapshotCreateOrConnectWithoutSnapshotInput[]
+    createMany?: VersionSnapshotCreateManySnapshotInputEnvelope
+    connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+  }
+
+  export type VersionSnapshotUncheckedCreateNestedManyWithoutSnapshotInput = {
+    create?: XOR<VersionSnapshotCreateWithoutSnapshotInput, VersionSnapshotUncheckedCreateWithoutSnapshotInput> | VersionSnapshotCreateWithoutSnapshotInput[] | VersionSnapshotUncheckedCreateWithoutSnapshotInput[]
+    connectOrCreate?: VersionSnapshotCreateOrConnectWithoutSnapshotInput | VersionSnapshotCreateOrConnectWithoutSnapshotInput[]
+    createMany?: VersionSnapshotCreateManySnapshotInputEnvelope
+    connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+  }
+
+  export type VersionSnapshotUpdateManyWithoutSnapshotNestedInput = {
+    create?: XOR<VersionSnapshotCreateWithoutSnapshotInput, VersionSnapshotUncheckedCreateWithoutSnapshotInput> | VersionSnapshotCreateWithoutSnapshotInput[] | VersionSnapshotUncheckedCreateWithoutSnapshotInput[]
+    connectOrCreate?: VersionSnapshotCreateOrConnectWithoutSnapshotInput | VersionSnapshotCreateOrConnectWithoutSnapshotInput[]
+    upsert?: VersionSnapshotUpsertWithWhereUniqueWithoutSnapshotInput | VersionSnapshotUpsertWithWhereUniqueWithoutSnapshotInput[]
+    createMany?: VersionSnapshotCreateManySnapshotInputEnvelope
+    set?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    disconnect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    delete?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    update?: VersionSnapshotUpdateWithWhereUniqueWithoutSnapshotInput | VersionSnapshotUpdateWithWhereUniqueWithoutSnapshotInput[]
+    updateMany?: VersionSnapshotUpdateManyWithWhereWithoutSnapshotInput | VersionSnapshotUpdateManyWithWhereWithoutSnapshotInput[]
+    deleteMany?: VersionSnapshotScalarWhereInput | VersionSnapshotScalarWhereInput[]
+  }
+
+  export type VersionSnapshotUncheckedUpdateManyWithoutSnapshotNestedInput = {
+    create?: XOR<VersionSnapshotCreateWithoutSnapshotInput, VersionSnapshotUncheckedCreateWithoutSnapshotInput> | VersionSnapshotCreateWithoutSnapshotInput[] | VersionSnapshotUncheckedCreateWithoutSnapshotInput[]
+    connectOrCreate?: VersionSnapshotCreateOrConnectWithoutSnapshotInput | VersionSnapshotCreateOrConnectWithoutSnapshotInput[]
+    upsert?: VersionSnapshotUpsertWithWhereUniqueWithoutSnapshotInput | VersionSnapshotUpsertWithWhereUniqueWithoutSnapshotInput[]
+    createMany?: VersionSnapshotCreateManySnapshotInputEnvelope
+    set?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    disconnect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    delete?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    connect?: VersionSnapshotWhereUniqueInput | VersionSnapshotWhereUniqueInput[]
+    update?: VersionSnapshotUpdateWithWhereUniqueWithoutSnapshotInput | VersionSnapshotUpdateWithWhereUniqueWithoutSnapshotInput[]
+    updateMany?: VersionSnapshotUpdateManyWithWhereWithoutSnapshotInput | VersionSnapshotUpdateManyWithWhereWithoutSnapshotInput[]
+    deleteMany?: VersionSnapshotScalarWhereInput | VersionSnapshotScalarWhereInput[]
+  }
+
   export type SemestreCreateNestedOneWithoutDemandesModificationInput = {
     create?: XOR<SemestreCreateWithoutDemandesModificationInput, SemestreUncheckedCreateWithoutDemandesModificationInput>
     connectOrCreate?: SemestreCreateOrConnectWithoutDemandesModificationInput
@@ -91620,6 +94993,40 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGrilleAffichageFilter<$PrismaModel>
     _max?: NestedEnumGrilleAffichageFilter<$PrismaModel>
+  }
+
+  export type NestedEnumJourSemaineNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel> | null
+    in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumJourSemaineNullableFilter<$PrismaModel> | $Enums.JourSemaine | null
+  }
+
+  export type NestedEnumJourSemaineNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel> | null
+    in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumJourSemaineNullableWithAggregatesFilter<$PrismaModel> | $Enums.JourSemaine | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumJourSemaineNullableFilter<$PrismaModel>
+    _max?: NestedEnumJourSemaineNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumVersionStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.VersionStatut | EnumVersionStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.VersionStatut[] | ListEnumVersionStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VersionStatut[] | ListEnumVersionStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumVersionStatutFilter<$PrismaModel> | $Enums.VersionStatut
+  }
+
+  export type NestedEnumVersionStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VersionStatut | EnumVersionStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.VersionStatut[] | ListEnumVersionStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VersionStatut[] | ListEnumVersionStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumVersionStatutWithAggregatesFilter<$PrismaModel> | $Enums.VersionStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVersionStatutFilter<$PrismaModel>
+    _max?: NestedEnumVersionStatutFilter<$PrismaModel>
   }
 
   export type NestedEnumGroupeTypeFilter<$PrismaModel = never> = {
@@ -95656,6 +99063,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -95673,6 +99081,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -96224,23 +99633,31 @@ export namespace Prisma {
 
   export type SeanceCreateWithoutSemestreInput = {
     id?: string
-    jour: $Enums.JourSemaine
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    version?: VersionEdtCreateNestedOneWithoutSeancesInput
     enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
     salle?: SalleCreateNestedOneWithoutSeancesInput
-    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutSemestreInput = {
     id?: string
+    versionId?: string | null
     enseignantId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -96255,6 +99672,38 @@ export namespace Prisma {
 
   export type SeanceCreateManySemestreInputEnvelope = {
     data: SeanceCreateManySemestreInput | SeanceCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VersionEdtCreateWithoutSemestreInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutSemestreInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutSemestreInput, VersionEdtUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type VersionEdtCreateManySemestreInputEnvelope = {
+    data: VersionEdtCreateManySemestreInput | VersionEdtCreateManySemestreInput[]
     skipDuplicates?: boolean
   }
 
@@ -96524,14 +99973,47 @@ export namespace Prisma {
     NOT?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
     id?: UuidFilter<"Seance"> | string
     semestreId?: UuidFilter<"Seance"> | string
+    versionId?: UuidNullableFilter<"Seance"> | string | null
     enseignantId?: UuidNullableFilter<"Seance"> | string | null
     salleId?: UuidNullableFilter<"Seance"> | string | null
-    jour?: EnumJourSemaineFilter<"Seance"> | $Enums.JourSemaine
-    creneauDebutId?: UuidFilter<"Seance"> | string
+    affectationKey?: StringFilter<"Seance"> | string
+    rang?: IntFilter<"Seance"> | number
+    tag?: StringNullableFilter<"Seance"> | string | null
+    jour?: EnumJourSemaineNullableFilter<"Seance"> | $Enums.JourSemaine | null
+    creneauDebutId?: UuidNullableFilter<"Seance"> | string | null
     nbCreneaux?: IntFilter<"Seance"> | number
     statut?: StringFilter<"Seance"> | string
     createdAt?: DateTimeFilter<"Seance"> | Date | string
     updatedAt?: DateTimeFilter<"Seance"> | Date | string
+  }
+
+  export type VersionEdtUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: VersionEdtWhereUniqueInput
+    update: XOR<VersionEdtUpdateWithoutSemestreInput, VersionEdtUncheckedUpdateWithoutSemestreInput>
+    create: XOR<VersionEdtCreateWithoutSemestreInput, VersionEdtUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type VersionEdtUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: VersionEdtWhereUniqueInput
+    data: XOR<VersionEdtUpdateWithoutSemestreInput, VersionEdtUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type VersionEdtUpdateManyWithWhereWithoutSemestreInput = {
+    where: VersionEdtScalarWhereInput
+    data: XOR<VersionEdtUpdateManyMutationInput, VersionEdtUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type VersionEdtScalarWhereInput = {
+    AND?: VersionEdtScalarWhereInput | VersionEdtScalarWhereInput[]
+    OR?: VersionEdtScalarWhereInput[]
+    NOT?: VersionEdtScalarWhereInput | VersionEdtScalarWhereInput[]
+    id?: UuidFilter<"VersionEdt"> | string
+    semestreId?: UuidFilter<"VersionEdt"> | string
+    numero?: StringFilter<"VersionEdt"> | string
+    statut?: EnumVersionStatutFilter<"VersionEdt"> | $Enums.VersionStatut
+    motif?: StringNullableFilter<"VersionEdt"> | string | null
+    createdAt?: DateTimeFilter<"VersionEdt"> | Date | string
+    updatedAt?: DateTimeFilter<"VersionEdt"> | Date | string
   }
 
   export type SemestreCreateWithoutCreneauxInput = {
@@ -96549,6 +100031,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -96566,6 +100049,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -96599,12 +100083,16 @@ export namespace Prisma {
 
   export type SeanceCreateWithoutCreneauDebutInput = {
     id?: string
-    jour: $Enums.JourSemaine
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
+    version?: VersionEdtCreateNestedOneWithoutSeancesInput
     enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
     salle?: SalleCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
@@ -96613,9 +100101,13 @@ export namespace Prisma {
   export type SeanceUncheckedCreateWithoutCreneauDebutInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     enseignantId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -96659,6 +100151,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -96676,6 +100169,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -96808,6 +100302,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutSeancesInput = {
@@ -96825,11 +100320,39 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutSeancesInput = {
     where: SemestreWhereUniqueInput
     create: XOR<SemestreCreateWithoutSeancesInput, SemestreUncheckedCreateWithoutSeancesInput>
+  }
+
+  export type VersionEdtCreateWithoutSeancesInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutSeancesInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutSeancesInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutSeancesInput, VersionEdtUncheckedCreateWithoutSeancesInput>
   }
 
   export type EnseignantCreateWithoutSeancesInput = {
@@ -96999,6 +100522,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutSeancesInput = {
@@ -97016,6 +100540,40 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type VersionEdtUpsertWithoutSeancesInput = {
+    update: XOR<VersionEdtUpdateWithoutSeancesInput, VersionEdtUncheckedUpdateWithoutSeancesInput>
+    create: XOR<VersionEdtCreateWithoutSeancesInput, VersionEdtUncheckedCreateWithoutSeancesInput>
+    where?: VersionEdtWhereInput
+  }
+
+  export type VersionEdtUpdateToOneWithWhereWithoutSeancesInput = {
+    where?: VersionEdtWhereInput
+    data: XOR<VersionEdtUpdateWithoutSeancesInput, VersionEdtUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type VersionEdtUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type EnseignantUpsertWithoutSeancesInput = {
@@ -97185,24 +100743,32 @@ export namespace Prisma {
 
   export type SeanceCreateWithoutGroupesInput = {
     id?: string
-    jour: $Enums.JourSemaine
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
+    version?: VersionEdtCreateNestedOneWithoutSeancesInput
     enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
     salle?: SalleCreateNestedOneWithoutSeancesInput
-    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
   }
 
   export type SeanceUncheckedCreateWithoutGroupesInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     enseignantId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -97266,24 +100832,32 @@ export namespace Prisma {
 
   export type SeanceUpdateWithoutGroupesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    version?: VersionEdtUpdateOneWithoutSeancesNestedInput
     enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
     salle?: SalleUpdateOneWithoutSeancesNestedInput
-    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutGroupesInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -97333,6 +100907,320 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
+  }
+
+  export type SemestreCreateWithoutVersionsInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutVersionsInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutVersionsInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
+  }
+
+  export type SeanceCreateWithoutVersionInput = {
+    id?: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSeancesInput
+    enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
+    salle?: SalleCreateNestedOneWithoutSeancesInput
+    creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
+    groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUncheckedCreateWithoutVersionInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    salleId?: string | null
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceCreateOrConnectWithoutVersionInput = {
+    where: SeanceWhereUniqueInput
+    create: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput>
+  }
+
+  export type SeanceCreateManyVersionInputEnvelope = {
+    data: SeanceCreateManyVersionInput | SeanceCreateManyVersionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VersionSnapshotCreateWithoutVersionInput = {
+    snapshot: SnapshotCreateNestedOneWithoutVersionSnapshotsInput
+  }
+
+  export type VersionSnapshotUncheckedCreateWithoutVersionInput = {
+    snapshotId: string
+  }
+
+  export type VersionSnapshotCreateOrConnectWithoutVersionInput = {
+    where: VersionSnapshotWhereUniqueInput
+    create: XOR<VersionSnapshotCreateWithoutVersionInput, VersionSnapshotUncheckedCreateWithoutVersionInput>
+  }
+
+  export type VersionSnapshotCreateManyVersionInputEnvelope = {
+    data: VersionSnapshotCreateManyVersionInput | VersionSnapshotCreateManyVersionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SemestreUpsertWithoutVersionsInput = {
+    update: XOR<SemestreUpdateWithoutVersionsInput, SemestreUncheckedUpdateWithoutVersionsInput>
+    create: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutVersionsInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutVersionsInput, SemestreUncheckedUpdateWithoutVersionsInput>
+  }
+
+  export type SemestreUpdateWithoutVersionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutVersionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SeanceUpsertWithWhereUniqueWithoutVersionInput = {
+    where: SeanceWhereUniqueInput
+    update: XOR<SeanceUpdateWithoutVersionInput, SeanceUncheckedUpdateWithoutVersionInput>
+    create: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput>
+  }
+
+  export type SeanceUpdateWithWhereUniqueWithoutVersionInput = {
+    where: SeanceWhereUniqueInput
+    data: XOR<SeanceUpdateWithoutVersionInput, SeanceUncheckedUpdateWithoutVersionInput>
+  }
+
+  export type SeanceUpdateManyWithWhereWithoutVersionInput = {
+    where: SeanceScalarWhereInput
+    data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyWithoutVersionInput>
+  }
+
+  export type VersionSnapshotUpsertWithWhereUniqueWithoutVersionInput = {
+    where: VersionSnapshotWhereUniqueInput
+    update: XOR<VersionSnapshotUpdateWithoutVersionInput, VersionSnapshotUncheckedUpdateWithoutVersionInput>
+    create: XOR<VersionSnapshotCreateWithoutVersionInput, VersionSnapshotUncheckedCreateWithoutVersionInput>
+  }
+
+  export type VersionSnapshotUpdateWithWhereUniqueWithoutVersionInput = {
+    where: VersionSnapshotWhereUniqueInput
+    data: XOR<VersionSnapshotUpdateWithoutVersionInput, VersionSnapshotUncheckedUpdateWithoutVersionInput>
+  }
+
+  export type VersionSnapshotUpdateManyWithWhereWithoutVersionInput = {
+    where: VersionSnapshotScalarWhereInput
+    data: XOR<VersionSnapshotUpdateManyMutationInput, VersionSnapshotUncheckedUpdateManyWithoutVersionInput>
+  }
+
+  export type VersionSnapshotScalarWhereInput = {
+    AND?: VersionSnapshotScalarWhereInput | VersionSnapshotScalarWhereInput[]
+    OR?: VersionSnapshotScalarWhereInput[]
+    NOT?: VersionSnapshotScalarWhereInput | VersionSnapshotScalarWhereInput[]
+    versionId?: UuidFilter<"VersionSnapshot"> | string
+    snapshotId?: UuidFilter<"VersionSnapshot"> | string
+  }
+
+  export type VersionEdtCreateWithoutSnapshotsInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutSnapshotsInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutSnapshotsInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutSnapshotsInput, VersionEdtUncheckedCreateWithoutSnapshotsInput>
+  }
+
+  export type SnapshotCreateWithoutVersionSnapshotsInput = {
+    id?: string
+    repartitionId: string
+    tag: string
+    hash: string
+    valideParId: string
+    valideLe?: Date | string
+    parAdministrateur?: boolean
+    repartitionStatut: $Enums.RepartitionStatut
+    createdAt?: Date | string
+  }
+
+  export type SnapshotUncheckedCreateWithoutVersionSnapshotsInput = {
+    id?: string
+    repartitionId: string
+    tag: string
+    hash: string
+    valideParId: string
+    valideLe?: Date | string
+    parAdministrateur?: boolean
+    repartitionStatut: $Enums.RepartitionStatut
+    createdAt?: Date | string
+  }
+
+  export type SnapshotCreateOrConnectWithoutVersionSnapshotsInput = {
+    where: SnapshotWhereUniqueInput
+    create: XOR<SnapshotCreateWithoutVersionSnapshotsInput, SnapshotUncheckedCreateWithoutVersionSnapshotsInput>
+  }
+
+  export type VersionEdtUpsertWithoutSnapshotsInput = {
+    update: XOR<VersionEdtUpdateWithoutSnapshotsInput, VersionEdtUncheckedUpdateWithoutSnapshotsInput>
+    create: XOR<VersionEdtCreateWithoutSnapshotsInput, VersionEdtUncheckedCreateWithoutSnapshotsInput>
+    where?: VersionEdtWhereInput
+  }
+
+  export type VersionEdtUpdateToOneWithWhereWithoutSnapshotsInput = {
+    where?: VersionEdtWhereInput
+    data: XOR<VersionEdtUpdateWithoutSnapshotsInput, VersionEdtUncheckedUpdateWithoutSnapshotsInput>
+  }
+
+  export type VersionEdtUpdateWithoutSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
+  export type SnapshotUpsertWithoutVersionSnapshotsInput = {
+    update: XOR<SnapshotUpdateWithoutVersionSnapshotsInput, SnapshotUncheckedUpdateWithoutVersionSnapshotsInput>
+    create: XOR<SnapshotCreateWithoutVersionSnapshotsInput, SnapshotUncheckedCreateWithoutVersionSnapshotsInput>
+    where?: SnapshotWhereInput
+  }
+
+  export type SnapshotUpdateToOneWithWhereWithoutVersionSnapshotsInput = {
+    where?: SnapshotWhereInput
+    data: XOR<SnapshotUpdateWithoutVersionSnapshotsInput, SnapshotUncheckedUpdateWithoutVersionSnapshotsInput>
+  }
+
+  export type SnapshotUpdateWithoutVersionSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    tag?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    valideParId?: StringFieldUpdateOperationsInput | string
+    valideLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
+    repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SnapshotUncheckedUpdateWithoutVersionSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    repartitionId?: StringFieldUpdateOperationsInput | string
+    tag?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    valideParId?: StringFieldUpdateOperationsInput | string
+    valideLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
+    repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -98043,6 +101931,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -98060,6 +101949,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -98271,6 +102161,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -98288,6 +102179,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -100108,23 +104000,31 @@ export namespace Prisma {
 
   export type SeanceCreateWithoutEnseignantInput = {
     id?: string
-    jour: $Enums.JourSemaine
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
+    version?: VersionEdtCreateNestedOneWithoutSeancesInput
     salle?: SalleCreateNestedOneWithoutSeancesInput
-    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutEnseignantInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -100573,6 +104473,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -100590,6 +104491,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -100674,6 +104576,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -100691,6 +104594,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -100976,23 +104880,31 @@ export namespace Prisma {
 
   export type SeanceCreateWithoutSalleInput = {
     id?: string
-    jour: $Enums.JourSemaine
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
+    version?: VersionEdtCreateNestedOneWithoutSeancesInput
     enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
-    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutSalleInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     enseignantId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -101196,6 +105108,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -101213,6 +105126,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -101336,6 +105250,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -101353,6 +105268,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -102128,6 +106044,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
@@ -102145,6 +106062,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
@@ -102209,6 +106127,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
@@ -102226,6 +106145,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ContrainteDefinitionUpsertWithoutInstancesInput = {
@@ -102280,6 +106200,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutRepartitionsInput = {
@@ -102297,6 +106218,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutRepartitionsInput = {
@@ -102405,6 +106327,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutRepartitionsInput = {
@@ -102422,6 +106345,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type DepartementUpsertWithoutRepartitionsInput = {
@@ -102927,6 +106851,40 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutTagNestedInput
   }
 
+  export type VersionSnapshotCreateWithoutSnapshotInput = {
+    version: VersionEdtCreateNestedOneWithoutSnapshotsInput
+  }
+
+  export type VersionSnapshotUncheckedCreateWithoutSnapshotInput = {
+    versionId: string
+  }
+
+  export type VersionSnapshotCreateOrConnectWithoutSnapshotInput = {
+    where: VersionSnapshotWhereUniqueInput
+    create: XOR<VersionSnapshotCreateWithoutSnapshotInput, VersionSnapshotUncheckedCreateWithoutSnapshotInput>
+  }
+
+  export type VersionSnapshotCreateManySnapshotInputEnvelope = {
+    data: VersionSnapshotCreateManySnapshotInput | VersionSnapshotCreateManySnapshotInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VersionSnapshotUpsertWithWhereUniqueWithoutSnapshotInput = {
+    where: VersionSnapshotWhereUniqueInput
+    update: XOR<VersionSnapshotUpdateWithoutSnapshotInput, VersionSnapshotUncheckedUpdateWithoutSnapshotInput>
+    create: XOR<VersionSnapshotCreateWithoutSnapshotInput, VersionSnapshotUncheckedCreateWithoutSnapshotInput>
+  }
+
+  export type VersionSnapshotUpdateWithWhereUniqueWithoutSnapshotInput = {
+    where: VersionSnapshotWhereUniqueInput
+    data: XOR<VersionSnapshotUpdateWithoutSnapshotInput, VersionSnapshotUncheckedUpdateWithoutSnapshotInput>
+  }
+
+  export type VersionSnapshotUpdateManyWithWhereWithoutSnapshotInput = {
+    where: VersionSnapshotScalarWhereInput
+    data: XOR<VersionSnapshotUpdateManyMutationInput, VersionSnapshotUncheckedUpdateManyWithoutSnapshotInput>
+  }
+
   export type SemestreCreateWithoutDemandesModificationInput = {
     id?: string
     numero: number
@@ -102942,6 +106900,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDemandesModificationInput = {
@@ -102959,6 +106918,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDemandesModificationInput = {
@@ -103059,6 +107019,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDemandesModificationInput = {
@@ -103076,6 +107037,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type UserUpsertWithoutDemandesModificationInput = {
@@ -104302,6 +108264,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -104319,6 +108282,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -104551,12 +108515,25 @@ export namespace Prisma {
 
   export type SeanceCreateManySemestreInput = {
     id?: string
+    versionId?: string | null
     enseignantId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VersionEdtCreateManySemestreInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -104833,23 +108810,31 @@ export namespace Prisma {
 
   export type SeanceUpdateWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    version?: VersionEdtUpdateOneWithoutSeancesNestedInput
     enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
     salle?: SalleUpdateOneWithoutSeancesNestedInput
-    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -104859,12 +108844,47 @@ export namespace Prisma {
 
   export type SeanceUncheckedUpdateManyWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VersionEdtUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -104879,9 +108899,13 @@ export namespace Prisma {
   export type SeanceCreateManyCreneauDebutInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     enseignantId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -104911,12 +108935,16 @@ export namespace Prisma {
 
   export type SeanceUpdateWithoutCreneauDebutInput = {
     id?: StringFieldUpdateOperationsInput | string
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    version?: VersionEdtUpdateOneWithoutSeancesNestedInput
     enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
@@ -104925,9 +108953,13 @@ export namespace Prisma {
   export type SeanceUncheckedUpdateWithoutCreneauDebutInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -104938,9 +108970,13 @@ export namespace Prisma {
   export type SeanceUncheckedUpdateManyWithoutCreneauDebutInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -104961,6 +108997,88 @@ export namespace Prisma {
 
   export type SeanceGroupeUncheckedUpdateManyWithoutSeanceInput = {
     groupeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SeanceCreateManyVersionInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    salleId?: string | null
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type VersionSnapshotCreateManyVersionInput = {
+    snapshotId: string
+  }
+
+  export type SeanceUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
+    salle?: SalleUpdateOneWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
+    groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VersionSnapshotUpdateWithoutVersionInput = {
+    snapshot?: SnapshotUpdateOneRequiredWithoutVersionSnapshotsNestedInput
+  }
+
+  export type VersionSnapshotUncheckedUpdateWithoutVersionInput = {
+    snapshotId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VersionSnapshotUncheckedUpdateManyWithoutVersionInput = {
+    snapshotId?: StringFieldUpdateOperationsInput | string
   }
 
   export type FormationCreateManyDepartementInput = {
@@ -106193,9 +110311,13 @@ export namespace Prisma {
   export type SeanceCreateManyEnseignantInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     salleId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -106321,23 +110443,31 @@ export namespace Prisma {
 
   export type SeanceUpdateWithoutEnseignantInput = {
     id?: StringFieldUpdateOperationsInput | string
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    version?: VersionEdtUpdateOneWithoutSeancesNestedInput
     salle?: SalleUpdateOneWithoutSeancesNestedInput
-    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutEnseignantInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -106348,9 +110478,13 @@ export namespace Prisma {
   export type SeanceUncheckedUpdateManyWithoutEnseignantInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -106523,9 +110657,13 @@ export namespace Prisma {
   export type SeanceCreateManySalleInput = {
     id?: string
     semestreId: string
+    versionId?: string | null
     enseignantId?: string | null
-    jour: $Enums.JourSemaine
-    creneauDebutId: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
     nbCreneaux?: number
     statut?: string
     createdAt?: Date | string
@@ -106591,23 +110729,31 @@ export namespace Prisma {
 
   export type SeanceUpdateWithoutSalleInput = {
     id?: StringFieldUpdateOperationsInput | string
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    version?: VersionEdtUpdateOneWithoutSeancesNestedInput
     enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
-    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutSalleInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -106618,9 +110764,13 @@ export namespace Prisma {
   export type SeanceUncheckedUpdateManyWithoutSalleInput = {
     id?: StringFieldUpdateOperationsInput | string
     semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
-    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
-    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -106797,6 +110947,22 @@ export namespace Prisma {
     workingRevision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VersionSnapshotCreateManySnapshotInput = {
+    versionId: string
+  }
+
+  export type VersionSnapshotUpdateWithoutSnapshotInput = {
+    version?: VersionEdtUpdateOneRequiredWithoutSnapshotsNestedInput
+  }
+
+  export type VersionSnapshotUncheckedUpdateWithoutSnapshotInput = {
+    versionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VersionSnapshotUncheckedUpdateManyWithoutSnapshotInput = {
+    versionId?: StringFieldUpdateOperationsInput | string
   }
 
 
