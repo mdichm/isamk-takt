@@ -159,6 +159,11 @@ export type VersionSnapshot = $Result.DefaultSelection<Prisma.$VersionSnapshotPa
  */
 export type EditLock = $Result.DefaultSelection<Prisma.$EditLockPayload>
 /**
+ * Model VerrouSeance
+ * 
+ */
+export type VerrouSeance = $Result.DefaultSelection<Prisma.$VerrouSeancePayload>
+/**
  * Model Departement
  * 
  */
@@ -574,6 +579,16 @@ export const RessourceType: {
 export type RessourceType = (typeof RessourceType)[keyof typeof RessourceType]
 
 
+export const VerrouType: {
+  CRENEAU: 'CRENEAU',
+  SALLE: 'SALLE',
+  ENSEIGNANT: 'ENSEIGNANT',
+  ACTIVITE: 'ACTIVITE'
+};
+
+export type VerrouType = (typeof VerrouType)[keyof typeof VerrouType]
+
+
 export const TypeEnseignementCode: {
   CM: 'CM',
   TD: 'TD',
@@ -735,6 +750,10 @@ export const SeanceOrigine: typeof $Enums.SeanceOrigine
 export type RessourceType = $Enums.RessourceType
 
 export const RessourceType: typeof $Enums.RessourceType
+
+export type VerrouType = $Enums.VerrouType
+
+export const VerrouType: typeof $Enums.VerrouType
 
 export type TypeEnseignementCode = $Enums.TypeEnseignementCode
 
@@ -1166,6 +1185,16 @@ export class PrismaClient<
     * ```
     */
   get editLock(): Prisma.EditLockDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.verrouSeance`: Exposes CRUD operations for the **VerrouSeance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more VerrouSeances
+    * const verrouSeances = await prisma.verrouSeance.findMany()
+    * ```
+    */
+  get verrouSeance(): Prisma.VerrouSeanceDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.departement`: Exposes CRUD operations for the **Departement** model.
@@ -1962,6 +1991,7 @@ export namespace Prisma {
     VersionEdt: 'VersionEdt',
     VersionSnapshot: 'VersionSnapshot',
     EditLock: 'EditLock',
+    VerrouSeance: 'VerrouSeance',
     Departement: 'Departement',
     Formation: 'Formation',
     Niveau: 'Niveau',
@@ -2009,7 +2039,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4156,6 +4186,80 @@ export namespace Prisma {
           count: {
             args: Prisma.EditLockCountArgs<ExtArgs>
             result: $Utils.Optional<EditLockCountAggregateOutputType> | number
+          }
+        }
+      }
+      VerrouSeance: {
+        payload: Prisma.$VerrouSeancePayload<ExtArgs>
+        fields: Prisma.VerrouSeanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.VerrouSeanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.VerrouSeanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>
+          }
+          findFirst: {
+            args: Prisma.VerrouSeanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.VerrouSeanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>
+          }
+          findMany: {
+            args: Prisma.VerrouSeanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>[]
+          }
+          create: {
+            args: Prisma.VerrouSeanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>
+          }
+          createMany: {
+            args: Prisma.VerrouSeanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.VerrouSeanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>[]
+          }
+          delete: {
+            args: Prisma.VerrouSeanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>
+          }
+          update: {
+            args: Prisma.VerrouSeanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>
+          }
+          deleteMany: {
+            args: Prisma.VerrouSeanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.VerrouSeanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.VerrouSeanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>[]
+          }
+          upsert: {
+            args: Prisma.VerrouSeanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$VerrouSeancePayload>
+          }
+          aggregate: {
+            args: Prisma.VerrouSeanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateVerrouSeance>
+          }
+          groupBy: {
+            args: Prisma.VerrouSeanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<VerrouSeanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.VerrouSeanceCountArgs<ExtArgs>
+            result: $Utils.Optional<VerrouSeanceCountAggregateOutputType> | number
           }
         }
       }
@@ -6679,6 +6783,7 @@ export namespace Prisma {
     versionEdt?: VersionEdtOmit
     versionSnapshot?: VersionSnapshotOmit
     editLock?: EditLockOmit
+    verrouSeance?: VerrouSeanceOmit
     departement?: DepartementOmit
     formation?: FormationOmit
     niveau?: NiveauOmit
@@ -7333,11 +7438,13 @@ export namespace Prisma {
   export type SeanceCountOutputType = {
     groupes: number
     occupations: number
+    verrous: number
   }
 
   export type SeanceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     groupes?: boolean | SeanceCountOutputTypeCountGroupesArgs
     occupations?: boolean | SeanceCountOutputTypeCountOccupationsArgs
+    verrous?: boolean | SeanceCountOutputTypeCountVerrousArgs
   }
 
   // Custom InputTypes
@@ -7365,6 +7472,13 @@ export namespace Prisma {
     where?: OccupationWhereInput
   }
 
+  /**
+   * SeanceCountOutputType without action
+   */
+  export type SeanceCountOutputTypeCountVerrousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VerrouSeanceWhereInput
+  }
+
 
   /**
    * Count Type VersionEdtCountOutputType
@@ -7375,6 +7489,7 @@ export namespace Prisma {
     occupations: number
     snapshots: number
     conflits: number
+    verrous: number
   }
 
   export type VersionEdtCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7382,6 +7497,7 @@ export namespace Prisma {
     occupations?: boolean | VersionEdtCountOutputTypeCountOccupationsArgs
     snapshots?: boolean | VersionEdtCountOutputTypeCountSnapshotsArgs
     conflits?: boolean | VersionEdtCountOutputTypeCountConflitsArgs
+    verrous?: boolean | VersionEdtCountOutputTypeCountVerrousArgs
   }
 
   // Custom InputTypes
@@ -7421,6 +7537,13 @@ export namespace Prisma {
    */
   export type VersionEdtCountOutputTypeCountConflitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConflitWhereInput
+  }
+
+  /**
+   * VersionEdtCountOutputType without action
+   */
+  export type VersionEdtCountOutputTypeCountVerrousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VerrouSeanceWhereInput
   }
 
 
@@ -35116,6 +35239,7 @@ export namespace Prisma {
     creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
     groupes?: boolean | Seance$groupesArgs<ExtArgs>
     occupations?: boolean | Seance$occupationsArgs<ExtArgs>
+    verrous?: boolean | Seance$verrousArgs<ExtArgs>
     _count?: boolean | SeanceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["seance"]>
 
@@ -35195,6 +35319,7 @@ export namespace Prisma {
     creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
     groupes?: boolean | Seance$groupesArgs<ExtArgs>
     occupations?: boolean | Seance$occupationsArgs<ExtArgs>
+    verrous?: boolean | Seance$verrousArgs<ExtArgs>
     _count?: boolean | SeanceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SeanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -35222,6 +35347,7 @@ export namespace Prisma {
       creneauDebut: Prisma.$CreneauPayload<ExtArgs> | null
       groupes: Prisma.$SeanceGroupePayload<ExtArgs>[]
       occupations: Prisma.$OccupationPayload<ExtArgs>[]
+      verrous: Prisma.$VerrouSeancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -35641,6 +35767,7 @@ export namespace Prisma {
     creneauDebut<T extends Seance$creneauDebutArgs<ExtArgs> = {}>(args?: Subset<T, Seance$creneauDebutArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     groupes<T extends Seance$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Seance$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     occupations<T extends Seance$occupationsArgs<ExtArgs> = {}>(args?: Subset<T, Seance$occupationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    verrous<T extends Seance$verrousArgs<ExtArgs> = {}>(args?: Subset<T, Seance$verrousArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -36208,6 +36335,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OccupationScalarFieldEnum | OccupationScalarFieldEnum[]
+  }
+
+  /**
+   * Seance.verrous
+   */
+  export type Seance$verrousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    where?: VerrouSeanceWhereInput
+    orderBy?: VerrouSeanceOrderByWithRelationInput | VerrouSeanceOrderByWithRelationInput[]
+    cursor?: VerrouSeanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VerrouSeanceScalarFieldEnum | VerrouSeanceScalarFieldEnum[]
   }
 
   /**
@@ -38544,6 +38695,7 @@ export namespace Prisma {
     snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
     conflits?: boolean | VersionEdt$conflitsArgs<ExtArgs>
     editLock?: boolean | VersionEdt$editLockArgs<ExtArgs>
+    verrous?: boolean | VersionEdt$verrousArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["versionEdt"]>
 
@@ -38587,6 +38739,7 @@ export namespace Prisma {
     snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
     conflits?: boolean | VersionEdt$conflitsArgs<ExtArgs>
     editLock?: boolean | VersionEdt$editLockArgs<ExtArgs>
+    verrous?: boolean | VersionEdt$verrousArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VersionEdtIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38605,6 +38758,7 @@ export namespace Prisma {
       snapshots: Prisma.$VersionSnapshotPayload<ExtArgs>[]
       conflits: Prisma.$ConflitPayload<ExtArgs>[]
       editLock: Prisma.$EditLockPayload<ExtArgs> | null
+      verrous: Prisma.$VerrouSeancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -39014,6 +39168,7 @@ export namespace Prisma {
     snapshots<T extends VersionEdt$snapshotsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$snapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     conflits<T extends VersionEdt$conflitsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$conflitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     editLock<T extends VersionEdt$editLockArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$editLockArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    verrous<T extends VersionEdt$verrousArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$verrousArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39563,6 +39718,30 @@ export namespace Prisma {
      */
     include?: EditLockInclude<ExtArgs> | null
     where?: EditLockWhereInput
+  }
+
+  /**
+   * VersionEdt.verrous
+   */
+  export type VersionEdt$verrousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    where?: VerrouSeanceWhereInput
+    orderBy?: VerrouSeanceOrderByWithRelationInput | VerrouSeanceOrderByWithRelationInput[]
+    cursor?: VerrouSeanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: VerrouSeanceScalarFieldEnum | VerrouSeanceScalarFieldEnum[]
   }
 
   /**
@@ -41689,6 +41868,1129 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: EditLockInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model VerrouSeance
+   */
+
+  export type AggregateVerrouSeance = {
+    _count: VerrouSeanceCountAggregateOutputType | null
+    _min: VerrouSeanceMinAggregateOutputType | null
+    _max: VerrouSeanceMaxAggregateOutputType | null
+  }
+
+  export type VerrouSeanceMinAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    seanceId: string | null
+    type: $Enums.VerrouType | null
+    auteurId: string | null
+    justification: string | null
+    creeLe: Date | null
+    leveLe: Date | null
+    levePar: string | null
+  }
+
+  export type VerrouSeanceMaxAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    seanceId: string | null
+    type: $Enums.VerrouType | null
+    auteurId: string | null
+    justification: string | null
+    creeLe: Date | null
+    leveLe: Date | null
+    levePar: string | null
+  }
+
+  export type VerrouSeanceCountAggregateOutputType = {
+    id: number
+    versionId: number
+    seanceId: number
+    type: number
+    auteurId: number
+    justification: number
+    creeLe: number
+    leveLe: number
+    levePar: number
+    _all: number
+  }
+
+
+  export type VerrouSeanceMinAggregateInputType = {
+    id?: true
+    versionId?: true
+    seanceId?: true
+    type?: true
+    auteurId?: true
+    justification?: true
+    creeLe?: true
+    leveLe?: true
+    levePar?: true
+  }
+
+  export type VerrouSeanceMaxAggregateInputType = {
+    id?: true
+    versionId?: true
+    seanceId?: true
+    type?: true
+    auteurId?: true
+    justification?: true
+    creeLe?: true
+    leveLe?: true
+    levePar?: true
+  }
+
+  export type VerrouSeanceCountAggregateInputType = {
+    id?: true
+    versionId?: true
+    seanceId?: true
+    type?: true
+    auteurId?: true
+    justification?: true
+    creeLe?: true
+    leveLe?: true
+    levePar?: true
+    _all?: true
+  }
+
+  export type VerrouSeanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VerrouSeance to aggregate.
+     */
+    where?: VerrouSeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerrouSeances to fetch.
+     */
+    orderBy?: VerrouSeanceOrderByWithRelationInput | VerrouSeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: VerrouSeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerrouSeances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerrouSeances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned VerrouSeances
+    **/
+    _count?: true | VerrouSeanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: VerrouSeanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: VerrouSeanceMaxAggregateInputType
+  }
+
+  export type GetVerrouSeanceAggregateType<T extends VerrouSeanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateVerrouSeance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateVerrouSeance[P]>
+      : GetScalarType<T[P], AggregateVerrouSeance[P]>
+  }
+
+
+
+
+  export type VerrouSeanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: VerrouSeanceWhereInput
+    orderBy?: VerrouSeanceOrderByWithAggregationInput | VerrouSeanceOrderByWithAggregationInput[]
+    by: VerrouSeanceScalarFieldEnum[] | VerrouSeanceScalarFieldEnum
+    having?: VerrouSeanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: VerrouSeanceCountAggregateInputType | true
+    _min?: VerrouSeanceMinAggregateInputType
+    _max?: VerrouSeanceMaxAggregateInputType
+  }
+
+  export type VerrouSeanceGroupByOutputType = {
+    id: string
+    versionId: string
+    seanceId: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification: string | null
+    creeLe: Date
+    leveLe: Date | null
+    levePar: string | null
+    _count: VerrouSeanceCountAggregateOutputType | null
+    _min: VerrouSeanceMinAggregateOutputType | null
+    _max: VerrouSeanceMaxAggregateOutputType | null
+  }
+
+  type GetVerrouSeanceGroupByPayload<T extends VerrouSeanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<VerrouSeanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof VerrouSeanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], VerrouSeanceGroupByOutputType[P]>
+            : GetScalarType<T[P], VerrouSeanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type VerrouSeanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    seanceId?: boolean
+    type?: boolean
+    auteurId?: boolean
+    justification?: boolean
+    creeLe?: boolean
+    leveLe?: boolean
+    levePar?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["verrouSeance"]>
+
+  export type VerrouSeanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    seanceId?: boolean
+    type?: boolean
+    auteurId?: boolean
+    justification?: boolean
+    creeLe?: boolean
+    leveLe?: boolean
+    levePar?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["verrouSeance"]>
+
+  export type VerrouSeanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    seanceId?: boolean
+    type?: boolean
+    auteurId?: boolean
+    justification?: boolean
+    creeLe?: boolean
+    leveLe?: boolean
+    levePar?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["verrouSeance"]>
+
+  export type VerrouSeanceSelectScalar = {
+    id?: boolean
+    versionId?: boolean
+    seanceId?: boolean
+    type?: boolean
+    auteurId?: boolean
+    justification?: boolean
+    creeLe?: boolean
+    leveLe?: boolean
+    levePar?: boolean
+  }
+
+  export type VerrouSeanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "versionId" | "seanceId" | "type" | "auteurId" | "justification" | "creeLe" | "leveLe" | "levePar", ExtArgs["result"]["verrouSeance"]>
+  export type VerrouSeanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }
+  export type VerrouSeanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }
+  export type VerrouSeanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }
+
+  export type $VerrouSeancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "VerrouSeance"
+    objects: {
+      version: Prisma.$VersionEdtPayload<ExtArgs>
+      seance: Prisma.$SeancePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      versionId: string
+      seanceId: string
+      type: $Enums.VerrouType
+      auteurId: string
+      justification: string | null
+      creeLe: Date
+      leveLe: Date | null
+      levePar: string | null
+    }, ExtArgs["result"]["verrouSeance"]>
+    composites: {}
+  }
+
+  type VerrouSeanceGetPayload<S extends boolean | null | undefined | VerrouSeanceDefaultArgs> = $Result.GetResult<Prisma.$VerrouSeancePayload, S>
+
+  type VerrouSeanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<VerrouSeanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: VerrouSeanceCountAggregateInputType | true
+    }
+
+  export interface VerrouSeanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['VerrouSeance'], meta: { name: 'VerrouSeance' } }
+    /**
+     * Find zero or one VerrouSeance that matches the filter.
+     * @param {VerrouSeanceFindUniqueArgs} args - Arguments to find a VerrouSeance
+     * @example
+     * // Get one VerrouSeance
+     * const verrouSeance = await prisma.verrouSeance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends VerrouSeanceFindUniqueArgs>(args: SelectSubset<T, VerrouSeanceFindUniqueArgs<ExtArgs>>): Prisma__VerrouSeanceClient<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one VerrouSeance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {VerrouSeanceFindUniqueOrThrowArgs} args - Arguments to find a VerrouSeance
+     * @example
+     * // Get one VerrouSeance
+     * const verrouSeance = await prisma.verrouSeance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends VerrouSeanceFindUniqueOrThrowArgs>(args: SelectSubset<T, VerrouSeanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__VerrouSeanceClient<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VerrouSeance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerrouSeanceFindFirstArgs} args - Arguments to find a VerrouSeance
+     * @example
+     * // Get one VerrouSeance
+     * const verrouSeance = await prisma.verrouSeance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends VerrouSeanceFindFirstArgs>(args?: SelectSubset<T, VerrouSeanceFindFirstArgs<ExtArgs>>): Prisma__VerrouSeanceClient<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first VerrouSeance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerrouSeanceFindFirstOrThrowArgs} args - Arguments to find a VerrouSeance
+     * @example
+     * // Get one VerrouSeance
+     * const verrouSeance = await prisma.verrouSeance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends VerrouSeanceFindFirstOrThrowArgs>(args?: SelectSubset<T, VerrouSeanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__VerrouSeanceClient<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more VerrouSeances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerrouSeanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all VerrouSeances
+     * const verrouSeances = await prisma.verrouSeance.findMany()
+     * 
+     * // Get first 10 VerrouSeances
+     * const verrouSeances = await prisma.verrouSeance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const verrouSeanceWithIdOnly = await prisma.verrouSeance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends VerrouSeanceFindManyArgs>(args?: SelectSubset<T, VerrouSeanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a VerrouSeance.
+     * @param {VerrouSeanceCreateArgs} args - Arguments to create a VerrouSeance.
+     * @example
+     * // Create one VerrouSeance
+     * const VerrouSeance = await prisma.verrouSeance.create({
+     *   data: {
+     *     // ... data to create a VerrouSeance
+     *   }
+     * })
+     * 
+     */
+    create<T extends VerrouSeanceCreateArgs>(args: SelectSubset<T, VerrouSeanceCreateArgs<ExtArgs>>): Prisma__VerrouSeanceClient<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many VerrouSeances.
+     * @param {VerrouSeanceCreateManyArgs} args - Arguments to create many VerrouSeances.
+     * @example
+     * // Create many VerrouSeances
+     * const verrouSeance = await prisma.verrouSeance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends VerrouSeanceCreateManyArgs>(args?: SelectSubset<T, VerrouSeanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many VerrouSeances and returns the data saved in the database.
+     * @param {VerrouSeanceCreateManyAndReturnArgs} args - Arguments to create many VerrouSeances.
+     * @example
+     * // Create many VerrouSeances
+     * const verrouSeance = await prisma.verrouSeance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many VerrouSeances and only return the `id`
+     * const verrouSeanceWithIdOnly = await prisma.verrouSeance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends VerrouSeanceCreateManyAndReturnArgs>(args?: SelectSubset<T, VerrouSeanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a VerrouSeance.
+     * @param {VerrouSeanceDeleteArgs} args - Arguments to delete one VerrouSeance.
+     * @example
+     * // Delete one VerrouSeance
+     * const VerrouSeance = await prisma.verrouSeance.delete({
+     *   where: {
+     *     // ... filter to delete one VerrouSeance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends VerrouSeanceDeleteArgs>(args: SelectSubset<T, VerrouSeanceDeleteArgs<ExtArgs>>): Prisma__VerrouSeanceClient<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one VerrouSeance.
+     * @param {VerrouSeanceUpdateArgs} args - Arguments to update one VerrouSeance.
+     * @example
+     * // Update one VerrouSeance
+     * const verrouSeance = await prisma.verrouSeance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends VerrouSeanceUpdateArgs>(args: SelectSubset<T, VerrouSeanceUpdateArgs<ExtArgs>>): Prisma__VerrouSeanceClient<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more VerrouSeances.
+     * @param {VerrouSeanceDeleteManyArgs} args - Arguments to filter VerrouSeances to delete.
+     * @example
+     * // Delete a few VerrouSeances
+     * const { count } = await prisma.verrouSeance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends VerrouSeanceDeleteManyArgs>(args?: SelectSubset<T, VerrouSeanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VerrouSeances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerrouSeanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many VerrouSeances
+     * const verrouSeance = await prisma.verrouSeance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends VerrouSeanceUpdateManyArgs>(args: SelectSubset<T, VerrouSeanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more VerrouSeances and returns the data updated in the database.
+     * @param {VerrouSeanceUpdateManyAndReturnArgs} args - Arguments to update many VerrouSeances.
+     * @example
+     * // Update many VerrouSeances
+     * const verrouSeance = await prisma.verrouSeance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more VerrouSeances and only return the `id`
+     * const verrouSeanceWithIdOnly = await prisma.verrouSeance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends VerrouSeanceUpdateManyAndReturnArgs>(args: SelectSubset<T, VerrouSeanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one VerrouSeance.
+     * @param {VerrouSeanceUpsertArgs} args - Arguments to update or create a VerrouSeance.
+     * @example
+     * // Update or create a VerrouSeance
+     * const verrouSeance = await prisma.verrouSeance.upsert({
+     *   create: {
+     *     // ... data to create a VerrouSeance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the VerrouSeance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends VerrouSeanceUpsertArgs>(args: SelectSubset<T, VerrouSeanceUpsertArgs<ExtArgs>>): Prisma__VerrouSeanceClient<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of VerrouSeances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerrouSeanceCountArgs} args - Arguments to filter VerrouSeances to count.
+     * @example
+     * // Count the number of VerrouSeances
+     * const count = await prisma.verrouSeance.count({
+     *   where: {
+     *     // ... the filter for the VerrouSeances we want to count
+     *   }
+     * })
+    **/
+    count<T extends VerrouSeanceCountArgs>(
+      args?: Subset<T, VerrouSeanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], VerrouSeanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a VerrouSeance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerrouSeanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends VerrouSeanceAggregateArgs>(args: Subset<T, VerrouSeanceAggregateArgs>): Prisma.PrismaPromise<GetVerrouSeanceAggregateType<T>>
+
+    /**
+     * Group by VerrouSeance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {VerrouSeanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends VerrouSeanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: VerrouSeanceGroupByArgs['orderBy'] }
+        : { orderBy?: VerrouSeanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, VerrouSeanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetVerrouSeanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the VerrouSeance model
+   */
+  readonly fields: VerrouSeanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for VerrouSeance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__VerrouSeanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    seance<T extends SeanceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SeanceDefaultArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the VerrouSeance model
+   */
+  interface VerrouSeanceFieldRefs {
+    readonly id: FieldRef<"VerrouSeance", 'String'>
+    readonly versionId: FieldRef<"VerrouSeance", 'String'>
+    readonly seanceId: FieldRef<"VerrouSeance", 'String'>
+    readonly type: FieldRef<"VerrouSeance", 'VerrouType'>
+    readonly auteurId: FieldRef<"VerrouSeance", 'String'>
+    readonly justification: FieldRef<"VerrouSeance", 'String'>
+    readonly creeLe: FieldRef<"VerrouSeance", 'DateTime'>
+    readonly leveLe: FieldRef<"VerrouSeance", 'DateTime'>
+    readonly levePar: FieldRef<"VerrouSeance", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * VerrouSeance findUnique
+   */
+  export type VerrouSeanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VerrouSeance to fetch.
+     */
+    where: VerrouSeanceWhereUniqueInput
+  }
+
+  /**
+   * VerrouSeance findUniqueOrThrow
+   */
+  export type VerrouSeanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VerrouSeance to fetch.
+     */
+    where: VerrouSeanceWhereUniqueInput
+  }
+
+  /**
+   * VerrouSeance findFirst
+   */
+  export type VerrouSeanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VerrouSeance to fetch.
+     */
+    where?: VerrouSeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerrouSeances to fetch.
+     */
+    orderBy?: VerrouSeanceOrderByWithRelationInput | VerrouSeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VerrouSeances.
+     */
+    cursor?: VerrouSeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerrouSeances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerrouSeances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerrouSeances.
+     */
+    distinct?: VerrouSeanceScalarFieldEnum | VerrouSeanceScalarFieldEnum[]
+  }
+
+  /**
+   * VerrouSeance findFirstOrThrow
+   */
+  export type VerrouSeanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VerrouSeance to fetch.
+     */
+    where?: VerrouSeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerrouSeances to fetch.
+     */
+    orderBy?: VerrouSeanceOrderByWithRelationInput | VerrouSeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for VerrouSeances.
+     */
+    cursor?: VerrouSeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerrouSeances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerrouSeances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerrouSeances.
+     */
+    distinct?: VerrouSeanceScalarFieldEnum | VerrouSeanceScalarFieldEnum[]
+  }
+
+  /**
+   * VerrouSeance findMany
+   */
+  export type VerrouSeanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which VerrouSeances to fetch.
+     */
+    where?: VerrouSeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of VerrouSeances to fetch.
+     */
+    orderBy?: VerrouSeanceOrderByWithRelationInput | VerrouSeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing VerrouSeances.
+     */
+    cursor?: VerrouSeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` VerrouSeances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` VerrouSeances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of VerrouSeances.
+     */
+    distinct?: VerrouSeanceScalarFieldEnum | VerrouSeanceScalarFieldEnum[]
+  }
+
+  /**
+   * VerrouSeance create
+   */
+  export type VerrouSeanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a VerrouSeance.
+     */
+    data: XOR<VerrouSeanceCreateInput, VerrouSeanceUncheckedCreateInput>
+  }
+
+  /**
+   * VerrouSeance createMany
+   */
+  export type VerrouSeanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many VerrouSeances.
+     */
+    data: VerrouSeanceCreateManyInput | VerrouSeanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * VerrouSeance createManyAndReturn
+   */
+  export type VerrouSeanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many VerrouSeances.
+     */
+    data: VerrouSeanceCreateManyInput | VerrouSeanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VerrouSeance update
+   */
+  export type VerrouSeanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a VerrouSeance.
+     */
+    data: XOR<VerrouSeanceUpdateInput, VerrouSeanceUncheckedUpdateInput>
+    /**
+     * Choose, which VerrouSeance to update.
+     */
+    where: VerrouSeanceWhereUniqueInput
+  }
+
+  /**
+   * VerrouSeance updateMany
+   */
+  export type VerrouSeanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update VerrouSeances.
+     */
+    data: XOR<VerrouSeanceUpdateManyMutationInput, VerrouSeanceUncheckedUpdateManyInput>
+    /**
+     * Filter which VerrouSeances to update
+     */
+    where?: VerrouSeanceWhereInput
+    /**
+     * Limit how many VerrouSeances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * VerrouSeance updateManyAndReturn
+   */
+  export type VerrouSeanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * The data used to update VerrouSeances.
+     */
+    data: XOR<VerrouSeanceUpdateManyMutationInput, VerrouSeanceUncheckedUpdateManyInput>
+    /**
+     * Filter which VerrouSeances to update
+     */
+    where?: VerrouSeanceWhereInput
+    /**
+     * Limit how many VerrouSeances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * VerrouSeance upsert
+   */
+  export type VerrouSeanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the VerrouSeance to update in case it exists.
+     */
+    where: VerrouSeanceWhereUniqueInput
+    /**
+     * In case the VerrouSeance found by the `where` argument doesn't exist, create a new VerrouSeance with this data.
+     */
+    create: XOR<VerrouSeanceCreateInput, VerrouSeanceUncheckedCreateInput>
+    /**
+     * In case the VerrouSeance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<VerrouSeanceUpdateInput, VerrouSeanceUncheckedUpdateInput>
+  }
+
+  /**
+   * VerrouSeance delete
+   */
+  export type VerrouSeanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
+    /**
+     * Filter which VerrouSeance to delete.
+     */
+    where: VerrouSeanceWhereUniqueInput
+  }
+
+  /**
+   * VerrouSeance deleteMany
+   */
+  export type VerrouSeanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which VerrouSeances to delete
+     */
+    where?: VerrouSeanceWhereInput
+    /**
+     * Limit how many VerrouSeances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * VerrouSeance without action
+   */
+  export type VerrouSeanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VerrouSeance
+     */
+    select?: VerrouSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the VerrouSeance
+     */
+    omit?: VerrouSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VerrouSeanceInclude<ExtArgs> | null
   }
 
 
@@ -79524,6 +80826,21 @@ export namespace Prisma {
   export type EditLockScalarFieldEnum = (typeof EditLockScalarFieldEnum)[keyof typeof EditLockScalarFieldEnum]
 
 
+  export const VerrouSeanceScalarFieldEnum: {
+    id: 'id',
+    versionId: 'versionId',
+    seanceId: 'seanceId',
+    type: 'type',
+    auteurId: 'auteurId',
+    justification: 'justification',
+    creeLe: 'creeLe',
+    leveLe: 'leveLe',
+    levePar: 'levePar'
+  };
+
+  export type VerrouSeanceScalarFieldEnum = (typeof VerrouSeanceScalarFieldEnum)[keyof typeof VerrouSeanceScalarFieldEnum]
+
+
   export const DepartementScalarFieldEnum: {
     id: 'id',
     anneeId: 'anneeId',
@@ -80320,6 +81637,20 @@ export namespace Prisma {
    * Reference to a field of type 'VersionStatut[]'
    */
   export type ListEnumVersionStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VersionStatut[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'VerrouType'
+   */
+  export type EnumVerrouTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerrouType'>
+    
+
+
+  /**
+   * Reference to a field of type 'VerrouType[]'
+   */
+  export type ListEnumVerrouTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VerrouType[]'>
     
 
 
@@ -82362,6 +83693,7 @@ export namespace Prisma {
     creneauDebut?: XOR<CreneauNullableScalarRelationFilter, CreneauWhereInput> | null
     groupes?: SeanceGroupeListRelationFilter
     occupations?: OccupationListRelationFilter
+    verrous?: VerrouSeanceListRelationFilter
   }
 
   export type SeanceOrderByWithRelationInput = {
@@ -82388,6 +83720,7 @@ export namespace Prisma {
     creneauDebut?: CreneauOrderByWithRelationInput
     groupes?: SeanceGroupeOrderByRelationAggregateInput
     occupations?: OccupationOrderByRelationAggregateInput
+    verrous?: VerrouSeanceOrderByRelationAggregateInput
   }
 
   export type SeanceWhereUniqueInput = Prisma.AtLeast<{
@@ -82418,6 +83751,7 @@ export namespace Prisma {
     creneauDebut?: XOR<CreneauNullableScalarRelationFilter, CreneauWhereInput> | null
     groupes?: SeanceGroupeListRelationFilter
     occupations?: OccupationListRelationFilter
+    verrous?: VerrouSeanceListRelationFilter
   }, "id" | "versionId_affectationKey_rang">
 
   export type SeanceOrderByWithAggregationInput = {
@@ -82596,6 +83930,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotListRelationFilter
     conflits?: ConflitListRelationFilter
     editLock?: XOR<EditLockNullableScalarRelationFilter, EditLockWhereInput> | null
+    verrous?: VerrouSeanceListRelationFilter
   }
 
   export type VersionEdtOrderByWithRelationInput = {
@@ -82612,6 +83947,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotOrderByRelationAggregateInput
     conflits?: ConflitOrderByRelationAggregateInput
     editLock?: EditLockOrderByWithRelationInput
+    verrous?: VerrouSeanceOrderByRelationAggregateInput
   }
 
   export type VersionEdtWhereUniqueInput = Prisma.AtLeast<{
@@ -82631,6 +83967,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotListRelationFilter
     conflits?: ConflitListRelationFilter
     editLock?: XOR<EditLockNullableScalarRelationFilter, EditLockWhereInput> | null
+    verrous?: VerrouSeanceListRelationFilter
   }, "id">
 
   export type VersionEdtOrderByWithAggregationInput = {
@@ -82761,6 +84098,84 @@ export namespace Prisma {
     expiresAt?: DateTimeWithAggregatesFilter<"EditLock"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"EditLock"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"EditLock"> | Date | string
+  }
+
+  export type VerrouSeanceWhereInput = {
+    AND?: VerrouSeanceWhereInput | VerrouSeanceWhereInput[]
+    OR?: VerrouSeanceWhereInput[]
+    NOT?: VerrouSeanceWhereInput | VerrouSeanceWhereInput[]
+    id?: UuidFilter<"VerrouSeance"> | string
+    versionId?: UuidFilter<"VerrouSeance"> | string
+    seanceId?: UuidFilter<"VerrouSeance"> | string
+    type?: EnumVerrouTypeFilter<"VerrouSeance"> | $Enums.VerrouType
+    auteurId?: UuidFilter<"VerrouSeance"> | string
+    justification?: StringNullableFilter<"VerrouSeance"> | string | null
+    creeLe?: DateTimeFilter<"VerrouSeance"> | Date | string
+    leveLe?: DateTimeNullableFilter<"VerrouSeance"> | Date | string | null
+    levePar?: UuidNullableFilter<"VerrouSeance"> | string | null
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+    seance?: XOR<SeanceScalarRelationFilter, SeanceWhereInput>
+  }
+
+  export type VerrouSeanceOrderByWithRelationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    type?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrderInput | SortOrder
+    creeLe?: SortOrder
+    leveLe?: SortOrderInput | SortOrder
+    levePar?: SortOrderInput | SortOrder
+    version?: VersionEdtOrderByWithRelationInput
+    seance?: SeanceOrderByWithRelationInput
+  }
+
+  export type VerrouSeanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: VerrouSeanceWhereInput | VerrouSeanceWhereInput[]
+    OR?: VerrouSeanceWhereInput[]
+    NOT?: VerrouSeanceWhereInput | VerrouSeanceWhereInput[]
+    versionId?: UuidFilter<"VerrouSeance"> | string
+    seanceId?: UuidFilter<"VerrouSeance"> | string
+    type?: EnumVerrouTypeFilter<"VerrouSeance"> | $Enums.VerrouType
+    auteurId?: UuidFilter<"VerrouSeance"> | string
+    justification?: StringNullableFilter<"VerrouSeance"> | string | null
+    creeLe?: DateTimeFilter<"VerrouSeance"> | Date | string
+    leveLe?: DateTimeNullableFilter<"VerrouSeance"> | Date | string | null
+    levePar?: UuidNullableFilter<"VerrouSeance"> | string | null
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+    seance?: XOR<SeanceScalarRelationFilter, SeanceWhereInput>
+  }, "id">
+
+  export type VerrouSeanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    type?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrderInput | SortOrder
+    creeLe?: SortOrder
+    leveLe?: SortOrderInput | SortOrder
+    levePar?: SortOrderInput | SortOrder
+    _count?: VerrouSeanceCountOrderByAggregateInput
+    _max?: VerrouSeanceMaxOrderByAggregateInput
+    _min?: VerrouSeanceMinOrderByAggregateInput
+  }
+
+  export type VerrouSeanceScalarWhereWithAggregatesInput = {
+    AND?: VerrouSeanceScalarWhereWithAggregatesInput | VerrouSeanceScalarWhereWithAggregatesInput[]
+    OR?: VerrouSeanceScalarWhereWithAggregatesInput[]
+    NOT?: VerrouSeanceScalarWhereWithAggregatesInput | VerrouSeanceScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"VerrouSeance"> | string
+    versionId?: UuidWithAggregatesFilter<"VerrouSeance"> | string
+    seanceId?: UuidWithAggregatesFilter<"VerrouSeance"> | string
+    type?: EnumVerrouTypeWithAggregatesFilter<"VerrouSeance"> | $Enums.VerrouType
+    auteurId?: UuidWithAggregatesFilter<"VerrouSeance"> | string
+    justification?: StringNullableWithAggregatesFilter<"VerrouSeance"> | string | null
+    creeLe?: DateTimeWithAggregatesFilter<"VerrouSeance"> | Date | string
+    leveLe?: DateTimeNullableWithAggregatesFilter<"VerrouSeance"> | Date | string | null
+    levePar?: UuidNullableWithAggregatesFilter<"VerrouSeance"> | string | null
   }
 
   export type DepartementWhereInput = {
@@ -87203,6 +88618,7 @@ export namespace Prisma {
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
     occupations?: OccupationCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateInput = {
@@ -87224,6 +88640,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUpdateInput = {
@@ -87245,6 +88662,7 @@ export namespace Prisma {
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateInput = {
@@ -87266,6 +88684,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceCreateManyInput = {
@@ -87435,6 +88854,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateInput = {
@@ -87450,6 +88870,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUpdateInput = {
@@ -87465,6 +88886,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateInput = {
@@ -87480,6 +88902,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtCreateManyInput = {
@@ -87605,6 +89028,88 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerrouSeanceCreateInput = {
+    id?: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
+    version: VersionEdtCreateNestedOneWithoutVerrousInput
+    seance: SeanceCreateNestedOneWithoutVerrousInput
+  }
+
+  export type VerrouSeanceUncheckedCreateInput = {
+    id?: string
+    versionId: string
+    seanceId: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
+  }
+
+  export type VerrouSeanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: VersionEdtUpdateOneRequiredWithoutVerrousNestedInput
+    seance?: SeanceUpdateOneRequiredWithoutVerrousNestedInput
+  }
+
+  export type VerrouSeanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    seanceId?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VerrouSeanceCreateManyInput = {
+    id?: string
+    versionId: string
+    seanceId: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
+  }
+
+  export type VerrouSeanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VerrouSeanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    seanceId?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DepartementCreateInput = {
@@ -92089,11 +93594,21 @@ export namespace Prisma {
     none?: OccupationWhereInput
   }
 
+  export type VerrouSeanceListRelationFilter = {
+    every?: VerrouSeanceWhereInput
+    some?: VerrouSeanceWhereInput
+    none?: VerrouSeanceWhereInput
+  }
+
   export type SeanceGroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type OccupationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type VerrouSeanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -92414,6 +93929,59 @@ export namespace Prisma {
     expiresAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumVerrouTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerrouType | EnumVerrouTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VerrouType[] | ListEnumVerrouTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerrouType[] | ListEnumVerrouTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerrouTypeFilter<$PrismaModel> | $Enums.VerrouType
+  }
+
+  export type VerrouSeanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    type?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrder
+    creeLe?: SortOrder
+    leveLe?: SortOrder
+    levePar?: SortOrder
+  }
+
+  export type VerrouSeanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    type?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrder
+    creeLe?: SortOrder
+    leveLe?: SortOrder
+    levePar?: SortOrder
+  }
+
+  export type VerrouSeanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    type?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrder
+    creeLe?: SortOrder
+    leveLe?: SortOrder
+    levePar?: SortOrder
+  }
+
+  export type EnumVerrouTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerrouType | EnumVerrouTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VerrouType[] | ListEnumVerrouTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerrouType[] | ListEnumVerrouTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerrouTypeWithAggregatesFilter<$PrismaModel> | $Enums.VerrouType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVerrouTypeFilter<$PrismaModel>
+    _max?: NestedEnumVerrouTypeFilter<$PrismaModel>
   }
 
   export type FormationListRelationFilter = {
@@ -96420,6 +97988,13 @@ export namespace Prisma {
     connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
   }
 
+  export type VerrouSeanceCreateNestedManyWithoutSeanceInput = {
+    create?: XOR<VerrouSeanceCreateWithoutSeanceInput, VerrouSeanceUncheckedCreateWithoutSeanceInput> | VerrouSeanceCreateWithoutSeanceInput[] | VerrouSeanceUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: VerrouSeanceCreateOrConnectWithoutSeanceInput | VerrouSeanceCreateOrConnectWithoutSeanceInput[]
+    createMany?: VerrouSeanceCreateManySeanceInputEnvelope
+    connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+  }
+
   export type SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput = {
     create?: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput> | SeanceGroupeCreateWithoutSeanceInput[] | SeanceGroupeUncheckedCreateWithoutSeanceInput[]
     connectOrCreate?: SeanceGroupeCreateOrConnectWithoutSeanceInput | SeanceGroupeCreateOrConnectWithoutSeanceInput[]
@@ -96432,6 +98007,13 @@ export namespace Prisma {
     connectOrCreate?: OccupationCreateOrConnectWithoutSeanceInput | OccupationCreateOrConnectWithoutSeanceInput[]
     createMany?: OccupationCreateManySeanceInputEnvelope
     connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+  }
+
+  export type VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput = {
+    create?: XOR<VerrouSeanceCreateWithoutSeanceInput, VerrouSeanceUncheckedCreateWithoutSeanceInput> | VerrouSeanceCreateWithoutSeanceInput[] | VerrouSeanceUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: VerrouSeanceCreateOrConnectWithoutSeanceInput | VerrouSeanceCreateOrConnectWithoutSeanceInput[]
+    createMany?: VerrouSeanceCreateManySeanceInputEnvelope
+    connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
   }
 
   export type NullableEnumJourSemaineFieldUpdateOperationsInput = {
@@ -96522,6 +98104,20 @@ export namespace Prisma {
     deleteMany?: OccupationScalarWhereInput | OccupationScalarWhereInput[]
   }
 
+  export type VerrouSeanceUpdateManyWithoutSeanceNestedInput = {
+    create?: XOR<VerrouSeanceCreateWithoutSeanceInput, VerrouSeanceUncheckedCreateWithoutSeanceInput> | VerrouSeanceCreateWithoutSeanceInput[] | VerrouSeanceUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: VerrouSeanceCreateOrConnectWithoutSeanceInput | VerrouSeanceCreateOrConnectWithoutSeanceInput[]
+    upsert?: VerrouSeanceUpsertWithWhereUniqueWithoutSeanceInput | VerrouSeanceUpsertWithWhereUniqueWithoutSeanceInput[]
+    createMany?: VerrouSeanceCreateManySeanceInputEnvelope
+    set?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    disconnect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    delete?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    update?: VerrouSeanceUpdateWithWhereUniqueWithoutSeanceInput | VerrouSeanceUpdateWithWhereUniqueWithoutSeanceInput[]
+    updateMany?: VerrouSeanceUpdateManyWithWhereWithoutSeanceInput | VerrouSeanceUpdateManyWithWhereWithoutSeanceInput[]
+    deleteMany?: VerrouSeanceScalarWhereInput | VerrouSeanceScalarWhereInput[]
+  }
+
   export type SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput = {
     create?: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput> | SeanceGroupeCreateWithoutSeanceInput[] | SeanceGroupeUncheckedCreateWithoutSeanceInput[]
     connectOrCreate?: SeanceGroupeCreateOrConnectWithoutSeanceInput | SeanceGroupeCreateOrConnectWithoutSeanceInput[]
@@ -96548,6 +98144,20 @@ export namespace Prisma {
     update?: OccupationUpdateWithWhereUniqueWithoutSeanceInput | OccupationUpdateWithWhereUniqueWithoutSeanceInput[]
     updateMany?: OccupationUpdateManyWithWhereWithoutSeanceInput | OccupationUpdateManyWithWhereWithoutSeanceInput[]
     deleteMany?: OccupationScalarWhereInput | OccupationScalarWhereInput[]
+  }
+
+  export type VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput = {
+    create?: XOR<VerrouSeanceCreateWithoutSeanceInput, VerrouSeanceUncheckedCreateWithoutSeanceInput> | VerrouSeanceCreateWithoutSeanceInput[] | VerrouSeanceUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: VerrouSeanceCreateOrConnectWithoutSeanceInput | VerrouSeanceCreateOrConnectWithoutSeanceInput[]
+    upsert?: VerrouSeanceUpsertWithWhereUniqueWithoutSeanceInput | VerrouSeanceUpsertWithWhereUniqueWithoutSeanceInput[]
+    createMany?: VerrouSeanceCreateManySeanceInputEnvelope
+    set?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    disconnect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    delete?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    update?: VerrouSeanceUpdateWithWhereUniqueWithoutSeanceInput | VerrouSeanceUpdateWithWhereUniqueWithoutSeanceInput[]
+    updateMany?: VerrouSeanceUpdateManyWithWhereWithoutSeanceInput | VerrouSeanceUpdateManyWithWhereWithoutSeanceInput[]
+    deleteMany?: VerrouSeanceScalarWhereInput | VerrouSeanceScalarWhereInput[]
   }
 
   export type SeanceCreateNestedOneWithoutGroupesInput = {
@@ -96650,6 +98260,13 @@ export namespace Prisma {
     connect?: EditLockWhereUniqueInput
   }
 
+  export type VerrouSeanceCreateNestedManyWithoutVersionInput = {
+    create?: XOR<VerrouSeanceCreateWithoutVersionInput, VerrouSeanceUncheckedCreateWithoutVersionInput> | VerrouSeanceCreateWithoutVersionInput[] | VerrouSeanceUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: VerrouSeanceCreateOrConnectWithoutVersionInput | VerrouSeanceCreateOrConnectWithoutVersionInput[]
+    createMany?: VerrouSeanceCreateManyVersionInputEnvelope
+    connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+  }
+
   export type SeanceUncheckedCreateNestedManyWithoutVersionInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -96682,6 +98299,13 @@ export namespace Prisma {
     create?: XOR<EditLockCreateWithoutVersionInput, EditLockUncheckedCreateWithoutVersionInput>
     connectOrCreate?: EditLockCreateOrConnectWithoutVersionInput
     connect?: EditLockWhereUniqueInput
+  }
+
+  export type VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput = {
+    create?: XOR<VerrouSeanceCreateWithoutVersionInput, VerrouSeanceUncheckedCreateWithoutVersionInput> | VerrouSeanceCreateWithoutVersionInput[] | VerrouSeanceUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: VerrouSeanceCreateOrConnectWithoutVersionInput | VerrouSeanceCreateOrConnectWithoutVersionInput[]
+    createMany?: VerrouSeanceCreateManyVersionInputEnvelope
+    connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
   }
 
   export type EnumVersionStatutFieldUpdateOperationsInput = {
@@ -96762,6 +98386,20 @@ export namespace Prisma {
     update?: XOR<XOR<EditLockUpdateToOneWithWhereWithoutVersionInput, EditLockUpdateWithoutVersionInput>, EditLockUncheckedUpdateWithoutVersionInput>
   }
 
+  export type VerrouSeanceUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<VerrouSeanceCreateWithoutVersionInput, VerrouSeanceUncheckedCreateWithoutVersionInput> | VerrouSeanceCreateWithoutVersionInput[] | VerrouSeanceUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: VerrouSeanceCreateOrConnectWithoutVersionInput | VerrouSeanceCreateOrConnectWithoutVersionInput[]
+    upsert?: VerrouSeanceUpsertWithWhereUniqueWithoutVersionInput | VerrouSeanceUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: VerrouSeanceCreateManyVersionInputEnvelope
+    set?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    disconnect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    delete?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    update?: VerrouSeanceUpdateWithWhereUniqueWithoutVersionInput | VerrouSeanceUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: VerrouSeanceUpdateManyWithWhereWithoutVersionInput | VerrouSeanceUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: VerrouSeanceScalarWhereInput | VerrouSeanceScalarWhereInput[]
+  }
+
   export type SeanceUncheckedUpdateManyWithoutVersionNestedInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -96828,6 +98466,20 @@ export namespace Prisma {
     update?: XOR<XOR<EditLockUpdateToOneWithWhereWithoutVersionInput, EditLockUpdateWithoutVersionInput>, EditLockUncheckedUpdateWithoutVersionInput>
   }
 
+  export type VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<VerrouSeanceCreateWithoutVersionInput, VerrouSeanceUncheckedCreateWithoutVersionInput> | VerrouSeanceCreateWithoutVersionInput[] | VerrouSeanceUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: VerrouSeanceCreateOrConnectWithoutVersionInput | VerrouSeanceCreateOrConnectWithoutVersionInput[]
+    upsert?: VerrouSeanceUpsertWithWhereUniqueWithoutVersionInput | VerrouSeanceUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: VerrouSeanceCreateManyVersionInputEnvelope
+    set?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    disconnect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    delete?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+    update?: VerrouSeanceUpdateWithWhereUniqueWithoutVersionInput | VerrouSeanceUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: VerrouSeanceUpdateManyWithWhereWithoutVersionInput | VerrouSeanceUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: VerrouSeanceScalarWhereInput | VerrouSeanceScalarWhereInput[]
+  }
+
   export type VersionEdtCreateNestedOneWithoutSnapshotsInput = {
     create?: XOR<VersionEdtCreateWithoutSnapshotsInput, VersionEdtUncheckedCreateWithoutSnapshotsInput>
     connectOrCreate?: VersionEdtCreateOrConnectWithoutSnapshotsInput
@@ -96868,6 +98520,38 @@ export namespace Prisma {
     upsert?: VersionEdtUpsertWithoutEditLockInput
     connect?: VersionEdtWhereUniqueInput
     update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutEditLockInput, VersionEdtUpdateWithoutEditLockInput>, VersionEdtUncheckedUpdateWithoutEditLockInput>
+  }
+
+  export type VersionEdtCreateNestedOneWithoutVerrousInput = {
+    create?: XOR<VersionEdtCreateWithoutVerrousInput, VersionEdtUncheckedCreateWithoutVerrousInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutVerrousInput
+    connect?: VersionEdtWhereUniqueInput
+  }
+
+  export type SeanceCreateNestedOneWithoutVerrousInput = {
+    create?: XOR<SeanceCreateWithoutVerrousInput, SeanceUncheckedCreateWithoutVerrousInput>
+    connectOrCreate?: SeanceCreateOrConnectWithoutVerrousInput
+    connect?: SeanceWhereUniqueInput
+  }
+
+  export type EnumVerrouTypeFieldUpdateOperationsInput = {
+    set?: $Enums.VerrouType
+  }
+
+  export type VersionEdtUpdateOneRequiredWithoutVerrousNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutVerrousInput, VersionEdtUncheckedCreateWithoutVerrousInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutVerrousInput
+    upsert?: VersionEdtUpsertWithoutVerrousInput
+    connect?: VersionEdtWhereUniqueInput
+    update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutVerrousInput, VersionEdtUpdateWithoutVerrousInput>, VersionEdtUncheckedUpdateWithoutVerrousInput>
+  }
+
+  export type SeanceUpdateOneRequiredWithoutVerrousNestedInput = {
+    create?: XOR<SeanceCreateWithoutVerrousInput, SeanceUncheckedCreateWithoutVerrousInput>
+    connectOrCreate?: SeanceCreateOrConnectWithoutVerrousInput
+    upsert?: SeanceUpsertWithoutVerrousInput
+    connect?: SeanceWhereUniqueInput
+    update?: XOR<XOR<SeanceUpdateToOneWithWhereWithoutVerrousInput, SeanceUpdateWithoutVerrousInput>, SeanceUncheckedUpdateWithoutVerrousInput>
   }
 
   export type AnneeCreateNestedOneWithoutDepartementsInput = {
@@ -100029,6 +101713,23 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumVersionStatutFilter<$PrismaModel>
     _max?: NestedEnumVersionStatutFilter<$PrismaModel>
+  }
+
+  export type NestedEnumVerrouTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerrouType | EnumVerrouTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VerrouType[] | ListEnumVerrouTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerrouType[] | ListEnumVerrouTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerrouTypeFilter<$PrismaModel> | $Enums.VerrouType
+  }
+
+  export type NestedEnumVerrouTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerrouType | EnumVerrouTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.VerrouType[] | ListEnumVerrouTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerrouType[] | ListEnumVerrouTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerrouTypeWithAggregatesFilter<$PrismaModel> | $Enums.VerrouType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVerrouTypeFilter<$PrismaModel>
+    _max?: NestedEnumVerrouTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumGroupeTypeFilter<$PrismaModel = never> = {
@@ -104685,6 +106386,7 @@ export namespace Prisma {
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
     occupations?: OccupationCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutSemestreInput = {
@@ -104705,6 +106407,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutSemestreInput = {
@@ -104729,6 +106432,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSemestreInput = {
@@ -104743,6 +106447,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSemestreInput = {
@@ -105149,6 +106854,7 @@ export namespace Prisma {
     salle?: SalleCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
     occupations?: OccupationCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutCreneauDebutInput = {
@@ -105169,6 +106875,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutCreneauDebutInput = {
@@ -105396,6 +107103,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSeancesInput = {
@@ -105410,6 +107118,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSeancesInput = {
@@ -105586,6 +107295,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type VerrouSeanceCreateWithoutSeanceInput = {
+    id?: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
+    version: VersionEdtCreateNestedOneWithoutVerrousInput
+  }
+
+  export type VerrouSeanceUncheckedCreateWithoutSeanceInput = {
+    id?: string
+    versionId: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
+  }
+
+  export type VerrouSeanceCreateOrConnectWithoutSeanceInput = {
+    where: VerrouSeanceWhereUniqueInput
+    create: XOR<VerrouSeanceCreateWithoutSeanceInput, VerrouSeanceUncheckedCreateWithoutSeanceInput>
+  }
+
+  export type VerrouSeanceCreateManySeanceInputEnvelope = {
+    data: VerrouSeanceCreateManySeanceInput | VerrouSeanceCreateManySeanceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutSeancesInput = {
     update: XOR<SemestreUpdateWithoutSeancesInput, SemestreUncheckedUpdateWithoutSeancesInput>
     create: XOR<SemestreCreateWithoutSeancesInput, SemestreUncheckedCreateWithoutSeancesInput>
@@ -105656,6 +107397,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSeancesInput = {
@@ -105670,6 +107412,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type EnseignantUpsertWithoutSeancesInput = {
@@ -105866,6 +107609,37 @@ export namespace Prisma {
     ressourceId?: UuidFilter<"Occupation"> | string
   }
 
+  export type VerrouSeanceUpsertWithWhereUniqueWithoutSeanceInput = {
+    where: VerrouSeanceWhereUniqueInput
+    update: XOR<VerrouSeanceUpdateWithoutSeanceInput, VerrouSeanceUncheckedUpdateWithoutSeanceInput>
+    create: XOR<VerrouSeanceCreateWithoutSeanceInput, VerrouSeanceUncheckedCreateWithoutSeanceInput>
+  }
+
+  export type VerrouSeanceUpdateWithWhereUniqueWithoutSeanceInput = {
+    where: VerrouSeanceWhereUniqueInput
+    data: XOR<VerrouSeanceUpdateWithoutSeanceInput, VerrouSeanceUncheckedUpdateWithoutSeanceInput>
+  }
+
+  export type VerrouSeanceUpdateManyWithWhereWithoutSeanceInput = {
+    where: VerrouSeanceScalarWhereInput
+    data: XOR<VerrouSeanceUpdateManyMutationInput, VerrouSeanceUncheckedUpdateManyWithoutSeanceInput>
+  }
+
+  export type VerrouSeanceScalarWhereInput = {
+    AND?: VerrouSeanceScalarWhereInput | VerrouSeanceScalarWhereInput[]
+    OR?: VerrouSeanceScalarWhereInput[]
+    NOT?: VerrouSeanceScalarWhereInput | VerrouSeanceScalarWhereInput[]
+    id?: UuidFilter<"VerrouSeance"> | string
+    versionId?: UuidFilter<"VerrouSeance"> | string
+    seanceId?: UuidFilter<"VerrouSeance"> | string
+    type?: EnumVerrouTypeFilter<"VerrouSeance"> | $Enums.VerrouType
+    auteurId?: UuidFilter<"VerrouSeance"> | string
+    justification?: StringNullableFilter<"VerrouSeance"> | string | null
+    creeLe?: DateTimeFilter<"VerrouSeance"> | Date | string
+    leveLe?: DateTimeNullableFilter<"VerrouSeance"> | Date | string | null
+    levePar?: UuidNullableFilter<"VerrouSeance"> | string | null
+  }
+
   export type SeanceCreateWithoutGroupesInput = {
     id?: string
     affectationKey: string
@@ -105884,6 +107658,7 @@ export namespace Prisma {
     salle?: SalleCreateNestedOneWithoutSeancesInput
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     occupations?: OccupationCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutGroupesInput = {
@@ -105904,6 +107679,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutGroupesInput = {
@@ -105979,6 +107755,7 @@ export namespace Prisma {
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     occupations?: OccupationUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutGroupesInput = {
@@ -105999,6 +107776,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type GroupeUpsertWithoutSeanceGroupesInput = {
@@ -106058,6 +107836,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutOccupationsInput = {
@@ -106072,6 +107851,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutOccupationsInput = {
@@ -106097,6 +107877,7 @@ export namespace Prisma {
     salle?: SalleCreateNestedOneWithoutSeancesInput
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutOccupationsInput = {
@@ -106117,6 +107898,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutOccupationsInput = {
@@ -106147,6 +107929,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutOccupationsInput = {
@@ -106161,6 +107944,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SeanceUpsertWithoutOccupationsInput = {
@@ -106192,6 +107976,7 @@ export namespace Prisma {
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutOccupationsInput = {
@@ -106212,6 +107997,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SemestreCreateWithoutVersionsInput = {
@@ -106273,6 +108059,7 @@ export namespace Prisma {
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
     occupations?: OccupationCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutVersionInput = {
@@ -106293,6 +108080,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutVersionInput = {
@@ -106410,6 +108198,38 @@ export namespace Prisma {
   export type EditLockCreateOrConnectWithoutVersionInput = {
     where: EditLockWhereUniqueInput
     create: XOR<EditLockCreateWithoutVersionInput, EditLockUncheckedCreateWithoutVersionInput>
+  }
+
+  export type VerrouSeanceCreateWithoutVersionInput = {
+    id?: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
+    seance: SeanceCreateNestedOneWithoutVerrousInput
+  }
+
+  export type VerrouSeanceUncheckedCreateWithoutVersionInput = {
+    id?: string
+    seanceId: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
+  }
+
+  export type VerrouSeanceCreateOrConnectWithoutVersionInput = {
+    where: VerrouSeanceWhereUniqueInput
+    create: XOR<VerrouSeanceCreateWithoutVersionInput, VerrouSeanceUncheckedCreateWithoutVersionInput>
+  }
+
+  export type VerrouSeanceCreateManyVersionInputEnvelope = {
+    data: VerrouSeanceCreateManyVersionInput | VerrouSeanceCreateManyVersionInput[]
+    skipDuplicates?: boolean
   }
 
   export type SemestreUpsertWithoutVersionsInput = {
@@ -106577,6 +108397,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type VerrouSeanceUpsertWithWhereUniqueWithoutVersionInput = {
+    where: VerrouSeanceWhereUniqueInput
+    update: XOR<VerrouSeanceUpdateWithoutVersionInput, VerrouSeanceUncheckedUpdateWithoutVersionInput>
+    create: XOR<VerrouSeanceCreateWithoutVersionInput, VerrouSeanceUncheckedCreateWithoutVersionInput>
+  }
+
+  export type VerrouSeanceUpdateWithWhereUniqueWithoutVersionInput = {
+    where: VerrouSeanceWhereUniqueInput
+    data: XOR<VerrouSeanceUpdateWithoutVersionInput, VerrouSeanceUncheckedUpdateWithoutVersionInput>
+  }
+
+  export type VerrouSeanceUpdateManyWithWhereWithoutVersionInput = {
+    where: VerrouSeanceScalarWhereInput
+    data: XOR<VerrouSeanceUpdateManyMutationInput, VerrouSeanceUncheckedUpdateManyWithoutVersionInput>
+  }
+
   export type VersionEdtCreateWithoutSnapshotsInput = {
     id?: string
     numero: string
@@ -106589,6 +108425,7 @@ export namespace Prisma {
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSnapshotsInput = {
@@ -106603,6 +108440,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSnapshotsInput = {
@@ -106662,6 +108500,7 @@ export namespace Prisma {
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSnapshotsInput = {
@@ -106676,6 +108515,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SnapshotUpsertWithoutVersionSnapshotsInput = {
@@ -106725,6 +108565,7 @@ export namespace Prisma {
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutEditLockInput = {
@@ -106739,6 +108580,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutEditLockInput = {
@@ -106769,6 +108611,7 @@ export namespace Prisma {
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutEditLockInput = {
@@ -106783,6 +108626,183 @@ export namespace Prisma {
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtCreateWithoutVerrousInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutVerrousInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutVerrousInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutVerrousInput, VersionEdtUncheckedCreateWithoutVerrousInput>
+  }
+
+  export type SeanceCreateWithoutVerrousInput = {
+    id?: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    nbCreneaux?: number
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSeancesInput
+    version?: VersionEdtCreateNestedOneWithoutSeancesInput
+    enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
+    salle?: SalleCreateNestedOneWithoutSeancesInput
+    creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
+    groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUncheckedCreateWithoutVerrousInput = {
+    id?: string
+    semestreId: string
+    versionId?: string | null
+    enseignantId?: string | null
+    salleId?: string | null
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
+    nbCreneaux?: number
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceCreateOrConnectWithoutVerrousInput = {
+    where: SeanceWhereUniqueInput
+    create: XOR<SeanceCreateWithoutVerrousInput, SeanceUncheckedCreateWithoutVerrousInput>
+  }
+
+  export type VersionEdtUpsertWithoutVerrousInput = {
+    update: XOR<VersionEdtUpdateWithoutVerrousInput, VersionEdtUncheckedUpdateWithoutVerrousInput>
+    create: XOR<VersionEdtCreateWithoutVerrousInput, VersionEdtUncheckedCreateWithoutVerrousInput>
+    where?: VersionEdtWhereInput
+  }
+
+  export type VersionEdtUpdateToOneWithWhereWithoutVerrousInput = {
+    where?: VersionEdtWhereInput
+    data: XOR<VersionEdtUpdateWithoutVerrousInput, VersionEdtUncheckedUpdateWithoutVerrousInput>
+  }
+
+  export type VersionEdtUpdateWithoutVerrousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutVerrousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+  }
+
+  export type SeanceUpsertWithoutVerrousInput = {
+    update: XOR<SeanceUpdateWithoutVerrousInput, SeanceUncheckedUpdateWithoutVerrousInput>
+    create: XOR<SeanceCreateWithoutVerrousInput, SeanceUncheckedCreateWithoutVerrousInput>
+    where?: SeanceWhereInput
+  }
+
+  export type SeanceUpdateToOneWithWhereWithoutVerrousInput = {
+    where?: SeanceWhereInput
+    data: XOR<SeanceUpdateWithoutVerrousInput, SeanceUncheckedUpdateWithoutVerrousInput>
+  }
+
+  export type SeanceUpdateWithoutVerrousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    version?: VersionEdtUpdateOneWithoutSeancesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
+    salle?: SalleUpdateOneWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
+    groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateWithoutVerrousInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -109578,6 +111598,7 @@ export namespace Prisma {
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
     occupations?: OccupationCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutEnseignantInput = {
@@ -109598,6 +111619,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutEnseignantInput = {
@@ -110464,6 +112486,7 @@ export namespace Prisma {
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
     occupations?: OccupationCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutSalleInput = {
@@ -110484,6 +112507,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutSalleInput = {
@@ -112699,6 +114723,7 @@ export namespace Prisma {
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutConflitsInput = {
@@ -112713,6 +114738,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutConflitsInput = {
@@ -112743,6 +114769,7 @@ export namespace Prisma {
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutConflitsInput = {
@@ -112757,6 +114784,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -114474,6 +116502,7 @@ export namespace Prisma {
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutSemestreInput = {
@@ -114494,6 +116523,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutSemestreInput = {
@@ -114526,6 +116556,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSemestreInput = {
@@ -114540,6 +116571,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateManyWithoutSemestreInput = {
@@ -114615,6 +116647,7 @@ export namespace Prisma {
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutCreneauDebutInput = {
@@ -114635,6 +116668,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutCreneauDebutInput = {
@@ -114666,6 +116700,17 @@ export namespace Prisma {
     creneauId: string
     ressourceType: $Enums.RessourceType
     ressourceId: string
+  }
+
+  export type VerrouSeanceCreateManySeanceInput = {
+    id?: string
+    versionId: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
   }
 
   export type SeanceGroupeUpdateWithoutSeanceInput = {
@@ -114705,6 +116750,39 @@ export namespace Prisma {
     creneauId?: StringFieldUpdateOperationsInput | string
     ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
     ressourceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VerrouSeanceUpdateWithoutSeanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
+    version?: VersionEdtUpdateOneRequiredWithoutVerrousNestedInput
+  }
+
+  export type VerrouSeanceUncheckedUpdateWithoutSeanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VerrouSeanceUncheckedUpdateManyWithoutSeanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SeanceCreateManyVersionInput = {
@@ -114753,6 +116831,17 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type VerrouSeanceCreateManyVersionInput = {
+    id?: string
+    seanceId: string
+    type: $Enums.VerrouType
+    auteurId: string
+    justification?: string | null
+    creeLe?: Date | string
+    leveLe?: Date | string | null
+    levePar?: string | null
+  }
+
   export type SeanceUpdateWithoutVersionInput = {
     id?: StringFieldUpdateOperationsInput | string
     affectationKey?: StringFieldUpdateOperationsInput | string
@@ -114771,6 +116860,7 @@ export namespace Prisma {
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutVersionInput = {
@@ -114791,6 +116881,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutVersionInput = {
@@ -114893,6 +116984,39 @@ export namespace Prisma {
     details?: NullableJsonNullValueInput | InputJsonValue
     resoluLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VerrouSeanceUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
+    seance?: SeanceUpdateOneRequiredWithoutVerrousNestedInput
+  }
+
+  export type VerrouSeanceUncheckedUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seanceId?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VerrouSeanceUncheckedUpdateManyWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seanceId?: StringFieldUpdateOperationsInput | string
+    type?: EnumVerrouTypeFieldUpdateOperationsInput | $Enums.VerrouType
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    levePar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FormationCreateManyDepartementInput = {
@@ -116275,6 +118399,7 @@ export namespace Prisma {
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutEnseignantInput = {
@@ -116295,6 +118420,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutEnseignantInput = {
@@ -116571,6 +118697,7 @@ export namespace Prisma {
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutSalleInput = {
@@ -116591,6 +118718,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutSalleInput = {

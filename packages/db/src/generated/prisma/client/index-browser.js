@@ -431,6 +431,18 @@ exports.Prisma.EditLockScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.VerrouSeanceScalarFieldEnum = {
+  id: 'id',
+  versionId: 'versionId',
+  seanceId: 'seanceId',
+  type: 'type',
+  auteurId: 'auteurId',
+  justification: 'justification',
+  creeLe: 'creeLe',
+  leveLe: 'leveLe',
+  levePar: 'levePar'
+};
+
 exports.Prisma.DepartementScalarFieldEnum = {
   id: 'id',
   anneeId: 'anneeId',
@@ -931,6 +943,13 @@ exports.VersionStatut = exports.$Enums.VersionStatut = {
   CORRECTION: 'CORRECTION'
 };
 
+exports.VerrouType = exports.$Enums.VerrouType = {
+  CRENEAU: 'CRENEAU',
+  SALLE: 'SALLE',
+  ENSEIGNANT: 'ENSEIGNANT',
+  ACTIVITE: 'ACTIVITE'
+};
+
 exports.GroupeType = exports.$Enums.GroupeType = {
   SECTION: 'SECTION',
   GROUPE: 'GROUPE',
@@ -1068,6 +1087,7 @@ exports.Prisma.ModelName = {
   VersionEdt: 'VersionEdt',
   VersionSnapshot: 'VersionSnapshot',
   EditLock: 'EditLock',
+  VerrouSeance: 'VerrouSeance',
   Departement: 'Departement',
   Formation: 'Formation',
   Niveau: 'Niveau',
