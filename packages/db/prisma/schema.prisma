@@ -647,6 +647,7 @@ model Seance {
   revision     Int         @default(0)
   groupes      SeanceGroupe[]
   occupations  Occupation[]
+  verrous      VerrouSeance[]
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 
@@ -741,6 +742,7 @@ model VersionEdt {
   snapshots   VersionSnapshot[]
   conflits    Conflit[]
   editLock    EditLock?
+  verrous     VerrouSeance[]
 
   @@index([semestreId])
   @@index([statut])
@@ -769,6 +771,35 @@ model EditLock {
 
   @@index([expiresAt])
   @@map("edit_locks")
+}
+
+// Type de verrou sur une séance (EX-VRR-01, L3-36).
+enum VerrouType {
+  CRENEAU
+  SALLE
+  ENSEIGNANT
+  ACTIVITE
+}
+
+// Verrous par séance (EX-VRR-01). Un verrou levé reste en base (historique).
+// Un seul verrou actif par (séance, type) — index partiel sur leveLe IS NULL.
+model VerrouSeance {
+  id            String     @id @default(uuid()) @db.Uuid
+  versionId     String     @db.Uuid
+  seanceId      String     @db.Uuid
+  type          VerrouType
+  auteurId      String     @db.Uuid
+  justification String?
+  creeLe        DateTime   @default(now())
+  leveLe        DateTime?
+  levePar       String?    @db.Uuid
+
+  version VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  seance  Seance     @relation(fields: [seanceId], references: [id], onDelete: Cascade)
+
+  @@index([versionId, leveLe])
+  @@index([seanceId])
+  @@map("verrous_seances")
 }
 
 // ============================================
