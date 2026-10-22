@@ -386,6 +386,8 @@ exports.Prisma.SeanceScalarFieldEnum = {
   creneauDebutId: 'creneauDebutId',
   nbCreneaux: 'nbCreneaux',
   statut: 'statut',
+  origine: 'origine',
+  revision: 'revision',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -393,6 +395,16 @@ exports.Prisma.SeanceScalarFieldEnum = {
 exports.Prisma.SeanceGroupeScalarFieldEnum = {
   seanceId: 'seanceId',
   groupeId: 'groupeId'
+};
+
+exports.Prisma.OccupationScalarFieldEnum = {
+  id: 'id',
+  versionId: 'versionId',
+  seanceId: 'seanceId',
+  jour: 'jour',
+  creneauId: 'creneauId',
+  ressourceType: 'ressourceType',
+  ressourceId: 'ressourceId'
 };
 
 exports.Prisma.VersionEdtScalarFieldEnum = {
@@ -868,6 +880,22 @@ exports.GrilleAffichage = exports.$Enums.GrilleAffichage = {
   RAMADAN: 'RAMADAN'
 };
 
+exports.SeanceStatut = exports.$Enums.SeanceStatut = {
+  PLACEE: 'PLACEE',
+  NON_PLACEE: 'NON_PLACEE'
+};
+
+exports.SeanceOrigine = exports.$Enums.SeanceOrigine = {
+  MOTEUR: 'MOTEUR',
+  MANUEL: 'MANUEL'
+};
+
+exports.RessourceType = exports.$Enums.RessourceType = {
+  ENSEIGNANT: 'ENSEIGNANT',
+  SALLE: 'SALLE',
+  GROUPE: 'GROUPE'
+};
+
 exports.VersionStatut = exports.$Enums.VersionStatut = {
   BROUILLON: 'BROUILLON',
   EDITION: 'EDITION',
@@ -991,6 +1019,7 @@ exports.Prisma.ModelName = {
   CreneauAffichage: 'CreneauAffichage',
   Seance: 'Seance',
   SeanceGroupe: 'SeanceGroupe',
+  Occupation: 'Occupation',
   VersionEdt: 'VersionEdt',
   VersionSnapshot: 'VersionSnapshot',
   Departement: 'Departement',

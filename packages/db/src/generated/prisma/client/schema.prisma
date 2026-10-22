@@ -642,8 +642,11 @@ model Seance {
   creneauDebutId String?        @db.Uuid // renseigné lors du placement (L3-10)
   creneauDebut   Creneau?       @relation(fields: [creneauDebutId], references: [id], onDelete: SetNull)
   nbCreneaux     Int            @default(1)
-  statut         String         @default("PLACEE") // PLACEE | ANNULEE | ...
+  statut         SeanceStatut   @default(NON_PLACEE) // PLACEE | NON_PLACEE
+  origine        SeanceOrigine  @default(MOTEUR)
+  revision       Int            @default(0)
   groupes        SeanceGroupe[]
+  occupations    Occupation[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
 
@@ -652,6 +655,9 @@ model Seance {
   @@index([enseignantId])
   @@index([salleId])
   @@index([versionId])
+  @@index([versionId, jour, creneauDebutId])
+  @@index([versionId, enseignantId])
+  @@index([versionId, salleId])
   @@map("seances")
 }
 
@@ -662,7 +668,30 @@ model SeanceGroupe {
   groupe   Groupe @relation(fields: [groupeId], references: [id], onDelete: Cascade)
 
   @@id([seanceId, groupeId])
+  @@index([groupeId])
   @@map("seance_groupes")
+}
+
+// ============================================
+// Occupations de ressources (L3-10)
+// Une ligne par créneau couvert et par ressource occupée (enseignant, salle, groupe).
+// Garantit l'unicité d'une ressource sur un créneau donné dans une version.
+// ============================================
+model Occupation {
+  id            String        @id @default(uuid()) @db.Uuid
+  versionId     String        @db.Uuid
+  seanceId      String        @db.Uuid
+  jour          JourSemaine
+  creneauId     String        @db.Uuid
+  ressourceType RessourceType
+  ressourceId   String        @db.Uuid
+
+  version VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  seance  Seance     @relation(fields: [seanceId], references: [id], onDelete: Cascade)
+
+  @@unique([versionId, jour, creneauId, ressourceType, ressourceId])
+  @@index([seanceId])
+  @@map("occupations")
 }
 
 // ============================================
@@ -681,6 +710,22 @@ enum VersionStatut {
   CORRECTION
 }
 
+enum SeanceStatut {
+  PLACEE
+  NON_PLACEE
+}
+
+enum SeanceOrigine {
+  MOTEUR
+  MANUEL
+}
+
+enum RessourceType {
+  ENSEIGNANT
+  SALLE
+  GROUPE
+}
+
 model VersionEdt {
   id         String        @id @default(uuid()) @db.Uuid
   semestreId String        @db.Uuid
@@ -691,8 +736,9 @@ model VersionEdt {
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
 
-  seances   Seance[]
-  snapshots VersionSnapshot[]
+  seances     Seance[]
+  occupations Occupation[]
+  snapshots   VersionSnapshot[]
 
   @@index([semestreId])
   @@index([statut])
