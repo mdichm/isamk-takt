@@ -44,6 +44,7 @@ export interface SeanceInput {
   typeEnseignementId: string;
   statut: 'PLACEE' | 'NON_PLACEE';
   versionId: string;
+  volumePlace?: number; // minutes déjà placées (défaut 0)
 }
 
 export interface PlacementCandidat {
@@ -203,6 +204,7 @@ export function validatePlacement(seance: SeanceInput, candidat: PlacementCandid
   }
 
   // --- 6. Pédagogique ---
+  const volumePlace = seance.volumePlace ?? 0;
   for (const gId of seance.groupes) {
     const snap = ctx.snapshot.get(gId, seance.moduleId, seance.typeEnseignementId);
     if (snap && !snap.enseignantsAutorises.includes(seance.enseignantId)) {
@@ -211,6 +213,13 @@ export function validatePlacement(seance: SeanceInput, candidat: PlacementCandid
     const snap2 = ctx.snapshot.get(gId, seance.moduleId, seance.typeEnseignementId);
     if (snap2 && seance.nbCreneaux * 30 !== snap2.dureeCreneaux) {
       conflits.push(conflit('SESSION_DURATION_MISMATCH','PEDAGOGIQUE','BLOQUANT','seance',seance.id,[seance.id],`Durée ${seance.nbCreneaux} ≠ ${snap2.dureeCreneaux}min`,slotKeys));
+    }
+    if (snap2) {
+      if (volumePlace > snap2.volumeAttendu) {
+        conflits.push(conflit('SESSION_OVERPLANNED','PEDAGOGIQUE','BLOQUANT','seance',seance.id,[seance.id],`Volume ${volumePlace} > attendu ${snap2.volumeAttendu}`,slotKeys));
+      } else if (volumePlace < snap2.volumeAttendu) {
+        conflits.push(conflit('COVERAGE_INCOMPLETE','COMPLETUDE','BLOQUANT','seance',seance.id,[seance.id],`Volume ${volumePlace} < attendu ${snap2.volumeAttendu}`,slotKeys));
+      }
     }
   }
 
