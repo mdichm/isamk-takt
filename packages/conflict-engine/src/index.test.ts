@@ -377,6 +377,76 @@ describe('validatePlacement', () => {
     const c = validatePlacement(makeSeance(), makeCandidat(), ctx);
     expect(c.some(x => x.regleCode === 'LOCK_VIOLATED')).toBe(true);
   });
+
+  it('LOCK_OVERRIDABLE sur verrou overridable sans déplacement → AVERTISSEMENT', () => {
+    const ctx = makeCtx();
+    ctx.verrous.add('s1', 'CRENEAU', true);
+    const c = validatePlacement(makeSeance(), makeCandidat(), ctx);
+    const conflit = c.find(x => x.regleCode === 'LOCK_OVERRIDABLE');
+    expect(conflit).toBeDefined();
+    expect(conflit?.severite).toBe('AVERTISSEMENT');
+    expect(c.some(x => x.regleCode === 'LOCK_OVERRIDDEN')).toBe(false);
+    expect(c.some(x => x.regleCode === 'LOCK_VIOLATED')).toBe(false);
+  });
+
+  it('LOCK_OVERRIDDEN sur verrou overridable avec déplacement de salle → AVERTISSEMENT', () => {
+    const ctx = makeCtx();
+    ctx.verrous.add('s1', 'CRENEAU', true);
+    const c = validatePlacement(
+      makeSeance({ placeInitiale: { salleId: 'r2' } }),
+      makeCandidat({ salle: 'r1' }),
+      ctx,
+    );
+    const conflit = c.find(x => x.regleCode === 'LOCK_OVERRIDDEN');
+    expect(conflit).toBeDefined();
+    expect(conflit?.severite).toBe('AVERTISSEMENT');
+    expect(c.some(x => x.regleCode === 'LOCK_OVERRIDABLE')).toBe(false);
+    expect(c.some(x => x.regleCode === 'LOCK_VIOLATED')).toBe(false);
+  });
+
+  it('pas de LOCK_OVERRIDDEN si verrou overridable mais pas de déplacement', () => {
+    const ctx = makeCtx();
+    ctx.verrous.add('s1', 'CRENEAU', true);
+    const c = validatePlacement(makeSeance(), makeCandidat(), ctx);
+    expect(c.some(x => x.regleCode === 'LOCK_OVERRIDDEN')).toBe(false);
+    expect(c.some(x => x.regleCode === 'LOCK_OVERRIDABLE')).toBe(true);
+  });
+
+  it('ROOM_MOVE_FORBIDDEN quand déplacement de salle sans précédent → BLOQUANT', () => {
+    const ctx = makeCtx();
+    const c = validatePlacement(
+      makeSeance({ placeInitiale: { salleId: 'r2' } }),
+      makeCandidat({ salle: 'r1' }),
+      ctx,
+    );
+    const conflit = c.find(x => x.regleCode === 'ROOM_MOVE_FORBIDDEN');
+    expect(conflit).toBeDefined();
+    expect(conflit?.severite).toBe('BLOQUANT');
+  });
+
+  it('pas de ROOM_MOVE_FORBIDDEN quand déplacement de salle avec précédent', () => {
+    const ctx = makeCtx();
+    // Précédent : le groupe g1 occupe déjà la salle r1 au créneau c1 (par la séance s2)
+    ctx.occ.build([
+      { seanceId: 's2', jour: 'LUNDI', creneauId: 'c1', ressourceType: 'GROUPE', ressourceId: 'g1' },
+      { seanceId: 's2', jour: 'LUNDI', creneauId: 'c1', ressourceType: 'SALLE', ressourceId: 'r1' },
+    ]);
+    const c = validatePlacement(
+      makeSeance({ placeInitiale: { salleId: 'r2' } }),
+      makeCandidat({ salle: 'r1' }),
+      ctx,
+    );
+    expect(c.some(x => x.regleCode === 'ROOM_MOVE_FORBIDDEN')).toBe(false);
+  });
+
+  it('LOCK_VIOLATED toujours sur verrou non overridable (régression)', () => {
+    const ctx = makeCtx();
+    ctx.verrous.add('s1', 'CRENEAU'); // pas overridable
+    const c = validatePlacement(makeSeance(), makeCandidat(), ctx);
+    expect(c.some(x => x.regleCode === 'LOCK_VIOLATED')).toBe(true);
+    expect(c.some(x => x.regleCode === 'LOCK_OVERRIDABLE')).toBe(false);
+    expect(c.some(x => x.regleCode === 'LOCK_OVERRIDDEN')).toBe(false);
+  });
 });
 
 // ============================================================================
@@ -541,6 +611,55 @@ describe('propriétés (fast-check)', () => {
           const s1 = computeSignature(regleCode, ids, 'seance', objetId, ['LUNDI|c1']);
           const s2 = computeSignature(regleCode, shuffled, 'seance', objetId, ['LUNDI|c1']);
           expect(s1).toBe(s2);
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+
+  it('déplacement de salle avec verrou overridable → LOCK_OVERRIDDEN toujours présent', () => {
+    fc.assert(
+      fc.property(
+        fc.boolean(),
+        fc.boolean(),
+        (overridable: boolean, deplace: boolean) => {
+          const ctx = makeCtx();
+          if (overridable) {
+            ctx.verrous.add('s1', 'CRENEAU', true);
+          }
+          const seance = makeSeance({
+            placeInitiale: deplace ? { salleId: 'r2' } : undefined,
+          });
+          const c = validatePlacement(seance, makeCandidat({ salle: 'r1' }), ctx);
+          if (overridable && deplace) {
+            expect(c.some(x => x.regleCode === 'LOCK_OVERRIDDEN')).toBe(true);
+          }
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+
+  it('pas de ROOM_MOVE_FORBIDDEN quand un précédent existe pour le groupe/salle/créneau', () => {
+    fc.assert(
+      fc.property(
+        fc.boolean(),
+        (avecPrecedent: boolean) => {
+          const ctx = makeCtx();
+          if (avecPrecedent) {
+            ctx.occ.build([
+              { seanceId: 's2', jour: 'LUNDI', creneauId: 'c1', ressourceType: 'GROUPE', ressourceId: 'g1' },
+              { seanceId: 's2', jour: 'LUNDI', creneauId: 'c1', ressourceType: 'SALLE', ressourceId: 'r1' },
+            ]);
+          }
+          const c = validatePlacement(
+            makeSeance({ placeInitiale: { salleId: 'r2' } }),
+            makeCandidat({ salle: 'r1' }),
+            ctx,
+          );
+          if (avecPrecedent) {
+            expect(c.some(x => x.regleCode === 'ROOM_MOVE_FORBIDDEN')).toBe(false);
+          }
         },
       ),
       { numRuns: 100 },
