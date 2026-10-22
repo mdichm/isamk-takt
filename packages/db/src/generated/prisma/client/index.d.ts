@@ -139,6 +139,11 @@ export type Seance = $Result.DefaultSelection<Prisma.$SeancePayload>
  */
 export type SeanceGroupe = $Result.DefaultSelection<Prisma.$SeanceGroupePayload>
 /**
+ * Model Occupation
+ * 
+ */
+export type Occupation = $Result.DefaultSelection<Prisma.$OccupationPayload>
+/**
  * Model VersionEdt
  * 
  */
@@ -534,6 +539,31 @@ export const VersionStatut: {
 export type VersionStatut = (typeof VersionStatut)[keyof typeof VersionStatut]
 
 
+export const SeanceStatut: {
+  PLACEE: 'PLACEE',
+  NON_PLACEE: 'NON_PLACEE'
+};
+
+export type SeanceStatut = (typeof SeanceStatut)[keyof typeof SeanceStatut]
+
+
+export const SeanceOrigine: {
+  MOTEUR: 'MOTEUR',
+  MANUEL: 'MANUEL'
+};
+
+export type SeanceOrigine = (typeof SeanceOrigine)[keyof typeof SeanceOrigine]
+
+
+export const RessourceType: {
+  ENSEIGNANT: 'ENSEIGNANT',
+  SALLE: 'SALLE',
+  GROUPE: 'GROUPE'
+};
+
+export type RessourceType = (typeof RessourceType)[keyof typeof RessourceType]
+
+
 export const TypeEnseignementCode: {
   CM: 'CM',
   TD: 'TD',
@@ -657,6 +687,18 @@ export const TraductionFET: typeof $Enums.TraductionFET
 export type VersionStatut = $Enums.VersionStatut
 
 export const VersionStatut: typeof $Enums.VersionStatut
+
+export type SeanceStatut = $Enums.SeanceStatut
+
+export const SeanceStatut: typeof $Enums.SeanceStatut
+
+export type SeanceOrigine = $Enums.SeanceOrigine
+
+export const SeanceOrigine: typeof $Enums.SeanceOrigine
+
+export type RessourceType = $Enums.RessourceType
+
+export const RessourceType: typeof $Enums.RessourceType
 
 export type TypeEnseignementCode = $Enums.TypeEnseignementCode
 
@@ -1040,6 +1082,16 @@ export class PrismaClient<
     * ```
     */
   get seanceGroupe(): Prisma.SeanceGroupeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.occupation`: Exposes CRUD operations for the **Occupation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Occupations
+    * const occupations = await prisma.occupation.findMany()
+    * ```
+    */
+  get occupation(): Prisma.OccupationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.versionEdt`: Exposes CRUD operations for the **VersionEdt** model.
@@ -1842,6 +1894,7 @@ export namespace Prisma {
     CreneauAffichage: 'CreneauAffichage',
     Seance: 'Seance',
     SeanceGroupe: 'SeanceGroupe',
+    Occupation: 'Occupation',
     VersionEdt: 'VersionEdt',
     VersionSnapshot: 'VersionSnapshot',
     Departement: 'Departement',
@@ -1890,7 +1943,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "versionEdt" | "versionSnapshot" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3741,6 +3794,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SeanceGroupeCountArgs<ExtArgs>
             result: $Utils.Optional<SeanceGroupeCountAggregateOutputType> | number
+          }
+        }
+      }
+      Occupation: {
+        payload: Prisma.$OccupationPayload<ExtArgs>
+        fields: Prisma.OccupationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OccupationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OccupationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>
+          }
+          findFirst: {
+            args: Prisma.OccupationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OccupationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>
+          }
+          findMany: {
+            args: Prisma.OccupationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>[]
+          }
+          create: {
+            args: Prisma.OccupationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>
+          }
+          createMany: {
+            args: Prisma.OccupationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OccupationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>[]
+          }
+          delete: {
+            args: Prisma.OccupationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>
+          }
+          update: {
+            args: Prisma.OccupationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>
+          }
+          deleteMany: {
+            args: Prisma.OccupationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OccupationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OccupationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>[]
+          }
+          upsert: {
+            args: Prisma.OccupationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OccupationPayload>
+          }
+          aggregate: {
+            args: Prisma.OccupationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOccupation>
+          }
+          groupBy: {
+            args: Prisma.OccupationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OccupationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OccupationCountArgs<ExtArgs>
+            result: $Utils.Optional<OccupationCountAggregateOutputType> | number
           }
         }
       }
@@ -6334,6 +6461,7 @@ export namespace Prisma {
     creneauAffichage?: CreneauAffichageOmit
     seance?: SeanceOmit
     seanceGroupe?: SeanceGroupeOmit
+    occupation?: OccupationOmit
     versionEdt?: VersionEdtOmit
     versionSnapshot?: VersionSnapshotOmit
     departement?: DepartementOmit
@@ -6988,10 +7116,12 @@ export namespace Prisma {
 
   export type SeanceCountOutputType = {
     groupes: number
+    occupations: number
   }
 
   export type SeanceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     groupes?: boolean | SeanceCountOutputTypeCountGroupesArgs
+    occupations?: boolean | SeanceCountOutputTypeCountOccupationsArgs
   }
 
   // Custom InputTypes
@@ -7012,6 +7142,13 @@ export namespace Prisma {
     where?: SeanceGroupeWhereInput
   }
 
+  /**
+   * SeanceCountOutputType without action
+   */
+  export type SeanceCountOutputTypeCountOccupationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OccupationWhereInput
+  }
+
 
   /**
    * Count Type VersionEdtCountOutputType
@@ -7019,11 +7156,13 @@ export namespace Prisma {
 
   export type VersionEdtCountOutputType = {
     seances: number
+    occupations: number
     snapshots: number
   }
 
   export type VersionEdtCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     seances?: boolean | VersionEdtCountOutputTypeCountSeancesArgs
+    occupations?: boolean | VersionEdtCountOutputTypeCountOccupationsArgs
     snapshots?: boolean | VersionEdtCountOutputTypeCountSnapshotsArgs
   }
 
@@ -7043,6 +7182,13 @@ export namespace Prisma {
    */
   export type VersionEdtCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SeanceWhereInput
+  }
+
+  /**
+   * VersionEdtCountOutputType without action
+   */
+  export type VersionEdtCountOutputTypeCountOccupationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OccupationWhereInput
   }
 
   /**
@@ -34459,11 +34605,13 @@ export namespace Prisma {
   export type SeanceAvgAggregateOutputType = {
     rang: number | null
     nbCreneaux: number | null
+    revision: number | null
   }
 
   export type SeanceSumAggregateOutputType = {
     rang: number | null
     nbCreneaux: number | null
+    revision: number | null
   }
 
   export type SeanceMinAggregateOutputType = {
@@ -34478,7 +34626,9 @@ export namespace Prisma {
     jour: $Enums.JourSemaine | null
     creneauDebutId: string | null
     nbCreneaux: number | null
-    statut: string | null
+    statut: $Enums.SeanceStatut | null
+    origine: $Enums.SeanceOrigine | null
+    revision: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -34495,7 +34645,9 @@ export namespace Prisma {
     jour: $Enums.JourSemaine | null
     creneauDebutId: string | null
     nbCreneaux: number | null
-    statut: string | null
+    statut: $Enums.SeanceStatut | null
+    origine: $Enums.SeanceOrigine | null
+    revision: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -34513,6 +34665,8 @@ export namespace Prisma {
     creneauDebutId: number
     nbCreneaux: number
     statut: number
+    origine: number
+    revision: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -34522,11 +34676,13 @@ export namespace Prisma {
   export type SeanceAvgAggregateInputType = {
     rang?: true
     nbCreneaux?: true
+    revision?: true
   }
 
   export type SeanceSumAggregateInputType = {
     rang?: true
     nbCreneaux?: true
+    revision?: true
   }
 
   export type SeanceMinAggregateInputType = {
@@ -34542,6 +34698,8 @@ export namespace Prisma {
     creneauDebutId?: true
     nbCreneaux?: true
     statut?: true
+    origine?: true
+    revision?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -34559,6 +34717,8 @@ export namespace Prisma {
     creneauDebutId?: true
     nbCreneaux?: true
     statut?: true
+    origine?: true
+    revision?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -34576,6 +34736,8 @@ export namespace Prisma {
     creneauDebutId?: true
     nbCreneaux?: true
     statut?: true
+    origine?: true
+    revision?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -34679,7 +34841,9 @@ export namespace Prisma {
     jour: $Enums.JourSemaine | null
     creneauDebutId: string | null
     nbCreneaux: number
-    statut: string
+    statut: $Enums.SeanceStatut
+    origine: $Enums.SeanceOrigine
+    revision: number
     createdAt: Date
     updatedAt: Date
     _count: SeanceCountAggregateOutputType | null
@@ -34716,6 +34880,8 @@ export namespace Prisma {
     creneauDebutId?: boolean
     nbCreneaux?: boolean
     statut?: boolean
+    origine?: boolean
+    revision?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -34724,6 +34890,7 @@ export namespace Prisma {
     salle?: boolean | Seance$salleArgs<ExtArgs>
     creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
     groupes?: boolean | Seance$groupesArgs<ExtArgs>
+    occupations?: boolean | Seance$occupationsArgs<ExtArgs>
     _count?: boolean | SeanceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["seance"]>
 
@@ -34740,6 +34907,8 @@ export namespace Prisma {
     creneauDebutId?: boolean
     nbCreneaux?: boolean
     statut?: boolean
+    origine?: boolean
+    revision?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -34762,6 +34931,8 @@ export namespace Prisma {
     creneauDebutId?: boolean
     nbCreneaux?: boolean
     statut?: boolean
+    origine?: boolean
+    revision?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -34784,11 +34955,13 @@ export namespace Prisma {
     creneauDebutId?: boolean
     nbCreneaux?: boolean
     statut?: boolean
+    origine?: boolean
+    revision?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SeanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "versionId" | "enseignantId" | "salleId" | "affectationKey" | "rang" | "tag" | "jour" | "creneauDebutId" | "nbCreneaux" | "statut" | "createdAt" | "updatedAt", ExtArgs["result"]["seance"]>
+  export type SeanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "versionId" | "enseignantId" | "salleId" | "affectationKey" | "rang" | "tag" | "jour" | "creneauDebutId" | "nbCreneaux" | "statut" | "origine" | "revision" | "createdAt" | "updatedAt", ExtArgs["result"]["seance"]>
   export type SeanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | Seance$versionArgs<ExtArgs>
@@ -34796,6 +34969,7 @@ export namespace Prisma {
     salle?: boolean | Seance$salleArgs<ExtArgs>
     creneauDebut?: boolean | Seance$creneauDebutArgs<ExtArgs>
     groupes?: boolean | Seance$groupesArgs<ExtArgs>
+    occupations?: boolean | Seance$occupationsArgs<ExtArgs>
     _count?: boolean | SeanceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SeanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -34822,6 +34996,7 @@ export namespace Prisma {
       salle: Prisma.$SallePayload<ExtArgs> | null
       creneauDebut: Prisma.$CreneauPayload<ExtArgs> | null
       groupes: Prisma.$SeanceGroupePayload<ExtArgs>[]
+      occupations: Prisma.$OccupationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -34835,7 +35010,9 @@ export namespace Prisma {
       jour: $Enums.JourSemaine | null
       creneauDebutId: string | null
       nbCreneaux: number
-      statut: string
+      statut: $Enums.SeanceStatut
+      origine: $Enums.SeanceOrigine
+      revision: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["seance"]>
@@ -35238,6 +35415,7 @@ export namespace Prisma {
     salle<T extends Seance$salleArgs<ExtArgs> = {}>(args?: Subset<T, Seance$salleArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     creneauDebut<T extends Seance$creneauDebutArgs<ExtArgs> = {}>(args?: Subset<T, Seance$creneauDebutArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     groupes<T extends Seance$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Seance$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    occupations<T extends Seance$occupationsArgs<ExtArgs> = {}>(args?: Subset<T, Seance$occupationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35278,7 +35456,9 @@ export namespace Prisma {
     readonly jour: FieldRef<"Seance", 'JourSemaine'>
     readonly creneauDebutId: FieldRef<"Seance", 'String'>
     readonly nbCreneaux: FieldRef<"Seance", 'Int'>
-    readonly statut: FieldRef<"Seance", 'String'>
+    readonly statut: FieldRef<"Seance", 'SeanceStatut'>
+    readonly origine: FieldRef<"Seance", 'SeanceOrigine'>
+    readonly revision: FieldRef<"Seance", 'Int'>
     readonly createdAt: FieldRef<"Seance", 'DateTime'>
     readonly updatedAt: FieldRef<"Seance", 'DateTime'>
   }
@@ -35779,6 +35959,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SeanceGroupeScalarFieldEnum | SeanceGroupeScalarFieldEnum[]
+  }
+
+  /**
+   * Seance.occupations
+   */
+  export type Seance$occupationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    where?: OccupationWhereInput
+    orderBy?: OccupationOrderByWithRelationInput | OccupationOrderByWithRelationInput[]
+    cursor?: OccupationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OccupationScalarFieldEnum | OccupationScalarFieldEnum[]
   }
 
   /**
@@ -36833,6 +37037,1103 @@ export namespace Prisma {
 
 
   /**
+   * Model Occupation
+   */
+
+  export type AggregateOccupation = {
+    _count: OccupationCountAggregateOutputType | null
+    _min: OccupationMinAggregateOutputType | null
+    _max: OccupationMaxAggregateOutputType | null
+  }
+
+  export type OccupationMinAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    seanceId: string | null
+    jour: $Enums.JourSemaine | null
+    creneauId: string | null
+    ressourceType: $Enums.RessourceType | null
+    ressourceId: string | null
+  }
+
+  export type OccupationMaxAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    seanceId: string | null
+    jour: $Enums.JourSemaine | null
+    creneauId: string | null
+    ressourceType: $Enums.RessourceType | null
+    ressourceId: string | null
+  }
+
+  export type OccupationCountAggregateOutputType = {
+    id: number
+    versionId: number
+    seanceId: number
+    jour: number
+    creneauId: number
+    ressourceType: number
+    ressourceId: number
+    _all: number
+  }
+
+
+  export type OccupationMinAggregateInputType = {
+    id?: true
+    versionId?: true
+    seanceId?: true
+    jour?: true
+    creneauId?: true
+    ressourceType?: true
+    ressourceId?: true
+  }
+
+  export type OccupationMaxAggregateInputType = {
+    id?: true
+    versionId?: true
+    seanceId?: true
+    jour?: true
+    creneauId?: true
+    ressourceType?: true
+    ressourceId?: true
+  }
+
+  export type OccupationCountAggregateInputType = {
+    id?: true
+    versionId?: true
+    seanceId?: true
+    jour?: true
+    creneauId?: true
+    ressourceType?: true
+    ressourceId?: true
+    _all?: true
+  }
+
+  export type OccupationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Occupation to aggregate.
+     */
+    where?: OccupationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Occupations to fetch.
+     */
+    orderBy?: OccupationOrderByWithRelationInput | OccupationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OccupationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Occupations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Occupations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Occupations
+    **/
+    _count?: true | OccupationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OccupationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OccupationMaxAggregateInputType
+  }
+
+  export type GetOccupationAggregateType<T extends OccupationAggregateArgs> = {
+        [P in keyof T & keyof AggregateOccupation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOccupation[P]>
+      : GetScalarType<T[P], AggregateOccupation[P]>
+  }
+
+
+
+
+  export type OccupationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OccupationWhereInput
+    orderBy?: OccupationOrderByWithAggregationInput | OccupationOrderByWithAggregationInput[]
+    by: OccupationScalarFieldEnum[] | OccupationScalarFieldEnum
+    having?: OccupationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OccupationCountAggregateInputType | true
+    _min?: OccupationMinAggregateInputType
+    _max?: OccupationMaxAggregateInputType
+  }
+
+  export type OccupationGroupByOutputType = {
+    id: string
+    versionId: string
+    seanceId: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+    _count: OccupationCountAggregateOutputType | null
+    _min: OccupationMinAggregateOutputType | null
+    _max: OccupationMaxAggregateOutputType | null
+  }
+
+  type GetOccupationGroupByPayload<T extends OccupationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OccupationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OccupationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OccupationGroupByOutputType[P]>
+            : GetScalarType<T[P], OccupationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OccupationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    seanceId?: boolean
+    jour?: boolean
+    creneauId?: boolean
+    ressourceType?: boolean
+    ressourceId?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["occupation"]>
+
+  export type OccupationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    seanceId?: boolean
+    jour?: boolean
+    creneauId?: boolean
+    ressourceType?: boolean
+    ressourceId?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["occupation"]>
+
+  export type OccupationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    seanceId?: boolean
+    jour?: boolean
+    creneauId?: boolean
+    ressourceType?: boolean
+    ressourceId?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["occupation"]>
+
+  export type OccupationSelectScalar = {
+    id?: boolean
+    versionId?: boolean
+    seanceId?: boolean
+    jour?: boolean
+    creneauId?: boolean
+    ressourceType?: boolean
+    ressourceId?: boolean
+  }
+
+  export type OccupationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "versionId" | "seanceId" | "jour" | "creneauId" | "ressourceType" | "ressourceId", ExtArgs["result"]["occupation"]>
+  export type OccupationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }
+  export type OccupationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }
+  export type OccupationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+  }
+
+  export type $OccupationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Occupation"
+    objects: {
+      version: Prisma.$VersionEdtPayload<ExtArgs>
+      seance: Prisma.$SeancePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      versionId: string
+      seanceId: string
+      jour: $Enums.JourSemaine
+      creneauId: string
+      ressourceType: $Enums.RessourceType
+      ressourceId: string
+    }, ExtArgs["result"]["occupation"]>
+    composites: {}
+  }
+
+  type OccupationGetPayload<S extends boolean | null | undefined | OccupationDefaultArgs> = $Result.GetResult<Prisma.$OccupationPayload, S>
+
+  type OccupationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OccupationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OccupationCountAggregateInputType | true
+    }
+
+  export interface OccupationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Occupation'], meta: { name: 'Occupation' } }
+    /**
+     * Find zero or one Occupation that matches the filter.
+     * @param {OccupationFindUniqueArgs} args - Arguments to find a Occupation
+     * @example
+     * // Get one Occupation
+     * const occupation = await prisma.occupation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OccupationFindUniqueArgs>(args: SelectSubset<T, OccupationFindUniqueArgs<ExtArgs>>): Prisma__OccupationClient<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Occupation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OccupationFindUniqueOrThrowArgs} args - Arguments to find a Occupation
+     * @example
+     * // Get one Occupation
+     * const occupation = await prisma.occupation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OccupationFindUniqueOrThrowArgs>(args: SelectSubset<T, OccupationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OccupationClient<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Occupation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupationFindFirstArgs} args - Arguments to find a Occupation
+     * @example
+     * // Get one Occupation
+     * const occupation = await prisma.occupation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OccupationFindFirstArgs>(args?: SelectSubset<T, OccupationFindFirstArgs<ExtArgs>>): Prisma__OccupationClient<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Occupation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupationFindFirstOrThrowArgs} args - Arguments to find a Occupation
+     * @example
+     * // Get one Occupation
+     * const occupation = await prisma.occupation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OccupationFindFirstOrThrowArgs>(args?: SelectSubset<T, OccupationFindFirstOrThrowArgs<ExtArgs>>): Prisma__OccupationClient<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Occupations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Occupations
+     * const occupations = await prisma.occupation.findMany()
+     * 
+     * // Get first 10 Occupations
+     * const occupations = await prisma.occupation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const occupationWithIdOnly = await prisma.occupation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OccupationFindManyArgs>(args?: SelectSubset<T, OccupationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Occupation.
+     * @param {OccupationCreateArgs} args - Arguments to create a Occupation.
+     * @example
+     * // Create one Occupation
+     * const Occupation = await prisma.occupation.create({
+     *   data: {
+     *     // ... data to create a Occupation
+     *   }
+     * })
+     * 
+     */
+    create<T extends OccupationCreateArgs>(args: SelectSubset<T, OccupationCreateArgs<ExtArgs>>): Prisma__OccupationClient<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Occupations.
+     * @param {OccupationCreateManyArgs} args - Arguments to create many Occupations.
+     * @example
+     * // Create many Occupations
+     * const occupation = await prisma.occupation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OccupationCreateManyArgs>(args?: SelectSubset<T, OccupationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Occupations and returns the data saved in the database.
+     * @param {OccupationCreateManyAndReturnArgs} args - Arguments to create many Occupations.
+     * @example
+     * // Create many Occupations
+     * const occupation = await prisma.occupation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Occupations and only return the `id`
+     * const occupationWithIdOnly = await prisma.occupation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OccupationCreateManyAndReturnArgs>(args?: SelectSubset<T, OccupationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Occupation.
+     * @param {OccupationDeleteArgs} args - Arguments to delete one Occupation.
+     * @example
+     * // Delete one Occupation
+     * const Occupation = await prisma.occupation.delete({
+     *   where: {
+     *     // ... filter to delete one Occupation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OccupationDeleteArgs>(args: SelectSubset<T, OccupationDeleteArgs<ExtArgs>>): Prisma__OccupationClient<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Occupation.
+     * @param {OccupationUpdateArgs} args - Arguments to update one Occupation.
+     * @example
+     * // Update one Occupation
+     * const occupation = await prisma.occupation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OccupationUpdateArgs>(args: SelectSubset<T, OccupationUpdateArgs<ExtArgs>>): Prisma__OccupationClient<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Occupations.
+     * @param {OccupationDeleteManyArgs} args - Arguments to filter Occupations to delete.
+     * @example
+     * // Delete a few Occupations
+     * const { count } = await prisma.occupation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OccupationDeleteManyArgs>(args?: SelectSubset<T, OccupationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Occupations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Occupations
+     * const occupation = await prisma.occupation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OccupationUpdateManyArgs>(args: SelectSubset<T, OccupationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Occupations and returns the data updated in the database.
+     * @param {OccupationUpdateManyAndReturnArgs} args - Arguments to update many Occupations.
+     * @example
+     * // Update many Occupations
+     * const occupation = await prisma.occupation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Occupations and only return the `id`
+     * const occupationWithIdOnly = await prisma.occupation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OccupationUpdateManyAndReturnArgs>(args: SelectSubset<T, OccupationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Occupation.
+     * @param {OccupationUpsertArgs} args - Arguments to update or create a Occupation.
+     * @example
+     * // Update or create a Occupation
+     * const occupation = await prisma.occupation.upsert({
+     *   create: {
+     *     // ... data to create a Occupation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Occupation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OccupationUpsertArgs>(args: SelectSubset<T, OccupationUpsertArgs<ExtArgs>>): Prisma__OccupationClient<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Occupations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupationCountArgs} args - Arguments to filter Occupations to count.
+     * @example
+     * // Count the number of Occupations
+     * const count = await prisma.occupation.count({
+     *   where: {
+     *     // ... the filter for the Occupations we want to count
+     *   }
+     * })
+    **/
+    count<T extends OccupationCountArgs>(
+      args?: Subset<T, OccupationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OccupationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Occupation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OccupationAggregateArgs>(args: Subset<T, OccupationAggregateArgs>): Prisma.PrismaPromise<GetOccupationAggregateType<T>>
+
+    /**
+     * Group by Occupation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OccupationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OccupationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OccupationGroupByArgs['orderBy'] }
+        : { orderBy?: OccupationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OccupationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOccupationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Occupation model
+   */
+  readonly fields: OccupationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Occupation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OccupationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    seance<T extends SeanceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SeanceDefaultArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Occupation model
+   */
+  interface OccupationFieldRefs {
+    readonly id: FieldRef<"Occupation", 'String'>
+    readonly versionId: FieldRef<"Occupation", 'String'>
+    readonly seanceId: FieldRef<"Occupation", 'String'>
+    readonly jour: FieldRef<"Occupation", 'JourSemaine'>
+    readonly creneauId: FieldRef<"Occupation", 'String'>
+    readonly ressourceType: FieldRef<"Occupation", 'RessourceType'>
+    readonly ressourceId: FieldRef<"Occupation", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Occupation findUnique
+   */
+  export type OccupationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupation to fetch.
+     */
+    where: OccupationWhereUniqueInput
+  }
+
+  /**
+   * Occupation findUniqueOrThrow
+   */
+  export type OccupationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupation to fetch.
+     */
+    where: OccupationWhereUniqueInput
+  }
+
+  /**
+   * Occupation findFirst
+   */
+  export type OccupationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupation to fetch.
+     */
+    where?: OccupationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Occupations to fetch.
+     */
+    orderBy?: OccupationOrderByWithRelationInput | OccupationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Occupations.
+     */
+    cursor?: OccupationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Occupations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Occupations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Occupations.
+     */
+    distinct?: OccupationScalarFieldEnum | OccupationScalarFieldEnum[]
+  }
+
+  /**
+   * Occupation findFirstOrThrow
+   */
+  export type OccupationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupation to fetch.
+     */
+    where?: OccupationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Occupations to fetch.
+     */
+    orderBy?: OccupationOrderByWithRelationInput | OccupationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Occupations.
+     */
+    cursor?: OccupationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Occupations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Occupations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Occupations.
+     */
+    distinct?: OccupationScalarFieldEnum | OccupationScalarFieldEnum[]
+  }
+
+  /**
+   * Occupation findMany
+   */
+  export type OccupationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * Filter, which Occupations to fetch.
+     */
+    where?: OccupationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Occupations to fetch.
+     */
+    orderBy?: OccupationOrderByWithRelationInput | OccupationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Occupations.
+     */
+    cursor?: OccupationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Occupations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Occupations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Occupations.
+     */
+    distinct?: OccupationScalarFieldEnum | OccupationScalarFieldEnum[]
+  }
+
+  /**
+   * Occupation create
+   */
+  export type OccupationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Occupation.
+     */
+    data: XOR<OccupationCreateInput, OccupationUncheckedCreateInput>
+  }
+
+  /**
+   * Occupation createMany
+   */
+  export type OccupationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Occupations.
+     */
+    data: OccupationCreateManyInput | OccupationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Occupation createManyAndReturn
+   */
+  export type OccupationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Occupations.
+     */
+    data: OccupationCreateManyInput | OccupationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Occupation update
+   */
+  export type OccupationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Occupation.
+     */
+    data: XOR<OccupationUpdateInput, OccupationUncheckedUpdateInput>
+    /**
+     * Choose, which Occupation to update.
+     */
+    where: OccupationWhereUniqueInput
+  }
+
+  /**
+   * Occupation updateMany
+   */
+  export type OccupationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Occupations.
+     */
+    data: XOR<OccupationUpdateManyMutationInput, OccupationUncheckedUpdateManyInput>
+    /**
+     * Filter which Occupations to update
+     */
+    where?: OccupationWhereInput
+    /**
+     * Limit how many Occupations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Occupation updateManyAndReturn
+   */
+  export type OccupationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * The data used to update Occupations.
+     */
+    data: XOR<OccupationUpdateManyMutationInput, OccupationUncheckedUpdateManyInput>
+    /**
+     * Filter which Occupations to update
+     */
+    where?: OccupationWhereInput
+    /**
+     * Limit how many Occupations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Occupation upsert
+   */
+  export type OccupationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Occupation to update in case it exists.
+     */
+    where: OccupationWhereUniqueInput
+    /**
+     * In case the Occupation found by the `where` argument doesn't exist, create a new Occupation with this data.
+     */
+    create: XOR<OccupationCreateInput, OccupationUncheckedCreateInput>
+    /**
+     * In case the Occupation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OccupationUpdateInput, OccupationUncheckedUpdateInput>
+  }
+
+  /**
+   * Occupation delete
+   */
+  export type OccupationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    /**
+     * Filter which Occupation to delete.
+     */
+    where: OccupationWhereUniqueInput
+  }
+
+  /**
+   * Occupation deleteMany
+   */
+  export type OccupationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Occupations to delete
+     */
+    where?: OccupationWhereInput
+    /**
+     * Limit how many Occupations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Occupation without action
+   */
+  export type OccupationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model VersionEdt
    */
 
@@ -37014,6 +38315,7 @@ export namespace Prisma {
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     seances?: boolean | VersionEdt$seancesArgs<ExtArgs>
+    occupations?: boolean | VersionEdt$occupationsArgs<ExtArgs>
     snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["versionEdt"]>
@@ -37054,6 +38356,7 @@ export namespace Prisma {
   export type VersionEdtInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     seances?: boolean | VersionEdt$seancesArgs<ExtArgs>
+    occupations?: boolean | VersionEdt$occupationsArgs<ExtArgs>
     snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -37069,6 +38372,7 @@ export namespace Prisma {
     objects: {
       semestre: Prisma.$SemestrePayload<ExtArgs>
       seances: Prisma.$SeancePayload<ExtArgs>[]
+      occupations: Prisma.$OccupationPayload<ExtArgs>[]
       snapshots: Prisma.$VersionSnapshotPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -37475,6 +38779,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     seances<T extends VersionEdt$seancesArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    occupations<T extends VersionEdt$occupationsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$occupationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     snapshots<T extends VersionEdt$snapshotsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$snapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -37934,6 +39239,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt.occupations
+   */
+  export type VersionEdt$occupationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Occupation
+     */
+    select?: OccupationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Occupation
+     */
+    omit?: OccupationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OccupationInclude<ExtArgs> | null
+    where?: OccupationWhereInput
+    orderBy?: OccupationOrderByWithRelationInput | OccupationOrderByWithRelationInput[]
+    cursor?: OccupationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OccupationScalarFieldEnum | OccupationScalarFieldEnum[]
   }
 
   /**
@@ -75621,6 +76950,8 @@ export namespace Prisma {
     creneauDebutId: 'creneauDebutId',
     nbCreneaux: 'nbCreneaux',
     statut: 'statut',
+    origine: 'origine',
+    revision: 'revision',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -75634,6 +76965,19 @@ export namespace Prisma {
   };
 
   export type SeanceGroupeScalarFieldEnum = (typeof SeanceGroupeScalarFieldEnum)[keyof typeof SeanceGroupeScalarFieldEnum]
+
+
+  export const OccupationScalarFieldEnum: {
+    id: 'id',
+    versionId: 'versionId',
+    seanceId: 'seanceId',
+    jour: 'jour',
+    creneauId: 'creneauId',
+    ressourceType: 'ressourceType',
+    ressourceId: 'ressourceId'
+  };
+
+  export type OccupationScalarFieldEnum = (typeof OccupationScalarFieldEnum)[keyof typeof OccupationScalarFieldEnum]
 
 
   export const VersionEdtScalarFieldEnum: {
@@ -76378,6 +77722,48 @@ export namespace Prisma {
    * Reference to a field of type 'GrilleAffichage[]'
    */
   export type ListEnumGrilleAffichageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GrilleAffichage[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SeanceStatut'
+   */
+  export type EnumSeanceStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeanceStatut'>
+    
+
+
+  /**
+   * Reference to a field of type 'SeanceStatut[]'
+   */
+  export type ListEnumSeanceStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeanceStatut[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SeanceOrigine'
+   */
+  export type EnumSeanceOrigineFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeanceOrigine'>
+    
+
+
+  /**
+   * Reference to a field of type 'SeanceOrigine[]'
+   */
+  export type ListEnumSeanceOrigineFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SeanceOrigine[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'RessourceType'
+   */
+  export type EnumRessourceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RessourceType'>
+    
+
+
+  /**
+   * Reference to a field of type 'RessourceType[]'
+   */
+  export type ListEnumRessourceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RessourceType[]'>
     
 
 
@@ -78394,7 +79780,9 @@ export namespace Prisma {
     jour?: EnumJourSemaineNullableFilter<"Seance"> | $Enums.JourSemaine | null
     creneauDebutId?: UuidNullableFilter<"Seance"> | string | null
     nbCreneaux?: IntFilter<"Seance"> | number
-    statut?: StringFilter<"Seance"> | string
+    statut?: EnumSeanceStatutFilter<"Seance"> | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFilter<"Seance"> | $Enums.SeanceOrigine
+    revision?: IntFilter<"Seance"> | number
     createdAt?: DateTimeFilter<"Seance"> | Date | string
     updatedAt?: DateTimeFilter<"Seance"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
@@ -78403,6 +79791,7 @@ export namespace Prisma {
     salle?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
     creneauDebut?: XOR<CreneauNullableScalarRelationFilter, CreneauWhereInput> | null
     groupes?: SeanceGroupeListRelationFilter
+    occupations?: OccupationListRelationFilter
   }
 
   export type SeanceOrderByWithRelationInput = {
@@ -78418,6 +79807,8 @@ export namespace Prisma {
     creneauDebutId?: SortOrderInput | SortOrder
     nbCreneaux?: SortOrder
     statut?: SortOrder
+    origine?: SortOrder
+    revision?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
@@ -78426,6 +79817,7 @@ export namespace Prisma {
     salle?: SalleOrderByWithRelationInput
     creneauDebut?: CreneauOrderByWithRelationInput
     groupes?: SeanceGroupeOrderByRelationAggregateInput
+    occupations?: OccupationOrderByRelationAggregateInput
   }
 
   export type SeanceWhereUniqueInput = Prisma.AtLeast<{
@@ -78444,7 +79836,9 @@ export namespace Prisma {
     jour?: EnumJourSemaineNullableFilter<"Seance"> | $Enums.JourSemaine | null
     creneauDebutId?: UuidNullableFilter<"Seance"> | string | null
     nbCreneaux?: IntFilter<"Seance"> | number
-    statut?: StringFilter<"Seance"> | string
+    statut?: EnumSeanceStatutFilter<"Seance"> | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFilter<"Seance"> | $Enums.SeanceOrigine
+    revision?: IntFilter<"Seance"> | number
     createdAt?: DateTimeFilter<"Seance"> | Date | string
     updatedAt?: DateTimeFilter<"Seance"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
@@ -78453,6 +79847,7 @@ export namespace Prisma {
     salle?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
     creneauDebut?: XOR<CreneauNullableScalarRelationFilter, CreneauWhereInput> | null
     groupes?: SeanceGroupeListRelationFilter
+    occupations?: OccupationListRelationFilter
   }, "id" | "versionId_affectationKey_rang">
 
   export type SeanceOrderByWithAggregationInput = {
@@ -78468,6 +79863,8 @@ export namespace Prisma {
     creneauDebutId?: SortOrderInput | SortOrder
     nbCreneaux?: SortOrder
     statut?: SortOrder
+    origine?: SortOrder
+    revision?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SeanceCountOrderByAggregateInput
@@ -78492,7 +79889,9 @@ export namespace Prisma {
     jour?: EnumJourSemaineNullableWithAggregatesFilter<"Seance"> | $Enums.JourSemaine | null
     creneauDebutId?: UuidNullableWithAggregatesFilter<"Seance"> | string | null
     nbCreneaux?: IntWithAggregatesFilter<"Seance"> | number
-    statut?: StringWithAggregatesFilter<"Seance"> | string
+    statut?: EnumSeanceStatutWithAggregatesFilter<"Seance"> | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineWithAggregatesFilter<"Seance"> | $Enums.SeanceOrigine
+    revision?: IntWithAggregatesFilter<"Seance"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Seance"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Seance"> | Date | string
   }
@@ -78541,6 +79940,75 @@ export namespace Prisma {
     groupeId?: UuidWithAggregatesFilter<"SeanceGroupe"> | string
   }
 
+  export type OccupationWhereInput = {
+    AND?: OccupationWhereInput | OccupationWhereInput[]
+    OR?: OccupationWhereInput[]
+    NOT?: OccupationWhereInput | OccupationWhereInput[]
+    id?: UuidFilter<"Occupation"> | string
+    versionId?: UuidFilter<"Occupation"> | string
+    seanceId?: UuidFilter<"Occupation"> | string
+    jour?: EnumJourSemaineFilter<"Occupation"> | $Enums.JourSemaine
+    creneauId?: UuidFilter<"Occupation"> | string
+    ressourceType?: EnumRessourceTypeFilter<"Occupation"> | $Enums.RessourceType
+    ressourceId?: UuidFilter<"Occupation"> | string
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+    seance?: XOR<SeanceScalarRelationFilter, SeanceWhereInput>
+  }
+
+  export type OccupationOrderByWithRelationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    jour?: SortOrder
+    creneauId?: SortOrder
+    ressourceType?: SortOrder
+    ressourceId?: SortOrder
+    version?: VersionEdtOrderByWithRelationInput
+    seance?: SeanceOrderByWithRelationInput
+  }
+
+  export type OccupationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    versionId_jour_creneauId_ressourceType_ressourceId?: OccupationVersionIdJourCreneauIdRessourceTypeRessourceIdCompoundUniqueInput
+    AND?: OccupationWhereInput | OccupationWhereInput[]
+    OR?: OccupationWhereInput[]
+    NOT?: OccupationWhereInput | OccupationWhereInput[]
+    versionId?: UuidFilter<"Occupation"> | string
+    seanceId?: UuidFilter<"Occupation"> | string
+    jour?: EnumJourSemaineFilter<"Occupation"> | $Enums.JourSemaine
+    creneauId?: UuidFilter<"Occupation"> | string
+    ressourceType?: EnumRessourceTypeFilter<"Occupation"> | $Enums.RessourceType
+    ressourceId?: UuidFilter<"Occupation"> | string
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+    seance?: XOR<SeanceScalarRelationFilter, SeanceWhereInput>
+  }, "id" | "versionId_jour_creneauId_ressourceType_ressourceId">
+
+  export type OccupationOrderByWithAggregationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    jour?: SortOrder
+    creneauId?: SortOrder
+    ressourceType?: SortOrder
+    ressourceId?: SortOrder
+    _count?: OccupationCountOrderByAggregateInput
+    _max?: OccupationMaxOrderByAggregateInput
+    _min?: OccupationMinOrderByAggregateInput
+  }
+
+  export type OccupationScalarWhereWithAggregatesInput = {
+    AND?: OccupationScalarWhereWithAggregatesInput | OccupationScalarWhereWithAggregatesInput[]
+    OR?: OccupationScalarWhereWithAggregatesInput[]
+    NOT?: OccupationScalarWhereWithAggregatesInput | OccupationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Occupation"> | string
+    versionId?: UuidWithAggregatesFilter<"Occupation"> | string
+    seanceId?: UuidWithAggregatesFilter<"Occupation"> | string
+    jour?: EnumJourSemaineWithAggregatesFilter<"Occupation"> | $Enums.JourSemaine
+    creneauId?: UuidWithAggregatesFilter<"Occupation"> | string
+    ressourceType?: EnumRessourceTypeWithAggregatesFilter<"Occupation"> | $Enums.RessourceType
+    ressourceId?: UuidWithAggregatesFilter<"Occupation"> | string
+  }
+
   export type VersionEdtWhereInput = {
     AND?: VersionEdtWhereInput | VersionEdtWhereInput[]
     OR?: VersionEdtWhereInput[]
@@ -78554,6 +80022,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"VersionEdt"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     seances?: SeanceListRelationFilter
+    occupations?: OccupationListRelationFilter
     snapshots?: VersionSnapshotListRelationFilter
   }
 
@@ -78567,6 +80036,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
     seances?: SeanceOrderByRelationAggregateInput
+    occupations?: OccupationOrderByRelationAggregateInput
     snapshots?: VersionSnapshotOrderByRelationAggregateInput
   }
 
@@ -78583,6 +80053,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"VersionEdt"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     seances?: SeanceListRelationFilter
+    occupations?: OccupationListRelationFilter
     snapshots?: VersionSnapshotListRelationFilter
   }, "id">
 
@@ -82989,7 +84460,9 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
@@ -82998,6 +84471,7 @@ export namespace Prisma {
     salle?: SalleCreateNestedOneWithoutSeancesInput
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateInput = {
@@ -83012,10 +84486,13 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUpdateInput = {
@@ -83025,7 +84502,9 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
@@ -83034,6 +84513,7 @@ export namespace Prisma {
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateInput = {
@@ -83048,10 +84528,13 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceCreateManyInput = {
@@ -83066,7 +84549,9 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -83078,7 +84563,9 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -83095,7 +84582,9 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -83134,6 +84623,74 @@ export namespace Prisma {
     groupeId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type OccupationCreateInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+    version: VersionEdtCreateNestedOneWithoutOccupationsInput
+    seance: SeanceCreateNestedOneWithoutOccupationsInput
+  }
+
+  export type OccupationUncheckedCreateInput = {
+    id?: string
+    versionId: string
+    seanceId: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+  }
+
+  export type OccupationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+    version?: VersionEdtUpdateOneRequiredWithoutOccupationsNestedInput
+    seance?: SeanceUpdateOneRequiredWithoutOccupationsNestedInput
+  }
+
+  export type OccupationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    seanceId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OccupationCreateManyInput = {
+    id?: string
+    versionId: string
+    seanceId: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+  }
+
+  export type OccupationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OccupationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    seanceId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type VersionEdtCreateInput = {
     id?: string
     numero: string
@@ -83143,6 +84700,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutVersionsInput
     seances?: SeanceCreateNestedManyWithoutVersionInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
   }
 
@@ -83155,6 +84713,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
   }
 
@@ -83167,6 +84726,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
     seances?: SeanceUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
   }
 
@@ -83179,6 +84739,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
   }
 
@@ -87570,6 +89131,20 @@ export namespace Prisma {
     not?: NestedEnumJourSemaineNullableFilter<$PrismaModel> | $Enums.JourSemaine | null
   }
 
+  export type EnumSeanceStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeanceStatut | EnumSeanceStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.SeanceStatut[] | ListEnumSeanceStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeanceStatut[] | ListEnumSeanceStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeanceStatutFilter<$PrismaModel> | $Enums.SeanceStatut
+  }
+
+  export type EnumSeanceOrigineFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeanceOrigine | EnumSeanceOrigineFieldRefInput<$PrismaModel>
+    in?: $Enums.SeanceOrigine[] | ListEnumSeanceOrigineFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeanceOrigine[] | ListEnumSeanceOrigineFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeanceOrigineFilter<$PrismaModel> | $Enums.SeanceOrigine
+  }
+
   export type VersionEdtNullableScalarRelationFilter = {
     is?: VersionEdtWhereInput | null
     isNot?: VersionEdtWhereInput | null
@@ -87596,7 +89171,17 @@ export namespace Prisma {
     none?: SeanceGroupeWhereInput
   }
 
+  export type OccupationListRelationFilter = {
+    every?: OccupationWhereInput
+    some?: OccupationWhereInput
+    none?: OccupationWhereInput
+  }
+
   export type SeanceGroupeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OccupationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -87619,6 +89204,8 @@ export namespace Prisma {
     creneauDebutId?: SortOrder
     nbCreneaux?: SortOrder
     statut?: SortOrder
+    origine?: SortOrder
+    revision?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -87626,6 +89213,7 @@ export namespace Prisma {
   export type SeanceAvgOrderByAggregateInput = {
     rang?: SortOrder
     nbCreneaux?: SortOrder
+    revision?: SortOrder
   }
 
   export type SeanceMaxOrderByAggregateInput = {
@@ -87641,6 +89229,8 @@ export namespace Prisma {
     creneauDebutId?: SortOrder
     nbCreneaux?: SortOrder
     statut?: SortOrder
+    origine?: SortOrder
+    revision?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -87658,6 +89248,8 @@ export namespace Prisma {
     creneauDebutId?: SortOrder
     nbCreneaux?: SortOrder
     statut?: SortOrder
+    origine?: SortOrder
+    revision?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -87665,6 +89257,7 @@ export namespace Prisma {
   export type SeanceSumOrderByAggregateInput = {
     rang?: SortOrder
     nbCreneaux?: SortOrder
+    revision?: SortOrder
   }
 
   export type EnumJourSemaineNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -87675,6 +89268,26 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumJourSemaineNullableFilter<$PrismaModel>
     _max?: NestedEnumJourSemaineNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSeanceStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeanceStatut | EnumSeanceStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.SeanceStatut[] | ListEnumSeanceStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeanceStatut[] | ListEnumSeanceStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeanceStatutWithAggregatesFilter<$PrismaModel> | $Enums.SeanceStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSeanceStatutFilter<$PrismaModel>
+    _max?: NestedEnumSeanceStatutFilter<$PrismaModel>
+  }
+
+  export type EnumSeanceOrigineWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeanceOrigine | EnumSeanceOrigineFieldRefInput<$PrismaModel>
+    in?: $Enums.SeanceOrigine[] | ListEnumSeanceOrigineFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeanceOrigine[] | ListEnumSeanceOrigineFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeanceOrigineWithAggregatesFilter<$PrismaModel> | $Enums.SeanceOrigine
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSeanceOrigineFilter<$PrismaModel>
+    _max?: NestedEnumSeanceOrigineFilter<$PrismaModel>
   }
 
   export type SeanceScalarRelationFilter = {
@@ -87705,6 +89318,66 @@ export namespace Prisma {
   export type SeanceGroupeMinOrderByAggregateInput = {
     seanceId?: SortOrder
     groupeId?: SortOrder
+  }
+
+  export type EnumRessourceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RessourceType | EnumRessourceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RessourceType[] | ListEnumRessourceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RessourceType[] | ListEnumRessourceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRessourceTypeFilter<$PrismaModel> | $Enums.RessourceType
+  }
+
+  export type VersionEdtScalarRelationFilter = {
+    is?: VersionEdtWhereInput
+    isNot?: VersionEdtWhereInput
+  }
+
+  export type OccupationVersionIdJourCreneauIdRessourceTypeRessourceIdCompoundUniqueInput = {
+    versionId: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+  }
+
+  export type OccupationCountOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    jour?: SortOrder
+    creneauId?: SortOrder
+    ressourceType?: SortOrder
+    ressourceId?: SortOrder
+  }
+
+  export type OccupationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    jour?: SortOrder
+    creneauId?: SortOrder
+    ressourceType?: SortOrder
+    ressourceId?: SortOrder
+  }
+
+  export type OccupationMinOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    seanceId?: SortOrder
+    jour?: SortOrder
+    creneauId?: SortOrder
+    ressourceType?: SortOrder
+    ressourceId?: SortOrder
+  }
+
+  export type EnumRessourceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RessourceType | EnumRessourceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RessourceType[] | ListEnumRessourceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RessourceType[] | ListEnumRessourceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRessourceTypeWithAggregatesFilter<$PrismaModel> | $Enums.RessourceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRessourceTypeFilter<$PrismaModel>
+    _max?: NestedEnumRessourceTypeFilter<$PrismaModel>
   }
 
   export type EnumVersionStatutFilter<$PrismaModel = never> = {
@@ -87762,11 +89435,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumVersionStatutFilter<$PrismaModel>
     _max?: NestedEnumVersionStatutFilter<$PrismaModel>
-  }
-
-  export type VersionEdtScalarRelationFilter = {
-    is?: VersionEdtWhereInput
-    isNot?: VersionEdtWhereInput
   }
 
   export type SnapshotScalarRelationFilter = {
@@ -91705,6 +93373,13 @@ export namespace Prisma {
     connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
   }
 
+  export type OccupationCreateNestedManyWithoutSeanceInput = {
+    create?: XOR<OccupationCreateWithoutSeanceInput, OccupationUncheckedCreateWithoutSeanceInput> | OccupationCreateWithoutSeanceInput[] | OccupationUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: OccupationCreateOrConnectWithoutSeanceInput | OccupationCreateOrConnectWithoutSeanceInput[]
+    createMany?: OccupationCreateManySeanceInputEnvelope
+    connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+  }
+
   export type SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput = {
     create?: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput> | SeanceGroupeCreateWithoutSeanceInput[] | SeanceGroupeUncheckedCreateWithoutSeanceInput[]
     connectOrCreate?: SeanceGroupeCreateOrConnectWithoutSeanceInput | SeanceGroupeCreateOrConnectWithoutSeanceInput[]
@@ -91712,8 +93387,23 @@ export namespace Prisma {
     connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
   }
 
+  export type OccupationUncheckedCreateNestedManyWithoutSeanceInput = {
+    create?: XOR<OccupationCreateWithoutSeanceInput, OccupationUncheckedCreateWithoutSeanceInput> | OccupationCreateWithoutSeanceInput[] | OccupationUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: OccupationCreateOrConnectWithoutSeanceInput | OccupationCreateOrConnectWithoutSeanceInput[]
+    createMany?: OccupationCreateManySeanceInputEnvelope
+    connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+  }
+
   export type NullableEnumJourSemaineFieldUpdateOperationsInput = {
     set?: $Enums.JourSemaine | null
+  }
+
+  export type EnumSeanceStatutFieldUpdateOperationsInput = {
+    set?: $Enums.SeanceStatut
+  }
+
+  export type EnumSeanceOrigineFieldUpdateOperationsInput = {
+    set?: $Enums.SeanceOrigine
   }
 
   export type SemestreUpdateOneRequiredWithoutSeancesNestedInput = {
@@ -91778,6 +93468,20 @@ export namespace Prisma {
     deleteMany?: SeanceGroupeScalarWhereInput | SeanceGroupeScalarWhereInput[]
   }
 
+  export type OccupationUpdateManyWithoutSeanceNestedInput = {
+    create?: XOR<OccupationCreateWithoutSeanceInput, OccupationUncheckedCreateWithoutSeanceInput> | OccupationCreateWithoutSeanceInput[] | OccupationUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: OccupationCreateOrConnectWithoutSeanceInput | OccupationCreateOrConnectWithoutSeanceInput[]
+    upsert?: OccupationUpsertWithWhereUniqueWithoutSeanceInput | OccupationUpsertWithWhereUniqueWithoutSeanceInput[]
+    createMany?: OccupationCreateManySeanceInputEnvelope
+    set?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    disconnect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    delete?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    update?: OccupationUpdateWithWhereUniqueWithoutSeanceInput | OccupationUpdateWithWhereUniqueWithoutSeanceInput[]
+    updateMany?: OccupationUpdateManyWithWhereWithoutSeanceInput | OccupationUpdateManyWithWhereWithoutSeanceInput[]
+    deleteMany?: OccupationScalarWhereInput | OccupationScalarWhereInput[]
+  }
+
   export type SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput = {
     create?: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput> | SeanceGroupeCreateWithoutSeanceInput[] | SeanceGroupeUncheckedCreateWithoutSeanceInput[]
     connectOrCreate?: SeanceGroupeCreateOrConnectWithoutSeanceInput | SeanceGroupeCreateOrConnectWithoutSeanceInput[]
@@ -91790,6 +93494,20 @@ export namespace Prisma {
     update?: SeanceGroupeUpdateWithWhereUniqueWithoutSeanceInput | SeanceGroupeUpdateWithWhereUniqueWithoutSeanceInput[]
     updateMany?: SeanceGroupeUpdateManyWithWhereWithoutSeanceInput | SeanceGroupeUpdateManyWithWhereWithoutSeanceInput[]
     deleteMany?: SeanceGroupeScalarWhereInput | SeanceGroupeScalarWhereInput[]
+  }
+
+  export type OccupationUncheckedUpdateManyWithoutSeanceNestedInput = {
+    create?: XOR<OccupationCreateWithoutSeanceInput, OccupationUncheckedCreateWithoutSeanceInput> | OccupationCreateWithoutSeanceInput[] | OccupationUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: OccupationCreateOrConnectWithoutSeanceInput | OccupationCreateOrConnectWithoutSeanceInput[]
+    upsert?: OccupationUpsertWithWhereUniqueWithoutSeanceInput | OccupationUpsertWithWhereUniqueWithoutSeanceInput[]
+    createMany?: OccupationCreateManySeanceInputEnvelope
+    set?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    disconnect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    delete?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    update?: OccupationUpdateWithWhereUniqueWithoutSeanceInput | OccupationUpdateWithWhereUniqueWithoutSeanceInput[]
+    updateMany?: OccupationUpdateManyWithWhereWithoutSeanceInput | OccupationUpdateManyWithWhereWithoutSeanceInput[]
+    deleteMany?: OccupationScalarWhereInput | OccupationScalarWhereInput[]
   }
 
   export type SeanceCreateNestedOneWithoutGroupesInput = {
@@ -91820,6 +93538,38 @@ export namespace Prisma {
     update?: XOR<XOR<GroupeUpdateToOneWithWhereWithoutSeanceGroupesInput, GroupeUpdateWithoutSeanceGroupesInput>, GroupeUncheckedUpdateWithoutSeanceGroupesInput>
   }
 
+  export type VersionEdtCreateNestedOneWithoutOccupationsInput = {
+    create?: XOR<VersionEdtCreateWithoutOccupationsInput, VersionEdtUncheckedCreateWithoutOccupationsInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutOccupationsInput
+    connect?: VersionEdtWhereUniqueInput
+  }
+
+  export type SeanceCreateNestedOneWithoutOccupationsInput = {
+    create?: XOR<SeanceCreateWithoutOccupationsInput, SeanceUncheckedCreateWithoutOccupationsInput>
+    connectOrCreate?: SeanceCreateOrConnectWithoutOccupationsInput
+    connect?: SeanceWhereUniqueInput
+  }
+
+  export type EnumRessourceTypeFieldUpdateOperationsInput = {
+    set?: $Enums.RessourceType
+  }
+
+  export type VersionEdtUpdateOneRequiredWithoutOccupationsNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutOccupationsInput, VersionEdtUncheckedCreateWithoutOccupationsInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutOccupationsInput
+    upsert?: VersionEdtUpsertWithoutOccupationsInput
+    connect?: VersionEdtWhereUniqueInput
+    update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutOccupationsInput, VersionEdtUpdateWithoutOccupationsInput>, VersionEdtUncheckedUpdateWithoutOccupationsInput>
+  }
+
+  export type SeanceUpdateOneRequiredWithoutOccupationsNestedInput = {
+    create?: XOR<SeanceCreateWithoutOccupationsInput, SeanceUncheckedCreateWithoutOccupationsInput>
+    connectOrCreate?: SeanceCreateOrConnectWithoutOccupationsInput
+    upsert?: SeanceUpsertWithoutOccupationsInput
+    connect?: SeanceWhereUniqueInput
+    update?: XOR<XOR<SeanceUpdateToOneWithWhereWithoutOccupationsInput, SeanceUpdateWithoutOccupationsInput>, SeanceUncheckedUpdateWithoutOccupationsInput>
+  }
+
   export type SemestreCreateNestedOneWithoutVersionsInput = {
     create?: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
     connectOrCreate?: SemestreCreateOrConnectWithoutVersionsInput
@@ -91831,6 +93581,13 @@ export namespace Prisma {
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
     createMany?: SeanceCreateManyVersionInputEnvelope
     connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
+  export type OccupationCreateNestedManyWithoutVersionInput = {
+    create?: XOR<OccupationCreateWithoutVersionInput, OccupationUncheckedCreateWithoutVersionInput> | OccupationCreateWithoutVersionInput[] | OccupationUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: OccupationCreateOrConnectWithoutVersionInput | OccupationCreateOrConnectWithoutVersionInput[]
+    createMany?: OccupationCreateManyVersionInputEnvelope
+    connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
   }
 
   export type VersionSnapshotCreateNestedManyWithoutVersionInput = {
@@ -91845,6 +93602,13 @@ export namespace Prisma {
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
     createMany?: SeanceCreateManyVersionInputEnvelope
     connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
+  export type OccupationUncheckedCreateNestedManyWithoutVersionInput = {
+    create?: XOR<OccupationCreateWithoutVersionInput, OccupationUncheckedCreateWithoutVersionInput> | OccupationCreateWithoutVersionInput[] | OccupationUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: OccupationCreateOrConnectWithoutVersionInput | OccupationCreateOrConnectWithoutVersionInput[]
+    createMany?: OccupationCreateManyVersionInputEnvelope
+    connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
   }
 
   export type VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput = {
@@ -91880,6 +93644,20 @@ export namespace Prisma {
     deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
   }
 
+  export type OccupationUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<OccupationCreateWithoutVersionInput, OccupationUncheckedCreateWithoutVersionInput> | OccupationCreateWithoutVersionInput[] | OccupationUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: OccupationCreateOrConnectWithoutVersionInput | OccupationCreateOrConnectWithoutVersionInput[]
+    upsert?: OccupationUpsertWithWhereUniqueWithoutVersionInput | OccupationUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: OccupationCreateManyVersionInputEnvelope
+    set?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    disconnect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    delete?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    update?: OccupationUpdateWithWhereUniqueWithoutVersionInput | OccupationUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: OccupationUpdateManyWithWhereWithoutVersionInput | OccupationUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: OccupationScalarWhereInput | OccupationScalarWhereInput[]
+  }
+
   export type VersionSnapshotUpdateManyWithoutVersionNestedInput = {
     create?: XOR<VersionSnapshotCreateWithoutVersionInput, VersionSnapshotUncheckedCreateWithoutVersionInput> | VersionSnapshotCreateWithoutVersionInput[] | VersionSnapshotUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: VersionSnapshotCreateOrConnectWithoutVersionInput | VersionSnapshotCreateOrConnectWithoutVersionInput[]
@@ -91906,6 +93684,20 @@ export namespace Prisma {
     update?: SeanceUpdateWithWhereUniqueWithoutVersionInput | SeanceUpdateWithWhereUniqueWithoutVersionInput[]
     updateMany?: SeanceUpdateManyWithWhereWithoutVersionInput | SeanceUpdateManyWithWhereWithoutVersionInput[]
     deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
+  export type OccupationUncheckedUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<OccupationCreateWithoutVersionInput, OccupationUncheckedCreateWithoutVersionInput> | OccupationCreateWithoutVersionInput[] | OccupationUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: OccupationCreateOrConnectWithoutVersionInput | OccupationCreateOrConnectWithoutVersionInput[]
+    upsert?: OccupationUpsertWithWhereUniqueWithoutVersionInput | OccupationUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: OccupationCreateManyVersionInputEnvelope
+    set?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    disconnect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    delete?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    connect?: OccupationWhereUniqueInput | OccupationWhereUniqueInput[]
+    update?: OccupationUpdateWithWhereUniqueWithoutVersionInput | OccupationUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: OccupationUpdateManyWithWhereWithoutVersionInput | OccupationUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: OccupationScalarWhereInput | OccupationScalarWhereInput[]
   }
 
   export type VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput = {
@@ -95002,6 +96794,20 @@ export namespace Prisma {
     not?: NestedEnumJourSemaineNullableFilter<$PrismaModel> | $Enums.JourSemaine | null
   }
 
+  export type NestedEnumSeanceStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeanceStatut | EnumSeanceStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.SeanceStatut[] | ListEnumSeanceStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeanceStatut[] | ListEnumSeanceStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeanceStatutFilter<$PrismaModel> | $Enums.SeanceStatut
+  }
+
+  export type NestedEnumSeanceOrigineFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeanceOrigine | EnumSeanceOrigineFieldRefInput<$PrismaModel>
+    in?: $Enums.SeanceOrigine[] | ListEnumSeanceOrigineFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeanceOrigine[] | ListEnumSeanceOrigineFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeanceOrigineFilter<$PrismaModel> | $Enums.SeanceOrigine
+  }
+
   export type NestedEnumJourSemaineNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.JourSemaine | EnumJourSemaineFieldRefInput<$PrismaModel> | null
     in?: $Enums.JourSemaine[] | ListEnumJourSemaineFieldRefInput<$PrismaModel> | null
@@ -95010,6 +96816,43 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumJourSemaineNullableFilter<$PrismaModel>
     _max?: NestedEnumJourSemaineNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSeanceStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeanceStatut | EnumSeanceStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.SeanceStatut[] | ListEnumSeanceStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeanceStatut[] | ListEnumSeanceStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeanceStatutWithAggregatesFilter<$PrismaModel> | $Enums.SeanceStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSeanceStatutFilter<$PrismaModel>
+    _max?: NestedEnumSeanceStatutFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSeanceOrigineWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SeanceOrigine | EnumSeanceOrigineFieldRefInput<$PrismaModel>
+    in?: $Enums.SeanceOrigine[] | ListEnumSeanceOrigineFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SeanceOrigine[] | ListEnumSeanceOrigineFieldRefInput<$PrismaModel>
+    not?: NestedEnumSeanceOrigineWithAggregatesFilter<$PrismaModel> | $Enums.SeanceOrigine
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSeanceOrigineFilter<$PrismaModel>
+    _max?: NestedEnumSeanceOrigineFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRessourceTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RessourceType | EnumRessourceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RessourceType[] | ListEnumRessourceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RessourceType[] | ListEnumRessourceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRessourceTypeFilter<$PrismaModel> | $Enums.RessourceType
+  }
+
+  export type NestedEnumRessourceTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RessourceType | EnumRessourceTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RessourceType[] | ListEnumRessourceTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RessourceType[] | ListEnumRessourceTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRessourceTypeWithAggregatesFilter<$PrismaModel> | $Enums.RessourceType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRessourceTypeFilter<$PrismaModel>
+    _max?: NestedEnumRessourceTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumVersionStatutFilter<$PrismaModel = never> = {
@@ -99638,7 +101481,9 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     version?: VersionEdtCreateNestedOneWithoutSeancesInput
@@ -99646,6 +101491,7 @@ export namespace Prisma {
     salle?: SalleCreateNestedOneWithoutSeancesInput
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutSemestreInput = {
@@ -99659,10 +101505,13 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutSemestreInput = {
@@ -99683,6 +101532,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     seances?: SeanceCreateNestedManyWithoutVersionInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
   }
 
@@ -99694,6 +101544,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
   }
 
@@ -99982,7 +101833,9 @@ export namespace Prisma {
     jour?: EnumJourSemaineNullableFilter<"Seance"> | $Enums.JourSemaine | null
     creneauDebutId?: UuidNullableFilter<"Seance"> | string | null
     nbCreneaux?: IntFilter<"Seance"> | number
-    statut?: StringFilter<"Seance"> | string
+    statut?: EnumSeanceStatutFilter<"Seance"> | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFilter<"Seance"> | $Enums.SeanceOrigine
+    revision?: IntFilter<"Seance"> | number
     createdAt?: DateTimeFilter<"Seance"> | Date | string
     updatedAt?: DateTimeFilter<"Seance"> | Date | string
   }
@@ -100088,7 +101941,9 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
@@ -100096,6 +101951,7 @@ export namespace Prisma {
     enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
     salle?: SalleCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutCreneauDebutInput = {
@@ -100109,10 +101965,13 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutCreneauDebutInput = {
@@ -100336,6 +102195,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutVersionsInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
   }
 
@@ -100347,6 +102207,7 @@ export namespace Prisma {
     motif?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
   }
 
@@ -100496,6 +102357,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type OccupationCreateWithoutSeanceInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+    version: VersionEdtCreateNestedOneWithoutOccupationsInput
+  }
+
+  export type OccupationUncheckedCreateWithoutSeanceInput = {
+    id?: string
+    versionId: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+  }
+
+  export type OccupationCreateOrConnectWithoutSeanceInput = {
+    where: OccupationWhereUniqueInput
+    create: XOR<OccupationCreateWithoutSeanceInput, OccupationUncheckedCreateWithoutSeanceInput>
+  }
+
+  export type OccupationCreateManySeanceInputEnvelope = {
+    data: OccupationCreateManySeanceInput | OccupationCreateManySeanceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutSeancesInput = {
     update: XOR<SemestreUpdateWithoutSeancesInput, SemestreUncheckedUpdateWithoutSeancesInput>
     create: XOR<SemestreCreateWithoutSeancesInput, SemestreUncheckedCreateWithoutSeancesInput>
@@ -100562,6 +102451,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
   }
 
@@ -100573,6 +102463,7 @@ export namespace Prisma {
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
   }
 
@@ -100741,6 +102632,35 @@ export namespace Prisma {
     groupeId?: UuidFilter<"SeanceGroupe"> | string
   }
 
+  export type OccupationUpsertWithWhereUniqueWithoutSeanceInput = {
+    where: OccupationWhereUniqueInput
+    update: XOR<OccupationUpdateWithoutSeanceInput, OccupationUncheckedUpdateWithoutSeanceInput>
+    create: XOR<OccupationCreateWithoutSeanceInput, OccupationUncheckedCreateWithoutSeanceInput>
+  }
+
+  export type OccupationUpdateWithWhereUniqueWithoutSeanceInput = {
+    where: OccupationWhereUniqueInput
+    data: XOR<OccupationUpdateWithoutSeanceInput, OccupationUncheckedUpdateWithoutSeanceInput>
+  }
+
+  export type OccupationUpdateManyWithWhereWithoutSeanceInput = {
+    where: OccupationScalarWhereInput
+    data: XOR<OccupationUpdateManyMutationInput, OccupationUncheckedUpdateManyWithoutSeanceInput>
+  }
+
+  export type OccupationScalarWhereInput = {
+    AND?: OccupationScalarWhereInput | OccupationScalarWhereInput[]
+    OR?: OccupationScalarWhereInput[]
+    NOT?: OccupationScalarWhereInput | OccupationScalarWhereInput[]
+    id?: UuidFilter<"Occupation"> | string
+    versionId?: UuidFilter<"Occupation"> | string
+    seanceId?: UuidFilter<"Occupation"> | string
+    jour?: EnumJourSemaineFilter<"Occupation"> | $Enums.JourSemaine
+    creneauId?: UuidFilter<"Occupation"> | string
+    ressourceType?: EnumRessourceTypeFilter<"Occupation"> | $Enums.RessourceType
+    ressourceId?: UuidFilter<"Occupation"> | string
+  }
+
   export type SeanceCreateWithoutGroupesInput = {
     id?: string
     affectationKey: string
@@ -100748,7 +102668,9 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
@@ -100756,6 +102678,7 @@ export namespace Prisma {
     enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
     salle?: SalleCreateNestedOneWithoutSeancesInput
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
+    occupations?: OccupationCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutGroupesInput = {
@@ -100770,9 +102693,12 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutGroupesInput = {
@@ -100837,7 +102763,9 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
@@ -100845,6 +102773,7 @@ export namespace Prisma {
     enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
+    occupations?: OccupationUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutGroupesInput = {
@@ -100859,9 +102788,12 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type GroupeUpsertWithoutSeanceGroupesInput = {
@@ -100907,6 +102839,166 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
+  }
+
+  export type VersionEdtCreateWithoutOccupationsInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutOccupationsInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutOccupationsInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutOccupationsInput, VersionEdtUncheckedCreateWithoutOccupationsInput>
+  }
+
+  export type SeanceCreateWithoutOccupationsInput = {
+    id?: string
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    nbCreneaux?: number
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSeancesInput
+    version?: VersionEdtCreateNestedOneWithoutSeancesInput
+    enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
+    salle?: SalleCreateNestedOneWithoutSeancesInput
+    creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
+    groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUncheckedCreateWithoutOccupationsInput = {
+    id?: string
+    semestreId: string
+    versionId?: string | null
+    enseignantId?: string | null
+    salleId?: string | null
+    affectationKey: string
+    rang?: number
+    tag?: string | null
+    jour?: $Enums.JourSemaine | null
+    creneauDebutId?: string | null
+    nbCreneaux?: number
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceCreateOrConnectWithoutOccupationsInput = {
+    where: SeanceWhereUniqueInput
+    create: XOR<SeanceCreateWithoutOccupationsInput, SeanceUncheckedCreateWithoutOccupationsInput>
+  }
+
+  export type VersionEdtUpsertWithoutOccupationsInput = {
+    update: XOR<VersionEdtUpdateWithoutOccupationsInput, VersionEdtUncheckedUpdateWithoutOccupationsInput>
+    create: XOR<VersionEdtCreateWithoutOccupationsInput, VersionEdtUncheckedCreateWithoutOccupationsInput>
+    where?: VersionEdtWhereInput
+  }
+
+  export type VersionEdtUpdateToOneWithWhereWithoutOccupationsInput = {
+    where?: VersionEdtWhereInput
+    data: XOR<VersionEdtUpdateWithoutOccupationsInput, VersionEdtUncheckedUpdateWithoutOccupationsInput>
+  }
+
+  export type VersionEdtUpdateWithoutOccupationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutOccupationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
+  export type SeanceUpsertWithoutOccupationsInput = {
+    update: XOR<SeanceUpdateWithoutOccupationsInput, SeanceUncheckedUpdateWithoutOccupationsInput>
+    create: XOR<SeanceCreateWithoutOccupationsInput, SeanceUncheckedCreateWithoutOccupationsInput>
+    where?: SeanceWhereInput
+  }
+
+  export type SeanceUpdateToOneWithWhereWithoutOccupationsInput = {
+    where?: SeanceWhereInput
+    data: XOR<SeanceUpdateWithoutOccupationsInput, SeanceUncheckedUpdateWithoutOccupationsInput>
+  }
+
+  export type SeanceUpdateWithoutOccupationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    version?: VersionEdtUpdateOneWithoutSeancesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
+    salle?: SalleUpdateOneWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
+    groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateWithoutOccupationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: NullableStringFieldUpdateOperationsInput | string | null
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    tag?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SemestreCreateWithoutVersionsInput = {
@@ -100957,7 +103049,9 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
@@ -100965,6 +103059,7 @@ export namespace Prisma {
     salle?: SalleCreateNestedOneWithoutSeancesInput
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutVersionInput = {
@@ -100978,10 +103073,13 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutVersionInput = {
@@ -100991,6 +103089,34 @@ export namespace Prisma {
 
   export type SeanceCreateManyVersionInputEnvelope = {
     data: SeanceCreateManyVersionInput | SeanceCreateManyVersionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OccupationCreateWithoutVersionInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+    seance: SeanceCreateNestedOneWithoutOccupationsInput
+  }
+
+  export type OccupationUncheckedCreateWithoutVersionInput = {
+    id?: string
+    seanceId: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
+  }
+
+  export type OccupationCreateOrConnectWithoutVersionInput = {
+    where: OccupationWhereUniqueInput
+    create: XOR<OccupationCreateWithoutVersionInput, OccupationUncheckedCreateWithoutVersionInput>
+  }
+
+  export type OccupationCreateManyVersionInputEnvelope = {
+    data: OccupationCreateManyVersionInput | OccupationCreateManyVersionInput[]
     skipDuplicates?: boolean
   }
 
@@ -101075,6 +103201,22 @@ export namespace Prisma {
     data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyWithoutVersionInput>
   }
 
+  export type OccupationUpsertWithWhereUniqueWithoutVersionInput = {
+    where: OccupationWhereUniqueInput
+    update: XOR<OccupationUpdateWithoutVersionInput, OccupationUncheckedUpdateWithoutVersionInput>
+    create: XOR<OccupationCreateWithoutVersionInput, OccupationUncheckedCreateWithoutVersionInput>
+  }
+
+  export type OccupationUpdateWithWhereUniqueWithoutVersionInput = {
+    where: OccupationWhereUniqueInput
+    data: XOR<OccupationUpdateWithoutVersionInput, OccupationUncheckedUpdateWithoutVersionInput>
+  }
+
+  export type OccupationUpdateManyWithWhereWithoutVersionInput = {
+    where: OccupationScalarWhereInput
+    data: XOR<OccupationUpdateManyMutationInput, OccupationUncheckedUpdateManyWithoutVersionInput>
+  }
+
   export type VersionSnapshotUpsertWithWhereUniqueWithoutVersionInput = {
     where: VersionSnapshotWhereUniqueInput
     update: XOR<VersionSnapshotUpdateWithoutVersionInput, VersionSnapshotUncheckedUpdateWithoutVersionInput>
@@ -101108,6 +103250,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutVersionsInput
     seances?: SeanceCreateNestedManyWithoutVersionInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSnapshotsInput = {
@@ -101119,6 +103262,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSnapshotsInput = {
@@ -101175,6 +103319,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
     seances?: SeanceUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSnapshotsInput = {
@@ -101186,6 +103331,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SnapshotUpsertWithoutVersionSnapshotsInput = {
@@ -104005,7 +106151,9 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
@@ -104013,6 +106161,7 @@ export namespace Prisma {
     salle?: SalleCreateNestedOneWithoutSeancesInput
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutEnseignantInput = {
@@ -104026,10 +106175,13 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutEnseignantInput = {
@@ -104885,7 +107037,9 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutSeancesInput
@@ -104893,6 +107047,7 @@ export namespace Prisma {
     enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
     creneauDebut?: CreneauCreateNestedOneWithoutSeancesInput
     groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceUncheckedCreateWithoutSalleInput = {
@@ -104906,10 +107061,13 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutSeanceInput
   }
 
   export type SeanceCreateOrConnectWithoutSalleInput = {
@@ -108524,7 +110682,9 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -108815,7 +110975,9 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     version?: VersionEdtUpdateOneWithoutSeancesNestedInput
@@ -108823,6 +110985,7 @@ export namespace Prisma {
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutSemestreInput = {
@@ -108836,10 +110999,13 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutSemestreInput = {
@@ -108853,7 +111019,9 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -108866,6 +111034,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     seances?: SeanceUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
   }
 
@@ -108877,6 +111046,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
   }
 
@@ -108907,7 +111077,9 @@ export namespace Prisma {
     tag?: string | null
     jour?: $Enums.JourSemaine | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -108940,7 +111112,9 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
@@ -108948,6 +111122,7 @@ export namespace Prisma {
     enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutCreneauDebutInput = {
@@ -108961,10 +111136,13 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutCreneauDebutInput = {
@@ -108978,13 +111156,24 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SeanceGroupeCreateManySeanceInput = {
     groupeId: string
+  }
+
+  export type OccupationCreateManySeanceInput = {
+    id?: string
+    versionId: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
   }
 
   export type SeanceGroupeUpdateWithoutSeanceInput = {
@@ -108999,6 +111188,33 @@ export namespace Prisma {
     groupeId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type OccupationUpdateWithoutSeanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+    version?: VersionEdtUpdateOneRequiredWithoutOccupationsNestedInput
+  }
+
+  export type OccupationUncheckedUpdateWithoutSeanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OccupationUncheckedUpdateManyWithoutSeanceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type SeanceCreateManyVersionInput = {
     id?: string
     semestreId: string
@@ -109010,9 +111226,20 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type OccupationCreateManyVersionInput = {
+    id?: string
+    seanceId: string
+    jour: $Enums.JourSemaine
+    creneauId: string
+    ressourceType: $Enums.RessourceType
+    ressourceId: string
   }
 
   export type VersionSnapshotCreateManyVersionInput = {
@@ -109026,7 +111253,9 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
@@ -109034,6 +111263,7 @@ export namespace Prisma {
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutVersionInput = {
@@ -109047,10 +111277,13 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutVersionInput = {
@@ -109064,9 +111297,38 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OccupationUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+    seance?: SeanceUpdateOneRequiredWithoutOccupationsNestedInput
+  }
+
+  export type OccupationUncheckedUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seanceId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type OccupationUncheckedUpdateManyWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    seanceId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauId?: StringFieldUpdateOperationsInput | string
+    ressourceType?: EnumRessourceTypeFieldUpdateOperationsInput | $Enums.RessourceType
+    ressourceId?: StringFieldUpdateOperationsInput | string
   }
 
   export type VersionSnapshotUpdateWithoutVersionInput = {
@@ -110319,7 +112581,9 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -110448,7 +112712,9 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
@@ -110456,6 +112722,7 @@ export namespace Prisma {
     salle?: SalleUpdateOneWithoutSeancesNestedInput
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutEnseignantInput = {
@@ -110469,10 +112736,13 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutEnseignantInput = {
@@ -110486,7 +112756,9 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -110665,7 +112937,9 @@ export namespace Prisma {
     jour?: $Enums.JourSemaine | null
     creneauDebutId?: string | null
     nbCreneaux?: number
-    statut?: string
+    statut?: $Enums.SeanceStatut
+    origine?: $Enums.SeanceOrigine
+    revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -110734,7 +113008,9 @@ export namespace Prisma {
     tag?: NullableStringFieldUpdateOperationsInput | string | null
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
@@ -110742,6 +113018,7 @@ export namespace Prisma {
     enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
     creneauDebut?: CreneauUpdateOneWithoutSeancesNestedInput
     groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateWithoutSalleInput = {
@@ -110755,10 +113032,13 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutSeanceNestedInput
   }
 
   export type SeanceUncheckedUpdateManyWithoutSalleInput = {
@@ -110772,7 +113052,9 @@ export namespace Prisma {
     jour?: NullableEnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine | null
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
-    statut?: StringFieldUpdateOperationsInput | string
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    origine?: EnumSeanceOrigineFieldUpdateOperationsInput | $Enums.SeanceOrigine
+    revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

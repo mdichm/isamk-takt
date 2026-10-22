@@ -222,7 +222,7 @@ export class VersionService {
         jour: null,
         creneauDebut: null,
         nbCreneaux: 1,
-        statut: 'PLACEE',
+        statut: 'NON_PLACEE',
         groupes: {
           create: groupeIds.map((groupeId) => ({ groupeId })),
         },
