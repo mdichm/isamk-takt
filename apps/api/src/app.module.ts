@@ -37,6 +37,7 @@ import { DemandesModule } from './demandes/demandes.module.js';
 import { VersionsModule } from './versions/versions.module.js';
 import { SeancesModule } from './seances/seances.module.js';
 import { ConflitModule } from './conflit/conflit.module.js';
+import { EditLockModule } from './edit-lock/edit-lock.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -115,6 +116,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     VersionsModule,
     SeancesModule,
     ConflitModule,
+    EditLockModule,
   ],
   controllers: [MetricsController, SecurityEventController],
   providers: [

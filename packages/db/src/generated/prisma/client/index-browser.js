@@ -422,6 +422,15 @@ exports.Prisma.VersionSnapshotScalarFieldEnum = {
   snapshotId: 'snapshotId'
 };
 
+exports.Prisma.EditLockScalarFieldEnum = {
+  id: 'id',
+  versionId: 'versionId',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DepartementScalarFieldEnum = {
   id: 'id',
   anneeId: 'anneeId',
@@ -1058,6 +1067,7 @@ exports.Prisma.ModelName = {
   Occupation: 'Occupation',
   VersionEdt: 'VersionEdt',
   VersionSnapshot: 'VersionSnapshot',
+  EditLock: 'EditLock',
   Departement: 'Departement',
   Formation: 'Formation',
   Niveau: 'Niveau',

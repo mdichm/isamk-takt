@@ -154,6 +154,11 @@ export type VersionEdt = $Result.DefaultSelection<Prisma.$VersionEdtPayload>
  */
 export type VersionSnapshot = $Result.DefaultSelection<Prisma.$VersionSnapshotPayload>
 /**
+ * Model EditLock
+ * 
+ */
+export type EditLock = $Result.DefaultSelection<Prisma.$EditLockPayload>
+/**
  * Model Departement
  * 
  */
@@ -1153,6 +1158,16 @@ export class PrismaClient<
   get versionSnapshot(): Prisma.VersionSnapshotDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.editLock`: Exposes CRUD operations for the **EditLock** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EditLocks
+    * const editLocks = await prisma.editLock.findMany()
+    * ```
+    */
+  get editLock(): Prisma.EditLockDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.departement`: Exposes CRUD operations for the **Departement** model.
     * Example usage:
     * ```ts
@@ -1946,6 +1961,7 @@ export namespace Prisma {
     Occupation: 'Occupation',
     VersionEdt: 'VersionEdt',
     VersionSnapshot: 'VersionSnapshot',
+    EditLock: 'EditLock',
     Departement: 'Departement',
     Formation: 'Formation',
     Niveau: 'Niveau',
@@ -1993,7 +2009,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4066,6 +4082,80 @@ export namespace Prisma {
           count: {
             args: Prisma.VersionSnapshotCountArgs<ExtArgs>
             result: $Utils.Optional<VersionSnapshotCountAggregateOutputType> | number
+          }
+        }
+      }
+      EditLock: {
+        payload: Prisma.$EditLockPayload<ExtArgs>
+        fields: Prisma.EditLockFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EditLockFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EditLockFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>
+          }
+          findFirst: {
+            args: Prisma.EditLockFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EditLockFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>
+          }
+          findMany: {
+            args: Prisma.EditLockFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>[]
+          }
+          create: {
+            args: Prisma.EditLockCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>
+          }
+          createMany: {
+            args: Prisma.EditLockCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EditLockCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>[]
+          }
+          delete: {
+            args: Prisma.EditLockDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>
+          }
+          update: {
+            args: Prisma.EditLockUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>
+          }
+          deleteMany: {
+            args: Prisma.EditLockDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EditLockUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EditLockUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>[]
+          }
+          upsert: {
+            args: Prisma.EditLockUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EditLockPayload>
+          }
+          aggregate: {
+            args: Prisma.EditLockAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEditLock>
+          }
+          groupBy: {
+            args: Prisma.EditLockGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EditLockGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EditLockCountArgs<ExtArgs>
+            result: $Utils.Optional<EditLockCountAggregateOutputType> | number
           }
         }
       }
@@ -6588,6 +6678,7 @@ export namespace Prisma {
     occupation?: OccupationOmit
     versionEdt?: VersionEdtOmit
     versionSnapshot?: VersionSnapshotOmit
+    editLock?: EditLockOmit
     departement?: DepartementOmit
     formation?: FormationOmit
     niveau?: NiveauOmit
@@ -38452,6 +38543,7 @@ export namespace Prisma {
     occupations?: boolean | VersionEdt$occupationsArgs<ExtArgs>
     snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
     conflits?: boolean | VersionEdt$conflitsArgs<ExtArgs>
+    editLock?: boolean | VersionEdt$editLockArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["versionEdt"]>
 
@@ -38494,6 +38586,7 @@ export namespace Prisma {
     occupations?: boolean | VersionEdt$occupationsArgs<ExtArgs>
     snapshots?: boolean | VersionEdt$snapshotsArgs<ExtArgs>
     conflits?: boolean | VersionEdt$conflitsArgs<ExtArgs>
+    editLock?: boolean | VersionEdt$editLockArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VersionEdtIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38511,6 +38604,7 @@ export namespace Prisma {
       occupations: Prisma.$OccupationPayload<ExtArgs>[]
       snapshots: Prisma.$VersionSnapshotPayload<ExtArgs>[]
       conflits: Prisma.$ConflitPayload<ExtArgs>[]
+      editLock: Prisma.$EditLockPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -38919,6 +39013,7 @@ export namespace Prisma {
     occupations<T extends VersionEdt$occupationsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$occupationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OccupationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     snapshots<T extends VersionEdt$snapshotsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$snapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     conflits<T extends VersionEdt$conflitsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$conflitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    editLock<T extends VersionEdt$editLockArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$editLockArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39449,6 +39544,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConflitScalarFieldEnum | ConflitScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt.editLock
+   */
+  export type VersionEdt$editLockArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    where?: EditLockWhereInput
   }
 
   /**
@@ -40499,6 +40613,1082 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: VersionSnapshotInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EditLock
+   */
+
+  export type AggregateEditLock = {
+    _count: EditLockCountAggregateOutputType | null
+    _min: EditLockMinAggregateOutputType | null
+    _max: EditLockMaxAggregateOutputType | null
+  }
+
+  export type EditLockMinAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    userId: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EditLockMaxAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    userId: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EditLockCountAggregateOutputType = {
+    id: number
+    versionId: number
+    userId: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EditLockMinAggregateInputType = {
+    id?: true
+    versionId?: true
+    userId?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EditLockMaxAggregateInputType = {
+    id?: true
+    versionId?: true
+    userId?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EditLockCountAggregateInputType = {
+    id?: true
+    versionId?: true
+    userId?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EditLockAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EditLock to aggregate.
+     */
+    where?: EditLockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EditLocks to fetch.
+     */
+    orderBy?: EditLockOrderByWithRelationInput | EditLockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EditLockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EditLocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EditLocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EditLocks
+    **/
+    _count?: true | EditLockCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EditLockMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EditLockMaxAggregateInputType
+  }
+
+  export type GetEditLockAggregateType<T extends EditLockAggregateArgs> = {
+        [P in keyof T & keyof AggregateEditLock]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEditLock[P]>
+      : GetScalarType<T[P], AggregateEditLock[P]>
+  }
+
+
+
+
+  export type EditLockGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EditLockWhereInput
+    orderBy?: EditLockOrderByWithAggregationInput | EditLockOrderByWithAggregationInput[]
+    by: EditLockScalarFieldEnum[] | EditLockScalarFieldEnum
+    having?: EditLockScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EditLockCountAggregateInputType | true
+    _min?: EditLockMinAggregateInputType
+    _max?: EditLockMaxAggregateInputType
+  }
+
+  export type EditLockGroupByOutputType = {
+    id: string
+    versionId: string
+    userId: string
+    expiresAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: EditLockCountAggregateOutputType | null
+    _min: EditLockMinAggregateOutputType | null
+    _max: EditLockMaxAggregateOutputType | null
+  }
+
+  type GetEditLockGroupByPayload<T extends EditLockGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EditLockGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EditLockGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EditLockGroupByOutputType[P]>
+            : GetScalarType<T[P], EditLockGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EditLockSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["editLock"]>
+
+  export type EditLockSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["editLock"]>
+
+  export type EditLockSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["editLock"]>
+
+  export type EditLockSelectScalar = {
+    id?: boolean
+    versionId?: boolean
+    userId?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EditLockOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "versionId" | "userId" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["editLock"]>
+  export type EditLockInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+  export type EditLockIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+  export type EditLockIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+
+  export type $EditLockPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EditLock"
+    objects: {
+      version: Prisma.$VersionEdtPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      versionId: string
+      userId: string
+      expiresAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["editLock"]>
+    composites: {}
+  }
+
+  type EditLockGetPayload<S extends boolean | null | undefined | EditLockDefaultArgs> = $Result.GetResult<Prisma.$EditLockPayload, S>
+
+  type EditLockCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EditLockFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EditLockCountAggregateInputType | true
+    }
+
+  export interface EditLockDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EditLock'], meta: { name: 'EditLock' } }
+    /**
+     * Find zero or one EditLock that matches the filter.
+     * @param {EditLockFindUniqueArgs} args - Arguments to find a EditLock
+     * @example
+     * // Get one EditLock
+     * const editLock = await prisma.editLock.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EditLockFindUniqueArgs>(args: SelectSubset<T, EditLockFindUniqueArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EditLock that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EditLockFindUniqueOrThrowArgs} args - Arguments to find a EditLock
+     * @example
+     * // Get one EditLock
+     * const editLock = await prisma.editLock.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EditLockFindUniqueOrThrowArgs>(args: SelectSubset<T, EditLockFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EditLock that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditLockFindFirstArgs} args - Arguments to find a EditLock
+     * @example
+     * // Get one EditLock
+     * const editLock = await prisma.editLock.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EditLockFindFirstArgs>(args?: SelectSubset<T, EditLockFindFirstArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EditLock that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditLockFindFirstOrThrowArgs} args - Arguments to find a EditLock
+     * @example
+     * // Get one EditLock
+     * const editLock = await prisma.editLock.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EditLockFindFirstOrThrowArgs>(args?: SelectSubset<T, EditLockFindFirstOrThrowArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EditLocks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditLockFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EditLocks
+     * const editLocks = await prisma.editLock.findMany()
+     * 
+     * // Get first 10 EditLocks
+     * const editLocks = await prisma.editLock.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const editLockWithIdOnly = await prisma.editLock.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EditLockFindManyArgs>(args?: SelectSubset<T, EditLockFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EditLock.
+     * @param {EditLockCreateArgs} args - Arguments to create a EditLock.
+     * @example
+     * // Create one EditLock
+     * const EditLock = await prisma.editLock.create({
+     *   data: {
+     *     // ... data to create a EditLock
+     *   }
+     * })
+     * 
+     */
+    create<T extends EditLockCreateArgs>(args: SelectSubset<T, EditLockCreateArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EditLocks.
+     * @param {EditLockCreateManyArgs} args - Arguments to create many EditLocks.
+     * @example
+     * // Create many EditLocks
+     * const editLock = await prisma.editLock.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EditLockCreateManyArgs>(args?: SelectSubset<T, EditLockCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EditLocks and returns the data saved in the database.
+     * @param {EditLockCreateManyAndReturnArgs} args - Arguments to create many EditLocks.
+     * @example
+     * // Create many EditLocks
+     * const editLock = await prisma.editLock.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EditLocks and only return the `id`
+     * const editLockWithIdOnly = await prisma.editLock.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EditLockCreateManyAndReturnArgs>(args?: SelectSubset<T, EditLockCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EditLock.
+     * @param {EditLockDeleteArgs} args - Arguments to delete one EditLock.
+     * @example
+     * // Delete one EditLock
+     * const EditLock = await prisma.editLock.delete({
+     *   where: {
+     *     // ... filter to delete one EditLock
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EditLockDeleteArgs>(args: SelectSubset<T, EditLockDeleteArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EditLock.
+     * @param {EditLockUpdateArgs} args - Arguments to update one EditLock.
+     * @example
+     * // Update one EditLock
+     * const editLock = await prisma.editLock.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EditLockUpdateArgs>(args: SelectSubset<T, EditLockUpdateArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EditLocks.
+     * @param {EditLockDeleteManyArgs} args - Arguments to filter EditLocks to delete.
+     * @example
+     * // Delete a few EditLocks
+     * const { count } = await prisma.editLock.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EditLockDeleteManyArgs>(args?: SelectSubset<T, EditLockDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EditLocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditLockUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EditLocks
+     * const editLock = await prisma.editLock.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EditLockUpdateManyArgs>(args: SelectSubset<T, EditLockUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EditLocks and returns the data updated in the database.
+     * @param {EditLockUpdateManyAndReturnArgs} args - Arguments to update many EditLocks.
+     * @example
+     * // Update many EditLocks
+     * const editLock = await prisma.editLock.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EditLocks and only return the `id`
+     * const editLockWithIdOnly = await prisma.editLock.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EditLockUpdateManyAndReturnArgs>(args: SelectSubset<T, EditLockUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EditLock.
+     * @param {EditLockUpsertArgs} args - Arguments to update or create a EditLock.
+     * @example
+     * // Update or create a EditLock
+     * const editLock = await prisma.editLock.upsert({
+     *   create: {
+     *     // ... data to create a EditLock
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EditLock we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EditLockUpsertArgs>(args: SelectSubset<T, EditLockUpsertArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EditLocks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditLockCountArgs} args - Arguments to filter EditLocks to count.
+     * @example
+     * // Count the number of EditLocks
+     * const count = await prisma.editLock.count({
+     *   where: {
+     *     // ... the filter for the EditLocks we want to count
+     *   }
+     * })
+    **/
+    count<T extends EditLockCountArgs>(
+      args?: Subset<T, EditLockCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EditLockCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EditLock.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditLockAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EditLockAggregateArgs>(args: Subset<T, EditLockAggregateArgs>): Prisma.PrismaPromise<GetEditLockAggregateType<T>>
+
+    /**
+     * Group by EditLock.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EditLockGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EditLockGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EditLockGroupByArgs['orderBy'] }
+        : { orderBy?: EditLockGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EditLockGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEditLockGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EditLock model
+   */
+  readonly fields: EditLockFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EditLock.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EditLockClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EditLock model
+   */
+  interface EditLockFieldRefs {
+    readonly id: FieldRef<"EditLock", 'String'>
+    readonly versionId: FieldRef<"EditLock", 'String'>
+    readonly userId: FieldRef<"EditLock", 'String'>
+    readonly expiresAt: FieldRef<"EditLock", 'DateTime'>
+    readonly createdAt: FieldRef<"EditLock", 'DateTime'>
+    readonly updatedAt: FieldRef<"EditLock", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EditLock findUnique
+   */
+  export type EditLockFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * Filter, which EditLock to fetch.
+     */
+    where: EditLockWhereUniqueInput
+  }
+
+  /**
+   * EditLock findUniqueOrThrow
+   */
+  export type EditLockFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * Filter, which EditLock to fetch.
+     */
+    where: EditLockWhereUniqueInput
+  }
+
+  /**
+   * EditLock findFirst
+   */
+  export type EditLockFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * Filter, which EditLock to fetch.
+     */
+    where?: EditLockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EditLocks to fetch.
+     */
+    orderBy?: EditLockOrderByWithRelationInput | EditLockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EditLocks.
+     */
+    cursor?: EditLockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EditLocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EditLocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EditLocks.
+     */
+    distinct?: EditLockScalarFieldEnum | EditLockScalarFieldEnum[]
+  }
+
+  /**
+   * EditLock findFirstOrThrow
+   */
+  export type EditLockFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * Filter, which EditLock to fetch.
+     */
+    where?: EditLockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EditLocks to fetch.
+     */
+    orderBy?: EditLockOrderByWithRelationInput | EditLockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EditLocks.
+     */
+    cursor?: EditLockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EditLocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EditLocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EditLocks.
+     */
+    distinct?: EditLockScalarFieldEnum | EditLockScalarFieldEnum[]
+  }
+
+  /**
+   * EditLock findMany
+   */
+  export type EditLockFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * Filter, which EditLocks to fetch.
+     */
+    where?: EditLockWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EditLocks to fetch.
+     */
+    orderBy?: EditLockOrderByWithRelationInput | EditLockOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EditLocks.
+     */
+    cursor?: EditLockWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EditLocks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EditLocks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EditLocks.
+     */
+    distinct?: EditLockScalarFieldEnum | EditLockScalarFieldEnum[]
+  }
+
+  /**
+   * EditLock create
+   */
+  export type EditLockCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EditLock.
+     */
+    data: XOR<EditLockCreateInput, EditLockUncheckedCreateInput>
+  }
+
+  /**
+   * EditLock createMany
+   */
+  export type EditLockCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EditLocks.
+     */
+    data: EditLockCreateManyInput | EditLockCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EditLock createManyAndReturn
+   */
+  export type EditLockCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * The data used to create many EditLocks.
+     */
+    data: EditLockCreateManyInput | EditLockCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EditLock update
+   */
+  export type EditLockUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EditLock.
+     */
+    data: XOR<EditLockUpdateInput, EditLockUncheckedUpdateInput>
+    /**
+     * Choose, which EditLock to update.
+     */
+    where: EditLockWhereUniqueInput
+  }
+
+  /**
+   * EditLock updateMany
+   */
+  export type EditLockUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EditLocks.
+     */
+    data: XOR<EditLockUpdateManyMutationInput, EditLockUncheckedUpdateManyInput>
+    /**
+     * Filter which EditLocks to update
+     */
+    where?: EditLockWhereInput
+    /**
+     * Limit how many EditLocks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EditLock updateManyAndReturn
+   */
+  export type EditLockUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * The data used to update EditLocks.
+     */
+    data: XOR<EditLockUpdateManyMutationInput, EditLockUncheckedUpdateManyInput>
+    /**
+     * Filter which EditLocks to update
+     */
+    where?: EditLockWhereInput
+    /**
+     * Limit how many EditLocks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EditLock upsert
+   */
+  export type EditLockUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EditLock to update in case it exists.
+     */
+    where: EditLockWhereUniqueInput
+    /**
+     * In case the EditLock found by the `where` argument doesn't exist, create a new EditLock with this data.
+     */
+    create: XOR<EditLockCreateInput, EditLockUncheckedCreateInput>
+    /**
+     * In case the EditLock was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EditLockUpdateInput, EditLockUncheckedUpdateInput>
+  }
+
+  /**
+   * EditLock delete
+   */
+  export type EditLockDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
+    /**
+     * Filter which EditLock to delete.
+     */
+    where: EditLockWhereUniqueInput
+  }
+
+  /**
+   * EditLock deleteMany
+   */
+  export type EditLockDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EditLocks to delete
+     */
+    where?: EditLockWhereInput
+    /**
+     * Limit how many EditLocks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EditLock without action
+   */
+  export type EditLockDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EditLock
+     */
+    select?: EditLockSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EditLock
+     */
+    omit?: EditLockOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EditLockInclude<ExtArgs> | null
   }
 
 
@@ -78322,6 +79512,18 @@ export namespace Prisma {
   export type VersionSnapshotScalarFieldEnum = (typeof VersionSnapshotScalarFieldEnum)[keyof typeof VersionSnapshotScalarFieldEnum]
 
 
+  export const EditLockScalarFieldEnum: {
+    id: 'id',
+    versionId: 'versionId',
+    userId: 'userId',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EditLockScalarFieldEnum = (typeof EditLockScalarFieldEnum)[keyof typeof EditLockScalarFieldEnum]
+
+
   export const DepartementScalarFieldEnum: {
     id: 'id',
     anneeId: 'anneeId',
@@ -81393,6 +82595,7 @@ export namespace Prisma {
     occupations?: OccupationListRelationFilter
     snapshots?: VersionSnapshotListRelationFilter
     conflits?: ConflitListRelationFilter
+    editLock?: XOR<EditLockNullableScalarRelationFilter, EditLockWhereInput> | null
   }
 
   export type VersionEdtOrderByWithRelationInput = {
@@ -81408,6 +82611,7 @@ export namespace Prisma {
     occupations?: OccupationOrderByRelationAggregateInput
     snapshots?: VersionSnapshotOrderByRelationAggregateInput
     conflits?: ConflitOrderByRelationAggregateInput
+    editLock?: EditLockOrderByWithRelationInput
   }
 
   export type VersionEdtWhereUniqueInput = Prisma.AtLeast<{
@@ -81426,6 +82630,7 @@ export namespace Prisma {
     occupations?: OccupationListRelationFilter
     snapshots?: VersionSnapshotListRelationFilter
     conflits?: ConflitListRelationFilter
+    editLock?: XOR<EditLockNullableScalarRelationFilter, EditLockWhereInput> | null
   }, "id">
 
   export type VersionEdtOrderByWithAggregationInput = {
@@ -81496,6 +82701,66 @@ export namespace Prisma {
     NOT?: VersionSnapshotScalarWhereWithAggregatesInput | VersionSnapshotScalarWhereWithAggregatesInput[]
     versionId?: UuidWithAggregatesFilter<"VersionSnapshot"> | string
     snapshotId?: UuidWithAggregatesFilter<"VersionSnapshot"> | string
+  }
+
+  export type EditLockWhereInput = {
+    AND?: EditLockWhereInput | EditLockWhereInput[]
+    OR?: EditLockWhereInput[]
+    NOT?: EditLockWhereInput | EditLockWhereInput[]
+    id?: UuidFilter<"EditLock"> | string
+    versionId?: UuidFilter<"EditLock"> | string
+    userId?: UuidFilter<"EditLock"> | string
+    expiresAt?: DateTimeFilter<"EditLock"> | Date | string
+    createdAt?: DateTimeFilter<"EditLock"> | Date | string
+    updatedAt?: DateTimeFilter<"EditLock"> | Date | string
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+  }
+
+  export type EditLockOrderByWithRelationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    version?: VersionEdtOrderByWithRelationInput
+  }
+
+  export type EditLockWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    versionId?: string
+    AND?: EditLockWhereInput | EditLockWhereInput[]
+    OR?: EditLockWhereInput[]
+    NOT?: EditLockWhereInput | EditLockWhereInput[]
+    userId?: UuidFilter<"EditLock"> | string
+    expiresAt?: DateTimeFilter<"EditLock"> | Date | string
+    createdAt?: DateTimeFilter<"EditLock"> | Date | string
+    updatedAt?: DateTimeFilter<"EditLock"> | Date | string
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+  }, "id" | "versionId">
+
+  export type EditLockOrderByWithAggregationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EditLockCountOrderByAggregateInput
+    _max?: EditLockMaxOrderByAggregateInput
+    _min?: EditLockMinOrderByAggregateInput
+  }
+
+  export type EditLockScalarWhereWithAggregatesInput = {
+    AND?: EditLockScalarWhereWithAggregatesInput | EditLockScalarWhereWithAggregatesInput[]
+    OR?: EditLockScalarWhereWithAggregatesInput[]
+    NOT?: EditLockScalarWhereWithAggregatesInput | EditLockScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"EditLock"> | string
+    versionId?: UuidWithAggregatesFilter<"EditLock"> | string
+    userId?: UuidWithAggregatesFilter<"EditLock"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"EditLock"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"EditLock"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EditLock"> | Date | string
   }
 
   export type DepartementWhereInput = {
@@ -86169,6 +87434,7 @@ export namespace Prisma {
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateInput = {
@@ -86183,6 +87449,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtUpdateInput = {
@@ -86197,6 +87464,7 @@ export namespace Prisma {
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateInput = {
@@ -86211,6 +87479,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
   }
 
   export type VersionEdtCreateManyInput = {
@@ -86274,6 +87543,68 @@ export namespace Prisma {
   export type VersionSnapshotUncheckedUpdateManyInput = {
     versionId?: StringFieldUpdateOperationsInput | string
     snapshotId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EditLockCreateInput = {
+    id?: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    version: VersionEdtCreateNestedOneWithoutEditLockInput
+  }
+
+  export type EditLockUncheckedCreateInput = {
+    id?: string
+    versionId: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EditLockUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    version?: VersionEdtUpdateOneRequiredWithoutEditLockNestedInput
+  }
+
+  export type EditLockUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EditLockCreateManyInput = {
+    id?: string
+    versionId: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EditLockUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EditLockUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DepartementCreateInput = {
@@ -90980,6 +92311,11 @@ export namespace Prisma {
     none?: ConflitWhereInput
   }
 
+  export type EditLockNullableScalarRelationFilter = {
+    is?: EditLockWhereInput | null
+    isNot?: EditLockWhereInput | null
+  }
+
   export type VersionSnapshotOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -91051,6 +92387,33 @@ export namespace Prisma {
   export type VersionSnapshotMinOrderByAggregateInput = {
     versionId?: SortOrder
     snapshotId?: SortOrder
+  }
+
+  export type EditLockCountOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EditLockMaxOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EditLockMinOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    userId?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type FormationListRelationFilter = {
@@ -95281,6 +96644,12 @@ export namespace Prisma {
     connect?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
   }
 
+  export type EditLockCreateNestedOneWithoutVersionInput = {
+    create?: XOR<EditLockCreateWithoutVersionInput, EditLockUncheckedCreateWithoutVersionInput>
+    connectOrCreate?: EditLockCreateOrConnectWithoutVersionInput
+    connect?: EditLockWhereUniqueInput
+  }
+
   export type SeanceUncheckedCreateNestedManyWithoutVersionInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -95307,6 +96676,12 @@ export namespace Prisma {
     connectOrCreate?: ConflitCreateOrConnectWithoutVersionInput | ConflitCreateOrConnectWithoutVersionInput[]
     createMany?: ConflitCreateManyVersionInputEnvelope
     connect?: ConflitWhereUniqueInput | ConflitWhereUniqueInput[]
+  }
+
+  export type EditLockUncheckedCreateNestedOneWithoutVersionInput = {
+    create?: XOR<EditLockCreateWithoutVersionInput, EditLockUncheckedCreateWithoutVersionInput>
+    connectOrCreate?: EditLockCreateOrConnectWithoutVersionInput
+    connect?: EditLockWhereUniqueInput
   }
 
   export type EnumVersionStatutFieldUpdateOperationsInput = {
@@ -95377,6 +96752,16 @@ export namespace Prisma {
     deleteMany?: ConflitScalarWhereInput | ConflitScalarWhereInput[]
   }
 
+  export type EditLockUpdateOneWithoutVersionNestedInput = {
+    create?: XOR<EditLockCreateWithoutVersionInput, EditLockUncheckedCreateWithoutVersionInput>
+    connectOrCreate?: EditLockCreateOrConnectWithoutVersionInput
+    upsert?: EditLockUpsertWithoutVersionInput
+    disconnect?: EditLockWhereInput | boolean
+    delete?: EditLockWhereInput | boolean
+    connect?: EditLockWhereUniqueInput
+    update?: XOR<XOR<EditLockUpdateToOneWithWhereWithoutVersionInput, EditLockUpdateWithoutVersionInput>, EditLockUncheckedUpdateWithoutVersionInput>
+  }
+
   export type SeanceUncheckedUpdateManyWithoutVersionNestedInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -95433,6 +96818,16 @@ export namespace Prisma {
     deleteMany?: ConflitScalarWhereInput | ConflitScalarWhereInput[]
   }
 
+  export type EditLockUncheckedUpdateOneWithoutVersionNestedInput = {
+    create?: XOR<EditLockCreateWithoutVersionInput, EditLockUncheckedCreateWithoutVersionInput>
+    connectOrCreate?: EditLockCreateOrConnectWithoutVersionInput
+    upsert?: EditLockUpsertWithoutVersionInput
+    disconnect?: EditLockWhereInput | boolean
+    delete?: EditLockWhereInput | boolean
+    connect?: EditLockWhereUniqueInput
+    update?: XOR<XOR<EditLockUpdateToOneWithWhereWithoutVersionInput, EditLockUpdateWithoutVersionInput>, EditLockUncheckedUpdateWithoutVersionInput>
+  }
+
   export type VersionEdtCreateNestedOneWithoutSnapshotsInput = {
     create?: XOR<VersionEdtCreateWithoutSnapshotsInput, VersionEdtUncheckedCreateWithoutSnapshotsInput>
     connectOrCreate?: VersionEdtCreateOrConnectWithoutSnapshotsInput
@@ -95459,6 +96854,20 @@ export namespace Prisma {
     upsert?: SnapshotUpsertWithoutVersionSnapshotsInput
     connect?: SnapshotWhereUniqueInput
     update?: XOR<XOR<SnapshotUpdateToOneWithWhereWithoutVersionSnapshotsInput, SnapshotUpdateWithoutVersionSnapshotsInput>, SnapshotUncheckedUpdateWithoutVersionSnapshotsInput>
+  }
+
+  export type VersionEdtCreateNestedOneWithoutEditLockInput = {
+    create?: XOR<VersionEdtCreateWithoutEditLockInput, VersionEdtUncheckedCreateWithoutEditLockInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutEditLockInput
+    connect?: VersionEdtWhereUniqueInput
+  }
+
+  export type VersionEdtUpdateOneRequiredWithoutEditLockNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutEditLockInput, VersionEdtUncheckedCreateWithoutEditLockInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutEditLockInput
+    upsert?: VersionEdtUpsertWithoutEditLockInput
+    connect?: VersionEdtWhereUniqueInput
+    update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutEditLockInput, VersionEdtUpdateWithoutEditLockInput>, VersionEdtUncheckedUpdateWithoutEditLockInput>
   }
 
   export type AnneeCreateNestedOneWithoutDepartementsInput = {
@@ -103319,6 +104728,7 @@ export namespace Prisma {
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSemestreInput = {
@@ -103332,6 +104742,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSemestreInput = {
@@ -103984,6 +105395,7 @@ export namespace Prisma {
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSeancesInput = {
@@ -103997,6 +105409,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSeancesInput = {
@@ -104242,6 +105655,7 @@ export namespace Prisma {
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSeancesInput = {
@@ -104255,6 +105669,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
   }
 
   export type EnseignantUpsertWithoutSeancesInput = {
@@ -104642,6 +106057,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutOccupationsInput = {
@@ -104655,6 +106071,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutOccupationsInput = {
@@ -104729,6 +106146,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutOccupationsInput = {
@@ -104742,6 +106160,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
   }
 
   export type SeanceUpsertWithoutOccupationsInput = {
@@ -104972,6 +106391,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EditLockCreateWithoutVersionInput = {
+    id?: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EditLockUncheckedCreateWithoutVersionInput = {
+    id?: string
+    userId: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EditLockCreateOrConnectWithoutVersionInput = {
+    where: EditLockWhereUniqueInput
+    create: XOR<EditLockCreateWithoutVersionInput, EditLockUncheckedCreateWithoutVersionInput>
+  }
+
   export type SemestreUpsertWithoutVersionsInput = {
     update: XOR<SemestreUpdateWithoutVersionsInput, SemestreUncheckedUpdateWithoutVersionsInput>
     create: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
@@ -105110,6 +106550,33 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Conflit"> | Date | string
   }
 
+  export type EditLockUpsertWithoutVersionInput = {
+    update: XOR<EditLockUpdateWithoutVersionInput, EditLockUncheckedUpdateWithoutVersionInput>
+    create: XOR<EditLockCreateWithoutVersionInput, EditLockUncheckedCreateWithoutVersionInput>
+    where?: EditLockWhereInput
+  }
+
+  export type EditLockUpdateToOneWithWhereWithoutVersionInput = {
+    where?: EditLockWhereInput
+    data: XOR<EditLockUpdateWithoutVersionInput, EditLockUncheckedUpdateWithoutVersionInput>
+  }
+
+  export type EditLockUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EditLockUncheckedUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type VersionEdtCreateWithoutSnapshotsInput = {
     id?: string
     numero: string
@@ -105121,6 +106588,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutVersionInput
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSnapshotsInput = {
@@ -105134,6 +106602,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSnapshotsInput = {
@@ -105192,6 +106661,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSnapshotsInput = {
@@ -105205,6 +106675,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
   }
 
   export type SnapshotUpsertWithoutVersionSnapshotsInput = {
@@ -105240,6 +106711,78 @@ export namespace Prisma {
     parAdministrateur?: BoolFieldUpdateOperationsInput | boolean
     repartitionStatut?: EnumRepartitionStatutFieldUpdateOperationsInput | $Enums.RepartitionStatut
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type VersionEdtCreateWithoutEditLockInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutEditLockInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutEditLockInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutEditLockInput, VersionEdtUncheckedCreateWithoutEditLockInput>
+  }
+
+  export type VersionEdtUpsertWithoutEditLockInput = {
+    update: XOR<VersionEdtUpdateWithoutEditLockInput, VersionEdtUncheckedUpdateWithoutEditLockInput>
+    create: XOR<VersionEdtCreateWithoutEditLockInput, VersionEdtUncheckedCreateWithoutEditLockInput>
+    where?: VersionEdtWhereInput
+  }
+
+  export type VersionEdtUpdateToOneWithWhereWithoutEditLockInput = {
+    where?: VersionEdtWhereInput
+    data: XOR<VersionEdtUpdateWithoutEditLockInput, VersionEdtUncheckedUpdateWithoutEditLockInput>
+  }
+
+  export type VersionEdtUpdateWithoutEditLockInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutEditLockInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -111155,6 +112698,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutVersionInput
     occupations?: OccupationCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutConflitsInput = {
@@ -111168,6 +112712,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
     occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutConflitsInput = {
@@ -111197,6 +112742,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutConflitsInput = {
@@ -111210,6 +112756,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -112978,6 +114525,7 @@ export namespace Prisma {
     occupations?: OccupationUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSemestreInput = {
@@ -112991,6 +114539,7 @@ export namespace Prisma {
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateManyWithoutSemestreInput = {
