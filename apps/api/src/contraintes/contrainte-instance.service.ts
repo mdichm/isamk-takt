@@ -2,7 +2,15 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { PrismaService } from '../prisma/prisma.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports, no-restricted-imports
-import type { ContrainteCategorie, ContraintePortee, ContrainteInstance } from '@takt/db';
+import type {
+  ContrainteCategorie,
+  ContrainteNature,
+  ContraintePortee,
+  ContrainteInstance,
+  Indisponibilite,
+  Creneau,
+  JourSemaine,
+} from '@takt/db';
 import type { Prisma } from '@takt/db';
 import type {
   ContrainteInstanceCreateDto,
@@ -10,11 +18,19 @@ import type {
   ContrainteInstanceListQueryDto,
   PaginatedContrainteInstancesDto,
   ContrainteInstanceResponseDto,
+  ContrainteDuplicateDto,
+  ContrainteDuplicateResponseDto,
+  ContrainteNonCopieeDto,
+  IndisponibiliteNonCopieeDto,
 } from './dto/contrainte-instance.dto.js';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { AuditService } from '../audit/audit.service.js';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { WriteAuditDto } from '../audit/dto/audit.dto.js';
 
 @Injectable()
 export class ContrainteInstanceService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private audit: AuditService) {}
 
   async createContrainteInstance(
     dto: ContrainteInstanceCreateDto,
@@ -53,6 +69,209 @@ export class ContrainteInstanceService {
     });
 
     return this.toDto(instance);
+  }
+
+  // ============================================
+  // Duplication de contraintes (L3-07)
+  // ============================================
+
+  async duplicate(
+    sourceSemestreId: string,
+    cibleSemestreId: string,
+    natures: ContrainteNature[] | undefined,
+    userId: string,
+  ): Promise<ContrainteDuplicateResponseDto> {
+    if (sourceSemestreId === cibleSemestreId) {
+      throw new BadRequestException(
+        'Le semestre source et le semestre cible doivent être différents',
+      );
+    }
+
+    const [source, cible] = await Promise.all([
+      this.prisma.semestre.findUnique({ where: { id: sourceSemestreId } }),
+      this.prisma.semestre.findUnique({ where: { id: cibleSemestreId } }),
+    ]);
+    if (!source) {
+      throw new NotFoundException(
+        `Semestre source "${sourceSemestreId}" introuvable`,
+      );
+    }
+    if (!cible) {
+      throw new NotFoundException(
+        `Semestre cible "${cibleSemestreId}" introuvable`,
+      );
+    }
+
+    const whereSource: Record<string, unknown> = {
+      semestreId: sourceSemestreId,
+      actif: true,
+    };
+    if (natures && natures.length > 0) {
+      whereSource.nature = { in: natures };
+    }
+
+    const sourceInstances = await this.prisma.contrainteInstance.findMany({
+      where: whereSource,
+      include: { definition: true },
+    });
+
+    const contraintesCrees: string[] = [];
+    const contraintesNonCopiees: ContrainteNonCopieeDto[] = [];
+    const indisponibilitesCrees: string[] = [];
+    const indisponibilitesNonCopiees: IndisponibiliteNonCopieeDto[] = [];
+
+    await this.audit.auditTransaction(
+      async (tx) => {
+        for (const inst of sourceInstances) {
+          const existant = await tx.contrainteInstance.findFirst({
+            where: { semestreId: cibleSemestreId, originId: inst.id },
+          });
+          if (existant) {
+            continue;
+          }
+
+          const definition = inst.definition;
+
+          if (definition.portee === 'ENSEIGNANT' && inst.enseignantId) {
+            const enseignant = await tx.enseignant.findUnique({
+              where: { id: inst.enseignantId },
+            });
+            if (!enseignant) {
+              contraintesNonCopiees.push({
+                definitionId: inst.definitionId,
+                sujetType: 'enseignant',
+                sujetId: inst.enseignantId,
+                raison: 'Enseignant cible introuvable',
+              });
+              continue;
+            }
+          } else if (definition.portee === 'GROUPE' && inst.groupeId) {
+            const groupe = await tx.groupe.findUnique({
+              where: { id: inst.groupeId },
+            });
+            if (!groupe) {
+              contraintesNonCopiees.push({
+                definitionId: inst.definitionId,
+                sujetType: 'groupe',
+                sujetId: inst.groupeId,
+                raison: 'Groupe cible introuvable',
+              });
+              continue;
+            }
+          } else if (definition.portee === 'SALLE' && inst.salleId) {
+            const salle = await tx.salle.findUnique({
+              where: { id: inst.salleId },
+            });
+            if (!salle) {
+              contraintesNonCopiees.push({
+                definitionId: inst.definitionId,
+                sujetType: 'salle',
+                sujetId: inst.salleId,
+                raison: 'Salle cible introuvable',
+              });
+              continue;
+            }
+          } else if (definition.portee === 'MODULE' && inst.moduleId) {
+            const module = await tx.module.findUnique({
+              where: { id: inst.moduleId },
+            });
+            if (!module) {
+              contraintesNonCopiees.push({
+                definitionId: inst.definitionId,
+                sujetType: 'module',
+                sujetId: inst.moduleId,
+                raison: 'Module cible introuvable',
+              });
+              continue;
+            }
+          } else if (
+            definition.portee !== 'GLOBALE' &&
+            definition.portee !== 'ENSEIGNANT' &&
+            definition.portee !== 'GROUPE' &&
+            definition.portee !== 'SALLE' &&
+            definition.portee !== 'MODULE'
+          ) {
+            contraintesNonCopiees.push({
+              definitionId: inst.definitionId,
+              sujetType: 'inconnu',
+              sujetId: '',
+              raison: `Portée non gérée: ${definition.portee}`,
+            });
+            continue;
+          }
+
+          const created = await tx.contrainteInstance.create({
+            data: {
+              semestreId: cibleSemestreId,
+              definitionId: inst.definitionId,
+              enseignantId: inst.enseignantId ?? null,
+              groupeId: inst.groupeId ?? null,
+              salleId: inst.salleId ?? null,
+              moduleId: inst.moduleId ?? null,
+              originId: inst.id,
+              params: inst.params as Prisma.InputJsonValue,
+              poids: inst.poids ?? null,
+              nature: inst.nature,
+              commentaire: inst.commentaire ?? null,
+              actif: inst.actif,
+              creePar: userId,
+            },
+          });
+          contraintesCrees.push(created.id);
+        }
+
+        // --- Copie des indisponibilités ---
+        const sourceIndis = await tx.indisponibilite.findMany({
+          where: { semestreId: sourceSemestreId, estActive: true },
+        });
+
+        for (const indi of sourceIndis) {
+          const creneauCible = await tx.creneau.findFirst({
+            where: {
+              semestreId: cibleSemestreId,
+              jour: indi.jour as JourSemaine,
+              ordre: indi.ordre,
+            },
+          });
+          if (!creneauCible) {
+            indisponibilitesNonCopiees.push({
+              jour: indi.jour as string,
+              ordre: indi.ordre,
+              raison: `Aucun créneau cible trouvé pour jour=${indi.jour} ordre=${indi.ordre}`,
+            });
+            continue;
+          }
+
+          const createdIndi = await tx.indisponibilite.create({
+            data: {
+              semestreId: cibleSemestreId,
+              jour: indi.jour,
+              ordre: indi.ordre,
+              enseignantId: indi.enseignantId ?? null,
+              salleId: indi.salleId ?? null,
+              estActive: indi.estActive,
+            },
+          });
+          indisponibilitesCrees.push(createdIndi.id);
+        }
+
+      },
+      {
+        userId,
+        action: 'CREATE',
+        objetType: 'ContrainteInstance',
+        motif: `Duplication contraintes et indisponibilités de ${sourceSemestreId} vers ${cibleSemestreId}`,
+      },
+    );
+
+    return {
+      contraintesCrees: contraintesCrees.length,
+      contraintesIds: contraintesCrees,
+      contraintesNonCopiees,
+      indisponibilitesCrees: indisponibilitesCrees.length,
+      indisponibilitesIds: indisponibilitesCrees,
+      indisponibilitesNonCopiees,
+    };
   }
 
   async findAll(

@@ -1132,6 +1132,7 @@ model ContrainteInstance {
   groupeId     String?          @db.Uuid
   salleId      String?          @db.Uuid
   moduleId     String?          @db.Uuid
+  originId     String?          // ID de l'instance source en cas de duplication
   params       Json
   poids        Int?
   nature       ContrainteNature @default(REGLE)

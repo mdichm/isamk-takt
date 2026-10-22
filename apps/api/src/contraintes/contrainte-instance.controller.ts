@@ -21,6 +21,8 @@ import {
   ContrainteInstanceResponseDto,
   PaginatedContrainteInstancesDto,
   ContrainteInstanceListQueryDto,
+  ContrainteDuplicateDto,
+  ContrainteDuplicateResponseDto,
 } from './dto/contrainte-instance.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -44,6 +46,25 @@ export class ContrainteInstanceController {
     @Body() dto: ContrainteInstanceCreateDto,
   ): Promise<ContrainteInstanceResponseDto> {
     return this.service.createContrainteInstance(dto, 'system');
+  }
+
+  @Post('duplicate')
+  @Permissions('contrainte:write')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Dupliquer les contraintes et vœux d\'un semestre vers un autre' })
+  @ApiResponse({ status: 201, description: 'Contraintes dupliquées', type: ContrainteDuplicateResponseDto })
+  @ApiResponse({ status: 400, description: 'Semestres identiques ou paramètres invalides' })
+  @ApiResponse({ status: 404, description: 'Semestre source ou cible introuvable' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  async duplicate(
+    @Body() dto: ContrainteDuplicateDto,
+  ): Promise<ContrainteDuplicateResponseDto> {
+    return this.service.duplicate(
+      dto.sourceSemestreId,
+      dto.cibleSemestreId,
+      dto.natures,
+      'system',
+    );
   }
 
   @Get()
