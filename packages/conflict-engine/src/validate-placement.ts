@@ -154,9 +154,21 @@ export function validatePlacement(seance: SeanceInput, candidat: PlacementCandid
   // --- 4. Capacité de salle ---
   const salle = ctx.salles.get(candidat.salle);
   if (salle) {
-    const groupesDistincts = new Set(seance.groupes);
+    // Déduplication des groupes : l'ancêtre prime sur le descendant
+    // (un groupe et son ancêtre ne sont pas comptés deux fois)
+    const representants = new Set<string>();
+    for (const gId of seance.groupes) {
+      let rep = gId;
+      if (ctx.groupeClosure) {
+        const closure = ctx.groupeClosure.get(gId);
+        if (closure && closure.ancetres.length > 0) {
+          rep = closure.ancetres[closure.ancetres.length - 1]; // ancêtre le plus haut
+        }
+      }
+      representants.add(rep);
+    }
     let effectifTotal = 0;
-    for (const gId of groupesDistincts) effectifTotal += ctx.groupeEffectifs.get(gId) ?? 0;
+    for (const rep of representants) effectifTotal += ctx.groupeEffectifs.get(rep) ?? 0;
     if (effectifTotal > salle.capaciteMax) {
       conflits.push(conflit('ROOM_CAPACITY','CAPACITE','BLOQUANT','salle',candidat.salle,[seance.id],`Eff ${effectifTotal} > capMax ${salle.capaciteMax}`,slotKeys));
     } else if (salle.capaciteRecommandee != null && effectifTotal > salle.capaciteRecommandee) {
