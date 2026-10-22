@@ -367,7 +367,7 @@ export class IncoherenceDto {
     enum: ['MIN_MAX', 'VOLUME_GROUPE', 'DOUBLON', 'WARNING'],
     description: "Type d'incohérence ou d'avertissement",
   })
-  type: 'MIN_MAX' | 'VOLUME_GROUPE' | 'DOUBLON' | 'WARNING';
+  type: 'MIN_MAX' | 'VOLUME_GROUPE' | 'DOUBLON' | 'WARNING' | 'PAUSE';
 
   @ApiProperty({ description: 'Code de la définition de contrainte concernée' })
   code: string;

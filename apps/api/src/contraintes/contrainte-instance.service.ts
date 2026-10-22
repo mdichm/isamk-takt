@@ -44,6 +44,37 @@ export class ContrainteInstanceService {
     this.validerCibleCoherente(definition, dto);
     this.validerPoids(definition.categorie, dto.poids);
 
+    // L3-08 : contrôle fenêtre de pause (MAX_HOURS_IN_INTERVAL) — rejeter si des séances
+    // existantes violent déjà la contrainte (règle dure).
+    if (definition.code === 'MAX_HOURS_IN_INTERVAL') {
+      const sujetType = definition.portee;
+      const sujetId =
+        sujetType === 'ENSEIGNANT'
+          ? dto.enseignantId ?? null
+          : sujetType === 'GROUPE'
+          ? dto.groupeId ?? null
+          : sujetType === 'SALLE'
+          ? dto.salleId ?? null
+          : sujetType === 'MODULE'
+          ? dto.moduleId ?? null
+          : null;
+      const incoherences: IncoherenceDto[] = [];
+      await this.verifierFenetrePause(
+        dto.semestreId,
+        sujetType,
+        sujetId,
+        incoherences,
+      );
+      const erreurs = incoherences.filter((i) => i.severite === 'ERREUR');
+      if (erreurs.length > 0) {
+        throw new BadRequestException(
+          `Fenêtre de pause violée par des séances existantes : ${erreurs
+            .map((e) => e.message)
+            .join('; ')}`,
+        );
+      }
+    }
+
     const instance = await this.prisma.contrainteInstance.create({
       data: {
         semestreId: dto.semestreId,
@@ -367,6 +398,20 @@ export class ContrainteInstanceService {
           incoherences,
         );
       }
+
+      // L3-08 : contrôle fenêtre de pause (MAX_HOURS_IN_INTERVAL) pour enseignant et groupe
+      if (
+        (sujetType === 'ENSEIGNANT' || sujetType === 'GROUPE') &&
+        cibleId &&
+        cibleId !== 'globale'
+      ) {
+        await this.verifierFenetrePause(
+          semestreId,
+          sujetType,
+          cibleId,
+          incoherences,
+        );
+      }
     }
 
     const totalErreurs = incoherences.filter((i) => i.severite === 'ERREUR').length;
@@ -440,6 +485,112 @@ export class ContrainteInstanceService {
         },
       });
     }
+  }
+
+  /**
+   * L3-08 : vérifie qu'aucune séance du sujet ne dépasse la fenêtre de pause
+   * définie par MAX_HOURS_IN_INTERVAL (occupation ≤ `heures` entre `debut` et `fin`).
+   * Ajoute les incohérences de type PAUSE dans le tableau fourni.
+   */
+  private async verifierFenetrePause(
+    semestreId: string,
+    sujetType: ContraintePortee,
+    sujetId: string | null,
+    incoherences: IncoherenceDto[],
+  ): Promise<void> {
+    if (!sujetId) {
+      return;
+    }
+
+    const pauseInstances = await this.prisma.contrainteInstance.findMany({
+      where: {
+        semestreId,
+        actif: true,
+        definition: { code: 'MAX_HOURS_IN_INTERVAL', actif: true },
+      },
+      include: { definition: true },
+    });
+
+    if (pauseInstances.length === 0) {
+      return;
+    }
+
+    const whereSeance: Record<string, unknown> = {
+      semestreId,
+    };
+    if (sujetType === 'ENSEIGNANT') {
+      whereSeance['enseignantId'] = sujetId;
+    } else if (sujetType === 'GROUPE') {
+      whereSeance['groupes'] = { some: { groupeId: sujetId } };
+    } else {
+      return;
+    }
+
+    const seances = await this.prisma.seance.findMany({
+      where: whereSeance,
+      include: { creneauDebut: true },
+    });
+
+    const seancesParJour = new Map<string, typeof seances>();
+    for (const s of seances) {
+      if (!s.jour || !s.creneauDebut) continue;
+      const key = String(s.jour);
+      if (!seancesParJour.has(key)) seancesParJour.set(key, []);
+      seancesParJour.get(key)!.push(s);
+    }
+
+    for (const inst of pauseInstances) {
+      const params = inst.params as Record<string, unknown>;
+      const debut = params['debut'] as string | undefined;
+      const fin = params['fin'] as string | undefined;
+      const heures = params['heures'] as number | undefined;
+      if (!debut || !fin || heures === undefined) continue;
+
+      const debutMinutes = this.timeToMinutes(debut);
+      const finMinutes = this.timeToMinutes(fin);
+      const maxMinutes = heures * 60;
+
+      for (const [jour, jourSeances] of seancesParJour) {
+        let totalOccupationMinutes = 0;
+        for (const s of jourSeances) {
+          if (!s.creneauDebut) continue;
+          const sessionStart = this.dateTimeToMinutes(s.creneauDebut.heureDebut);
+          const sessionEnd = sessionStart + s.nbCreneaux * 30;
+          const overlapStart = Math.max(sessionStart, debutMinutes);
+          const overlapEnd = Math.min(sessionEnd, finMinutes);
+          if (overlapEnd > overlapStart) {
+            totalOccupationMinutes += overlapEnd - overlapStart;
+          }
+        }
+        if (totalOccupationMinutes > maxMinutes) {
+          incoherences.push({
+            type: 'PAUSE',
+            code: 'MAX_HOURS_IN_INTERVAL',
+            sujetType,
+            sujetId,
+            message: `Fenêtre de pause ${debut}-${fin} dépassée le ${jour} (${totalOccupationMinutes} min > ${maxMinutes} min)`,
+            severite: 'ERREUR',
+            details: {
+              debut,
+              fin,
+              heures,
+              jour,
+              totalOccupationMinutes,
+              maxMinutes,
+            },
+          });
+        }
+      }
+    }
+  }
+
+  private dateTimeToMinutes(dt: Date): number {
+    return dt.getHours() * 60 + dt.getMinutes();
+  }
+
+  private timeToMinutes(timeStr: string): number {
+    const [h, m] = timeStr.split(':').map(Number);
+    return h * 60 + m;
   }
 
   async removeContrainteInstance(id: string): Promise<void> {

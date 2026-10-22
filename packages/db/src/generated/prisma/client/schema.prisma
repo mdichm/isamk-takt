@@ -569,6 +569,7 @@ model Semestre {
   contrainteInstances  ContrainteInstance[]
   repartitions         Repartition[]
   demandesModification DemandeModification[]
+  seances              Seance[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -592,6 +593,7 @@ model Creneau {
   updatedAt  DateTime    @updatedAt
 
   affichages CreneauAffichage[]
+  seances    Seance[]
 
   @@unique([semestreId, jour, ordre])
   @@index([semestreId, jour])
@@ -615,6 +617,44 @@ model CreneauAffichage {
   @@unique([creneauId, grille])
   @@index([creneauId])
   @@map("creneau_affichage")
+}
+
+// ============================================
+// Séances placées (L3-08 : contrôle fenêtre de pause)
+// Une séance est l'affectation d'un créneau à un enseignant (et un ou plusieurs groupes)
+// pour un jour donné, dans un semestre.
+// ============================================
+model Seance {
+  id             String         @id @default(uuid()) @db.Uuid
+  semestreId     String         @db.Uuid
+  semestre       Semestre       @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  enseignantId   String?        @db.Uuid
+  enseignant     Enseignant?    @relation(fields: [enseignantId], references: [id], onDelete: SetNull)
+  salleId        String?        @db.Uuid
+  salle          Salle?         @relation(fields: [salleId], references: [id], onDelete: SetNull)
+  jour           JourSemaine
+  creneauDebutId String         @db.Uuid
+  creneauDebut   Creneau        @relation(fields: [creneauDebutId], references: [id])
+  nbCreneaux     Int            @default(1)
+  statut         String         @default("PLACEE") // PLACEE | ANNULEE | ...
+  groupes        SeanceGroupe[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([semestreId])
+  @@index([enseignantId])
+  @@index([salleId])
+  @@map("seances")
+}
+
+model SeanceGroupe {
+  seanceId String @db.Uuid
+  groupeId String @db.Uuid
+  seance   Seance @relation(fields: [seanceId], references: [id], onDelete: Cascade)
+  groupe   Groupe @relation(fields: [groupeId], references: [id], onDelete: Cascade)
+
+  @@id([seanceId, groupeId])
+  @@map("seance_groupes")
 }
 
 // ============================================
@@ -684,23 +724,24 @@ model Niveau {
 // ============================================
 
 model Groupe {
-  id           String        @id @default(uuid()) @db.Uuid
-  niveauId     String        @db.Uuid
-  niveau       Niveau        @relation(fields: [niveauId], references: [id], onDelete: Cascade)
-  semestreId   String        @db.Uuid
-  semestre     Semestre      @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  parentId     String?       @db.Uuid
-  parent       Groupe?       @relation("GroupesHierarchie", fields: [parentId], references: [id])
-  enfants      Groupe[]      @relation("GroupesHierarchie")
-  type         GroupeType
-  code         String // ex: "INFO-L3-S1"
-  libelle      String // ex: "L3 Informatique Semestre 1"
-  ordre        Int           @default(0)
-  effectif     Int           @default(0)
-  originId     String? // ID d'origine externe (synchronisation)
-  affectations Affectation[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id            String         @id @default(uuid()) @db.Uuid
+  niveauId      String         @db.Uuid
+  niveau        Niveau         @relation(fields: [niveauId], references: [id], onDelete: Cascade)
+  semestreId    String         @db.Uuid
+  semestre      Semestre       @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  parentId      String?        @db.Uuid
+  parent        Groupe?        @relation("GroupesHierarchie", fields: [parentId], references: [id])
+  enfants       Groupe[]       @relation("GroupesHierarchie")
+  type          GroupeType
+  code          String // ex: "INFO-L3-S1"
+  libelle       String // ex: "L3 Informatique Semestre 1"
+  ordre         Int            @default(0)
+  effectif      Int            @default(0)
+  originId      String? // ID d'origine externe (synchronisation)
+  affectations  Affectation[]
+  seanceGroupes SeanceGroupe[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
   @@unique([niveauId, semestreId, code])
   @@index([niveauId, semestreId, ordre])
@@ -912,6 +953,7 @@ model Enseignant {
   decharges         Decharge[]
   indisponibilites  Indisponibilite[]
   affectations      Affectation[]
+  seances           Seance[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -1012,6 +1054,7 @@ model Salle {
   equipements       SalleEquipement[]
   salleActivityTags SalleActivityTag[] @relation("SalleActivityTag")
   indisponibilites  Indisponibilite[]
+  seances           Seance[]
 
   @@index([departementId])
   @@index([typeSalleId])

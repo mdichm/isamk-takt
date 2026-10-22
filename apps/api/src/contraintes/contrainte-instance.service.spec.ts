@@ -11,6 +11,10 @@ import type {
 } from '@takt/db';
 import { ContrainteInstanceService } from './contrainte-instance.service.js';
 
+// Fuseau horaire fixe pour que dateTimeToMinutes (heure locale des Dates de creneau)
+// soit cohérent avec timeToMinutes (chaînes HH:MM sans fuseau).
+process.env.TZ = 'UTC';
+
 // ============================================
 // Mock PrismaService pour les tests unitaires
 // ============================================
@@ -24,6 +28,9 @@ class MockPrismaService {
   };
   affectation = {
     aggregate: vi.fn(),
+  };
+  seance = {
+    findMany: vi.fn(),
   };
 }
 
@@ -302,6 +309,7 @@ describe('ContrainteInstanceService (L3-06 - précédence et cohérence)', () =>
       // Volume reellement affecte = 2000 minutes > 1800 -> avertissement
       prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
       prisma.contrainteInstance.findMany.mockResolvedValue([instMaxHeures, instMaxJours]);
+      prisma.seance.findMany.mockResolvedValue([]);
       prisma.affectation.aggregate.mockResolvedValue({
         _sum: { volumeHebdoMinutes: 2000 },
       });
@@ -312,6 +320,149 @@ describe('ContrainteInstanceService (L3-06 - précédence et cohérence)', () =>
       const volumeWarning = result.incoherences.find((i) => i.type === 'VOLUME_GROUPE');
       expect(volumeWarning).toBeDefined();
       expect(volumeWarning?.severite).toBe('AVERTISSEMENT');
+    });
+  });
+
+  describe('fenêtre de pause (L3-08)', () => {
+    const semestreId = 'uuid-semestre';
+
+    function makePauseDefinition(
+      portee: ContraintePortee = 'GLOBALE',
+      params: Record<string, unknown> = { debut: '12:00', fin: '14:00', heures: 3 },
+    ): ContrainteDefinition {
+      return makeDefinition('MAX_HOURS_IN_INTERVAL', 'DURE', portee, params);
+    }
+
+    function makePauseInstance(
+      id: string,
+      def: ContrainteDefinition,
+      overrides: {
+        enseignantId?: string | null;
+        groupeId?: string | null;
+        params?: Record<string, unknown>;
+      } = {},
+    ): ContrainteInstance & { definition: ContrainteDefinition } {
+      return {
+        ...makeInstance(id, def, overrides),
+        params: overrides.params ?? { debut: '12:00', fin: '14:00', heures: 3 },
+      } as ContrainteInstance & { definition: ContrainteDefinition };
+    }
+
+    function makeSeance(
+      id: string,
+      jour: string,
+      heureDebut: string,
+      nbCreneaux: number,
+      enseignantId?: string | null,
+      groupeId?: string | null,
+    ) {
+      return {
+        id,
+        versionId: 'uuid-version',
+        affectationKey: `${id}-key`,
+        rang: 1,
+        moduleId: 'uuid-module',
+        typeEnseignementId: 'uuid-type',
+        activityTagId: 'uuid-tag',
+        enseignantId,
+        salleId: null,
+        jour,
+        creneauDebutId: 'uuid-creneau',
+        nbCreneaux,
+        statut: 'PLACEE',
+        origine: 'MOTEUR',
+        revision: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        creneauDebut: {
+          id: 'uuid-creneau',
+          semestreId,
+          jour,
+          ordre: 4,
+          heureDebut: new Date(`1970-01-01T${heureDebut}Z`),
+          heureFin: new Date(`1970-01-01T${heureDebut}Z`),
+          estPause: false,
+        },
+        groupes: groupeId ? [{ groupeId, seanceId: id }] : [],
+        occupations: [],
+        verrous: [],
+      } as any;
+    }
+
+    it('ne détecte aucune incohérence quand aucune instance MAX_HOURS_IN_INTERVAL', async () => {
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([]);
+      prisma.seance.findMany.mockResolvedValue([]);
+      prisma.affectation.aggregate.mockResolvedValue({ _sum: { volumeHebdoMinutes: 0 } });
+
+      const result = await service.verifierCoherenceSemestre(semestreId);
+
+      expect(result.estCoherent).toBe(true);
+      expect(result.totalErreurs).toBe(0);
+      expect(result.incoherences.find((i) => i.type === 'PAUSE')).toBeUndefined();
+    });
+
+    it('détecte une violation de fenêtre de pause (PAUSE, ERREUR)', async () => {
+      const def = makePauseDefinition('ENSEIGNANT');
+      const inst = makePauseInstance('inst-pause', def, { enseignantId: 'uuid-ens' });
+
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([inst]);
+      prisma.seance.findMany.mockResolvedValue([
+        makeSeance('s1', 'LUNDI', '11:30', 5, 'uuid-ens'),   // 11:30-14:00, overlap 12:00-14:00 = 120 min
+        makeSeance('s2', 'LUNDI', '12:00', 5, 'uuid-ens'),   // 12:00-14:30, overlap 12:00-14:00 = 120 min
+      ]);
+      prisma.affectation.aggregate.mockResolvedValue({ _sum: { volumeHebdoMinutes: 0 } });
+
+      const result = await service.verifierCoherenceSemestre(semestreId);
+
+      const pauseError = result.incoherences.find((i) => i.type === 'PAUSE');
+      expect(pauseError).toBeDefined();
+      expect(pauseError?.severite).toBe('ERREUR');
+      expect(pauseError?.code).toBe('MAX_HOURS_IN_INTERVAL');
+      expect(result.totalErreurs).toBeGreaterThan(0);
+    });
+
+    it('ne détecte pas de violation quand loccupation est dans les limites', async () => {
+      const def = makePauseDefinition('ENSEIGNANT');
+      const inst = makePauseInstance('inst-pause', def, { enseignantId: 'uuid-ens' });
+
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([inst]);
+      prisma.seance.findMany.mockResolvedValue([
+        makeSeance('s1', 'LUNDI', '12:00', 2, 'uuid-ens'),
+      ]);
+      prisma.affectation.aggregate.mockResolvedValue({ _sum: { volumeHebdoMinutes: 0 } });
+
+      const result = await service.verifierCoherenceSemestre(semestreId);
+
+      const pauseError = result.incoherences.find((i) => i.type === 'PAUSE');
+      expect(pauseError).toBeUndefined();
+      expect(result.totalErreurs).toBe(0);
+    });
+
+    it('ne vérifie pas la fenêtre de pause pour un sujet GLOBALE sans cible', async () => {
+      const def = makePauseDefinition('GLOBALE');
+      const inst = makePauseInstance('inst-pause', def, {});
+
+      prisma.semestre.findUnique.mockResolvedValue(makeSemestre(semestreId));
+      prisma.contrainteInstance.findMany.mockResolvedValue([inst]);
+      prisma.seance.findMany.mockResolvedValue([]);
+      prisma.affectation.aggregate.mockResolvedValue({ _sum: { volumeHebdoMinutes: 0 } });
+
+      const result = await service.verifierCoherenceSemestre(semestreId);
+
+      const pauseError = result.incoherences.find((i) => i.type === 'PAUSE');
+      expect(pauseError).toBeUndefined();
+      expect(result.estCoherent).toBe(true);
+    });
+
+    it('lance NotFoundException si le semestre est introuvable', async () => {
+      prisma.semestre.findUnique.mockResolvedValue(null);
+
+      await expect(service.verifierCoherenceSemestre('unknown-semestre')).rejects.toBeInstanceOf(
+        NotFoundException,
+      );
     });
   });
 });

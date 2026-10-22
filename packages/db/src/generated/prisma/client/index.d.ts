@@ -129,6 +129,16 @@ export type Creneau = $Result.DefaultSelection<Prisma.$CreneauPayload>
  */
 export type CreneauAffichage = $Result.DefaultSelection<Prisma.$CreneauAffichagePayload>
 /**
+ * Model Seance
+ * 
+ */
+export type Seance = $Result.DefaultSelection<Prisma.$SeancePayload>
+/**
+ * Model SeanceGroupe
+ * 
+ */
+export type SeanceGroupe = $Result.DefaultSelection<Prisma.$SeanceGroupePayload>
+/**
  * Model Departement
  * 
  */
@@ -985,6 +995,26 @@ export class PrismaClient<
   get creneauAffichage(): Prisma.CreneauAffichageDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.seance`: Exposes CRUD operations for the **Seance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Seances
+    * const seances = await prisma.seance.findMany()
+    * ```
+    */
+  get seance(): Prisma.SeanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.seanceGroupe`: Exposes CRUD operations for the **SeanceGroupe** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SeanceGroupes
+    * const seanceGroupes = await prisma.seanceGroupe.findMany()
+    * ```
+    */
+  get seanceGroupe(): Prisma.SeanceGroupeDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.departement`: Exposes CRUD operations for the **Departement** model.
     * Example usage:
     * ```ts
@@ -1763,6 +1793,8 @@ export namespace Prisma {
     Semestre: 'Semestre',
     Creneau: 'Creneau',
     CreneauAffichage: 'CreneauAffichage',
+    Seance: 'Seance',
+    SeanceGroupe: 'SeanceGroupe',
     Departement: 'Departement',
     Formation: 'Formation',
     Niveau: 'Niveau',
@@ -1809,7 +1841,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3512,6 +3544,154 @@ export namespace Prisma {
           count: {
             args: Prisma.CreneauAffichageCountArgs<ExtArgs>
             result: $Utils.Optional<CreneauAffichageCountAggregateOutputType> | number
+          }
+        }
+      }
+      Seance: {
+        payload: Prisma.$SeancePayload<ExtArgs>
+        fields: Prisma.SeanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SeanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SeanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>
+          }
+          findFirst: {
+            args: Prisma.SeanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SeanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>
+          }
+          findMany: {
+            args: Prisma.SeanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>[]
+          }
+          create: {
+            args: Prisma.SeanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>
+          }
+          createMany: {
+            args: Prisma.SeanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SeanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>[]
+          }
+          delete: {
+            args: Prisma.SeanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>
+          }
+          update: {
+            args: Prisma.SeanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>
+          }
+          deleteMany: {
+            args: Prisma.SeanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SeanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SeanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>[]
+          }
+          upsert: {
+            args: Prisma.SeanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeancePayload>
+          }
+          aggregate: {
+            args: Prisma.SeanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSeance>
+          }
+          groupBy: {
+            args: Prisma.SeanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SeanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SeanceCountArgs<ExtArgs>
+            result: $Utils.Optional<SeanceCountAggregateOutputType> | number
+          }
+        }
+      }
+      SeanceGroupe: {
+        payload: Prisma.$SeanceGroupePayload<ExtArgs>
+        fields: Prisma.SeanceGroupeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SeanceGroupeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SeanceGroupeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>
+          }
+          findFirst: {
+            args: Prisma.SeanceGroupeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SeanceGroupeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>
+          }
+          findMany: {
+            args: Prisma.SeanceGroupeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>[]
+          }
+          create: {
+            args: Prisma.SeanceGroupeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>
+          }
+          createMany: {
+            args: Prisma.SeanceGroupeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SeanceGroupeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>[]
+          }
+          delete: {
+            args: Prisma.SeanceGroupeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>
+          }
+          update: {
+            args: Prisma.SeanceGroupeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>
+          }
+          deleteMany: {
+            args: Prisma.SeanceGroupeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SeanceGroupeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SeanceGroupeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>[]
+          }
+          upsert: {
+            args: Prisma.SeanceGroupeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SeanceGroupePayload>
+          }
+          aggregate: {
+            args: Prisma.SeanceGroupeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSeanceGroupe>
+          }
+          groupBy: {
+            args: Prisma.SeanceGroupeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SeanceGroupeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SeanceGroupeCountArgs<ExtArgs>
+            result: $Utils.Optional<SeanceGroupeCountAggregateOutputType> | number
           }
         }
       }
@@ -5955,6 +6135,8 @@ export namespace Prisma {
     semestre?: SemestreOmit
     creneau?: CreneauOmit
     creneauAffichage?: CreneauAffichageOmit
+    seance?: SeanceOmit
+    seanceGroupe?: SeanceGroupeOmit
     departement?: DepartementOmit
     formation?: FormationOmit
     niveau?: NiveauOmit
@@ -6470,6 +6652,7 @@ export namespace Prisma {
     contrainteInstances: number
     repartitions: number
     demandesModification: number
+    seances: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6480,6 +6663,7 @@ export namespace Prisma {
     contrainteInstances?: boolean | SemestreCountOutputTypeCountContrainteInstancesArgs
     repartitions?: boolean | SemestreCountOutputTypeCountRepartitionsArgs
     demandesModification?: boolean | SemestreCountOutputTypeCountDemandesModificationArgs
+    seances?: boolean | SemestreCountOutputTypeCountSeancesArgs
   }
 
   // Custom InputTypes
@@ -6542,6 +6726,13 @@ export namespace Prisma {
     where?: DemandeModificationWhereInput
   }
 
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceWhereInput
+  }
+
 
   /**
    * Count Type CreneauCountOutputType
@@ -6549,10 +6740,12 @@ export namespace Prisma {
 
   export type CreneauCountOutputType = {
     affichages: number
+    seances: number
   }
 
   export type CreneauCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     affichages?: boolean | CreneauCountOutputTypeCountAffichagesArgs
+    seances?: boolean | CreneauCountOutputTypeCountSeancesArgs
   }
 
   // Custom InputTypes
@@ -6571,6 +6764,44 @@ export namespace Prisma {
    */
   export type CreneauCountOutputTypeCountAffichagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CreneauAffichageWhereInput
+  }
+
+  /**
+   * CreneauCountOutputType without action
+   */
+  export type CreneauCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceWhereInput
+  }
+
+
+  /**
+   * Count Type SeanceCountOutputType
+   */
+
+  export type SeanceCountOutputType = {
+    groupes: number
+  }
+
+  export type SeanceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    groupes?: boolean | SeanceCountOutputTypeCountGroupesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SeanceCountOutputType without action
+   */
+  export type SeanceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceCountOutputType
+     */
+    select?: SeanceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SeanceCountOutputType without action
+   */
+  export type SeanceCountOutputTypeCountGroupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceGroupeWhereInput
   }
 
 
@@ -6710,11 +6941,13 @@ export namespace Prisma {
   export type GroupeCountOutputType = {
     enfants: number
     affectations: number
+    seanceGroupes: number
   }
 
   export type GroupeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enfants?: boolean | GroupeCountOutputTypeCountEnfantsArgs
     affectations?: boolean | GroupeCountOutputTypeCountAffectationsArgs
+    seanceGroupes?: boolean | GroupeCountOutputTypeCountSeanceGroupesArgs
   }
 
   // Custom InputTypes
@@ -6740,6 +6973,13 @@ export namespace Prisma {
    */
   export type GroupeCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AffectationWhereInput
+  }
+
+  /**
+   * GroupeCountOutputType without action
+   */
+  export type GroupeCountOutputTypeCountSeanceGroupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceGroupeWhereInput
   }
 
 
@@ -7006,6 +7246,7 @@ export namespace Prisma {
     decharges: number
     indisponibilites: number
     affectations: number
+    seances: number
   }
 
   export type EnseignantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7013,6 +7254,7 @@ export namespace Prisma {
     decharges?: boolean | EnseignantCountOutputTypeCountDechargesArgs
     indisponibilites?: boolean | EnseignantCountOutputTypeCountIndisponibilitesArgs
     affectations?: boolean | EnseignantCountOutputTypeCountAffectationsArgs
+    seances?: boolean | EnseignantCountOutputTypeCountSeancesArgs
   }
 
   // Custom InputTypes
@@ -7052,6 +7294,13 @@ export namespace Prisma {
    */
   export type EnseignantCountOutputTypeCountAffectationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AffectationWhereInput
+  }
+
+  /**
+   * EnseignantCountOutputType without action
+   */
+  export type EnseignantCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceWhereInput
   }
 
 
@@ -7125,12 +7374,14 @@ export namespace Prisma {
     equipements: number
     salleActivityTags: number
     indisponibilites: number
+    seances: number
   }
 
   export type SalleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     equipements?: boolean | SalleCountOutputTypeCountEquipementsArgs
     salleActivityTags?: boolean | SalleCountOutputTypeCountSalleActivityTagsArgs
     indisponibilites?: boolean | SalleCountOutputTypeCountIndisponibilitesArgs
+    seances?: boolean | SalleCountOutputTypeCountSeancesArgs
   }
 
   // Custom InputTypes
@@ -7163,6 +7414,13 @@ export namespace Prisma {
    */
   export type SalleCountOutputTypeCountIndisponibilitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IndisponibiliteWhereInput
+  }
+
+  /**
+   * SalleCountOutputType without action
+   */
+  export type SalleCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceWhereInput
   }
 
 
@@ -30469,6 +30727,7 @@ export namespace Prisma {
     contrainteInstances?: boolean | Semestre$contrainteInstancesArgs<ExtArgs>
     repartitions?: boolean | Semestre$repartitionsArgs<ExtArgs>
     demandesModification?: boolean | Semestre$demandesModificationArgs<ExtArgs>
+    seances?: boolean | Semestre$seancesArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -30514,6 +30773,7 @@ export namespace Prisma {
     contrainteInstances?: boolean | Semestre$contrainteInstancesArgs<ExtArgs>
     repartitions?: boolean | Semestre$repartitionsArgs<ExtArgs>
     demandesModification?: boolean | Semestre$demandesModificationArgs<ExtArgs>
+    seances?: boolean | Semestre$seancesArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30534,6 +30794,7 @@ export namespace Prisma {
       contrainteInstances: Prisma.$ContrainteInstancePayload<ExtArgs>[]
       repartitions: Prisma.$RepartitionPayload<ExtArgs>[]
       demandesModification: Prisma.$DemandeModificationPayload<ExtArgs>[]
+      seances: Prisma.$SeancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30945,6 +31206,7 @@ export namespace Prisma {
     contrainteInstances<T extends Semestre$contrainteInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$contrainteInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContrainteInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     repartitions<T extends Semestre$repartitionsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$repartitionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RepartitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     demandesModification<T extends Semestre$demandesModificationArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$demandesModificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    seances<T extends Semestre$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31550,6 +31812,30 @@ export namespace Prisma {
   }
 
   /**
+   * Semestre.seances
+   */
+  export type Semestre$seancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    where?: SeanceWhereInput
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    cursor?: SeanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
+  }
+
+  /**
    * Semestre without action
    */
   export type SemestreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31808,6 +32094,7 @@ export namespace Prisma {
     updatedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     affichages?: boolean | Creneau$affichagesArgs<ExtArgs>
+    seances?: boolean | Creneau$seancesArgs<ExtArgs>
     _count?: boolean | CreneauCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["creneau"]>
 
@@ -31856,6 +32143,7 @@ export namespace Prisma {
   export type CreneauInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     affichages?: boolean | Creneau$affichagesArgs<ExtArgs>
+    seances?: boolean | Creneau$seancesArgs<ExtArgs>
     _count?: boolean | CreneauCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CreneauIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31870,6 +32158,7 @@ export namespace Prisma {
     objects: {
       semestre: Prisma.$SemestrePayload<ExtArgs>
       affichages: Prisma.$CreneauAffichagePayload<ExtArgs>[]
+      seances: Prisma.$SeancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -32278,6 +32567,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     affichages<T extends Creneau$affichagesArgs<ExtArgs> = {}>(args?: Subset<T, Creneau$affichagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreneauAffichagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    seances<T extends Creneau$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Creneau$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -32739,6 +33029,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CreneauAffichageScalarFieldEnum | CreneauAffichageScalarFieldEnum[]
+  }
+
+  /**
+   * Creneau.seances
+   */
+  export type Creneau$seancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    where?: SeanceWhereInput
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    cursor?: SeanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
   }
 
   /**
@@ -33820,6 +34134,2292 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CreneauAffichageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Seance
+   */
+
+  export type AggregateSeance = {
+    _count: SeanceCountAggregateOutputType | null
+    _avg: SeanceAvgAggregateOutputType | null
+    _sum: SeanceSumAggregateOutputType | null
+    _min: SeanceMinAggregateOutputType | null
+    _max: SeanceMaxAggregateOutputType | null
+  }
+
+  export type SeanceAvgAggregateOutputType = {
+    nbCreneaux: number | null
+  }
+
+  export type SeanceSumAggregateOutputType = {
+    nbCreneaux: number | null
+  }
+
+  export type SeanceMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    enseignantId: string | null
+    salleId: string | null
+    jour: $Enums.JourSemaine | null
+    creneauDebutId: string | null
+    nbCreneaux: number | null
+    statut: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SeanceMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    enseignantId: string | null
+    salleId: string | null
+    jour: $Enums.JourSemaine | null
+    creneauDebutId: string | null
+    nbCreneaux: number | null
+    statut: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SeanceCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    enseignantId: number
+    salleId: number
+    jour: number
+    creneauDebutId: number
+    nbCreneaux: number
+    statut: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SeanceAvgAggregateInputType = {
+    nbCreneaux?: true
+  }
+
+  export type SeanceSumAggregateInputType = {
+    nbCreneaux?: true
+  }
+
+  export type SeanceMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    enseignantId?: true
+    salleId?: true
+    jour?: true
+    creneauDebutId?: true
+    nbCreneaux?: true
+    statut?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SeanceMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    enseignantId?: true
+    salleId?: true
+    jour?: true
+    creneauDebutId?: true
+    nbCreneaux?: true
+    statut?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SeanceCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    enseignantId?: true
+    salleId?: true
+    jour?: true
+    creneauDebutId?: true
+    nbCreneaux?: true
+    statut?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SeanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Seance to aggregate.
+     */
+    where?: SeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Seances to fetch.
+     */
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Seances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Seances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Seances
+    **/
+    _count?: true | SeanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SeanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SeanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SeanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SeanceMaxAggregateInputType
+  }
+
+  export type GetSeanceAggregateType<T extends SeanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateSeance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSeance[P]>
+      : GetScalarType<T[P], AggregateSeance[P]>
+  }
+
+
+
+
+  export type SeanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceWhereInput
+    orderBy?: SeanceOrderByWithAggregationInput | SeanceOrderByWithAggregationInput[]
+    by: SeanceScalarFieldEnum[] | SeanceScalarFieldEnum
+    having?: SeanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SeanceCountAggregateInputType | true
+    _avg?: SeanceAvgAggregateInputType
+    _sum?: SeanceSumAggregateInputType
+    _min?: SeanceMinAggregateInputType
+    _max?: SeanceMaxAggregateInputType
+  }
+
+  export type SeanceGroupByOutputType = {
+    id: string
+    semestreId: string
+    enseignantId: string | null
+    salleId: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux: number
+    statut: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SeanceCountAggregateOutputType | null
+    _avg: SeanceAvgAggregateOutputType | null
+    _sum: SeanceSumAggregateOutputType | null
+    _min: SeanceMinAggregateOutputType | null
+    _max: SeanceMaxAggregateOutputType | null
+  }
+
+  type GetSeanceGroupByPayload<T extends SeanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SeanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SeanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SeanceGroupByOutputType[P]>
+            : GetScalarType<T[P], SeanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SeanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    jour?: boolean
+    creneauDebutId?: boolean
+    nbCreneaux?: boolean
+    statut?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
+    salle?: boolean | Seance$salleArgs<ExtArgs>
+    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+    groupes?: boolean | Seance$groupesArgs<ExtArgs>
+    _count?: boolean | SeanceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seance"]>
+
+  export type SeanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    jour?: boolean
+    creneauDebutId?: boolean
+    nbCreneaux?: boolean
+    statut?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
+    salle?: boolean | Seance$salleArgs<ExtArgs>
+    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seance"]>
+
+  export type SeanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    jour?: boolean
+    creneauDebutId?: boolean
+    nbCreneaux?: boolean
+    statut?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
+    salle?: boolean | Seance$salleArgs<ExtArgs>
+    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seance"]>
+
+  export type SeanceSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    jour?: boolean
+    creneauDebutId?: boolean
+    nbCreneaux?: boolean
+    statut?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SeanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "enseignantId" | "salleId" | "jour" | "creneauDebutId" | "nbCreneaux" | "statut" | "createdAt" | "updatedAt", ExtArgs["result"]["seance"]>
+  export type SeanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
+    salle?: boolean | Seance$salleArgs<ExtArgs>
+    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+    groupes?: boolean | Seance$groupesArgs<ExtArgs>
+    _count?: boolean | SeanceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SeanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
+    salle?: boolean | Seance$salleArgs<ExtArgs>
+    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+  }
+  export type SeanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    enseignant?: boolean | Seance$enseignantArgs<ExtArgs>
+    salle?: boolean | Seance$salleArgs<ExtArgs>
+    creneauDebut?: boolean | CreneauDefaultArgs<ExtArgs>
+  }
+
+  export type $SeancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Seance"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      enseignant: Prisma.$EnseignantPayload<ExtArgs> | null
+      salle: Prisma.$SallePayload<ExtArgs> | null
+      creneauDebut: Prisma.$CreneauPayload<ExtArgs>
+      groupes: Prisma.$SeanceGroupePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      enseignantId: string | null
+      salleId: string | null
+      jour: $Enums.JourSemaine
+      creneauDebutId: string
+      nbCreneaux: number
+      statut: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["seance"]>
+    composites: {}
+  }
+
+  type SeanceGetPayload<S extends boolean | null | undefined | SeanceDefaultArgs> = $Result.GetResult<Prisma.$SeancePayload, S>
+
+  type SeanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SeanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SeanceCountAggregateInputType | true
+    }
+
+  export interface SeanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Seance'], meta: { name: 'Seance' } }
+    /**
+     * Find zero or one Seance that matches the filter.
+     * @param {SeanceFindUniqueArgs} args - Arguments to find a Seance
+     * @example
+     * // Get one Seance
+     * const seance = await prisma.seance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SeanceFindUniqueArgs>(args: SelectSubset<T, SeanceFindUniqueArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Seance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SeanceFindUniqueOrThrowArgs} args - Arguments to find a Seance
+     * @example
+     * // Get one Seance
+     * const seance = await prisma.seance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SeanceFindUniqueOrThrowArgs>(args: SelectSubset<T, SeanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Seance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceFindFirstArgs} args - Arguments to find a Seance
+     * @example
+     * // Get one Seance
+     * const seance = await prisma.seance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SeanceFindFirstArgs>(args?: SelectSubset<T, SeanceFindFirstArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Seance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceFindFirstOrThrowArgs} args - Arguments to find a Seance
+     * @example
+     * // Get one Seance
+     * const seance = await prisma.seance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SeanceFindFirstOrThrowArgs>(args?: SelectSubset<T, SeanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Seances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Seances
+     * const seances = await prisma.seance.findMany()
+     * 
+     * // Get first 10 Seances
+     * const seances = await prisma.seance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const seanceWithIdOnly = await prisma.seance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SeanceFindManyArgs>(args?: SelectSubset<T, SeanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Seance.
+     * @param {SeanceCreateArgs} args - Arguments to create a Seance.
+     * @example
+     * // Create one Seance
+     * const Seance = await prisma.seance.create({
+     *   data: {
+     *     // ... data to create a Seance
+     *   }
+     * })
+     * 
+     */
+    create<T extends SeanceCreateArgs>(args: SelectSubset<T, SeanceCreateArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Seances.
+     * @param {SeanceCreateManyArgs} args - Arguments to create many Seances.
+     * @example
+     * // Create many Seances
+     * const seance = await prisma.seance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SeanceCreateManyArgs>(args?: SelectSubset<T, SeanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Seances and returns the data saved in the database.
+     * @param {SeanceCreateManyAndReturnArgs} args - Arguments to create many Seances.
+     * @example
+     * // Create many Seances
+     * const seance = await prisma.seance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Seances and only return the `id`
+     * const seanceWithIdOnly = await prisma.seance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SeanceCreateManyAndReturnArgs>(args?: SelectSubset<T, SeanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Seance.
+     * @param {SeanceDeleteArgs} args - Arguments to delete one Seance.
+     * @example
+     * // Delete one Seance
+     * const Seance = await prisma.seance.delete({
+     *   where: {
+     *     // ... filter to delete one Seance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SeanceDeleteArgs>(args: SelectSubset<T, SeanceDeleteArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Seance.
+     * @param {SeanceUpdateArgs} args - Arguments to update one Seance.
+     * @example
+     * // Update one Seance
+     * const seance = await prisma.seance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SeanceUpdateArgs>(args: SelectSubset<T, SeanceUpdateArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Seances.
+     * @param {SeanceDeleteManyArgs} args - Arguments to filter Seances to delete.
+     * @example
+     * // Delete a few Seances
+     * const { count } = await prisma.seance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SeanceDeleteManyArgs>(args?: SelectSubset<T, SeanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Seances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Seances
+     * const seance = await prisma.seance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SeanceUpdateManyArgs>(args: SelectSubset<T, SeanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Seances and returns the data updated in the database.
+     * @param {SeanceUpdateManyAndReturnArgs} args - Arguments to update many Seances.
+     * @example
+     * // Update many Seances
+     * const seance = await prisma.seance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Seances and only return the `id`
+     * const seanceWithIdOnly = await prisma.seance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SeanceUpdateManyAndReturnArgs>(args: SelectSubset<T, SeanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Seance.
+     * @param {SeanceUpsertArgs} args - Arguments to update or create a Seance.
+     * @example
+     * // Update or create a Seance
+     * const seance = await prisma.seance.upsert({
+     *   create: {
+     *     // ... data to create a Seance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Seance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SeanceUpsertArgs>(args: SelectSubset<T, SeanceUpsertArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Seances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceCountArgs} args - Arguments to filter Seances to count.
+     * @example
+     * // Count the number of Seances
+     * const count = await prisma.seance.count({
+     *   where: {
+     *     // ... the filter for the Seances we want to count
+     *   }
+     * })
+    **/
+    count<T extends SeanceCountArgs>(
+      args?: Subset<T, SeanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SeanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Seance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SeanceAggregateArgs>(args: Subset<T, SeanceAggregateArgs>): Prisma.PrismaPromise<GetSeanceAggregateType<T>>
+
+    /**
+     * Group by Seance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SeanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SeanceGroupByArgs['orderBy'] }
+        : { orderBy?: SeanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SeanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSeanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Seance model
+   */
+  readonly fields: SeanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Seance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SeanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    enseignant<T extends Seance$enseignantArgs<ExtArgs> = {}>(args?: Subset<T, Seance$enseignantArgs<ExtArgs>>): Prisma__EnseignantClient<$Result.GetResult<Prisma.$EnseignantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    salle<T extends Seance$salleArgs<ExtArgs> = {}>(args?: Subset<T, Seance$salleArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    creneauDebut<T extends CreneauDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CreneauDefaultArgs<ExtArgs>>): Prisma__CreneauClient<$Result.GetResult<Prisma.$CreneauPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    groupes<T extends Seance$groupesArgs<ExtArgs> = {}>(args?: Subset<T, Seance$groupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Seance model
+   */
+  interface SeanceFieldRefs {
+    readonly id: FieldRef<"Seance", 'String'>
+    readonly semestreId: FieldRef<"Seance", 'String'>
+    readonly enseignantId: FieldRef<"Seance", 'String'>
+    readonly salleId: FieldRef<"Seance", 'String'>
+    readonly jour: FieldRef<"Seance", 'JourSemaine'>
+    readonly creneauDebutId: FieldRef<"Seance", 'String'>
+    readonly nbCreneaux: FieldRef<"Seance", 'Int'>
+    readonly statut: FieldRef<"Seance", 'String'>
+    readonly createdAt: FieldRef<"Seance", 'DateTime'>
+    readonly updatedAt: FieldRef<"Seance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Seance findUnique
+   */
+  export type SeanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Seance to fetch.
+     */
+    where: SeanceWhereUniqueInput
+  }
+
+  /**
+   * Seance findUniqueOrThrow
+   */
+  export type SeanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Seance to fetch.
+     */
+    where: SeanceWhereUniqueInput
+  }
+
+  /**
+   * Seance findFirst
+   */
+  export type SeanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Seance to fetch.
+     */
+    where?: SeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Seances to fetch.
+     */
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Seances.
+     */
+    cursor?: SeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Seances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Seances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Seances.
+     */
+    distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
+  }
+
+  /**
+   * Seance findFirstOrThrow
+   */
+  export type SeanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Seance to fetch.
+     */
+    where?: SeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Seances to fetch.
+     */
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Seances.
+     */
+    cursor?: SeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Seances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Seances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Seances.
+     */
+    distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
+  }
+
+  /**
+   * Seance findMany
+   */
+  export type SeanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which Seances to fetch.
+     */
+    where?: SeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Seances to fetch.
+     */
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Seances.
+     */
+    cursor?: SeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Seances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Seances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Seances.
+     */
+    distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
+  }
+
+  /**
+   * Seance create
+   */
+  export type SeanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Seance.
+     */
+    data: XOR<SeanceCreateInput, SeanceUncheckedCreateInput>
+  }
+
+  /**
+   * Seance createMany
+   */
+  export type SeanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Seances.
+     */
+    data: SeanceCreateManyInput | SeanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Seance createManyAndReturn
+   */
+  export type SeanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Seances.
+     */
+    data: SeanceCreateManyInput | SeanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Seance update
+   */
+  export type SeanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Seance.
+     */
+    data: XOR<SeanceUpdateInput, SeanceUncheckedUpdateInput>
+    /**
+     * Choose, which Seance to update.
+     */
+    where: SeanceWhereUniqueInput
+  }
+
+  /**
+   * Seance updateMany
+   */
+  export type SeanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Seances.
+     */
+    data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyInput>
+    /**
+     * Filter which Seances to update
+     */
+    where?: SeanceWhereInput
+    /**
+     * Limit how many Seances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Seance updateManyAndReturn
+   */
+  export type SeanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * The data used to update Seances.
+     */
+    data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyInput>
+    /**
+     * Filter which Seances to update
+     */
+    where?: SeanceWhereInput
+    /**
+     * Limit how many Seances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Seance upsert
+   */
+  export type SeanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Seance to update in case it exists.
+     */
+    where: SeanceWhereUniqueInput
+    /**
+     * In case the Seance found by the `where` argument doesn't exist, create a new Seance with this data.
+     */
+    create: XOR<SeanceCreateInput, SeanceUncheckedCreateInput>
+    /**
+     * In case the Seance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SeanceUpdateInput, SeanceUncheckedUpdateInput>
+  }
+
+  /**
+   * Seance delete
+   */
+  export type SeanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    /**
+     * Filter which Seance to delete.
+     */
+    where: SeanceWhereUniqueInput
+  }
+
+  /**
+   * Seance deleteMany
+   */
+  export type SeanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Seances to delete
+     */
+    where?: SeanceWhereInput
+    /**
+     * Limit how many Seances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Seance.enseignant
+   */
+  export type Seance$enseignantArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Enseignant
+     */
+    select?: EnseignantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Enseignant
+     */
+    omit?: EnseignantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EnseignantInclude<ExtArgs> | null
+    where?: EnseignantWhereInput
+  }
+
+  /**
+   * Seance.salle
+   */
+  export type Seance$salleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    where?: SalleWhereInput
+  }
+
+  /**
+   * Seance.groupes
+   */
+  export type Seance$groupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    where?: SeanceGroupeWhereInput
+    orderBy?: SeanceGroupeOrderByWithRelationInput | SeanceGroupeOrderByWithRelationInput[]
+    cursor?: SeanceGroupeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeanceGroupeScalarFieldEnum | SeanceGroupeScalarFieldEnum[]
+  }
+
+  /**
+   * Seance without action
+   */
+  export type SeanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SeanceGroupe
+   */
+
+  export type AggregateSeanceGroupe = {
+    _count: SeanceGroupeCountAggregateOutputType | null
+    _min: SeanceGroupeMinAggregateOutputType | null
+    _max: SeanceGroupeMaxAggregateOutputType | null
+  }
+
+  export type SeanceGroupeMinAggregateOutputType = {
+    seanceId: string | null
+    groupeId: string | null
+  }
+
+  export type SeanceGroupeMaxAggregateOutputType = {
+    seanceId: string | null
+    groupeId: string | null
+  }
+
+  export type SeanceGroupeCountAggregateOutputType = {
+    seanceId: number
+    groupeId: number
+    _all: number
+  }
+
+
+  export type SeanceGroupeMinAggregateInputType = {
+    seanceId?: true
+    groupeId?: true
+  }
+
+  export type SeanceGroupeMaxAggregateInputType = {
+    seanceId?: true
+    groupeId?: true
+  }
+
+  export type SeanceGroupeCountAggregateInputType = {
+    seanceId?: true
+    groupeId?: true
+    _all?: true
+  }
+
+  export type SeanceGroupeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SeanceGroupe to aggregate.
+     */
+    where?: SeanceGroupeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SeanceGroupes to fetch.
+     */
+    orderBy?: SeanceGroupeOrderByWithRelationInput | SeanceGroupeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SeanceGroupeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SeanceGroupes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SeanceGroupes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SeanceGroupes
+    **/
+    _count?: true | SeanceGroupeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SeanceGroupeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SeanceGroupeMaxAggregateInputType
+  }
+
+  export type GetSeanceGroupeAggregateType<T extends SeanceGroupeAggregateArgs> = {
+        [P in keyof T & keyof AggregateSeanceGroupe]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSeanceGroupe[P]>
+      : GetScalarType<T[P], AggregateSeanceGroupe[P]>
+  }
+
+
+
+
+  export type SeanceGroupeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SeanceGroupeWhereInput
+    orderBy?: SeanceGroupeOrderByWithAggregationInput | SeanceGroupeOrderByWithAggregationInput[]
+    by: SeanceGroupeScalarFieldEnum[] | SeanceGroupeScalarFieldEnum
+    having?: SeanceGroupeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SeanceGroupeCountAggregateInputType | true
+    _min?: SeanceGroupeMinAggregateInputType
+    _max?: SeanceGroupeMaxAggregateInputType
+  }
+
+  export type SeanceGroupeGroupByOutputType = {
+    seanceId: string
+    groupeId: string
+    _count: SeanceGroupeCountAggregateOutputType | null
+    _min: SeanceGroupeMinAggregateOutputType | null
+    _max: SeanceGroupeMaxAggregateOutputType | null
+  }
+
+  type GetSeanceGroupeGroupByPayload<T extends SeanceGroupeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SeanceGroupeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SeanceGroupeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SeanceGroupeGroupByOutputType[P]>
+            : GetScalarType<T[P], SeanceGroupeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SeanceGroupeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    seanceId?: boolean
+    groupeId?: boolean
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+    groupe?: boolean | GroupeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seanceGroupe"]>
+
+  export type SeanceGroupeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    seanceId?: boolean
+    groupeId?: boolean
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+    groupe?: boolean | GroupeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seanceGroupe"]>
+
+  export type SeanceGroupeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    seanceId?: boolean
+    groupeId?: boolean
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+    groupe?: boolean | GroupeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["seanceGroupe"]>
+
+  export type SeanceGroupeSelectScalar = {
+    seanceId?: boolean
+    groupeId?: boolean
+  }
+
+  export type SeanceGroupeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"seanceId" | "groupeId", ExtArgs["result"]["seanceGroupe"]>
+  export type SeanceGroupeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+    groupe?: boolean | GroupeDefaultArgs<ExtArgs>
+  }
+  export type SeanceGroupeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+    groupe?: boolean | GroupeDefaultArgs<ExtArgs>
+  }
+  export type SeanceGroupeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seance?: boolean | SeanceDefaultArgs<ExtArgs>
+    groupe?: boolean | GroupeDefaultArgs<ExtArgs>
+  }
+
+  export type $SeanceGroupePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SeanceGroupe"
+    objects: {
+      seance: Prisma.$SeancePayload<ExtArgs>
+      groupe: Prisma.$GroupePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      seanceId: string
+      groupeId: string
+    }, ExtArgs["result"]["seanceGroupe"]>
+    composites: {}
+  }
+
+  type SeanceGroupeGetPayload<S extends boolean | null | undefined | SeanceGroupeDefaultArgs> = $Result.GetResult<Prisma.$SeanceGroupePayload, S>
+
+  type SeanceGroupeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SeanceGroupeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SeanceGroupeCountAggregateInputType | true
+    }
+
+  export interface SeanceGroupeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SeanceGroupe'], meta: { name: 'SeanceGroupe' } }
+    /**
+     * Find zero or one SeanceGroupe that matches the filter.
+     * @param {SeanceGroupeFindUniqueArgs} args - Arguments to find a SeanceGroupe
+     * @example
+     * // Get one SeanceGroupe
+     * const seanceGroupe = await prisma.seanceGroupe.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SeanceGroupeFindUniqueArgs>(args: SelectSubset<T, SeanceGroupeFindUniqueArgs<ExtArgs>>): Prisma__SeanceGroupeClient<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SeanceGroupe that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SeanceGroupeFindUniqueOrThrowArgs} args - Arguments to find a SeanceGroupe
+     * @example
+     * // Get one SeanceGroupe
+     * const seanceGroupe = await prisma.seanceGroupe.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SeanceGroupeFindUniqueOrThrowArgs>(args: SelectSubset<T, SeanceGroupeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SeanceGroupeClient<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SeanceGroupe that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceGroupeFindFirstArgs} args - Arguments to find a SeanceGroupe
+     * @example
+     * // Get one SeanceGroupe
+     * const seanceGroupe = await prisma.seanceGroupe.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SeanceGroupeFindFirstArgs>(args?: SelectSubset<T, SeanceGroupeFindFirstArgs<ExtArgs>>): Prisma__SeanceGroupeClient<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SeanceGroupe that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceGroupeFindFirstOrThrowArgs} args - Arguments to find a SeanceGroupe
+     * @example
+     * // Get one SeanceGroupe
+     * const seanceGroupe = await prisma.seanceGroupe.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SeanceGroupeFindFirstOrThrowArgs>(args?: SelectSubset<T, SeanceGroupeFindFirstOrThrowArgs<ExtArgs>>): Prisma__SeanceGroupeClient<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SeanceGroupes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceGroupeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SeanceGroupes
+     * const seanceGroupes = await prisma.seanceGroupe.findMany()
+     * 
+     * // Get first 10 SeanceGroupes
+     * const seanceGroupes = await prisma.seanceGroupe.findMany({ take: 10 })
+     * 
+     * // Only select the `seanceId`
+     * const seanceGroupeWithSeanceIdOnly = await prisma.seanceGroupe.findMany({ select: { seanceId: true } })
+     * 
+     */
+    findMany<T extends SeanceGroupeFindManyArgs>(args?: SelectSubset<T, SeanceGroupeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SeanceGroupe.
+     * @param {SeanceGroupeCreateArgs} args - Arguments to create a SeanceGroupe.
+     * @example
+     * // Create one SeanceGroupe
+     * const SeanceGroupe = await prisma.seanceGroupe.create({
+     *   data: {
+     *     // ... data to create a SeanceGroupe
+     *   }
+     * })
+     * 
+     */
+    create<T extends SeanceGroupeCreateArgs>(args: SelectSubset<T, SeanceGroupeCreateArgs<ExtArgs>>): Prisma__SeanceGroupeClient<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SeanceGroupes.
+     * @param {SeanceGroupeCreateManyArgs} args - Arguments to create many SeanceGroupes.
+     * @example
+     * // Create many SeanceGroupes
+     * const seanceGroupe = await prisma.seanceGroupe.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SeanceGroupeCreateManyArgs>(args?: SelectSubset<T, SeanceGroupeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SeanceGroupes and returns the data saved in the database.
+     * @param {SeanceGroupeCreateManyAndReturnArgs} args - Arguments to create many SeanceGroupes.
+     * @example
+     * // Create many SeanceGroupes
+     * const seanceGroupe = await prisma.seanceGroupe.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SeanceGroupes and only return the `seanceId`
+     * const seanceGroupeWithSeanceIdOnly = await prisma.seanceGroupe.createManyAndReturn({
+     *   select: { seanceId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SeanceGroupeCreateManyAndReturnArgs>(args?: SelectSubset<T, SeanceGroupeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SeanceGroupe.
+     * @param {SeanceGroupeDeleteArgs} args - Arguments to delete one SeanceGroupe.
+     * @example
+     * // Delete one SeanceGroupe
+     * const SeanceGroupe = await prisma.seanceGroupe.delete({
+     *   where: {
+     *     // ... filter to delete one SeanceGroupe
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SeanceGroupeDeleteArgs>(args: SelectSubset<T, SeanceGroupeDeleteArgs<ExtArgs>>): Prisma__SeanceGroupeClient<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SeanceGroupe.
+     * @param {SeanceGroupeUpdateArgs} args - Arguments to update one SeanceGroupe.
+     * @example
+     * // Update one SeanceGroupe
+     * const seanceGroupe = await prisma.seanceGroupe.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SeanceGroupeUpdateArgs>(args: SelectSubset<T, SeanceGroupeUpdateArgs<ExtArgs>>): Prisma__SeanceGroupeClient<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SeanceGroupes.
+     * @param {SeanceGroupeDeleteManyArgs} args - Arguments to filter SeanceGroupes to delete.
+     * @example
+     * // Delete a few SeanceGroupes
+     * const { count } = await prisma.seanceGroupe.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SeanceGroupeDeleteManyArgs>(args?: SelectSubset<T, SeanceGroupeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SeanceGroupes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceGroupeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SeanceGroupes
+     * const seanceGroupe = await prisma.seanceGroupe.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SeanceGroupeUpdateManyArgs>(args: SelectSubset<T, SeanceGroupeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SeanceGroupes and returns the data updated in the database.
+     * @param {SeanceGroupeUpdateManyAndReturnArgs} args - Arguments to update many SeanceGroupes.
+     * @example
+     * // Update many SeanceGroupes
+     * const seanceGroupe = await prisma.seanceGroupe.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SeanceGroupes and only return the `seanceId`
+     * const seanceGroupeWithSeanceIdOnly = await prisma.seanceGroupe.updateManyAndReturn({
+     *   select: { seanceId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SeanceGroupeUpdateManyAndReturnArgs>(args: SelectSubset<T, SeanceGroupeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SeanceGroupe.
+     * @param {SeanceGroupeUpsertArgs} args - Arguments to update or create a SeanceGroupe.
+     * @example
+     * // Update or create a SeanceGroupe
+     * const seanceGroupe = await prisma.seanceGroupe.upsert({
+     *   create: {
+     *     // ... data to create a SeanceGroupe
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SeanceGroupe we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SeanceGroupeUpsertArgs>(args: SelectSubset<T, SeanceGroupeUpsertArgs<ExtArgs>>): Prisma__SeanceGroupeClient<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SeanceGroupes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceGroupeCountArgs} args - Arguments to filter SeanceGroupes to count.
+     * @example
+     * // Count the number of SeanceGroupes
+     * const count = await prisma.seanceGroupe.count({
+     *   where: {
+     *     // ... the filter for the SeanceGroupes we want to count
+     *   }
+     * })
+    **/
+    count<T extends SeanceGroupeCountArgs>(
+      args?: Subset<T, SeanceGroupeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SeanceGroupeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SeanceGroupe.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceGroupeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SeanceGroupeAggregateArgs>(args: Subset<T, SeanceGroupeAggregateArgs>): Prisma.PrismaPromise<GetSeanceGroupeAggregateType<T>>
+
+    /**
+     * Group by SeanceGroupe.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SeanceGroupeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SeanceGroupeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SeanceGroupeGroupByArgs['orderBy'] }
+        : { orderBy?: SeanceGroupeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SeanceGroupeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSeanceGroupeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SeanceGroupe model
+   */
+  readonly fields: SeanceGroupeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SeanceGroupe.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SeanceGroupeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    seance<T extends SeanceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SeanceDefaultArgs<ExtArgs>>): Prisma__SeanceClient<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    groupe<T extends GroupeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GroupeDefaultArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SeanceGroupe model
+   */
+  interface SeanceGroupeFieldRefs {
+    readonly seanceId: FieldRef<"SeanceGroupe", 'String'>
+    readonly groupeId: FieldRef<"SeanceGroupe", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SeanceGroupe findUnique
+   */
+  export type SeanceGroupeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which SeanceGroupe to fetch.
+     */
+    where: SeanceGroupeWhereUniqueInput
+  }
+
+  /**
+   * SeanceGroupe findUniqueOrThrow
+   */
+  export type SeanceGroupeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which SeanceGroupe to fetch.
+     */
+    where: SeanceGroupeWhereUniqueInput
+  }
+
+  /**
+   * SeanceGroupe findFirst
+   */
+  export type SeanceGroupeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which SeanceGroupe to fetch.
+     */
+    where?: SeanceGroupeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SeanceGroupes to fetch.
+     */
+    orderBy?: SeanceGroupeOrderByWithRelationInput | SeanceGroupeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SeanceGroupes.
+     */
+    cursor?: SeanceGroupeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SeanceGroupes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SeanceGroupes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SeanceGroupes.
+     */
+    distinct?: SeanceGroupeScalarFieldEnum | SeanceGroupeScalarFieldEnum[]
+  }
+
+  /**
+   * SeanceGroupe findFirstOrThrow
+   */
+  export type SeanceGroupeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which SeanceGroupe to fetch.
+     */
+    where?: SeanceGroupeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SeanceGroupes to fetch.
+     */
+    orderBy?: SeanceGroupeOrderByWithRelationInput | SeanceGroupeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SeanceGroupes.
+     */
+    cursor?: SeanceGroupeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SeanceGroupes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SeanceGroupes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SeanceGroupes.
+     */
+    distinct?: SeanceGroupeScalarFieldEnum | SeanceGroupeScalarFieldEnum[]
+  }
+
+  /**
+   * SeanceGroupe findMany
+   */
+  export type SeanceGroupeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * Filter, which SeanceGroupes to fetch.
+     */
+    where?: SeanceGroupeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SeanceGroupes to fetch.
+     */
+    orderBy?: SeanceGroupeOrderByWithRelationInput | SeanceGroupeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SeanceGroupes.
+     */
+    cursor?: SeanceGroupeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SeanceGroupes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SeanceGroupes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SeanceGroupes.
+     */
+    distinct?: SeanceGroupeScalarFieldEnum | SeanceGroupeScalarFieldEnum[]
+  }
+
+  /**
+   * SeanceGroupe create
+   */
+  export type SeanceGroupeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SeanceGroupe.
+     */
+    data: XOR<SeanceGroupeCreateInput, SeanceGroupeUncheckedCreateInput>
+  }
+
+  /**
+   * SeanceGroupe createMany
+   */
+  export type SeanceGroupeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SeanceGroupes.
+     */
+    data: SeanceGroupeCreateManyInput | SeanceGroupeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SeanceGroupe createManyAndReturn
+   */
+  export type SeanceGroupeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * The data used to create many SeanceGroupes.
+     */
+    data: SeanceGroupeCreateManyInput | SeanceGroupeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SeanceGroupe update
+   */
+  export type SeanceGroupeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SeanceGroupe.
+     */
+    data: XOR<SeanceGroupeUpdateInput, SeanceGroupeUncheckedUpdateInput>
+    /**
+     * Choose, which SeanceGroupe to update.
+     */
+    where: SeanceGroupeWhereUniqueInput
+  }
+
+  /**
+   * SeanceGroupe updateMany
+   */
+  export type SeanceGroupeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SeanceGroupes.
+     */
+    data: XOR<SeanceGroupeUpdateManyMutationInput, SeanceGroupeUncheckedUpdateManyInput>
+    /**
+     * Filter which SeanceGroupes to update
+     */
+    where?: SeanceGroupeWhereInput
+    /**
+     * Limit how many SeanceGroupes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SeanceGroupe updateManyAndReturn
+   */
+  export type SeanceGroupeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * The data used to update SeanceGroupes.
+     */
+    data: XOR<SeanceGroupeUpdateManyMutationInput, SeanceGroupeUncheckedUpdateManyInput>
+    /**
+     * Filter which SeanceGroupes to update
+     */
+    where?: SeanceGroupeWhereInput
+    /**
+     * Limit how many SeanceGroupes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SeanceGroupe upsert
+   */
+  export type SeanceGroupeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SeanceGroupe to update in case it exists.
+     */
+    where: SeanceGroupeWhereUniqueInput
+    /**
+     * In case the SeanceGroupe found by the `where` argument doesn't exist, create a new SeanceGroupe with this data.
+     */
+    create: XOR<SeanceGroupeCreateInput, SeanceGroupeUncheckedCreateInput>
+    /**
+     * In case the SeanceGroupe was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SeanceGroupeUpdateInput, SeanceGroupeUncheckedUpdateInput>
+  }
+
+  /**
+   * SeanceGroupe delete
+   */
+  export type SeanceGroupeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    /**
+     * Filter which SeanceGroupe to delete.
+     */
+    where: SeanceGroupeWhereUniqueInput
+  }
+
+  /**
+   * SeanceGroupe deleteMany
+   */
+  export type SeanceGroupeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SeanceGroupes to delete
+     */
+    where?: SeanceGroupeWhereInput
+    /**
+     * Limit how many SeanceGroupes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SeanceGroupe without action
+   */
+  export type SeanceGroupeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
   }
 
 
@@ -37696,6 +40296,7 @@ export namespace Prisma {
     parent?: boolean | Groupe$parentArgs<ExtArgs>
     enfants?: boolean | Groupe$enfantsArgs<ExtArgs>
     affectations?: boolean | Groupe$affectationsArgs<ExtArgs>
+    seanceGroupes?: boolean | Groupe$seanceGroupesArgs<ExtArgs>
     _count?: boolean | GroupeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["groupe"]>
 
@@ -37757,6 +40358,7 @@ export namespace Prisma {
     parent?: boolean | Groupe$parentArgs<ExtArgs>
     enfants?: boolean | Groupe$enfantsArgs<ExtArgs>
     affectations?: boolean | Groupe$affectationsArgs<ExtArgs>
+    seanceGroupes?: boolean | Groupe$seanceGroupesArgs<ExtArgs>
     _count?: boolean | GroupeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GroupeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -37778,6 +40380,7 @@ export namespace Prisma {
       parent: Prisma.$GroupePayload<ExtArgs> | null
       enfants: Prisma.$GroupePayload<ExtArgs>[]
       affectations: Prisma.$AffectationPayload<ExtArgs>[]
+      seanceGroupes: Prisma.$SeanceGroupePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -38191,6 +40794,7 @@ export namespace Prisma {
     parent<T extends Groupe$parentArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$parentArgs<ExtArgs>>): Prisma__GroupeClient<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     enfants<T extends Groupe$enfantsArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$enfantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     affectations<T extends Groupe$affectationsArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$affectationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    seanceGroupes<T extends Groupe$seanceGroupesArgs<ExtArgs> = {}>(args?: Subset<T, Groupe$seanceGroupesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeanceGroupePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -38697,6 +41301,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
+  }
+
+  /**
+   * Groupe.seanceGroupes
+   */
+  export type Groupe$seanceGroupesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SeanceGroupe
+     */
+    select?: SeanceGroupeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SeanceGroupe
+     */
+    omit?: SeanceGroupeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceGroupeInclude<ExtArgs> | null
+    where?: SeanceGroupeWhereInput
+    orderBy?: SeanceGroupeOrderByWithRelationInput | SeanceGroupeOrderByWithRelationInput[]
+    cursor?: SeanceGroupeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeanceGroupeScalarFieldEnum | SeanceGroupeScalarFieldEnum[]
   }
 
   /**
@@ -48372,6 +51000,7 @@ export namespace Prisma {
     decharges?: boolean | Enseignant$dechargesArgs<ExtArgs>
     indisponibilites?: boolean | Enseignant$indisponibilitesArgs<ExtArgs>
     affectations?: boolean | Enseignant$affectationsArgs<ExtArgs>
+    seances?: boolean | Enseignant$seancesArgs<ExtArgs>
     _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["enseignant"]>
 
@@ -48438,6 +51067,7 @@ export namespace Prisma {
     decharges?: boolean | Enseignant$dechargesArgs<ExtArgs>
     indisponibilites?: boolean | Enseignant$indisponibilitesArgs<ExtArgs>
     affectations?: boolean | Enseignant$affectationsArgs<ExtArgs>
+    seances?: boolean | Enseignant$seancesArgs<ExtArgs>
     _count?: boolean | EnseignantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EnseignantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -48461,6 +51091,7 @@ export namespace Prisma {
       decharges: Prisma.$DechargePayload<ExtArgs>[]
       indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
       affectations: Prisma.$AffectationPayload<ExtArgs>[]
+      seances: Prisma.$SeancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -48877,6 +51508,7 @@ export namespace Prisma {
     decharges<T extends Enseignant$dechargesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$dechargesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DechargePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     indisponibilites<T extends Enseignant$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     affectations<T extends Enseignant$affectationsArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$affectationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AffectationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    seances<T extends Enseignant$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Enseignant$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -49432,6 +52064,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AffectationScalarFieldEnum | AffectationScalarFieldEnum[]
+  }
+
+  /**
+   * Enseignant.seances
+   */
+  export type Enseignant$seancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    where?: SeanceWhereInput
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    cursor?: SeanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
   }
 
   /**
@@ -54072,6 +56728,7 @@ export namespace Prisma {
     equipements?: boolean | Salle$equipementsArgs<ExtArgs>
     salleActivityTags?: boolean | Salle$salleActivityTagsArgs<ExtArgs>
     indisponibilites?: boolean | Salle$indisponibilitesArgs<ExtArgs>
+    seances?: boolean | Salle$seancesArgs<ExtArgs>
     _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["salle"]>
 
@@ -54140,6 +56797,7 @@ export namespace Prisma {
     equipements?: boolean | Salle$equipementsArgs<ExtArgs>
     salleActivityTags?: boolean | Salle$salleActivityTagsArgs<ExtArgs>
     indisponibilites?: boolean | Salle$indisponibilitesArgs<ExtArgs>
+    seances?: boolean | Salle$seancesArgs<ExtArgs>
     _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SalleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -54162,6 +56820,7 @@ export namespace Prisma {
       equipements: Prisma.$SalleEquipementPayload<ExtArgs>[]
       salleActivityTags: Prisma.$SalleActivityTagPayload<ExtArgs>[]
       indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
+      seances: Prisma.$SeancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -54578,6 +57237,7 @@ export namespace Prisma {
     equipements<T extends Salle$equipementsArgs<ExtArgs> = {}>(args?: Subset<T, Salle$equipementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleEquipementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salleActivityTags<T extends Salle$salleActivityTagsArgs<ExtArgs> = {}>(args?: Subset<T, Salle$salleActivityTagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleActivityTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     indisponibilites<T extends Salle$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Salle$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    seances<T extends Salle$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Salle$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -55148,6 +57808,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: IndisponibiliteScalarFieldEnum | IndisponibiliteScalarFieldEnum[]
+  }
+
+  /**
+   * Salle.seances
+   */
+  export type Salle$seancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Seance
+     */
+    select?: SeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Seance
+     */
+    omit?: SeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SeanceInclude<ExtArgs> | null
+    where?: SeanceWhereInput
+    orderBy?: SeanceOrderByWithRelationInput | SeanceOrderByWithRelationInput[]
+    cursor?: SeanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
   }
 
   /**
@@ -70261,6 +72945,30 @@ export namespace Prisma {
   export type CreneauAffichageScalarFieldEnum = (typeof CreneauAffichageScalarFieldEnum)[keyof typeof CreneauAffichageScalarFieldEnum]
 
 
+  export const SeanceScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    enseignantId: 'enseignantId',
+    salleId: 'salleId',
+    jour: 'jour',
+    creneauDebutId: 'creneauDebutId',
+    nbCreneaux: 'nbCreneaux',
+    statut: 'statut',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SeanceScalarFieldEnum = (typeof SeanceScalarFieldEnum)[keyof typeof SeanceScalarFieldEnum]
+
+
+  export const SeanceGroupeScalarFieldEnum: {
+    seanceId: 'seanceId',
+    groupeId: 'groupeId'
+  };
+
+  export type SeanceGroupeScalarFieldEnum = (typeof SeanceGroupeScalarFieldEnum)[keyof typeof SeanceGroupeScalarFieldEnum]
+
+
   export const DepartementScalarFieldEnum: {
     id: 'id',
     anneeId: 'anneeId',
@@ -72748,6 +75456,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceListRelationFilter
     repartitions?: RepartitionListRelationFilter
     demandesModification?: DemandeModificationListRelationFilter
+    seances?: SeanceListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -72766,6 +75475,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceOrderByRelationAggregateInput
     repartitions?: RepartitionOrderByRelationAggregateInput
     demandesModification?: DemandeModificationOrderByRelationAggregateInput
+    seances?: SeanceOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -72788,6 +75498,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceListRelationFilter
     repartitions?: RepartitionListRelationFilter
     demandesModification?: DemandeModificationListRelationFilter
+    seances?: SeanceListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -72834,6 +75545,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Creneau"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     affichages?: CreneauAffichageListRelationFilter
+    seances?: SeanceListRelationFilter
   }
 
   export type CreneauOrderByWithRelationInput = {
@@ -72849,6 +75561,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
     affichages?: CreneauAffichageOrderByRelationAggregateInput
+    seances?: SeanceOrderByRelationAggregateInput
   }
 
   export type CreneauWhereUniqueInput = Prisma.AtLeast<{
@@ -72868,6 +75581,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Creneau"> | Date | string
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     affichages?: CreneauAffichageListRelationFilter
+    seances?: SeanceListRelationFilter
   }, "id" | "semestreId_jour_ordre">
 
   export type CreneauOrderByWithAggregationInput = {
@@ -72958,6 +75672,144 @@ export namespace Prisma {
     grille?: EnumGrilleAffichageWithAggregatesFilter<"CreneauAffichage"> | $Enums.GrilleAffichage
     heureDebut?: DateTimeWithAggregatesFilter<"CreneauAffichage"> | Date | string
     heureFin?: DateTimeWithAggregatesFilter<"CreneauAffichage"> | Date | string
+  }
+
+  export type SeanceWhereInput = {
+    AND?: SeanceWhereInput | SeanceWhereInput[]
+    OR?: SeanceWhereInput[]
+    NOT?: SeanceWhereInput | SeanceWhereInput[]
+    id?: UuidFilter<"Seance"> | string
+    semestreId?: UuidFilter<"Seance"> | string
+    enseignantId?: UuidNullableFilter<"Seance"> | string | null
+    salleId?: UuidNullableFilter<"Seance"> | string | null
+    jour?: EnumJourSemaineFilter<"Seance"> | $Enums.JourSemaine
+    creneauDebutId?: UuidFilter<"Seance"> | string
+    nbCreneaux?: IntFilter<"Seance"> | number
+    statut?: StringFilter<"Seance"> | string
+    createdAt?: DateTimeFilter<"Seance"> | Date | string
+    updatedAt?: DateTimeFilter<"Seance"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    enseignant?: XOR<EnseignantNullableScalarRelationFilter, EnseignantWhereInput> | null
+    salle?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
+    creneauDebut?: XOR<CreneauScalarRelationFilter, CreneauWhereInput>
+    groupes?: SeanceGroupeListRelationFilter
+  }
+
+  export type SeanceOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    enseignantId?: SortOrderInput | SortOrder
+    salleId?: SortOrderInput | SortOrder
+    jour?: SortOrder
+    creneauDebutId?: SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    enseignant?: EnseignantOrderByWithRelationInput
+    salle?: SalleOrderByWithRelationInput
+    creneauDebut?: CreneauOrderByWithRelationInput
+    groupes?: SeanceGroupeOrderByRelationAggregateInput
+  }
+
+  export type SeanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SeanceWhereInput | SeanceWhereInput[]
+    OR?: SeanceWhereInput[]
+    NOT?: SeanceWhereInput | SeanceWhereInput[]
+    semestreId?: UuidFilter<"Seance"> | string
+    enseignantId?: UuidNullableFilter<"Seance"> | string | null
+    salleId?: UuidNullableFilter<"Seance"> | string | null
+    jour?: EnumJourSemaineFilter<"Seance"> | $Enums.JourSemaine
+    creneauDebutId?: UuidFilter<"Seance"> | string
+    nbCreneaux?: IntFilter<"Seance"> | number
+    statut?: StringFilter<"Seance"> | string
+    createdAt?: DateTimeFilter<"Seance"> | Date | string
+    updatedAt?: DateTimeFilter<"Seance"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    enseignant?: XOR<EnseignantNullableScalarRelationFilter, EnseignantWhereInput> | null
+    salle?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
+    creneauDebut?: XOR<CreneauScalarRelationFilter, CreneauWhereInput>
+    groupes?: SeanceGroupeListRelationFilter
+  }, "id">
+
+  export type SeanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    enseignantId?: SortOrderInput | SortOrder
+    salleId?: SortOrderInput | SortOrder
+    jour?: SortOrder
+    creneauDebutId?: SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SeanceCountOrderByAggregateInput
+    _avg?: SeanceAvgOrderByAggregateInput
+    _max?: SeanceMaxOrderByAggregateInput
+    _min?: SeanceMinOrderByAggregateInput
+    _sum?: SeanceSumOrderByAggregateInput
+  }
+
+  export type SeanceScalarWhereWithAggregatesInput = {
+    AND?: SeanceScalarWhereWithAggregatesInput | SeanceScalarWhereWithAggregatesInput[]
+    OR?: SeanceScalarWhereWithAggregatesInput[]
+    NOT?: SeanceScalarWhereWithAggregatesInput | SeanceScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Seance"> | string
+    semestreId?: UuidWithAggregatesFilter<"Seance"> | string
+    enseignantId?: UuidNullableWithAggregatesFilter<"Seance"> | string | null
+    salleId?: UuidNullableWithAggregatesFilter<"Seance"> | string | null
+    jour?: EnumJourSemaineWithAggregatesFilter<"Seance"> | $Enums.JourSemaine
+    creneauDebutId?: UuidWithAggregatesFilter<"Seance"> | string
+    nbCreneaux?: IntWithAggregatesFilter<"Seance"> | number
+    statut?: StringWithAggregatesFilter<"Seance"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Seance"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Seance"> | Date | string
+  }
+
+  export type SeanceGroupeWhereInput = {
+    AND?: SeanceGroupeWhereInput | SeanceGroupeWhereInput[]
+    OR?: SeanceGroupeWhereInput[]
+    NOT?: SeanceGroupeWhereInput | SeanceGroupeWhereInput[]
+    seanceId?: UuidFilter<"SeanceGroupe"> | string
+    groupeId?: UuidFilter<"SeanceGroupe"> | string
+    seance?: XOR<SeanceScalarRelationFilter, SeanceWhereInput>
+    groupe?: XOR<GroupeScalarRelationFilter, GroupeWhereInput>
+  }
+
+  export type SeanceGroupeOrderByWithRelationInput = {
+    seanceId?: SortOrder
+    groupeId?: SortOrder
+    seance?: SeanceOrderByWithRelationInput
+    groupe?: GroupeOrderByWithRelationInput
+  }
+
+  export type SeanceGroupeWhereUniqueInput = Prisma.AtLeast<{
+    seanceId_groupeId?: SeanceGroupeSeanceIdGroupeIdCompoundUniqueInput
+    AND?: SeanceGroupeWhereInput | SeanceGroupeWhereInput[]
+    OR?: SeanceGroupeWhereInput[]
+    NOT?: SeanceGroupeWhereInput | SeanceGroupeWhereInput[]
+    seanceId?: UuidFilter<"SeanceGroupe"> | string
+    groupeId?: UuidFilter<"SeanceGroupe"> | string
+    seance?: XOR<SeanceScalarRelationFilter, SeanceWhereInput>
+    groupe?: XOR<GroupeScalarRelationFilter, GroupeWhereInput>
+  }, "seanceId_groupeId">
+
+  export type SeanceGroupeOrderByWithAggregationInput = {
+    seanceId?: SortOrder
+    groupeId?: SortOrder
+    _count?: SeanceGroupeCountOrderByAggregateInput
+    _max?: SeanceGroupeMaxOrderByAggregateInput
+    _min?: SeanceGroupeMinOrderByAggregateInput
+  }
+
+  export type SeanceGroupeScalarWhereWithAggregatesInput = {
+    AND?: SeanceGroupeScalarWhereWithAggregatesInput | SeanceGroupeScalarWhereWithAggregatesInput[]
+    OR?: SeanceGroupeScalarWhereWithAggregatesInput[]
+    NOT?: SeanceGroupeScalarWhereWithAggregatesInput | SeanceGroupeScalarWhereWithAggregatesInput[]
+    seanceId?: UuidWithAggregatesFilter<"SeanceGroupe"> | string
+    groupeId?: UuidWithAggregatesFilter<"SeanceGroupe"> | string
   }
 
   export type DepartementWhereInput = {
@@ -73221,6 +76073,7 @@ export namespace Prisma {
     parent?: XOR<GroupeNullableScalarRelationFilter, GroupeWhereInput> | null
     enfants?: GroupeListRelationFilter
     affectations?: AffectationListRelationFilter
+    seanceGroupes?: SeanceGroupeListRelationFilter
   }
 
   export type GroupeOrderByWithRelationInput = {
@@ -73241,6 +76094,7 @@ export namespace Prisma {
     parent?: GroupeOrderByWithRelationInput
     enfants?: GroupeOrderByRelationAggregateInput
     affectations?: AffectationOrderByRelationAggregateInput
+    seanceGroupes?: SeanceGroupeOrderByRelationAggregateInput
   }
 
   export type GroupeWhereUniqueInput = Prisma.AtLeast<{
@@ -73265,6 +76119,7 @@ export namespace Prisma {
     parent?: XOR<GroupeNullableScalarRelationFilter, GroupeWhereInput> | null
     enfants?: GroupeListRelationFilter
     affectations?: AffectationListRelationFilter
+    seanceGroupes?: SeanceGroupeListRelationFilter
   }, "id" | "niveauId_semestreId_code">
 
   export type GroupeOrderByWithAggregationInput = {
@@ -73912,6 +76767,7 @@ export namespace Prisma {
     decharges?: DechargeListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
     affectations?: AffectationListRelationFilter
+    seances?: SeanceListRelationFilter
   }
 
   export type EnseignantOrderByWithRelationInput = {
@@ -73935,6 +76791,7 @@ export namespace Prisma {
     decharges?: DechargeOrderByRelationAggregateInput
     indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
     affectations?: AffectationOrderByRelationAggregateInput
+    seances?: SeanceOrderByRelationAggregateInput
   }
 
   export type EnseignantWhereUniqueInput = Prisma.AtLeast<{
@@ -73962,6 +76819,7 @@ export namespace Prisma {
     decharges?: DechargeListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
     affectations?: AffectationListRelationFilter
+    seances?: SeanceListRelationFilter
   }, "id" | "email" | "anneeId_matricule">
 
   export type EnseignantOrderByWithAggregationInput = {
@@ -74261,6 +77119,7 @@ export namespace Prisma {
     equipements?: SalleEquipementListRelationFilter
     salleActivityTags?: SalleActivityTagListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
+    seances?: SeanceListRelationFilter
   }
 
   export type SalleOrderByWithRelationInput = {
@@ -74284,6 +77143,7 @@ export namespace Prisma {
     equipements?: SalleEquipementOrderByRelationAggregateInput
     salleActivityTags?: SalleActivityTagOrderByRelationAggregateInput
     indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
+    seances?: SeanceOrderByRelationAggregateInput
   }
 
   export type SalleWhereUniqueInput = Prisma.AtLeast<{
@@ -74310,6 +77170,7 @@ export namespace Prisma {
     equipements?: SalleEquipementListRelationFilter
     salleActivityTags?: SalleActivityTagListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
+    seances?: SeanceListRelationFilter
   }, "id">
 
   export type SalleOrderByWithAggregationInput = {
@@ -77031,6 +79892,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -77048,6 +79910,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -77065,6 +79928,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -77082,6 +79946,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -77125,6 +79990,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutCreneauxInput
     affichages?: CreneauAffichageCreateNestedManyWithoutCreneauInput
+    seances?: SeanceCreateNestedManyWithoutCreneauDebutInput
   }
 
   export type CreneauUncheckedCreateInput = {
@@ -77139,6 +80005,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     affichages?: CreneauAffichageUncheckedCreateNestedManyWithoutCreneauInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutCreneauDebutInput
   }
 
   export type CreneauUpdateInput = {
@@ -77153,6 +80020,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutCreneauxNestedInput
     affichages?: CreneauAffichageUpdateManyWithoutCreneauNestedInput
+    seances?: SeanceUpdateManyWithoutCreneauDebutNestedInput
   }
 
   export type CreneauUncheckedUpdateInput = {
@@ -77167,6 +80035,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     affichages?: CreneauAffichageUncheckedUpdateManyWithoutCreneauNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutCreneauDebutNestedInput
   }
 
   export type CreneauCreateManyInput = {
@@ -77260,6 +80129,131 @@ export namespace Prisma {
     grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
     heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
     heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeanceCreateInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSeancesInput
+    enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
+    salle?: SalleCreateNestedOneWithoutSeancesInput
+    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
+    salle?: SalleUpdateOneWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceCreateManyInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SeanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeanceGroupeCreateInput = {
+    seance: SeanceCreateNestedOneWithoutGroupesInput
+    groupe: GroupeCreateNestedOneWithoutSeanceGroupesInput
+  }
+
+  export type SeanceGroupeUncheckedCreateInput = {
+    seanceId: string
+    groupeId: string
+  }
+
+  export type SeanceGroupeUpdateInput = {
+    seance?: SeanceUpdateOneRequiredWithoutGroupesNestedInput
+    groupe?: GroupeUpdateOneRequiredWithoutSeanceGroupesNestedInput
+  }
+
+  export type SeanceGroupeUncheckedUpdateInput = {
+    seanceId?: StringFieldUpdateOperationsInput | string
+    groupeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SeanceGroupeCreateManyInput = {
+    seanceId: string
+    groupeId: string
+  }
+
+  export type SeanceGroupeUpdateManyMutationInput = {
+
+  }
+
+  export type SeanceGroupeUncheckedUpdateManyInput = {
+    seanceId?: StringFieldUpdateOperationsInput | string
+    groupeId?: StringFieldUpdateOperationsInput | string
   }
 
   export type DepartementCreateInput = {
@@ -77533,6 +80527,7 @@ export namespace Prisma {
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
     affectations?: AffectationCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateInput = {
@@ -77550,6 +80545,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUpdateInput = {
@@ -77567,6 +80563,7 @@ export namespace Prisma {
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
     affectations?: AffectationUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateInput = {
@@ -77584,6 +80581,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeCreateManyInput = {
@@ -78253,6 +81251,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateInput = {
@@ -78273,6 +81272,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUpdateInput = {
@@ -78293,6 +81293,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateInput = {
@@ -78313,6 +81314,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantCreateManyInput = {
@@ -78614,6 +81616,7 @@ export namespace Prisma {
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateInput = {
@@ -78634,6 +81637,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUpdateInput = {
@@ -78654,6 +81658,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateInput = {
@@ -78674,6 +81679,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleCreateManyInput = {
@@ -81341,6 +84347,12 @@ export namespace Prisma {
     none?: RepartitionWhereInput
   }
 
+  export type SeanceListRelationFilter = {
+    every?: SeanceWhereInput
+    some?: SeanceWhereInput
+    none?: SeanceWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -81362,6 +84374,10 @@ export namespace Prisma {
   }
 
   export type RepartitionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SeanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -81542,6 +84558,103 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGrilleAffichageFilter<$PrismaModel>
     _max?: NestedEnumGrilleAffichageFilter<$PrismaModel>
+  }
+
+  export type EnseignantNullableScalarRelationFilter = {
+    is?: EnseignantWhereInput | null
+    isNot?: EnseignantWhereInput | null
+  }
+
+  export type SalleNullableScalarRelationFilter = {
+    is?: SalleWhereInput | null
+    isNot?: SalleWhereInput | null
+  }
+
+  export type SeanceGroupeListRelationFilter = {
+    every?: SeanceGroupeWhereInput
+    some?: SeanceGroupeWhereInput
+    none?: SeanceGroupeWhereInput
+  }
+
+  export type SeanceGroupeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SeanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    jour?: SortOrder
+    creneauDebutId?: SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SeanceAvgOrderByAggregateInput = {
+    nbCreneaux?: SortOrder
+  }
+
+  export type SeanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    jour?: SortOrder
+    creneauDebutId?: SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SeanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    jour?: SortOrder
+    creneauDebutId?: SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SeanceSumOrderByAggregateInput = {
+    nbCreneaux?: SortOrder
+  }
+
+  export type SeanceScalarRelationFilter = {
+    is?: SeanceWhereInput
+    isNot?: SeanceWhereInput
+  }
+
+  export type GroupeScalarRelationFilter = {
+    is?: GroupeWhereInput
+    isNot?: GroupeWhereInput
+  }
+
+  export type SeanceGroupeSeanceIdGroupeIdCompoundUniqueInput = {
+    seanceId: string
+    groupeId: string
+  }
+
+  export type SeanceGroupeCountOrderByAggregateInput = {
+    seanceId?: SortOrder
+    groupeId?: SortOrder
+  }
+
+  export type SeanceGroupeMaxOrderByAggregateInput = {
+    seanceId?: SortOrder
+    groupeId?: SortOrder
+  }
+
+  export type SeanceGroupeMinOrderByAggregateInput = {
+    seanceId?: SortOrder
+    groupeId?: SortOrder
   }
 
   export type FormationListRelationFilter = {
@@ -82602,16 +85715,6 @@ export namespace Prisma {
   export type SalleSumOrderByAggregateInput = {
     capaciteMax?: SortOrder
     capaciteRecommandee?: SortOrder
-  }
-
-  export type EnseignantNullableScalarRelationFilter = {
-    is?: EnseignantWhereInput | null
-    isNot?: EnseignantWhereInput | null
-  }
-
-  export type SalleNullableScalarRelationFilter = {
-    is?: SalleWhereInput | null
-    isNot?: SalleWhereInput | null
   }
 
   export type IndisponibiliteSemestreIdJourOrdreEnseignantIdSalleIdCompoundUniqueInput = {
@@ -84971,6 +88074,13 @@ export namespace Prisma {
     connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
   }
 
+  export type SeanceCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<SeanceCreateWithoutSemestreInput, SeanceUncheckedCreateWithoutSemestreInput> | SeanceCreateWithoutSemestreInput[] | SeanceUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutSemestreInput | SeanceCreateOrConnectWithoutSemestreInput[]
+    createMany?: SeanceCreateManySemestreInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -85018,6 +88128,13 @@ export namespace Prisma {
     connectOrCreate?: DemandeModificationCreateOrConnectWithoutSemestreInput | DemandeModificationCreateOrConnectWithoutSemestreInput[]
     createMany?: DemandeModificationCreateManySemestreInputEnvelope
     connect?: DemandeModificationWhereUniqueInput | DemandeModificationWhereUniqueInput[]
+  }
+
+  export type SeanceUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<SeanceCreateWithoutSemestreInput, SeanceUncheckedCreateWithoutSemestreInput> | SeanceCreateWithoutSemestreInput[] | SeanceUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutSemestreInput | SeanceCreateOrConnectWithoutSemestreInput[]
+    createMany?: SeanceCreateManySemestreInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -85126,6 +88243,20 @@ export namespace Prisma {
     deleteMany?: DemandeModificationScalarWhereInput | DemandeModificationScalarWhereInput[]
   }
 
+  export type SeanceUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<SeanceCreateWithoutSemestreInput, SeanceUncheckedCreateWithoutSemestreInput> | SeanceCreateWithoutSemestreInput[] | SeanceUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutSemestreInput | SeanceCreateOrConnectWithoutSemestreInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutSemestreInput | SeanceUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: SeanceCreateManySemestreInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutSemestreInput | SeanceUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutSemestreInput | SeanceUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -85224,6 +88355,20 @@ export namespace Prisma {
     deleteMany?: DemandeModificationScalarWhereInput | DemandeModificationScalarWhereInput[]
   }
 
+  export type SeanceUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<SeanceCreateWithoutSemestreInput, SeanceUncheckedCreateWithoutSemestreInput> | SeanceCreateWithoutSemestreInput[] | SeanceUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutSemestreInput | SeanceCreateOrConnectWithoutSemestreInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutSemestreInput | SeanceUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: SeanceCreateManySemestreInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutSemestreInput | SeanceUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutSemestreInput | SeanceUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
     create?: XOR<SemestreCreateWithoutCreneauxInput, SemestreUncheckedCreateWithoutCreneauxInput>
     connectOrCreate?: SemestreCreateOrConnectWithoutCreneauxInput
@@ -85237,11 +88382,25 @@ export namespace Prisma {
     connect?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
   }
 
+  export type SeanceCreateNestedManyWithoutCreneauDebutInput = {
+    create?: XOR<SeanceCreateWithoutCreneauDebutInput, SeanceUncheckedCreateWithoutCreneauDebutInput> | SeanceCreateWithoutCreneauDebutInput[] | SeanceUncheckedCreateWithoutCreneauDebutInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutCreneauDebutInput | SeanceCreateOrConnectWithoutCreneauDebutInput[]
+    createMany?: SeanceCreateManyCreneauDebutInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
   export type CreneauAffichageUncheckedCreateNestedManyWithoutCreneauInput = {
     create?: XOR<CreneauAffichageCreateWithoutCreneauInput, CreneauAffichageUncheckedCreateWithoutCreneauInput> | CreneauAffichageCreateWithoutCreneauInput[] | CreneauAffichageUncheckedCreateWithoutCreneauInput[]
     connectOrCreate?: CreneauAffichageCreateOrConnectWithoutCreneauInput | CreneauAffichageCreateOrConnectWithoutCreneauInput[]
     createMany?: CreneauAffichageCreateManyCreneauInputEnvelope
     connect?: CreneauAffichageWhereUniqueInput | CreneauAffichageWhereUniqueInput[]
+  }
+
+  export type SeanceUncheckedCreateNestedManyWithoutCreneauDebutInput = {
+    create?: XOR<SeanceCreateWithoutCreneauDebutInput, SeanceUncheckedCreateWithoutCreneauDebutInput> | SeanceCreateWithoutCreneauDebutInput[] | SeanceUncheckedCreateWithoutCreneauDebutInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutCreneauDebutInput | SeanceCreateOrConnectWithoutCreneauDebutInput[]
+    createMany?: SeanceCreateManyCreneauDebutInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
   }
 
   export type EnumJourSemaineFieldUpdateOperationsInput = {
@@ -85270,6 +88429,20 @@ export namespace Prisma {
     deleteMany?: CreneauAffichageScalarWhereInput | CreneauAffichageScalarWhereInput[]
   }
 
+  export type SeanceUpdateManyWithoutCreneauDebutNestedInput = {
+    create?: XOR<SeanceCreateWithoutCreneauDebutInput, SeanceUncheckedCreateWithoutCreneauDebutInput> | SeanceCreateWithoutCreneauDebutInput[] | SeanceUncheckedCreateWithoutCreneauDebutInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutCreneauDebutInput | SeanceCreateOrConnectWithoutCreneauDebutInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutCreneauDebutInput | SeanceUpsertWithWhereUniqueWithoutCreneauDebutInput[]
+    createMany?: SeanceCreateManyCreneauDebutInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutCreneauDebutInput | SeanceUpdateWithWhereUniqueWithoutCreneauDebutInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutCreneauDebutInput | SeanceUpdateManyWithWhereWithoutCreneauDebutInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
   export type CreneauAffichageUncheckedUpdateManyWithoutCreneauNestedInput = {
     create?: XOR<CreneauAffichageCreateWithoutCreneauInput, CreneauAffichageUncheckedCreateWithoutCreneauInput> | CreneauAffichageCreateWithoutCreneauInput[] | CreneauAffichageUncheckedCreateWithoutCreneauInput[]
     connectOrCreate?: CreneauAffichageCreateOrConnectWithoutCreneauInput | CreneauAffichageCreateOrConnectWithoutCreneauInput[]
@@ -85282,6 +88455,20 @@ export namespace Prisma {
     update?: CreneauAffichageUpdateWithWhereUniqueWithoutCreneauInput | CreneauAffichageUpdateWithWhereUniqueWithoutCreneauInput[]
     updateMany?: CreneauAffichageUpdateManyWithWhereWithoutCreneauInput | CreneauAffichageUpdateManyWithWhereWithoutCreneauInput[]
     deleteMany?: CreneauAffichageScalarWhereInput | CreneauAffichageScalarWhereInput[]
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutCreneauDebutNestedInput = {
+    create?: XOR<SeanceCreateWithoutCreneauDebutInput, SeanceUncheckedCreateWithoutCreneauDebutInput> | SeanceCreateWithoutCreneauDebutInput[] | SeanceUncheckedCreateWithoutCreneauDebutInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutCreneauDebutInput | SeanceCreateOrConnectWithoutCreneauDebutInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutCreneauDebutInput | SeanceUpsertWithWhereUniqueWithoutCreneauDebutInput[]
+    createMany?: SeanceCreateManyCreneauDebutInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutCreneauDebutInput | SeanceUpdateWithWhereUniqueWithoutCreneauDebutInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutCreneauDebutInput | SeanceUpdateManyWithWhereWithoutCreneauDebutInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
   }
 
   export type CreneauCreateNestedOneWithoutAffichagesInput = {
@@ -85300,6 +88487,136 @@ export namespace Prisma {
     upsert?: CreneauUpsertWithoutAffichagesInput
     connect?: CreneauWhereUniqueInput
     update?: XOR<XOR<CreneauUpdateToOneWithWhereWithoutAffichagesInput, CreneauUpdateWithoutAffichagesInput>, CreneauUncheckedUpdateWithoutAffichagesInput>
+  }
+
+  export type SemestreCreateNestedOneWithoutSeancesInput = {
+    create?: XOR<SemestreCreateWithoutSeancesInput, SemestreUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutSeancesInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type EnseignantCreateNestedOneWithoutSeancesInput = {
+    create?: XOR<EnseignantCreateWithoutSeancesInput, EnseignantUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutSeancesInput
+    connect?: EnseignantWhereUniqueInput
+  }
+
+  export type SalleCreateNestedOneWithoutSeancesInput = {
+    create?: XOR<SalleCreateWithoutSeancesInput, SalleUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutSeancesInput
+    connect?: SalleWhereUniqueInput
+  }
+
+  export type CreneauCreateNestedOneWithoutSeancesInput = {
+    create?: XOR<CreneauCreateWithoutSeancesInput, CreneauUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: CreneauCreateOrConnectWithoutSeancesInput
+    connect?: CreneauWhereUniqueInput
+  }
+
+  export type SeanceGroupeCreateNestedManyWithoutSeanceInput = {
+    create?: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput> | SeanceGroupeCreateWithoutSeanceInput[] | SeanceGroupeUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: SeanceGroupeCreateOrConnectWithoutSeanceInput | SeanceGroupeCreateOrConnectWithoutSeanceInput[]
+    createMany?: SeanceGroupeCreateManySeanceInputEnvelope
+    connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+  }
+
+  export type SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput = {
+    create?: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput> | SeanceGroupeCreateWithoutSeanceInput[] | SeanceGroupeUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: SeanceGroupeCreateOrConnectWithoutSeanceInput | SeanceGroupeCreateOrConnectWithoutSeanceInput[]
+    createMany?: SeanceGroupeCreateManySeanceInputEnvelope
+    connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+  }
+
+  export type SemestreUpdateOneRequiredWithoutSeancesNestedInput = {
+    create?: XOR<SemestreCreateWithoutSeancesInput, SemestreUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutSeancesInput
+    upsert?: SemestreUpsertWithoutSeancesInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutSeancesInput, SemestreUpdateWithoutSeancesInput>, SemestreUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type EnseignantUpdateOneWithoutSeancesNestedInput = {
+    create?: XOR<EnseignantCreateWithoutSeancesInput, EnseignantUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: EnseignantCreateOrConnectWithoutSeancesInput
+    upsert?: EnseignantUpsertWithoutSeancesInput
+    disconnect?: EnseignantWhereInput | boolean
+    delete?: EnseignantWhereInput | boolean
+    connect?: EnseignantWhereUniqueInput
+    update?: XOR<XOR<EnseignantUpdateToOneWithWhereWithoutSeancesInput, EnseignantUpdateWithoutSeancesInput>, EnseignantUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type SalleUpdateOneWithoutSeancesNestedInput = {
+    create?: XOR<SalleCreateWithoutSeancesInput, SalleUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutSeancesInput
+    upsert?: SalleUpsertWithoutSeancesInput
+    disconnect?: SalleWhereInput | boolean
+    delete?: SalleWhereInput | boolean
+    connect?: SalleWhereUniqueInput
+    update?: XOR<XOR<SalleUpdateToOneWithWhereWithoutSeancesInput, SalleUpdateWithoutSeancesInput>, SalleUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type CreneauUpdateOneRequiredWithoutSeancesNestedInput = {
+    create?: XOR<CreneauCreateWithoutSeancesInput, CreneauUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: CreneauCreateOrConnectWithoutSeancesInput
+    upsert?: CreneauUpsertWithoutSeancesInput
+    connect?: CreneauWhereUniqueInput
+    update?: XOR<XOR<CreneauUpdateToOneWithWhereWithoutSeancesInput, CreneauUpdateWithoutSeancesInput>, CreneauUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type SeanceGroupeUpdateManyWithoutSeanceNestedInput = {
+    create?: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput> | SeanceGroupeCreateWithoutSeanceInput[] | SeanceGroupeUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: SeanceGroupeCreateOrConnectWithoutSeanceInput | SeanceGroupeCreateOrConnectWithoutSeanceInput[]
+    upsert?: SeanceGroupeUpsertWithWhereUniqueWithoutSeanceInput | SeanceGroupeUpsertWithWhereUniqueWithoutSeanceInput[]
+    createMany?: SeanceGroupeCreateManySeanceInputEnvelope
+    set?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    disconnect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    delete?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    update?: SeanceGroupeUpdateWithWhereUniqueWithoutSeanceInput | SeanceGroupeUpdateWithWhereUniqueWithoutSeanceInput[]
+    updateMany?: SeanceGroupeUpdateManyWithWhereWithoutSeanceInput | SeanceGroupeUpdateManyWithWhereWithoutSeanceInput[]
+    deleteMany?: SeanceGroupeScalarWhereInput | SeanceGroupeScalarWhereInput[]
+  }
+
+  export type SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput = {
+    create?: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput> | SeanceGroupeCreateWithoutSeanceInput[] | SeanceGroupeUncheckedCreateWithoutSeanceInput[]
+    connectOrCreate?: SeanceGroupeCreateOrConnectWithoutSeanceInput | SeanceGroupeCreateOrConnectWithoutSeanceInput[]
+    upsert?: SeanceGroupeUpsertWithWhereUniqueWithoutSeanceInput | SeanceGroupeUpsertWithWhereUniqueWithoutSeanceInput[]
+    createMany?: SeanceGroupeCreateManySeanceInputEnvelope
+    set?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    disconnect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    delete?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    update?: SeanceGroupeUpdateWithWhereUniqueWithoutSeanceInput | SeanceGroupeUpdateWithWhereUniqueWithoutSeanceInput[]
+    updateMany?: SeanceGroupeUpdateManyWithWhereWithoutSeanceInput | SeanceGroupeUpdateManyWithWhereWithoutSeanceInput[]
+    deleteMany?: SeanceGroupeScalarWhereInput | SeanceGroupeScalarWhereInput[]
+  }
+
+  export type SeanceCreateNestedOneWithoutGroupesInput = {
+    create?: XOR<SeanceCreateWithoutGroupesInput, SeanceUncheckedCreateWithoutGroupesInput>
+    connectOrCreate?: SeanceCreateOrConnectWithoutGroupesInput
+    connect?: SeanceWhereUniqueInput
+  }
+
+  export type GroupeCreateNestedOneWithoutSeanceGroupesInput = {
+    create?: XOR<GroupeCreateWithoutSeanceGroupesInput, GroupeUncheckedCreateWithoutSeanceGroupesInput>
+    connectOrCreate?: GroupeCreateOrConnectWithoutSeanceGroupesInput
+    connect?: GroupeWhereUniqueInput
+  }
+
+  export type SeanceUpdateOneRequiredWithoutGroupesNestedInput = {
+    create?: XOR<SeanceCreateWithoutGroupesInput, SeanceUncheckedCreateWithoutGroupesInput>
+    connectOrCreate?: SeanceCreateOrConnectWithoutGroupesInput
+    upsert?: SeanceUpsertWithoutGroupesInput
+    connect?: SeanceWhereUniqueInput
+    update?: XOR<XOR<SeanceUpdateToOneWithWhereWithoutGroupesInput, SeanceUpdateWithoutGroupesInput>, SeanceUncheckedUpdateWithoutGroupesInput>
+  }
+
+  export type GroupeUpdateOneRequiredWithoutSeanceGroupesNestedInput = {
+    create?: XOR<GroupeCreateWithoutSeanceGroupesInput, GroupeUncheckedCreateWithoutSeanceGroupesInput>
+    connectOrCreate?: GroupeCreateOrConnectWithoutSeanceGroupesInput
+    upsert?: GroupeUpsertWithoutSeanceGroupesInput
+    connect?: GroupeWhereUniqueInput
+    update?: XOR<XOR<GroupeUpdateToOneWithWhereWithoutSeanceGroupesInput, GroupeUpdateWithoutSeanceGroupesInput>, GroupeUncheckedUpdateWithoutSeanceGroupesInput>
   }
 
   export type AnneeCreateNestedOneWithoutDepartementsInput = {
@@ -85670,6 +88987,13 @@ export namespace Prisma {
     connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
   }
 
+  export type SeanceGroupeCreateNestedManyWithoutGroupeInput = {
+    create?: XOR<SeanceGroupeCreateWithoutGroupeInput, SeanceGroupeUncheckedCreateWithoutGroupeInput> | SeanceGroupeCreateWithoutGroupeInput[] | SeanceGroupeUncheckedCreateWithoutGroupeInput[]
+    connectOrCreate?: SeanceGroupeCreateOrConnectWithoutGroupeInput | SeanceGroupeCreateOrConnectWithoutGroupeInput[]
+    createMany?: SeanceGroupeCreateManyGroupeInputEnvelope
+    connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutParentInput = {
     create?: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput> | GroupeCreateWithoutParentInput[] | GroupeUncheckedCreateWithoutParentInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutParentInput | GroupeCreateOrConnectWithoutParentInput[]
@@ -85682,6 +89006,13 @@ export namespace Prisma {
     connectOrCreate?: AffectationCreateOrConnectWithoutGroupeInput | AffectationCreateOrConnectWithoutGroupeInput[]
     createMany?: AffectationCreateManyGroupeInputEnvelope
     connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
+  export type SeanceGroupeUncheckedCreateNestedManyWithoutGroupeInput = {
+    create?: XOR<SeanceGroupeCreateWithoutGroupeInput, SeanceGroupeUncheckedCreateWithoutGroupeInput> | SeanceGroupeCreateWithoutGroupeInput[] | SeanceGroupeUncheckedCreateWithoutGroupeInput[]
+    connectOrCreate?: SeanceGroupeCreateOrConnectWithoutGroupeInput | SeanceGroupeCreateOrConnectWithoutGroupeInput[]
+    createMany?: SeanceGroupeCreateManyGroupeInputEnvelope
+    connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
   }
 
   export type EnumGroupeTypeFieldUpdateOperationsInput = {
@@ -85742,6 +89073,20 @@ export namespace Prisma {
     deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
   }
 
+  export type SeanceGroupeUpdateManyWithoutGroupeNestedInput = {
+    create?: XOR<SeanceGroupeCreateWithoutGroupeInput, SeanceGroupeUncheckedCreateWithoutGroupeInput> | SeanceGroupeCreateWithoutGroupeInput[] | SeanceGroupeUncheckedCreateWithoutGroupeInput[]
+    connectOrCreate?: SeanceGroupeCreateOrConnectWithoutGroupeInput | SeanceGroupeCreateOrConnectWithoutGroupeInput[]
+    upsert?: SeanceGroupeUpsertWithWhereUniqueWithoutGroupeInput | SeanceGroupeUpsertWithWhereUniqueWithoutGroupeInput[]
+    createMany?: SeanceGroupeCreateManyGroupeInputEnvelope
+    set?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    disconnect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    delete?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    update?: SeanceGroupeUpdateWithWhereUniqueWithoutGroupeInput | SeanceGroupeUpdateWithWhereUniqueWithoutGroupeInput[]
+    updateMany?: SeanceGroupeUpdateManyWithWhereWithoutGroupeInput | SeanceGroupeUpdateManyWithWhereWithoutGroupeInput[]
+    deleteMany?: SeanceGroupeScalarWhereInput | SeanceGroupeScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutParentNestedInput = {
     create?: XOR<GroupeCreateWithoutParentInput, GroupeUncheckedCreateWithoutParentInput> | GroupeCreateWithoutParentInput[] | GroupeUncheckedCreateWithoutParentInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutParentInput | GroupeCreateOrConnectWithoutParentInput[]
@@ -85768,6 +89113,20 @@ export namespace Prisma {
     update?: AffectationUpdateWithWhereUniqueWithoutGroupeInput | AffectationUpdateWithWhereUniqueWithoutGroupeInput[]
     updateMany?: AffectationUpdateManyWithWhereWithoutGroupeInput | AffectationUpdateManyWithWhereWithoutGroupeInput[]
     deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
+  export type SeanceGroupeUncheckedUpdateManyWithoutGroupeNestedInput = {
+    create?: XOR<SeanceGroupeCreateWithoutGroupeInput, SeanceGroupeUncheckedCreateWithoutGroupeInput> | SeanceGroupeCreateWithoutGroupeInput[] | SeanceGroupeUncheckedCreateWithoutGroupeInput[]
+    connectOrCreate?: SeanceGroupeCreateOrConnectWithoutGroupeInput | SeanceGroupeCreateOrConnectWithoutGroupeInput[]
+    upsert?: SeanceGroupeUpsertWithWhereUniqueWithoutGroupeInput | SeanceGroupeUpsertWithWhereUniqueWithoutGroupeInput[]
+    createMany?: SeanceGroupeCreateManyGroupeInputEnvelope
+    set?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    disconnect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    delete?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    connect?: SeanceGroupeWhereUniqueInput | SeanceGroupeWhereUniqueInput[]
+    update?: SeanceGroupeUpdateWithWhereUniqueWithoutGroupeInput | SeanceGroupeUpdateWithWhereUniqueWithoutGroupeInput[]
+    updateMany?: SeanceGroupeUpdateManyWithWhereWithoutGroupeInput | SeanceGroupeUpdateManyWithWhereWithoutGroupeInput[]
+    deleteMany?: SeanceGroupeScalarWhereInput | SeanceGroupeScalarWhereInput[]
   }
 
   export type ActivityTagCreateNestedOneWithoutTypesEnseignementInput = {
@@ -86656,6 +90015,13 @@ export namespace Prisma {
     connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
   }
 
+  export type SeanceCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<SeanceCreateWithoutEnseignantInput, SeanceUncheckedCreateWithoutEnseignantInput> | SeanceCreateWithoutEnseignantInput[] | SeanceUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutEnseignantInput | SeanceCreateOrConnectWithoutEnseignantInput[]
+    createMany?: SeanceCreateManyEnseignantInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
   export type EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput = {
     create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
@@ -86682,6 +90048,13 @@ export namespace Prisma {
     connectOrCreate?: AffectationCreateOrConnectWithoutEnseignantInput | AffectationCreateOrConnectWithoutEnseignantInput[]
     createMany?: AffectationCreateManyEnseignantInputEnvelope
     connect?: AffectationWhereUniqueInput | AffectationWhereUniqueInput[]
+  }
+
+  export type SeanceUncheckedCreateNestedManyWithoutEnseignantInput = {
+    create?: XOR<SeanceCreateWithoutEnseignantInput, SeanceUncheckedCreateWithoutEnseignantInput> | SeanceCreateWithoutEnseignantInput[] | SeanceUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutEnseignantInput | SeanceCreateOrConnectWithoutEnseignantInput[]
+    createMany?: SeanceCreateManyEnseignantInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutEnseignantsNestedInput = {
@@ -86766,6 +90139,20 @@ export namespace Prisma {
     deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
   }
 
+  export type SeanceUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<SeanceCreateWithoutEnseignantInput, SeanceUncheckedCreateWithoutEnseignantInput> | SeanceCreateWithoutEnseignantInput[] | SeanceUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutEnseignantInput | SeanceCreateOrConnectWithoutEnseignantInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutEnseignantInput | SeanceUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: SeanceCreateManyEnseignantInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutEnseignantInput | SeanceUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutEnseignantInput | SeanceUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
   export type EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput = {
     create?: XOR<EnseignantModuleCreateWithoutEnseignantInput, EnseignantModuleUncheckedCreateWithoutEnseignantInput> | EnseignantModuleCreateWithoutEnseignantInput[] | EnseignantModuleUncheckedCreateWithoutEnseignantInput[]
     connectOrCreate?: EnseignantModuleCreateOrConnectWithoutEnseignantInput | EnseignantModuleCreateOrConnectWithoutEnseignantInput[]
@@ -86820,6 +90207,20 @@ export namespace Prisma {
     update?: AffectationUpdateWithWhereUniqueWithoutEnseignantInput | AffectationUpdateWithWhereUniqueWithoutEnseignantInput[]
     updateMany?: AffectationUpdateManyWithWhereWithoutEnseignantInput | AffectationUpdateManyWithWhereWithoutEnseignantInput[]
     deleteMany?: AffectationScalarWhereInput | AffectationScalarWhereInput[]
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutEnseignantNestedInput = {
+    create?: XOR<SeanceCreateWithoutEnseignantInput, SeanceUncheckedCreateWithoutEnseignantInput> | SeanceCreateWithoutEnseignantInput[] | SeanceUncheckedCreateWithoutEnseignantInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutEnseignantInput | SeanceCreateOrConnectWithoutEnseignantInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutEnseignantInput | SeanceUpsertWithWhereUniqueWithoutEnseignantInput[]
+    createMany?: SeanceCreateManyEnseignantInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutEnseignantInput | SeanceUpdateWithWhereUniqueWithoutEnseignantInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutEnseignantInput | SeanceUpdateManyWithWhereWithoutEnseignantInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
   }
 
   export type EnseignantCreateNestedOneWithoutEnseignantModulesInput = {
@@ -87009,6 +90410,13 @@ export namespace Prisma {
     connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
   }
 
+  export type SeanceCreateNestedManyWithoutSalleInput = {
+    create?: XOR<SeanceCreateWithoutSalleInput, SeanceUncheckedCreateWithoutSalleInput> | SeanceCreateWithoutSalleInput[] | SeanceUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutSalleInput | SeanceCreateOrConnectWithoutSalleInput[]
+    createMany?: SeanceCreateManySalleInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
   export type SalleEquipementUncheckedCreateNestedManyWithoutSalleInput = {
     create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
     connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
@@ -87028,6 +90436,13 @@ export namespace Prisma {
     connectOrCreate?: IndisponibiliteCreateOrConnectWithoutSalleInput | IndisponibiliteCreateOrConnectWithoutSalleInput[]
     createMany?: IndisponibiliteCreateManySalleInputEnvelope
     connect?: IndisponibiliteWhereUniqueInput | IndisponibiliteWhereUniqueInput[]
+  }
+
+  export type SeanceUncheckedCreateNestedManyWithoutSalleInput = {
+    create?: XOR<SeanceCreateWithoutSalleInput, SeanceUncheckedCreateWithoutSalleInput> | SeanceCreateWithoutSalleInput[] | SeanceUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutSalleInput | SeanceCreateOrConnectWithoutSalleInput[]
+    createMany?: SeanceCreateManySalleInputEnvelope
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
   }
 
   export type DepartementUpdateOneWithoutSallesNestedInput = {
@@ -87102,6 +90517,20 @@ export namespace Prisma {
     deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
   }
 
+  export type SeanceUpdateManyWithoutSalleNestedInput = {
+    create?: XOR<SeanceCreateWithoutSalleInput, SeanceUncheckedCreateWithoutSalleInput> | SeanceCreateWithoutSalleInput[] | SeanceUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutSalleInput | SeanceCreateOrConnectWithoutSalleInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutSalleInput | SeanceUpsertWithWhereUniqueWithoutSalleInput[]
+    createMany?: SeanceCreateManySalleInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutSalleInput | SeanceUpdateWithWhereUniqueWithoutSalleInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutSalleInput | SeanceUpdateManyWithWhereWithoutSalleInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
   export type SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput = {
     create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
     connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
@@ -87142,6 +90571,20 @@ export namespace Prisma {
     update?: IndisponibiliteUpdateWithWhereUniqueWithoutSalleInput | IndisponibiliteUpdateWithWhereUniqueWithoutSalleInput[]
     updateMany?: IndisponibiliteUpdateManyWithWhereWithoutSalleInput | IndisponibiliteUpdateManyWithWhereWithoutSalleInput[]
     deleteMany?: IndisponibiliteScalarWhereInput | IndisponibiliteScalarWhereInput[]
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutSalleNestedInput = {
+    create?: XOR<SeanceCreateWithoutSalleInput, SeanceUncheckedCreateWithoutSalleInput> | SeanceCreateWithoutSalleInput[] | SeanceUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: SeanceCreateOrConnectWithoutSalleInput | SeanceCreateOrConnectWithoutSalleInput[]
+    upsert?: SeanceUpsertWithWhereUniqueWithoutSalleInput | SeanceUpsertWithWhereUniqueWithoutSalleInput[]
+    createMany?: SeanceCreateManySalleInputEnvelope
+    set?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    disconnect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    delete?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+    update?: SeanceUpdateWithWhereUniqueWithoutSalleInput | SeanceUpdateWithWhereUniqueWithoutSalleInput[]
+    updateMany?: SeanceUpdateManyWithWhereWithoutSalleInput | SeanceUpdateManyWithWhereWithoutSalleInput[]
+    deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutIndisponibilitesInput = {
@@ -92212,6 +95655,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -92228,6 +95672,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -92295,6 +95740,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutAnneeInput = {
@@ -92314,6 +95760,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutAnneeInput = {
@@ -92535,6 +95982,7 @@ export namespace Prisma {
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
     affectations?: AffectationCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutSemestreInput = {
@@ -92551,6 +95999,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutSemestreInput = {
@@ -92600,6 +96049,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     affichages?: CreneauAffichageCreateNestedManyWithoutCreneauInput
+    seances?: SeanceCreateNestedManyWithoutCreneauDebutInput
   }
 
   export type CreneauUncheckedCreateWithoutSemestreInput = {
@@ -92613,6 +96063,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     affichages?: CreneauAffichageUncheckedCreateNestedManyWithoutCreneauInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutCreneauDebutInput
   }
 
   export type CreneauCreateOrConnectWithoutSemestreInput = {
@@ -92768,6 +96219,42 @@ export namespace Prisma {
 
   export type DemandeModificationCreateManySemestreInputEnvelope = {
     data: DemandeModificationCreateManySemestreInput | DemandeModificationCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SeanceCreateWithoutSemestreInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
+    salle?: SalleCreateNestedOneWithoutSeancesInput
+    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    enseignantId?: string | null
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceCreateOrConnectWithoutSemestreInput = {
+    where: SeanceWhereUniqueInput
+    create: XOR<SeanceCreateWithoutSemestreInput, SeanceUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type SeanceCreateManySemestreInputEnvelope = {
+    data: SeanceCreateManySemestreInput | SeanceCreateManySemestreInput[]
     skipDuplicates?: boolean
   }
 
@@ -93015,6 +96502,38 @@ export namespace Prisma {
     data: XOR<DemandeModificationUpdateManyMutationInput, DemandeModificationUncheckedUpdateManyWithoutSemestreInput>
   }
 
+  export type SeanceUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: SeanceWhereUniqueInput
+    update: XOR<SeanceUpdateWithoutSemestreInput, SeanceUncheckedUpdateWithoutSemestreInput>
+    create: XOR<SeanceCreateWithoutSemestreInput, SeanceUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type SeanceUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: SeanceWhereUniqueInput
+    data: XOR<SeanceUpdateWithoutSemestreInput, SeanceUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type SeanceUpdateManyWithWhereWithoutSemestreInput = {
+    where: SeanceScalarWhereInput
+    data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type SeanceScalarWhereInput = {
+    AND?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+    OR?: SeanceScalarWhereInput[]
+    NOT?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+    id?: UuidFilter<"Seance"> | string
+    semestreId?: UuidFilter<"Seance"> | string
+    enseignantId?: UuidNullableFilter<"Seance"> | string | null
+    salleId?: UuidNullableFilter<"Seance"> | string | null
+    jour?: EnumJourSemaineFilter<"Seance"> | $Enums.JourSemaine
+    creneauDebutId?: UuidFilter<"Seance"> | string
+    nbCreneaux?: IntFilter<"Seance"> | number
+    statut?: StringFilter<"Seance"> | string
+    createdAt?: DateTimeFilter<"Seance"> | Date | string
+    updatedAt?: DateTimeFilter<"Seance"> | Date | string
+  }
+
   export type SemestreCreateWithoutCreneauxInput = {
     id?: string
     numero: number
@@ -93029,6 +96548,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -93045,6 +96565,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -93076,6 +96597,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SeanceCreateWithoutCreneauDebutInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSeancesInput
+    enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
+    salle?: SalleCreateNestedOneWithoutSeancesInput
+    groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUncheckedCreateWithoutCreneauDebutInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceCreateOrConnectWithoutCreneauDebutInput = {
+    where: SeanceWhereUniqueInput
+    create: XOR<SeanceCreateWithoutCreneauDebutInput, SeanceUncheckedCreateWithoutCreneauDebutInput>
+  }
+
+  export type SeanceCreateManyCreneauDebutInputEnvelope = {
+    data: SeanceCreateManyCreneauDebutInput | SeanceCreateManyCreneauDebutInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutCreneauxInput = {
     update: XOR<SemestreUpdateWithoutCreneauxInput, SemestreUncheckedUpdateWithoutCreneauxInput>
     create: XOR<SemestreCreateWithoutCreneauxInput, SemestreUncheckedCreateWithoutCreneauxInput>
@@ -93101,6 +96658,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -93117,6 +96675,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -93146,6 +96705,22 @@ export namespace Prisma {
     heureFin?: DateTimeFilter<"CreneauAffichage"> | Date | string
   }
 
+  export type SeanceUpsertWithWhereUniqueWithoutCreneauDebutInput = {
+    where: SeanceWhereUniqueInput
+    update: XOR<SeanceUpdateWithoutCreneauDebutInput, SeanceUncheckedUpdateWithoutCreneauDebutInput>
+    create: XOR<SeanceCreateWithoutCreneauDebutInput, SeanceUncheckedCreateWithoutCreneauDebutInput>
+  }
+
+  export type SeanceUpdateWithWhereUniqueWithoutCreneauDebutInput = {
+    where: SeanceWhereUniqueInput
+    data: XOR<SeanceUpdateWithoutCreneauDebutInput, SeanceUncheckedUpdateWithoutCreneauDebutInput>
+  }
+
+  export type SeanceUpdateManyWithWhereWithoutCreneauDebutInput = {
+    where: SeanceScalarWhereInput
+    data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyWithoutCreneauDebutInput>
+  }
+
   export type CreneauCreateWithoutAffichagesInput = {
     id?: string
     jour: $Enums.JourSemaine
@@ -93157,6 +96732,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     semestre: SemestreCreateNestedOneWithoutCreneauxInput
+    seances?: SeanceCreateNestedManyWithoutCreneauDebutInput
   }
 
   export type CreneauUncheckedCreateWithoutAffichagesInput = {
@@ -93170,6 +96746,7 @@ export namespace Prisma {
     estActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutCreneauDebutInput
   }
 
   export type CreneauCreateOrConnectWithoutAffichagesInput = {
@@ -93199,6 +96776,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     semestre?: SemestreUpdateOneRequiredWithoutCreneauxNestedInput
+    seances?: SeanceUpdateManyWithoutCreneauDebutNestedInput
   }
 
   export type CreneauUncheckedUpdateWithoutAffichagesInput = {
@@ -93212,6 +96790,549 @@ export namespace Prisma {
     estActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutCreneauDebutNestedInput
+  }
+
+  export type SemestreCreateWithoutSeancesInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutSeancesInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutSeancesInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutSeancesInput, SemestreUncheckedCreateWithoutSeancesInput>
+  }
+
+  export type EnseignantCreateWithoutSeancesInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutEnseignantsInput
+    departement: DepartementCreateNestedOneWithoutEnseignantsInput
+    grade?: GradeCreateNestedOneWithoutEnseignantsInput
+    enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantUncheckedCreateWithoutSeancesInput = {
+    id?: string
+    matricule: string
+    nom: string
+    prenom: string
+    email: string
+    telephone?: string | null
+    isActive?: boolean
+    anneeId: string
+    departementId: string
+    gradeId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
+  }
+
+  export type EnseignantCreateOrConnectWithoutSeancesInput = {
+    where: EnseignantWhereUniqueInput
+    create: XOR<EnseignantCreateWithoutSeancesInput, EnseignantUncheckedCreateWithoutSeancesInput>
+  }
+
+  export type SalleCreateWithoutSeancesInput = {
+    id?: string
+    code: string
+    libelle: string
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement?: DepartementCreateNestedOneWithoutSallesInput
+    typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
+    equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleUncheckedCreateWithoutSeancesInput = {
+    id?: string
+    code: string
+    libelle: string
+    siteId?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleCreateOrConnectWithoutSeancesInput = {
+    where: SalleWhereUniqueInput
+    create: XOR<SalleCreateWithoutSeancesInput, SalleUncheckedCreateWithoutSeancesInput>
+  }
+
+  export type CreneauCreateWithoutSeancesInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutCreneauxInput
+    affichages?: CreneauAffichageCreateNestedManyWithoutCreneauInput
+  }
+
+  export type CreneauUncheckedCreateWithoutSeancesInput = {
+    id?: string
+    semestreId: string
+    jour: $Enums.JourSemaine
+    ordre: number
+    heureDebut: Date | string
+    heureFin: Date | string
+    estPause?: boolean
+    estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    affichages?: CreneauAffichageUncheckedCreateNestedManyWithoutCreneauInput
+  }
+
+  export type CreneauCreateOrConnectWithoutSeancesInput = {
+    where: CreneauWhereUniqueInput
+    create: XOR<CreneauCreateWithoutSeancesInput, CreneauUncheckedCreateWithoutSeancesInput>
+  }
+
+  export type SeanceGroupeCreateWithoutSeanceInput = {
+    groupe: GroupeCreateNestedOneWithoutSeanceGroupesInput
+  }
+
+  export type SeanceGroupeUncheckedCreateWithoutSeanceInput = {
+    groupeId: string
+  }
+
+  export type SeanceGroupeCreateOrConnectWithoutSeanceInput = {
+    where: SeanceGroupeWhereUniqueInput
+    create: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput>
+  }
+
+  export type SeanceGroupeCreateManySeanceInputEnvelope = {
+    data: SeanceGroupeCreateManySeanceInput | SeanceGroupeCreateManySeanceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SemestreUpsertWithoutSeancesInput = {
+    update: XOR<SemestreUpdateWithoutSeancesInput, SemestreUncheckedUpdateWithoutSeancesInput>
+    create: XOR<SemestreCreateWithoutSeancesInput, SemestreUncheckedCreateWithoutSeancesInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutSeancesInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutSeancesInput, SemestreUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type SemestreUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type EnseignantUpsertWithoutSeancesInput = {
+    update: XOR<EnseignantUpdateWithoutSeancesInput, EnseignantUncheckedUpdateWithoutSeancesInput>
+    create: XOR<EnseignantCreateWithoutSeancesInput, EnseignantUncheckedCreateWithoutSeancesInput>
+    where?: EnseignantWhereInput
+  }
+
+  export type EnseignantUpdateToOneWithWhereWithoutSeancesInput = {
+    where?: EnseignantWhereInput
+    data: XOR<EnseignantUpdateWithoutSeancesInput, EnseignantUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type EnseignantUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutEnseignantsNestedInput
+    departement?: DepartementUpdateOneRequiredWithoutEnseignantsNestedInput
+    grade?: GradeUpdateOneWithoutEnseignantsNestedInput
+    enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type EnseignantUncheckedUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matricule?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    prenom?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    telephone?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    anneeId?: StringFieldUpdateOperationsInput | string
+    departementId?: StringFieldUpdateOperationsInput | string
+    gradeId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
+  }
+
+  export type SalleUpsertWithoutSeancesInput = {
+    update: XOR<SalleUpdateWithoutSeancesInput, SalleUncheckedUpdateWithoutSeancesInput>
+    create: XOR<SalleCreateWithoutSeancesInput, SalleUncheckedCreateWithoutSeancesInput>
+    where?: SalleWhereInput
+  }
+
+  export type SalleUpdateToOneWithWhereWithoutSeancesInput = {
+    where?: SalleWhereInput
+    data: XOR<SalleUpdateWithoutSeancesInput, SalleUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type SalleUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneWithoutSallesNestedInput
+    typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
+    equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+  }
+
+  export type CreneauUpsertWithoutSeancesInput = {
+    update: XOR<CreneauUpdateWithoutSeancesInput, CreneauUncheckedUpdateWithoutSeancesInput>
+    create: XOR<CreneauCreateWithoutSeancesInput, CreneauUncheckedCreateWithoutSeancesInput>
+    where?: CreneauWhereInput
+  }
+
+  export type CreneauUpdateToOneWithWhereWithoutSeancesInput = {
+    where?: CreneauWhereInput
+    data: XOR<CreneauUpdateWithoutSeancesInput, CreneauUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type CreneauUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutCreneauxNestedInput
+    affichages?: CreneauAffichageUpdateManyWithoutCreneauNestedInput
+  }
+
+  export type CreneauUncheckedUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    ordre?: IntFieldUpdateOperationsInput | number
+    heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
+    heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+    estPause?: BoolFieldUpdateOperationsInput | boolean
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    affichages?: CreneauAffichageUncheckedUpdateManyWithoutCreneauNestedInput
+  }
+
+  export type SeanceGroupeUpsertWithWhereUniqueWithoutSeanceInput = {
+    where: SeanceGroupeWhereUniqueInput
+    update: XOR<SeanceGroupeUpdateWithoutSeanceInput, SeanceGroupeUncheckedUpdateWithoutSeanceInput>
+    create: XOR<SeanceGroupeCreateWithoutSeanceInput, SeanceGroupeUncheckedCreateWithoutSeanceInput>
+  }
+
+  export type SeanceGroupeUpdateWithWhereUniqueWithoutSeanceInput = {
+    where: SeanceGroupeWhereUniqueInput
+    data: XOR<SeanceGroupeUpdateWithoutSeanceInput, SeanceGroupeUncheckedUpdateWithoutSeanceInput>
+  }
+
+  export type SeanceGroupeUpdateManyWithWhereWithoutSeanceInput = {
+    where: SeanceGroupeScalarWhereInput
+    data: XOR<SeanceGroupeUpdateManyMutationInput, SeanceGroupeUncheckedUpdateManyWithoutSeanceInput>
+  }
+
+  export type SeanceGroupeScalarWhereInput = {
+    AND?: SeanceGroupeScalarWhereInput | SeanceGroupeScalarWhereInput[]
+    OR?: SeanceGroupeScalarWhereInput[]
+    NOT?: SeanceGroupeScalarWhereInput | SeanceGroupeScalarWhereInput[]
+    seanceId?: UuidFilter<"SeanceGroupe"> | string
+    groupeId?: UuidFilter<"SeanceGroupe"> | string
+  }
+
+  export type SeanceCreateWithoutGroupesInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSeancesInput
+    enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
+    salle?: SalleCreateNestedOneWithoutSeancesInput
+    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+  }
+
+  export type SeanceUncheckedCreateWithoutGroupesInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SeanceCreateOrConnectWithoutGroupesInput = {
+    where: SeanceWhereUniqueInput
+    create: XOR<SeanceCreateWithoutGroupesInput, SeanceUncheckedCreateWithoutGroupesInput>
+  }
+
+  export type GroupeCreateWithoutSeanceGroupesInput = {
+    id?: string
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    ordre?: number
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    niveau: NiveauCreateNestedOneWithoutGroupesInput
+    semestre: SemestreCreateNestedOneWithoutGroupesInput
+    parent?: GroupeCreateNestedOneWithoutEnfantsInput
+    enfants?: GroupeCreateNestedManyWithoutParentInput
+    affectations?: AffectationCreateNestedManyWithoutGroupeInput
+  }
+
+  export type GroupeUncheckedCreateWithoutSeanceGroupesInput = {
+    id?: string
+    niveauId: string
+    semestreId: string
+    parentId?: string | null
+    type: $Enums.GroupeType
+    code: string
+    libelle: string
+    ordre?: number
+    effectif?: number
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+    affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
+  }
+
+  export type GroupeCreateOrConnectWithoutSeanceGroupesInput = {
+    where: GroupeWhereUniqueInput
+    create: XOR<GroupeCreateWithoutSeanceGroupesInput, GroupeUncheckedCreateWithoutSeanceGroupesInput>
+  }
+
+  export type SeanceUpsertWithoutGroupesInput = {
+    update: XOR<SeanceUpdateWithoutGroupesInput, SeanceUncheckedUpdateWithoutGroupesInput>
+    create: XOR<SeanceCreateWithoutGroupesInput, SeanceUncheckedCreateWithoutGroupesInput>
+    where?: SeanceWhereInput
+  }
+
+  export type SeanceUpdateToOneWithWhereWithoutGroupesInput = {
+    where?: SeanceWhereInput
+    data: XOR<SeanceUpdateWithoutGroupesInput, SeanceUncheckedUpdateWithoutGroupesInput>
+  }
+
+  export type SeanceUpdateWithoutGroupesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
+    salle?: SalleUpdateOneWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+  }
+
+  export type SeanceUncheckedUpdateWithoutGroupesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeUpsertWithoutSeanceGroupesInput = {
+    update: XOR<GroupeUpdateWithoutSeanceGroupesInput, GroupeUncheckedUpdateWithoutSeanceGroupesInput>
+    create: XOR<GroupeCreateWithoutSeanceGroupesInput, GroupeUncheckedCreateWithoutSeanceGroupesInput>
+    where?: GroupeWhereInput
+  }
+
+  export type GroupeUpdateToOneWithWhereWithoutSeanceGroupesInput = {
+    where?: GroupeWhereInput
+    data: XOR<GroupeUpdateWithoutSeanceGroupesInput, GroupeUncheckedUpdateWithoutSeanceGroupesInput>
+  }
+
+  export type GroupeUpdateWithoutSeanceGroupesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    niveau?: NiveauUpdateOneRequiredWithoutGroupesNestedInput
+    semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
+    parent?: GroupeUpdateOneWithoutEnfantsNestedInput
+    enfants?: GroupeUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUpdateManyWithoutGroupeNestedInput
+  }
+
+  export type GroupeUncheckedUpdateWithoutSeanceGroupesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    niveauId?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    ordre?: IntFieldUpdateOperationsInput | number
+    effectif?: IntFieldUpdateOperationsInput | number
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+    affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type AnneeCreateWithoutDepartementsInput = {
@@ -93294,6 +97415,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutDepartementInput = {
@@ -93313,6 +97435,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutDepartementInput = {
@@ -93342,6 +97465,7 @@ export namespace Prisma {
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutDepartementInput = {
@@ -93361,6 +97485,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutDepartementInput = {
@@ -93715,6 +97840,7 @@ export namespace Prisma {
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
     affectations?: AffectationCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutNiveauInput = {
@@ -93731,6 +97857,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutNiveauInput = {
@@ -93915,6 +98042,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -93931,6 +98059,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -93952,6 +98081,7 @@ export namespace Prisma {
     semestre: SemestreCreateNestedOneWithoutGroupesInput
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
     affectations?: AffectationCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutEnfantsInput = {
@@ -93968,6 +98098,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutEnfantsInput = {
@@ -93989,6 +98120,7 @@ export namespace Prisma {
     semestre: SemestreCreateNestedOneWithoutGroupesInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
     affectations?: AffectationCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutParentInput = {
@@ -94005,6 +98137,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutGroupeInput
+    seanceGroupes?: SeanceGroupeUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutParentInput = {
@@ -94056,6 +98189,24 @@ export namespace Prisma {
 
   export type AffectationCreateManyGroupeInputEnvelope = {
     data: AffectationCreateManyGroupeInput | AffectationCreateManyGroupeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SeanceGroupeCreateWithoutGroupeInput = {
+    seance: SeanceCreateNestedOneWithoutGroupesInput
+  }
+
+  export type SeanceGroupeUncheckedCreateWithoutGroupeInput = {
+    seanceId: string
+  }
+
+  export type SeanceGroupeCreateOrConnectWithoutGroupeInput = {
+    where: SeanceGroupeWhereUniqueInput
+    create: XOR<SeanceGroupeCreateWithoutGroupeInput, SeanceGroupeUncheckedCreateWithoutGroupeInput>
+  }
+
+  export type SeanceGroupeCreateManyGroupeInputEnvelope = {
+    data: SeanceGroupeCreateManyGroupeInput | SeanceGroupeCreateManyGroupeInput[]
     skipDuplicates?: boolean
   }
 
@@ -94119,6 +98270,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -94135,6 +98287,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -94162,6 +98315,7 @@ export namespace Prisma {
     semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
     affectations?: AffectationUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutEnfantsInput = {
@@ -94178,6 +98332,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUpsertWithWhereUniqueWithoutParentInput = {
@@ -94230,6 +98385,22 @@ export namespace Prisma {
     workingRevision?: IntFilter<"Affectation"> | number
     createdAt?: DateTimeFilter<"Affectation"> | Date | string
     updatedAt?: DateTimeFilter<"Affectation"> | Date | string
+  }
+
+  export type SeanceGroupeUpsertWithWhereUniqueWithoutGroupeInput = {
+    where: SeanceGroupeWhereUniqueInput
+    update: XOR<SeanceGroupeUpdateWithoutGroupeInput, SeanceGroupeUncheckedUpdateWithoutGroupeInput>
+    create: XOR<SeanceGroupeCreateWithoutGroupeInput, SeanceGroupeUncheckedCreateWithoutGroupeInput>
+  }
+
+  export type SeanceGroupeUpdateWithWhereUniqueWithoutGroupeInput = {
+    where: SeanceGroupeWhereUniqueInput
+    data: XOR<SeanceGroupeUpdateWithoutGroupeInput, SeanceGroupeUncheckedUpdateWithoutGroupeInput>
+  }
+
+  export type SeanceGroupeUpdateManyWithWhereWithoutGroupeInput = {
+    where: SeanceGroupeScalarWhereInput
+    data: XOR<SeanceGroupeUpdateManyMutationInput, SeanceGroupeUncheckedUpdateManyWithoutGroupeInput>
   }
 
   export type ActivityTagCreateWithoutTypesEnseignementInput = {
@@ -94574,6 +98745,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutGradeInput = {
@@ -94593,6 +98765,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutGradeInput = {
@@ -95933,6 +100106,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SeanceCreateWithoutEnseignantInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSeancesInput
+    salle?: SalleCreateNestedOneWithoutSeancesInput
+    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUncheckedCreateWithoutEnseignantInput = {
+    id?: string
+    semestreId: string
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceCreateOrConnectWithoutEnseignantInput = {
+    where: SeanceWhereUniqueInput
+    create: XOR<SeanceCreateWithoutEnseignantInput, SeanceUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type SeanceCreateManyEnseignantInputEnvelope = {
+    data: SeanceCreateManyEnseignantInput | SeanceCreateManyEnseignantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutEnseignantsInput = {
     update: XOR<AnneeUpdateWithoutEnseignantsInput, AnneeUncheckedUpdateWithoutEnseignantsInput>
     create: XOR<AnneeCreateWithoutEnseignantsInput, AnneeUncheckedCreateWithoutEnseignantsInput>
@@ -96104,6 +100313,22 @@ export namespace Prisma {
     data: XOR<AffectationUpdateManyMutationInput, AffectationUncheckedUpdateManyWithoutEnseignantInput>
   }
 
+  export type SeanceUpsertWithWhereUniqueWithoutEnseignantInput = {
+    where: SeanceWhereUniqueInput
+    update: XOR<SeanceUpdateWithoutEnseignantInput, SeanceUncheckedUpdateWithoutEnseignantInput>
+    create: XOR<SeanceCreateWithoutEnseignantInput, SeanceUncheckedCreateWithoutEnseignantInput>
+  }
+
+  export type SeanceUpdateWithWhereUniqueWithoutEnseignantInput = {
+    where: SeanceWhereUniqueInput
+    data: XOR<SeanceUpdateWithoutEnseignantInput, SeanceUncheckedUpdateWithoutEnseignantInput>
+  }
+
+  export type SeanceUpdateManyWithWhereWithoutEnseignantInput = {
+    where: SeanceScalarWhereInput
+    data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyWithoutEnseignantInput>
+  }
+
   export type EnseignantCreateWithoutEnseignantModulesInput = {
     id?: string
     matricule: string
@@ -96121,6 +100346,7 @@ export namespace Prisma {
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutEnseignantModulesInput = {
@@ -96140,6 +100366,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutEnseignantModulesInput = {
@@ -96216,6 +100443,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutEnseignantModulesInput = {
@@ -96235,6 +100463,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type ModuleUpsertWithoutEnseignantModulesInput = {
@@ -96301,6 +100530,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutDechargesInput = {
@@ -96320,6 +100550,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutDechargesInput = {
@@ -96341,6 +100572,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -96357,6 +100589,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -96392,6 +100625,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutDechargesInput = {
@@ -96411,6 +100645,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type SemestreUpsertWithoutDechargesInput = {
@@ -96438,6 +100673,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -96454,6 +100690,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -96473,6 +100710,7 @@ export namespace Prisma {
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutTypeSalleInput = {
@@ -96492,6 +100730,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutTypeSalleInput = {
@@ -96537,6 +100776,7 @@ export namespace Prisma {
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutSiteInput = {
@@ -96556,6 +100796,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutSiteInput = {
@@ -96733,6 +100974,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SeanceCreateWithoutSalleInput = {
+    id?: string
+    jour: $Enums.JourSemaine
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutSeancesInput
+    enseignant?: EnseignantCreateNestedOneWithoutSeancesInput
+    creneauDebut: CreneauCreateNestedOneWithoutSeancesInput
+    groupes?: SeanceGroupeCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceUncheckedCreateWithoutSalleInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: SeanceGroupeUncheckedCreateNestedManyWithoutSeanceInput
+  }
+
+  export type SeanceCreateOrConnectWithoutSalleInput = {
+    where: SeanceWhereUniqueInput
+    create: XOR<SeanceCreateWithoutSalleInput, SeanceUncheckedCreateWithoutSalleInput>
+  }
+
+  export type SeanceCreateManySalleInputEnvelope = {
+    data: SeanceCreateManySalleInput | SeanceCreateManySalleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DepartementUpsertWithoutSallesInput = {
     update: XOR<DepartementUpdateWithoutSallesInput, DepartementUncheckedUpdateWithoutSallesInput>
     create: XOR<DepartementCreateWithoutSallesInput, DepartementUncheckedCreateWithoutSallesInput>
@@ -96888,6 +101165,22 @@ export namespace Prisma {
     data: XOR<IndisponibiliteUpdateManyMutationInput, IndisponibiliteUncheckedUpdateManyWithoutSalleInput>
   }
 
+  export type SeanceUpsertWithWhereUniqueWithoutSalleInput = {
+    where: SeanceWhereUniqueInput
+    update: XOR<SeanceUpdateWithoutSalleInput, SeanceUncheckedUpdateWithoutSalleInput>
+    create: XOR<SeanceCreateWithoutSalleInput, SeanceUncheckedCreateWithoutSalleInput>
+  }
+
+  export type SeanceUpdateWithWhereUniqueWithoutSalleInput = {
+    where: SeanceWhereUniqueInput
+    data: XOR<SeanceUpdateWithoutSalleInput, SeanceUncheckedUpdateWithoutSalleInput>
+  }
+
+  export type SeanceUpdateManyWithWhereWithoutSalleInput = {
+    where: SeanceScalarWhereInput
+    data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyWithoutSalleInput>
+  }
+
   export type SemestreCreateWithoutIndisponibilitesInput = {
     id?: string
     numero: number
@@ -96902,6 +101195,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -96918,6 +101212,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -96942,6 +101237,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutIndisponibilitesInput = {
@@ -96961,6 +101257,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     affectations?: AffectationUncheckedCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutIndisponibilitesInput = {
@@ -96985,6 +101282,7 @@ export namespace Prisma {
     site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutIndisponibilitesInput = {
@@ -97004,6 +101302,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutIndisponibilitesInput = {
@@ -97036,6 +101335,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -97052,6 +101352,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -97082,6 +101383,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -97101,6 +101403,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type SalleUpsertWithoutIndisponibilitesInput = {
@@ -97131,6 +101434,7 @@ export namespace Prisma {
     site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -97150,6 +101454,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleEquipementCreateWithoutEquipementInput = {
@@ -97241,6 +101546,7 @@ export namespace Prisma {
     site?: SiteCreateNestedOneWithoutSallesInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutEquipementsInput = {
@@ -97260,6 +101566,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutEquipementsInput = {
@@ -97322,6 +101629,7 @@ export namespace Prisma {
     site?: SiteUpdateOneWithoutSallesNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutEquipementsInput = {
@@ -97341,6 +101649,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type EquipementUpsertWithoutSallesInput = {
@@ -97393,6 +101702,7 @@ export namespace Prisma {
     site?: SiteCreateNestedOneWithoutSallesInput
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutSalleActivityTagsInput = {
@@ -97412,6 +101722,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutSalleActivityTagsInput = {
@@ -97474,6 +101785,7 @@ export namespace Prisma {
     site?: SiteUpdateOneWithoutSallesNestedInput
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutSalleActivityTagsInput = {
@@ -97493,6 +101805,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type ActivityTagUpsertWithoutSalleActivityTagsInput = {
@@ -97814,6 +102127,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
@@ -97830,6 +102144,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
@@ -97893,6 +102208,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
@@ -97909,6 +102225,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ContrainteDefinitionUpsertWithoutInstancesInput = {
@@ -97962,6 +102279,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutRepartitionsInput = {
@@ -97978,6 +102296,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutRepartitionsInput = {
@@ -98085,6 +102404,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutRepartitionsInput = {
@@ -98101,6 +102421,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type DepartementUpsertWithoutRepartitionsInput = {
@@ -98200,6 +102521,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantUncheckedCreateWithoutAffectationsInput = {
@@ -98219,6 +102541,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedCreateNestedManyWithoutEnseignantInput
     decharges?: DechargeUncheckedCreateNestedManyWithoutEnseignantInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutEnseignantInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutEnseignantInput
   }
 
   export type EnseignantCreateOrConnectWithoutAffectationsInput = {
@@ -98240,6 +102563,7 @@ export namespace Prisma {
     semestre: SemestreCreateNestedOneWithoutGroupesInput
     parent?: GroupeCreateNestedOneWithoutEnfantsInput
     enfants?: GroupeCreateNestedManyWithoutParentInput
+    seanceGroupes?: SeanceGroupeCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeUncheckedCreateWithoutAffectationsInput = {
@@ -98256,6 +102580,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     enfants?: GroupeUncheckedCreateNestedManyWithoutParentInput
+    seanceGroupes?: SeanceGroupeUncheckedCreateNestedManyWithoutGroupeInput
   }
 
   export type GroupeCreateOrConnectWithoutAffectationsInput = {
@@ -98419,6 +102744,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutAffectationsInput = {
@@ -98438,6 +102764,7 @@ export namespace Prisma {
     enseignantModules?: EnseignantModuleUncheckedUpdateManyWithoutEnseignantNestedInput
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type GroupeUpsertWithoutAffectationsInput = {
@@ -98465,6 +102792,7 @@ export namespace Prisma {
     semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
+    seanceGroupes?: SeanceGroupeUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutAffectationsInput = {
@@ -98481,6 +102809,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
+    seanceGroupes?: SeanceGroupeUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type ModuleUpsertWithoutAffectationsInput = {
@@ -98612,6 +102941,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDemandesModificationInput = {
@@ -98628,6 +102958,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
     contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDemandesModificationInput = {
@@ -98727,6 +103058,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDemandesModificationInput = {
@@ -98743,6 +103075,7 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type UserUpsertWithoutDemandesModificationInput = {
@@ -99968,6 +104301,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -99984,6 +104318,7 @@ export namespace Prisma {
     contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -100050,6 +104385,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutAnneeInput = {
@@ -100069,6 +104405,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutAnneeInput = {
@@ -100212,6 +104549,18 @@ export namespace Prisma {
     traiteeLe?: Date | string | null
   }
 
+  export type SeanceCreateManySemestreInput = {
+    id?: string
+    enseignantId?: string | null
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type GroupeUpdateWithoutSemestreInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
@@ -100226,6 +104575,7 @@ export namespace Prisma {
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
     affectations?: AffectationUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutSemestreInput = {
@@ -100242,6 +104592,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateManyWithoutSemestreInput = {
@@ -100293,6 +104644,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     affichages?: CreneauAffichageUpdateManyWithoutCreneauNestedInput
+    seances?: SeanceUpdateManyWithoutCreneauDebutNestedInput
   }
 
   export type CreneauUncheckedUpdateWithoutSemestreInput = {
@@ -100306,6 +104658,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     affichages?: CreneauAffichageUncheckedUpdateManyWithoutCreneauNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutCreneauDebutNestedInput
   }
 
   export type CreneauUncheckedUpdateManyWithoutSemestreInput = {
@@ -100478,11 +104831,61 @@ export namespace Prisma {
     traiteeLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type SeanceUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
+    salle?: SalleUpdateOneWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CreneauAffichageCreateManyCreneauInput = {
     id?: string
     grille?: $Enums.GrilleAffichage
     heureDebut: Date | string
     heureFin: Date | string
+  }
+
+  export type SeanceCreateManyCreneauDebutInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type CreneauAffichageUpdateWithoutCreneauInput = {
@@ -100504,6 +104907,60 @@ export namespace Prisma {
     grille?: EnumGrilleAffichageFieldUpdateOperationsInput | $Enums.GrilleAffichage
     heureDebut?: DateTimeFieldUpdateOperationsInput | Date | string
     heureFin?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeanceUpdateWithoutCreneauDebutInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
+    salle?: SalleUpdateOneWithoutSeancesNestedInput
+    groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateWithoutCreneauDebutInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutCreneauDebutInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeanceGroupeCreateManySeanceInput = {
+    groupeId: string
+  }
+
+  export type SeanceGroupeUpdateWithoutSeanceInput = {
+    groupe?: GroupeUpdateOneRequiredWithoutSeanceGroupesNestedInput
+  }
+
+  export type SeanceGroupeUncheckedUpdateWithoutSeanceInput = {
+    groupeId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SeanceGroupeUncheckedUpdateManyWithoutSeanceInput = {
+    groupeId?: StringFieldUpdateOperationsInput | string
   }
 
   export type FormationCreateManyDepartementInput = {
@@ -100605,6 +105062,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutDepartementInput = {
@@ -100624,6 +105082,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutDepartementInput = {
@@ -100658,6 +105117,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutDepartementInput = {
@@ -100677,6 +105137,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutDepartementInput = {
@@ -100810,6 +105271,7 @@ export namespace Prisma {
     parent?: GroupeUpdateOneWithoutEnfantsNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
     affectations?: AffectationUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutNiveauInput = {
@@ -100826,6 +105288,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateManyWithoutNiveauInput = {
@@ -100922,6 +105385,10 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SeanceGroupeCreateManyGroupeInput = {
+    seanceId: string
+  }
+
   export type GroupeUpdateWithoutParentInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumGroupeTypeFieldUpdateOperationsInput | $Enums.GroupeType
@@ -100936,6 +105403,7 @@ export namespace Prisma {
     semestre?: SemestreUpdateOneRequiredWithoutGroupesNestedInput
     enfants?: GroupeUpdateManyWithoutParentNestedInput
     affectations?: AffectationUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateWithoutParentInput = {
@@ -100952,6 +105420,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enfants?: GroupeUncheckedUpdateManyWithoutParentNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutGroupeNestedInput
+    seanceGroupes?: SeanceGroupeUncheckedUpdateManyWithoutGroupeNestedInput
   }
 
   export type GroupeUncheckedUpdateManyWithoutParentInput = {
@@ -101014,6 +105483,18 @@ export namespace Prisma {
     workingRevision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeanceGroupeUpdateWithoutGroupeInput = {
+    seance?: SeanceUpdateOneRequiredWithoutGroupesNestedInput
+  }
+
+  export type SeanceGroupeUncheckedUpdateWithoutGroupeInput = {
+    seanceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SeanceGroupeUncheckedUpdateManyWithoutGroupeInput = {
+    seanceId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ModuleCreateManyTypeInput = {
@@ -101299,6 +105780,7 @@ export namespace Prisma {
     decharges?: DechargeUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateWithoutGradeInput = {
@@ -101318,6 +105800,7 @@ export namespace Prisma {
     decharges?: DechargeUncheckedUpdateManyWithoutEnseignantNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutEnseignantNestedInput
     affectations?: AffectationUncheckedUpdateManyWithoutEnseignantNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutEnseignantNestedInput
   }
 
   export type EnseignantUncheckedUpdateManyWithoutGradeInput = {
@@ -101707,6 +106190,18 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SeanceCreateManyEnseignantInput = {
+    id?: string
+    semestreId: string
+    salleId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type EnseignantModuleUpdateWithoutEnseignantInput = {
     module?: ModuleUpdateOneRequiredWithoutEnseignantModulesNestedInput
   }
@@ -101824,6 +106319,44 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SeanceUpdateWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    salle?: SalleUpdateOneWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutEnseignantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SalleCreateManyTypeSalleInput = {
     id?: string
     code: string
@@ -101857,6 +106390,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutTypeSalleInput = {
@@ -101876,6 +106410,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutTypeSalleInput = {
@@ -101927,6 +106462,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutSiteInput = {
@@ -101946,6 +106482,7 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutSiteInput = {
@@ -101979,6 +106516,18 @@ export namespace Prisma {
     ordre: number
     enseignantId?: string | null
     estActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SeanceCreateManySalleInput = {
+    id?: string
+    semestreId: string
+    enseignantId?: string | null
+    jour: $Enums.JourSemaine
+    creneauDebutId: string
+    nbCreneaux?: number
+    statut?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -102036,6 +106585,44 @@ export namespace Prisma {
     ordre?: IntFieldUpdateOperationsInput | number
     enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
     estActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SeanceUpdateWithoutSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutSeancesNestedInput
+    enseignant?: EnseignantUpdateOneWithoutSeancesNestedInput
+    creneauDebut?: CreneauUpdateOneRequiredWithoutSeancesNestedInput
+    groupes?: SeanceGroupeUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateWithoutSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: SeanceGroupeUncheckedUpdateManyWithoutSeanceNestedInput
+  }
+
+  export type SeanceUncheckedUpdateManyWithoutSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: EnumJourSemaineFieldUpdateOperationsInput | $Enums.JourSemaine
+    creneauDebutId?: StringFieldUpdateOperationsInput | string
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
