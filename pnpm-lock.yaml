@@ -256,6 +256,9 @@ importers:
       '@takt/charge-engine':
         specifier: workspace:*
         version: link:../../packages/charge-engine
+      '@takt/conflict-engine':
+        specifier: workspace:*
+        version: link:../../packages/conflict-engine
       '@takt/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts

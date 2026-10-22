@@ -739,6 +739,7 @@ model VersionEdt {
   seances     Seance[]
   occupations Occupation[]
   snapshots   VersionSnapshot[]
+  conflits    Conflit[]
 
   @@index([semestreId])
   @@index([statut])
@@ -1439,4 +1440,53 @@ model DemandeModification {
 
   @@index([departementCode, statut])
   @@map("demandes_modification")
+}
+
+// ============================================
+// Conflits (L3-17 : recalcul complet et incrémental)
+// Un conflit relie une règle détectée par le conflict-engine à une ou plusieurs séances
+// d'une version. résoluLe est renseigné quand le conflit n'est plus présent lors d'un recalcul.
+// ============================================
+
+enum ConflitType {
+  ENSEIGNANT
+  SALLE
+  GROUPE
+  CAPACITE
+  DISPONIBILITE
+  COMPATIBILITE
+  PEDAGOGIQUE
+  COMPLETUDE
+  VERROU
+  COVOITURAGE
+  VOEU
+}
+
+enum ConflitSeverite {
+  BLOQUANT
+  AVERTISSEMENT
+  INFORMATION
+}
+
+model Conflit {
+  id          String        @id @default(uuid()) @db.Uuid
+  versionId   String        @db.Uuid
+  regleCode   String
+  type        ConflitType
+  severite    ConflitSeverite
+  objetType   String
+  objetId     String
+  seanceIds   String[]      // IDs des séances impliquées (tableau PostgreSQL text[])
+  message     String
+  signature   String        // empreinte stable du conflit (computeSignature)
+  details     Json?         // contexte supplémentaire (slotKeys, volumes, etc.)
+  resoluLe    DateTime?     // renseigné quand le conflit disparaît lors d'un recalcul
+  createdAt   DateTime      @default(now())
+
+  version VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+
+  @@index([versionId, resoluLe])
+  @@index([versionId, type])
+  @@index([versionId, signature])
+  @@map("conflits")
 }

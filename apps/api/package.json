@@ -43,6 +43,7 @@
     "@opentelemetry/instrumentation-pg": "^0.73.0",
     "@opentelemetry/sdk-node": "^0.223.0",
     "@takt/charge-engine": "workspace:*",
+    "@takt/conflict-engine": "workspace:*",
     "@takt/contracts": "workspace:*",
     "@takt/db": "workspace:*",
     "argon2": "^0.41.1",

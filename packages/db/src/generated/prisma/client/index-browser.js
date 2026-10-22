@@ -769,6 +769,22 @@ exports.Prisma.DemandeModificationScalarFieldEnum = {
   traiteeLe: 'traiteeLe'
 };
 
+exports.Prisma.ConflitScalarFieldEnum = {
+  id: 'id',
+  versionId: 'versionId',
+  regleCode: 'regleCode',
+  type: 'type',
+  severite: 'severite',
+  objetType: 'objetType',
+  objetId: 'objetId',
+  seanceIds: 'seanceIds',
+  message: 'message',
+  signature: 'signature',
+  details: 'details',
+  resoluLe: 'resoluLe',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -993,6 +1009,26 @@ exports.DemandeStatut = exports.$Enums.DemandeStatut = {
   REFUSEE: 'REFUSEE'
 };
 
+exports.ConflitType = exports.$Enums.ConflitType = {
+  ENSEIGNANT: 'ENSEIGNANT',
+  SALLE: 'SALLE',
+  GROUPE: 'GROUPE',
+  CAPACITE: 'CAPACITE',
+  DISPONIBILITE: 'DISPONIBILITE',
+  COMPATIBILITE: 'COMPATIBILITE',
+  PEDAGOGIQUE: 'PEDAGOGIQUE',
+  COMPLETUDE: 'COMPLETUDE',
+  VERROU: 'VERROU',
+  COVOITURAGE: 'COVOITURAGE',
+  VOEU: 'VOEU'
+};
+
+exports.ConflitSeverite = exports.$Enums.ConflitSeverite = {
+  BLOQUANT: 'BLOQUANT',
+  AVERTISSEMENT: 'AVERTISSEMENT',
+  INFORMATION: 'INFORMATION'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserSystemRole: 'UserSystemRole',
@@ -1052,7 +1088,8 @@ exports.Prisma.ModelName = {
   Snapshot: 'Snapshot',
   SnapshotAffectation: 'SnapshotAffectation',
   SnapshotCharge: 'SnapshotCharge',
-  DemandeModification: 'DemandeModification'
+  DemandeModification: 'DemandeModification',
+  Conflit: 'Conflit'
 };
 
 /**
