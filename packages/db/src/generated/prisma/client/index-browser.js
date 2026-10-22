@@ -626,6 +626,7 @@ exports.Prisma.ContrainteInstanceScalarFieldEnum = {
   groupeId: 'groupeId',
   salleId: 'salleId',
   moduleId: 'moduleId',
+  originId: 'originId',
   params: 'params',
   poids: 'poids',
   nature: 'nature',

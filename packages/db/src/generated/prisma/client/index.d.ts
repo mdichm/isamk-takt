@@ -61795,6 +61795,7 @@ export namespace Prisma {
     groupeId: string | null
     salleId: string | null
     moduleId: string | null
+    originId: string | null
     poids: number | null
     nature: $Enums.ContrainteNature | null
     commentaire: string | null
@@ -61811,6 +61812,7 @@ export namespace Prisma {
     groupeId: string | null
     salleId: string | null
     moduleId: string | null
+    originId: string | null
     poids: number | null
     nature: $Enums.ContrainteNature | null
     commentaire: string | null
@@ -61827,6 +61829,7 @@ export namespace Prisma {
     groupeId: number
     salleId: number
     moduleId: number
+    originId: number
     params: number
     poids: number
     nature: number
@@ -61854,6 +61857,7 @@ export namespace Prisma {
     groupeId?: true
     salleId?: true
     moduleId?: true
+    originId?: true
     poids?: true
     nature?: true
     commentaire?: true
@@ -61870,6 +61874,7 @@ export namespace Prisma {
     groupeId?: true
     salleId?: true
     moduleId?: true
+    originId?: true
     poids?: true
     nature?: true
     commentaire?: true
@@ -61886,6 +61891,7 @@ export namespace Prisma {
     groupeId?: true
     salleId?: true
     moduleId?: true
+    originId?: true
     params?: true
     poids?: true
     nature?: true
@@ -61990,6 +61996,7 @@ export namespace Prisma {
     groupeId: string | null
     salleId: string | null
     moduleId: string | null
+    originId: string | null
     params: JsonValue
     poids: number | null
     nature: $Enums.ContrainteNature
@@ -62026,6 +62033,7 @@ export namespace Prisma {
     groupeId?: boolean
     salleId?: boolean
     moduleId?: boolean
+    originId?: boolean
     params?: boolean
     poids?: boolean
     nature?: boolean
@@ -62045,6 +62053,7 @@ export namespace Prisma {
     groupeId?: boolean
     salleId?: boolean
     moduleId?: boolean
+    originId?: boolean
     params?: boolean
     poids?: boolean
     nature?: boolean
@@ -62064,6 +62073,7 @@ export namespace Prisma {
     groupeId?: boolean
     salleId?: boolean
     moduleId?: boolean
+    originId?: boolean
     params?: boolean
     poids?: boolean
     nature?: boolean
@@ -62083,6 +62093,7 @@ export namespace Prisma {
     groupeId?: boolean
     salleId?: boolean
     moduleId?: boolean
+    originId?: boolean
     params?: boolean
     poids?: boolean
     nature?: boolean
@@ -62092,7 +62103,7 @@ export namespace Prisma {
     creeLe?: boolean
   }
 
-  export type ContrainteInstanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "definitionId" | "enseignantId" | "groupeId" | "salleId" | "moduleId" | "params" | "poids" | "nature" | "commentaire" | "actif" | "creePar" | "creeLe", ExtArgs["result"]["contrainteInstance"]>
+  export type ContrainteInstanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "definitionId" | "enseignantId" | "groupeId" | "salleId" | "moduleId" | "originId" | "params" | "poids" | "nature" | "commentaire" | "actif" | "creePar" | "creeLe", ExtArgs["result"]["contrainteInstance"]>
   export type ContrainteInstanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     definition?: boolean | ContrainteDefinitionDefaultArgs<ExtArgs>
@@ -62120,6 +62131,7 @@ export namespace Prisma {
       groupeId: string | null
       salleId: string | null
       moduleId: string | null
+      originId: string | null
       params: Prisma.JsonValue
       poids: number | null
       nature: $Enums.ContrainteNature
@@ -62559,6 +62571,7 @@ export namespace Prisma {
     readonly groupeId: FieldRef<"ContrainteInstance", 'String'>
     readonly salleId: FieldRef<"ContrainteInstance", 'String'>
     readonly moduleId: FieldRef<"ContrainteInstance", 'String'>
+    readonly originId: FieldRef<"ContrainteInstance", 'String'>
     readonly params: FieldRef<"ContrainteInstance", 'Json'>
     readonly poids: FieldRef<"ContrainteInstance", 'Int'>
     readonly nature: FieldRef<"ContrainteInstance", 'ContrainteNature'>
@@ -70573,6 +70586,7 @@ export namespace Prisma {
     groupeId: 'groupeId',
     salleId: 'salleId',
     moduleId: 'moduleId',
+    originId: 'originId',
     params: 'params',
     poids: 'poids',
     nature: 'nature',
@@ -74728,6 +74742,7 @@ export namespace Prisma {
     groupeId?: UuidNullableFilter<"ContrainteInstance"> | string | null
     salleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
     moduleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    originId?: StringNullableFilter<"ContrainteInstance"> | string | null
     params?: JsonFilter<"ContrainteInstance">
     poids?: IntNullableFilter<"ContrainteInstance"> | number | null
     nature?: EnumContrainteNatureFilter<"ContrainteInstance"> | $Enums.ContrainteNature
@@ -74747,6 +74762,7 @@ export namespace Prisma {
     groupeId?: SortOrderInput | SortOrder
     salleId?: SortOrderInput | SortOrder
     moduleId?: SortOrderInput | SortOrder
+    originId?: SortOrderInput | SortOrder
     params?: SortOrder
     poids?: SortOrderInput | SortOrder
     nature?: SortOrder
@@ -74770,6 +74786,7 @@ export namespace Prisma {
     groupeId?: UuidNullableFilter<"ContrainteInstance"> | string | null
     salleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
     moduleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    originId?: StringNullableFilter<"ContrainteInstance"> | string | null
     params?: JsonFilter<"ContrainteInstance">
     poids?: IntNullableFilter<"ContrainteInstance"> | number | null
     nature?: EnumContrainteNatureFilter<"ContrainteInstance"> | $Enums.ContrainteNature
@@ -74789,6 +74806,7 @@ export namespace Prisma {
     groupeId?: SortOrderInput | SortOrder
     salleId?: SortOrderInput | SortOrder
     moduleId?: SortOrderInput | SortOrder
+    originId?: SortOrderInput | SortOrder
     params?: SortOrder
     poids?: SortOrderInput | SortOrder
     nature?: SortOrder
@@ -74814,6 +74832,7 @@ export namespace Prisma {
     groupeId?: UuidNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
     salleId?: UuidNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
     moduleId?: UuidNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
+    originId?: StringNullableWithAggregatesFilter<"ContrainteInstance"> | string | null
     params?: JsonWithAggregatesFilter<"ContrainteInstance">
     poids?: IntNullableWithAggregatesFilter<"ContrainteInstance"> | number | null
     nature?: EnumContrainteNatureWithAggregatesFilter<"ContrainteInstance"> | $Enums.ContrainteNature
@@ -79079,6 +79098,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -79098,6 +79118,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -79113,6 +79134,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -79132,6 +79154,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -79149,6 +79172,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -79164,6 +79188,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -79181,6 +79206,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -82920,6 +82946,7 @@ export namespace Prisma {
     groupeId?: SortOrder
     salleId?: SortOrder
     moduleId?: SortOrder
+    originId?: SortOrder
     params?: SortOrder
     poids?: SortOrder
     nature?: SortOrder
@@ -82941,6 +82968,7 @@ export namespace Prisma {
     groupeId?: SortOrder
     salleId?: SortOrder
     moduleId?: SortOrder
+    originId?: SortOrder
     poids?: SortOrder
     nature?: SortOrder
     commentaire?: SortOrder
@@ -82957,6 +82985,7 @@ export namespace Prisma {
     groupeId?: SortOrder
     salleId?: SortOrder
     moduleId?: SortOrder
+    originId?: SortOrder
     poids?: SortOrder
     nature?: SortOrder
     commentaire?: SortOrder
@@ -92634,6 +92663,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -92651,6 +92681,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -92929,6 +92960,7 @@ export namespace Prisma {
     groupeId?: UuidNullableFilter<"ContrainteInstance"> | string | null
     salleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
     moduleId?: UuidNullableFilter<"ContrainteInstance"> | string | null
+    originId?: StringNullableFilter<"ContrainteInstance"> | string | null
     params?: JsonFilter<"ContrainteInstance">
     poids?: IntNullableFilter<"ContrainteInstance"> | number | null
     nature?: EnumContrainteNatureFilter<"ContrainteInstance"> | $Enums.ContrainteNature
@@ -97714,6 +97746,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -97731,6 +97764,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -100144,6 +100178,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -100324,6 +100359,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -100341,6 +100377,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -100357,6 +100394,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -102049,6 +102087,7 @@ export namespace Prisma {
     groupeId?: string | null
     salleId?: string | null
     moduleId?: string | null
+    originId?: string | null
     params: JsonNullValueInput | InputJsonValue
     poids?: number | null
     nature?: $Enums.ContrainteNature
@@ -102064,6 +102103,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -102081,6 +102121,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
@@ -102097,6 +102138,7 @@ export namespace Prisma {
     groupeId?: NullableStringFieldUpdateOperationsInput | string | null
     salleId?: NullableStringFieldUpdateOperationsInput | string | null
     moduleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
     params?: JsonNullValueInput | InputJsonValue
     poids?: NullableIntFieldUpdateOperationsInput | number | null
     nature?: EnumContrainteNatureFieldUpdateOperationsInput | $Enums.ContrainteNature
