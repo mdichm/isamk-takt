@@ -11,7 +11,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ContrainteInstanceService } from './contrainte-instance.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
@@ -21,6 +21,10 @@ import {
   ContrainteInstanceResponseDto,
   PaginatedContrainteInstancesDto,
   ContrainteInstanceListQueryDto,
+  ContrainteResolusQueryDto,
+  ContrainteResolutionResponseDto,
+  ContrainteCoherenceQueryDto,
+  CoherenceReportDto,
 } from './dto/contrainte-instance.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -54,6 +58,61 @@ export class ContrainteInstanceController {
     @Query() query: ContrainteInstanceListQueryDto,
   ): Promise<PaginatedContrainteInstancesDto> {
     return this.service.findAll(query);
+  }
+
+  @Get('resolus')
+  @Permissions('contrainte:read')
+  @ApiOperation({
+    summary: 'Résoudre les contraintes applicables à un sujet (précédence)',
+    description:
+      "Retourne les contraintes résolues pour un sujet donné : une instance dure spécifique remplace la globale de même code ; les instances souples de même code s'accumulent.",
+  })
+  @ApiQuery({ name: 'semestreId', description: 'ID du semestre', required: true })
+  @ApiQuery({
+    name: 'sujetType',
+    enum: ['GLOBALE', 'ENSEIGNANT', 'GROUPE', 'SALLE', 'MODULE'],
+    description: "Type de sujet (portée de la contrainte)",
+    required: true,
+  })
+  @ApiQuery({
+    name: 'sujetId',
+    description: 'ID du sujet (requis sauf si sujetType = GLOBALE)',
+    required: false,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Contraintes résolues',
+    type: ContrainteResolutionResponseDto,
+  })
+  @ApiResponse({ status: 404, description: 'Semestre introuvable' })
+  async resolus(
+    @Query() query: ContrainteResolusQueryDto,
+  ): Promise<ContrainteResolutionResponseDto> {
+    return this.service.resolveContraintesPourSujet(
+      query.semestreId,
+      query.sujetType,
+      query.sujetId,
+    );
+  }
+
+  @Get('coherence')
+  @Permissions('contrainte:read')
+  @ApiOperation({
+    summary: 'Contrôler la cohérence des contraintes d’un semestre',
+    description:
+      'Détecte les incohérences (min > max, doublons) et les avertissements (volume groupe > plafond).',
+  })
+  @ApiQuery({ name: 'semestreId', description: 'ID du semestre', required: true })
+  @ApiResponse({
+    status: 200,
+    description: 'Rapport de cohérence',
+    type: CoherenceReportDto,
+  })
+  @ApiResponse({ status: 404, description: 'Semestre introuvable' })
+  async coherence(
+    @Query() query: ContrainteCoherenceQueryDto,
+  ): Promise<CoherenceReportDto> {
+    return this.service.verifierCoherenceSemestre(query.semestreId);
   }
 
   @Get(':id')

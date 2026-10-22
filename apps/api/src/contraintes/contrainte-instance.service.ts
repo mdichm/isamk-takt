@@ -2,7 +2,12 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { PrismaService } from '../prisma/prisma.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports, no-restricted-imports
-import type { ContrainteCategorie, ContraintePortee, ContrainteInstance } from '@takt/db';
+import type {
+  ContrainteCategorie,
+  ContraintePortee,
+  ContrainteInstance,
+  ContrainteDefinition,
+} from '@takt/db';
 import type { Prisma } from '@takt/db';
 import type {
   ContrainteInstanceCreateDto,
@@ -10,6 +15,10 @@ import type {
   ContrainteInstanceListQueryDto,
   PaginatedContrainteInstancesDto,
   ContrainteInstanceResponseDto,
+  ContrainteResolutionResponseDto,
+  ResoluContrainteDto,
+  CoherenceReportDto,
+  IncoherenceDto,
 } from './dto/contrainte-instance.dto.js';
 
 @Injectable()
@@ -167,6 +176,272 @@ export class ContrainteInstanceService {
     return this.toDto(instance);
   }
 
+  /**
+   * Résout les contraintes applicables à un sujet avec précédence.
+   * - Une instance dure spécifique remplace la globale dure de même code.
+   * - Les instances souples de même code s'accumulent.
+   * @param semestreId ID du semestre
+   * @param sujetType Type de sujet (portée)
+   * @param sujetId ID du sujet (optionnel, requis sauf si GLOBALE)
+   */
+  async resolveContraintesPourSujet(
+    semestreId: string,
+    sujetType: ContraintePortee,
+    sujetId?: string,
+  ): Promise<ContrainteResolutionResponseDto> {
+    const semestre = await this.prisma.semestre.findUnique({ where: { id: semestreId } });
+    if (!semestre) {
+      throw new NotFoundException(`Semestre "${semestreId}" introuvable`);
+    }
+
+    const instances = await this.prisma.contrainteInstance.findMany({
+      where: { semestreId, actif: true },
+      include: { definition: true },
+      orderBy: { creeLe: 'asc' },
+    });
+
+    const applicables = instances.filter((inst) => {
+      if (inst.definition.portee === 'GLOBALE') {
+        return true;
+      }
+      if (inst.definition.portee !== sujetType) {
+        return false;
+      }
+      return this.getCibleId(inst) === sujetId;
+    });
+
+    const parCode = new Map<string, typeof applicables>();
+    for (const inst of applicables) {
+      const code = inst.definition.code;
+      if (!parCode.has(code)) {
+        parCode.set(code, []);
+      }
+      parCode.get(code)!.push(inst);
+    }
+
+    const resolues: ResoluContrainteDto[] = [];
+
+    for (const [, instancesList] of parCode) {
+      const dures = instancesList.filter((i) => i.definition.categorie === 'DURE');
+      const souples = instancesList.filter((i) => i.definition.categorie === 'SOUPLE');
+
+      let dureSpecifique: (typeof instancesList)[number] | undefined;
+      let dureGlobale: (typeof instancesList)[number] | undefined;
+
+      for (const inst of dures) {
+        if (inst.definition.portee === 'GLOBALE') {
+          dureGlobale = inst;
+        } else {
+          dureSpecifique = inst;
+        }
+      }
+
+      if (dureSpecifique) {
+        resolues.push(this.toResoluDto(dureSpecifique, null));
+        if (dureGlobale) {
+          resolues.push(this.toResoluDto(dureGlobale, dureSpecifique.id));
+        }
+      } else if (dureGlobale) {
+        resolues.push(this.toResoluDto(dureGlobale, null));
+      }
+
+      for (const souple of souples) {
+        resolues.push(this.toResoluDto(souple, null));
+      }
+    }
+
+    return {
+      semestreId,
+      sujetType,
+      sujetId: sujetId ?? undefined,
+      contraintes: resolues,
+      total: resolues.length,
+    };
+  }
+
+  /**
+   * Contrôle la cohérence des contraintes d'un semestre.
+   * Détecte : min > max pour un même sujet, doublons, avertissement volume groupe.
+   * @param semestreId ID du semestre
+   */
+  async verifierCoherenceSemestre(
+    semestreId: string,
+  ): Promise<CoherenceReportDto> {
+    const semestre = await this.prisma.semestre.findUnique({ where: { id: semestreId } });
+    if (!semestre) {
+      throw new NotFoundException(`Semestre "${semestreId}" introuvable`);
+    }
+
+    const instances = await this.prisma.contrainteInstance.findMany({
+      where: { semestreId, actif: true },
+      include: { definition: true },
+      orderBy: { creeLe: 'asc' },
+    });
+
+    const incoherences: IncoherenceDto[] = [];
+
+    // --- 1. Détecter les doublons de même code sur un même sujet ---
+    type InstanceWithDef = ContrainteInstance & { definition: ContrainteDefinition };
+    const parSujetEtCode = new Map<string, InstanceWithDef[]>();
+    for (const inst of instances) {
+      const sujetKey = `${inst.definition.portee}:${this.getCibleId(inst) ?? 'globale'}`;
+      const code = inst.definition.code;
+      const key = `${sujetKey}:${code}`;
+      if (!parSujetEtCode.has(key)) {
+        parSujetEtCode.set(key, []);
+      }
+      parSujetEtCode.get(key)!.push(inst as InstanceWithDef);
+    }
+
+    for (const [, lst] of parSujetEtCode) {
+      if (lst.length > 1) {
+        const first = lst[0];
+        incoherences.push({
+          type: 'DOUBLON',
+          code: first.definition.code,
+          sujetType: first.definition.portee,
+          sujetId: this.getCibleId(first) ?? undefined,
+          message: `Plusieurs instances actives de "${first.definition.code}" pour le même sujet`,
+          severite: 'ERREUR',
+          details: { instanceIds: lst.map((i) => i.id) },
+        });
+      }
+    }
+
+    // --- 2. Détecter min > max pour chaque sujet ---
+    const MIN_MAX_PAIRS: Record<string, string> = {
+      MIN_HOURS_PER_DAY: 'MAX_HOURS_PER_DAY',
+      MIN_CONTINUOUS_HOURS: 'MAX_CONTINUOUS_HOURS',
+      MIN_DAYS_PER_WEEK: 'MAX_DAYS_PER_WEEK',
+    };
+
+    const sujets = new Set<string>();
+    for (const inst of instances) {
+      sujets.add(`${inst.definition.portee}:${this.getCibleId(inst) ?? 'globale'}`);
+    }
+
+    for (const sujetKey of sujets) {
+      const [sujetType, cibleId] = sujetKey.split(':') as [
+        ContraintePortee,
+        string,
+      ];
+
+      const resolution = await this.resolveContraintesPourSujet(
+        semestreId,
+        sujetType,
+        cibleId === 'globale' ? undefined : cibleId,
+      );
+
+      for (const [minCode, maxCode] of Object.entries(MIN_MAX_PAIRS)) {
+        const minInst = resolution.contraintes.find(
+          (c) => c.code === minCode && c.categorie === 'DURE',
+        );
+        const maxInst = resolution.contraintes.find(
+          (c) => c.code === maxCode && c.categorie === 'DURE',
+        );
+
+        if (minInst && maxInst) {
+          const minVal = this.getParamValue(minInst, 'heures') as number | undefined;
+          const maxVal = this.getParamValue(maxInst, 'heures') as number | undefined;
+
+          if (minVal !== undefined && maxVal !== undefined && minVal > maxVal) {
+            incoherences.push({
+              type: 'MIN_MAX',
+              code: minCode,
+              sujetType,
+              sujetId: cibleId === 'globale' ? undefined : cibleId,
+              message: `${minCode} (${minVal}) > ${maxCode} (${maxVal}) pour ce sujet`,
+              severite: 'ERREUR',
+              details: { min: minVal, max: maxVal },
+            });
+          }
+        }
+      }
+
+      // --- 3. Avertissement volume groupe ---
+      if (sujetType === 'GROUPE' && cibleId && cibleId !== 'globale') {
+        await this.verifierVolumeGroupe(
+          semestreId,
+          cibleId,
+          resolution.contraintes,
+          incoherences,
+        );
+      }
+    }
+
+    const totalErreurs = incoherences.filter((i) => i.severite === 'ERREUR').length;
+    const totalAvertissements = incoherences.filter(
+      (i) => i.severite === 'AVERTISSEMENT',
+    ).length;
+
+    return {
+      semestreId,
+      incoherences,
+      totalErreurs,
+      totalAvertissements,
+      estCoherent: totalErreurs === 0,
+    };
+  }
+
+  /**
+   * Vérifie si le volume hebdo d'un groupe dépasse MAX_HOURS_PER_DAY × MAX_DAYS_PER_WEEK.
+   */
+  private async verifierVolumeGroupe(
+    semestreId: string,
+    groupeId: string,
+    contraintes: ResoluContrainteDto[],
+    incoherences: IncoherenceDto[],
+  ): Promise<void> {
+    const maxHeuresJourInst = contraintes.find(
+      (c) => c.code === 'MAX_HOURS_PER_DAY' && c.categorie === 'DURE',
+    );
+    const maxJoursSemaineInst = contraintes.find(
+      (c) => c.code === 'MAX_DAYS_PER_WEEK' && c.categorie === 'DURE',
+    );
+
+    if (!maxHeuresJourInst || !maxJoursSemaineInst) {
+      return;
+    }
+
+    const maxHeuresJour =
+      (this.getParamValue(maxHeuresJourInst, 'heures') as number) ?? 0;
+    const maxJoursSemaine =
+      (this.getParamValue(maxJoursSemaineInst, 'jours') as number) ?? 0;
+
+    if (maxHeuresJour <= 0 || maxJoursSemaine <= 0) {
+      return;
+    }
+
+    const maxVolumeMinutes = maxHeuresJour * maxJoursSemaine * 60;
+
+    const total = await this.prisma.affectation.aggregate({
+      where: {
+        groupeId,
+        repartition: { semestreId },
+      },
+      _sum: { volumeHebdoMinutes: true },
+    });
+
+    const volumeTotal = total._sum.volumeHebdoMinutes ?? 0;
+
+    if (volumeTotal > maxVolumeMinutes) {
+      incoherences.push({
+        type: 'VOLUME_GROUPE',
+        code: 'MAX_HOURS_PER_DAY',
+        sujetType: 'GROUPE',
+        sujetId: groupeId,
+        message: `Volume groupe (${volumeTotal} min) dépasse le plafond autorisé (${maxVolumeMinutes} min = ${maxHeuresJour} h/jour × ${maxJoursSemaine} j/semaine)`,
+        severite: 'AVERTISSEMENT',
+        details: {
+          volumeTotalMinutes: volumeTotal,
+          maxVolumeMinutes,
+          maxHeuresJour,
+          maxJoursSemaine,
+        },
+      });
+    }
+  }
+
   async removeContrainteInstance(id: string): Promise<void> {
     const existing = await this.prisma.contrainteInstance.findUnique({
       where: { id },
@@ -267,6 +542,56 @@ export class ContrainteInstanceService {
       creePar: instance.creePar,
       creeLe: instance.creeLe,
     };
+  }
+
+  private toResoluDto(
+    instance: ContrainteInstance & { definition: ContrainteDefinition },
+    overridenBy: string | null,
+  ): ResoluContrainteDto {
+    return {
+      id: instance.id,
+      semestreId: instance.semestreId,
+      definitionId: instance.definitionId,
+      code: instance.definition.code,
+      categorie: instance.definition.categorie,
+      portee: instance.definition.portee,
+      enseignantId: instance.enseignantId ?? undefined,
+      groupeId: instance.groupeId ?? undefined,
+      salleId: instance.salleId ?? undefined,
+      moduleId: instance.moduleId ?? undefined,
+      params: instance.params as Record<string, unknown>,
+      poids: instance.poids ?? undefined,
+      nature: instance.nature,
+      commentaire: instance.commentaire ?? undefined,
+      overridenBy,
+      actif: instance.actif,
+      creePar: instance.creePar,
+      creeLe: instance.creeLe,
+    };
+  }
+
+  private getCibleId(
+    instance: ContrainteInstance & { definition: ContrainteDefinition },
+  ): string | null {
+    switch (instance.definition.portee) {
+      case 'ENSEIGNANT':
+        return instance.enseignantId ?? null;
+      case 'GROUPE':
+        return instance.groupeId ?? null;
+      case 'SALLE':
+        return instance.salleId ?? null;
+      case 'MODULE':
+        return instance.moduleId ?? null;
+      case 'GLOBALE':
+        return null;
+    }
+  }
+
+  private getParamValue(
+    instance: ResoluContrainteDto,
+    paramName: string,
+  ): unknown {
+    return (instance.params as Record<string, unknown> | undefined)?.[paramName];
   }
 
 }
