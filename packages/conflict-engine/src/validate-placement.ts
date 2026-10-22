@@ -45,6 +45,7 @@ export interface SeanceInput {
   statut: 'PLACEE' | 'NON_PLACEE';
   versionId: string;
   volumePlace?: number; // minutes déjà placées (défaut 0)
+  placeInitiale?: { salleId?: string }; // salle initialement assignée, pour détecter un déplacement de salle
 }
 
 export interface PlacementCandidat {
@@ -231,7 +232,39 @@ export function validatePlacement(seance: SeanceInput, candidat: PlacementCandid
   // --- 8. Verrous ---
   for (const type of ['CRENEAU','SALLE','ENSEIGNANT','ACTIVITE']) {
     if (ctx.verrous.has(seance.id, type)) {
-      conflits.push(conflit('LOCK_VIOLATED','VERROU','BLOQUANT','seance',seance.id,[seance.id],`Séance verrouillée (${type})`,slotKeys));
+      const estOverridable = ctx.verrous.getOverride(seance.id, type);
+      const placeInitiale = seance.placeInitiale;
+      const deplacementSalle = Boolean(placeInitiale?.salleId && placeInitiale.salleId !== candidat.salle);
+      if (estOverridable) {
+        if (deplacementSalle) {
+          conflits.push(conflit('LOCK_OVERRIDDEN','VERROU','AVERTISSEMENT','seance',seance.id,[seance.id],`Verrou overridable ${type} et déplacement effectué`,slotKeys));
+        } else {
+          conflits.push(conflit('LOCK_OVERRIDABLE','VERROU','AVERTISSEMENT','seance',seance.id,[seance.id],`Verrou overridable (${type})`,slotKeys));
+        }
+      } else {
+        conflits.push(conflit('LOCK_VIOLATED','VERROU','BLOQUANT','seance',seance.id,[seance.id],`Séance verrouillée (${type})`,slotKeys));
+      }
+    }
+  }
+
+  // --- 9. Déplacement de salle (ROOM_MOVE_FORBIDDEN) ---
+  if (seance.placeInitiale?.salleId && seance.placeInitiale.salleId !== candidat.salle) {
+    // Vérifier qu'il existe un précédent : une séance du même groupe au même créneau dans la salle cible
+    const slotKey = `${candidat.jour}|${candidat.creneauDebut}`;
+    const slot = ctx.occ.get(slotKey);
+    let precedentExiste = false;
+    if (slot) {
+      for (const gId of seance.groupes) {
+        const salleCibleOccupee = slot.salle.get(candidat.salle);
+        const groupeDansSalleCible = slot.groupe.get(gId);
+        if (salleCibleOccupee && salleCibleOccupee.seanceId !== seance.id && groupeDansSalleCible) {
+          precedentExiste = true;
+          break;
+        }
+      }
+    }
+    if (!precedentExiste) {
+      conflits.push(conflit('ROOM_MOVE_FORBIDDEN','SALLE','BLOQUANT','salle',candidat.salle,[seance.id],`Déplacement de salle sans précédent pédagogique`,slotKeys));
     }
   }
 
