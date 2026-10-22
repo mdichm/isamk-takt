@@ -36,6 +36,8 @@ import {
 } from './dto/simulate-placement.dto.js';
 import { MoveSeanceService } from './move-seance.service.js';
 import { MoveSeanceDto } from './dto/move-seance.dto.js';
+import { ChangeEnseignantService } from './change-enseignant.service.js';
+import { ChangeEnseignantDto } from './dto/change-enseignant.dto.js';
 
 // ============================================
 // Seance (L3-11)
@@ -52,6 +54,7 @@ export class SeancesController {
     private readonly service: SeancesService,
     private readonly simulateService: SimulateSeanceService,
     private readonly moveService: MoveSeanceService,
+    private readonly changeEnseignantService: ChangeEnseignantService,
   ) {}
 
   @Get('versions/:versionId/seances')
@@ -167,5 +170,36 @@ export class SeancesController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<SeanceResponseDto> {
     return this.moveService.move(id, dto, ifMatch, currentUser);
+  }
+
+  @Patch(':id/enseignant')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:write')
+  @ApiOperation({
+    summary: 'Changer l\'enseignant d\'une séance (L3-22)',
+    description:
+      'Contrôle optimiste via If-Match (412 si périmé), vérification du bail d\'édition, des verrous enseignant/activité et de l\'autorisation du nouvel enseignant dans le snapshot pour tous les groupes (422 TEACHER_NOT_ASSIGNED). Recompute des conflits après modification.',
+  })
+  @ApiParam({ name: 'id', type: String, description: 'Identifiant de la séance' })
+  @ApiResponse({
+    status: 200,
+    description: 'Enseignant changé avec révision incrémentée',
+    type: SeanceResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou bail détenu par un autre' })
+  @ApiResponse({ status: 404, description: 'Séance introuvable (ou hors portée)' })
+  @ApiResponse({ status: 409, description: 'Version immuable ou séance verrouillée (enseignant/activité)' })
+  @ApiResponse({ status: 412, description: 'If-Match manquant ou révision périmée' })
+  @ApiResponse({
+    status: 422,
+    description: 'Enseignant non autorisé pour tous les groupes (TEACHER_NOT_ASSIGNED)',
+  })
+  async changeEnseignant(
+    @Param('id') id: string,
+    @Body() dto: ChangeEnseignantDto,
+    @IfMatch() ifMatch: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<SeanceResponseDto> {
+    return this.changeEnseignantService.changeEnseignant(id, dto, ifMatch, currentUser);
   }
 }
