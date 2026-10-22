@@ -17,6 +17,59 @@ import type { VersionResponseDto } from './dto/version-response.dto.js';
 export class VersionService {
   constructor(private readonly prisma: PrismaService) {}
 
+  /** Liste toutes les versions (lecture, permission version:read). */
+  async findAll(): Promise<VersionResponseDto[]> {
+    const versions = await this.prisma.versionEdt.findMany({
+      select: {
+        id: true,
+        semestreId: true,
+        numero: true,
+        statut: true,
+        motif: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+    return versions.map((v) => ({
+      id: v.id,
+      semestreId: v.semestreId,
+      numero: v.numero,
+      statut: v.statut,
+      motif: v.motif ?? undefined,
+      createdAt: v.createdAt,
+      updatedAt: v.updatedAt,
+    }));
+  }
+
+  /** Détail d'une version par ID (lecture, permission version:read). */
+  async findOne(id: string): Promise<VersionResponseDto> {
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        semestreId: true,
+        numero: true,
+        statut: true,
+        motif: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version "${id}" introuvable`);
+    }
+    return {
+      id: version.id,
+      semestreId: version.semestreId,
+      numero: version.numero,
+      statut: version.statut,
+      motif: version.motif ?? undefined,
+      createdAt: version.createdAt,
+      updatedAt: version.updatedAt,
+    };
+  }
+
   async createVersion(
     dto: CreateVersionDto,
     _userId: string,
