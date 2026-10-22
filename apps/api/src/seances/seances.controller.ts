@@ -8,6 +8,7 @@ import {
   Query,
   Post,
   Body,
+  Patch,
   UseGuards,
   HttpCode,
   HttpStatus,
@@ -18,10 +19,12 @@ import {
   ApiResponse,
   ApiBearerAuth,
   ApiQuery,
+  ApiParam,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
+import { IfMatch } from '../common/decorators/if-match.decorator.js';
 import { SeancesService } from './seances.service.js';
 import type { SeanceQueryDto } from './dto/seance-query.dto.js';
 import { SeanceResponseDto } from './dto/seance-response.dto.js';
@@ -31,6 +34,8 @@ import {
   SimulatePlacementDto,
   SimulatePlacementResponseDto,
 } from './dto/simulate-placement.dto.js';
+import { MoveSeanceService } from './move-seance.service.js';
+import { MoveSeanceDto } from './dto/move-seance.dto.js';
 
 // ============================================
 // Seance (L3-11)
@@ -46,6 +51,7 @@ export class SeancesController {
   constructor(
     private readonly service: SeancesService,
     private readonly simulateService: SimulateSeanceService,
+    private readonly moveService: MoveSeanceService,
   ) {}
 
   @Get('versions/:versionId/seances')
@@ -127,5 +133,39 @@ export class SeancesController {
     currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<SimulatePlacementResponseDto> {
     return this.simulateService.simulate(id, dto, currentUser);
+  }
+
+  @Patch(':id/placement')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:write')
+  @ApiOperation({
+    summary: 'Déplacer une séance sur un nouveau créneau et/ou salle (L3-20)',
+    description:
+      'Contrôle optimiste via If-Match (412 si périmé), vérification du bail d\'édition, des verrous de séance et des conflits bloquants (422 SEANCE_CONFLICT_BLOCKING avec détail et rollback).',
+  })
+  @ApiParam({ name: 'id', type: String, description: 'Identifiant de la séance' })
+  @ApiResponse({
+    status: 200,
+    description: 'Séance déplacée avec révision incrémentée',
+    type: SeanceResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou bail détenu par un autre' })
+  @ApiResponse({ status: 404, description: 'Séance introuvable (ou hors portée)' })
+  @ApiResponse({ status: 409, description: 'Version immuable ou séance verrouillée' })
+  @ApiResponse({
+    status: 412,
+    description: 'If-Match manquant ou révision périmée',
+  })
+  @ApiResponse({
+    status: 422,
+    description: 'Conflit bloquant (SEANCE_CONFLICT_BLOCKING)',
+  })
+  async move(
+    @Param('id') id: string,
+    @Body() dto: MoveSeanceDto,
+    @IfMatch() ifMatch: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<SeanceResponseDto> {
+    return this.moveService.move(id, dto, ifMatch, currentUser);
   }
 }
