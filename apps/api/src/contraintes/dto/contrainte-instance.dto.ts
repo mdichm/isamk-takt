@@ -252,3 +252,71 @@ export class PaginatedContrainteInstancesDto {
   @ApiProperty()
   totalPages: number;
 }
+
+// ============================================
+// Duplication de contraintes (L3-07)
+// ============================================
+
+export class ContrainteDuplicateDto {
+  @ApiProperty({ example: 'uuid-semestre-source', description: 'ID du semestre source' })
+  @IsUUID()
+  sourceSemestreId: string;
+
+  @ApiProperty({ example: 'uuid-semestre-cible', description: 'ID du semestre cible' })
+  @IsUUID()
+  cibleSemestreId: string;
+
+  @ApiPropertyOptional({
+    enum: ['REGLE', 'VOEU'],
+    example: ['REGLE', 'VOEU'],
+    description: 'Filtrer par nature (règle ou vœu). Toutes les natures par défaut.',
+  })
+  @IsOptional()
+  @IsIn(['REGLE', 'VOEU'], { each: true })
+  natures?: ContrainteNature[];
+}
+
+export class ContrainteNonCopieeDto {
+  @ApiProperty({ description: 'ID de la définition de contrainte' })
+  definitionId: string;
+
+  @ApiProperty({ description: 'Type de sujet (enseignant, groupe, salle, module)' })
+  sujetType: string;
+
+  @ApiProperty({ description: 'ID du sujet cible' })
+  sujetId: string;
+
+  @ApiProperty({ description: 'Raison du non-copiage' })
+  raison: string;
+}
+
+export class IndisponibiliteNonCopieeDto {
+  @ApiProperty({ example: 'LUNDI', description: 'Jour de la semaine' })
+  jour: string;
+
+  @ApiProperty({ example: 3, description: 'Ordre du créneau dans la journée' })
+  ordre: number;
+
+  @ApiProperty({ description: 'Raison du non-copiage' })
+  raison: string;
+}
+
+export class ContrainteDuplicateResponseDto {
+  @ApiProperty({ example: 5, description: 'Nombre de contraintes créées' })
+  contraintesCrees: number;
+
+  @ApiProperty({ type: [String], example: ['uuid-1', 'uuid-2'], description: 'IDs des contraintes créées' })
+  contraintesIds: string[];
+
+  @ApiProperty({ type: [ContrainteNonCopieeDto], description: 'Contraintes non copiées avec raison' })
+  contraintesNonCopiees: ContrainteNonCopieeDto[];
+
+  @ApiProperty({ example: 3, description: 'Nombre d\'indisponibilités créées' })
+  indisponibilitesCrees: number;
+
+  @ApiProperty({ type: [String], example: ['uuid-1', 'uuid-2'], description: 'IDs des indisponibilités créées' })
+  indisponibilitesIds: string[];
+
+  @ApiProperty({ type: [IndisponibiliteNonCopieeDto], description: 'Indisponibilités non copiées avec raison' })
+  indisponibilitesNonCopiees: IndisponibiliteNonCopieeDto[];
+}
