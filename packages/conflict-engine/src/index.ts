@@ -26,3 +26,12 @@ export {
   type SeancePlacement,
   type Placement,
 } from './recompute.js';
+export {
+  computeSoftScore,
+  computeSoftDelta,
+  type EvalResult,
+  type EvalDetail,
+  type SoftDelta,
+  type SoftConstraints,
+  type EvalStatut,
+} from './evals.js';
