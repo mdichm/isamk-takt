@@ -236,6 +236,77 @@ describe('validatePlacement', () => {
     expect(c.some(x => x.regleCode === 'ROOM_CAPACITY_RECOMMENDED' && x.severite === 'AVERTISSEMENT')).toBe(true);
   });
 
+  it('ROOM_UNAVAILABLE quand salle indisponible sur le créneau', () => {
+    const indispo = new IndispoSet();
+    indispo.add('SALLE', 'r1', 'LUNDI', 1);
+    const ctx = makeCtx({ indispo });
+    const c = validatePlacement(makeSeance(), makeCandidat({ salle: 'r1' }), ctx);
+    expect(c.some(x => x.regleCode === 'ROOM_UNAVAILABLE')).toBe(true);
+    expect(c[0]?.severite).toBe('BLOQUANT');
+  });
+
+  it('ROOM_EQUIPMENT_MISSING équipement obligatoire absent → BLOQUANT', () => {
+    const ctx = makeCtx();
+    ctx.reqs.set('s1', { activityTag: 'CM', equipementsObligatoires: ['TABLEAU_BLANC'], equipementsSouhaites: [] });
+    const c = validatePlacement(makeSeance(), makeCandidat({ salle: 'r1' }), ctx);
+    expect(c.some(x => x.regleCode === 'ROOM_EQUIPMENT_MISSING' && x.severite === 'BLOQUANT')).toBe(true);
+  });
+
+  it('ROOM_EQUIPMENT_MISSING équipement souhaité absent → AVERTISSEMENT', () => {
+    const ctx = makeCtx();
+    ctx.reqs.set('s1', { activityTag: 'CM', equipementsObligatoires: [], equipementsSouhaites: ['TABLEAU_BLANC'] });
+    const c = validatePlacement(makeSeance(), makeCandidat({ salle: 'r1' }), ctx);
+    expect(c.some(x => x.regleCode === 'ROOM_EQUIPMENT_MISSING' && x.severite === 'AVERTISSEMENT')).toBe(true);
+  });
+
+  it('ROOM_NOT_ALLOWED quand salle imposée ≠ salle candidate', () => {
+    const ctx = makeCtx();
+    ctx.reqs.set('s1', { activityTag: 'CM', equipementsObligatoires: [], equipementsSouhaites: [], salleImposee: 'r2' });
+    const c = validatePlacement(makeSeance(), makeCandidat({ salle: 'r1' }), ctx);
+    expect(c.some(x => x.regleCode === 'ROOM_NOT_ALLOWED')).toBe(true);
+    expect(c[0]?.severite).toBe('BLOQUANT');
+  });
+
+  it('ROOM_NOT_ALLOWED quand salle hors liste autorisée', () => {
+    const ctx = makeCtx();
+    ctx.reqs.set('s1', { activityTag: 'CM', equipementsObligatoires: [], equipementsSouhaites: [], sallesAutorisees: ['r2'] });
+    const c = validatePlacement(makeSeance(), makeCandidat({ salle: 'r1' }), ctx);
+    expect(c.some(x => x.regleCode === 'ROOM_NOT_ALLOWED')).toBe(true);
+    expect(c[0]?.severite).toBe('BLOQUANT');
+  });
+
+  it('capacité avec groupeClosure : ancêtre prime sur descendant (pas de double comptage)', () => {
+    const ctx = makeCtx({
+      groupeClosure: new GroupeClosure([
+        { id: 'gp', parentId: null, enfants: ['g1'] },
+        { id: 'g1', parentId: 'gp', enfants: [] },
+      ]),
+      groupeEffectifs: new Map([['gp', 25], ['g1', 20]]),
+    });
+    // gp=25 seul compté (ancêtre), g1 ignoré → 25 ≤ capMax 30 → pas de conflit
+    const c = validatePlacement(
+      makeSeance({ groupes: ['gp', 'g1'] }),
+      makeCandidat({ salle: 'r1' }),
+      ctx as ValidatePlacementCtx,
+    );
+    expect(c.some(x => x.regleCode === 'ROOM_CAPACITY')).toBe(false);
+
+    // gp=40 > capMax 30 → conflit bloquant
+    const ctx2 = makeCtx({
+      groupeClosure: new GroupeClosure([
+        { id: 'gp', parentId: null, enfants: ['g1'] },
+        { id: 'g1', parentId: 'gp', enfants: [] },
+      ]),
+      groupeEffectifs: new Map([['gp', 40], ['g1', 20]]),
+    });
+    const c2 = validatePlacement(
+      makeSeance({ groupes: ['gp', 'g1'] }),
+      makeCandidat({ salle: 'r1' }),
+      ctx2 as ValidatePlacementCtx,
+    );
+    expect(c2.some(x => x.regleCode === 'ROOM_CAPACITY' && x.severite === 'BLOQUANT')).toBe(true);
+  });
+
   it('TEACHER_UNAVAILABLE', () => {
     const indispo = new IndispoSet();
     indispo.add('ENSEIGNANT', 'e1', 'LUNDI', 1);
@@ -363,6 +434,31 @@ describe('propriétés (fast-check)', () => {
           if (!dejasOccupes.has('r-new')) {
             const c = validatePlacement(seance, makeCandidat({ salle: 'r-new' }), ctx);
             expect(c.some(x => x.regleCode === 'ROOM_DOUBLE_BOOKING')).toBe(false);
+          }
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+
+  it('aucun déplacement accepté ne crée de ROOM_CAPACITY bloquant si effectif ≤ capMax', () => {
+    fc.assert(
+      fc.property(
+        fc.integer({ min: 1, max: 100 }),
+        fc.integer({ min: 1, max: 200 }),
+        (effectif: number, capMax: number) => {
+          const ctx = makeCtx({
+            salles: new Map([['r-test', { id: 'r-test', capaciteMax: capMax, capaciteRecommandee: undefined }]]),
+            groupeEffectifs: new Map([['g-test', effectif]]),
+          });
+          const seance: SeanceInput = {
+            id: 's-new', enseignantId: 'e-new', salleId: 'r-test', groupes: ['g-test'],
+            nbCreneaux: 1, tag: 'CM', moduleId: 'm1', typeEnseignementId: 't1',
+            statut: 'PLACEE', versionId: 'v1',
+          };
+          const c = validatePlacement(seance, makeCandidat({ salle: 'r-test' }), ctx);
+          if (effectif <= capMax) {
+            expect(c.some(x => x.regleCode === 'ROOM_CAPACITY' && x.severite === 'BLOQUANT')).toBe(false);
           }
         },
       ),
