@@ -335,6 +335,42 @@ describe('validatePlacement', () => {
     expect(c.some(x => x.regleCode === 'SESSION_UNPLACED')).toBe(true);
   });
 
+  it('SESSION_OVERPLANNED quand volumePlace > volumeAttendu → BLOQUANT', () => {
+    const ctx = makeCtx();
+    ctx.snapshot.set('g1', 'm1', 't1', { enseignantsAutorises: ['e1'], volumeAttendu: 180, dureeCreneaux: 90 });
+    const c = validatePlacement(makeSeance({ volumePlace: 210 }), makeCandidat(), ctx);
+    expect(c.some(x => x.regleCode === 'SESSION_OVERPLANNED' && x.severite === 'BLOQUANT')).toBe(true);
+  });
+
+  it('COVERAGE_INCOMPLETE quand volumePlace < volumeAttendu → BLOQUANT', () => {
+    const ctx = makeCtx();
+    ctx.snapshot.set('g1', 'm1', 't1', { enseignantsAutorises: ['e1'], volumeAttendu: 180, dureeCreneaux: 90 });
+    const c = validatePlacement(makeSeance({ volumePlace: 150 }), makeCandidat(), ctx);
+    expect(c.some(x => x.regleCode === 'COVERAGE_INCOMPLETE' && x.severite === 'BLOQUANT')).toBe(true);
+  });
+
+  it('aucun conflit quand volumePlace === volumeAttendu', () => {
+    const ctx = makeCtx();
+    ctx.snapshot.set('g1', 'm1', 't1', { enseignantsAutorises: ['e1'], volumeAttendu: 180, dureeCreneaux: 90 });
+    const c = validatePlacement(makeSeance({ volumePlace: 180 }), makeCandidat(), ctx);
+    expect(c.some(x => x.regleCode === 'SESSION_OVERPLANNED')).toBe(false);
+    expect(c.some(x => x.regleCode === 'COVERAGE_INCOMPLETE')).toBe(false);
+  });
+
+  it('aucun conflit pédagogique quand pas de snapshot', () => {
+    const ctx = makeCtx();
+    const c = validatePlacement(makeSeance({ volumePlace: 500 }), makeCandidat(), ctx);
+    expect(c.some(x => x.regleCode === 'SESSION_OVERPLANNED')).toBe(false);
+    expect(c.some(x => x.regleCode === 'COVERAGE_INCOMPLETE')).toBe(false);
+  });
+
+  it('SESSION_DURATION_MISMATCH quand durée ≠ snapshot.dureeCreneaux', () => {
+    const ctx = makeCtx();
+    ctx.snapshot.set('g1', 'm1', 't1', { enseignantsAutorises: ['e1'], volumeAttendu: 180, dureeCreneaux: 90 });
+    const c = validatePlacement(makeSeance({ nbCreneaux: 2 }), makeCandidat(), ctx); // 2*30=60 ≠ 90
+    expect(c.some(x => x.regleCode === 'SESSION_DURATION_MISMATCH' && x.severite === 'BLOQUANT')).toBe(true);
+  });
+
   it('LOCK_VIOLATED sur verrou CRENEAU', () => {
     const ctx = makeCtx();
     ctx.verrous.add('s1', 'CRENEAU');
@@ -459,6 +495,34 @@ describe('propriétés (fast-check)', () => {
           const c = validatePlacement(seance, makeCandidat({ salle: 'r-test' }), ctx);
           if (effectif <= capMax) {
             expect(c.some(x => x.regleCode === 'ROOM_CAPACITY' && x.severite === 'BLOQUANT')).toBe(false);
+          }
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+
+
+  it('aucun déplacement accepté ne crée de SESSION_OVERPLANNED si volumePlace ≤ volumeAttendu', () => {
+    fc.assert(
+      fc.property(
+        fc.integer({ min: 0, max: 500 }),
+        fc.integer({ min: 0, max: 500 }),
+        (volumePlace: number, volumeAttendu: number) => {
+          const ctx = makeCtx();
+          ctx.snapshot.set('g-test', 'm-test', 't-test', {
+            enseignantsAutorises: ['e-test'],
+            volumeAttendu,
+            dureeCreneaux: 90,
+          });
+          const seance: SeanceInput = {
+            id: 's-new', enseignantId: 'e-test', salleId: 'r-test', groupes: ['g-test'],
+            nbCreneaux: 3, tag: 'CM', moduleId: 'm-test', typeEnseignementId: 't-test',
+            statut: 'PLACEE', versionId: 'v1', volumePlace,
+          };
+          const c = validatePlacement(seance, makeCandidat({ salle: 'r-test' }), ctx);
+          if (volumePlace <= volumeAttendu) {
+            expect(c.some(x => x.regleCode === 'SESSION_OVERPLANNED')).toBe(false);
           }
         },
       ),
