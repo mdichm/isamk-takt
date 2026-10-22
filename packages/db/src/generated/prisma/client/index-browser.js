@@ -373,6 +373,24 @@ exports.Prisma.CreneauAffichageScalarFieldEnum = {
   heureFin: 'heureFin'
 };
 
+exports.Prisma.SeanceScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  enseignantId: 'enseignantId',
+  salleId: 'salleId',
+  jour: 'jour',
+  creneauDebutId: 'creneauDebutId',
+  nbCreneaux: 'nbCreneaux',
+  statut: 'statut',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SeanceGroupeScalarFieldEnum = {
+  seanceId: 'seanceId',
+  groupeId: 'groupeId'
+};
+
 exports.Prisma.DepartementScalarFieldEnum = {
   id: 'id',
   anneeId: 'anneeId',
@@ -942,6 +960,8 @@ exports.Prisma.ModelName = {
   Semestre: 'Semestre',
   Creneau: 'Creneau',
   CreneauAffichage: 'CreneauAffichage',
+  Seance: 'Seance',
+  SeanceGroupe: 'SeanceGroupe',
   Departement: 'Departement',
   Formation: 'Formation',
   Niveau: 'Niveau',
