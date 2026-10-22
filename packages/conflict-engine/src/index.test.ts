@@ -337,6 +337,39 @@ describe('propriétés (fast-check)', () => {
     );
   });
 
+  it('aucun déplacement accepté ne crée de double réservation salle', () => {
+    fc.assert(
+      fc.property(
+        fc.array(fc.tuple(fc.string({ minLength: 1 }), fc.string({ minLength: 1 })), { minLength: 0, maxLength: 5 }),
+        fc.integer({ min: 1, max: 4 }),
+        (occupations: [string, string][], nbCreneaux: number) => {
+          const ctx = makeCtx();
+          const occInputs = occupations.map(([seanceId, ressourceId]) => ({
+            seanceId,
+            jour: 'LUNDI',
+            creneauId: 'c1',
+            ressourceType: 'SALLE' as const,
+            ressourceId,
+          }));
+          ctx.occ.build(occInputs);
+
+          const seance: SeanceInput = {
+            id: 's-new', enseignantId: 'e-new', salleId: 'r-new', groupes: ['g-new'],
+            nbCreneaux, tag: 'CM', moduleId: 'm1', typeEnseignementId: 't1',
+            statut: 'PLACEE', versionId: 'v1',
+          };
+
+          const dejasOccupes = new Set(occupations.map(([, r]) => r));
+          if (!dejasOccupes.has('r-new')) {
+            const c = validatePlacement(seance, makeCandidat({ salle: 'r-new' }), ctx);
+            expect(c.some(x => x.regleCode === 'ROOM_DOUBLE_BOOKING')).toBe(false);
+          }
+        },
+      ),
+      { numRuns: 100 },
+    );
+  });
+
   it('signature stable : mêmes séances triées = même signature quel que soit l\'ordre d\'entrée', () => {
     fc.assert(
       fc.property(
