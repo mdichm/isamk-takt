@@ -2,8 +2,10 @@
 // TAKT - Contrôleur de création de version (L3-09)
 import {
   Controller,
+  Get,
   Post,
   Body,
+  Param,
   HttpCode,
   HttpStatus,
   UseGuards,
@@ -61,5 +63,34 @@ export class VersionController {
     @Body() dto: CreateVersionDto,
   ): Promise<VersionResponseDto> {
     return this.service.createVersion(dto, 'system');
+  }
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({ summary: 'Lister toutes les versions' })
+  @ApiResponse({
+    status: 200,
+    description: 'Liste des versions',
+    type: [VersionResponseDto],
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  async findAll(): Promise<VersionResponseDto[]> {
+    return this.service.findAll();
+  }
+
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({ summary: 'Détail d\'une version' })
+  @ApiResponse({
+    status: 200,
+    description: 'Détail de la version',
+    type: VersionResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async findOne(@Param('id') id: string): Promise<VersionResponseDto> {
+    return this.service.findOne(id);
   }
 }
