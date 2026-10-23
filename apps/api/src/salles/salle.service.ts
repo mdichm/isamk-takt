@@ -3,6 +3,7 @@ import { Injectable, NotFoundException, ConflictException, BadRequestException }
 import { PrismaService } from '../prisma/prisma.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { AuditService } from '../audit/audit.service.js';
+import { ConflitService } from '../conflit/conflit.service.js';
 import type {
   CreateTypeSalleDto,
   UpdateTypeSalleDto,
@@ -27,6 +28,7 @@ export class SalleService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private conflitService: ConflitService,
   ) {}
 
   // ============================================
@@ -368,6 +370,10 @@ export class SalleService {
         motif: `Mise à jour salle ${id}`,
       },
     );
+
+    if (dto.capaciteMax !== undefined || dto.capaciteRecommandee !== undefined) {
+      await this.conflitService.recalculerConflitsSemestre();
+    }
 
     return this.toSalleDto(salle);
   }
