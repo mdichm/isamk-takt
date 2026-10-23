@@ -23,3 +23,29 @@ export async function findVersionById(id: string): Promise<Version> {
   const res = await apiFetch(`/versions/${id}`);
   return res.json();
 }
+
+/* ============================================================================
+   Couverture / Complétude (L3-30 / L3-31)
+   GET /versions/{id}/completude
+   ============================================================================ */
+
+export interface CompletudeAffectation {
+  affectationKey: string;
+  attendu: number;
+  place: number;
+  ecart: number;
+}
+
+export interface CompletudeResponse {
+  attenduTotal: number;
+  placeTotal: number;
+  ecartTotal: number;
+  couvertureTotale: number;
+  couvertureExacte: boolean;
+  parAffectation: CompletudeAffectation[];
+}
+
+export async function fetchCompletude(versionId: string): Promise<CompletudeResponse> {
+  const res = await apiFetch(`/versions/${versionId}/completude`);
+  return res.json();
+}
