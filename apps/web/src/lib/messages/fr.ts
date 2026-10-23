@@ -1073,14 +1073,9 @@ export const messages = {
   voeux: 'Vœux enseignants',
   voeuxSubtitle: 'Saisir et gérer les préférences d\'enseignement par enseignant et semestre.',
   columnVoeu: 'Vœu',
-  columnEnseignant: 'Enseignant',
-  columnCode: 'Code',
-  columnSemestre: 'Semestre',
-  columnPoids: 'Poids',
   columnAvertissement: 'Avertissement',
   labelCodeVoeu: 'Type de vœu',
   labelEnseignant: 'Enseignant cible',
-  labelSemestre: 'Semestre',
   labelPoidsVoeu: 'Poids du vœu',
   labelCommentaireVoeu: 'Commentaire',
   labelEstActiveVoeu: 'Actif',
@@ -1101,7 +1096,6 @@ export const messages = {
   btnSupprimerVoeu: 'Supprimer le vœu',
   deleteVoeuInstance: 'Supprimer le vœu',
   deleteVoeuInstanceConfirm: 'Êtes-vous sûr de vouloir supprimer le vœu « {name} » ?',
-  natureVoeu: 'Préférence',
 } as const;
 
 export type Messages = typeof messages;

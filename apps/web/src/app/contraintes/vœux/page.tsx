@@ -32,9 +32,10 @@ import { getErrorMessage } from '@/lib/api/errors';
 import { Plus, Trash2, Edit2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import {
-  VOEU_CODES, VOEU_POIDS_VALUES, type VoeuResponseDto, type CreateVoeuDto, type VOEU_CODE,
+  VOEU_CODES, VOEU_POIDS_VALUES, type VoeuResponseDto, type CreateVoeuDto, type VOEU_CODE, type VOEU_POIDS,
 } from '@/lib/api/voeux';
 import { useAnnees } from '@/hooks/use-structure';
+import { getCurrentUserRole } from '@/lib/auth';
 
 const queryClient = new QueryClient();
 
@@ -85,7 +86,7 @@ export default function VoeuxPage() {
 
   const { data: annees, isPending: anneesPending } = useAnnees();
 
-  const defaultAnneeId = annees?.data?.[0]?.id ?? '';
+  const defaultAnneeId = annees?.[0]?.id ?? '';
 
   if (role === undefined || anneesPending) {
     return (
@@ -216,7 +217,7 @@ export default function VoeuxPage() {
                           <TableCell>{v.semestreId}</TableCell>
                           <TableCell>
                             {v.avertissement ? (
-                              <Badge variant="destructive" size="sm" title={v.avertissement}>
+                              <Badge variant="destructive" title={v.avertissement}>
                                 ⚠
                               </Badge>
                             ) : (
@@ -271,6 +272,8 @@ export default function VoeuxPage() {
               <DialogTitle>{messages.btnAjouterVoeu}</DialogTitle>
             </DialogHeader>
             <VoeuxForm
+              open={createOpen}
+              onOpenChange={setCreateOpen}
               onSave={handleSave}
               isEdit={false}
               isLoading={createMutation.isPending}
@@ -284,6 +287,8 @@ export default function VoeuxPage() {
               <DialogTitle>{messages.edit}</DialogTitle>
             </DialogHeader>
             <VoeuxForm
+              open={editOpen}
+              onOpenChange={setEditOpen}
               onSave={handleSave}
               isEdit={true}
               initialVoeu={editingVoeu}
@@ -302,6 +307,7 @@ function VoeuxForm({
   isEdit,
   initialVoeu,
   onSave,
+  isLoading,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -393,14 +399,14 @@ function VoeuxForm({
       semestreId: formData.semestreId,
       enseignantId: formData.enseignantId,
       code: formData.code,
-      poids: formData.poids,
+      poids: formData.poids as VOEU_POIDS,
       params,
       commentaire: formData.commentaire || undefined,
       actif: formData.actif,
     };
 
     if (isEdit && initialVoeu) {
-      onSave({ id: initialVoeu.id, input: { params, poids: formData.poids, commentaire: formData.commentaire || undefined, actif: formData.actif } });
+      onSave({ id: initialVoeu.id, input: { params, poids: formData.poids as VOEU_POIDS, commentaire: formData.commentaire || undefined, actif: formData.actif } });
     } else {
       onSave(input);
     }
@@ -442,7 +448,7 @@ function VoeuxForm({
         <Select
           value={formData.code}
           onValueChange={(v) => {
-            const newCode = v ?? '';
+            const newCode = (v ?? '') as VOEU_CODE;
             setFormData((prev) => ({ ...prev, code: newCode, params: {} }));
             setParamsErrors({});
           }}
@@ -497,7 +503,6 @@ function VoeuxForm({
                       value={String(value)}
                       onChange={(e) => handleChange(field.label, e.target.value)}
                       placeholder={field.placeholder}
-                      error={!!error}
                       className={error ? 'border-destructive' : ''}
                     />
                   ) : (
