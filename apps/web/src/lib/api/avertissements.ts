@@ -31,6 +31,41 @@ export interface AccepterAvertissementInput {
   justification?: string;
 }
 
+/** Avertissement dans la liste des conflits (type aligné sur ConflitResponseDto côté back). */
+export interface AvertissementConflit {
+  id: string;
+  versionId?: string;
+  regleCode: string;
+  signature: string;
+  seanceIds: string[];
+  type: 'ROOM' | 'EQUIPEMENT' | 'ENSEIGNANT' | 'GROUPE' | 'TEACHER';
+  severite: 'AVERTISSEMENT' | 'BLOQUANT';
+  objetType: 'Seance' | 'Creneau';
+  objetId: string;
+  message: string;
+  details?: Record<string, unknown>;
+  createdAt: string;
+  resoluLe: string | null;
+  accepte?: boolean;
+}
+
+/* ============================================================================
+   Lecture : liste des avertissements d'une version
+   ============================================================================ */
+
+/**
+ * Récupère les avertissements non acceptés d'une version.
+ * GET /versions/:id/conflits (filtré côté client pour severite=AVERTISSEMENT non résolus)
+ */
+export async function listAvertissements(versionId: string): Promise<AvertissementConflit[]> {
+  const res = await apiFetch(`/versions/${versionId}/conflits`);
+  const conflits: AvertissementConflit[] = await res.json();
+  // Filtrer : seulement les avertissements (severite=AVERTISSEMENT) non résolus (resoluLe=null)
+  return conflits.filter(
+    (c) => c.severite === 'AVERTISSEMENT' && c.resoluLe === null,
+  );
+}
+
 /* ============================================================================
    Écriture : acceptation d'un avertissement
    ============================================================================ */
