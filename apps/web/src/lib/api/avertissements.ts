@@ -4,22 +4,6 @@
 
 import { apiFetch } from './client';
 
-/** Conflit de type AVERTISSEMENT non résolu, tel que retourné par GET /versions/:id/conflits. */
-export interface AvertissementConflit {
-  id: string;
-  regleCode: string;
-  type: string;
-  severite: string;
-  objetType: string;
-  objetId: string;
-  seanceIds: string[];
-  message: string;
-  signature: string;
-  details?: Record<string, unknown>;
-  createdAt: string;
-  resoluLe?: string | null;
-}
-
 /** Réponse d'acceptation d'un avertissement (AvertissementAccepteResponseDto). */
 export interface AvertissementAccepteResponse {
   id: string;
@@ -45,24 +29,6 @@ export interface AvertissementAccepteResponse {
 export interface AccepterAvertissementInput {
   signature: string;
   justification?: string;
-}
-
-/* ============================================================================
-   Lecture : liste des avertissements d'une version
-   ============================================================================ */
-
-/**
- * Récupère les conflits non résolus de sévérité AVERTISSEMENT pour une version.
- * Le filtrage côté serveur n'étant pas exposé, on filtre côté client sur `severite`.
- */
-export async function listAvertissements(
-  versionId: string,
-): Promise<AvertissementConflit[]> {
-  const res = await apiFetch(`/versions/${versionId}/conflits`);
-  const conflits = (await res.json()) as AvertissementConflit[];
-  return conflits.filter(
-    (c) => c.severite === 'AVERTISSEMENT' && !c.resoluLe,
-  );
 }
 
 /* ============================================================================

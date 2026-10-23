@@ -1018,6 +1018,7 @@ export const messages = {
   conflitsAucun: 'Aucun conflit détecté.',
   filtreTousTypes: 'Tous les types',
   filtreToutesSeverites: 'Toutes sévérités',
+  filtreAvertissementsUniquement: 'Avertissements uniquement',
   btnSimuler: 'Simuler',
 } as const;
 
