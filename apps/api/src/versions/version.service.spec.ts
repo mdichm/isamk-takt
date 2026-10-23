@@ -26,10 +26,10 @@ describe('VersionService', () => {
       departement: { findMany: vi.fn() },
       repartition: { findFirst: vi.fn() },
       snapshot: { findFirst: vi.fn() },
-      versionEdt: { findFirst: vi.fn(), create: vi.fn() },
+      versionEdt: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
       versionSnapshot: { createMany: vi.fn() },
       snapshotAffectation: { findMany: vi.fn() },
-      seance: { create: vi.fn() },
+      seance: { create: vi.fn(), findMany: vi.fn() },
       $transaction: vi.fn(),
     };
 
@@ -174,5 +174,64 @@ describe('VersionService', () => {
     await expect(
       service.createVersion({ semestreId: 'inexistant' }, 'user-1'),
     ).rejects.toThrow(NotFoundException);
+  });
+  // ============================================
+  // getCompletude (L3-30)
+  // ============================================
+
+  it('retourne la couverture par affectation avec attendu, placé et écart', async () => {
+    prisma.versionEdt.findUnique.mockResolvedValue({ id: 'version-1' } as any);
+    prisma.seance.findMany.mockResolvedValue([
+      { affectationKey: 'g-1:m-1:t-1:e-1', statut: 'PLACEE' },
+      { affectationKey: 'g-1:m-1:t-1:e-1', statut: 'NON_PLACEE' },
+      { affectationKey: 'g-2:m-1:t-1:e-1', statut: 'PLACEE' },
+    ] as any);
+
+    const result = await service.getCompletude('version-1');
+
+    expect(result.attenduTotal).toBe(3);
+    expect(result.placeTotal).toBe(2);
+    expect(result.ecartTotal).toBe(1);
+    expect(result.couvertureTotale).toBe(67);
+    expect(result.couvertureExacte).toBe(false);
+    expect(result.parAffectation).toHaveLength(2);
+    const a1 = result.parAffectation.find((a) => a.affectationKey === 'g-1:m-1:t-1:e-1')!;
+    expect(a1.attendu).toBe(2);
+    expect(a1.place).toBe(1);
+    expect(a1.ecart).toBe(1);
+    const a2 = result.parAffectation.find((a) => a.affectationKey === 'g-2:m-1:t-1:e-1')!;
+    expect(a2.attendu).toBe(1);
+    expect(a2.place).toBe(1);
+    expect(a2.ecart).toBe(0);
+  });
+
+  it('retourne couverture exacte quand toutes les séances sont placées', async () => {
+    prisma.versionEdt.findUnique.mockResolvedValue({ id: 'version-1' } as any);
+    prisma.seance.findMany.mockResolvedValue([
+      { affectationKey: 'g-1:m-1:t-1:e-1', statut: 'PLACEE' },
+    ] as any);
+
+    const result = await service.getCompletude('version-1');
+
+    expect(result.couvertureTotale).toBe(100);
+    expect(result.couvertureExacte).toBe(true);
+    expect(result.ecartTotal).toBe(0);
+  });
+
+  it('retourne couverture 100 quand il n\'y a pas de séance', async () => {
+    prisma.versionEdt.findUnique.mockResolvedValue({ id: 'version-1' } as any);
+    prisma.seance.findMany.mockResolvedValue([] as any);
+
+    const result = await service.getCompletude('version-1');
+
+    expect(result.attenduTotal).toBe(0);
+    expect(result.couvertureTotale).toBe(100);
+    expect(result.couvertureExacte).toBe(true);
+    expect(result.parAffectation).toEqual([]);
+  });
+
+  it('lève NotFoundException si la version n\'existe pas', async () => {
+    prisma.versionEdt.findUnique.mockResolvedValue(null);
+    await expect(service.getCompletude('inconnu')).rejects.toThrow(NotFoundException);
   });
 });

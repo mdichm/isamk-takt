@@ -14,6 +14,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { VersionService } from './version.service.js';
 import { VersionResponseDto } from './dto/version-response.dto.js';
+import { CompletudeResponseDto } from './dto/completude-response.dto.js';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -92,5 +93,20 @@ export class VersionController {
   @ApiResponse({ status: 404, description: 'Version introuvable' })
   async findOne(@Param('id') id: string): Promise<VersionResponseDto> {
     return this.service.findOne(id);
+  }
+
+  @Get(':id/completude')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({ summary: 'Couverture et complétude d\'une version' })
+  @ApiResponse({
+    status: 200,
+    description: 'Couverture de la version',
+    type: CompletudeResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async completude(@Param('id') id: string): Promise<CompletudeResponseDto> {
+    return this.service.getCompletude(id);
   }
 }

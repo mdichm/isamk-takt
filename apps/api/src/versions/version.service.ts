@@ -6,6 +6,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import type { VersionStatut } from '@takt/db';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { VersionResponseDto } from './dto/version-response.dto.js';
+import type { CompletudeResponseDto } from './dto/completude-response.dto.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -77,6 +78,58 @@ export class VersionService {
       derniereModificationAt: dernierAudit?.at ?? undefined,
       createdAt: version.createdAt,
       updatedAt: version.updatedAt,
+    };
+  }
+
+  /** Couverture et complétude d'une version (L3-30). Retourne l'attendu, le placé et l'écart par affectation. */
+  async getCompletude(versionId: string): Promise<CompletudeResponseDto> {
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: { id: true },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+
+    const seances = await this.prisma.seance.findMany({
+      where: { versionId },
+      select: { affectationKey: true, statut: true },
+    });
+
+    const parAffectationMap = new Map<string, { attendu: number; place: number }>();
+    for (const s of seances) {
+      if (!parAffectationMap.has(s.affectationKey)) {
+        parAffectationMap.set(s.affectationKey, { attendu: 0, place: 0 });
+      }
+      const entry = parAffectationMap.get(s.affectationKey)!;
+      entry.attendu += 1;
+      if (s.statut === 'PLACEE') {
+        entry.place += 1;
+      }
+    }
+
+    const parAffectation = Array.from(parAffectationMap.entries()).map(
+      ([affectationKey, { attendu, place }]) => ({
+        affectationKey,
+        attendu,
+        place,
+        ecart: attendu - place,
+      }),
+    );
+
+    const attenduTotal = parAffectation.reduce((sum, a) => sum + a.attendu, 0);
+    const placeTotal = parAffectation.reduce((sum, a) => sum + a.place, 0);
+    const ecartTotal = attenduTotal - placeTotal;
+    const couvertureTotale = attenduTotal === 0 ? 100 : Math.round((placeTotal / attenduTotal) * 100);
+    const couvertureExacte = ecartTotal === 0;
+
+    return {
+      attenduTotal,
+      placeTotal,
+      ecartTotal,
+      couvertureTotale,
+      couvertureExacte,
+      parAffectation,
     };
   }
 
