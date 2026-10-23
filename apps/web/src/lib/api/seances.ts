@@ -1,4 +1,5 @@
 import { apiFetch } from './client';
+import { ApiError } from './errors';
 
 /* ============================================================================
    Séances (aligné sur SeanceResponseDto du backend L3-11)
@@ -22,7 +23,7 @@ export interface Seance {
   groupes: string[];
 }
 
-interface PaginatedSeances {
+export interface PaginatedSeances {
   data: Seance[];
   total: number;
   page: number;
@@ -42,4 +43,32 @@ export async function findSeancesByVersion(
     `/versions/${versionId}/seances?${params.toString()}`,
   );
   return res.json();
+}
+
+export interface MoveSeanceDto {
+  jour: string;
+  creneauDebutId: string;
+  salleId: string;
+}
+
+export async function moveSeance(
+  seanceId: string,
+  dto: MoveSeanceDto,
+  ifMatch: string,
+): Promise<void> {
+  const res = await apiFetch(`/seances/${seanceId}/placement`, {
+    method: 'PATCH',
+    headers: { 'If-Match': ifMatch },
+    body: JSON.stringify(dto),
+  });
+  if (res.status >= 400) {
+    let detail: string | undefined;
+    try {
+      const body = await res.json();
+      detail = body.message || body.error || JSON.stringify(body);
+    } catch {
+      detail = res.statusText;
+    }
+    throw new ApiError(res.status, detail ?? 'Erreur API');
+  }
 }
