@@ -1001,6 +1001,24 @@ export const messages = {
   colonneMessage: 'Message',
   colonneSeances: 'Séances',
   colonneAction: 'Action',
+
+  // Conflits (L3-29)
+  conflit: 'Conflit',
+  conflits: 'Conflits',
+  conflitBloquant: 'Bloquant',
+  conflitAvertissement: 'Avertissement',
+  simulationSucces: 'Simulation effectuée.',
+  simulationEchec: 'Échec de la simulation.',
+  colonneType: 'Type',
+  colonneSeverite: 'Sévérité',
+  conflitPageTitre: 'Panneau de conflits',
+  conflitPageSousTitre:
+    'Conflits actifs, filtres par type et sévérité, simulation avant dépôt.',
+  conflitsActifs: 'Conflits actifs',
+  conflitsAucun: 'Aucun conflit détecté.',
+  filtreTousTypes: 'Tous les types',
+  filtreToutesSeverites: 'Toutes sévérités',
+  btnSimuler: 'Simuler',
 } as const;
 
 export type Messages = typeof messages;
