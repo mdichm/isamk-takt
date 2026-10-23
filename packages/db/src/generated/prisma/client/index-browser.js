@@ -806,6 +806,20 @@ exports.Prisma.ConflitScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AvertissementAccepteScalarFieldEnum = {
+  id: 'id',
+  versionId: 'versionId',
+  regleCode: 'regleCode',
+  signature: 'signature',
+  seanceIds: 'seanceIds',
+  auteurId: 'auteurId',
+  justification: 'justification',
+  versionRevision: 'versionRevision',
+  acceptePar: 'acceptePar',
+  accepteLe: 'accepteLe',
+  caduqueLe: 'caduqueLe'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1119,7 +1133,8 @@ exports.Prisma.ModelName = {
   SnapshotAffectation: 'SnapshotAffectation',
   SnapshotCharge: 'SnapshotCharge',
   DemandeModification: 'DemandeModification',
-  Conflit: 'Conflit'
+  Conflit: 'Conflit',
+  AvertissementAccepte: 'AvertissementAccepte'
 };
 
 /**
