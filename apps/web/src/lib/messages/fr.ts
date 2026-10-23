@@ -933,6 +933,23 @@ export const messages = {
   errorListVerrous: 'Impossible de charger la liste des verrous.',
   errorPreviewLeve: 'Impossible de générer l’aperçu de levée.',
   btnFermer: 'Fermer',
+
+  // Grille d'édition (L3-28)
+  grille: 'Grille d\'édition',
+  grilleEditionTitre: 'Grille d\'édition — {version}',
+  deplacerSeance: 'Déplacer la séance',
+  deplacementReussi: 'Séance déplacée avec succès.',
+  errorDeplacement: 'Échec du déplacement de la séance.',
+  grilleLectureSeule: 'Grille en lecture seule',
+  grilleLectureSeuleRaison: 'Cette version n\'est pas éditable.',
+  colonneJour: 'Jour',
+  colonneCreneau: 'Créneau',
+  colonneSalle: 'Salle',
+  aPlacer: 'À placer',
+  nonPlacee: 'Séance non placée',
+  etatIvory: 'Ivory',
+  etatWarm: 'Warm',
+  etatInset: 'Inset',
 } as const;
 
 export type Messages = typeof messages;
