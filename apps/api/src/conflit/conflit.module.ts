@@ -4,11 +4,12 @@ import { Module } from '@nestjs/common';
 import { PrismaModule } from '../prisma/prisma.module.js';
 import { ConflitService } from './conflit.service.js';
 import { ConflitController } from './conflit.controller.js';
+import { OccupancyCacheService } from './occupancy-cache.service.js';
 
 @Module({
   imports: [PrismaModule],
-  providers: [ConflitService],
-  exports: [ConflitService],
+  providers: [ConflitService, OccupancyCacheService],
+  exports: [ConflitService, OccupancyCacheService],
   controllers: [ConflitController],
 })
 export class ConflitModule {}

@@ -23,6 +23,7 @@ import {
 } from '@takt/conflict-engine';
 import { ConflitType, ConflitSeverite } from '@takt/db';
 import { ConflitResponseDto } from './dto/conflit-response.dto.js';
+import { OccupancyCacheService } from './occupancy-cache.service.js';
 
 interface SeanceAvecDonnees {
   id: string;
@@ -105,12 +106,15 @@ function buildGrille(
 export class ConflitService {
   private readonly logger = new Logger(ConflitService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly occupancyCache: OccupancyCacheService,
+  ) {}
 
   async recomputeConflits(versionId: string): Promise<ConflitResponseDto[]> {
     const version = await this.prisma.versionEdt.findUnique({
       where: { id: versionId },
-      select: { id: true, semestreId: true },
+      select: { id: true, semestreId: true, revision: true },
     });
     if (!version) {
       throw new NotFoundException(`Version "${versionId}" introuvable`);
@@ -234,7 +238,7 @@ export class ConflitService {
   async getConflictContext(versionId: string): Promise<ConflictContext> {
     const version = await this.prisma.versionEdt.findUnique({
       where: { id: versionId },
-      select: { id: true, semestreId: true },
+      select: { id: true, semestreId: true, revision: true },
     });
     if (!version) {
       throw new NotFoundException(`Version "${versionId}" introuvable`);
@@ -260,7 +264,7 @@ export class ConflitService {
 
   private async buildConflictContext(
     seancesRaw: any[],
-    version: { id: string; semestreId: string },
+    version: { id: string; semestreId: string; revision: number },
   ): Promise<ConflictContext> {
     const semestreId = version.semestreId;
 
@@ -279,15 +283,22 @@ export class ConflitService {
       include: { enfants: { select: { id: true } } },
     });
 
-    const occ = new OccupancyIndex();
-    occ.build(
-      occupations.map((o) => ({
-        seanceId: o.seanceId,
-        jour: o.jour,
-        creneauId: o.creneauId,
-        ressourceType: o.ressourceType,
-        ressourceId: o.ressourceId,
-      })),
+    const occ = this.occupancyCache.getOrBuild(
+      version.id,
+      version.revision,
+      () => {
+        const idx = new OccupancyIndex();
+        idx.build(
+          occupations.map((o) => ({
+            seanceId: o.seanceId,
+            jour: o.jour,
+            creneauId: o.creneauId,
+            ressourceType: o.ressourceType,
+            ressourceId: o.ressourceId,
+          })),
+        );
+        return idx;
+      },
     );
 
     const creneauxMap = new Map<
