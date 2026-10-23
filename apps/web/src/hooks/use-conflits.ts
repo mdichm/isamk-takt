@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   listConflits,
   simulatePlacement,
@@ -8,6 +8,7 @@ import {
   type SimulatePlacementInput,
   type SimulatePlacementResponse,
 } from '@/lib/api/conflits';
+import { accepterAvertissement } from '@/lib/api/avertissements';
 
 export type { Conflit };
 
@@ -52,6 +53,42 @@ export function useSimulatePlacement(seanceId: string) {
     },
     onError: (error) => {
       toast.error(getErrorMessage(error) || messages.errorGeneric);
+    },
+  });
+}
+
+// ============================================================================
+// Écriture : acceptation d'un avertissement (déplacé depuis L3-40)
+// ============================================================================
+
+/** Hook pour accepter un avertissement (POST ...:accept). */
+export function useAccepterAvertissement(versionId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    Awaited<ReturnType<typeof accepterAvertissement>>,
+    Error,
+    { signature: string; justification?: string }
+  >({
+    mutationFn: ({ signature, justification }) =>
+      accepterAvertissement(versionId, { signature, justification }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: conflitsKeys.list(versionId),
+      });
+      toast.success(messages.avertissementAccepteSucces);
+    },
+    onError: (error) => {
+      const status = (error as { status?: number }).status;
+      if (status === 422) {
+        toast.error(messages.avertissementErreurBloquant);
+      } else if (status === 404) {
+        toast.error(messages.avertissementErreurIntrouvable);
+      } else {
+        toast.error(
+          getErrorMessage(error) || messages.avertissementErreurGenerique,
+        );
+      }
     },
   });
 }
