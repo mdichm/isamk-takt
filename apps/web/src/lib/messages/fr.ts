@@ -1020,6 +1020,28 @@ export const messages = {
   filtreToutesSeverites: 'Toutes sévérités',
   filtreAvertissementsUniquement: 'Avertissements uniquement',
   btnSimuler: 'Simuler',
+
+  // Couverture / Complétude (L3-31)
+  couverture: 'Couverture',
+  couverturePageTitre: 'Couverture de la version',
+  couverturePageSousTitre: 'Attendu, placé et écart par affectation.',
+  colonneAffectation: 'Affectation',
+  colonneAttendu: 'Attendu (min)',
+  colonnePlace: 'Placé (min)',
+  colonneEcart: 'Écart',
+  colonneCouverture: 'Couverture %',
+  colonneActions: 'Actions',
+  totalAttendu: 'Total attendu',
+  totalPlace: 'Total placé',
+  totalEcart: 'Total écart',
+  couvertureTotale: 'Couverture totale',
+  couvertureExacte: 'Couverture exacte',
+  couvertureExacteOui: 'Oui',
+  couvertureExacteNon: 'Non',
+  ecartNegatif: 'Manque',
+  ecartPositif: 'Excès',
+  btnVoirSeances: 'Voir séances',
+  aucuneDonneeCouverture: 'Aucune donnée de couverture.',
 } as const;
 
 export type Messages = typeof messages;
