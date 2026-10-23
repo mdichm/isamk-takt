@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
+import { ConflitService } from '../conflit/conflit.service.js';
 import type { Groupe } from '@takt/db';
 import {
   CreateGroupeDto,
@@ -28,6 +29,7 @@ export class GroupesService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private conflitService: ConflitService,
   ) {}
 
   // ============================================
@@ -398,6 +400,10 @@ export class GroupesService {
         motif: `Mise à jour groupe ${id}`,
       },
     );
+
+    if (dto.effectif !== undefined) {
+      await this.conflitService.recalculerConflitsSemestre(existing.semestreId);
+    }
 
     return this.toGroupeDto(groupe);
   }

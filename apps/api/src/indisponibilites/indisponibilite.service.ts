@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports, no-restricted-imports
 import { JourSemaine } from '@takt/db';
+import { ConflitService } from '../conflit/conflit.service.js';
 import type {
   CreateIndisponibiliteDto,
   UpdateIndisponibiliteDto,
@@ -18,6 +19,7 @@ export class IndisponibiliteService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private conflitService: ConflitService,
   ) {}
 
   async createIndisponibilite(
@@ -85,6 +87,8 @@ export class IndisponibiliteService {
         motif: `Création indisponibilité ${dto.jour} ordre ${dto.ordre}`,
       },
     );
+
+    await this.conflitService.recalculerConflitsSemestre(dto.semestreId);
 
     return this.toIndisponibiliteDto(indisponibilite);
   }
@@ -226,6 +230,8 @@ export class IndisponibiliteService {
       },
     );
 
+    await this.conflitService.recalculerConflitsSemestre(existing.semestreId);
+
     return this.toIndisponibiliteDto(indisponibilite);
   }
 
@@ -249,6 +255,8 @@ export class IndisponibiliteService {
         motif: `Désactivation indisponibilité ${existing.jour} ordre ${existing.ordre}`,
       },
     );
+
+    await this.conflitService.recalculerConflitsSemestre(existing.semestreId);
   }
 
   private toIndisponibiliteDto(
