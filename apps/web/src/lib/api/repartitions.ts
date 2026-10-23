@@ -65,6 +65,7 @@ export interface AffectationsQuery {
 
 export interface Repartition {
   id: string;
+  semestreId: string;
   anneeId: string;
   departementId: string;
   semestreNumero: number;
