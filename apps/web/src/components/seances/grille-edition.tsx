@@ -13,6 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { SelecteurGrille } from './selecteur-grille';
 import { CarteSeance } from './carte-seance';
+import { SuggestionsPanel } from './suggestions-panel';
+import { NonPlacedList } from './non-placed-list';
 import { useGrilleState } from '@/hooks/use-grille-state';
 import { useMoveSeance } from '@/hooks/use-seances';
 import { messages } from '@/lib/messages/fr';
@@ -33,6 +35,7 @@ export function GrilleEdition({
   const { seances, total, isLoading, error, jours, etatSeance, seancesParCreneau, editable: estEditable } =
     useGrilleState(versionId, modeInitial, editable);
   const [modeGrille, setModeGrille] = useState<ModeGrille>(modeInitial);
+  const [selectedSeanceId, setSelectedSeanceId] = useState<string | null>(null);
   const move = useMoveSeance();
 
   const sensors = useSensor(PointerSensor, {
@@ -68,6 +71,15 @@ export function GrilleEdition({
     },
     [seances, seancesParCreneau, estEditable, move, versionId],
   );
+
+  const handleSeanceClick = useCallback(
+    (id: string) => {
+      setSelectedSeanceId(id === selectedSeanceId ? null : id);
+    },
+    [selectedSeanceId],
+  );
+
+  const selectedSeance = selectedSeanceId ? seances.find((s) => s.id === selectedSeanceId) : undefined;
 
   if (isLoading) {
     return (
@@ -107,6 +119,23 @@ export function GrilleEdition({
               </span>
             )}
           </div>
+
+          {/* Séances non placées */}
+          <NonPlacedList
+            seances={seances}
+            etat="IVORY"
+            onSelect={(id) => setSelectedSeanceId(id)}
+            onMove={(id, jour, creneau, salleId, rev) => {
+              move.mutate({
+                seanceId: id,
+                dto: { jour, creneauDebutId: creneau, salleId },
+                ifMatch: String(rev),
+                versionId,
+              });
+              setSelectedSeanceId(null);
+            }}
+          />
+
           <div className="overflow-x-auto max-h-[70vh]">
             <DndContext sensors={[sensors]} onDragEnd={handleDragEnd}>
               <SortableContext items={seances.map((s) => s.id)}>
@@ -129,6 +158,7 @@ export function GrilleEdition({
                           etat={etat}
                           index={i}
                           editable={estEditable && etat === 'IVORY'}
+                          onClick={() => handleSeanceClick(s.id)}
                           onMove={(id, jour, creneau, salleId, rev) =>
                             move.mutate({
                               seanceId: id,
@@ -145,6 +175,14 @@ export function GrilleEdition({
               </SortableContext>
             </DndContext>
           </div>
+
+          {/* Panneau de suggestions */}
+          {selectedSeance && (
+            <SuggestionsPanel
+              seanceId={selectedSeance.id}
+            />
+          )}
+
         </CardContent>
       </Card>
     </div>
