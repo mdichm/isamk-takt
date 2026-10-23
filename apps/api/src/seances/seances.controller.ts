@@ -38,6 +38,8 @@ import { MoveSeanceService } from './move-seance.service.js';
 import { MoveSeanceDto } from './dto/move-seance.dto.js';
 import { ChangeEnseignantService } from './change-enseignant.service.js';
 import { ChangeEnseignantDto } from './dto/change-enseignant.dto.js';
+import { UndoSeanceService } from './undo-seance.service.js';
+import { UndoSeanceDto } from './dto/undo-seance.dto.js';
 
 // ============================================
 // Seance (L3-11)
@@ -55,6 +57,7 @@ export class SeancesController {
     private readonly simulateService: SimulateSeanceService,
     private readonly moveService: MoveSeanceService,
     private readonly changeEnseignantService: ChangeEnseignantService,
+    private readonly undoSeanceService: UndoSeanceService,
   ) {}
 
   @Get('versions/:versionId/seances')
@@ -201,5 +204,32 @@ export class SeancesController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<SeanceResponseDto> {
     return this.changeEnseignantService.changeEnseignant(id, dto, ifMatch, currentUser);
+  }
+
+  @Patch(':id/undo')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:write')
+  @ApiOperation({
+    summary: 'Annuler le dernier déplacement d\'une séance (L3-24)',
+    description:
+      'Restaure la position précédente (avant le dernier déplacement) avec les mêmes contrôles que le déplacement : contrôle optimiste via If-Match (412 si périmé), bail d\'édition, verrous de séance et immuabilité des versions PUBLIE/ARCHIVE.',
+  })
+  @ApiParam({ name: 'id', type: String, description: 'Identifiant de la séance' })
+  @ApiResponse({
+    status: 200,
+    description: 'Séance restaurée à sa position précédente, révision incrémentée',
+    type: SeanceResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou bail détenu par un autre' })
+  @ApiResponse({ status: 404, description: 'Séance introuvable ou aucun historique de déplacement' })
+  @ApiResponse({ status: 409, description: 'Version immuable ou séance verrouillée' })
+  @ApiResponse({ status: 412, description: 'If-Match manquant ou révision périmée' })
+  async undo(
+    @Param('id') id: string,
+    @Body() dto: UndoSeanceDto,
+    @IfMatch() ifMatch: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<SeanceResponseDto> {
+    return this.undoSeanceService.undo(id, ifMatch, currentUser, dto);
   }
 }
