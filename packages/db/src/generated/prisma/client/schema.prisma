@@ -571,6 +571,7 @@ model Semestre {
   demandesModification DemandeModification[]
   seances              Seance[]
   versions             VersionEdt[]
+  groupesCovoiturage   GroupeCovoiturage[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -1557,4 +1558,26 @@ model AvertissementAccepte {
 
   @@index([versionId, signature])
   @@map("avertissements_acceptes")
+}
+
+// ============================================
+// Groupes de covoiturage (L3-41)
+// Un groupe de covoiturage lie plusieurs enseignants d'un même semestre,
+// avec une marge de tolérance (minutes) entre leurs créneaux, un nombre
+// minimum de jours communs et une option strict (conflit bloquant si violé).
+// ============================================
+
+model GroupeCovoiturage {
+  id              String   @id @default(uuid()) @db.Uuid
+  semestreId      String   @db.Uuid
+  margeMinutes    Int      @default(60)
+  joursCommunsMin Int      @default(1)
+  strict          Boolean  @default(false)
+  enseignantIds   String[] @db.Uuid
+  createdAt       DateTime @default(now())
+
+  semestre Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+
+  @@index([semestreId])
+  @@map("groupes_covoiturage")
 }

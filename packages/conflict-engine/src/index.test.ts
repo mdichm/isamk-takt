@@ -157,10 +157,10 @@ function makeCtx(overrides: Partial<ConflictContext> = {}): ConflictContext {
     ['r1', { id: 'r1', capaciteMax: 30, capaciteRecommandee: 25 }],
     ['r2', { id: 'r2', capaciteMax: 100, capaciteRecommandee: 80 }],
   ]);
-  const creneaux = new Map<string, { estPause: boolean; ordre: number; jour: string }>([
-    ['c1', { estPause: false, ordre: 1, jour: 'LUNDI' }],
-    ['c2', { estPause: false, ordre: 2, jour: 'LUNDI' }],
-    ['cp', { estPause: true, ordre: 3, jour: 'LUNDI' }],
+  const creneaux = new Map<string, { estPause: boolean; ordre: number; jour: string; heureDebutMinutes: number }>([
+    ['c1', { estPause: false, ordre: 1, jour: 'LUNDI', heureDebutMinutes: 480 }],
+    ['c2', { estPause: false, ordre: 2, jour: 'LUNDI', heureDebutMinutes: 540 }],
+    ['cp', { estPause: true, ordre: 3, jour: 'LUNDI', heureDebutMinutes: 600 }],
   ]);
   const grille = {
     consecutifs: (jour: string, creneauDebut: string, nb: number): string[] | null => {
@@ -723,6 +723,112 @@ describe('propriétés (fast-check)', () => {
       ),
       { numRuns: 100 },
     );
+  });
+  describe('COVOITURAGE (EX-CTR-05)', () => {
+    const groupeBase = {
+      membres: ['e1', 'e2'],
+      margeMinutes: 30,
+      joursCommunsMin: 1,
+      strict: true,
+    };
+
+    it('aucun conflit sans groupe de covoiturage pour lenseignant', () => {
+      const ctx = makeCtx();
+      const c = validatePlacement(
+        makeSeance({ enseignantId: 'e1' }),
+        makeCandidat(),
+        ctx,
+      );
+      expect(c.some((x) => x.type === 'COVOITURAGE')).toBe(false);
+    });
+
+    it('jours communs insuffisants -> BLOQUANT quand strict', () => {
+      const ctx = makeCtx({
+        covoiturageGroupes: new Map([['g1', groupeBase]]),
+      });
+      // e2 na aucune seance placee => 0 jour commun < 1
+      const c = validatePlacement(
+        makeSeance({ enseignantId: 'e1' }),
+        makeCandidat(),
+        ctx,
+      );
+      expect(
+        c.some(
+          (x) =>
+            x.regleCode === 'CARPOOL_VIOLATION' && x.severite === 'BLOQUANT',
+        ),
+      ).toBe(true);
+    });
+
+    it('jours communs insuffisants -> AVERTISSEMENT quand souple', () => {
+      const ctx = makeCtx({
+        covoiturageGroupes: new Map([
+          ['g1', { ...groupeBase, strict: false }],
+        ]),
+      });
+      const c = validatePlacement(
+        makeSeance({ enseignantId: 'e1' }),
+        makeCandidat(),
+        ctx,
+      );
+      expect(
+        c.some(
+          (x) =>
+            x.regleCode === 'CARPOOL_VIOLATION' && x.severite === 'AVERTISSEMENT',
+        ),
+      ).toBe(true);
+    });
+
+    it('session isolee hors marge -> BLOQUANT quand strict', () => {
+      const ctx = makeCtx({
+        covoiturageGroupes: new Map([['g1', groupeBase]]),
+      });
+      // e2 est a 9h00 (c2), e1 place a 8h00 (c1) : écart 60 min > marge 30
+      ctx.occ.build([
+        {
+          seanceId: 's2',
+          jour: 'LUNDI',
+          creneauId: 'c2',
+          ressourceType: 'ENSEIGNANT',
+          ressourceId: 'e2',
+        },
+      ]);
+      const c = validatePlacement(
+        makeSeance({ enseignantId: 'e1' }),
+        makeCandidat(),
+        ctx,
+      );
+      expect(
+        c.some(
+          (x) =>
+            x.regleCode === 'CARPOOL_VIOLATION' && x.severite === 'BLOQUANT',
+        ),
+      ).toBe(true);
+    });
+
+    it('session dans la marge et jours communs suffisants -> pas de conflit', () => {
+      const ctx = makeCtx({
+        covoiturageGroupes: new Map([
+          ['g1', { ...groupeBase, margeMinutes: 60 }],
+        ]),
+      });
+      // e2 est a 9h00 (c2), e1 place a 8h00 (c1) : écart 60 <= marge 60
+      ctx.occ.build([
+        {
+          seanceId: 's2',
+          jour: 'LUNDI',
+          creneauId: 'c2',
+          ressourceType: 'ENSEIGNANT',
+          ressourceId: 'e2',
+        },
+      ]);
+      const c = validatePlacement(
+        makeSeance({ enseignantId: 'e1' }),
+        makeCandidat(),
+        ctx,
+      );
+      expect(c.some((x) => x.type === 'COVOITURAGE')).toBe(false);
+    });
   });
 });
 

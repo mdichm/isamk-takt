@@ -303,13 +303,20 @@ export class ConflitService {
 
     const creneauxMap = new Map<
       string,
-      { estPause: boolean; ordre: number; jour: string }
+      {
+        estPause: boolean;
+        ordre: number;
+        jour: string;
+        heureDebutMinutes: number;
+      }
     >();
     for (const c of creneauxRaw) {
+      const h = c.heureDebut ? c.heureDebut.getHours() * 60 + c.heureDebut.getMinutes() : 0;
       creneauxMap.set(c.id, {
         estPause: c.estPause,
         ordre: c.ordre,
         jour: c.jour,
+        heureDebutMinutes: h,
       });
     }
 
@@ -431,12 +438,23 @@ export class ConflitService {
       })),
     );
 
+    const groupesCovoiturageRaw = await this.prisma.groupeCovoiturage.findMany({
+      where: { semestreId },
+    });
     const covoiturageGroupes = new Map<string, {
       membres: string[];
       margeMinutes: number;
       joursCommunsMin: number;
       strict: boolean;
     }>();
+    for (const g of groupesCovoiturageRaw) {
+      covoiturageGroupes.set(g.id, {
+        membres: g.enseignantIds,
+        margeMinutes: g.margeMinutes,
+        joursCommunsMin: g.joursCommunsMin,
+        strict: g.strict,
+      });
+    }
 
     return {
       versionId: version.id,
