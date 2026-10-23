@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAccepterAvertissement } from '@/hooks/use-avertissements';
+import { useAccepterAvertissement } from '@/hooks/use-conflits';
 import {
   Dialog,
   DialogContent,
