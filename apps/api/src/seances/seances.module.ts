@@ -11,6 +11,7 @@ import { SeancesService } from './seances.service.js';
 import { SimulateSeanceService } from './simulate-seance.service.js';
 import { MoveSeanceService } from './move-seance.service.js';
 import { ChangeEnseignantService } from './change-enseignant.service.js';
+import { UndoSeanceService } from './undo-seance.service.js';
 import { SeancesController } from './seances.controller.js';
 
 @Module({
@@ -27,6 +28,7 @@ import { SeancesController } from './seances.controller.js';
     SimulateSeanceService,
     MoveSeanceService,
     ChangeEnseignantService,
+    UndoSeanceService,
   ],
   exports: [
     OccupationService,
@@ -34,6 +36,7 @@ import { SeancesController } from './seances.controller.js';
     SimulateSeanceService,
     MoveSeanceService,
     ChangeEnseignantService,
+    UndoSeanceService,
   ],
   controllers: [SeancesController],
 })

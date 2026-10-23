@@ -59,12 +59,22 @@ export class VersionService {
     if (!version) {
       throw new NotFoundException(`Version "${id}" introuvable`);
     }
+
+    // L3-24 : dernier auteur et dernière modification de la version depuis l'audit.
+    const dernierAudit = await this.prisma.auditLog.findFirst({
+      where: { versionId: id },
+      orderBy: { at: 'desc' },
+      select: { userId: true, at: true },
+    });
+
     return {
       id: version.id,
       semestreId: version.semestreId,
       numero: version.numero,
       statut: version.statut,
       motif: version.motif ?? undefined,
+      dernierAuteurId: dernierAudit?.userId ?? undefined,
+      derniereModificationAt: dernierAudit?.at ?? undefined,
       createdAt: version.createdAt,
       updatedAt: version.updatedAt,
     };
