@@ -1042,6 +1042,32 @@ export const messages = {
   ecartPositif: 'Excès',
   btnVoirSeances: 'Voir séances',
   aucuneDonneeCouverture: 'Aucune donnée de couverture.',
+
+  // Covoiturage (L3-42)
+  covoiturage: 'Covoiturage',
+  covoiturageSubtitle:
+    'Groupes d’enseignants partageant des créneaux, par semestre.',
+  covoiturageDesc: 'Créez et gérez les groupes de covoiturage pour un semestre.',
+  entityGroupeCovoiturage: 'groupe de covoiturage',
+  createGroupeCovoiturage: 'Créer un groupe de covoiturage',
+  editGroupeCovoiturage: 'Modifier le groupe de covoiturage',
+  covoiturageMinTwoTeachers: 'Sélectionnez au moins deux enseignants.',
+  errorMinTwoTeachers: 'Au moins deux enseignants sont requis.',
+  errorNoTeachers: 'Aucun enseignant disponible.',
+  margeMinutes: 'Marge (minutes)',
+  joursCommunsMin: 'Jours communs min.',
+  modeStrict: 'Strict',
+  modeSouple: 'Souple',
+  confirmDeleteGroupe: 'Supprimer ce groupe de covoiturage ?',
+  noCovoiturageGroupes: 'Aucun groupe de covoiturage pour ce semestre.',
+  covoiturageGroupe: 'Groupe',
+  covoiturageMembres: 'Membres',
+  covoiturageMode: 'Mode',
+  covoiturageDeleting: 'Suppression en cours…',
+  covoiturageSelectAnnee: 'Année',
+  loadingGroupes: 'Chargement des groupes…',
+  errorCovoiturageForbidden:
+    'Accès réservé à l’Administrateur et au Gestionnaire.',
 } as const;
 
 export type Messages = typeof messages;
