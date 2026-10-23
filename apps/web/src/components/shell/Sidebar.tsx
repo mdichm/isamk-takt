@@ -45,6 +45,7 @@ const RULES = icon('M12 9v3.936c-.584.312-1 .995-1 1.564s.416 1.252 1 1.564V21h6
 const REPARTITIONS = icon("M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z");
 const DEMANDES = icon("M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10");
 const CHARGES = icon('M13 10V3L4 14h7v7l9-11h-7z');
+const COVOITURAGE = icon('M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z');
 
 const NAV_ENTRIES: NavEntry[] = [
   { label: t('home'), href: '/', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT', 'ETUDIANT'], icon: DASHBOARD },
@@ -55,6 +56,7 @@ const NAV_ENTRIES: NavEntry[] = [
   { label: t('salles'), href: '/salles', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: STRUCTURE },
   { label: t('creneaux'), href: '/creneaux', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: SLOTS },
   { label: t('ramadan'), href: '/ramadan', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: RAMADAN },
+  { label: t('covoiturage'), href: '/covoiturage', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: COVOITURAGE },
   { label: t('import'), href: '/import', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: IMPORT },
   { label: t('adminUsers'), href: '/admin/users', roles: ['ADMINISTRATEUR'], icon: USERS },
   { label: t('adminSecurity'), href: '/admin/security', roles: ['ADMINISTRATEUR'], icon: SECURITY },
