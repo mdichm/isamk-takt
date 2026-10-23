@@ -328,6 +328,11 @@ export type Conflit = $Result.DefaultSelection<Prisma.$ConflitPayload>
  * 
  */
 export type AvertissementAccepte = $Result.DefaultSelection<Prisma.$AvertissementAcceptePayload>
+/**
+ * Model GroupeCovoiturage
+ * 
+ */
+export type GroupeCovoiturage = $Result.DefaultSelection<Prisma.$GroupeCovoituragePayload>
 
 /**
  * Enums
@@ -1530,6 +1535,16 @@ export class PrismaClient<
     * ```
     */
   get avertissementAccepte(): Prisma.AvertissementAccepteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.groupeCovoiturage`: Exposes CRUD operations for the **GroupeCovoiturage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GroupeCovoiturages
+    * const groupeCovoiturages = await prisma.groupeCovoiturage.findMany()
+    * ```
+    */
+  get groupeCovoiturage(): Prisma.GroupeCovoiturageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2039,7 +2054,8 @@ export namespace Prisma {
     SnapshotCharge: 'SnapshotCharge',
     DemandeModification: 'DemandeModification',
     Conflit: 'Conflit',
-    AvertissementAccepte: 'AvertissementAccepte'
+    AvertissementAccepte: 'AvertissementAccepte',
+    GroupeCovoiturage: 'GroupeCovoiturage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2055,7 +2071,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6721,6 +6737,80 @@ export namespace Prisma {
           }
         }
       }
+      GroupeCovoiturage: {
+        payload: Prisma.$GroupeCovoituragePayload<ExtArgs>
+        fields: Prisma.GroupeCovoiturageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroupeCovoiturageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroupeCovoiturageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>
+          }
+          findFirst: {
+            args: Prisma.GroupeCovoiturageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroupeCovoiturageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>
+          }
+          findMany: {
+            args: Prisma.GroupeCovoiturageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>[]
+          }
+          create: {
+            args: Prisma.GroupeCovoiturageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>
+          }
+          createMany: {
+            args: Prisma.GroupeCovoiturageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroupeCovoiturageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>[]
+          }
+          delete: {
+            args: Prisma.GroupeCovoiturageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>
+          }
+          update: {
+            args: Prisma.GroupeCovoiturageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>
+          }
+          deleteMany: {
+            args: Prisma.GroupeCovoiturageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroupeCovoiturageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GroupeCovoiturageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>[]
+          }
+          upsert: {
+            args: Prisma.GroupeCovoiturageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupeCovoituragePayload>
+          }
+          aggregate: {
+            args: Prisma.GroupeCovoiturageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroupeCovoiturage>
+          }
+          groupBy: {
+            args: Prisma.GroupeCovoiturageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroupeCovoiturageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroupeCovoiturageCountArgs<ExtArgs>
+            result: $Utils.Optional<GroupeCovoiturageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -6907,6 +6997,7 @@ export namespace Prisma {
     demandeModification?: DemandeModificationOmit
     conflit?: ConflitOmit
     avertissementAccepte?: AvertissementAccepteOmit
+    groupeCovoiturage?: GroupeCovoiturageOmit
   }
 
   /* Types for Logging */
@@ -7393,6 +7484,7 @@ export namespace Prisma {
     demandesModification: number
     seances: number
     versions: number
+    groupesCovoiturage: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7405,6 +7497,7 @@ export namespace Prisma {
     demandesModification?: boolean | SemestreCountOutputTypeCountDemandesModificationArgs
     seances?: boolean | SemestreCountOutputTypeCountSeancesArgs
     versions?: boolean | SemestreCountOutputTypeCountVersionsArgs
+    groupesCovoiturage?: boolean | SemestreCountOutputTypeCountGroupesCovoiturageArgs
   }
 
   // Custom InputTypes
@@ -7479,6 +7572,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountVersionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VersionEdtWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountGroupesCovoiturageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupeCovoiturageWhereInput
   }
 
 
@@ -31602,6 +31702,7 @@ export namespace Prisma {
     demandesModification?: boolean | Semestre$demandesModificationArgs<ExtArgs>
     seances?: boolean | Semestre$seancesArgs<ExtArgs>
     versions?: boolean | Semestre$versionsArgs<ExtArgs>
+    groupesCovoiturage?: boolean | Semestre$groupesCovoiturageArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -31649,6 +31750,7 @@ export namespace Prisma {
     demandesModification?: boolean | Semestre$demandesModificationArgs<ExtArgs>
     seances?: boolean | Semestre$seancesArgs<ExtArgs>
     versions?: boolean | Semestre$versionsArgs<ExtArgs>
+    groupesCovoiturage?: boolean | Semestre$groupesCovoiturageArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31671,6 +31773,7 @@ export namespace Prisma {
       demandesModification: Prisma.$DemandeModificationPayload<ExtArgs>[]
       seances: Prisma.$SeancePayload<ExtArgs>[]
       versions: Prisma.$VersionEdtPayload<ExtArgs>[]
+      groupesCovoiturage: Prisma.$GroupeCovoituragePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -32084,6 +32187,7 @@ export namespace Prisma {
     demandesModification<T extends Semestre$demandesModificationArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$demandesModificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DemandeModificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     seances<T extends Semestre$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     versions<T extends Semestre$versionsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    groupesCovoiturage<T extends Semestre$groupesCovoiturageArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$groupesCovoiturageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -32734,6 +32838,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VersionEdtScalarFieldEnum | VersionEdtScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.groupesCovoiturage
+   */
+  export type Semestre$groupesCovoiturageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    where?: GroupeCovoiturageWhereInput
+    orderBy?: GroupeCovoiturageOrderByWithRelationInput | GroupeCovoiturageOrderByWithRelationInput[]
+    cursor?: GroupeCovoiturageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupeCovoiturageScalarFieldEnum | GroupeCovoiturageScalarFieldEnum[]
   }
 
   /**
@@ -81714,6 +81842,1129 @@ export namespace Prisma {
 
 
   /**
+   * Model GroupeCovoiturage
+   */
+
+  export type AggregateGroupeCovoiturage = {
+    _count: GroupeCovoiturageCountAggregateOutputType | null
+    _avg: GroupeCovoiturageAvgAggregateOutputType | null
+    _sum: GroupeCovoiturageSumAggregateOutputType | null
+    _min: GroupeCovoiturageMinAggregateOutputType | null
+    _max: GroupeCovoiturageMaxAggregateOutputType | null
+  }
+
+  export type GroupeCovoiturageAvgAggregateOutputType = {
+    margeMinutes: number | null
+    joursCommunsMin: number | null
+  }
+
+  export type GroupeCovoiturageSumAggregateOutputType = {
+    margeMinutes: number | null
+    joursCommunsMin: number | null
+  }
+
+  export type GroupeCovoiturageMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    margeMinutes: number | null
+    joursCommunsMin: number | null
+    strict: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GroupeCovoiturageMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    margeMinutes: number | null
+    joursCommunsMin: number | null
+    strict: boolean | null
+    createdAt: Date | null
+  }
+
+  export type GroupeCovoiturageCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    margeMinutes: number
+    joursCommunsMin: number
+    strict: number
+    enseignantIds: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type GroupeCovoiturageAvgAggregateInputType = {
+    margeMinutes?: true
+    joursCommunsMin?: true
+  }
+
+  export type GroupeCovoiturageSumAggregateInputType = {
+    margeMinutes?: true
+    joursCommunsMin?: true
+  }
+
+  export type GroupeCovoiturageMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    margeMinutes?: true
+    joursCommunsMin?: true
+    strict?: true
+    createdAt?: true
+  }
+
+  export type GroupeCovoiturageMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    margeMinutes?: true
+    joursCommunsMin?: true
+    strict?: true
+    createdAt?: true
+  }
+
+  export type GroupeCovoiturageCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    margeMinutes?: true
+    joursCommunsMin?: true
+    strict?: true
+    enseignantIds?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type GroupeCovoiturageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupeCovoiturage to aggregate.
+     */
+    where?: GroupeCovoiturageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupeCovoiturages to fetch.
+     */
+    orderBy?: GroupeCovoiturageOrderByWithRelationInput | GroupeCovoiturageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupeCovoiturageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupeCovoiturages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupeCovoiturages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GroupeCovoiturages
+    **/
+    _count?: true | GroupeCovoiturageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GroupeCovoiturageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GroupeCovoiturageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupeCovoiturageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupeCovoiturageMaxAggregateInputType
+  }
+
+  export type GetGroupeCovoiturageAggregateType<T extends GroupeCovoiturageAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroupeCovoiturage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroupeCovoiturage[P]>
+      : GetScalarType<T[P], AggregateGroupeCovoiturage[P]>
+  }
+
+
+
+
+  export type GroupeCovoiturageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupeCovoiturageWhereInput
+    orderBy?: GroupeCovoiturageOrderByWithAggregationInput | GroupeCovoiturageOrderByWithAggregationInput[]
+    by: GroupeCovoiturageScalarFieldEnum[] | GroupeCovoiturageScalarFieldEnum
+    having?: GroupeCovoiturageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupeCovoiturageCountAggregateInputType | true
+    _avg?: GroupeCovoiturageAvgAggregateInputType
+    _sum?: GroupeCovoiturageSumAggregateInputType
+    _min?: GroupeCovoiturageMinAggregateInputType
+    _max?: GroupeCovoiturageMaxAggregateInputType
+  }
+
+  export type GroupeCovoiturageGroupByOutputType = {
+    id: string
+    semestreId: string
+    margeMinutes: number
+    joursCommunsMin: number
+    strict: boolean
+    enseignantIds: string[]
+    createdAt: Date
+    _count: GroupeCovoiturageCountAggregateOutputType | null
+    _avg: GroupeCovoiturageAvgAggregateOutputType | null
+    _sum: GroupeCovoiturageSumAggregateOutputType | null
+    _min: GroupeCovoiturageMinAggregateOutputType | null
+    _max: GroupeCovoiturageMaxAggregateOutputType | null
+  }
+
+  type GetGroupeCovoiturageGroupByPayload<T extends GroupeCovoiturageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroupeCovoiturageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupeCovoiturageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupeCovoiturageGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupeCovoiturageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupeCovoiturageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    margeMinutes?: boolean
+    joursCommunsMin?: boolean
+    strict?: boolean
+    enseignantIds?: boolean
+    createdAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groupeCovoiturage"]>
+
+  export type GroupeCovoiturageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    margeMinutes?: boolean
+    joursCommunsMin?: boolean
+    strict?: boolean
+    enseignantIds?: boolean
+    createdAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groupeCovoiturage"]>
+
+  export type GroupeCovoiturageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    margeMinutes?: boolean
+    joursCommunsMin?: boolean
+    strict?: boolean
+    enseignantIds?: boolean
+    createdAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groupeCovoiturage"]>
+
+  export type GroupeCovoiturageSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    margeMinutes?: boolean
+    joursCommunsMin?: boolean
+    strict?: boolean
+    enseignantIds?: boolean
+    createdAt?: boolean
+  }
+
+  export type GroupeCovoiturageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "margeMinutes" | "joursCommunsMin" | "strict" | "enseignantIds" | "createdAt", ExtArgs["result"]["groupeCovoiturage"]>
+  export type GroupeCovoiturageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type GroupeCovoiturageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type GroupeCovoiturageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+
+  export type $GroupeCovoituragePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GroupeCovoiturage"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      margeMinutes: number
+      joursCommunsMin: number
+      strict: boolean
+      enseignantIds: string[]
+      createdAt: Date
+    }, ExtArgs["result"]["groupeCovoiturage"]>
+    composites: {}
+  }
+
+  type GroupeCovoiturageGetPayload<S extends boolean | null | undefined | GroupeCovoiturageDefaultArgs> = $Result.GetResult<Prisma.$GroupeCovoituragePayload, S>
+
+  type GroupeCovoiturageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GroupeCovoiturageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GroupeCovoiturageCountAggregateInputType | true
+    }
+
+  export interface GroupeCovoiturageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GroupeCovoiturage'], meta: { name: 'GroupeCovoiturage' } }
+    /**
+     * Find zero or one GroupeCovoiturage that matches the filter.
+     * @param {GroupeCovoiturageFindUniqueArgs} args - Arguments to find a GroupeCovoiturage
+     * @example
+     * // Get one GroupeCovoiturage
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroupeCovoiturageFindUniqueArgs>(args: SelectSubset<T, GroupeCovoiturageFindUniqueArgs<ExtArgs>>): Prisma__GroupeCovoiturageClient<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GroupeCovoiturage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GroupeCovoiturageFindUniqueOrThrowArgs} args - Arguments to find a GroupeCovoiturage
+     * @example
+     * // Get one GroupeCovoiturage
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroupeCovoiturageFindUniqueOrThrowArgs>(args: SelectSubset<T, GroupeCovoiturageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroupeCovoiturageClient<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroupeCovoiturage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeCovoiturageFindFirstArgs} args - Arguments to find a GroupeCovoiturage
+     * @example
+     * // Get one GroupeCovoiturage
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroupeCovoiturageFindFirstArgs>(args?: SelectSubset<T, GroupeCovoiturageFindFirstArgs<ExtArgs>>): Prisma__GroupeCovoiturageClient<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GroupeCovoiturage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeCovoiturageFindFirstOrThrowArgs} args - Arguments to find a GroupeCovoiturage
+     * @example
+     * // Get one GroupeCovoiturage
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroupeCovoiturageFindFirstOrThrowArgs>(args?: SelectSubset<T, GroupeCovoiturageFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroupeCovoiturageClient<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GroupeCovoiturages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeCovoiturageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GroupeCovoiturages
+     * const groupeCovoiturages = await prisma.groupeCovoiturage.findMany()
+     * 
+     * // Get first 10 GroupeCovoiturages
+     * const groupeCovoiturages = await prisma.groupeCovoiturage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const groupeCovoiturageWithIdOnly = await prisma.groupeCovoiturage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GroupeCovoiturageFindManyArgs>(args?: SelectSubset<T, GroupeCovoiturageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GroupeCovoiturage.
+     * @param {GroupeCovoiturageCreateArgs} args - Arguments to create a GroupeCovoiturage.
+     * @example
+     * // Create one GroupeCovoiturage
+     * const GroupeCovoiturage = await prisma.groupeCovoiturage.create({
+     *   data: {
+     *     // ... data to create a GroupeCovoiturage
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroupeCovoiturageCreateArgs>(args: SelectSubset<T, GroupeCovoiturageCreateArgs<ExtArgs>>): Prisma__GroupeCovoiturageClient<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GroupeCovoiturages.
+     * @param {GroupeCovoiturageCreateManyArgs} args - Arguments to create many GroupeCovoiturages.
+     * @example
+     * // Create many GroupeCovoiturages
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroupeCovoiturageCreateManyArgs>(args?: SelectSubset<T, GroupeCovoiturageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GroupeCovoiturages and returns the data saved in the database.
+     * @param {GroupeCovoiturageCreateManyAndReturnArgs} args - Arguments to create many GroupeCovoiturages.
+     * @example
+     * // Create many GroupeCovoiturages
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GroupeCovoiturages and only return the `id`
+     * const groupeCovoiturageWithIdOnly = await prisma.groupeCovoiturage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroupeCovoiturageCreateManyAndReturnArgs>(args?: SelectSubset<T, GroupeCovoiturageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GroupeCovoiturage.
+     * @param {GroupeCovoiturageDeleteArgs} args - Arguments to delete one GroupeCovoiturage.
+     * @example
+     * // Delete one GroupeCovoiturage
+     * const GroupeCovoiturage = await prisma.groupeCovoiturage.delete({
+     *   where: {
+     *     // ... filter to delete one GroupeCovoiturage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroupeCovoiturageDeleteArgs>(args: SelectSubset<T, GroupeCovoiturageDeleteArgs<ExtArgs>>): Prisma__GroupeCovoiturageClient<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GroupeCovoiturage.
+     * @param {GroupeCovoiturageUpdateArgs} args - Arguments to update one GroupeCovoiturage.
+     * @example
+     * // Update one GroupeCovoiturage
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroupeCovoiturageUpdateArgs>(args: SelectSubset<T, GroupeCovoiturageUpdateArgs<ExtArgs>>): Prisma__GroupeCovoiturageClient<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GroupeCovoiturages.
+     * @param {GroupeCovoiturageDeleteManyArgs} args - Arguments to filter GroupeCovoiturages to delete.
+     * @example
+     * // Delete a few GroupeCovoiturages
+     * const { count } = await prisma.groupeCovoiturage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroupeCovoiturageDeleteManyArgs>(args?: SelectSubset<T, GroupeCovoiturageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupeCovoiturages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeCovoiturageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GroupeCovoiturages
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroupeCovoiturageUpdateManyArgs>(args: SelectSubset<T, GroupeCovoiturageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupeCovoiturages and returns the data updated in the database.
+     * @param {GroupeCovoiturageUpdateManyAndReturnArgs} args - Arguments to update many GroupeCovoiturages.
+     * @example
+     * // Update many GroupeCovoiturages
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GroupeCovoiturages and only return the `id`
+     * const groupeCovoiturageWithIdOnly = await prisma.groupeCovoiturage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GroupeCovoiturageUpdateManyAndReturnArgs>(args: SelectSubset<T, GroupeCovoiturageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GroupeCovoiturage.
+     * @param {GroupeCovoiturageUpsertArgs} args - Arguments to update or create a GroupeCovoiturage.
+     * @example
+     * // Update or create a GroupeCovoiturage
+     * const groupeCovoiturage = await prisma.groupeCovoiturage.upsert({
+     *   create: {
+     *     // ... data to create a GroupeCovoiturage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GroupeCovoiturage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroupeCovoiturageUpsertArgs>(args: SelectSubset<T, GroupeCovoiturageUpsertArgs<ExtArgs>>): Prisma__GroupeCovoiturageClient<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GroupeCovoiturages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeCovoiturageCountArgs} args - Arguments to filter GroupeCovoiturages to count.
+     * @example
+     * // Count the number of GroupeCovoiturages
+     * const count = await prisma.groupeCovoiturage.count({
+     *   where: {
+     *     // ... the filter for the GroupeCovoiturages we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupeCovoiturageCountArgs>(
+      args?: Subset<T, GroupeCovoiturageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupeCovoiturageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GroupeCovoiturage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeCovoiturageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupeCovoiturageAggregateArgs>(args: Subset<T, GroupeCovoiturageAggregateArgs>): Prisma.PrismaPromise<GetGroupeCovoiturageAggregateType<T>>
+
+    /**
+     * Group by GroupeCovoiturage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupeCovoiturageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupeCovoiturageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupeCovoiturageGroupByArgs['orderBy'] }
+        : { orderBy?: GroupeCovoiturageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupeCovoiturageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupeCovoiturageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GroupeCovoiturage model
+   */
+  readonly fields: GroupeCovoiturageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GroupeCovoiturage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroupeCovoiturageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GroupeCovoiturage model
+   */
+  interface GroupeCovoiturageFieldRefs {
+    readonly id: FieldRef<"GroupeCovoiturage", 'String'>
+    readonly semestreId: FieldRef<"GroupeCovoiturage", 'String'>
+    readonly margeMinutes: FieldRef<"GroupeCovoiturage", 'Int'>
+    readonly joursCommunsMin: FieldRef<"GroupeCovoiturage", 'Int'>
+    readonly strict: FieldRef<"GroupeCovoiturage", 'Boolean'>
+    readonly enseignantIds: FieldRef<"GroupeCovoiturage", 'String[]'>
+    readonly createdAt: FieldRef<"GroupeCovoiturage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GroupeCovoiturage findUnique
+   */
+  export type GroupeCovoiturageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupeCovoiturage to fetch.
+     */
+    where: GroupeCovoiturageWhereUniqueInput
+  }
+
+  /**
+   * GroupeCovoiturage findUniqueOrThrow
+   */
+  export type GroupeCovoiturageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupeCovoiturage to fetch.
+     */
+    where: GroupeCovoiturageWhereUniqueInput
+  }
+
+  /**
+   * GroupeCovoiturage findFirst
+   */
+  export type GroupeCovoiturageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupeCovoiturage to fetch.
+     */
+    where?: GroupeCovoiturageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupeCovoiturages to fetch.
+     */
+    orderBy?: GroupeCovoiturageOrderByWithRelationInput | GroupeCovoiturageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupeCovoiturages.
+     */
+    cursor?: GroupeCovoiturageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupeCovoiturages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupeCovoiturages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupeCovoiturages.
+     */
+    distinct?: GroupeCovoiturageScalarFieldEnum | GroupeCovoiturageScalarFieldEnum[]
+  }
+
+  /**
+   * GroupeCovoiturage findFirstOrThrow
+   */
+  export type GroupeCovoiturageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupeCovoiturage to fetch.
+     */
+    where?: GroupeCovoiturageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupeCovoiturages to fetch.
+     */
+    orderBy?: GroupeCovoiturageOrderByWithRelationInput | GroupeCovoiturageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupeCovoiturages.
+     */
+    cursor?: GroupeCovoiturageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupeCovoiturages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupeCovoiturages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupeCovoiturages.
+     */
+    distinct?: GroupeCovoiturageScalarFieldEnum | GroupeCovoiturageScalarFieldEnum[]
+  }
+
+  /**
+   * GroupeCovoiturage findMany
+   */
+  export type GroupeCovoiturageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupeCovoiturages to fetch.
+     */
+    where?: GroupeCovoiturageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupeCovoiturages to fetch.
+     */
+    orderBy?: GroupeCovoiturageOrderByWithRelationInput | GroupeCovoiturageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GroupeCovoiturages.
+     */
+    cursor?: GroupeCovoiturageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupeCovoiturages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupeCovoiturages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupeCovoiturages.
+     */
+    distinct?: GroupeCovoiturageScalarFieldEnum | GroupeCovoiturageScalarFieldEnum[]
+  }
+
+  /**
+   * GroupeCovoiturage create
+   */
+  export type GroupeCovoiturageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GroupeCovoiturage.
+     */
+    data: XOR<GroupeCovoiturageCreateInput, GroupeCovoiturageUncheckedCreateInput>
+  }
+
+  /**
+   * GroupeCovoiturage createMany
+   */
+  export type GroupeCovoiturageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GroupeCovoiturages.
+     */
+    data: GroupeCovoiturageCreateManyInput | GroupeCovoiturageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GroupeCovoiturage createManyAndReturn
+   */
+  export type GroupeCovoiturageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * The data used to create many GroupeCovoiturages.
+     */
+    data: GroupeCovoiturageCreateManyInput | GroupeCovoiturageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GroupeCovoiturage update
+   */
+  export type GroupeCovoiturageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GroupeCovoiturage.
+     */
+    data: XOR<GroupeCovoiturageUpdateInput, GroupeCovoiturageUncheckedUpdateInput>
+    /**
+     * Choose, which GroupeCovoiturage to update.
+     */
+    where: GroupeCovoiturageWhereUniqueInput
+  }
+
+  /**
+   * GroupeCovoiturage updateMany
+   */
+  export type GroupeCovoiturageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GroupeCovoiturages.
+     */
+    data: XOR<GroupeCovoiturageUpdateManyMutationInput, GroupeCovoiturageUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupeCovoiturages to update
+     */
+    where?: GroupeCovoiturageWhereInput
+    /**
+     * Limit how many GroupeCovoiturages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupeCovoiturage updateManyAndReturn
+   */
+  export type GroupeCovoiturageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * The data used to update GroupeCovoiturages.
+     */
+    data: XOR<GroupeCovoiturageUpdateManyMutationInput, GroupeCovoiturageUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupeCovoiturages to update
+     */
+    where?: GroupeCovoiturageWhereInput
+    /**
+     * Limit how many GroupeCovoiturages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GroupeCovoiturage upsert
+   */
+  export type GroupeCovoiturageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GroupeCovoiturage to update in case it exists.
+     */
+    where: GroupeCovoiturageWhereUniqueInput
+    /**
+     * In case the GroupeCovoiturage found by the `where` argument doesn't exist, create a new GroupeCovoiturage with this data.
+     */
+    create: XOR<GroupeCovoiturageCreateInput, GroupeCovoiturageUncheckedCreateInput>
+    /**
+     * In case the GroupeCovoiturage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupeCovoiturageUpdateInput, GroupeCovoiturageUncheckedUpdateInput>
+  }
+
+  /**
+   * GroupeCovoiturage delete
+   */
+  export type GroupeCovoiturageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+    /**
+     * Filter which GroupeCovoiturage to delete.
+     */
+    where: GroupeCovoiturageWhereUniqueInput
+  }
+
+  /**
+   * GroupeCovoiturage deleteMany
+   */
+  export type GroupeCovoiturageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupeCovoiturages to delete
+     */
+    where?: GroupeCovoiturageWhereInput
+    /**
+     * Limit how many GroupeCovoiturages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GroupeCovoiturage without action
+   */
+  export type GroupeCovoiturageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupeCovoiturage
+     */
+    select?: GroupeCovoiturageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GroupeCovoiturage
+     */
+    omit?: GroupeCovoiturageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupeCovoiturageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -82614,6 +83865,19 @@ export namespace Prisma {
   };
 
   export type AvertissementAccepteScalarFieldEnum = (typeof AvertissementAccepteScalarFieldEnum)[keyof typeof AvertissementAccepteScalarFieldEnum]
+
+
+  export const GroupeCovoiturageScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    margeMinutes: 'margeMinutes',
+    joursCommunsMin: 'joursCommunsMin',
+    strict: 'strict',
+    enseignantIds: 'enseignantIds',
+    createdAt: 'createdAt'
+  };
+
+  export type GroupeCovoiturageScalarFieldEnum = (typeof GroupeCovoiturageScalarFieldEnum)[keyof typeof GroupeCovoiturageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -84763,6 +86027,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationListRelationFilter
     seances?: SeanceListRelationFilter
     versions?: VersionEdtListRelationFilter
+    groupesCovoiturage?: GroupeCovoiturageListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -84783,6 +86048,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationOrderByRelationAggregateInput
     seances?: SeanceOrderByRelationAggregateInput
     versions?: VersionEdtOrderByRelationAggregateInput
+    groupesCovoiturage?: GroupeCovoiturageOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -84807,6 +86073,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationListRelationFilter
     seances?: SeanceListRelationFilter
     versions?: VersionEdtListRelationFilter
+    groupesCovoiturage?: GroupeCovoiturageListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -88106,6 +89373,73 @@ export namespace Prisma {
     caduqueLe?: DateTimeNullableWithAggregatesFilter<"AvertissementAccepte"> | Date | string | null
   }
 
+  export type GroupeCovoiturageWhereInput = {
+    AND?: GroupeCovoiturageWhereInput | GroupeCovoiturageWhereInput[]
+    OR?: GroupeCovoiturageWhereInput[]
+    NOT?: GroupeCovoiturageWhereInput | GroupeCovoiturageWhereInput[]
+    id?: UuidFilter<"GroupeCovoiturage"> | string
+    semestreId?: UuidFilter<"GroupeCovoiturage"> | string
+    margeMinutes?: IntFilter<"GroupeCovoiturage"> | number
+    joursCommunsMin?: IntFilter<"GroupeCovoiturage"> | number
+    strict?: BoolFilter<"GroupeCovoiturage"> | boolean
+    enseignantIds?: StringNullableListFilter<"GroupeCovoiturage">
+    createdAt?: DateTimeFilter<"GroupeCovoiturage"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+  }
+
+  export type GroupeCovoiturageOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    margeMinutes?: SortOrder
+    joursCommunsMin?: SortOrder
+    strict?: SortOrder
+    enseignantIds?: SortOrder
+    createdAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+  }
+
+  export type GroupeCovoiturageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GroupeCovoiturageWhereInput | GroupeCovoiturageWhereInput[]
+    OR?: GroupeCovoiturageWhereInput[]
+    NOT?: GroupeCovoiturageWhereInput | GroupeCovoiturageWhereInput[]
+    semestreId?: UuidFilter<"GroupeCovoiturage"> | string
+    margeMinutes?: IntFilter<"GroupeCovoiturage"> | number
+    joursCommunsMin?: IntFilter<"GroupeCovoiturage"> | number
+    strict?: BoolFilter<"GroupeCovoiturage"> | boolean
+    enseignantIds?: StringNullableListFilter<"GroupeCovoiturage">
+    createdAt?: DateTimeFilter<"GroupeCovoiturage"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+  }, "id">
+
+  export type GroupeCovoiturageOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    margeMinutes?: SortOrder
+    joursCommunsMin?: SortOrder
+    strict?: SortOrder
+    enseignantIds?: SortOrder
+    createdAt?: SortOrder
+    _count?: GroupeCovoiturageCountOrderByAggregateInput
+    _avg?: GroupeCovoiturageAvgOrderByAggregateInput
+    _max?: GroupeCovoiturageMaxOrderByAggregateInput
+    _min?: GroupeCovoiturageMinOrderByAggregateInput
+    _sum?: GroupeCovoiturageSumOrderByAggregateInput
+  }
+
+  export type GroupeCovoiturageScalarWhereWithAggregatesInput = {
+    AND?: GroupeCovoiturageScalarWhereWithAggregatesInput | GroupeCovoiturageScalarWhereWithAggregatesInput[]
+    OR?: GroupeCovoiturageScalarWhereWithAggregatesInput[]
+    NOT?: GroupeCovoiturageScalarWhereWithAggregatesInput | GroupeCovoiturageScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"GroupeCovoiturage"> | string
+    semestreId?: UuidWithAggregatesFilter<"GroupeCovoiturage"> | string
+    margeMinutes?: IntWithAggregatesFilter<"GroupeCovoiturage"> | number
+    joursCommunsMin?: IntWithAggregatesFilter<"GroupeCovoiturage"> | number
+    strict?: BoolWithAggregatesFilter<"GroupeCovoiturage"> | boolean
+    enseignantIds?: StringNullableListFilter<"GroupeCovoiturage">
+    createdAt?: DateTimeWithAggregatesFilter<"GroupeCovoiturage"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -89764,6 +91098,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -89783,6 +91118,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -89802,6 +91138,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -89821,6 +91158,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -93282,6 +94620,75 @@ export namespace Prisma {
     caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type GroupeCovoiturageCreateInput = {
+    id?: string
+    margeMinutes?: number
+    joursCommunsMin?: number
+    strict?: boolean
+    enseignantIds?: GroupeCovoiturageCreateenseignantIdsInput | string[]
+    createdAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutGroupesCovoiturageInput
+  }
+
+  export type GroupeCovoiturageUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    margeMinutes?: number
+    joursCommunsMin?: number
+    strict?: boolean
+    enseignantIds?: GroupeCovoiturageCreateenseignantIdsInput | string[]
+    createdAt?: Date | string
+  }
+
+  export type GroupeCovoiturageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    margeMinutes?: IntFieldUpdateOperationsInput | number
+    joursCommunsMin?: IntFieldUpdateOperationsInput | number
+    strict?: BoolFieldUpdateOperationsInput | boolean
+    enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutGroupesCovoiturageNestedInput
+  }
+
+  export type GroupeCovoiturageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    margeMinutes?: IntFieldUpdateOperationsInput | number
+    joursCommunsMin?: IntFieldUpdateOperationsInput | number
+    strict?: BoolFieldUpdateOperationsInput | boolean
+    enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCovoiturageCreateManyInput = {
+    id?: string
+    semestreId: string
+    margeMinutes?: number
+    joursCommunsMin?: number
+    strict?: boolean
+    enseignantIds?: GroupeCovoiturageCreateenseignantIdsInput | string[]
+    createdAt?: Date | string
+  }
+
+  export type GroupeCovoiturageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    margeMinutes?: IntFieldUpdateOperationsInput | number
+    joursCommunsMin?: IntFieldUpdateOperationsInput | number
+    strict?: BoolFieldUpdateOperationsInput | boolean
+    enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCovoiturageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    margeMinutes?: IntFieldUpdateOperationsInput | number
+    joursCommunsMin?: IntFieldUpdateOperationsInput | number
+    strict?: BoolFieldUpdateOperationsInput | boolean
+    enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -94837,6 +96244,12 @@ export namespace Prisma {
     none?: VersionEdtWhereInput
   }
 
+  export type GroupeCovoiturageListRelationFilter = {
+    every?: GroupeCovoiturageWhereInput
+    some?: GroupeCovoiturageWhereInput
+    none?: GroupeCovoiturageWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -94866,6 +96279,10 @@ export namespace Prisma {
   }
 
   export type VersionEdtOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GroupeCovoiturageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -97456,6 +98873,44 @@ export namespace Prisma {
     versionRevision?: SortOrder
   }
 
+  export type GroupeCovoiturageCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    margeMinutes?: SortOrder
+    joursCommunsMin?: SortOrder
+    strict?: SortOrder
+    enseignantIds?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupeCovoiturageAvgOrderByAggregateInput = {
+    margeMinutes?: SortOrder
+    joursCommunsMin?: SortOrder
+  }
+
+  export type GroupeCovoiturageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    margeMinutes?: SortOrder
+    joursCommunsMin?: SortOrder
+    strict?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupeCovoiturageMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    margeMinutes?: SortOrder
+    joursCommunsMin?: SortOrder
+    strict?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type GroupeCovoiturageSumOrderByAggregateInput = {
+    margeMinutes?: SortOrder
+    joursCommunsMin?: SortOrder
+  }
+
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSystemRoleCreateWithoutUserInput, UserSystemRoleUncheckedCreateWithoutUserInput> | UserSystemRoleCreateWithoutUserInput[] | UserSystemRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSystemRoleCreateOrConnectWithoutUserInput | UserSystemRoleCreateOrConnectWithoutUserInput[]
@@ -99066,6 +100521,13 @@ export namespace Prisma {
     connect?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
   }
 
+  export type GroupeCovoiturageCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<GroupeCovoiturageCreateWithoutSemestreInput, GroupeCovoiturageUncheckedCreateWithoutSemestreInput> | GroupeCovoiturageCreateWithoutSemestreInput[] | GroupeCovoiturageUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GroupeCovoiturageCreateOrConnectWithoutSemestreInput | GroupeCovoiturageCreateOrConnectWithoutSemestreInput[]
+    createMany?: GroupeCovoiturageCreateManySemestreInputEnvelope
+    connect?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -99127,6 +100589,13 @@ export namespace Prisma {
     connectOrCreate?: VersionEdtCreateOrConnectWithoutSemestreInput | VersionEdtCreateOrConnectWithoutSemestreInput[]
     createMany?: VersionEdtCreateManySemestreInputEnvelope
     connect?: VersionEdtWhereUniqueInput | VersionEdtWhereUniqueInput[]
+  }
+
+  export type GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<GroupeCovoiturageCreateWithoutSemestreInput, GroupeCovoiturageUncheckedCreateWithoutSemestreInput> | GroupeCovoiturageCreateWithoutSemestreInput[] | GroupeCovoiturageUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GroupeCovoiturageCreateOrConnectWithoutSemestreInput | GroupeCovoiturageCreateOrConnectWithoutSemestreInput[]
+    createMany?: GroupeCovoiturageCreateManySemestreInputEnvelope
+    connect?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -99263,6 +100732,20 @@ export namespace Prisma {
     deleteMany?: VersionEdtScalarWhereInput | VersionEdtScalarWhereInput[]
   }
 
+  export type GroupeCovoiturageUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<GroupeCovoiturageCreateWithoutSemestreInput, GroupeCovoiturageUncheckedCreateWithoutSemestreInput> | GroupeCovoiturageCreateWithoutSemestreInput[] | GroupeCovoiturageUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GroupeCovoiturageCreateOrConnectWithoutSemestreInput | GroupeCovoiturageCreateOrConnectWithoutSemestreInput[]
+    upsert?: GroupeCovoiturageUpsertWithWhereUniqueWithoutSemestreInput | GroupeCovoiturageUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: GroupeCovoiturageCreateManySemestreInputEnvelope
+    set?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+    disconnect?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+    delete?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+    connect?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+    update?: GroupeCovoiturageUpdateWithWhereUniqueWithoutSemestreInput | GroupeCovoiturageUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: GroupeCovoiturageUpdateManyWithWhereWithoutSemestreInput | GroupeCovoiturageUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: GroupeCovoiturageScalarWhereInput | GroupeCovoiturageScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -99387,6 +100870,20 @@ export namespace Prisma {
     update?: VersionEdtUpdateWithWhereUniqueWithoutSemestreInput | VersionEdtUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: VersionEdtUpdateManyWithWhereWithoutSemestreInput | VersionEdtUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: VersionEdtScalarWhereInput | VersionEdtScalarWhereInput[]
+  }
+
+  export type GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<GroupeCovoiturageCreateWithoutSemestreInput, GroupeCovoiturageUncheckedCreateWithoutSemestreInput> | GroupeCovoiturageCreateWithoutSemestreInput[] | GroupeCovoiturageUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GroupeCovoiturageCreateOrConnectWithoutSemestreInput | GroupeCovoiturageCreateOrConnectWithoutSemestreInput[]
+    upsert?: GroupeCovoiturageUpsertWithWhereUniqueWithoutSemestreInput | GroupeCovoiturageUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: GroupeCovoiturageCreateManySemestreInputEnvelope
+    set?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+    disconnect?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+    delete?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+    connect?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+    update?: GroupeCovoiturageUpdateWithWhereUniqueWithoutSemestreInput | GroupeCovoiturageUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: GroupeCovoiturageUpdateManyWithWhereWithoutSemestreInput | GroupeCovoiturageUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: GroupeCovoiturageScalarWhereInput | GroupeCovoiturageScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -102747,6 +104244,29 @@ export namespace Prisma {
     upsert?: VersionEdtUpsertWithoutAvertissementsAcceptesInput
     connect?: VersionEdtWhereUniqueInput
     update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutAvertissementsAcceptesInput, VersionEdtUpdateWithoutAvertissementsAcceptesInput>, VersionEdtUncheckedUpdateWithoutAvertissementsAcceptesInput>
+  }
+
+  export type GroupeCovoiturageCreateenseignantIdsInput = {
+    set: string[]
+  }
+
+  export type SemestreCreateNestedOneWithoutGroupesCovoiturageInput = {
+    create?: XOR<SemestreCreateWithoutGroupesCovoiturageInput, SemestreUncheckedCreateWithoutGroupesCovoiturageInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutGroupesCovoiturageInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type GroupeCovoiturageUpdateenseignantIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type SemestreUpdateOneRequiredWithoutGroupesCovoiturageNestedInput = {
+    create?: XOR<SemestreCreateWithoutGroupesCovoiturageInput, SemestreUncheckedCreateWithoutGroupesCovoiturageInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutGroupesCovoiturageInput
+    upsert?: SemestreUpsertWithoutGroupesCovoiturageInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutGroupesCovoiturageInput, SemestreUpdateWithoutGroupesCovoiturageInput>, SemestreUncheckedUpdateWithoutGroupesCovoiturageInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -107431,6 +108951,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -107449,6 +108970,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -108092,6 +109614,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type GroupeCovoiturageCreateWithoutSemestreInput = {
+    id?: string
+    margeMinutes?: number
+    joursCommunsMin?: number
+    strict?: boolean
+    enseignantIds?: GroupeCovoiturageCreateenseignantIdsInput | string[]
+    createdAt?: Date | string
+  }
+
+  export type GroupeCovoiturageUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    margeMinutes?: number
+    joursCommunsMin?: number
+    strict?: boolean
+    enseignantIds?: GroupeCovoiturageCreateenseignantIdsInput | string[]
+    createdAt?: Date | string
+  }
+
+  export type GroupeCovoiturageCreateOrConnectWithoutSemestreInput = {
+    where: GroupeCovoiturageWhereUniqueInput
+    create: XOR<GroupeCovoiturageCreateWithoutSemestreInput, GroupeCovoiturageUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type GroupeCovoiturageCreateManySemestreInputEnvelope = {
+    data: GroupeCovoiturageCreateManySemestreInput | GroupeCovoiturageCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -108403,6 +109953,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"VersionEdt"> | Date | string
   }
 
+  export type GroupeCovoiturageUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: GroupeCovoiturageWhereUniqueInput
+    update: XOR<GroupeCovoiturageUpdateWithoutSemestreInput, GroupeCovoiturageUncheckedUpdateWithoutSemestreInput>
+    create: XOR<GroupeCovoiturageCreateWithoutSemestreInput, GroupeCovoiturageUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type GroupeCovoiturageUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: GroupeCovoiturageWhereUniqueInput
+    data: XOR<GroupeCovoiturageUpdateWithoutSemestreInput, GroupeCovoiturageUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type GroupeCovoiturageUpdateManyWithWhereWithoutSemestreInput = {
+    where: GroupeCovoiturageScalarWhereInput
+    data: XOR<GroupeCovoiturageUpdateManyMutationInput, GroupeCovoiturageUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type GroupeCovoiturageScalarWhereInput = {
+    AND?: GroupeCovoiturageScalarWhereInput | GroupeCovoiturageScalarWhereInput[]
+    OR?: GroupeCovoiturageScalarWhereInput[]
+    NOT?: GroupeCovoiturageScalarWhereInput | GroupeCovoiturageScalarWhereInput[]
+    id?: UuidFilter<"GroupeCovoiturage"> | string
+    semestreId?: UuidFilter<"GroupeCovoiturage"> | string
+    margeMinutes?: IntFilter<"GroupeCovoiturage"> | number
+    joursCommunsMin?: IntFilter<"GroupeCovoiturage"> | number
+    strict?: BoolFilter<"GroupeCovoiturage"> | boolean
+    enseignantIds?: StringNullableListFilter<"GroupeCovoiturage">
+    createdAt?: DateTimeFilter<"GroupeCovoiturage"> | Date | string
+  }
+
   export type SemestreCreateWithoutCreneauxInput = {
     id?: string
     numero: number
@@ -108419,6 +109998,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -108437,6 +110017,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -108547,6 +110128,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -108565,6 +110147,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -108698,6 +110281,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutSeancesInput = {
@@ -108716,6 +110300,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutSeancesInput = {
@@ -108988,6 +110573,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutSeancesInput = {
@@ -109006,6 +110592,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type VersionEdtUpsertWithoutSeancesInput = {
@@ -109656,6 +111243,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutVersionsInput = {
@@ -109674,6 +111262,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutVersionsInput = {
@@ -109935,6 +111524,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutVersionsInput = {
@@ -109953,6 +111543,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SeanceUpsertWithWhereUniqueWithoutVersionInput = {
@@ -111235,6 +112826,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -111253,6 +112845,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -111465,6 +113058,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -111483,6 +113077,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -113785,6 +115380,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -113803,6 +115399,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -113888,6 +115485,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -113906,6 +115504,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -114428,6 +116027,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -114446,6 +116046,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -114570,6 +116171,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -114588,6 +116190,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -115364,6 +116967,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
@@ -115382,6 +116986,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
@@ -115447,6 +117052,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
@@ -115465,6 +117071,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ContrainteDefinitionUpsertWithoutInstancesInput = {
@@ -115520,6 +117127,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutRepartitionsInput = {
@@ -115538,6 +117146,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutRepartitionsInput = {
@@ -115647,6 +117256,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutRepartitionsInput = {
@@ -115665,6 +117275,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type DepartementUpsertWithoutRepartitionsInput = {
@@ -116220,6 +117831,7 @@ export namespace Prisma {
     repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDemandesModificationInput = {
@@ -116238,6 +117850,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDemandesModificationInput = {
@@ -116339,6 +117952,7 @@ export namespace Prisma {
     repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDemandesModificationInput = {
@@ -116357,6 +117971,7 @@ export namespace Prisma {
     repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type UserUpsertWithoutDemandesModificationInput = {
@@ -116590,6 +118205,98 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
+  export type SemestreCreateWithoutGroupesCovoiturageInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutGroupesCovoiturageInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutGroupesCovoiturageInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutGroupesCovoiturageInput, SemestreUncheckedCreateWithoutGroupesCovoiturageInput>
+  }
+
+  export type SemestreUpsertWithoutGroupesCovoiturageInput = {
+    update: XOR<SemestreUpdateWithoutGroupesCovoiturageInput, SemestreUncheckedUpdateWithoutGroupesCovoiturageInput>
+    create: XOR<SemestreCreateWithoutGroupesCovoiturageInput, SemestreUncheckedCreateWithoutGroupesCovoiturageInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutGroupesCovoiturageInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutGroupesCovoiturageInput, SemestreUncheckedUpdateWithoutGroupesCovoiturageInput>
+  }
+
+  export type SemestreUpdateWithoutGroupesCovoiturageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutGroupesCovoiturageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -117744,6 +119451,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -117762,6 +119470,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -118017,6 +119726,15 @@ export namespace Prisma {
     motif?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type GroupeCovoiturageCreateManySemestreInput = {
+    id?: string
+    margeMinutes?: number
+    joursCommunsMin?: number
+    strict?: boolean
+    enseignantIds?: GroupeCovoiturageCreateenseignantIdsInput | string[]
+    createdAt?: Date | string
   }
 
   export type GroupeUpdateWithoutSemestreInput = {
@@ -118388,6 +120106,33 @@ export namespace Prisma {
     motif?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCovoiturageUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    margeMinutes?: IntFieldUpdateOperationsInput | number
+    joursCommunsMin?: IntFieldUpdateOperationsInput | number
+    strict?: BoolFieldUpdateOperationsInput | boolean
+    enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCovoiturageUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    margeMinutes?: IntFieldUpdateOperationsInput | number
+    joursCommunsMin?: IntFieldUpdateOperationsInput | number
+    strict?: BoolFieldUpdateOperationsInput | boolean
+    enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupeCovoiturageUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    margeMinutes?: IntFieldUpdateOperationsInput | number
+    joursCommunsMin?: IntFieldUpdateOperationsInput | number
+    strict?: BoolFieldUpdateOperationsInput | boolean
+    enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CreneauAffichageCreateManyCreneauInput = {

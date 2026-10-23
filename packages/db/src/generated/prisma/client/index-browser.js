@@ -820,6 +820,16 @@ exports.Prisma.AvertissementAccepteScalarFieldEnum = {
   caduqueLe: 'caduqueLe'
 };
 
+exports.Prisma.GroupeCovoiturageScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  margeMinutes: 'margeMinutes',
+  joursCommunsMin: 'joursCommunsMin',
+  strict: 'strict',
+  enseignantIds: 'enseignantIds',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1134,7 +1144,8 @@ exports.Prisma.ModelName = {
   SnapshotCharge: 'SnapshotCharge',
   DemandeModification: 'DemandeModification',
   Conflit: 'Conflit',
-  AvertissementAccepte: 'AvertissementAccepte'
+  AvertissementAccepte: 'AvertissementAccepte',
+  GroupeCovoiturage: 'GroupeCovoiturage'
 };
 
 /**

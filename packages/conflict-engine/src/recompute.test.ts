@@ -20,10 +20,10 @@ function makeCtx(overrides: Partial<ConflictContext> = {}): ConflictContext {
     ['r1', { id: 'r1', capaciteMax: 30, capaciteRecommandee: 25 }],
     ['r2', { id: 'r2', capaciteMax: 100, capaciteRecommandee: 80 }],
   ]);
-  const creneaux = new Map<string, { estPause: boolean; ordre: number; jour: string }>([
-    ['c1', { estPause: false, ordre: 1, jour: 'LUNDI' }],
-    ['c2', { estPause: false, ordre: 2, jour: 'LUNDI' }],
-    ['c3', { estPause: false, ordre: 3, jour: 'LUNDI' }],
+  const creneaux = new Map<string, { estPause: boolean; ordre: number; jour: string; heureDebutMinutes: number }>([
+    ['c1', { estPause: false, ordre: 1, jour: 'LUNDI', heureDebutMinutes: 480 }],
+    ['c2', { estPause: false, ordre: 2, jour: 'LUNDI', heureDebutMinutes: 540 }],
+    ['c3', { estPause: false, ordre: 3, jour: 'LUNDI', heureDebutMinutes: 600 }],
   ]);
   const grille = {
     consecutifs: (jour: string, creneauDebut: string, nb: number): string[] | null => {

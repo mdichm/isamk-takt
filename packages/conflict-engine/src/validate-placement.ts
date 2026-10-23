@@ -75,7 +75,7 @@ export interface ConflictContext {
   salles: Map<string, SalleData>;
   salleEquipements: Map<string, string[]>;
   salleTags: Map<string, string[]>;
-  creneaux: Map<string, { estPause: boolean; ordre: number; jour: string }>;
+  creneaux: Map<string, { estPause: boolean; ordre: number; jour: string; heureDebutMinutes: number }>;
   groupeEffectifs: Map<string, number>;
   covoiturageGroupes: Map<string, { membres: string[]; margeMinutes: number; joursCommunsMin: number; strict: boolean }>;
   groupeClosure?: GroupeClosure;
@@ -268,7 +268,164 @@ export function validatePlacement(seance: SeanceInput, candidat: PlacementCandid
     }
   }
 
+  // --- 10. Covoiturage (EX-CTR-05 : APPLICATION_ONLY, évaluée après import et en édition) ---
+  evaluerCovoiturage(seance, candidat, ctx, conflits);
+
   return conflits;
+}
+
+// ============================================================================
+// Covoiturage (EX-CTR-05)
+// Règle d'application uniquement : un groupe d'enseignants d'un même semestre
+// doit partager assez de jours communs et ses séances d'un jour donné doivent
+// rester dans la marge horaire pour pouvoir se déplacer ensemble.
+// ============================================================================
+
+function creneauPourSlot(
+  ctx: ConflictContext,
+  slotKey: string,
+): { jour: string; debutMin: number } | undefined {
+  const [jour, suffix] = slotKey.split('|');
+  // La map creneaux est indexee par id : essayer d'abord par id (slots occ).
+  const byId = ctx.creneaux.get(suffix ?? '');
+  if (byId && byId.jour === jour) {
+    return { jour, debutMin: byId.heureDebutMinutes };
+  }
+  // Sinon le suffix est un ordre (slots grille) : chercher par (jour, ordre).
+  const ordre = Number(suffix);
+  if (!Number.isNaN(ordre)) {
+    for (const c of ctx.creneaux.values()) {
+      if (c.jour === jour && c.ordre === ordre) {
+        return { jour, debutMin: c.heureDebutMinutes };
+      }
+    }
+  }
+  return undefined;
+}
+
+function evaluerCovoiturage(
+  seance: SeanceInput,
+  _candidat: PlacementCandidat,
+  ctx: ConflictContext,
+  conflits: Conflit[],
+): void {
+  const enseignantId = seance.enseignantId;
+  if (!enseignantId) return;
+
+  const groupes = Array.from(ctx.covoiturageGroupes.values()).filter((g) =>
+    g.membres.includes(enseignantId),
+  );
+  if (groupes.length === 0) return;
+
+  // Jours et heures de début des sessions déjà placées de l'enseignant.
+  const enseignantJours = new Set<string>();
+  const enseignantSessions: { jour: string; debutMin: number }[] = [];
+  for (const slotKey of ctx.occ.keys()) {
+    const [jour, creneauId] = slotKey.split('|');
+    const slot = ctx.occ.get(slotKey);
+    if (!slot?.ens.has(enseignantId)) continue;
+    enseignantJours.add(jour);
+    const c = ctx.creneaux.get(creneauId ?? '');
+    if (c) enseignantSessions.push({ jour, debutMin: c.heureDebutMinutes });
+  }
+
+  // Sessions du candidat de l'enseignant (journée + heure de début).
+  const candSlots = ctx.grille.consecutifs(
+    _candidat.jour,
+    _candidat.creneauDebut,
+    seance.nbCreneaux,
+  ) ?? [];
+  const candJours = new Set<string>();
+  const candSessions: { jour: string; debutMin: number }[] = [];
+  for (const slotKey of candSlots) {
+    const c = creneauPourSlot(ctx, slotKey);
+    if (!c) continue;
+    candJours.add(c.jour);
+    candSessions.push(c);
+  }
+
+  const enseignantTousJours = new Set([...enseignantJours, ...candJours]);
+  const enseignantToutesSessions = [...enseignantSessions, ...candSessions];
+
+  for (const g of groupes) {
+    const autres = g.membres.filter((m) => m !== enseignantId);
+    if (autres.length === 0) continue;
+
+    // Jours de presence de chaque membre (enseignant inclus).
+    const membreJours = new Map<string, Set<string>>();
+    membreJours.set(enseignantId, enseignantTousJours);
+    for (const m of autres) {
+      const jours = new Set<string>();
+      for (const slotKey of ctx.occ.keys()) {
+        const [jour] = slotKey.split('|');
+        const slot = ctx.occ.get(slotKey);
+        if (slot?.ens.has(m)) jours.add(jour);
+      }
+      membreJours.set(m, jours);
+    }
+
+    // Jours communs a tous les membres du groupe.
+    let joursCommuns: string[] = [];
+    for (const jour of enseignantTousJours) {
+      if ([...membreJours.values()].every((j) => j.has(jour))) {
+        joursCommuns.push(jour);
+      }
+    }
+    if (joursCommuns.length < g.joursCommunsMin) {
+      const severite = g.strict ? 'BLOQUANT' : 'AVERTISSEMENT';
+      conflits.push(
+        conflit(
+          'CARPOOL_VIOLATION',
+          'COVOITURAGE',
+          severite,
+          'groupe_covoiturage',
+          g.membres.join(','),
+          [seance.id],
+          `Covoiturage : seulement ${joursCommuns.length} jour(s) commun(s) pour ${g.membres.length} enseignant(s) (minimum ${g.joursCommunsMin})`,
+          [],
+          { margeMinutes: g.margeMinutes, joursCommunsMin: g.joursCommunsMin, strict: g.strict, groupeId: g.membres.join(',') },
+        ),
+      );
+      continue;
+    }
+
+    // Marge horaire : le jour commun, la session de l'enseignant doit rester
+    // dans la marge d'au moins un autre membre present ce jour-la.
+    for (const jour of joursCommuns) {
+      const ensSessionsJour = enseignantToutesSessions.filter((s) => s.jour === jour);
+      for (const ens of ensSessionsJour) {
+        const proche = autres.some((m) => {
+          const mSessions = [] as { debutMin: number }[];
+          for (const slotKey of ctx.occ.keys()) {
+            const [j] = slotKey.split('|');
+            const slot = ctx.occ.get(slotKey);
+            if (j !== jour || !slot?.ens.has(m)) continue;
+            const c = ctx.creneaux.get(slotKey.split('|')[1] ?? '');
+            if (c) mSessions.push({ debutMin: c.heureDebutMinutes });
+          }
+          return mSessions.some(
+            (s) => Math.abs(ens.debutMin - s.debutMin) <= g.margeMinutes,
+          );
+        });
+        if (!proche) {
+          const severite = g.strict ? 'BLOQUANT' : 'AVERTISSEMENT';
+          conflits.push(
+            conflit(
+              'CARPOOL_VIOLATION',
+              'COVOITURAGE',
+              severite,
+              'groupe_covoiturage',
+              g.membres.join(','),
+              [seance.id],
+              `Covoiturage : session isolee de l'enseignant le ${jour} (marge ${g.margeMinutes} min non respectee)`,
+              [],
+              { margeMinutes: g.margeMinutes, joursCommunsMin: g.joursCommunsMin, strict: g.strict, groupeId: g.membres.join(','), jour },
+            ),
+          );
+        }
+      }
+    }
+  }
 }
 
 // ============================================================================

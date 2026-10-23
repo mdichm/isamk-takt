@@ -22,13 +22,13 @@ function makeCtx(
     ['r1', { id: 'r1', capaciteMax: 30 }],
     ['r2', { id: 'r2', capaciteMax: 100 }],
   ]);
-  const creneaux = new Map<string, { estPause: boolean; ordre: number; jour: string }>([
-    ['c1', { estPause: false, ordre: 1, jour: 'LUNDI' }],
-    ['c2', { estPause: false, ordre: 2, jour: 'LUNDI' }],
-    ['c3', { estPause: false, ordre: 3, jour: 'LUNDI' }],
-    ['c4', { estPause: false, ordre: 4, jour: 'LUNDI' }],
-    ['c5', { estPause: false, ordre: 5, jour: 'LUNDI' }],
-    ['c6', { estPause: false, ordre: 6, jour: 'LUNDI' }],
+  const creneaux = new Map<string, { estPause: boolean; ordre: number; jour: string; heureDebutMinutes: number }>([
+    ['c1', { estPause: false, ordre: 1, jour: 'LUNDI', heureDebutMinutes: 480 }],
+    ['c2', { estPause: false, ordre: 2, jour: 'LUNDI', heureDebutMinutes: 540 }],
+    ['c3', { estPause: false, ordre: 3, jour: 'LUNDI', heureDebutMinutes: 600 }],
+    ['c4', { estPause: false, ordre: 4, jour: 'LUNDI', heureDebutMinutes: 660 }],
+    ['c5', { estPause: false, ordre: 5, jour: 'LUNDI', heureDebutMinutes: 720 }],
+    ['c6', { estPause: false, ordre: 6, jour: 'LUNDI', heureDebutMinutes: 780 }],
   ]);
   const grille = {
     consecutifs: (
