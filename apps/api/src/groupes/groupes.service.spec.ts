@@ -21,6 +21,7 @@ describe('GroupesService', () => {
   let service: GroupesService;
   let prisma: any;
   let audit: any;
+  let conflitService: any;
 
   const userId = '550e8400-e29b-41d4-a716-446655440000';
   const niveauId = '550e8400-e29b-41d4-a716-446655440010';
@@ -49,7 +50,11 @@ describe('GroupesService', () => {
       auditTransaction: vi.fn(async (operation: any) => operation(prisma)),
     };
 
-    service = new GroupesService(prisma as any, audit as any);
+    conflitService = {
+      recalculerConflitsSemestre: vi.fn().mockResolvedValue(undefined),
+    };
+
+    service = new GroupesService(prisma as any, audit as any, conflitService as any);
   });
 
   describe('createGroupe', () => {
@@ -255,6 +260,7 @@ describe('GroupesService', () => {
 
       expect(result.code).toBe('INFO-L3-S2');
       expect(result.effectif).toBe(35);
+      expect(conflitService.recalculerConflitsSemestre).toHaveBeenCalledWith(semestreId);
     });
 
     it('should throw Conflict when new code already exists', async () => {

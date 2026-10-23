@@ -205,6 +205,30 @@ export class ConflitService {
     return this.getConflits(versionId);
   }
 
+  /**
+   * Recalcule les conflits de toutes les versions non publiées (ni PUBLIE, ni ARCHIVE).
+   * Si semestreId est fourni, seules les versions de ce semestre sont traitées.
+   * Appelé après modification d'un référentiel (indisponibilité, capacité de salle, effectif de groupe).
+   */
+  async recalculerConflitsSemestre(semestreId?: string): Promise<void> {
+    const where: Record<string, unknown> = {
+      statut: { notIn: ['PUBLIE', 'ARCHIVE'] },
+    };
+    if (semestreId) {
+      where.semestreId = semestreId;
+    }
+
+    const versions = await this.prisma.versionEdt.findMany({
+      where,
+      select: { id: true },
+    });
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const version of versions) {
+      await this.recomputeConflits(version.id);
+    }
+  }
+
   async getConflits(versionId: string): Promise<ConflitResponseDto[]> {
     const version = await this.prisma.versionEdt.findUnique({
       where: { id: versionId },

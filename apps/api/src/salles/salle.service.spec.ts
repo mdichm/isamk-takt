@@ -26,6 +26,8 @@ describe('SalleService', () => {
   let prisma: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let audit: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let conflitService: any;
 
   const userId = '550e8400-e29b-41d4-a716-446655440000';
   const departementId = '550e8400-e29b-41d4-a716-446655440001';
@@ -76,9 +78,12 @@ describe('SalleService', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       auditTransaction: vi.fn(async (operation: any) => operation(prisma)),
     };
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    service = new SalleService(prisma as any, audit as any);
+    conflitService = {
+      recalculerConflitsSemestre: vi.fn().mockResolvedValue(undefined),
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    service = new SalleService(prisma as any, audit as any, conflitService as any);
   });
 
   describe('Types de salle', () => {
@@ -289,6 +294,29 @@ describe('SalleService', () => {
       ]);
 
       await expect(service.assignerEquipements('salle-1', dto, userId)).rejects.toThrow('introuvables');
+    });
+  });
+
+  describe('Mise à jour salle', () => {
+    it('recalcule les conflits sur toutes les versions non publiées quand la capacité change', async () => {
+      const existing = { id: 'salle-1', code: 'AMPHI-A', capaciteMax: 100, capaciteRecommandee: null };
+      prisma.salle.findUnique.mockResolvedValue(existing);
+      prisma.salle.update.mockResolvedValue({ ...existing, capaciteMax: 120 });
+
+      const result = await service.updateSalle('salle-1', { capaciteMax: 120 } as any, userId);
+
+      expect(result.capaciteMax).toBe(120);
+      expect(conflitService.recalculerConflitsSemestre).toHaveBeenCalledWith();
+    });
+
+    it('ne recalcule pas quand seule une caracteristique non capacitaire change', async () => {
+      const existing = { id: 'salle-1', code: 'AMPHI-A', capaciteMax: 100, capaciteRecommandee: null };
+      prisma.salle.findUnique.mockResolvedValue(existing);
+      prisma.salle.update.mockResolvedValue({ ...existing, libelle: 'Amphi A renove' });
+
+      await service.updateSalle('salle-1', { libelle: 'Amphi A renove' } as any, userId);
+
+      expect(conflitService.recalculerConflitsSemestre).not.toHaveBeenCalled();
     });
   });
 });

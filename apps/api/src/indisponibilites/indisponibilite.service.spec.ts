@@ -18,6 +18,8 @@ describe('IndisponibiliteService', () => {
   let prisma: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let audit: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let conflitService: any;
 
   const userId = '550e8400-e29b-41d4-a716-446655440000';
   const semestreId = '550e8400-e29b-41d4-a716-446655440001';
@@ -41,7 +43,11 @@ describe('IndisponibiliteService', () => {
       auditTransaction: vi.fn(async (operation: any) => operation(prisma)),
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    service = new IndisponibiliteService(prisma as any, audit as any);
+    conflitService = {
+      recalculerConflitsSemestre: vi.fn().mockResolvedValue(undefined),
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    service = new IndisponibiliteService(prisma as any, audit as any, conflitService as any);
   });
 
   it('should create an indisponibility for an enseignant', async () => {
@@ -62,6 +68,7 @@ describe('IndisponibiliteService', () => {
     expect(result.id).toBe(indispoId);
     expect(result.enseignantId).toBe(enseignantId);
     expect(result.salleId).toBeUndefined();
+    expect(conflitService.recalculerConflitsSemestre).toHaveBeenCalledWith(semestreId);
   });
 
   it('should create an indisponibility for a salle', async () => {
@@ -181,6 +188,7 @@ describe('IndisponibiliteService', () => {
 
     expect(result.jour).toBe('MARDI');
     expect(result.ordre).toBe(4);
+    expect(conflitService.recalculerConflitsSemestre).toHaveBeenCalledWith(semestreId);
   });
 
   it('should throw NotFound when updating unknown indisponibilite', async () => {
@@ -203,6 +211,7 @@ describe('IndisponibiliteService', () => {
     expect(prisma.indisponibilite.update).toHaveBeenCalledWith({
       where: { id: indispoId }, data: { estActive: false },
     });
+    expect(conflitService.recalculerConflitsSemestre).toHaveBeenCalledWith(semestreId);
   });
 
   it('should throw NotFound when removing unknown indisponibilite', async () => {
