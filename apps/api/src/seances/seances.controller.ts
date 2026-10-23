@@ -156,7 +156,8 @@ export class SeancesController {
   @ApiParam({ name: 'id', type: String, description: 'Identifiant de la séance' })
   @ApiResponse({
     status: 200,
-    description: 'Séance déplacée avec révision incrémentée',
+    description:
+      'Séance déplacée, révision incrémentée. Inclut softScore (score contraintes souples 0-100) et softDelta (delta de score) si des contraintes souples sont actives pour le semestre.',
     type: SeanceResponseDto,
   })
   @ApiResponse({ status: 403, description: 'Permissions insuffisantes ou bail détenu par un autre' })

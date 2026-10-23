@@ -69,6 +69,7 @@ describe('MoveSeanceService', () => {
         findUnique: vi.fn(),
         update: vi.fn(),
       },
+      contrainteInstance: { findMany: vi.fn().mockResolvedValue([]) },
       versionEdt: { findUnique: vi.fn() },
       editLock: { findUnique: vi.fn() },
       verrouSeance: { findMany: vi.fn() },
