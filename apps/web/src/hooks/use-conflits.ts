@@ -8,9 +8,26 @@ import {
   type SimulatePlacementInput,
   type SimulatePlacementResponse,
 } from '@/lib/api/conflits';
-import { accepterAvertissement } from '@/lib/api/avertissements';
+import { apiFetch } from '@/lib/api/client';
 
 export type { Conflit };
+
+// ============================================================================
+// Type pour la réponse d'acceptation d'avertissement
+// ============================================================================
+
+export interface AvertissementAccepteResponse {
+  id: string;
+  versionId: string;
+  regleCode: string;
+  signature: string;
+  seanceIds: string[];
+  impact: {
+    seanceIds: string[];
+    regleCode: string;
+    message: string;
+  };
+}
 
 import { getErrorMessage } from '@/lib/api/errors';
 import { toast } from 'sonner';
@@ -66,12 +83,17 @@ export function useAccepterAvertissement(versionId: string) {
   const queryClient = useQueryClient();
 
   return useMutation<
-    Awaited<ReturnType<typeof accepterAvertissement>>,
+    AvertissementAccepteResponse,
     Error,
     { signature: string; justification?: string }
   >({
-    mutationFn: ({ signature, justification }) =>
-      accepterAvertissement(versionId, { signature, justification }),
+    mutationFn: async ({ signature, justification }) => {
+      const res = await apiFetch(`/versions/${versionId}/avertissements:accept`, {
+        method: 'POST',
+        body: JSON.stringify({ signature, justification }),
+      });
+      return res.json() as Promise<AvertissementAccepteResponse>;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: conflitsKeys.list(versionId),
