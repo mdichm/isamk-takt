@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - DTO de réponse de séance (L3-11)
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsUUID, IsOptional, IsInt, IsEnum, IsString } from 'class-validator';
+import { IsUUID, IsOptional, IsInt, IsEnum, IsString, IsNumber } from 'class-validator';
 import { SeanceStatut, SeanceOrigine, JourSemaine } from '@takt/db';
 import { OccupationResponseDto } from './occupation-response.dto.js';
 
@@ -77,11 +77,29 @@ export class SeanceResponseDto {
   @ApiPropertyOptional({ description: 'Occupations (placements) de la séance', type: () => [OccupationResponseDto] })
   @IsOptional()
   occupations?: OccupationResponseDto[];
+
+  @ApiPropertyOptional({
+    description: 'Score de contraintes souples (0-100) après le déplacement, null si aucune contrainte souple évaluable',
+    example: 78.5,
+  })
+  @IsOptional()
+  @IsNumber()
+  softScore?: number | null;
+
+  @ApiPropertyOptional({
+    description: 'Delta de score souple (nouveau - ancien) après le déplacement, null si non évaluable',
+    example: 12.5,
+  })
+  @IsOptional()
+  @IsNumber()
+  softDelta?: number | null;
 }
 
 export const toSeanceDto = (
   entity: any,
   includeOccupations = false,
+  softScore?: number | null,
+  softDelta?: number | null,
 ): SeanceResponseDto => {
   const dto: SeanceResponseDto = {
     id: entity.id,
@@ -99,6 +117,8 @@ export const toSeanceDto = (
     enseignantId: entity.enseignantId ?? undefined,
     salleId: entity.salleId ?? undefined,
     groupes: (entity.seanceGroupes ?? []).map((sg: any) => sg.groupeId),
+    softScore: softScore ?? undefined,
+    softDelta: softDelta ?? undefined,
   };
 
   if (includeOccupations && entity.occupations) {

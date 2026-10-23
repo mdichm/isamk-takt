@@ -17,13 +17,17 @@ import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionStatut, RoleCode, SeanceStatut, VerrouType } from '@takt/db';
 import {
   validatePlacement,
+  computeSoftScore,
+  computeSoftDelta,
   type SeanceInput,
   type PlacementCandidat,
   type ConflictContext,
+  type SoftConstraints,
 } from '@takt/conflict-engine';
 import type { SeanceResponseDto } from './dto/seance-response.dto.js';
 import { toSeanceDto } from './dto/seance-response.dto.js';
 import { MoveSeanceDto } from './dto/move-seance.dto.js';
+import { ContrainteCategorie } from '@takt/db';
 
 const VERROUX_BLOQUANTS: VerrouType[] = ['CRENEAU', 'SALLE', 'ACTIVITE'];
 
@@ -336,6 +340,60 @@ const ctx: ConflictContext = await this.conflitService.getConflictContext(
 
     await this.conflitService.recomputeConflits(versionId);
 
+    // --- Évaluation des contraintes souples (L3-27) ---
+    let softScore: number | null = null;
+    let softDelta: number | null = null;
+
+    const contraintesSouples = await this.prisma.contrainteInstance.findMany({
+      where: {
+        semestreId: seanceData.semestreId,
+        actif: true,
+        definition: { categorie: ContrainteCategorie.SOUPLE },
+      },
+      include: { definition: true },
+    });
+
+    if (contraintesSouples.length > 0) {
+      const softConstraints: SoftConstraints = {};
+      for (const ci of contraintesSouples) {
+        const code = ci.definition.code;
+        const poids = ci.poids ?? 1;
+        const params = (ci.params ?? {}) as Record<string, unknown>;
+
+        if (code === 'PLAGES_A_EVITER') {
+          softConstraints.plagesAEviter = (params.plages ?? []) as string[];
+          softConstraints.poidsPlagesAEviter = poids;
+        } else if (code === 'HEURES_CONSECUTIVES') {
+          softConstraints.heuresConsecutivesMin = params.heuresConsecutivesMin as
+            | number
+            | undefined;
+          softConstraints.heuresConsecutivesMax = params.heuresConsecutivesMax as
+            | number
+            | undefined;
+          softConstraints.poidsHeuresConsecutives = poids;
+        }
+        // Les contraintes sans évaluateur spécifique restent non évaluées (statut NON_EVALUE dans le moteur)
+      }
+
+      const oldPlacement: PlacementCandidat = {
+        jour: seanceData.jour ?? '',
+        creneauDebut: seanceData.creneauDebutId ?? '',
+        salle: seanceData.salleId ?? '',
+      };
+
+      const scoreResult = computeSoftScore(ctx, seanceInput, candidat, softConstraints);
+      const deltaResult = computeSoftDelta(
+        ctx,
+        seanceInput,
+        oldPlacement,
+        candidat,
+        softConstraints,
+      );
+
+      softScore = Number.isNaN(scoreResult.score) ? null : scoreResult.score;
+      softDelta = Number.isNaN(deltaResult.delta) ? null : deltaResult.delta;
+    }
+
     const seanceAvecOccupations = await this.prisma.seance.findUnique({
       where: { id: seanceId },
       select: {
@@ -370,6 +428,6 @@ const ctx: ConflictContext = await this.conflitService.getConflictContext(
       },
     });
 
-    return toSeanceDto(seanceAvecOccupations!, true);
+    return toSeanceDto(seanceAvecOccupations!, true, softScore, softDelta);
   }
 }
