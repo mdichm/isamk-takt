@@ -333,6 +333,16 @@ export type AvertissementAccepte = $Result.DefaultSelection<Prisma.$Avertissemen
  * 
  */
 export type GroupeCovoiturage = $Result.DefaultSelection<Prisma.$GroupeCovoituragePayload>
+/**
+ * Model ExigenceSalleActivite
+ * 
+ */
+export type ExigenceSalleActivite = $Result.DefaultSelection<Prisma.$ExigenceSalleActivitePayload>
+/**
+ * Model ExigenceSalleAutorisee
+ * 
+ */
+export type ExigenceSalleAutorisee = $Result.DefaultSelection<Prisma.$ExigenceSalleAutoriseePayload>
 
 /**
  * Enums
@@ -1545,6 +1555,26 @@ export class PrismaClient<
     * ```
     */
   get groupeCovoiturage(): Prisma.GroupeCovoiturageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.exigenceSalleActivite`: Exposes CRUD operations for the **ExigenceSalleActivite** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ExigenceSalleActivites
+    * const exigenceSalleActivites = await prisma.exigenceSalleActivite.findMany()
+    * ```
+    */
+  get exigenceSalleActivite(): Prisma.ExigenceSalleActiviteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.exigenceSalleAutorisee`: Exposes CRUD operations for the **ExigenceSalleAutorisee** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ExigenceSalleAutorisees
+    * const exigenceSalleAutorisees = await prisma.exigenceSalleAutorisee.findMany()
+    * ```
+    */
+  get exigenceSalleAutorisee(): Prisma.ExigenceSalleAutoriseeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2055,7 +2085,9 @@ export namespace Prisma {
     DemandeModification: 'DemandeModification',
     Conflit: 'Conflit',
     AvertissementAccepte: 'AvertissementAccepte',
-    GroupeCovoiturage: 'GroupeCovoiturage'
+    GroupeCovoiturage: 'GroupeCovoiturage',
+    ExigenceSalleActivite: 'ExigenceSalleActivite',
+    ExigenceSalleAutorisee: 'ExigenceSalleAutorisee'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2071,7 +2103,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage" | "exigenceSalleActivite" | "exigenceSalleAutorisee"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6811,6 +6843,154 @@ export namespace Prisma {
           }
         }
       }
+      ExigenceSalleActivite: {
+        payload: Prisma.$ExigenceSalleActivitePayload<ExtArgs>
+        fields: Prisma.ExigenceSalleActiviteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExigenceSalleActiviteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExigenceSalleActiviteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>
+          }
+          findFirst: {
+            args: Prisma.ExigenceSalleActiviteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExigenceSalleActiviteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>
+          }
+          findMany: {
+            args: Prisma.ExigenceSalleActiviteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>[]
+          }
+          create: {
+            args: Prisma.ExigenceSalleActiviteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>
+          }
+          createMany: {
+            args: Prisma.ExigenceSalleActiviteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExigenceSalleActiviteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>[]
+          }
+          delete: {
+            args: Prisma.ExigenceSalleActiviteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>
+          }
+          update: {
+            args: Prisma.ExigenceSalleActiviteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>
+          }
+          deleteMany: {
+            args: Prisma.ExigenceSalleActiviteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExigenceSalleActiviteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExigenceSalleActiviteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>[]
+          }
+          upsert: {
+            args: Prisma.ExigenceSalleActiviteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleActivitePayload>
+          }
+          aggregate: {
+            args: Prisma.ExigenceSalleActiviteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExigenceSalleActivite>
+          }
+          groupBy: {
+            args: Prisma.ExigenceSalleActiviteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExigenceSalleActiviteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExigenceSalleActiviteCountArgs<ExtArgs>
+            result: $Utils.Optional<ExigenceSalleActiviteCountAggregateOutputType> | number
+          }
+        }
+      }
+      ExigenceSalleAutorisee: {
+        payload: Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>
+        fields: Prisma.ExigenceSalleAutoriseeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExigenceSalleAutoriseeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExigenceSalleAutoriseeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>
+          }
+          findFirst: {
+            args: Prisma.ExigenceSalleAutoriseeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExigenceSalleAutoriseeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>
+          }
+          findMany: {
+            args: Prisma.ExigenceSalleAutoriseeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>[]
+          }
+          create: {
+            args: Prisma.ExigenceSalleAutoriseeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>
+          }
+          createMany: {
+            args: Prisma.ExigenceSalleAutoriseeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExigenceSalleAutoriseeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>[]
+          }
+          delete: {
+            args: Prisma.ExigenceSalleAutoriseeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>
+          }
+          update: {
+            args: Prisma.ExigenceSalleAutoriseeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>
+          }
+          deleteMany: {
+            args: Prisma.ExigenceSalleAutoriseeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExigenceSalleAutoriseeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExigenceSalleAutoriseeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>[]
+          }
+          upsert: {
+            args: Prisma.ExigenceSalleAutoriseeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExigenceSalleAutoriseePayload>
+          }
+          aggregate: {
+            args: Prisma.ExigenceSalleAutoriseeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExigenceSalleAutorisee>
+          }
+          groupBy: {
+            args: Prisma.ExigenceSalleAutoriseeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExigenceSalleAutoriseeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExigenceSalleAutoriseeCountArgs<ExtArgs>
+            result: $Utils.Optional<ExigenceSalleAutoriseeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -6998,6 +7178,8 @@ export namespace Prisma {
     conflit?: ConflitOmit
     avertissementAccepte?: AvertissementAccepteOmit
     groupeCovoiturage?: GroupeCovoiturageOmit
+    exigenceSalleActivite?: ExigenceSalleActiviteOmit
+    exigenceSalleAutorisee?: ExigenceSalleAutoriseeOmit
   }
 
   /* Types for Logging */
@@ -7485,6 +7667,7 @@ export namespace Prisma {
     seances: number
     versions: number
     groupesCovoiturage: number
+    exigencesSalle: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7498,6 +7681,7 @@ export namespace Prisma {
     seances?: boolean | SemestreCountOutputTypeCountSeancesArgs
     versions?: boolean | SemestreCountOutputTypeCountVersionsArgs
     groupesCovoiturage?: boolean | SemestreCountOutputTypeCountGroupesCovoiturageArgs
+    exigencesSalle?: boolean | SemestreCountOutputTypeCountExigencesSalleArgs
   }
 
   // Custom InputTypes
@@ -7579,6 +7763,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountGroupesCovoiturageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GroupeCovoiturageWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountExigencesSalleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExigenceSalleActiviteWhereInput
   }
 
 
@@ -8317,6 +8508,8 @@ export namespace Prisma {
     salleActivityTags: number
     indisponibilites: number
     seances: number
+    exigencesSalleImposee: number
+    exigencesSalleAutorisee: number
   }
 
   export type SalleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8324,6 +8517,8 @@ export namespace Prisma {
     salleActivityTags?: boolean | SalleCountOutputTypeCountSalleActivityTagsArgs
     indisponibilites?: boolean | SalleCountOutputTypeCountIndisponibilitesArgs
     seances?: boolean | SalleCountOutputTypeCountSeancesArgs
+    exigencesSalleImposee?: boolean | SalleCountOutputTypeCountExigencesSalleImposeeArgs
+    exigencesSalleAutorisee?: boolean | SalleCountOutputTypeCountExigencesSalleAutoriseeArgs
   }
 
   // Custom InputTypes
@@ -8363,6 +8558,20 @@ export namespace Prisma {
    */
   export type SalleCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SeanceWhereInput
+  }
+
+  /**
+   * SalleCountOutputType without action
+   */
+  export type SalleCountOutputTypeCountExigencesSalleImposeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExigenceSalleActiviteWhereInput
+  }
+
+  /**
+   * SalleCountOutputType without action
+   */
+  export type SalleCountOutputTypeCountExigencesSalleAutoriseeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExigenceSalleAutoriseeWhereInput
   }
 
 
@@ -8496,6 +8705,37 @@ export namespace Prisma {
    */
   export type SnapshotCountOutputTypeCountVersionSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VersionSnapshotWhereInput
+  }
+
+
+  /**
+   * Count Type ExigenceSalleActiviteCountOutputType
+   */
+
+  export type ExigenceSalleActiviteCountOutputType = {
+    autorisees: number
+  }
+
+  export type ExigenceSalleActiviteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    autorisees?: boolean | ExigenceSalleActiviteCountOutputTypeCountAutoriseesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ExigenceSalleActiviteCountOutputType without action
+   */
+  export type ExigenceSalleActiviteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActiviteCountOutputType
+     */
+    select?: ExigenceSalleActiviteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ExigenceSalleActiviteCountOutputType without action
+   */
+  export type ExigenceSalleActiviteCountOutputTypeCountAutoriseesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExigenceSalleAutoriseeWhereInput
   }
 
 
@@ -31703,6 +31943,7 @@ export namespace Prisma {
     seances?: boolean | Semestre$seancesArgs<ExtArgs>
     versions?: boolean | Semestre$versionsArgs<ExtArgs>
     groupesCovoiturage?: boolean | Semestre$groupesCovoiturageArgs<ExtArgs>
+    exigencesSalle?: boolean | Semestre$exigencesSalleArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -31751,6 +31992,7 @@ export namespace Prisma {
     seances?: boolean | Semestre$seancesArgs<ExtArgs>
     versions?: boolean | Semestre$versionsArgs<ExtArgs>
     groupesCovoiturage?: boolean | Semestre$groupesCovoiturageArgs<ExtArgs>
+    exigencesSalle?: boolean | Semestre$exigencesSalleArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -31774,6 +32016,7 @@ export namespace Prisma {
       seances: Prisma.$SeancePayload<ExtArgs>[]
       versions: Prisma.$VersionEdtPayload<ExtArgs>[]
       groupesCovoiturage: Prisma.$GroupeCovoituragePayload<ExtArgs>[]
+      exigencesSalle: Prisma.$ExigenceSalleActivitePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -32188,6 +32431,7 @@ export namespace Prisma {
     seances<T extends Semestre$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     versions<T extends Semestre$versionsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     groupesCovoiturage<T extends Semestre$groupesCovoiturageArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$groupesCovoiturageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    exigencesSalle<T extends Semestre$exigencesSalleArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$exigencesSalleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -32862,6 +33106,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GroupeCovoiturageScalarFieldEnum | GroupeCovoiturageScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.exigencesSalle
+   */
+  export type Semestre$exigencesSalleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    where?: ExigenceSalleActiviteWhereInput
+    orderBy?: ExigenceSalleActiviteOrderByWithRelationInput | ExigenceSalleActiviteOrderByWithRelationInput[]
+    cursor?: ExigenceSalleActiviteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExigenceSalleActiviteScalarFieldEnum | ExigenceSalleActiviteScalarFieldEnum[]
   }
 
   /**
@@ -63556,6 +63824,8 @@ export namespace Prisma {
     salleActivityTags?: boolean | Salle$salleActivityTagsArgs<ExtArgs>
     indisponibilites?: boolean | Salle$indisponibilitesArgs<ExtArgs>
     seances?: boolean | Salle$seancesArgs<ExtArgs>
+    exigencesSalleImposee?: boolean | Salle$exigencesSalleImposeeArgs<ExtArgs>
+    exigencesSalleAutorisee?: boolean | Salle$exigencesSalleAutoriseeArgs<ExtArgs>
     _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["salle"]>
 
@@ -63625,6 +63895,8 @@ export namespace Prisma {
     salleActivityTags?: boolean | Salle$salleActivityTagsArgs<ExtArgs>
     indisponibilites?: boolean | Salle$indisponibilitesArgs<ExtArgs>
     seances?: boolean | Salle$seancesArgs<ExtArgs>
+    exigencesSalleImposee?: boolean | Salle$exigencesSalleImposeeArgs<ExtArgs>
+    exigencesSalleAutorisee?: boolean | Salle$exigencesSalleAutoriseeArgs<ExtArgs>
     _count?: boolean | SalleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SalleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -63648,6 +63920,8 @@ export namespace Prisma {
       salleActivityTags: Prisma.$SalleActivityTagPayload<ExtArgs>[]
       indisponibilites: Prisma.$IndisponibilitePayload<ExtArgs>[]
       seances: Prisma.$SeancePayload<ExtArgs>[]
+      exigencesSalleImposee: Prisma.$ExigenceSalleActivitePayload<ExtArgs>[]
+      exigencesSalleAutorisee: Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -64065,6 +64339,8 @@ export namespace Prisma {
     salleActivityTags<T extends Salle$salleActivityTagsArgs<ExtArgs> = {}>(args?: Subset<T, Salle$salleActivityTagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalleActivityTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     indisponibilites<T extends Salle$indisponibilitesArgs<ExtArgs> = {}>(args?: Subset<T, Salle$indisponibilitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IndisponibilitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     seances<T extends Salle$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Salle$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    exigencesSalleImposee<T extends Salle$exigencesSalleImposeeArgs<ExtArgs> = {}>(args?: Subset<T, Salle$exigencesSalleImposeeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    exigencesSalleAutorisee<T extends Salle$exigencesSalleAutoriseeArgs<ExtArgs> = {}>(args?: Subset<T, Salle$exigencesSalleAutoriseeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -64659,6 +64935,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SeanceScalarFieldEnum | SeanceScalarFieldEnum[]
+  }
+
+  /**
+   * Salle.exigencesSalleImposee
+   */
+  export type Salle$exigencesSalleImposeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    where?: ExigenceSalleActiviteWhereInput
+    orderBy?: ExigenceSalleActiviteOrderByWithRelationInput | ExigenceSalleActiviteOrderByWithRelationInput[]
+    cursor?: ExigenceSalleActiviteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExigenceSalleActiviteScalarFieldEnum | ExigenceSalleActiviteScalarFieldEnum[]
+  }
+
+  /**
+   * Salle.exigencesSalleAutorisee
+   */
+  export type Salle$exigencesSalleAutoriseeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    where?: ExigenceSalleAutoriseeWhereInput
+    orderBy?: ExigenceSalleAutoriseeOrderByWithRelationInput | ExigenceSalleAutoriseeOrderByWithRelationInput[]
+    cursor?: ExigenceSalleAutoriseeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExigenceSalleAutoriseeScalarFieldEnum | ExigenceSalleAutoriseeScalarFieldEnum[]
   }
 
   /**
@@ -82965,6 +83289,2184 @@ export namespace Prisma {
 
 
   /**
+   * Model ExigenceSalleActivite
+   */
+
+  export type AggregateExigenceSalleActivite = {
+    _count: ExigenceSalleActiviteCountAggregateOutputType | null
+    _min: ExigenceSalleActiviteMinAggregateOutputType | null
+    _max: ExigenceSalleActiviteMaxAggregateOutputType | null
+  }
+
+  export type ExigenceSalleActiviteMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    affectationKey: string | null
+    salleImposeeId: string | null
+    creePar: string | null
+    creeLe: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExigenceSalleActiviteMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    affectationKey: string | null
+    salleImposeeId: string | null
+    creePar: string | null
+    creeLe: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExigenceSalleActiviteCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    affectationKey: number
+    salleImposeeId: number
+    creePar: number
+    creeLe: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ExigenceSalleActiviteMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    affectationKey?: true
+    salleImposeeId?: true
+    creePar?: true
+    creeLe?: true
+    updatedAt?: true
+  }
+
+  export type ExigenceSalleActiviteMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    affectationKey?: true
+    salleImposeeId?: true
+    creePar?: true
+    creeLe?: true
+    updatedAt?: true
+  }
+
+  export type ExigenceSalleActiviteCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    affectationKey?: true
+    salleImposeeId?: true
+    creePar?: true
+    creeLe?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ExigenceSalleActiviteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExigenceSalleActivite to aggregate.
+     */
+    where?: ExigenceSalleActiviteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExigenceSalleActivites to fetch.
+     */
+    orderBy?: ExigenceSalleActiviteOrderByWithRelationInput | ExigenceSalleActiviteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExigenceSalleActiviteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExigenceSalleActivites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExigenceSalleActivites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ExigenceSalleActivites
+    **/
+    _count?: true | ExigenceSalleActiviteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExigenceSalleActiviteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExigenceSalleActiviteMaxAggregateInputType
+  }
+
+  export type GetExigenceSalleActiviteAggregateType<T extends ExigenceSalleActiviteAggregateArgs> = {
+        [P in keyof T & keyof AggregateExigenceSalleActivite]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExigenceSalleActivite[P]>
+      : GetScalarType<T[P], AggregateExigenceSalleActivite[P]>
+  }
+
+
+
+
+  export type ExigenceSalleActiviteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExigenceSalleActiviteWhereInput
+    orderBy?: ExigenceSalleActiviteOrderByWithAggregationInput | ExigenceSalleActiviteOrderByWithAggregationInput[]
+    by: ExigenceSalleActiviteScalarFieldEnum[] | ExigenceSalleActiviteScalarFieldEnum
+    having?: ExigenceSalleActiviteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExigenceSalleActiviteCountAggregateInputType | true
+    _min?: ExigenceSalleActiviteMinAggregateInputType
+    _max?: ExigenceSalleActiviteMaxAggregateInputType
+  }
+
+  export type ExigenceSalleActiviteGroupByOutputType = {
+    id: string
+    semestreId: string
+    affectationKey: string
+    salleImposeeId: string | null
+    creePar: string
+    creeLe: Date
+    updatedAt: Date
+    _count: ExigenceSalleActiviteCountAggregateOutputType | null
+    _min: ExigenceSalleActiviteMinAggregateOutputType | null
+    _max: ExigenceSalleActiviteMaxAggregateOutputType | null
+  }
+
+  type GetExigenceSalleActiviteGroupByPayload<T extends ExigenceSalleActiviteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExigenceSalleActiviteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExigenceSalleActiviteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExigenceSalleActiviteGroupByOutputType[P]>
+            : GetScalarType<T[P], ExigenceSalleActiviteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExigenceSalleActiviteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    affectationKey?: boolean
+    salleImposeeId?: boolean
+    creePar?: boolean
+    creeLe?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    salleImposee?: boolean | ExigenceSalleActivite$salleImposeeArgs<ExtArgs>
+    autorisees?: boolean | ExigenceSalleActivite$autoriseesArgs<ExtArgs>
+    _count?: boolean | ExigenceSalleActiviteCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["exigenceSalleActivite"]>
+
+  export type ExigenceSalleActiviteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    affectationKey?: boolean
+    salleImposeeId?: boolean
+    creePar?: boolean
+    creeLe?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    salleImposee?: boolean | ExigenceSalleActivite$salleImposeeArgs<ExtArgs>
+  }, ExtArgs["result"]["exigenceSalleActivite"]>
+
+  export type ExigenceSalleActiviteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    affectationKey?: boolean
+    salleImposeeId?: boolean
+    creePar?: boolean
+    creeLe?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    salleImposee?: boolean | ExigenceSalleActivite$salleImposeeArgs<ExtArgs>
+  }, ExtArgs["result"]["exigenceSalleActivite"]>
+
+  export type ExigenceSalleActiviteSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    affectationKey?: boolean
+    salleImposeeId?: boolean
+    creePar?: boolean
+    creeLe?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ExigenceSalleActiviteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "affectationKey" | "salleImposeeId" | "creePar" | "creeLe" | "updatedAt", ExtArgs["result"]["exigenceSalleActivite"]>
+  export type ExigenceSalleActiviteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    salleImposee?: boolean | ExigenceSalleActivite$salleImposeeArgs<ExtArgs>
+    autorisees?: boolean | ExigenceSalleActivite$autoriseesArgs<ExtArgs>
+    _count?: boolean | ExigenceSalleActiviteCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ExigenceSalleActiviteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    salleImposee?: boolean | ExigenceSalleActivite$salleImposeeArgs<ExtArgs>
+  }
+  export type ExigenceSalleActiviteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    salleImposee?: boolean | ExigenceSalleActivite$salleImposeeArgs<ExtArgs>
+  }
+
+  export type $ExigenceSalleActivitePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ExigenceSalleActivite"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      salleImposee: Prisma.$SallePayload<ExtArgs> | null
+      autorisees: Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      affectationKey: string
+      salleImposeeId: string | null
+      creePar: string
+      creeLe: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["exigenceSalleActivite"]>
+    composites: {}
+  }
+
+  type ExigenceSalleActiviteGetPayload<S extends boolean | null | undefined | ExigenceSalleActiviteDefaultArgs> = $Result.GetResult<Prisma.$ExigenceSalleActivitePayload, S>
+
+  type ExigenceSalleActiviteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExigenceSalleActiviteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExigenceSalleActiviteCountAggregateInputType | true
+    }
+
+  export interface ExigenceSalleActiviteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ExigenceSalleActivite'], meta: { name: 'ExigenceSalleActivite' } }
+    /**
+     * Find zero or one ExigenceSalleActivite that matches the filter.
+     * @param {ExigenceSalleActiviteFindUniqueArgs} args - Arguments to find a ExigenceSalleActivite
+     * @example
+     * // Get one ExigenceSalleActivite
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExigenceSalleActiviteFindUniqueArgs>(args: SelectSubset<T, ExigenceSalleActiviteFindUniqueArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ExigenceSalleActivite that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExigenceSalleActiviteFindUniqueOrThrowArgs} args - Arguments to find a ExigenceSalleActivite
+     * @example
+     * // Get one ExigenceSalleActivite
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExigenceSalleActiviteFindUniqueOrThrowArgs>(args: SelectSubset<T, ExigenceSalleActiviteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExigenceSalleActivite that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleActiviteFindFirstArgs} args - Arguments to find a ExigenceSalleActivite
+     * @example
+     * // Get one ExigenceSalleActivite
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExigenceSalleActiviteFindFirstArgs>(args?: SelectSubset<T, ExigenceSalleActiviteFindFirstArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExigenceSalleActivite that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleActiviteFindFirstOrThrowArgs} args - Arguments to find a ExigenceSalleActivite
+     * @example
+     * // Get one ExigenceSalleActivite
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExigenceSalleActiviteFindFirstOrThrowArgs>(args?: SelectSubset<T, ExigenceSalleActiviteFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ExigenceSalleActivites that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleActiviteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ExigenceSalleActivites
+     * const exigenceSalleActivites = await prisma.exigenceSalleActivite.findMany()
+     * 
+     * // Get first 10 ExigenceSalleActivites
+     * const exigenceSalleActivites = await prisma.exigenceSalleActivite.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const exigenceSalleActiviteWithIdOnly = await prisma.exigenceSalleActivite.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExigenceSalleActiviteFindManyArgs>(args?: SelectSubset<T, ExigenceSalleActiviteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ExigenceSalleActivite.
+     * @param {ExigenceSalleActiviteCreateArgs} args - Arguments to create a ExigenceSalleActivite.
+     * @example
+     * // Create one ExigenceSalleActivite
+     * const ExigenceSalleActivite = await prisma.exigenceSalleActivite.create({
+     *   data: {
+     *     // ... data to create a ExigenceSalleActivite
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExigenceSalleActiviteCreateArgs>(args: SelectSubset<T, ExigenceSalleActiviteCreateArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ExigenceSalleActivites.
+     * @param {ExigenceSalleActiviteCreateManyArgs} args - Arguments to create many ExigenceSalleActivites.
+     * @example
+     * // Create many ExigenceSalleActivites
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExigenceSalleActiviteCreateManyArgs>(args?: SelectSubset<T, ExigenceSalleActiviteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ExigenceSalleActivites and returns the data saved in the database.
+     * @param {ExigenceSalleActiviteCreateManyAndReturnArgs} args - Arguments to create many ExigenceSalleActivites.
+     * @example
+     * // Create many ExigenceSalleActivites
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ExigenceSalleActivites and only return the `id`
+     * const exigenceSalleActiviteWithIdOnly = await prisma.exigenceSalleActivite.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExigenceSalleActiviteCreateManyAndReturnArgs>(args?: SelectSubset<T, ExigenceSalleActiviteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ExigenceSalleActivite.
+     * @param {ExigenceSalleActiviteDeleteArgs} args - Arguments to delete one ExigenceSalleActivite.
+     * @example
+     * // Delete one ExigenceSalleActivite
+     * const ExigenceSalleActivite = await prisma.exigenceSalleActivite.delete({
+     *   where: {
+     *     // ... filter to delete one ExigenceSalleActivite
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExigenceSalleActiviteDeleteArgs>(args: SelectSubset<T, ExigenceSalleActiviteDeleteArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ExigenceSalleActivite.
+     * @param {ExigenceSalleActiviteUpdateArgs} args - Arguments to update one ExigenceSalleActivite.
+     * @example
+     * // Update one ExigenceSalleActivite
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExigenceSalleActiviteUpdateArgs>(args: SelectSubset<T, ExigenceSalleActiviteUpdateArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ExigenceSalleActivites.
+     * @param {ExigenceSalleActiviteDeleteManyArgs} args - Arguments to filter ExigenceSalleActivites to delete.
+     * @example
+     * // Delete a few ExigenceSalleActivites
+     * const { count } = await prisma.exigenceSalleActivite.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExigenceSalleActiviteDeleteManyArgs>(args?: SelectSubset<T, ExigenceSalleActiviteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExigenceSalleActivites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleActiviteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ExigenceSalleActivites
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExigenceSalleActiviteUpdateManyArgs>(args: SelectSubset<T, ExigenceSalleActiviteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExigenceSalleActivites and returns the data updated in the database.
+     * @param {ExigenceSalleActiviteUpdateManyAndReturnArgs} args - Arguments to update many ExigenceSalleActivites.
+     * @example
+     * // Update many ExigenceSalleActivites
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ExigenceSalleActivites and only return the `id`
+     * const exigenceSalleActiviteWithIdOnly = await prisma.exigenceSalleActivite.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExigenceSalleActiviteUpdateManyAndReturnArgs>(args: SelectSubset<T, ExigenceSalleActiviteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ExigenceSalleActivite.
+     * @param {ExigenceSalleActiviteUpsertArgs} args - Arguments to update or create a ExigenceSalleActivite.
+     * @example
+     * // Update or create a ExigenceSalleActivite
+     * const exigenceSalleActivite = await prisma.exigenceSalleActivite.upsert({
+     *   create: {
+     *     // ... data to create a ExigenceSalleActivite
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ExigenceSalleActivite we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExigenceSalleActiviteUpsertArgs>(args: SelectSubset<T, ExigenceSalleActiviteUpsertArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ExigenceSalleActivites.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleActiviteCountArgs} args - Arguments to filter ExigenceSalleActivites to count.
+     * @example
+     * // Count the number of ExigenceSalleActivites
+     * const count = await prisma.exigenceSalleActivite.count({
+     *   where: {
+     *     // ... the filter for the ExigenceSalleActivites we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExigenceSalleActiviteCountArgs>(
+      args?: Subset<T, ExigenceSalleActiviteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExigenceSalleActiviteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ExigenceSalleActivite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleActiviteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExigenceSalleActiviteAggregateArgs>(args: Subset<T, ExigenceSalleActiviteAggregateArgs>): Prisma.PrismaPromise<GetExigenceSalleActiviteAggregateType<T>>
+
+    /**
+     * Group by ExigenceSalleActivite.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleActiviteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExigenceSalleActiviteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExigenceSalleActiviteGroupByArgs['orderBy'] }
+        : { orderBy?: ExigenceSalleActiviteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExigenceSalleActiviteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExigenceSalleActiviteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ExigenceSalleActivite model
+   */
+  readonly fields: ExigenceSalleActiviteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ExigenceSalleActivite.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExigenceSalleActiviteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    salleImposee<T extends ExigenceSalleActivite$salleImposeeArgs<ExtArgs> = {}>(args?: Subset<T, ExigenceSalleActivite$salleImposeeArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    autorisees<T extends ExigenceSalleActivite$autoriseesArgs<ExtArgs> = {}>(args?: Subset<T, ExigenceSalleActivite$autoriseesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ExigenceSalleActivite model
+   */
+  interface ExigenceSalleActiviteFieldRefs {
+    readonly id: FieldRef<"ExigenceSalleActivite", 'String'>
+    readonly semestreId: FieldRef<"ExigenceSalleActivite", 'String'>
+    readonly affectationKey: FieldRef<"ExigenceSalleActivite", 'String'>
+    readonly salleImposeeId: FieldRef<"ExigenceSalleActivite", 'String'>
+    readonly creePar: FieldRef<"ExigenceSalleActivite", 'String'>
+    readonly creeLe: FieldRef<"ExigenceSalleActivite", 'DateTime'>
+    readonly updatedAt: FieldRef<"ExigenceSalleActivite", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ExigenceSalleActivite findUnique
+   */
+  export type ExigenceSalleActiviteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleActivite to fetch.
+     */
+    where: ExigenceSalleActiviteWhereUniqueInput
+  }
+
+  /**
+   * ExigenceSalleActivite findUniqueOrThrow
+   */
+  export type ExigenceSalleActiviteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleActivite to fetch.
+     */
+    where: ExigenceSalleActiviteWhereUniqueInput
+  }
+
+  /**
+   * ExigenceSalleActivite findFirst
+   */
+  export type ExigenceSalleActiviteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleActivite to fetch.
+     */
+    where?: ExigenceSalleActiviteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExigenceSalleActivites to fetch.
+     */
+    orderBy?: ExigenceSalleActiviteOrderByWithRelationInput | ExigenceSalleActiviteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExigenceSalleActivites.
+     */
+    cursor?: ExigenceSalleActiviteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExigenceSalleActivites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExigenceSalleActivites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExigenceSalleActivites.
+     */
+    distinct?: ExigenceSalleActiviteScalarFieldEnum | ExigenceSalleActiviteScalarFieldEnum[]
+  }
+
+  /**
+   * ExigenceSalleActivite findFirstOrThrow
+   */
+  export type ExigenceSalleActiviteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleActivite to fetch.
+     */
+    where?: ExigenceSalleActiviteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExigenceSalleActivites to fetch.
+     */
+    orderBy?: ExigenceSalleActiviteOrderByWithRelationInput | ExigenceSalleActiviteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExigenceSalleActivites.
+     */
+    cursor?: ExigenceSalleActiviteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExigenceSalleActivites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExigenceSalleActivites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExigenceSalleActivites.
+     */
+    distinct?: ExigenceSalleActiviteScalarFieldEnum | ExigenceSalleActiviteScalarFieldEnum[]
+  }
+
+  /**
+   * ExigenceSalleActivite findMany
+   */
+  export type ExigenceSalleActiviteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleActivites to fetch.
+     */
+    where?: ExigenceSalleActiviteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExigenceSalleActivites to fetch.
+     */
+    orderBy?: ExigenceSalleActiviteOrderByWithRelationInput | ExigenceSalleActiviteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ExigenceSalleActivites.
+     */
+    cursor?: ExigenceSalleActiviteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExigenceSalleActivites from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExigenceSalleActivites.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExigenceSalleActivites.
+     */
+    distinct?: ExigenceSalleActiviteScalarFieldEnum | ExigenceSalleActiviteScalarFieldEnum[]
+  }
+
+  /**
+   * ExigenceSalleActivite create
+   */
+  export type ExigenceSalleActiviteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ExigenceSalleActivite.
+     */
+    data: XOR<ExigenceSalleActiviteCreateInput, ExigenceSalleActiviteUncheckedCreateInput>
+  }
+
+  /**
+   * ExigenceSalleActivite createMany
+   */
+  export type ExigenceSalleActiviteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ExigenceSalleActivites.
+     */
+    data: ExigenceSalleActiviteCreateManyInput | ExigenceSalleActiviteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ExigenceSalleActivite createManyAndReturn
+   */
+  export type ExigenceSalleActiviteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * The data used to create many ExigenceSalleActivites.
+     */
+    data: ExigenceSalleActiviteCreateManyInput | ExigenceSalleActiviteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExigenceSalleActivite update
+   */
+  export type ExigenceSalleActiviteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ExigenceSalleActivite.
+     */
+    data: XOR<ExigenceSalleActiviteUpdateInput, ExigenceSalleActiviteUncheckedUpdateInput>
+    /**
+     * Choose, which ExigenceSalleActivite to update.
+     */
+    where: ExigenceSalleActiviteWhereUniqueInput
+  }
+
+  /**
+   * ExigenceSalleActivite updateMany
+   */
+  export type ExigenceSalleActiviteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ExigenceSalleActivites.
+     */
+    data: XOR<ExigenceSalleActiviteUpdateManyMutationInput, ExigenceSalleActiviteUncheckedUpdateManyInput>
+    /**
+     * Filter which ExigenceSalleActivites to update
+     */
+    where?: ExigenceSalleActiviteWhereInput
+    /**
+     * Limit how many ExigenceSalleActivites to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExigenceSalleActivite updateManyAndReturn
+   */
+  export type ExigenceSalleActiviteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * The data used to update ExigenceSalleActivites.
+     */
+    data: XOR<ExigenceSalleActiviteUpdateManyMutationInput, ExigenceSalleActiviteUncheckedUpdateManyInput>
+    /**
+     * Filter which ExigenceSalleActivites to update
+     */
+    where?: ExigenceSalleActiviteWhereInput
+    /**
+     * Limit how many ExigenceSalleActivites to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExigenceSalleActivite upsert
+   */
+  export type ExigenceSalleActiviteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ExigenceSalleActivite to update in case it exists.
+     */
+    where: ExigenceSalleActiviteWhereUniqueInput
+    /**
+     * In case the ExigenceSalleActivite found by the `where` argument doesn't exist, create a new ExigenceSalleActivite with this data.
+     */
+    create: XOR<ExigenceSalleActiviteCreateInput, ExigenceSalleActiviteUncheckedCreateInput>
+    /**
+     * In case the ExigenceSalleActivite was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExigenceSalleActiviteUpdateInput, ExigenceSalleActiviteUncheckedUpdateInput>
+  }
+
+  /**
+   * ExigenceSalleActivite delete
+   */
+  export type ExigenceSalleActiviteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+    /**
+     * Filter which ExigenceSalleActivite to delete.
+     */
+    where: ExigenceSalleActiviteWhereUniqueInput
+  }
+
+  /**
+   * ExigenceSalleActivite deleteMany
+   */
+  export type ExigenceSalleActiviteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExigenceSalleActivites to delete
+     */
+    where?: ExigenceSalleActiviteWhereInput
+    /**
+     * Limit how many ExigenceSalleActivites to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExigenceSalleActivite.salleImposee
+   */
+  export type ExigenceSalleActivite$salleImposeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salle
+     */
+    select?: SalleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salle
+     */
+    omit?: SalleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SalleInclude<ExtArgs> | null
+    where?: SalleWhereInput
+  }
+
+  /**
+   * ExigenceSalleActivite.autorisees
+   */
+  export type ExigenceSalleActivite$autoriseesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    where?: ExigenceSalleAutoriseeWhereInput
+    orderBy?: ExigenceSalleAutoriseeOrderByWithRelationInput | ExigenceSalleAutoriseeOrderByWithRelationInput[]
+    cursor?: ExigenceSalleAutoriseeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExigenceSalleAutoriseeScalarFieldEnum | ExigenceSalleAutoriseeScalarFieldEnum[]
+  }
+
+  /**
+   * ExigenceSalleActivite without action
+   */
+  export type ExigenceSalleActiviteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleActivite
+     */
+    select?: ExigenceSalleActiviteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleActivite
+     */
+    omit?: ExigenceSalleActiviteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleActiviteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ExigenceSalleAutorisee
+   */
+
+  export type AggregateExigenceSalleAutorisee = {
+    _count: ExigenceSalleAutoriseeCountAggregateOutputType | null
+    _min: ExigenceSalleAutoriseeMinAggregateOutputType | null
+    _max: ExigenceSalleAutoriseeMaxAggregateOutputType | null
+  }
+
+  export type ExigenceSalleAutoriseeMinAggregateOutputType = {
+    exigenceId: string | null
+    salleId: string | null
+  }
+
+  export type ExigenceSalleAutoriseeMaxAggregateOutputType = {
+    exigenceId: string | null
+    salleId: string | null
+  }
+
+  export type ExigenceSalleAutoriseeCountAggregateOutputType = {
+    exigenceId: number
+    salleId: number
+    _all: number
+  }
+
+
+  export type ExigenceSalleAutoriseeMinAggregateInputType = {
+    exigenceId?: true
+    salleId?: true
+  }
+
+  export type ExigenceSalleAutoriseeMaxAggregateInputType = {
+    exigenceId?: true
+    salleId?: true
+  }
+
+  export type ExigenceSalleAutoriseeCountAggregateInputType = {
+    exigenceId?: true
+    salleId?: true
+    _all?: true
+  }
+
+  export type ExigenceSalleAutoriseeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExigenceSalleAutorisee to aggregate.
+     */
+    where?: ExigenceSalleAutoriseeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExigenceSalleAutorisees to fetch.
+     */
+    orderBy?: ExigenceSalleAutoriseeOrderByWithRelationInput | ExigenceSalleAutoriseeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExigenceSalleAutoriseeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExigenceSalleAutorisees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExigenceSalleAutorisees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ExigenceSalleAutorisees
+    **/
+    _count?: true | ExigenceSalleAutoriseeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExigenceSalleAutoriseeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExigenceSalleAutoriseeMaxAggregateInputType
+  }
+
+  export type GetExigenceSalleAutoriseeAggregateType<T extends ExigenceSalleAutoriseeAggregateArgs> = {
+        [P in keyof T & keyof AggregateExigenceSalleAutorisee]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExigenceSalleAutorisee[P]>
+      : GetScalarType<T[P], AggregateExigenceSalleAutorisee[P]>
+  }
+
+
+
+
+  export type ExigenceSalleAutoriseeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExigenceSalleAutoriseeWhereInput
+    orderBy?: ExigenceSalleAutoriseeOrderByWithAggregationInput | ExigenceSalleAutoriseeOrderByWithAggregationInput[]
+    by: ExigenceSalleAutoriseeScalarFieldEnum[] | ExigenceSalleAutoriseeScalarFieldEnum
+    having?: ExigenceSalleAutoriseeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExigenceSalleAutoriseeCountAggregateInputType | true
+    _min?: ExigenceSalleAutoriseeMinAggregateInputType
+    _max?: ExigenceSalleAutoriseeMaxAggregateInputType
+  }
+
+  export type ExigenceSalleAutoriseeGroupByOutputType = {
+    exigenceId: string
+    salleId: string
+    _count: ExigenceSalleAutoriseeCountAggregateOutputType | null
+    _min: ExigenceSalleAutoriseeMinAggregateOutputType | null
+    _max: ExigenceSalleAutoriseeMaxAggregateOutputType | null
+  }
+
+  type GetExigenceSalleAutoriseeGroupByPayload<T extends ExigenceSalleAutoriseeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExigenceSalleAutoriseeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExigenceSalleAutoriseeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExigenceSalleAutoriseeGroupByOutputType[P]>
+            : GetScalarType<T[P], ExigenceSalleAutoriseeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExigenceSalleAutoriseeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    exigenceId?: boolean
+    salleId?: boolean
+    exigence?: boolean | ExigenceSalleActiviteDefaultArgs<ExtArgs>
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["exigenceSalleAutorisee"]>
+
+  export type ExigenceSalleAutoriseeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    exigenceId?: boolean
+    salleId?: boolean
+    exigence?: boolean | ExigenceSalleActiviteDefaultArgs<ExtArgs>
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["exigenceSalleAutorisee"]>
+
+  export type ExigenceSalleAutoriseeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    exigenceId?: boolean
+    salleId?: boolean
+    exigence?: boolean | ExigenceSalleActiviteDefaultArgs<ExtArgs>
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["exigenceSalleAutorisee"]>
+
+  export type ExigenceSalleAutoriseeSelectScalar = {
+    exigenceId?: boolean
+    salleId?: boolean
+  }
+
+  export type ExigenceSalleAutoriseeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"exigenceId" | "salleId", ExtArgs["result"]["exigenceSalleAutorisee"]>
+  export type ExigenceSalleAutoriseeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    exigence?: boolean | ExigenceSalleActiviteDefaultArgs<ExtArgs>
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+  }
+  export type ExigenceSalleAutoriseeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    exigence?: boolean | ExigenceSalleActiviteDefaultArgs<ExtArgs>
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+  }
+  export type ExigenceSalleAutoriseeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    exigence?: boolean | ExigenceSalleActiviteDefaultArgs<ExtArgs>
+    salle?: boolean | SalleDefaultArgs<ExtArgs>
+  }
+
+  export type $ExigenceSalleAutoriseePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ExigenceSalleAutorisee"
+    objects: {
+      exigence: Prisma.$ExigenceSalleActivitePayload<ExtArgs>
+      salle: Prisma.$SallePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      exigenceId: string
+      salleId: string
+    }, ExtArgs["result"]["exigenceSalleAutorisee"]>
+    composites: {}
+  }
+
+  type ExigenceSalleAutoriseeGetPayload<S extends boolean | null | undefined | ExigenceSalleAutoriseeDefaultArgs> = $Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload, S>
+
+  type ExigenceSalleAutoriseeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExigenceSalleAutoriseeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExigenceSalleAutoriseeCountAggregateInputType | true
+    }
+
+  export interface ExigenceSalleAutoriseeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ExigenceSalleAutorisee'], meta: { name: 'ExigenceSalleAutorisee' } }
+    /**
+     * Find zero or one ExigenceSalleAutorisee that matches the filter.
+     * @param {ExigenceSalleAutoriseeFindUniqueArgs} args - Arguments to find a ExigenceSalleAutorisee
+     * @example
+     * // Get one ExigenceSalleAutorisee
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExigenceSalleAutoriseeFindUniqueArgs>(args: SelectSubset<T, ExigenceSalleAutoriseeFindUniqueArgs<ExtArgs>>): Prisma__ExigenceSalleAutoriseeClient<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ExigenceSalleAutorisee that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExigenceSalleAutoriseeFindUniqueOrThrowArgs} args - Arguments to find a ExigenceSalleAutorisee
+     * @example
+     * // Get one ExigenceSalleAutorisee
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExigenceSalleAutoriseeFindUniqueOrThrowArgs>(args: SelectSubset<T, ExigenceSalleAutoriseeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExigenceSalleAutoriseeClient<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExigenceSalleAutorisee that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleAutoriseeFindFirstArgs} args - Arguments to find a ExigenceSalleAutorisee
+     * @example
+     * // Get one ExigenceSalleAutorisee
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExigenceSalleAutoriseeFindFirstArgs>(args?: SelectSubset<T, ExigenceSalleAutoriseeFindFirstArgs<ExtArgs>>): Prisma__ExigenceSalleAutoriseeClient<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExigenceSalleAutorisee that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleAutoriseeFindFirstOrThrowArgs} args - Arguments to find a ExigenceSalleAutorisee
+     * @example
+     * // Get one ExigenceSalleAutorisee
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExigenceSalleAutoriseeFindFirstOrThrowArgs>(args?: SelectSubset<T, ExigenceSalleAutoriseeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExigenceSalleAutoriseeClient<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ExigenceSalleAutorisees that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleAutoriseeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ExigenceSalleAutorisees
+     * const exigenceSalleAutorisees = await prisma.exigenceSalleAutorisee.findMany()
+     * 
+     * // Get first 10 ExigenceSalleAutorisees
+     * const exigenceSalleAutorisees = await prisma.exigenceSalleAutorisee.findMany({ take: 10 })
+     * 
+     * // Only select the `exigenceId`
+     * const exigenceSalleAutoriseeWithExigenceIdOnly = await prisma.exigenceSalleAutorisee.findMany({ select: { exigenceId: true } })
+     * 
+     */
+    findMany<T extends ExigenceSalleAutoriseeFindManyArgs>(args?: SelectSubset<T, ExigenceSalleAutoriseeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ExigenceSalleAutorisee.
+     * @param {ExigenceSalleAutoriseeCreateArgs} args - Arguments to create a ExigenceSalleAutorisee.
+     * @example
+     * // Create one ExigenceSalleAutorisee
+     * const ExigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.create({
+     *   data: {
+     *     // ... data to create a ExigenceSalleAutorisee
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExigenceSalleAutoriseeCreateArgs>(args: SelectSubset<T, ExigenceSalleAutoriseeCreateArgs<ExtArgs>>): Prisma__ExigenceSalleAutoriseeClient<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ExigenceSalleAutorisees.
+     * @param {ExigenceSalleAutoriseeCreateManyArgs} args - Arguments to create many ExigenceSalleAutorisees.
+     * @example
+     * // Create many ExigenceSalleAutorisees
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExigenceSalleAutoriseeCreateManyArgs>(args?: SelectSubset<T, ExigenceSalleAutoriseeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ExigenceSalleAutorisees and returns the data saved in the database.
+     * @param {ExigenceSalleAutoriseeCreateManyAndReturnArgs} args - Arguments to create many ExigenceSalleAutorisees.
+     * @example
+     * // Create many ExigenceSalleAutorisees
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ExigenceSalleAutorisees and only return the `exigenceId`
+     * const exigenceSalleAutoriseeWithExigenceIdOnly = await prisma.exigenceSalleAutorisee.createManyAndReturn({
+     *   select: { exigenceId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExigenceSalleAutoriseeCreateManyAndReturnArgs>(args?: SelectSubset<T, ExigenceSalleAutoriseeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ExigenceSalleAutorisee.
+     * @param {ExigenceSalleAutoriseeDeleteArgs} args - Arguments to delete one ExigenceSalleAutorisee.
+     * @example
+     * // Delete one ExigenceSalleAutorisee
+     * const ExigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.delete({
+     *   where: {
+     *     // ... filter to delete one ExigenceSalleAutorisee
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExigenceSalleAutoriseeDeleteArgs>(args: SelectSubset<T, ExigenceSalleAutoriseeDeleteArgs<ExtArgs>>): Prisma__ExigenceSalleAutoriseeClient<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ExigenceSalleAutorisee.
+     * @param {ExigenceSalleAutoriseeUpdateArgs} args - Arguments to update one ExigenceSalleAutorisee.
+     * @example
+     * // Update one ExigenceSalleAutorisee
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExigenceSalleAutoriseeUpdateArgs>(args: SelectSubset<T, ExigenceSalleAutoriseeUpdateArgs<ExtArgs>>): Prisma__ExigenceSalleAutoriseeClient<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ExigenceSalleAutorisees.
+     * @param {ExigenceSalleAutoriseeDeleteManyArgs} args - Arguments to filter ExigenceSalleAutorisees to delete.
+     * @example
+     * // Delete a few ExigenceSalleAutorisees
+     * const { count } = await prisma.exigenceSalleAutorisee.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExigenceSalleAutoriseeDeleteManyArgs>(args?: SelectSubset<T, ExigenceSalleAutoriseeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExigenceSalleAutorisees.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleAutoriseeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ExigenceSalleAutorisees
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExigenceSalleAutoriseeUpdateManyArgs>(args: SelectSubset<T, ExigenceSalleAutoriseeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExigenceSalleAutorisees and returns the data updated in the database.
+     * @param {ExigenceSalleAutoriseeUpdateManyAndReturnArgs} args - Arguments to update many ExigenceSalleAutorisees.
+     * @example
+     * // Update many ExigenceSalleAutorisees
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ExigenceSalleAutorisees and only return the `exigenceId`
+     * const exigenceSalleAutoriseeWithExigenceIdOnly = await prisma.exigenceSalleAutorisee.updateManyAndReturn({
+     *   select: { exigenceId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExigenceSalleAutoriseeUpdateManyAndReturnArgs>(args: SelectSubset<T, ExigenceSalleAutoriseeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ExigenceSalleAutorisee.
+     * @param {ExigenceSalleAutoriseeUpsertArgs} args - Arguments to update or create a ExigenceSalleAutorisee.
+     * @example
+     * // Update or create a ExigenceSalleAutorisee
+     * const exigenceSalleAutorisee = await prisma.exigenceSalleAutorisee.upsert({
+     *   create: {
+     *     // ... data to create a ExigenceSalleAutorisee
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ExigenceSalleAutorisee we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExigenceSalleAutoriseeUpsertArgs>(args: SelectSubset<T, ExigenceSalleAutoriseeUpsertArgs<ExtArgs>>): Prisma__ExigenceSalleAutoriseeClient<$Result.GetResult<Prisma.$ExigenceSalleAutoriseePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ExigenceSalleAutorisees.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleAutoriseeCountArgs} args - Arguments to filter ExigenceSalleAutorisees to count.
+     * @example
+     * // Count the number of ExigenceSalleAutorisees
+     * const count = await prisma.exigenceSalleAutorisee.count({
+     *   where: {
+     *     // ... the filter for the ExigenceSalleAutorisees we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExigenceSalleAutoriseeCountArgs>(
+      args?: Subset<T, ExigenceSalleAutoriseeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExigenceSalleAutoriseeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ExigenceSalleAutorisee.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleAutoriseeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExigenceSalleAutoriseeAggregateArgs>(args: Subset<T, ExigenceSalleAutoriseeAggregateArgs>): Prisma.PrismaPromise<GetExigenceSalleAutoriseeAggregateType<T>>
+
+    /**
+     * Group by ExigenceSalleAutorisee.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExigenceSalleAutoriseeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExigenceSalleAutoriseeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExigenceSalleAutoriseeGroupByArgs['orderBy'] }
+        : { orderBy?: ExigenceSalleAutoriseeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExigenceSalleAutoriseeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExigenceSalleAutoriseeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ExigenceSalleAutorisee model
+   */
+  readonly fields: ExigenceSalleAutoriseeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ExigenceSalleAutorisee.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExigenceSalleAutoriseeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    exigence<T extends ExigenceSalleActiviteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ExigenceSalleActiviteDefaultArgs<ExtArgs>>): Prisma__ExigenceSalleActiviteClient<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    salle<T extends SalleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SalleDefaultArgs<ExtArgs>>): Prisma__SalleClient<$Result.GetResult<Prisma.$SallePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ExigenceSalleAutorisee model
+   */
+  interface ExigenceSalleAutoriseeFieldRefs {
+    readonly exigenceId: FieldRef<"ExigenceSalleAutorisee", 'String'>
+    readonly salleId: FieldRef<"ExigenceSalleAutorisee", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ExigenceSalleAutorisee findUnique
+   */
+  export type ExigenceSalleAutoriseeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleAutorisee to fetch.
+     */
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+  }
+
+  /**
+   * ExigenceSalleAutorisee findUniqueOrThrow
+   */
+  export type ExigenceSalleAutoriseeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleAutorisee to fetch.
+     */
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+  }
+
+  /**
+   * ExigenceSalleAutorisee findFirst
+   */
+  export type ExigenceSalleAutoriseeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleAutorisee to fetch.
+     */
+    where?: ExigenceSalleAutoriseeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExigenceSalleAutorisees to fetch.
+     */
+    orderBy?: ExigenceSalleAutoriseeOrderByWithRelationInput | ExigenceSalleAutoriseeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExigenceSalleAutorisees.
+     */
+    cursor?: ExigenceSalleAutoriseeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExigenceSalleAutorisees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExigenceSalleAutorisees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExigenceSalleAutorisees.
+     */
+    distinct?: ExigenceSalleAutoriseeScalarFieldEnum | ExigenceSalleAutoriseeScalarFieldEnum[]
+  }
+
+  /**
+   * ExigenceSalleAutorisee findFirstOrThrow
+   */
+  export type ExigenceSalleAutoriseeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleAutorisee to fetch.
+     */
+    where?: ExigenceSalleAutoriseeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExigenceSalleAutorisees to fetch.
+     */
+    orderBy?: ExigenceSalleAutoriseeOrderByWithRelationInput | ExigenceSalleAutoriseeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExigenceSalleAutorisees.
+     */
+    cursor?: ExigenceSalleAutoriseeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExigenceSalleAutorisees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExigenceSalleAutorisees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExigenceSalleAutorisees.
+     */
+    distinct?: ExigenceSalleAutoriseeScalarFieldEnum | ExigenceSalleAutoriseeScalarFieldEnum[]
+  }
+
+  /**
+   * ExigenceSalleAutorisee findMany
+   */
+  export type ExigenceSalleAutoriseeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * Filter, which ExigenceSalleAutorisees to fetch.
+     */
+    where?: ExigenceSalleAutoriseeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExigenceSalleAutorisees to fetch.
+     */
+    orderBy?: ExigenceSalleAutoriseeOrderByWithRelationInput | ExigenceSalleAutoriseeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ExigenceSalleAutorisees.
+     */
+    cursor?: ExigenceSalleAutoriseeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExigenceSalleAutorisees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExigenceSalleAutorisees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExigenceSalleAutorisees.
+     */
+    distinct?: ExigenceSalleAutoriseeScalarFieldEnum | ExigenceSalleAutoriseeScalarFieldEnum[]
+  }
+
+  /**
+   * ExigenceSalleAutorisee create
+   */
+  export type ExigenceSalleAutoriseeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ExigenceSalleAutorisee.
+     */
+    data: XOR<ExigenceSalleAutoriseeCreateInput, ExigenceSalleAutoriseeUncheckedCreateInput>
+  }
+
+  /**
+   * ExigenceSalleAutorisee createMany
+   */
+  export type ExigenceSalleAutoriseeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ExigenceSalleAutorisees.
+     */
+    data: ExigenceSalleAutoriseeCreateManyInput | ExigenceSalleAutoriseeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ExigenceSalleAutorisee createManyAndReturn
+   */
+  export type ExigenceSalleAutoriseeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * The data used to create many ExigenceSalleAutorisees.
+     */
+    data: ExigenceSalleAutoriseeCreateManyInput | ExigenceSalleAutoriseeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExigenceSalleAutorisee update
+   */
+  export type ExigenceSalleAutoriseeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ExigenceSalleAutorisee.
+     */
+    data: XOR<ExigenceSalleAutoriseeUpdateInput, ExigenceSalleAutoriseeUncheckedUpdateInput>
+    /**
+     * Choose, which ExigenceSalleAutorisee to update.
+     */
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+  }
+
+  /**
+   * ExigenceSalleAutorisee updateMany
+   */
+  export type ExigenceSalleAutoriseeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ExigenceSalleAutorisees.
+     */
+    data: XOR<ExigenceSalleAutoriseeUpdateManyMutationInput, ExigenceSalleAutoriseeUncheckedUpdateManyInput>
+    /**
+     * Filter which ExigenceSalleAutorisees to update
+     */
+    where?: ExigenceSalleAutoriseeWhereInput
+    /**
+     * Limit how many ExigenceSalleAutorisees to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExigenceSalleAutorisee updateManyAndReturn
+   */
+  export type ExigenceSalleAutoriseeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * The data used to update ExigenceSalleAutorisees.
+     */
+    data: XOR<ExigenceSalleAutoriseeUpdateManyMutationInput, ExigenceSalleAutoriseeUncheckedUpdateManyInput>
+    /**
+     * Filter which ExigenceSalleAutorisees to update
+     */
+    where?: ExigenceSalleAutoriseeWhereInput
+    /**
+     * Limit how many ExigenceSalleAutorisees to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExigenceSalleAutorisee upsert
+   */
+  export type ExigenceSalleAutoriseeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ExigenceSalleAutorisee to update in case it exists.
+     */
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+    /**
+     * In case the ExigenceSalleAutorisee found by the `where` argument doesn't exist, create a new ExigenceSalleAutorisee with this data.
+     */
+    create: XOR<ExigenceSalleAutoriseeCreateInput, ExigenceSalleAutoriseeUncheckedCreateInput>
+    /**
+     * In case the ExigenceSalleAutorisee was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExigenceSalleAutoriseeUpdateInput, ExigenceSalleAutoriseeUncheckedUpdateInput>
+  }
+
+  /**
+   * ExigenceSalleAutorisee delete
+   */
+  export type ExigenceSalleAutoriseeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+    /**
+     * Filter which ExigenceSalleAutorisee to delete.
+     */
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+  }
+
+  /**
+   * ExigenceSalleAutorisee deleteMany
+   */
+  export type ExigenceSalleAutoriseeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExigenceSalleAutorisees to delete
+     */
+    where?: ExigenceSalleAutoriseeWhereInput
+    /**
+     * Limit how many ExigenceSalleAutorisees to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExigenceSalleAutorisee without action
+   */
+  export type ExigenceSalleAutoriseeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExigenceSalleAutorisee
+     */
+    select?: ExigenceSalleAutoriseeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExigenceSalleAutorisee
+     */
+    omit?: ExigenceSalleAutoriseeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExigenceSalleAutoriseeInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -83878,6 +86380,27 @@ export namespace Prisma {
   };
 
   export type GroupeCovoiturageScalarFieldEnum = (typeof GroupeCovoiturageScalarFieldEnum)[keyof typeof GroupeCovoiturageScalarFieldEnum]
+
+
+  export const ExigenceSalleActiviteScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    affectationKey: 'affectationKey',
+    salleImposeeId: 'salleImposeeId',
+    creePar: 'creePar',
+    creeLe: 'creeLe',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ExigenceSalleActiviteScalarFieldEnum = (typeof ExigenceSalleActiviteScalarFieldEnum)[keyof typeof ExigenceSalleActiviteScalarFieldEnum]
+
+
+  export const ExigenceSalleAutoriseeScalarFieldEnum: {
+    exigenceId: 'exigenceId',
+    salleId: 'salleId'
+  };
+
+  export type ExigenceSalleAutoriseeScalarFieldEnum = (typeof ExigenceSalleAutoriseeScalarFieldEnum)[keyof typeof ExigenceSalleAutoriseeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -86028,6 +88551,7 @@ export namespace Prisma {
     seances?: SeanceListRelationFilter
     versions?: VersionEdtListRelationFilter
     groupesCovoiturage?: GroupeCovoiturageListRelationFilter
+    exigencesSalle?: ExigenceSalleActiviteListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -86049,6 +88573,7 @@ export namespace Prisma {
     seances?: SeanceOrderByRelationAggregateInput
     versions?: VersionEdtOrderByRelationAggregateInput
     groupesCovoiturage?: GroupeCovoiturageOrderByRelationAggregateInput
+    exigencesSalle?: ExigenceSalleActiviteOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -86074,6 +88599,7 @@ export namespace Prisma {
     seances?: SeanceListRelationFilter
     versions?: VersionEdtListRelationFilter
     groupesCovoiturage?: GroupeCovoiturageListRelationFilter
+    exigencesSalle?: ExigenceSalleActiviteListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -88072,6 +90598,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
     seances?: SeanceListRelationFilter
+    exigencesSalleImposee?: ExigenceSalleActiviteListRelationFilter
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeListRelationFilter
   }
 
   export type SalleOrderByWithRelationInput = {
@@ -88096,6 +90624,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagOrderByRelationAggregateInput
     indisponibilites?: IndisponibiliteOrderByRelationAggregateInput
     seances?: SeanceOrderByRelationAggregateInput
+    exigencesSalleImposee?: ExigenceSalleActiviteOrderByRelationAggregateInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeOrderByRelationAggregateInput
   }
 
   export type SalleWhereUniqueInput = Prisma.AtLeast<{
@@ -88123,6 +90653,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagListRelationFilter
     indisponibilites?: IndisponibiliteListRelationFilter
     seances?: SeanceListRelationFilter
+    exigencesSalleImposee?: ExigenceSalleActiviteListRelationFilter
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeListRelationFilter
   }, "id">
 
   export type SalleOrderByWithAggregationInput = {
@@ -89438,6 +91970,122 @@ export namespace Prisma {
     strict?: BoolWithAggregatesFilter<"GroupeCovoiturage"> | boolean
     enseignantIds?: StringNullableListFilter<"GroupeCovoiturage">
     createdAt?: DateTimeWithAggregatesFilter<"GroupeCovoiturage"> | Date | string
+  }
+
+  export type ExigenceSalleActiviteWhereInput = {
+    AND?: ExigenceSalleActiviteWhereInput | ExigenceSalleActiviteWhereInput[]
+    OR?: ExigenceSalleActiviteWhereInput[]
+    NOT?: ExigenceSalleActiviteWhereInput | ExigenceSalleActiviteWhereInput[]
+    id?: UuidFilter<"ExigenceSalleActivite"> | string
+    semestreId?: UuidFilter<"ExigenceSalleActivite"> | string
+    affectationKey?: StringFilter<"ExigenceSalleActivite"> | string
+    salleImposeeId?: UuidNullableFilter<"ExigenceSalleActivite"> | string | null
+    creePar?: UuidFilter<"ExigenceSalleActivite"> | string
+    creeLe?: DateTimeFilter<"ExigenceSalleActivite"> | Date | string
+    updatedAt?: DateTimeFilter<"ExigenceSalleActivite"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    salleImposee?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
+    autorisees?: ExigenceSalleAutoriseeListRelationFilter
+  }
+
+  export type ExigenceSalleActiviteOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    affectationKey?: SortOrder
+    salleImposeeId?: SortOrderInput | SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    salleImposee?: SalleOrderByWithRelationInput
+    autorisees?: ExigenceSalleAutoriseeOrderByRelationAggregateInput
+  }
+
+  export type ExigenceSalleActiviteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    semestreId_affectationKey?: ExigenceSalleActiviteSemestreIdAffectationKeyCompoundUniqueInput
+    AND?: ExigenceSalleActiviteWhereInput | ExigenceSalleActiviteWhereInput[]
+    OR?: ExigenceSalleActiviteWhereInput[]
+    NOT?: ExigenceSalleActiviteWhereInput | ExigenceSalleActiviteWhereInput[]
+    semestreId?: UuidFilter<"ExigenceSalleActivite"> | string
+    affectationKey?: StringFilter<"ExigenceSalleActivite"> | string
+    salleImposeeId?: UuidNullableFilter<"ExigenceSalleActivite"> | string | null
+    creePar?: UuidFilter<"ExigenceSalleActivite"> | string
+    creeLe?: DateTimeFilter<"ExigenceSalleActivite"> | Date | string
+    updatedAt?: DateTimeFilter<"ExigenceSalleActivite"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    salleImposee?: XOR<SalleNullableScalarRelationFilter, SalleWhereInput> | null
+    autorisees?: ExigenceSalleAutoriseeListRelationFilter
+  }, "id" | "semestreId_affectationKey">
+
+  export type ExigenceSalleActiviteOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    affectationKey?: SortOrder
+    salleImposeeId?: SortOrderInput | SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ExigenceSalleActiviteCountOrderByAggregateInput
+    _max?: ExigenceSalleActiviteMaxOrderByAggregateInput
+    _min?: ExigenceSalleActiviteMinOrderByAggregateInput
+  }
+
+  export type ExigenceSalleActiviteScalarWhereWithAggregatesInput = {
+    AND?: ExigenceSalleActiviteScalarWhereWithAggregatesInput | ExigenceSalleActiviteScalarWhereWithAggregatesInput[]
+    OR?: ExigenceSalleActiviteScalarWhereWithAggregatesInput[]
+    NOT?: ExigenceSalleActiviteScalarWhereWithAggregatesInput | ExigenceSalleActiviteScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ExigenceSalleActivite"> | string
+    semestreId?: UuidWithAggregatesFilter<"ExigenceSalleActivite"> | string
+    affectationKey?: StringWithAggregatesFilter<"ExigenceSalleActivite"> | string
+    salleImposeeId?: UuidNullableWithAggregatesFilter<"ExigenceSalleActivite"> | string | null
+    creePar?: UuidWithAggregatesFilter<"ExigenceSalleActivite"> | string
+    creeLe?: DateTimeWithAggregatesFilter<"ExigenceSalleActivite"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ExigenceSalleActivite"> | Date | string
+  }
+
+  export type ExigenceSalleAutoriseeWhereInput = {
+    AND?: ExigenceSalleAutoriseeWhereInput | ExigenceSalleAutoriseeWhereInput[]
+    OR?: ExigenceSalleAutoriseeWhereInput[]
+    NOT?: ExigenceSalleAutoriseeWhereInput | ExigenceSalleAutoriseeWhereInput[]
+    exigenceId?: UuidFilter<"ExigenceSalleAutorisee"> | string
+    salleId?: UuidFilter<"ExigenceSalleAutorisee"> | string
+    exigence?: XOR<ExigenceSalleActiviteScalarRelationFilter, ExigenceSalleActiviteWhereInput>
+    salle?: XOR<SalleScalarRelationFilter, SalleWhereInput>
+  }
+
+  export type ExigenceSalleAutoriseeOrderByWithRelationInput = {
+    exigenceId?: SortOrder
+    salleId?: SortOrder
+    exigence?: ExigenceSalleActiviteOrderByWithRelationInput
+    salle?: SalleOrderByWithRelationInput
+  }
+
+  export type ExigenceSalleAutoriseeWhereUniqueInput = Prisma.AtLeast<{
+    exigenceId_salleId?: ExigenceSalleAutoriseeExigenceIdSalleIdCompoundUniqueInput
+    AND?: ExigenceSalleAutoriseeWhereInput | ExigenceSalleAutoriseeWhereInput[]
+    OR?: ExigenceSalleAutoriseeWhereInput[]
+    NOT?: ExigenceSalleAutoriseeWhereInput | ExigenceSalleAutoriseeWhereInput[]
+    exigenceId?: UuidFilter<"ExigenceSalleAutorisee"> | string
+    salleId?: UuidFilter<"ExigenceSalleAutorisee"> | string
+    exigence?: XOR<ExigenceSalleActiviteScalarRelationFilter, ExigenceSalleActiviteWhereInput>
+    salle?: XOR<SalleScalarRelationFilter, SalleWhereInput>
+  }, "exigenceId_salleId">
+
+  export type ExigenceSalleAutoriseeOrderByWithAggregationInput = {
+    exigenceId?: SortOrder
+    salleId?: SortOrder
+    _count?: ExigenceSalleAutoriseeCountOrderByAggregateInput
+    _max?: ExigenceSalleAutoriseeMaxOrderByAggregateInput
+    _min?: ExigenceSalleAutoriseeMinOrderByAggregateInput
+  }
+
+  export type ExigenceSalleAutoriseeScalarWhereWithAggregatesInput = {
+    AND?: ExigenceSalleAutoriseeScalarWhereWithAggregatesInput | ExigenceSalleAutoriseeScalarWhereWithAggregatesInput[]
+    OR?: ExigenceSalleAutoriseeScalarWhereWithAggregatesInput[]
+    NOT?: ExigenceSalleAutoriseeScalarWhereWithAggregatesInput | ExigenceSalleAutoriseeScalarWhereWithAggregatesInput[]
+    exigenceId?: UuidWithAggregatesFilter<"ExigenceSalleAutorisee"> | string
+    salleId?: UuidWithAggregatesFilter<"ExigenceSalleAutorisee"> | string
   }
 
   export type UserCreateInput = {
@@ -91099,6 +93747,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -91119,6 +93768,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -91139,6 +93789,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -91159,6 +93810,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -93221,6 +95873,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
     seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateInput = {
@@ -93242,6 +95896,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUpdateInput = {
@@ -93263,6 +95919,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
     seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateInput = {
@@ -93284,6 +95942,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleCreateManyInput = {
@@ -94687,6 +97347,112 @@ export namespace Prisma {
     strict?: BoolFieldUpdateOperationsInput | boolean
     enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExigenceSalleActiviteCreateInput = {
+    id?: string
+    affectationKey: string
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutExigencesSalleInput
+    salleImposee?: SalleCreateNestedOneWithoutExigencesSalleImposeeInput
+    autorisees?: ExigenceSalleAutoriseeCreateNestedManyWithoutExigenceInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    affectationKey: string
+    salleImposeeId?: string | null
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+    autorisees?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutExigenceInput
+  }
+
+  export type ExigenceSalleActiviteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutExigencesSalleNestedInput
+    salleImposee?: SalleUpdateOneWithoutExigencesSalleImposeeNestedInput
+    autorisees?: ExigenceSalleAutoriseeUpdateManyWithoutExigenceNestedInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    salleImposeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    autorisees?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutExigenceNestedInput
+  }
+
+  export type ExigenceSalleActiviteCreateManyInput = {
+    id?: string
+    semestreId: string
+    affectationKey: string
+    salleImposeeId?: string | null
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExigenceSalleActiviteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    salleImposeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExigenceSalleAutoriseeCreateInput = {
+    exigence: ExigenceSalleActiviteCreateNestedOneWithoutAutoriseesInput
+    salle: SalleCreateNestedOneWithoutExigencesSalleAutoriseeInput
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedCreateInput = {
+    exigenceId: string
+    salleId: string
+  }
+
+  export type ExigenceSalleAutoriseeUpdateInput = {
+    exigence?: ExigenceSalleActiviteUpdateOneRequiredWithoutAutoriseesNestedInput
+    salle?: SalleUpdateOneRequiredWithoutExigencesSalleAutoriseeNestedInput
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedUpdateInput = {
+    exigenceId?: StringFieldUpdateOperationsInput | string
+    salleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ExigenceSalleAutoriseeCreateManyInput = {
+    exigenceId: string
+    salleId: string
+  }
+
+  export type ExigenceSalleAutoriseeUpdateManyMutationInput = {
+
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedUpdateManyInput = {
+    exigenceId?: StringFieldUpdateOperationsInput | string
+    salleId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -96250,6 +99016,12 @@ export namespace Prisma {
     none?: GroupeCovoiturageWhereInput
   }
 
+  export type ExigenceSalleActiviteListRelationFilter = {
+    every?: ExigenceSalleActiviteWhereInput
+    some?: ExigenceSalleActiviteWhereInput
+    none?: ExigenceSalleActiviteWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -96283,6 +99055,10 @@ export namespace Prisma {
   }
 
   export type GroupeCovoiturageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ExigenceSalleActiviteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -97913,7 +100689,17 @@ export namespace Prisma {
     none?: SalleEquipementWhereInput
   }
 
+  export type ExigenceSalleAutoriseeListRelationFilter = {
+    every?: ExigenceSalleAutoriseeWhereInput
+    some?: ExigenceSalleAutoriseeWhereInput
+    none?: ExigenceSalleAutoriseeWhereInput
+  }
+
   export type SalleEquipementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ExigenceSalleAutoriseeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -98909,6 +101695,66 @@ export namespace Prisma {
   export type GroupeCovoiturageSumOrderByAggregateInput = {
     margeMinutes?: SortOrder
     joursCommunsMin?: SortOrder
+  }
+
+  export type ExigenceSalleActiviteSemestreIdAffectationKeyCompoundUniqueInput = {
+    semestreId: string
+    affectationKey: string
+  }
+
+  export type ExigenceSalleActiviteCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    affectationKey?: SortOrder
+    salleImposeeId?: SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExigenceSalleActiviteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    affectationKey?: SortOrder
+    salleImposeeId?: SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExigenceSalleActiviteMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    affectationKey?: SortOrder
+    salleImposeeId?: SortOrder
+    creePar?: SortOrder
+    creeLe?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExigenceSalleActiviteScalarRelationFilter = {
+    is?: ExigenceSalleActiviteWhereInput
+    isNot?: ExigenceSalleActiviteWhereInput
+  }
+
+  export type ExigenceSalleAutoriseeExigenceIdSalleIdCompoundUniqueInput = {
+    exigenceId: string
+    salleId: string
+  }
+
+  export type ExigenceSalleAutoriseeCountOrderByAggregateInput = {
+    exigenceId?: SortOrder
+    salleId?: SortOrder
+  }
+
+  export type ExigenceSalleAutoriseeMaxOrderByAggregateInput = {
+    exigenceId?: SortOrder
+    salleId?: SortOrder
+  }
+
+  export type ExigenceSalleAutoriseeMinOrderByAggregateInput = {
+    exigenceId?: SortOrder
+    salleId?: SortOrder
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -100528,6 +103374,13 @@ export namespace Prisma {
     connect?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
   }
 
+  export type ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutSemestreInput, ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput> | ExigenceSalleActiviteCreateWithoutSemestreInput[] | ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput | ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput[]
+    createMany?: ExigenceSalleActiviteCreateManySemestreInputEnvelope
+    connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -100596,6 +103449,13 @@ export namespace Prisma {
     connectOrCreate?: GroupeCovoiturageCreateOrConnectWithoutSemestreInput | GroupeCovoiturageCreateOrConnectWithoutSemestreInput[]
     createMany?: GroupeCovoiturageCreateManySemestreInputEnvelope
     connect?: GroupeCovoiturageWhereUniqueInput | GroupeCovoiturageWhereUniqueInput[]
+  }
+
+  export type ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutSemestreInput, ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput> | ExigenceSalleActiviteCreateWithoutSemestreInput[] | ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput | ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput[]
+    createMany?: ExigenceSalleActiviteCreateManySemestreInputEnvelope
+    connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -100746,6 +103606,20 @@ export namespace Prisma {
     deleteMany?: GroupeCovoiturageScalarWhereInput | GroupeCovoiturageScalarWhereInput[]
   }
 
+  export type ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutSemestreInput, ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput> | ExigenceSalleActiviteCreateWithoutSemestreInput[] | ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput | ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput[]
+    upsert?: ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSemestreInput | ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: ExigenceSalleActiviteCreateManySemestreInputEnvelope
+    set?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    disconnect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    delete?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    update?: ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSemestreInput | ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: ExigenceSalleActiviteUpdateManyWithWhereWithoutSemestreInput | ExigenceSalleActiviteUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: ExigenceSalleActiviteScalarWhereInput | ExigenceSalleActiviteScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -100884,6 +103758,20 @@ export namespace Prisma {
     update?: GroupeCovoiturageUpdateWithWhereUniqueWithoutSemestreInput | GroupeCovoiturageUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: GroupeCovoiturageUpdateManyWithWhereWithoutSemestreInput | GroupeCovoiturageUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: GroupeCovoiturageScalarWhereInput | GroupeCovoiturageScalarWhereInput[]
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutSemestreInput, ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput> | ExigenceSalleActiviteCreateWithoutSemestreInput[] | ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput | ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput[]
+    upsert?: ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSemestreInput | ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: ExigenceSalleActiviteCreateManySemestreInputEnvelope
+    set?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    disconnect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    delete?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    update?: ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSemestreInput | ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: ExigenceSalleActiviteUpdateManyWithWhereWithoutSemestreInput | ExigenceSalleActiviteUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: ExigenceSalleActiviteScalarWhereInput | ExigenceSalleActiviteScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -103456,6 +106344,20 @@ export namespace Prisma {
     connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
   }
 
+  export type ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutSalleImposeeInput, ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput> | ExigenceSalleActiviteCreateWithoutSalleImposeeInput[] | ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput[]
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput | ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput[]
+    createMany?: ExigenceSalleActiviteCreateManySalleImposeeInputEnvelope
+    connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+  }
+
+  export type ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput = {
+    create?: XOR<ExigenceSalleAutoriseeCreateWithoutSalleInput, ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput> | ExigenceSalleAutoriseeCreateWithoutSalleInput[] | ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput | ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput[]
+    createMany?: ExigenceSalleAutoriseeCreateManySalleInputEnvelope
+    connect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+  }
+
   export type SalleEquipementUncheckedCreateNestedManyWithoutSalleInput = {
     create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
     connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
@@ -103482,6 +106384,20 @@ export namespace Prisma {
     connectOrCreate?: SeanceCreateOrConnectWithoutSalleInput | SeanceCreateOrConnectWithoutSalleInput[]
     createMany?: SeanceCreateManySalleInputEnvelope
     connect?: SeanceWhereUniqueInput | SeanceWhereUniqueInput[]
+  }
+
+  export type ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutSalleImposeeInput, ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput> | ExigenceSalleActiviteCreateWithoutSalleImposeeInput[] | ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput[]
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput | ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput[]
+    createMany?: ExigenceSalleActiviteCreateManySalleImposeeInputEnvelope
+    connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput = {
+    create?: XOR<ExigenceSalleAutoriseeCreateWithoutSalleInput, ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput> | ExigenceSalleAutoriseeCreateWithoutSalleInput[] | ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput | ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput[]
+    createMany?: ExigenceSalleAutoriseeCreateManySalleInputEnvelope
+    connect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
   }
 
   export type DepartementUpdateOneWithoutSallesNestedInput = {
@@ -103570,6 +106486,34 @@ export namespace Prisma {
     deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
   }
 
+  export type ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutSalleImposeeInput, ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput> | ExigenceSalleActiviteCreateWithoutSalleImposeeInput[] | ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput[]
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput | ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput[]
+    upsert?: ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSalleImposeeInput | ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSalleImposeeInput[]
+    createMany?: ExigenceSalleActiviteCreateManySalleImposeeInputEnvelope
+    set?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    disconnect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    delete?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    update?: ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSalleImposeeInput | ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSalleImposeeInput[]
+    updateMany?: ExigenceSalleActiviteUpdateManyWithWhereWithoutSalleImposeeInput | ExigenceSalleActiviteUpdateManyWithWhereWithoutSalleImposeeInput[]
+    deleteMany?: ExigenceSalleActiviteScalarWhereInput | ExigenceSalleActiviteScalarWhereInput[]
+  }
+
+  export type ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput = {
+    create?: XOR<ExigenceSalleAutoriseeCreateWithoutSalleInput, ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput> | ExigenceSalleAutoriseeCreateWithoutSalleInput[] | ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput | ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput[]
+    upsert?: ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutSalleInput | ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutSalleInput[]
+    createMany?: ExigenceSalleAutoriseeCreateManySalleInputEnvelope
+    set?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    disconnect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    delete?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    connect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    update?: ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutSalleInput | ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutSalleInput[]
+    updateMany?: ExigenceSalleAutoriseeUpdateManyWithWhereWithoutSalleInput | ExigenceSalleAutoriseeUpdateManyWithWhereWithoutSalleInput[]
+    deleteMany?: ExigenceSalleAutoriseeScalarWhereInput | ExigenceSalleAutoriseeScalarWhereInput[]
+  }
+
   export type SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput = {
     create?: XOR<SalleEquipementCreateWithoutSalleInput, SalleEquipementUncheckedCreateWithoutSalleInput> | SalleEquipementCreateWithoutSalleInput[] | SalleEquipementUncheckedCreateWithoutSalleInput[]
     connectOrCreate?: SalleEquipementCreateOrConnectWithoutSalleInput | SalleEquipementCreateOrConnectWithoutSalleInput[]
@@ -103624,6 +106568,34 @@ export namespace Prisma {
     update?: SeanceUpdateWithWhereUniqueWithoutSalleInput | SeanceUpdateWithWhereUniqueWithoutSalleInput[]
     updateMany?: SeanceUpdateManyWithWhereWithoutSalleInput | SeanceUpdateManyWithWhereWithoutSalleInput[]
     deleteMany?: SeanceScalarWhereInput | SeanceScalarWhereInput[]
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutSalleImposeeInput, ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput> | ExigenceSalleActiviteCreateWithoutSalleImposeeInput[] | ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput[]
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput | ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput[]
+    upsert?: ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSalleImposeeInput | ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSalleImposeeInput[]
+    createMany?: ExigenceSalleActiviteCreateManySalleImposeeInputEnvelope
+    set?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    disconnect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    delete?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+    update?: ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSalleImposeeInput | ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSalleImposeeInput[]
+    updateMany?: ExigenceSalleActiviteUpdateManyWithWhereWithoutSalleImposeeInput | ExigenceSalleActiviteUpdateManyWithWhereWithoutSalleImposeeInput[]
+    deleteMany?: ExigenceSalleActiviteScalarWhereInput | ExigenceSalleActiviteScalarWhereInput[]
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput = {
+    create?: XOR<ExigenceSalleAutoriseeCreateWithoutSalleInput, ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput> | ExigenceSalleAutoriseeCreateWithoutSalleInput[] | ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput[]
+    connectOrCreate?: ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput | ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput[]
+    upsert?: ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutSalleInput | ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutSalleInput[]
+    createMany?: ExigenceSalleAutoriseeCreateManySalleInputEnvelope
+    set?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    disconnect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    delete?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    connect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    update?: ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutSalleInput | ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutSalleInput[]
+    updateMany?: ExigenceSalleAutoriseeUpdateManyWithWhereWithoutSalleInput | ExigenceSalleAutoriseeUpdateManyWithWhereWithoutSalleInput[]
+    deleteMany?: ExigenceSalleAutoriseeScalarWhereInput | ExigenceSalleAutoriseeScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutIndisponibilitesInput = {
@@ -104267,6 +107239,106 @@ export namespace Prisma {
     upsert?: SemestreUpsertWithoutGroupesCovoiturageInput
     connect?: SemestreWhereUniqueInput
     update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutGroupesCovoiturageInput, SemestreUpdateWithoutGroupesCovoiturageInput>, SemestreUncheckedUpdateWithoutGroupesCovoiturageInput>
+  }
+
+  export type SemestreCreateNestedOneWithoutExigencesSalleInput = {
+    create?: XOR<SemestreCreateWithoutExigencesSalleInput, SemestreUncheckedCreateWithoutExigencesSalleInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutExigencesSalleInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type SalleCreateNestedOneWithoutExigencesSalleImposeeInput = {
+    create?: XOR<SalleCreateWithoutExigencesSalleImposeeInput, SalleUncheckedCreateWithoutExigencesSalleImposeeInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutExigencesSalleImposeeInput
+    connect?: SalleWhereUniqueInput
+  }
+
+  export type ExigenceSalleAutoriseeCreateNestedManyWithoutExigenceInput = {
+    create?: XOR<ExigenceSalleAutoriseeCreateWithoutExigenceInput, ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput> | ExigenceSalleAutoriseeCreateWithoutExigenceInput[] | ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput[]
+    connectOrCreate?: ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput | ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput[]
+    createMany?: ExigenceSalleAutoriseeCreateManyExigenceInputEnvelope
+    connect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutExigenceInput = {
+    create?: XOR<ExigenceSalleAutoriseeCreateWithoutExigenceInput, ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput> | ExigenceSalleAutoriseeCreateWithoutExigenceInput[] | ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput[]
+    connectOrCreate?: ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput | ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput[]
+    createMany?: ExigenceSalleAutoriseeCreateManyExigenceInputEnvelope
+    connect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+  }
+
+  export type SemestreUpdateOneRequiredWithoutExigencesSalleNestedInput = {
+    create?: XOR<SemestreCreateWithoutExigencesSalleInput, SemestreUncheckedCreateWithoutExigencesSalleInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutExigencesSalleInput
+    upsert?: SemestreUpsertWithoutExigencesSalleInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutExigencesSalleInput, SemestreUpdateWithoutExigencesSalleInput>, SemestreUncheckedUpdateWithoutExigencesSalleInput>
+  }
+
+  export type SalleUpdateOneWithoutExigencesSalleImposeeNestedInput = {
+    create?: XOR<SalleCreateWithoutExigencesSalleImposeeInput, SalleUncheckedCreateWithoutExigencesSalleImposeeInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutExigencesSalleImposeeInput
+    upsert?: SalleUpsertWithoutExigencesSalleImposeeInput
+    disconnect?: SalleWhereInput | boolean
+    delete?: SalleWhereInput | boolean
+    connect?: SalleWhereUniqueInput
+    update?: XOR<XOR<SalleUpdateToOneWithWhereWithoutExigencesSalleImposeeInput, SalleUpdateWithoutExigencesSalleImposeeInput>, SalleUncheckedUpdateWithoutExigencesSalleImposeeInput>
+  }
+
+  export type ExigenceSalleAutoriseeUpdateManyWithoutExigenceNestedInput = {
+    create?: XOR<ExigenceSalleAutoriseeCreateWithoutExigenceInput, ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput> | ExigenceSalleAutoriseeCreateWithoutExigenceInput[] | ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput[]
+    connectOrCreate?: ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput | ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput[]
+    upsert?: ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutExigenceInput | ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutExigenceInput[]
+    createMany?: ExigenceSalleAutoriseeCreateManyExigenceInputEnvelope
+    set?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    disconnect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    delete?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    connect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    update?: ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutExigenceInput | ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutExigenceInput[]
+    updateMany?: ExigenceSalleAutoriseeUpdateManyWithWhereWithoutExigenceInput | ExigenceSalleAutoriseeUpdateManyWithWhereWithoutExigenceInput[]
+    deleteMany?: ExigenceSalleAutoriseeScalarWhereInput | ExigenceSalleAutoriseeScalarWhereInput[]
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedUpdateManyWithoutExigenceNestedInput = {
+    create?: XOR<ExigenceSalleAutoriseeCreateWithoutExigenceInput, ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput> | ExigenceSalleAutoriseeCreateWithoutExigenceInput[] | ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput[]
+    connectOrCreate?: ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput | ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput[]
+    upsert?: ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutExigenceInput | ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutExigenceInput[]
+    createMany?: ExigenceSalleAutoriseeCreateManyExigenceInputEnvelope
+    set?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    disconnect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    delete?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    connect?: ExigenceSalleAutoriseeWhereUniqueInput | ExigenceSalleAutoriseeWhereUniqueInput[]
+    update?: ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutExigenceInput | ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutExigenceInput[]
+    updateMany?: ExigenceSalleAutoriseeUpdateManyWithWhereWithoutExigenceInput | ExigenceSalleAutoriseeUpdateManyWithWhereWithoutExigenceInput[]
+    deleteMany?: ExigenceSalleAutoriseeScalarWhereInput | ExigenceSalleAutoriseeScalarWhereInput[]
+  }
+
+  export type ExigenceSalleActiviteCreateNestedOneWithoutAutoriseesInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutAutoriseesInput, ExigenceSalleActiviteUncheckedCreateWithoutAutoriseesInput>
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutAutoriseesInput
+    connect?: ExigenceSalleActiviteWhereUniqueInput
+  }
+
+  export type SalleCreateNestedOneWithoutExigencesSalleAutoriseeInput = {
+    create?: XOR<SalleCreateWithoutExigencesSalleAutoriseeInput, SalleUncheckedCreateWithoutExigencesSalleAutoriseeInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutExigencesSalleAutoriseeInput
+    connect?: SalleWhereUniqueInput
+  }
+
+  export type ExigenceSalleActiviteUpdateOneRequiredWithoutAutoriseesNestedInput = {
+    create?: XOR<ExigenceSalleActiviteCreateWithoutAutoriseesInput, ExigenceSalleActiviteUncheckedCreateWithoutAutoriseesInput>
+    connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutAutoriseesInput
+    upsert?: ExigenceSalleActiviteUpsertWithoutAutoriseesInput
+    connect?: ExigenceSalleActiviteWhereUniqueInput
+    update?: XOR<XOR<ExigenceSalleActiviteUpdateToOneWithWhereWithoutAutoriseesInput, ExigenceSalleActiviteUpdateWithoutAutoriseesInput>, ExigenceSalleActiviteUncheckedUpdateWithoutAutoriseesInput>
+  }
+
+  export type SalleUpdateOneRequiredWithoutExigencesSalleAutoriseeNestedInput = {
+    create?: XOR<SalleCreateWithoutExigencesSalleAutoriseeInput, SalleUncheckedCreateWithoutExigencesSalleAutoriseeInput>
+    connectOrCreate?: SalleCreateOrConnectWithoutExigencesSalleAutoriseeInput
+    upsert?: SalleUpsertWithoutExigencesSalleAutoriseeInput
+    connect?: SalleWhereUniqueInput
+    update?: XOR<XOR<SalleUpdateToOneWithWhereWithoutExigencesSalleAutoriseeInput, SalleUpdateWithoutExigencesSalleAutoriseeInput>, SalleUncheckedUpdateWithoutExigencesSalleAutoriseeInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -108952,6 +112024,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -108971,6 +112044,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -109642,6 +112716,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExigenceSalleActiviteCreateWithoutSemestreInput = {
+    id?: string
+    affectationKey: string
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+    salleImposee?: SalleCreateNestedOneWithoutExigencesSalleImposeeInput
+    autorisees?: ExigenceSalleAutoriseeCreateNestedManyWithoutExigenceInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    affectationKey: string
+    salleImposeeId?: string | null
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+    autorisees?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutExigenceInput
+  }
+
+  export type ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput = {
+    where: ExigenceSalleActiviteWhereUniqueInput
+    create: XOR<ExigenceSalleActiviteCreateWithoutSemestreInput, ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type ExigenceSalleActiviteCreateManySemestreInputEnvelope = {
+    data: ExigenceSalleActiviteCreateManySemestreInput | ExigenceSalleActiviteCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnneeUpsertWithoutSemestresInput = {
     update: XOR<AnneeUpdateWithoutSemestresInput, AnneeUncheckedUpdateWithoutSemestresInput>
     create: XOR<AnneeCreateWithoutSemestresInput, AnneeUncheckedCreateWithoutSemestresInput>
@@ -109982,6 +113086,35 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"GroupeCovoiturage"> | Date | string
   }
 
+  export type ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: ExigenceSalleActiviteWhereUniqueInput
+    update: XOR<ExigenceSalleActiviteUpdateWithoutSemestreInput, ExigenceSalleActiviteUncheckedUpdateWithoutSemestreInput>
+    create: XOR<ExigenceSalleActiviteCreateWithoutSemestreInput, ExigenceSalleActiviteUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: ExigenceSalleActiviteWhereUniqueInput
+    data: XOR<ExigenceSalleActiviteUpdateWithoutSemestreInput, ExigenceSalleActiviteUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type ExigenceSalleActiviteUpdateManyWithWhereWithoutSemestreInput = {
+    where: ExigenceSalleActiviteScalarWhereInput
+    data: XOR<ExigenceSalleActiviteUpdateManyMutationInput, ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type ExigenceSalleActiviteScalarWhereInput = {
+    AND?: ExigenceSalleActiviteScalarWhereInput | ExigenceSalleActiviteScalarWhereInput[]
+    OR?: ExigenceSalleActiviteScalarWhereInput[]
+    NOT?: ExigenceSalleActiviteScalarWhereInput | ExigenceSalleActiviteScalarWhereInput[]
+    id?: UuidFilter<"ExigenceSalleActivite"> | string
+    semestreId?: UuidFilter<"ExigenceSalleActivite"> | string
+    affectationKey?: StringFilter<"ExigenceSalleActivite"> | string
+    salleImposeeId?: UuidNullableFilter<"ExigenceSalleActivite"> | string | null
+    creePar?: UuidFilter<"ExigenceSalleActivite"> | string
+    creeLe?: DateTimeFilter<"ExigenceSalleActivite"> | Date | string
+    updatedAt?: DateTimeFilter<"ExigenceSalleActivite"> | Date | string
+  }
+
   export type SemestreCreateWithoutCreneauxInput = {
     id?: string
     numero: number
@@ -109999,6 +113132,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -110018,6 +113152,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -110129,6 +113264,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -110148,6 +113284,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -110282,6 +113419,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutSeancesInput = {
@@ -110301,6 +113439,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutSeancesInput = {
@@ -110408,6 +113547,8 @@ export namespace Prisma {
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutSeancesInput = {
@@ -110428,6 +113569,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutSeancesInput = {
@@ -110574,6 +113717,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutSeancesInput = {
@@ -110593,6 +113737,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type VersionEdtUpsertWithoutSeancesInput = {
@@ -110718,6 +113863,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutSeancesInput = {
@@ -110738,6 +113885,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type CreneauUpsertWithoutSeancesInput = {
@@ -111244,6 +114393,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutVersionsInput = {
@@ -111263,6 +114413,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutVersionsInput = {
@@ -111525,6 +114676,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutVersionsInput = {
@@ -111544,6 +114696,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SeanceUpsertWithWhereUniqueWithoutVersionInput = {
@@ -112248,6 +115401,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
     seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutDepartementInput = {
@@ -112268,6 +115423,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutDepartementInput = {
@@ -112827,6 +115984,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -112846,6 +116004,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -113059,6 +116218,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -113078,6 +116238,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -115381,6 +118542,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -115400,6 +118562,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -115486,6 +118649,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -115505,6 +118669,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -115525,6 +118690,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
     seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutTypeSalleInput = {
@@ -115545,6 +118712,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutTypeSalleInput = {
@@ -115591,6 +118760,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
     seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutSiteInput = {
@@ -115611,6 +118782,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutSiteInput = {
@@ -115840,6 +119013,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExigenceSalleActiviteCreateWithoutSalleImposeeInput = {
+    id?: string
+    affectationKey: string
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutExigencesSalleInput
+    autorisees?: ExigenceSalleAutoriseeCreateNestedManyWithoutExigenceInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput = {
+    id?: string
+    semestreId: string
+    affectationKey: string
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+    autorisees?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutExigenceInput
+  }
+
+  export type ExigenceSalleActiviteCreateOrConnectWithoutSalleImposeeInput = {
+    where: ExigenceSalleActiviteWhereUniqueInput
+    create: XOR<ExigenceSalleActiviteCreateWithoutSalleImposeeInput, ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput>
+  }
+
+  export type ExigenceSalleActiviteCreateManySalleImposeeInputEnvelope = {
+    data: ExigenceSalleActiviteCreateManySalleImposeeInput | ExigenceSalleActiviteCreateManySalleImposeeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExigenceSalleAutoriseeCreateWithoutSalleInput = {
+    exigence: ExigenceSalleActiviteCreateNestedOneWithoutAutoriseesInput
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput = {
+    exigenceId: string
+  }
+
+  export type ExigenceSalleAutoriseeCreateOrConnectWithoutSalleInput = {
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+    create: XOR<ExigenceSalleAutoriseeCreateWithoutSalleInput, ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput>
+  }
+
+  export type ExigenceSalleAutoriseeCreateManySalleInputEnvelope = {
+    data: ExigenceSalleAutoriseeCreateManySalleInput | ExigenceSalleAutoriseeCreateManySalleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DepartementUpsertWithoutSallesInput = {
     update: XOR<DepartementUpdateWithoutSallesInput, DepartementUncheckedUpdateWithoutSallesInput>
     create: XOR<DepartementCreateWithoutSallesInput, DepartementUncheckedCreateWithoutSallesInput>
@@ -116011,6 +119232,46 @@ export namespace Prisma {
     data: XOR<SeanceUpdateManyMutationInput, SeanceUncheckedUpdateManyWithoutSalleInput>
   }
 
+  export type ExigenceSalleActiviteUpsertWithWhereUniqueWithoutSalleImposeeInput = {
+    where: ExigenceSalleActiviteWhereUniqueInput
+    update: XOR<ExigenceSalleActiviteUpdateWithoutSalleImposeeInput, ExigenceSalleActiviteUncheckedUpdateWithoutSalleImposeeInput>
+    create: XOR<ExigenceSalleActiviteCreateWithoutSalleImposeeInput, ExigenceSalleActiviteUncheckedCreateWithoutSalleImposeeInput>
+  }
+
+  export type ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSalleImposeeInput = {
+    where: ExigenceSalleActiviteWhereUniqueInput
+    data: XOR<ExigenceSalleActiviteUpdateWithoutSalleImposeeInput, ExigenceSalleActiviteUncheckedUpdateWithoutSalleImposeeInput>
+  }
+
+  export type ExigenceSalleActiviteUpdateManyWithWhereWithoutSalleImposeeInput = {
+    where: ExigenceSalleActiviteScalarWhereInput
+    data: XOR<ExigenceSalleActiviteUpdateManyMutationInput, ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeInput>
+  }
+
+  export type ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutSalleInput = {
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+    update: XOR<ExigenceSalleAutoriseeUpdateWithoutSalleInput, ExigenceSalleAutoriseeUncheckedUpdateWithoutSalleInput>
+    create: XOR<ExigenceSalleAutoriseeCreateWithoutSalleInput, ExigenceSalleAutoriseeUncheckedCreateWithoutSalleInput>
+  }
+
+  export type ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutSalleInput = {
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+    data: XOR<ExigenceSalleAutoriseeUpdateWithoutSalleInput, ExigenceSalleAutoriseeUncheckedUpdateWithoutSalleInput>
+  }
+
+  export type ExigenceSalleAutoriseeUpdateManyWithWhereWithoutSalleInput = {
+    where: ExigenceSalleAutoriseeScalarWhereInput
+    data: XOR<ExigenceSalleAutoriseeUpdateManyMutationInput, ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleInput>
+  }
+
+  export type ExigenceSalleAutoriseeScalarWhereInput = {
+    AND?: ExigenceSalleAutoriseeScalarWhereInput | ExigenceSalleAutoriseeScalarWhereInput[]
+    OR?: ExigenceSalleAutoriseeScalarWhereInput[]
+    NOT?: ExigenceSalleAutoriseeScalarWhereInput | ExigenceSalleAutoriseeScalarWhereInput[]
+    exigenceId?: UuidFilter<"ExigenceSalleAutorisee"> | string
+    salleId?: UuidFilter<"ExigenceSalleAutorisee"> | string
+  }
+
   export type SemestreCreateWithoutIndisponibilitesInput = {
     id?: string
     numero: number
@@ -116028,6 +119289,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -116047,6 +119309,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -116117,6 +119380,8 @@ export namespace Prisma {
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutIndisponibilitesInput = {
@@ -116137,6 +119402,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutIndisponibilitesInput = {
@@ -116172,6 +119439,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -116191,6 +119459,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -116273,6 +119542,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -116293,6 +119564,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleEquipementCreateWithoutEquipementInput = {
@@ -116385,6 +119658,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
     seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutEquipementsInput = {
@@ -116405,6 +119680,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutEquipementsInput = {
@@ -116468,6 +119745,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
     seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutEquipementsInput = {
@@ -116488,6 +119767,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type EquipementUpsertWithoutSallesInput = {
@@ -116541,6 +119822,8 @@ export namespace Prisma {
     equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
     seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
   }
 
   export type SalleUncheckedCreateWithoutSalleActivityTagsInput = {
@@ -116561,6 +119844,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
     indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
   }
 
   export type SalleCreateOrConnectWithoutSalleActivityTagsInput = {
@@ -116624,6 +119909,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
     seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutSalleActivityTagsInput = {
@@ -116644,6 +119931,8 @@ export namespace Prisma {
     equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type ActivityTagUpsertWithoutSalleActivityTagsInput = {
@@ -116968,6 +120257,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
@@ -116987,6 +120277,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
@@ -117053,6 +120344,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
@@ -117072,6 +120364,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ContrainteDefinitionUpsertWithoutInstancesInput = {
@@ -117128,6 +120421,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutRepartitionsInput = {
@@ -117147,6 +120441,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutRepartitionsInput = {
@@ -117257,6 +120552,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutRepartitionsInput = {
@@ -117276,6 +120572,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type DepartementUpsertWithoutRepartitionsInput = {
@@ -117832,6 +121129,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDemandesModificationInput = {
@@ -117851,6 +121149,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDemandesModificationInput = {
@@ -117953,6 +121252,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDemandesModificationInput = {
@@ -117972,6 +121272,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type UserUpsertWithoutDemandesModificationInput = {
@@ -118224,6 +121525,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesCovoiturageInput = {
@@ -118243,6 +121545,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesCovoiturageInput = {
@@ -118278,6 +121581,7 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesCovoiturageInput = {
@@ -118297,6 +121601,401 @@ export namespace Prisma {
     demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreCreateWithoutExigencesSalleInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutExigencesSalleInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutExigencesSalleInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutExigencesSalleInput, SemestreUncheckedCreateWithoutExigencesSalleInput>
+  }
+
+  export type SalleCreateWithoutExigencesSalleImposeeInput = {
+    id?: string
+    code: string
+    libelle: string
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement?: DepartementCreateNestedOneWithoutSallesInput
+    typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
+    equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleUncheckedCreateWithoutExigencesSalleImposeeInput = {
+    id?: string
+    code: string
+    libelle: string
+    siteId?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedCreateNestedManyWithoutSalleInput
+  }
+
+  export type SalleCreateOrConnectWithoutExigencesSalleImposeeInput = {
+    where: SalleWhereUniqueInput
+    create: XOR<SalleCreateWithoutExigencesSalleImposeeInput, SalleUncheckedCreateWithoutExigencesSalleImposeeInput>
+  }
+
+  export type ExigenceSalleAutoriseeCreateWithoutExigenceInput = {
+    salle: SalleCreateNestedOneWithoutExigencesSalleAutoriseeInput
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput = {
+    salleId: string
+  }
+
+  export type ExigenceSalleAutoriseeCreateOrConnectWithoutExigenceInput = {
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+    create: XOR<ExigenceSalleAutoriseeCreateWithoutExigenceInput, ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput>
+  }
+
+  export type ExigenceSalleAutoriseeCreateManyExigenceInputEnvelope = {
+    data: ExigenceSalleAutoriseeCreateManyExigenceInput | ExigenceSalleAutoriseeCreateManyExigenceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SemestreUpsertWithoutExigencesSalleInput = {
+    update: XOR<SemestreUpdateWithoutExigencesSalleInput, SemestreUncheckedUpdateWithoutExigencesSalleInput>
+    create: XOR<SemestreCreateWithoutExigencesSalleInput, SemestreUncheckedCreateWithoutExigencesSalleInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutExigencesSalleInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutExigencesSalleInput, SemestreUncheckedUpdateWithoutExigencesSalleInput>
+  }
+
+  export type SemestreUpdateWithoutExigencesSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutExigencesSalleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SalleUpsertWithoutExigencesSalleImposeeInput = {
+    update: XOR<SalleUpdateWithoutExigencesSalleImposeeInput, SalleUncheckedUpdateWithoutExigencesSalleImposeeInput>
+    create: XOR<SalleCreateWithoutExigencesSalleImposeeInput, SalleUncheckedCreateWithoutExigencesSalleImposeeInput>
+    where?: SalleWhereInput
+  }
+
+  export type SalleUpdateToOneWithWhereWithoutExigencesSalleImposeeInput = {
+    where?: SalleWhereInput
+    data: XOR<SalleUpdateWithoutExigencesSalleImposeeInput, SalleUncheckedUpdateWithoutExigencesSalleImposeeInput>
+  }
+
+  export type SalleUpdateWithoutExigencesSalleImposeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneWithoutSallesNestedInput
+    typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
+    equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
+  }
+
+  export type SalleUncheckedUpdateWithoutExigencesSalleImposeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
+  }
+
+  export type ExigenceSalleAutoriseeUpsertWithWhereUniqueWithoutExigenceInput = {
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+    update: XOR<ExigenceSalleAutoriseeUpdateWithoutExigenceInput, ExigenceSalleAutoriseeUncheckedUpdateWithoutExigenceInput>
+    create: XOR<ExigenceSalleAutoriseeCreateWithoutExigenceInput, ExigenceSalleAutoriseeUncheckedCreateWithoutExigenceInput>
+  }
+
+  export type ExigenceSalleAutoriseeUpdateWithWhereUniqueWithoutExigenceInput = {
+    where: ExigenceSalleAutoriseeWhereUniqueInput
+    data: XOR<ExigenceSalleAutoriseeUpdateWithoutExigenceInput, ExigenceSalleAutoriseeUncheckedUpdateWithoutExigenceInput>
+  }
+
+  export type ExigenceSalleAutoriseeUpdateManyWithWhereWithoutExigenceInput = {
+    where: ExigenceSalleAutoriseeScalarWhereInput
+    data: XOR<ExigenceSalleAutoriseeUpdateManyMutationInput, ExigenceSalleAutoriseeUncheckedUpdateManyWithoutExigenceInput>
+  }
+
+  export type ExigenceSalleActiviteCreateWithoutAutoriseesInput = {
+    id?: string
+    affectationKey: string
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutExigencesSalleInput
+    salleImposee?: SalleCreateNestedOneWithoutExigencesSalleImposeeInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedCreateWithoutAutoriseesInput = {
+    id?: string
+    semestreId: string
+    affectationKey: string
+    salleImposeeId?: string | null
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExigenceSalleActiviteCreateOrConnectWithoutAutoriseesInput = {
+    where: ExigenceSalleActiviteWhereUniqueInput
+    create: XOR<ExigenceSalleActiviteCreateWithoutAutoriseesInput, ExigenceSalleActiviteUncheckedCreateWithoutAutoriseesInput>
+  }
+
+  export type SalleCreateWithoutExigencesSalleAutoriseeInput = {
+    id?: string
+    code: string
+    libelle: string
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    departement?: DepartementCreateNestedOneWithoutSallesInput
+    typeSalle?: TypeSalleCreateNestedOneWithoutSallesInput
+    site?: SiteCreateNestedOneWithoutSallesInput
+    equipements?: SalleEquipementCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSalleInput
+    seances?: SeanceCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteCreateNestedManyWithoutSalleImposeeInput
+  }
+
+  export type SalleUncheckedCreateWithoutExigencesSalleAutoriseeInput = {
+    id?: string
+    code: string
+    libelle: string
+    siteId?: string | null
+    capaciteMax: number
+    capaciteRecommandee?: number | null
+    accesPMR?: boolean
+    commentaire?: string | null
+    estActive?: boolean
+    departementId?: string | null
+    typeSalleId?: string | null
+    originId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    equipements?: SalleEquipementUncheckedCreateNestedManyWithoutSalleInput
+    salleActivityTags?: SalleActivityTagUncheckedCreateNestedManyWithoutSalleInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSalleInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSalleInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSalleImposeeInput
+  }
+
+  export type SalleCreateOrConnectWithoutExigencesSalleAutoriseeInput = {
+    where: SalleWhereUniqueInput
+    create: XOR<SalleCreateWithoutExigencesSalleAutoriseeInput, SalleUncheckedCreateWithoutExigencesSalleAutoriseeInput>
+  }
+
+  export type ExigenceSalleActiviteUpsertWithoutAutoriseesInput = {
+    update: XOR<ExigenceSalleActiviteUpdateWithoutAutoriseesInput, ExigenceSalleActiviteUncheckedUpdateWithoutAutoriseesInput>
+    create: XOR<ExigenceSalleActiviteCreateWithoutAutoriseesInput, ExigenceSalleActiviteUncheckedCreateWithoutAutoriseesInput>
+    where?: ExigenceSalleActiviteWhereInput
+  }
+
+  export type ExigenceSalleActiviteUpdateToOneWithWhereWithoutAutoriseesInput = {
+    where?: ExigenceSalleActiviteWhereInput
+    data: XOR<ExigenceSalleActiviteUpdateWithoutAutoriseesInput, ExigenceSalleActiviteUncheckedUpdateWithoutAutoriseesInput>
+  }
+
+  export type ExigenceSalleActiviteUpdateWithoutAutoriseesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutExigencesSalleNestedInput
+    salleImposee?: SalleUpdateOneWithoutExigencesSalleImposeeNestedInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateWithoutAutoriseesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    salleImposeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SalleUpsertWithoutExigencesSalleAutoriseeInput = {
+    update: XOR<SalleUpdateWithoutExigencesSalleAutoriseeInput, SalleUncheckedUpdateWithoutExigencesSalleAutoriseeInput>
+    create: XOR<SalleCreateWithoutExigencesSalleAutoriseeInput, SalleUncheckedCreateWithoutExigencesSalleAutoriseeInput>
+    where?: SalleWhereInput
+  }
+
+  export type SalleUpdateToOneWithWhereWithoutExigencesSalleAutoriseeInput = {
+    where?: SalleWhereInput
+    data: XOR<SalleUpdateWithoutExigencesSalleAutoriseeInput, SalleUncheckedUpdateWithoutExigencesSalleAutoriseeInput>
+  }
+
+  export type SalleUpdateWithoutExigencesSalleAutoriseeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    departement?: DepartementUpdateOneWithoutSallesNestedInput
+    typeSalle?: TypeSalleUpdateOneWithoutSallesNestedInput
+    site?: SiteUpdateOneWithoutSallesNestedInput
+    equipements?: SalleEquipementUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+  }
+
+  export type SalleUncheckedUpdateWithoutExigencesSalleAutoriseeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    libelle?: StringFieldUpdateOperationsInput | string
+    siteId?: NullableStringFieldUpdateOperationsInput | string | null
+    capaciteMax?: IntFieldUpdateOperationsInput | number
+    capaciteRecommandee?: NullableIntFieldUpdateOperationsInput | number | null
+    accesPMR?: BoolFieldUpdateOperationsInput | boolean
+    commentaire?: NullableStringFieldUpdateOperationsInput | string | null
+    estActive?: BoolFieldUpdateOperationsInput | boolean
+    departementId?: NullableStringFieldUpdateOperationsInput | string | null
+    typeSalleId?: NullableStringFieldUpdateOperationsInput | string | null
+    originId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    equipements?: SalleEquipementUncheckedUpdateManyWithoutSalleNestedInput
+    salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -119452,6 +123151,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -119471,6 +123171,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -119735,6 +123436,15 @@ export namespace Prisma {
     strict?: boolean
     enseignantIds?: GroupeCovoiturageCreateenseignantIdsInput | string[]
     createdAt?: Date | string
+  }
+
+  export type ExigenceSalleActiviteCreateManySemestreInput = {
+    id?: string
+    affectationKey: string
+    salleImposeeId?: string | null
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
   }
 
   export type GroupeUpdateWithoutSemestreInput = {
@@ -120133,6 +123843,35 @@ export namespace Prisma {
     strict?: BoolFieldUpdateOperationsInput | boolean
     enseignantIds?: GroupeCovoiturageUpdateenseignantIdsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExigenceSalleActiviteUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    salleImposee?: SalleUpdateOneWithoutExigencesSalleImposeeNestedInput
+    autorisees?: ExigenceSalleAutoriseeUpdateManyWithoutExigenceNestedInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    salleImposeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    autorisees?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutExigenceNestedInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    salleImposeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CreneauAffichageCreateManyCreneauInput = {
@@ -120778,6 +124517,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
     seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutDepartementInput = {
@@ -120798,6 +124539,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutDepartementInput = {
@@ -122079,6 +125822,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
     seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutTypeSalleInput = {
@@ -122099,6 +125844,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutTypeSalleInput = {
@@ -122151,6 +125898,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUpdateManyWithoutSalleNestedInput
     seances?: SeanceUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateWithoutSiteInput = {
@@ -122171,6 +125920,8 @@ export namespace Prisma {
     salleActivityTags?: SalleActivityTagUncheckedUpdateManyWithoutSalleNestedInput
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
+    exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+    exigencesSalleAutorisee?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleNestedInput
   }
 
   export type SalleUncheckedUpdateManyWithoutSiteInput = {
@@ -122224,6 +125975,19 @@ export namespace Prisma {
     revision?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type ExigenceSalleActiviteCreateManySalleImposeeInput = {
+    id?: string
+    semestreId: string
+    affectationKey: string
+    creePar: string
+    creeLe?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExigenceSalleAutoriseeCreateManySalleInput = {
+    exigenceId: string
   }
 
   export type SalleEquipementUpdateWithoutSalleInput = {
@@ -122341,6 +126105,47 @@ export namespace Prisma {
     revision?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExigenceSalleActiviteUpdateWithoutSalleImposeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutExigencesSalleNestedInput
+    autorisees?: ExigenceSalleAutoriseeUpdateManyWithoutExigenceNestedInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateWithoutSalleImposeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    autorisees?: ExigenceSalleAutoriseeUncheckedUpdateManyWithoutExigenceNestedInput
+  }
+
+  export type ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    creePar?: StringFieldUpdateOperationsInput | string
+    creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExigenceSalleAutoriseeUpdateWithoutSalleInput = {
+    exigence?: ExigenceSalleActiviteUpdateOneRequiredWithoutAutoriseesNestedInput
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedUpdateWithoutSalleInput = {
+    exigenceId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedUpdateManyWithoutSalleInput = {
+    exigenceId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SalleEquipementCreateManyEquipementInput = {
@@ -122529,6 +126334,22 @@ export namespace Prisma {
 
   export type VersionSnapshotUncheckedUpdateManyWithoutSnapshotInput = {
     versionId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ExigenceSalleAutoriseeCreateManyExigenceInput = {
+    salleId: string
+  }
+
+  export type ExigenceSalleAutoriseeUpdateWithoutExigenceInput = {
+    salle?: SalleUpdateOneRequiredWithoutExigencesSalleAutoriseeNestedInput
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedUpdateWithoutExigenceInput = {
+    salleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ExigenceSalleAutoriseeUncheckedUpdateManyWithoutExigenceInput = {
+    salleId?: StringFieldUpdateOperationsInput | string
   }
 
 
