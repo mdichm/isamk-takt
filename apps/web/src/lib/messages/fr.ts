@@ -964,6 +964,43 @@ export const messages = {
   nonPlaceeListe: 'Séances à placer',
   appliquerSucces: 'Suggestion appliquée avec succès.',
   erreurSuggestions: 'Impossible de charger les suggestions.',
+
+  // Avertissements (L3-40)
+  avertissementTitre: 'Avertissements',
+  avertissementSousTitre: "Conflits de type avertissement pouvant être acceptés par le Gestionnaire.",
+  avertissementPageTitre: 'Avertissements de la version',
+  avertissementPageSousTitre:
+    'Liste des avertissements actifs, acceptation par avertissement, avec affichage de l’impact avant confirmation.',
+  avertissementAucun: 'Aucun avertissement en attente sur cette version.',
+  avertissementNonAcceptees: 'En attente d’acceptation',
+  avertissementRegle: 'Règle',
+  avertissementMessage: 'Message',
+  avertissementSeances: 'Séances concernées',
+  avertissementDetails: 'Détails',
+  avertissementJustification: 'Justification (facultative)',
+  avertissementJustificationPlaceholder: 'Pourquoi accepter cet avertissement ?',
+  avertissementImpactAvertissement:
+    'L’impact détaillé s’affiche avant confirmation. Une fois accepté, l’avertissement reste tracé dans l’historique.',
+  avertissementCaduciteNote:
+    'Un avertissement devient caduc si sa signature de conflit disparaît ou change après un recalcul.',
+  avertissementBoutonAccepter: 'Accepter',
+  avertissementAccepterTitre: 'Accepter l’avertissement',
+  avertissementAccepterDescription:
+    'Confirmez l’acceptation de cet avertissement. L’impact sur les séances est affiché ci-dessus.',
+  avertissementAccepterBouton: 'Accepter l’avertissement',
+  avertissementAccepteurEnCours: 'Acceptation en cours…',
+  avertissementAccepteSucces: 'Avertissement accepté avec succès.',
+  avertissementErreurBloquant:
+    'Ce conflit est bloquant et ne peut pas être accepté.',
+  avertissementErreurIntrouvable:
+    'Version ou avertissement introuvable.',
+  avertissementErreurGenerique: 'Une erreur est survenue lors de l’acceptation.',
+
+  // Colonnes de tableau
+  colonneRegle: 'Règle',
+  colonneMessage: 'Message',
+  colonneSeances: 'Séances',
+  colonneAction: 'Action',
 } as const;
 
 export type Messages = typeof messages;
