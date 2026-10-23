@@ -202,7 +202,157 @@ export class ConflitService {
       });
     }
 
+    // --- L3-35 : avertissements vœux (type VOEU, severite AVERTISSEMENT) ---
+    const vœuxViolations = await this.detectVoeuxViolations(versionId, version.semestreId);
+    if (vœuxViolations.length > 0) {
+      const existants = await this.prisma.conflit.findMany({
+        where: { versionId, type: 'VOEU' },
+        select: { id: true, signature: true },
+      });
+      const existantesSignatures = new Set(existants.map((c) => c.signature));
+      const aInserer = vœuxViolations.filter((c) => !existantesSignatures.has(c.signature));
+      if (aInserer.length > 0) {
+        await this.prisma.conflit.createMany({
+          data: aInserer.map((c) => ({
+            id: c.signature,
+            versionId,
+            regleCode: c.regleCode,
+            type: c.type as ConflitType,
+            severite: c.severite as ConflitSeverite,
+            objetType: c.objetType,
+            objetId: c.objetId,
+            seanceIds: c.seanceIds,
+            message: c.message,
+            signature: c.signature,
+            details: c.details as any,
+            resoluLe: null,
+          })),
+          skipDuplicates: true,
+        });
+      }
+      // Marquer resoluLe pour les violations disparues
+      const nouvellesSignatures = new Set(vœuxViolations.map((c) => c.signature));
+      const aResoudre = existants.filter((c) => !nouvellesSignatures.has(c.signature));
+      if (aResoudre.length > 0) {
+        await this.prisma.conflit.updateMany({
+          where: { id: { in: aResoudre.map((c) => c.id) } },
+          data: { resoluLe: new Date() },
+        });
+      }
+    }
+
     return this.getConflits(versionId);
+  }
+
+  /** L3-35 : detecte les vœux non respectes et renvoie des enregistrements Conflit. */
+  private async detectVoeuxViolations(
+    versionId: string,
+    semestreId: string,
+  ): Promise<Array<{
+    regleCode: string;
+    type: ConflitType;
+    severite: ConflitSeverite;
+    objetType: string;
+    objetId: string;
+    seanceIds: string[];
+    message: string;
+    signature: string;
+    details?: Record<string, unknown>;
+  }>> {
+    const violations: Array<{
+      regleCode: string;
+      type: ConflitType;
+      severite: ConflitSeverite;
+      objetType: string;
+      objetId: string;
+      seanceIds: string[];
+      message: string;
+      signature: string;
+      details?: Record<string, unknown>;
+    }> = [];
+
+    const voeux = await this.prisma.contrainteInstance.findMany({
+      where: { semestreId, nature: 'VOEU', actif: true },
+      include: { definition: true },
+    });
+
+    if (voeux.length === 0) return violations;
+
+    // Recuperer les occupations de l'edition pour verifier les affectations enseignant
+    const occupations = await this.prisma.occupation.findMany({
+      where: { versionId },
+      select: { jour: true, creneauId: true, ressourceType: true, ressourceId: true, seanceId: true },
+    });
+
+    // Indexer les occupations par enseignant (ressourceType = ENSEIGNANT)
+    const occByEns = new Map<string, { jour: string; creneauId: string; seanceId: string }[]>();
+    for (const o of occupations) {
+      if (o.ressourceType === 'ENSEIGNANT') {
+        const list = occByEns.get(o.ressourceId) ?? [];
+        list.push({ jour: o.jour, creneauId: o.creneauId, seanceId: o.seanceId });
+        occByEns.set(o.ressourceId, list);
+      }
+    }
+
+    // Recuperer les creneaux pour connaitre le jour de chaque creneau
+    const creneaux = await this.prisma.creneau.findMany({
+      where: { semestreId },
+      select: { id: true, jour: true, ordre: true },
+    });
+    const creneauJour = new Map<string, string>();
+    for (const c of creneaux) {
+      creneauJour.set(c.id, c.jour);
+    }
+
+    for (const v of voeux) {
+      if (!v.enseignantId) continue;
+      const code = v.definition.code as string;
+      const params = v.params as Record<string, unknown>;
+      const enseignantOccs = occByEns.get(v.enseignantId) ?? [];
+
+      if (code === 'TEACHER_AVOID_SLOT') {
+        const slotKey = params.slotKey as string | undefined;
+        if (slotKey) {
+          const [jour, creneau] = slotKey.split('|');
+          const hit = enseignantOccs.find(
+            (o) => o.jour === jour && o.creneauId === creneau,
+          );
+          if (hit) {
+            violations.push({
+              regleCode: 'VOEU_AVOID_SLOT',
+              type: 'VOEU',
+              severite: 'AVERTISSEMENT',
+              objetType: 'ENSEIGNANT',
+              objetId: v.enseignantId,
+              seanceIds: [hit.seanceId],
+              message: `Vœu non respecté : l'enseignant est affecté au créneau à éviter ${slotKey}`,
+              signature: `voeu|${versionId}|${v.enseignantId}|TEACHER_AVOID_SLOT|${slotKey}`,
+              details: { vowId: v.id, code, slotKey },
+            });
+          }
+        }
+      } else if (code === 'TEACHER_DAY_OFF_WISH') {
+        const jourWish = params.jour as string | undefined;
+        if (jourWish) {
+          const hit = enseignantOccs.find((o) => o.jour === jourWish);
+          if (hit) {
+            violations.push({
+              regleCode: 'VOEU_DAY_OFF',
+              type: 'VOEU',
+              severite: 'AVERTISSEMENT',
+              objetType: 'ENSEIGNANT',
+              objetId: v.enseignantId,
+              seanceIds: [hit.seanceId],
+              message: `Vœu non respecté : l'enseignant est affecté le jour de congé souhaité ${jourWish}`,
+              signature: `voeu|${versionId}|${v.enseignantId}|TEACHER_DAY_OFF_WISH|${jourWish}`,
+              details: { vowId: v.id, code, jour: jourWish },
+            });
+          }
+        }
+      }
+    }
+
+    return violations;
   }
 
   /**
