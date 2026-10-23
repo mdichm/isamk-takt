@@ -38,6 +38,7 @@ import { VersionsModule } from './versions/versions.module.js';
 import { SeancesModule } from './seances/seances.module.js';
 import { ConflitModule } from './conflit/conflit.module.js';
 import { CovoiturageModule } from './covoiturage/covoiturage.module.js';
+import { VoeuxModule } from './voeux/voeux.module.js';
 import { EvalsModule } from './evals/evals.module.js';
 import { EditLockModule } from './edit-lock/edit-lock.module.js';
 import { VerrouSeanceModule } from './verrou-seance/verrou-seance.module.js';
@@ -120,6 +121,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     SeancesModule,
     ConflitModule,
     CovoiturageModule,
+    VoeuxModule,
     EvalsModule,
     EditLockModule,
     VerrouSeanceModule,
