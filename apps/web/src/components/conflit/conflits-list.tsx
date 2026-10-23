@@ -29,7 +29,7 @@ import {
   useSimulatePlacement,
   type Conflit,
 } from '@/hooks/use-conflits';
-import { AccepterDialog } from '@/components/avertissement/accepter-dialog';
+import { AccepterDialog } from './accepter-dialog';
 import {
   AlertCircle,
   CheckCircle,
@@ -46,20 +46,13 @@ export function ConflitsList({ versionId }: ConflitsListProps) {
 
   const [filterType, setFilterType] = useState<string>('tous');
   const [filterSeverite, setFilterSeverite] = useState<string>('tous');
-  const [viewAvertissementsOnly, setViewAvertissementsOnly] = useState(false);
   const [openAccept, setOpenAccept] = useState(false);
   const [selected, setSelected] = useState<Conflit | null>(null);
 
   const types = Array.from(new Set(conflits.map((c) => c.type)));
   const severites = Array.from(new Set(conflits.map((c) => c.severite)));
-  const avertissementsCount = conflits.filter(
-    (c) => c.severite === 'AVERTISSEMENT' && !c.resoluLe,
-  ).length;
 
   const filtered = conflits.filter((c) => {
-    if (viewAvertissementsOnly && c.severite !== 'AVERTISSEMENT') {
-      return false;
-    }
     const matchType = filterType === 'tous' || c.type === filterType;
     const matchSeverite =
       filterSeverite === 'tous' || c.severite === filterSeverite;
@@ -111,17 +104,6 @@ export function ConflitsList({ versionId }: ConflitsListProps) {
               ))}
             </SelectContent>
           </Select>
-          <Button
-            size="sm"
-            variant={viewAvertissementsOnly ? 'default' : 'outline'}
-            onClick={() => setViewAvertissementsOnly(!viewAvertissementsOnly)}
-            aria-pressed={viewAvertissementsOnly}
-          >
-            {messages.filtreAvertissementsUniquement}
-            {avertissementsCount > 0 && (
-              <span className="ml-1 text-xs">{avertissementsCount}</span>
-            )}
-          </Button>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
