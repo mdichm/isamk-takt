@@ -323,6 +323,11 @@ export type DemandeModification = $Result.DefaultSelection<Prisma.$DemandeModifi
  * 
  */
 export type Conflit = $Result.DefaultSelection<Prisma.$ConflitPayload>
+/**
+ * Model AvertissementAccepte
+ * 
+ */
+export type AvertissementAccepte = $Result.DefaultSelection<Prisma.$AvertissementAcceptePayload>
 
 /**
  * Enums
@@ -1515,6 +1520,16 @@ export class PrismaClient<
     * ```
     */
   get conflit(): Prisma.ConflitDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.avertissementAccepte`: Exposes CRUD operations for the **AvertissementAccepte** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AvertissementAcceptes
+    * const avertissementAcceptes = await prisma.avertissementAccepte.findMany()
+    * ```
+    */
+  get avertissementAccepte(): Prisma.AvertissementAccepteDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2023,7 +2038,8 @@ export namespace Prisma {
     SnapshotAffectation: 'SnapshotAffectation',
     SnapshotCharge: 'SnapshotCharge',
     DemandeModification: 'DemandeModification',
-    Conflit: 'Conflit'
+    Conflit: 'Conflit',
+    AvertissementAccepte: 'AvertissementAccepte'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2039,7 +2055,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6631,6 +6647,80 @@ export namespace Prisma {
           }
         }
       }
+      AvertissementAccepte: {
+        payload: Prisma.$AvertissementAcceptePayload<ExtArgs>
+        fields: Prisma.AvertissementAccepteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AvertissementAccepteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AvertissementAccepteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>
+          }
+          findFirst: {
+            args: Prisma.AvertissementAccepteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AvertissementAccepteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>
+          }
+          findMany: {
+            args: Prisma.AvertissementAccepteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>[]
+          }
+          create: {
+            args: Prisma.AvertissementAccepteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>
+          }
+          createMany: {
+            args: Prisma.AvertissementAccepteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AvertissementAccepteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>[]
+          }
+          delete: {
+            args: Prisma.AvertissementAccepteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>
+          }
+          update: {
+            args: Prisma.AvertissementAccepteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>
+          }
+          deleteMany: {
+            args: Prisma.AvertissementAccepteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AvertissementAccepteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AvertissementAccepteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>[]
+          }
+          upsert: {
+            args: Prisma.AvertissementAccepteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AvertissementAcceptePayload>
+          }
+          aggregate: {
+            args: Prisma.AvertissementAccepteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAvertissementAccepte>
+          }
+          groupBy: {
+            args: Prisma.AvertissementAccepteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AvertissementAccepteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AvertissementAccepteCountArgs<ExtArgs>
+            result: $Utils.Optional<AvertissementAccepteCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -6816,6 +6906,7 @@ export namespace Prisma {
     snapshotCharge?: SnapshotChargeOmit
     demandeModification?: DemandeModificationOmit
     conflit?: ConflitOmit
+    avertissementAccepte?: AvertissementAccepteOmit
   }
 
   /* Types for Logging */
@@ -7490,6 +7581,7 @@ export namespace Prisma {
     snapshots: number
     conflits: number
     verrous: number
+    avertissementsAcceptes: number
   }
 
   export type VersionEdtCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7498,6 +7590,7 @@ export namespace Prisma {
     snapshots?: boolean | VersionEdtCountOutputTypeCountSnapshotsArgs
     conflits?: boolean | VersionEdtCountOutputTypeCountConflitsArgs
     verrous?: boolean | VersionEdtCountOutputTypeCountVerrousArgs
+    avertissementsAcceptes?: boolean | VersionEdtCountOutputTypeCountAvertissementsAcceptesArgs
   }
 
   // Custom InputTypes
@@ -7544,6 +7637,13 @@ export namespace Prisma {
    */
   export type VersionEdtCountOutputTypeCountVerrousArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VerrouSeanceWhereInput
+  }
+
+  /**
+   * VersionEdtCountOutputType without action
+   */
+  export type VersionEdtCountOutputTypeCountAvertissementsAcceptesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvertissementAccepteWhereInput
   }
 
 
@@ -38696,6 +38796,7 @@ export namespace Prisma {
     conflits?: boolean | VersionEdt$conflitsArgs<ExtArgs>
     editLock?: boolean | VersionEdt$editLockArgs<ExtArgs>
     verrous?: boolean | VersionEdt$verrousArgs<ExtArgs>
+    avertissementsAcceptes?: boolean | VersionEdt$avertissementsAcceptesArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["versionEdt"]>
 
@@ -38740,6 +38841,7 @@ export namespace Prisma {
     conflits?: boolean | VersionEdt$conflitsArgs<ExtArgs>
     editLock?: boolean | VersionEdt$editLockArgs<ExtArgs>
     verrous?: boolean | VersionEdt$verrousArgs<ExtArgs>
+    avertissementsAcceptes?: boolean | VersionEdt$avertissementsAcceptesArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VersionEdtIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -38759,6 +38861,7 @@ export namespace Prisma {
       conflits: Prisma.$ConflitPayload<ExtArgs>[]
       editLock: Prisma.$EditLockPayload<ExtArgs> | null
       verrous: Prisma.$VerrouSeancePayload<ExtArgs>[]
+      avertissementsAcceptes: Prisma.$AvertissementAcceptePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -39169,6 +39272,7 @@ export namespace Prisma {
     conflits<T extends VersionEdt$conflitsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$conflitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConflitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     editLock<T extends VersionEdt$editLockArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$editLockArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     verrous<T extends VersionEdt$verrousArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$verrousArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    avertissementsAcceptes<T extends VersionEdt$avertissementsAcceptesArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$avertissementsAcceptesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -39742,6 +39846,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VerrouSeanceScalarFieldEnum | VerrouSeanceScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt.avertissementsAcceptes
+   */
+  export type VersionEdt$avertissementsAcceptesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    where?: AvertissementAccepteWhereInput
+    orderBy?: AvertissementAccepteOrderByWithRelationInput | AvertissementAccepteOrderByWithRelationInput[]
+    cursor?: AvertissementAccepteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvertissementAccepteScalarFieldEnum | AvertissementAccepteScalarFieldEnum[]
   }
 
   /**
@@ -80415,6 +80543,1177 @@ export namespace Prisma {
 
 
   /**
+   * Model AvertissementAccepte
+   */
+
+  export type AggregateAvertissementAccepte = {
+    _count: AvertissementAccepteCountAggregateOutputType | null
+    _avg: AvertissementAccepteAvgAggregateOutputType | null
+    _sum: AvertissementAccepteSumAggregateOutputType | null
+    _min: AvertissementAccepteMinAggregateOutputType | null
+    _max: AvertissementAccepteMaxAggregateOutputType | null
+  }
+
+  export type AvertissementAccepteAvgAggregateOutputType = {
+    versionRevision: number | null
+  }
+
+  export type AvertissementAccepteSumAggregateOutputType = {
+    versionRevision: number | null
+  }
+
+  export type AvertissementAccepteMinAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    regleCode: string | null
+    signature: string | null
+    auteurId: string | null
+    justification: string | null
+    versionRevision: number | null
+    acceptePar: string | null
+    accepteLe: Date | null
+    caduqueLe: Date | null
+  }
+
+  export type AvertissementAccepteMaxAggregateOutputType = {
+    id: string | null
+    versionId: string | null
+    regleCode: string | null
+    signature: string | null
+    auteurId: string | null
+    justification: string | null
+    versionRevision: number | null
+    acceptePar: string | null
+    accepteLe: Date | null
+    caduqueLe: Date | null
+  }
+
+  export type AvertissementAccepteCountAggregateOutputType = {
+    id: number
+    versionId: number
+    regleCode: number
+    signature: number
+    seanceIds: number
+    auteurId: number
+    justification: number
+    versionRevision: number
+    acceptePar: number
+    accepteLe: number
+    caduqueLe: number
+    _all: number
+  }
+
+
+  export type AvertissementAccepteAvgAggregateInputType = {
+    versionRevision?: true
+  }
+
+  export type AvertissementAccepteSumAggregateInputType = {
+    versionRevision?: true
+  }
+
+  export type AvertissementAccepteMinAggregateInputType = {
+    id?: true
+    versionId?: true
+    regleCode?: true
+    signature?: true
+    auteurId?: true
+    justification?: true
+    versionRevision?: true
+    acceptePar?: true
+    accepteLe?: true
+    caduqueLe?: true
+  }
+
+  export type AvertissementAccepteMaxAggregateInputType = {
+    id?: true
+    versionId?: true
+    regleCode?: true
+    signature?: true
+    auteurId?: true
+    justification?: true
+    versionRevision?: true
+    acceptePar?: true
+    accepteLe?: true
+    caduqueLe?: true
+  }
+
+  export type AvertissementAccepteCountAggregateInputType = {
+    id?: true
+    versionId?: true
+    regleCode?: true
+    signature?: true
+    seanceIds?: true
+    auteurId?: true
+    justification?: true
+    versionRevision?: true
+    acceptePar?: true
+    accepteLe?: true
+    caduqueLe?: true
+    _all?: true
+  }
+
+  export type AvertissementAccepteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AvertissementAccepte to aggregate.
+     */
+    where?: AvertissementAccepteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvertissementAcceptes to fetch.
+     */
+    orderBy?: AvertissementAccepteOrderByWithRelationInput | AvertissementAccepteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AvertissementAccepteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvertissementAcceptes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvertissementAcceptes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AvertissementAcceptes
+    **/
+    _count?: true | AvertissementAccepteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AvertissementAccepteAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AvertissementAccepteSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AvertissementAccepteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AvertissementAccepteMaxAggregateInputType
+  }
+
+  export type GetAvertissementAccepteAggregateType<T extends AvertissementAccepteAggregateArgs> = {
+        [P in keyof T & keyof AggregateAvertissementAccepte]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAvertissementAccepte[P]>
+      : GetScalarType<T[P], AggregateAvertissementAccepte[P]>
+  }
+
+
+
+
+  export type AvertissementAccepteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvertissementAccepteWhereInput
+    orderBy?: AvertissementAccepteOrderByWithAggregationInput | AvertissementAccepteOrderByWithAggregationInput[]
+    by: AvertissementAccepteScalarFieldEnum[] | AvertissementAccepteScalarFieldEnum
+    having?: AvertissementAccepteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AvertissementAccepteCountAggregateInputType | true
+    _avg?: AvertissementAccepteAvgAggregateInputType
+    _sum?: AvertissementAccepteSumAggregateInputType
+    _min?: AvertissementAccepteMinAggregateInputType
+    _max?: AvertissementAccepteMaxAggregateInputType
+  }
+
+  export type AvertissementAccepteGroupByOutputType = {
+    id: string
+    versionId: string
+    regleCode: string
+    signature: string
+    seanceIds: string[]
+    auteurId: string
+    justification: string | null
+    versionRevision: number
+    acceptePar: string
+    accepteLe: Date
+    caduqueLe: Date | null
+    _count: AvertissementAccepteCountAggregateOutputType | null
+    _avg: AvertissementAccepteAvgAggregateOutputType | null
+    _sum: AvertissementAccepteSumAggregateOutputType | null
+    _min: AvertissementAccepteMinAggregateOutputType | null
+    _max: AvertissementAccepteMaxAggregateOutputType | null
+  }
+
+  type GetAvertissementAccepteGroupByPayload<T extends AvertissementAccepteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AvertissementAccepteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AvertissementAccepteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AvertissementAccepteGroupByOutputType[P]>
+            : GetScalarType<T[P], AvertissementAccepteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AvertissementAccepteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    regleCode?: boolean
+    signature?: boolean
+    seanceIds?: boolean
+    auteurId?: boolean
+    justification?: boolean
+    versionRevision?: boolean
+    acceptePar?: boolean
+    accepteLe?: boolean
+    caduqueLe?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["avertissementAccepte"]>
+
+  export type AvertissementAccepteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    regleCode?: boolean
+    signature?: boolean
+    seanceIds?: boolean
+    auteurId?: boolean
+    justification?: boolean
+    versionRevision?: boolean
+    acceptePar?: boolean
+    accepteLe?: boolean
+    caduqueLe?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["avertissementAccepte"]>
+
+  export type AvertissementAccepteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    versionId?: boolean
+    regleCode?: boolean
+    signature?: boolean
+    seanceIds?: boolean
+    auteurId?: boolean
+    justification?: boolean
+    versionRevision?: boolean
+    acceptePar?: boolean
+    accepteLe?: boolean
+    caduqueLe?: boolean
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["avertissementAccepte"]>
+
+  export type AvertissementAccepteSelectScalar = {
+    id?: boolean
+    versionId?: boolean
+    regleCode?: boolean
+    signature?: boolean
+    seanceIds?: boolean
+    auteurId?: boolean
+    justification?: boolean
+    versionRevision?: boolean
+    acceptePar?: boolean
+    accepteLe?: boolean
+    caduqueLe?: boolean
+  }
+
+  export type AvertissementAccepteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "versionId" | "regleCode" | "signature" | "seanceIds" | "auteurId" | "justification" | "versionRevision" | "acceptePar" | "accepteLe" | "caduqueLe", ExtArgs["result"]["avertissementAccepte"]>
+  export type AvertissementAccepteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+  export type AvertissementAccepteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+  export type AvertissementAccepteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+
+  export type $AvertissementAcceptePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AvertissementAccepte"
+    objects: {
+      version: Prisma.$VersionEdtPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      versionId: string
+      regleCode: string
+      signature: string
+      seanceIds: string[]
+      auteurId: string
+      justification: string | null
+      versionRevision: number
+      acceptePar: string
+      accepteLe: Date
+      caduqueLe: Date | null
+    }, ExtArgs["result"]["avertissementAccepte"]>
+    composites: {}
+  }
+
+  type AvertissementAccepteGetPayload<S extends boolean | null | undefined | AvertissementAccepteDefaultArgs> = $Result.GetResult<Prisma.$AvertissementAcceptePayload, S>
+
+  type AvertissementAccepteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AvertissementAccepteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AvertissementAccepteCountAggregateInputType | true
+    }
+
+  export interface AvertissementAccepteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AvertissementAccepte'], meta: { name: 'AvertissementAccepte' } }
+    /**
+     * Find zero or one AvertissementAccepte that matches the filter.
+     * @param {AvertissementAccepteFindUniqueArgs} args - Arguments to find a AvertissementAccepte
+     * @example
+     * // Get one AvertissementAccepte
+     * const avertissementAccepte = await prisma.avertissementAccepte.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AvertissementAccepteFindUniqueArgs>(args: SelectSubset<T, AvertissementAccepteFindUniqueArgs<ExtArgs>>): Prisma__AvertissementAccepteClient<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AvertissementAccepte that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AvertissementAccepteFindUniqueOrThrowArgs} args - Arguments to find a AvertissementAccepte
+     * @example
+     * // Get one AvertissementAccepte
+     * const avertissementAccepte = await prisma.avertissementAccepte.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AvertissementAccepteFindUniqueOrThrowArgs>(args: SelectSubset<T, AvertissementAccepteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvertissementAccepteClient<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AvertissementAccepte that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvertissementAccepteFindFirstArgs} args - Arguments to find a AvertissementAccepte
+     * @example
+     * // Get one AvertissementAccepte
+     * const avertissementAccepte = await prisma.avertissementAccepte.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AvertissementAccepteFindFirstArgs>(args?: SelectSubset<T, AvertissementAccepteFindFirstArgs<ExtArgs>>): Prisma__AvertissementAccepteClient<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AvertissementAccepte that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvertissementAccepteFindFirstOrThrowArgs} args - Arguments to find a AvertissementAccepte
+     * @example
+     * // Get one AvertissementAccepte
+     * const avertissementAccepte = await prisma.avertissementAccepte.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AvertissementAccepteFindFirstOrThrowArgs>(args?: SelectSubset<T, AvertissementAccepteFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvertissementAccepteClient<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AvertissementAcceptes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvertissementAccepteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AvertissementAcceptes
+     * const avertissementAcceptes = await prisma.avertissementAccepte.findMany()
+     * 
+     * // Get first 10 AvertissementAcceptes
+     * const avertissementAcceptes = await prisma.avertissementAccepte.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const avertissementAccepteWithIdOnly = await prisma.avertissementAccepte.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AvertissementAccepteFindManyArgs>(args?: SelectSubset<T, AvertissementAccepteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AvertissementAccepte.
+     * @param {AvertissementAccepteCreateArgs} args - Arguments to create a AvertissementAccepte.
+     * @example
+     * // Create one AvertissementAccepte
+     * const AvertissementAccepte = await prisma.avertissementAccepte.create({
+     *   data: {
+     *     // ... data to create a AvertissementAccepte
+     *   }
+     * })
+     * 
+     */
+    create<T extends AvertissementAccepteCreateArgs>(args: SelectSubset<T, AvertissementAccepteCreateArgs<ExtArgs>>): Prisma__AvertissementAccepteClient<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AvertissementAcceptes.
+     * @param {AvertissementAccepteCreateManyArgs} args - Arguments to create many AvertissementAcceptes.
+     * @example
+     * // Create many AvertissementAcceptes
+     * const avertissementAccepte = await prisma.avertissementAccepte.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AvertissementAccepteCreateManyArgs>(args?: SelectSubset<T, AvertissementAccepteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AvertissementAcceptes and returns the data saved in the database.
+     * @param {AvertissementAccepteCreateManyAndReturnArgs} args - Arguments to create many AvertissementAcceptes.
+     * @example
+     * // Create many AvertissementAcceptes
+     * const avertissementAccepte = await prisma.avertissementAccepte.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AvertissementAcceptes and only return the `id`
+     * const avertissementAccepteWithIdOnly = await prisma.avertissementAccepte.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AvertissementAccepteCreateManyAndReturnArgs>(args?: SelectSubset<T, AvertissementAccepteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AvertissementAccepte.
+     * @param {AvertissementAccepteDeleteArgs} args - Arguments to delete one AvertissementAccepte.
+     * @example
+     * // Delete one AvertissementAccepte
+     * const AvertissementAccepte = await prisma.avertissementAccepte.delete({
+     *   where: {
+     *     // ... filter to delete one AvertissementAccepte
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AvertissementAccepteDeleteArgs>(args: SelectSubset<T, AvertissementAccepteDeleteArgs<ExtArgs>>): Prisma__AvertissementAccepteClient<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AvertissementAccepte.
+     * @param {AvertissementAccepteUpdateArgs} args - Arguments to update one AvertissementAccepte.
+     * @example
+     * // Update one AvertissementAccepte
+     * const avertissementAccepte = await prisma.avertissementAccepte.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AvertissementAccepteUpdateArgs>(args: SelectSubset<T, AvertissementAccepteUpdateArgs<ExtArgs>>): Prisma__AvertissementAccepteClient<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AvertissementAcceptes.
+     * @param {AvertissementAccepteDeleteManyArgs} args - Arguments to filter AvertissementAcceptes to delete.
+     * @example
+     * // Delete a few AvertissementAcceptes
+     * const { count } = await prisma.avertissementAccepte.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AvertissementAccepteDeleteManyArgs>(args?: SelectSubset<T, AvertissementAccepteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AvertissementAcceptes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvertissementAccepteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AvertissementAcceptes
+     * const avertissementAccepte = await prisma.avertissementAccepte.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AvertissementAccepteUpdateManyArgs>(args: SelectSubset<T, AvertissementAccepteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AvertissementAcceptes and returns the data updated in the database.
+     * @param {AvertissementAccepteUpdateManyAndReturnArgs} args - Arguments to update many AvertissementAcceptes.
+     * @example
+     * // Update many AvertissementAcceptes
+     * const avertissementAccepte = await prisma.avertissementAccepte.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AvertissementAcceptes and only return the `id`
+     * const avertissementAccepteWithIdOnly = await prisma.avertissementAccepte.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AvertissementAccepteUpdateManyAndReturnArgs>(args: SelectSubset<T, AvertissementAccepteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AvertissementAccepte.
+     * @param {AvertissementAccepteUpsertArgs} args - Arguments to update or create a AvertissementAccepte.
+     * @example
+     * // Update or create a AvertissementAccepte
+     * const avertissementAccepte = await prisma.avertissementAccepte.upsert({
+     *   create: {
+     *     // ... data to create a AvertissementAccepte
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AvertissementAccepte we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AvertissementAccepteUpsertArgs>(args: SelectSubset<T, AvertissementAccepteUpsertArgs<ExtArgs>>): Prisma__AvertissementAccepteClient<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AvertissementAcceptes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvertissementAccepteCountArgs} args - Arguments to filter AvertissementAcceptes to count.
+     * @example
+     * // Count the number of AvertissementAcceptes
+     * const count = await prisma.avertissementAccepte.count({
+     *   where: {
+     *     // ... the filter for the AvertissementAcceptes we want to count
+     *   }
+     * })
+    **/
+    count<T extends AvertissementAccepteCountArgs>(
+      args?: Subset<T, AvertissementAccepteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AvertissementAccepteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AvertissementAccepte.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvertissementAccepteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AvertissementAccepteAggregateArgs>(args: Subset<T, AvertissementAccepteAggregateArgs>): Prisma.PrismaPromise<GetAvertissementAccepteAggregateType<T>>
+
+    /**
+     * Group by AvertissementAccepte.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvertissementAccepteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AvertissementAccepteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AvertissementAccepteGroupByArgs['orderBy'] }
+        : { orderBy?: AvertissementAccepteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AvertissementAccepteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAvertissementAccepteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AvertissementAccepte model
+   */
+  readonly fields: AvertissementAccepteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AvertissementAccepte.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AvertissementAccepteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AvertissementAccepte model
+   */
+  interface AvertissementAccepteFieldRefs {
+    readonly id: FieldRef<"AvertissementAccepte", 'String'>
+    readonly versionId: FieldRef<"AvertissementAccepte", 'String'>
+    readonly regleCode: FieldRef<"AvertissementAccepte", 'String'>
+    readonly signature: FieldRef<"AvertissementAccepte", 'String'>
+    readonly seanceIds: FieldRef<"AvertissementAccepte", 'String[]'>
+    readonly auteurId: FieldRef<"AvertissementAccepte", 'String'>
+    readonly justification: FieldRef<"AvertissementAccepte", 'String'>
+    readonly versionRevision: FieldRef<"AvertissementAccepte", 'Int'>
+    readonly acceptePar: FieldRef<"AvertissementAccepte", 'String'>
+    readonly accepteLe: FieldRef<"AvertissementAccepte", 'DateTime'>
+    readonly caduqueLe: FieldRef<"AvertissementAccepte", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AvertissementAccepte findUnique
+   */
+  export type AvertissementAccepteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * Filter, which AvertissementAccepte to fetch.
+     */
+    where: AvertissementAccepteWhereUniqueInput
+  }
+
+  /**
+   * AvertissementAccepte findUniqueOrThrow
+   */
+  export type AvertissementAccepteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * Filter, which AvertissementAccepte to fetch.
+     */
+    where: AvertissementAccepteWhereUniqueInput
+  }
+
+  /**
+   * AvertissementAccepte findFirst
+   */
+  export type AvertissementAccepteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * Filter, which AvertissementAccepte to fetch.
+     */
+    where?: AvertissementAccepteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvertissementAcceptes to fetch.
+     */
+    orderBy?: AvertissementAccepteOrderByWithRelationInput | AvertissementAccepteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AvertissementAcceptes.
+     */
+    cursor?: AvertissementAccepteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvertissementAcceptes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvertissementAcceptes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AvertissementAcceptes.
+     */
+    distinct?: AvertissementAccepteScalarFieldEnum | AvertissementAccepteScalarFieldEnum[]
+  }
+
+  /**
+   * AvertissementAccepte findFirstOrThrow
+   */
+  export type AvertissementAccepteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * Filter, which AvertissementAccepte to fetch.
+     */
+    where?: AvertissementAccepteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvertissementAcceptes to fetch.
+     */
+    orderBy?: AvertissementAccepteOrderByWithRelationInput | AvertissementAccepteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AvertissementAcceptes.
+     */
+    cursor?: AvertissementAccepteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvertissementAcceptes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvertissementAcceptes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AvertissementAcceptes.
+     */
+    distinct?: AvertissementAccepteScalarFieldEnum | AvertissementAccepteScalarFieldEnum[]
+  }
+
+  /**
+   * AvertissementAccepte findMany
+   */
+  export type AvertissementAccepteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * Filter, which AvertissementAcceptes to fetch.
+     */
+    where?: AvertissementAccepteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AvertissementAcceptes to fetch.
+     */
+    orderBy?: AvertissementAccepteOrderByWithRelationInput | AvertissementAccepteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AvertissementAcceptes.
+     */
+    cursor?: AvertissementAccepteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AvertissementAcceptes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AvertissementAcceptes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AvertissementAcceptes.
+     */
+    distinct?: AvertissementAccepteScalarFieldEnum | AvertissementAccepteScalarFieldEnum[]
+  }
+
+  /**
+   * AvertissementAccepte create
+   */
+  export type AvertissementAccepteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AvertissementAccepte.
+     */
+    data: XOR<AvertissementAccepteCreateInput, AvertissementAccepteUncheckedCreateInput>
+  }
+
+  /**
+   * AvertissementAccepte createMany
+   */
+  export type AvertissementAccepteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AvertissementAcceptes.
+     */
+    data: AvertissementAccepteCreateManyInput | AvertissementAccepteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AvertissementAccepte createManyAndReturn
+   */
+  export type AvertissementAccepteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * The data used to create many AvertissementAcceptes.
+     */
+    data: AvertissementAccepteCreateManyInput | AvertissementAccepteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AvertissementAccepte update
+   */
+  export type AvertissementAccepteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AvertissementAccepte.
+     */
+    data: XOR<AvertissementAccepteUpdateInput, AvertissementAccepteUncheckedUpdateInput>
+    /**
+     * Choose, which AvertissementAccepte to update.
+     */
+    where: AvertissementAccepteWhereUniqueInput
+  }
+
+  /**
+   * AvertissementAccepte updateMany
+   */
+  export type AvertissementAccepteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AvertissementAcceptes.
+     */
+    data: XOR<AvertissementAccepteUpdateManyMutationInput, AvertissementAccepteUncheckedUpdateManyInput>
+    /**
+     * Filter which AvertissementAcceptes to update
+     */
+    where?: AvertissementAccepteWhereInput
+    /**
+     * Limit how many AvertissementAcceptes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AvertissementAccepte updateManyAndReturn
+   */
+  export type AvertissementAccepteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * The data used to update AvertissementAcceptes.
+     */
+    data: XOR<AvertissementAccepteUpdateManyMutationInput, AvertissementAccepteUncheckedUpdateManyInput>
+    /**
+     * Filter which AvertissementAcceptes to update
+     */
+    where?: AvertissementAccepteWhereInput
+    /**
+     * Limit how many AvertissementAcceptes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AvertissementAccepte upsert
+   */
+  export type AvertissementAccepteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AvertissementAccepte to update in case it exists.
+     */
+    where: AvertissementAccepteWhereUniqueInput
+    /**
+     * In case the AvertissementAccepte found by the `where` argument doesn't exist, create a new AvertissementAccepte with this data.
+     */
+    create: XOR<AvertissementAccepteCreateInput, AvertissementAccepteUncheckedCreateInput>
+    /**
+     * In case the AvertissementAccepte was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AvertissementAccepteUpdateInput, AvertissementAccepteUncheckedUpdateInput>
+  }
+
+  /**
+   * AvertissementAccepte delete
+   */
+  export type AvertissementAccepteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+    /**
+     * Filter which AvertissementAccepte to delete.
+     */
+    where: AvertissementAccepteWhereUniqueInput
+  }
+
+  /**
+   * AvertissementAccepte deleteMany
+   */
+  export type AvertissementAccepteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AvertissementAcceptes to delete
+     */
+    where?: AvertissementAccepteWhereInput
+    /**
+     * Limit how many AvertissementAcceptes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AvertissementAccepte without action
+   */
+  export type AvertissementAccepteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AvertissementAccepte
+     */
+    select?: AvertissementAccepteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AvertissementAccepte
+     */
+    omit?: AvertissementAccepteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvertissementAccepteInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -81298,6 +82597,23 @@ export namespace Prisma {
   };
 
   export type ConflitScalarFieldEnum = (typeof ConflitScalarFieldEnum)[keyof typeof ConflitScalarFieldEnum]
+
+
+  export const AvertissementAccepteScalarFieldEnum: {
+    id: 'id',
+    versionId: 'versionId',
+    regleCode: 'regleCode',
+    signature: 'signature',
+    seanceIds: 'seanceIds',
+    auteurId: 'auteurId',
+    justification: 'justification',
+    versionRevision: 'versionRevision',
+    acceptePar: 'acceptePar',
+    accepteLe: 'accepteLe',
+    caduqueLe: 'caduqueLe'
+  };
+
+  export type AvertissementAccepteScalarFieldEnum = (typeof AvertissementAccepteScalarFieldEnum)[keyof typeof AvertissementAccepteScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -83931,6 +85247,7 @@ export namespace Prisma {
     conflits?: ConflitListRelationFilter
     editLock?: XOR<EditLockNullableScalarRelationFilter, EditLockWhereInput> | null
     verrous?: VerrouSeanceListRelationFilter
+    avertissementsAcceptes?: AvertissementAccepteListRelationFilter
   }
 
   export type VersionEdtOrderByWithRelationInput = {
@@ -83948,6 +85265,7 @@ export namespace Prisma {
     conflits?: ConflitOrderByRelationAggregateInput
     editLock?: EditLockOrderByWithRelationInput
     verrous?: VerrouSeanceOrderByRelationAggregateInput
+    avertissementsAcceptes?: AvertissementAccepteOrderByRelationAggregateInput
   }
 
   export type VersionEdtWhereUniqueInput = Prisma.AtLeast<{
@@ -83968,6 +85286,7 @@ export namespace Prisma {
     conflits?: ConflitListRelationFilter
     editLock?: XOR<EditLockNullableScalarRelationFilter, EditLockWhereInput> | null
     verrous?: VerrouSeanceListRelationFilter
+    avertissementsAcceptes?: AvertissementAccepteListRelationFilter
   }, "id">
 
   export type VersionEdtOrderByWithAggregationInput = {
@@ -86700,6 +88019,93 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Conflit"> | Date | string
   }
 
+  export type AvertissementAccepteWhereInput = {
+    AND?: AvertissementAccepteWhereInput | AvertissementAccepteWhereInput[]
+    OR?: AvertissementAccepteWhereInput[]
+    NOT?: AvertissementAccepteWhereInput | AvertissementAccepteWhereInput[]
+    id?: UuidFilter<"AvertissementAccepte"> | string
+    versionId?: UuidFilter<"AvertissementAccepte"> | string
+    regleCode?: StringFilter<"AvertissementAccepte"> | string
+    signature?: StringFilter<"AvertissementAccepte"> | string
+    seanceIds?: StringNullableListFilter<"AvertissementAccepte">
+    auteurId?: UuidFilter<"AvertissementAccepte"> | string
+    justification?: StringNullableFilter<"AvertissementAccepte"> | string | null
+    versionRevision?: IntFilter<"AvertissementAccepte"> | number
+    acceptePar?: UuidFilter<"AvertissementAccepte"> | string
+    accepteLe?: DateTimeFilter<"AvertissementAccepte"> | Date | string
+    caduqueLe?: DateTimeNullableFilter<"AvertissementAccepte"> | Date | string | null
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+  }
+
+  export type AvertissementAccepteOrderByWithRelationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    signature?: SortOrder
+    seanceIds?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrderInput | SortOrder
+    versionRevision?: SortOrder
+    acceptePar?: SortOrder
+    accepteLe?: SortOrder
+    caduqueLe?: SortOrderInput | SortOrder
+    version?: VersionEdtOrderByWithRelationInput
+  }
+
+  export type AvertissementAccepteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AvertissementAccepteWhereInput | AvertissementAccepteWhereInput[]
+    OR?: AvertissementAccepteWhereInput[]
+    NOT?: AvertissementAccepteWhereInput | AvertissementAccepteWhereInput[]
+    versionId?: UuidFilter<"AvertissementAccepte"> | string
+    regleCode?: StringFilter<"AvertissementAccepte"> | string
+    signature?: StringFilter<"AvertissementAccepte"> | string
+    seanceIds?: StringNullableListFilter<"AvertissementAccepte">
+    auteurId?: UuidFilter<"AvertissementAccepte"> | string
+    justification?: StringNullableFilter<"AvertissementAccepte"> | string | null
+    versionRevision?: IntFilter<"AvertissementAccepte"> | number
+    acceptePar?: UuidFilter<"AvertissementAccepte"> | string
+    accepteLe?: DateTimeFilter<"AvertissementAccepte"> | Date | string
+    caduqueLe?: DateTimeNullableFilter<"AvertissementAccepte"> | Date | string | null
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+  }, "id">
+
+  export type AvertissementAccepteOrderByWithAggregationInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    signature?: SortOrder
+    seanceIds?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrderInput | SortOrder
+    versionRevision?: SortOrder
+    acceptePar?: SortOrder
+    accepteLe?: SortOrder
+    caduqueLe?: SortOrderInput | SortOrder
+    _count?: AvertissementAccepteCountOrderByAggregateInput
+    _avg?: AvertissementAccepteAvgOrderByAggregateInput
+    _max?: AvertissementAccepteMaxOrderByAggregateInput
+    _min?: AvertissementAccepteMinOrderByAggregateInput
+    _sum?: AvertissementAccepteSumOrderByAggregateInput
+  }
+
+  export type AvertissementAccepteScalarWhereWithAggregatesInput = {
+    AND?: AvertissementAccepteScalarWhereWithAggregatesInput | AvertissementAccepteScalarWhereWithAggregatesInput[]
+    OR?: AvertissementAccepteScalarWhereWithAggregatesInput[]
+    NOT?: AvertissementAccepteScalarWhereWithAggregatesInput | AvertissementAccepteScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"AvertissementAccepte"> | string
+    versionId?: UuidWithAggregatesFilter<"AvertissementAccepte"> | string
+    regleCode?: StringWithAggregatesFilter<"AvertissementAccepte"> | string
+    signature?: StringWithAggregatesFilter<"AvertissementAccepte"> | string
+    seanceIds?: StringNullableListFilter<"AvertissementAccepte">
+    auteurId?: UuidWithAggregatesFilter<"AvertissementAccepte"> | string
+    justification?: StringNullableWithAggregatesFilter<"AvertissementAccepte"> | string | null
+    versionRevision?: IntWithAggregatesFilter<"AvertissementAccepte"> | number
+    acceptePar?: UuidWithAggregatesFilter<"AvertissementAccepte"> | string
+    accepteLe?: DateTimeWithAggregatesFilter<"AvertissementAccepte"> | Date | string
+    caduqueLe?: DateTimeNullableWithAggregatesFilter<"AvertissementAccepte"> | Date | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -88855,6 +90261,7 @@ export namespace Prisma {
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateInput = {
@@ -88871,6 +90278,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUpdateInput = {
@@ -88887,6 +90295,7 @@ export namespace Prisma {
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateInput = {
@@ -88903,6 +90312,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtCreateManyInput = {
@@ -91775,6 +93185,103 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AvertissementAccepteCreateInput = {
+    id?: string
+    regleCode: string
+    signature: string
+    seanceIds?: AvertissementAccepteCreateseanceIdsInput | string[]
+    auteurId: string
+    justification?: string | null
+    versionRevision: number
+    acceptePar: string
+    accepteLe?: Date | string
+    caduqueLe?: Date | string | null
+    version: VersionEdtCreateNestedOneWithoutAvertissementsAcceptesInput
+  }
+
+  export type AvertissementAccepteUncheckedCreateInput = {
+    id?: string
+    versionId: string
+    regleCode: string
+    signature: string
+    seanceIds?: AvertissementAccepteCreateseanceIdsInput | string[]
+    auteurId: string
+    justification?: string | null
+    versionRevision: number
+    acceptePar: string
+    accepteLe?: Date | string
+    caduqueLe?: Date | string | null
+  }
+
+  export type AvertissementAccepteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    seanceIds?: AvertissementAccepteUpdateseanceIdsInput | string[]
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    versionRevision?: IntFieldUpdateOperationsInput | number
+    acceptePar?: StringFieldUpdateOperationsInput | string
+    accepteLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    version?: VersionEdtUpdateOneRequiredWithoutAvertissementsAcceptesNestedInput
+  }
+
+  export type AvertissementAccepteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    seanceIds?: AvertissementAccepteUpdateseanceIdsInput | string[]
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    versionRevision?: IntFieldUpdateOperationsInput | number
+    acceptePar?: StringFieldUpdateOperationsInput | string
+    accepteLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AvertissementAccepteCreateManyInput = {
+    id?: string
+    versionId: string
+    regleCode: string
+    signature: string
+    seanceIds?: AvertissementAccepteCreateseanceIdsInput | string[]
+    auteurId: string
+    justification?: string | null
+    versionRevision: number
+    acceptePar: string
+    accepteLe?: Date | string
+    caduqueLe?: Date | string | null
+  }
+
+  export type AvertissementAccepteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    seanceIds?: AvertissementAccepteUpdateseanceIdsInput | string[]
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    versionRevision?: IntFieldUpdateOperationsInput | number
+    acceptePar?: StringFieldUpdateOperationsInput | string
+    accepteLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AvertissementAccepteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    seanceIds?: AvertissementAccepteUpdateseanceIdsInput | string[]
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    versionRevision?: IntFieldUpdateOperationsInput | number
+    acceptePar?: StringFieldUpdateOperationsInput | string
+    accepteLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -93831,11 +95338,21 @@ export namespace Prisma {
     isNot?: EditLockWhereInput | null
   }
 
+  export type AvertissementAccepteListRelationFilter = {
+    every?: AvertissementAccepteWhereInput
+    some?: AvertissementAccepteWhereInput
+    none?: AvertissementAccepteWhereInput
+  }
+
   export type VersionSnapshotOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ConflitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AvertissementAccepteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -95889,6 +97406,54 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumConflitSeveriteFilter<$PrismaModel>
     _max?: NestedEnumConflitSeveriteFilter<$PrismaModel>
+  }
+
+  export type AvertissementAccepteCountOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    signature?: SortOrder
+    seanceIds?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrder
+    versionRevision?: SortOrder
+    acceptePar?: SortOrder
+    accepteLe?: SortOrder
+    caduqueLe?: SortOrder
+  }
+
+  export type AvertissementAccepteAvgOrderByAggregateInput = {
+    versionRevision?: SortOrder
+  }
+
+  export type AvertissementAccepteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    signature?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrder
+    versionRevision?: SortOrder
+    acceptePar?: SortOrder
+    accepteLe?: SortOrder
+    caduqueLe?: SortOrder
+  }
+
+  export type AvertissementAccepteMinOrderByAggregateInput = {
+    id?: SortOrder
+    versionId?: SortOrder
+    regleCode?: SortOrder
+    signature?: SortOrder
+    auteurId?: SortOrder
+    justification?: SortOrder
+    versionRevision?: SortOrder
+    acceptePar?: SortOrder
+    accepteLe?: SortOrder
+    caduqueLe?: SortOrder
+  }
+
+  export type AvertissementAccepteSumOrderByAggregateInput = {
+    versionRevision?: SortOrder
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -98267,6 +99832,13 @@ export namespace Prisma {
     connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
   }
 
+  export type AvertissementAccepteCreateNestedManyWithoutVersionInput = {
+    create?: XOR<AvertissementAccepteCreateWithoutVersionInput, AvertissementAccepteUncheckedCreateWithoutVersionInput> | AvertissementAccepteCreateWithoutVersionInput[] | AvertissementAccepteUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: AvertissementAccepteCreateOrConnectWithoutVersionInput | AvertissementAccepteCreateOrConnectWithoutVersionInput[]
+    createMany?: AvertissementAccepteCreateManyVersionInputEnvelope
+    connect?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+  }
+
   export type SeanceUncheckedCreateNestedManyWithoutVersionInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -98306,6 +99878,13 @@ export namespace Prisma {
     connectOrCreate?: VerrouSeanceCreateOrConnectWithoutVersionInput | VerrouSeanceCreateOrConnectWithoutVersionInput[]
     createMany?: VerrouSeanceCreateManyVersionInputEnvelope
     connect?: VerrouSeanceWhereUniqueInput | VerrouSeanceWhereUniqueInput[]
+  }
+
+  export type AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput = {
+    create?: XOR<AvertissementAccepteCreateWithoutVersionInput, AvertissementAccepteUncheckedCreateWithoutVersionInput> | AvertissementAccepteCreateWithoutVersionInput[] | AvertissementAccepteUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: AvertissementAccepteCreateOrConnectWithoutVersionInput | AvertissementAccepteCreateOrConnectWithoutVersionInput[]
+    createMany?: AvertissementAccepteCreateManyVersionInputEnvelope
+    connect?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
   }
 
   export type EnumVersionStatutFieldUpdateOperationsInput = {
@@ -98400,6 +99979,20 @@ export namespace Prisma {
     deleteMany?: VerrouSeanceScalarWhereInput | VerrouSeanceScalarWhereInput[]
   }
 
+  export type AvertissementAccepteUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<AvertissementAccepteCreateWithoutVersionInput, AvertissementAccepteUncheckedCreateWithoutVersionInput> | AvertissementAccepteCreateWithoutVersionInput[] | AvertissementAccepteUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: AvertissementAccepteCreateOrConnectWithoutVersionInput | AvertissementAccepteCreateOrConnectWithoutVersionInput[]
+    upsert?: AvertissementAccepteUpsertWithWhereUniqueWithoutVersionInput | AvertissementAccepteUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: AvertissementAccepteCreateManyVersionInputEnvelope
+    set?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+    disconnect?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+    delete?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+    connect?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+    update?: AvertissementAccepteUpdateWithWhereUniqueWithoutVersionInput | AvertissementAccepteUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: AvertissementAccepteUpdateManyWithWhereWithoutVersionInput | AvertissementAccepteUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: AvertissementAccepteScalarWhereInput | AvertissementAccepteScalarWhereInput[]
+  }
+
   export type SeanceUncheckedUpdateManyWithoutVersionNestedInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -98478,6 +100071,20 @@ export namespace Prisma {
     update?: VerrouSeanceUpdateWithWhereUniqueWithoutVersionInput | VerrouSeanceUpdateWithWhereUniqueWithoutVersionInput[]
     updateMany?: VerrouSeanceUpdateManyWithWhereWithoutVersionInput | VerrouSeanceUpdateManyWithWhereWithoutVersionInput[]
     deleteMany?: VerrouSeanceScalarWhereInput | VerrouSeanceScalarWhereInput[]
+  }
+
+  export type AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<AvertissementAccepteCreateWithoutVersionInput, AvertissementAccepteUncheckedCreateWithoutVersionInput> | AvertissementAccepteCreateWithoutVersionInput[] | AvertissementAccepteUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: AvertissementAccepteCreateOrConnectWithoutVersionInput | AvertissementAccepteCreateOrConnectWithoutVersionInput[]
+    upsert?: AvertissementAccepteUpsertWithWhereUniqueWithoutVersionInput | AvertissementAccepteUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: AvertissementAccepteCreateManyVersionInputEnvelope
+    set?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+    disconnect?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+    delete?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+    connect?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+    update?: AvertissementAccepteUpdateWithWhereUniqueWithoutVersionInput | AvertissementAccepteUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: AvertissementAccepteUpdateManyWithWhereWithoutVersionInput | AvertissementAccepteUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: AvertissementAccepteScalarWhereInput | AvertissementAccepteScalarWhereInput[]
   }
 
   export type VersionEdtCreateNestedOneWithoutSnapshotsInput = {
@@ -101117,6 +102724,29 @@ export namespace Prisma {
     upsert?: VersionEdtUpsertWithoutConflitsInput
     connect?: VersionEdtWhereUniqueInput
     update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutConflitsInput, VersionEdtUpdateWithoutConflitsInput>, VersionEdtUncheckedUpdateWithoutConflitsInput>
+  }
+
+  export type AvertissementAccepteCreateseanceIdsInput = {
+    set: string[]
+  }
+
+  export type VersionEdtCreateNestedOneWithoutAvertissementsAcceptesInput = {
+    create?: XOR<VersionEdtCreateWithoutAvertissementsAcceptesInput, VersionEdtUncheckedCreateWithoutAvertissementsAcceptesInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutAvertissementsAcceptesInput
+    connect?: VersionEdtWhereUniqueInput
+  }
+
+  export type AvertissementAccepteUpdateseanceIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type VersionEdtUpdateOneRequiredWithoutAvertissementsAcceptesNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutAvertissementsAcceptesInput, VersionEdtUncheckedCreateWithoutAvertissementsAcceptesInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutAvertissementsAcceptesInput
+    upsert?: VersionEdtUpsertWithoutAvertissementsAcceptesInput
+    connect?: VersionEdtWhereUniqueInput
+    update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutAvertissementsAcceptesInput, VersionEdtUpdateWithoutAvertissementsAcceptesInput>, VersionEdtUncheckedUpdateWithoutAvertissementsAcceptesInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -106433,6 +108063,7 @@ export namespace Prisma {
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSemestreInput = {
@@ -106448,6 +108079,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSemestreInput = {
@@ -107104,6 +108736,7 @@ export namespace Prisma {
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSeancesInput = {
@@ -107119,6 +108752,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSeancesInput = {
@@ -107398,6 +109032,7 @@ export namespace Prisma {
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSeancesInput = {
@@ -107413,6 +109048,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type EnseignantUpsertWithoutSeancesInput = {
@@ -107837,6 +109473,7 @@ export namespace Prisma {
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutOccupationsInput = {
@@ -107852,6 +109489,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutOccupationsInput = {
@@ -107930,6 +109568,7 @@ export namespace Prisma {
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutOccupationsInput = {
@@ -107945,6 +109584,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SeanceUpsertWithoutOccupationsInput = {
@@ -108232,6 +109872,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AvertissementAccepteCreateWithoutVersionInput = {
+    id?: string
+    regleCode: string
+    signature: string
+    seanceIds?: AvertissementAccepteCreateseanceIdsInput | string[]
+    auteurId: string
+    justification?: string | null
+    versionRevision: number
+    acceptePar: string
+    accepteLe?: Date | string
+    caduqueLe?: Date | string | null
+  }
+
+  export type AvertissementAccepteUncheckedCreateWithoutVersionInput = {
+    id?: string
+    regleCode: string
+    signature: string
+    seanceIds?: AvertissementAccepteCreateseanceIdsInput | string[]
+    auteurId: string
+    justification?: string | null
+    versionRevision: number
+    acceptePar: string
+    accepteLe?: Date | string
+    caduqueLe?: Date | string | null
+  }
+
+  export type AvertissementAccepteCreateOrConnectWithoutVersionInput = {
+    where: AvertissementAccepteWhereUniqueInput
+    create: XOR<AvertissementAccepteCreateWithoutVersionInput, AvertissementAccepteUncheckedCreateWithoutVersionInput>
+  }
+
+  export type AvertissementAccepteCreateManyVersionInputEnvelope = {
+    data: AvertissementAccepteCreateManyVersionInput | AvertissementAccepteCreateManyVersionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutVersionsInput = {
     update: XOR<SemestreUpdateWithoutVersionsInput, SemestreUncheckedUpdateWithoutVersionsInput>
     create: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
@@ -108413,6 +110089,39 @@ export namespace Prisma {
     data: XOR<VerrouSeanceUpdateManyMutationInput, VerrouSeanceUncheckedUpdateManyWithoutVersionInput>
   }
 
+  export type AvertissementAccepteUpsertWithWhereUniqueWithoutVersionInput = {
+    where: AvertissementAccepteWhereUniqueInput
+    update: XOR<AvertissementAccepteUpdateWithoutVersionInput, AvertissementAccepteUncheckedUpdateWithoutVersionInput>
+    create: XOR<AvertissementAccepteCreateWithoutVersionInput, AvertissementAccepteUncheckedCreateWithoutVersionInput>
+  }
+
+  export type AvertissementAccepteUpdateWithWhereUniqueWithoutVersionInput = {
+    where: AvertissementAccepteWhereUniqueInput
+    data: XOR<AvertissementAccepteUpdateWithoutVersionInput, AvertissementAccepteUncheckedUpdateWithoutVersionInput>
+  }
+
+  export type AvertissementAccepteUpdateManyWithWhereWithoutVersionInput = {
+    where: AvertissementAccepteScalarWhereInput
+    data: XOR<AvertissementAccepteUpdateManyMutationInput, AvertissementAccepteUncheckedUpdateManyWithoutVersionInput>
+  }
+
+  export type AvertissementAccepteScalarWhereInput = {
+    AND?: AvertissementAccepteScalarWhereInput | AvertissementAccepteScalarWhereInput[]
+    OR?: AvertissementAccepteScalarWhereInput[]
+    NOT?: AvertissementAccepteScalarWhereInput | AvertissementAccepteScalarWhereInput[]
+    id?: UuidFilter<"AvertissementAccepte"> | string
+    versionId?: UuidFilter<"AvertissementAccepte"> | string
+    regleCode?: StringFilter<"AvertissementAccepte"> | string
+    signature?: StringFilter<"AvertissementAccepte"> | string
+    seanceIds?: StringNullableListFilter<"AvertissementAccepte">
+    auteurId?: UuidFilter<"AvertissementAccepte"> | string
+    justification?: StringNullableFilter<"AvertissementAccepte"> | string | null
+    versionRevision?: IntFilter<"AvertissementAccepte"> | number
+    acceptePar?: UuidFilter<"AvertissementAccepte"> | string
+    accepteLe?: DateTimeFilter<"AvertissementAccepte"> | Date | string
+    caduqueLe?: DateTimeNullableFilter<"AvertissementAccepte"> | Date | string | null
+  }
+
   export type VersionEdtCreateWithoutSnapshotsInput = {
     id?: string
     numero: string
@@ -108426,6 +110135,7 @@ export namespace Prisma {
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSnapshotsInput = {
@@ -108441,6 +110151,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSnapshotsInput = {
@@ -108501,6 +110212,7 @@ export namespace Prisma {
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSnapshotsInput = {
@@ -108516,6 +110228,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SnapshotUpsertWithoutVersionSnapshotsInput = {
@@ -108566,6 +110279,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutEditLockInput = {
@@ -108581,6 +110295,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutEditLockInput = {
@@ -108612,6 +110327,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutEditLockInput = {
@@ -108627,6 +110343,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtCreateWithoutVerrousInput = {
@@ -108642,6 +110359,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutVerrousInput = {
@@ -108657,6 +110375,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutVerrousInput = {
@@ -108735,6 +110454,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutVerrousInput = {
@@ -108750,6 +110470,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SeanceUpsertWithoutVerrousInput = {
@@ -114724,6 +116445,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutConflitsInput = {
@@ -114739,6 +116461,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutConflitsInput = {
@@ -114770,6 +116493,7 @@ export namespace Prisma {
     snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutConflitsInput = {
@@ -114783,6 +116507,87 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
     occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
     snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtCreateWithoutAvertissementsAcceptesInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutAvertissementsAcceptesInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutAvertissementsAcceptesInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutAvertissementsAcceptesInput, VersionEdtUncheckedCreateWithoutAvertissementsAcceptesInput>
+  }
+
+  export type VersionEdtUpsertWithoutAvertissementsAcceptesInput = {
+    update: XOR<VersionEdtUpdateWithoutAvertissementsAcceptesInput, VersionEdtUncheckedUpdateWithoutAvertissementsAcceptesInput>
+    create: XOR<VersionEdtCreateWithoutAvertissementsAcceptesInput, VersionEdtUncheckedCreateWithoutAvertissementsAcceptesInput>
+    where?: VersionEdtWhereInput
+  }
+
+  export type VersionEdtUpdateToOneWithWhereWithoutAvertissementsAcceptesInput = {
+    where?: VersionEdtWhereInput
+    data: XOR<VersionEdtUpdateWithoutAvertissementsAcceptesInput, VersionEdtUncheckedUpdateWithoutAvertissementsAcceptesInput>
+  }
+
+  export type VersionEdtUpdateWithoutAvertissementsAcceptesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutAvertissementsAcceptesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
   }
@@ -116557,6 +118362,7 @@ export namespace Prisma {
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSemestreInput = {
@@ -116572,6 +118378,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateManyWithoutSemestreInput = {
@@ -116842,6 +118649,19 @@ export namespace Prisma {
     levePar?: string | null
   }
 
+  export type AvertissementAccepteCreateManyVersionInput = {
+    id?: string
+    regleCode: string
+    signature: string
+    seanceIds?: AvertissementAccepteCreateseanceIdsInput | string[]
+    auteurId: string
+    justification?: string | null
+    versionRevision: number
+    acceptePar: string
+    accepteLe?: Date | string
+    caduqueLe?: Date | string | null
+  }
+
   export type SeanceUpdateWithoutVersionInput = {
     id?: StringFieldUpdateOperationsInput | string
     affectationKey?: StringFieldUpdateOperationsInput | string
@@ -117017,6 +118837,45 @@ export namespace Prisma {
     creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
     leveLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     levePar?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AvertissementAccepteUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    seanceIds?: AvertissementAccepteUpdateseanceIdsInput | string[]
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    versionRevision?: IntFieldUpdateOperationsInput | number
+    acceptePar?: StringFieldUpdateOperationsInput | string
+    accepteLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AvertissementAccepteUncheckedUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    seanceIds?: AvertissementAccepteUpdateseanceIdsInput | string[]
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    versionRevision?: IntFieldUpdateOperationsInput | number
+    acceptePar?: StringFieldUpdateOperationsInput | string
+    accepteLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AvertissementAccepteUncheckedUpdateManyWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    regleCode?: StringFieldUpdateOperationsInput | string
+    signature?: StringFieldUpdateOperationsInput | string
+    seanceIds?: AvertissementAccepteUpdateseanceIdsInput | string[]
+    auteurId?: StringFieldUpdateOperationsInput | string
+    justification?: NullableStringFieldUpdateOperationsInput | string | null
+    versionRevision?: IntFieldUpdateOperationsInput | number
+    acceptePar?: StringFieldUpdateOperationsInput | string
+    accepteLe?: DateTimeFieldUpdateOperationsInput | Date | string
+    caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FormationCreateManyDepartementInput = {

@@ -737,12 +737,13 @@ model VersionEdt {
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
 
-  seances     Seance[]
-  occupations Occupation[]
-  snapshots   VersionSnapshot[]
-  conflits    Conflit[]
-  editLock    EditLock?
-  verrous     VerrouSeance[]
+  seances                Seance[]
+  occupations            Occupation[]
+  snapshots              VersionSnapshot[]
+  conflits               Conflit[]
+  editLock               EditLock?
+  verrous                VerrouSeance[]
+  avertissementsAcceptes AvertissementAccepte[]
 
   @@index([semestreId])
   @@index([statut])
@@ -1535,4 +1536,25 @@ model Conflit {
   @@index([versionId, type])
   @@index([versionId, signature])
   @@map("conflits")
+}
+
+// Acceptation d'un avertissement (EX-CTR-07), liée à la signature du conflit.
+// ST §4.15 : traçage utilisateur, date, règle, version, caducité par signature.
+model AvertissementAccepte {
+  id              String    @id @default(uuid()) @db.Uuid
+  versionId       String    @db.Uuid
+  regleCode       String
+  signature       String
+  seanceIds       String[]  @db.Uuid
+  auteurId        String    @db.Uuid
+  justification   String?
+  versionRevision Int
+  acceptePar      String    @db.Uuid
+  accepteLe       DateTime  @default(now())
+  caduqueLe       DateTime? // renseigné quand la signature disparaît ou change
+
+  version VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+
+  @@index([versionId, signature])
+  @@map("avertissements_acceptes")
 }
