@@ -3,8 +3,8 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useCallback } from 'react';
-import { Clock, MapPin, AlertCircle } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { Clock, MapPinOff } from 'lucide-react';
+import { TokenEtat } from './token-etat';
 import { messages } from '@/lib/messages/fr';
 
 export interface SeanceCarte {
@@ -18,47 +18,13 @@ export interface SeanceCarte {
   revision: number;
 }
 
-type EtatSeance = 'IVORY' | 'WARM' | 'INSET';
-
 interface CarteSeanceProps {
   seance: SeanceCarte;
-  etat: EtatSeance;
+  etat: 'IVORY' | 'WARM' | 'INSET';
   index: number;
   editable: boolean;
+  onClick?: (id: string) => void;
   onMove: (seanceId: string, jour: string, creneauDebutId: string, salleId: string, revision: number) => void;
-}
-
-function etatConfig(etat: EtatSeance) {
-  switch (etat) {
-    case 'IVORY':
-      return {
-        badge: 'badge-outline',
-        label: messages.etatIvory,
-        icon: MapPin,
-        couleur: 'border-[color:#29363C] text-[color:#29363C] bg-[color:#29363C]/10',
-      };
-    case 'WARM':
-      return {
-        badge: 'badge-outline',
-        label: messages.etatWarm,
-        icon: AlertCircle,
-        couleur: 'border-[color:#B45309] text-[color:#B45309] bg-[color:#B45309]/10',
-      };
-    case 'INSET':
-      return {
-        badge: 'badge-outline',
-        label: messages.etatInset,
-        icon: AlertCircle,
-        couleur: 'border-[color:#B45309] text-[color:#B45309] bg-[color:#B45309]/10',
-      };
-    default:
-      return {
-        badge: 'badge-outline',
-        label: messages.etatIvory,
-        icon: MapPin,
-        couleur: 'border-[color:#29363C] text-[color:#29363C] bg-[color:#29363C]/10',
-      };
-  }
 }
 
 export function CarteSeance({
@@ -66,10 +32,9 @@ export function CarteSeance({
   etat,
   index,
   editable,
+  onClick,
   onMove,
 }: CarteSeanceProps) {
-  const config = etatConfig(etat);
-
   const { attributes, listeners, transform, transition } = useSortable({
     id: seance.id,
     data: {
@@ -85,8 +50,6 @@ export function CarteSeance({
     transform: transform ? CSS.Transform.toString(transform) : undefined,
     transition,
   };
-
-  const Icon = config.icon;
 
   const estNonPlacee = !seance.salleId || seance.statut === 'NON_PLACEE';
 
@@ -105,21 +68,27 @@ export function CarteSeance({
     <div
       {...attributes}
       {...listeners}
-      onClick={handleClick}
+      onClick={() => {
+        if (onClick) {
+          onClick(seance.id);
+        } else {
+          handleClick();
+        }
+      }}
       style={style}
       className={
         'relative rounded border p-2 cursor-grab active:cursor-grabbing transition-all ' +
         (editable && !estNonPlacee ? 'hover:shadow-sm' : 'opacity-50 cursor-not-allowed') +
-        ' ' +
-        config.couleur +
         (index % 2 === 0 ? '' : ' bg-muted/30')
       }
-      title={config.label}
-      aria-label={config.label}
+      title={messages.deplacerSeance}
+      aria-label={messages.deplacerSeance}
     >
       <div className="flex items-start gap-1.5">
-        <div className="mt-0.5 text-[color:#29363C]">
-          <Icon className="h-3 w-3 shrink-0" aria-hidden="true" />
+        <div className="flex items-center gap-1.5">
+          {estNonPlacee && (
+            <MapPinOff className="h-3 w-3 text-[color:#B45309]" aria-hidden="true" />
+          )}
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-xs font-medium text-[color:#29363C] truncate">
@@ -136,9 +105,7 @@ export function CarteSeance({
             </div>
           )}
         </div>
-        <Badge variant={config.badge === 'badge-outline' ? 'outline' : 'secondary'} className="text-xs shrink-0">
-          {config.label}
-        </Badge>
+        <TokenEtat etat={etat} estNonPlacee={estNonPlacee} />
       </div>
       {!editable && (
         <div className="absolute top-1 right-1 opacity-60 hover:opacity-100">

@@ -950,6 +950,20 @@ export const messages = {
   etatIvory: 'Ivory',
   etatWarm: 'Warm',
   etatInset: 'Inset',
+
+  // Suggestions et séances non placées (L3-26)
+  suggestions: 'Suggestions',
+  appliquerSuggestion: 'Appliquer',
+  suggestionConflitsResolus: 'Conflits résolus',
+  suggestionDeltaScore: 'Delta score',
+  suggestionDistance: 'Distance',
+  suggestionSalleConservee: 'Salle conservée',
+  suggestionAlternativeEnseignant: 'Alternative enseignante',
+  suggestionsAucune: 'Aucune suggestion disponible.',
+  nonPlaceeTitre: 'Séances non placées',
+  nonPlaceeListe: 'Séances à placer',
+  appliquerSucces: 'Suggestion appliquée avec succès.',
+  erreurSuggestions: 'Impossible de charger les suggestions.',
 } as const;
 
 export type Messages = typeof messages;

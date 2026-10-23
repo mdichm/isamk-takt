@@ -72,3 +72,59 @@ export async function moveSeance(
     throw new ApiError(res.status, detail ?? 'Erreur API');
   }
 }
+
+/* ============================================================================
+   Suggestions (L3-25 / L3-26)
+   GET /seances/{id}/suggestions — lecture seule, max 20 alternatives.
+   ============================================================================ */
+
+export interface SuggestionConflitDto {
+  regleCode: string;
+  type: string;
+  severite: string;
+  message: string;
+  signature: string;
+}
+
+export interface SuggestionDto {
+  jour: string;
+  creneauDebutId: string;
+  salleId: string;
+  conflitsResolus: number;
+  deltaScoreSouple: number;
+  distanceMinutes: number;
+  salleConservee: boolean;
+  conflitsResiduels: SuggestionConflitDto[];
+  estAlternativeEnseignant: boolean;
+}
+
+export interface SuggestionsResponseDto {
+  suggestions: SuggestionDto[];
+  total: number;
+  dureeMs: number;
+}
+
+export interface SuggestionsQueryDto {
+  jour?: string;
+  creneauDebutId?: string;
+  salleId?: string;
+  enseignantId?: string;
+  limit?: number;
+}
+
+export async function getSuggestions(
+  seanceId: string,
+  query?: SuggestionsQueryDto,
+): Promise<SuggestionsResponseDto> {
+  const params = new URLSearchParams();
+  if (query?.jour) params.set('jour', query.jour);
+  if (query?.creneauDebutId) params.set('creneauDebutId', query.creneauDebutId);
+  if (query?.salleId) params.set('salleId', query.salleId);
+  if (query?.enseignantId) params.set('enseignantId', query.enseignantId);
+  if (query?.limit) params.set('limit', String(query.limit));
+  const qs = params.toString();
+  const res = await apiFetch(
+    `/seances/${seanceId}/suggestions${qs ? `?${qs}` : ''}`,
+  );
+  return res.json();
+}
