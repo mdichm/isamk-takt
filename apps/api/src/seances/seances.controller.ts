@@ -40,6 +40,9 @@ import { ChangeEnseignantService } from './change-enseignant.service.js';
 import { ChangeEnseignantDto } from './dto/change-enseignant.dto.js';
 import { UndoSeanceService } from './undo-seance.service.js';
 import { UndoSeanceDto } from './dto/undo-seance.dto.js';
+import { SuggestionsService } from './suggestions.service.js';
+import { SuggestionsQueryDto } from './dto/suggestions.dto.js';
+import { SuggestionsResponseDto } from './dto/suggestions.dto.js';
 
 // ============================================
 // Seance (L3-11)
@@ -58,6 +61,7 @@ export class SeancesController {
     private readonly moveService: MoveSeanceService,
     private readonly changeEnseignantService: ChangeEnseignantService,
     private readonly undoSeanceService: UndoSeanceService,
+    private readonly suggestionsService: SuggestionsService,
   ) {}
 
   @Get('versions/:versionId/seances')
@@ -231,5 +235,34 @@ export class SeancesController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<SeanceResponseDto> {
     return this.undoSeanceService.undo(id, ifMatch, currentUser, dto);
+  }
+
+  @Get(':id/suggestions')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({
+    summary: 'Suggestions de résolution pour une séance (L3-25)',
+    description:
+      'Retourne jusqu’à 20 alternatives de placement sans conflit bloquant, triées par conflits résolus, delta de score souple, distance, salle conservée. Lecture seule, aucune écriture.',
+  })
+  @ApiParam({ name: 'id', type: String, description: 'Identifiant de la séance' })
+  @ApiQuery({ name: 'jour', required: false, enum: ['LUNDI', 'MARDI', 'MERCREDI', 'JEUDI', 'VENDREDI', 'SAMEDI', 'DIMANCHE'] })
+  @ApiQuery({ name: 'creneauDebutId', required: false, type: String })
+  @ApiQuery({ name: 'salleId', required: false, type: String })
+  @ApiQuery({ name: 'enseignantId', required: false, type: String })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 20 })
+  @ApiResponse({
+    status: 200,
+    description: 'Liste des suggestions de placement',
+    type: SuggestionsResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Séance introuvable (ou hors portée)' })
+  async suggestions(
+    @Param('id') id: string,
+    @Query() query: SuggestionsQueryDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<SuggestionsResponseDto> {
+    return this.suggestionsService.suggestions(id, query, currentUser);
   }
 }
