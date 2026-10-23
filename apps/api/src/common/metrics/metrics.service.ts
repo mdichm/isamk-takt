@@ -33,6 +33,8 @@ export class MetricsService implements OnModuleDestroy {
   readonly exportDuration: Histogram;
   readonly emailErrorsTotal: Counter;
   readonly failedQueueSize: Gauge;
+  // --- Métriques de satisfaction des vœux (L3-35) ---
+  readonly voeuxSatisfactionScore: Gauge;
 
   constructor() {
     this.registry = new Registry();
@@ -118,6 +120,14 @@ export class MetricsService implements OnModuleDestroy {
       help: 'Nombre de jobs en échec dans la file d’échecs',
       registers: [this.registry],
     });
+
+    // --- Score de satisfaction des vœux (L3-35) ---
+    this.voeuxSatisfactionScore = new Gauge({
+      name: 'takt_voeux_satisfaction_score',
+      help: 'Score de satisfaction des vœux par enseignant (0-100)',
+      labelNames: ['enseignantId', 'semestreId'],
+      registers: [this.registry],
+    });
   }
 
   /**
@@ -190,6 +200,17 @@ export class MetricsService implements OnModuleDestroy {
    */
   observeGenerationDuration(seconds: number): void {
     this.generationDuration.observe(seconds);
+  }
+
+  /**
+   * Observe le score de satisfaction des vœux d'un enseignant (L3-35).
+   */
+  observeVoeuxSatisfaction(
+    enseignantId: string,
+    semestreId: string,
+    score: number,
+  ): void {
+    this.voeuxSatisfactionScore.set({ enseignantId, semestreId }, score);
   }
 
   /**
