@@ -67,6 +67,7 @@ const NAV_ENTRIES: NavEntry[] = [
   { label: t('chargesAnnueles'), href: '/charges/annuelles', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: CHARGES },
   { label: t('contraintes'), href: '/contraintes', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES },
   { label: t('profils'), href: '/versions/[id]/profils', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES },
+  { label: t('generations'), href: '/versions/[id]/generations', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES },
 ];
 
 export default function Sidebar() {
