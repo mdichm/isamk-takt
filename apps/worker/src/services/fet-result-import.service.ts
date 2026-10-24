@@ -15,6 +15,7 @@ import {
   Reqs,
   VerrouIndex,
 } from '@takt/conflict-engine';
+import { GenerationMetricsService } from './generation-metrics.service.js';
 
 /** Conflit SESSION_UNPLACED pour une séance non placée. */
 function unplacedConflict(seanceId: string) {
@@ -121,6 +122,7 @@ export async function importGenerationResult(
   // ------------------------------------------------------------------
   const generation = await prisma.generation.findUnique({
     where: { id: generationId },
+    include: { profilGeneration: true },
   });
   if (!generation) {
     throw new Error(`Generation ${generationId} introuvable`);
@@ -243,38 +245,23 @@ export async function importGenerationResult(
   const tousConflits = [...conflits, ...unplacedConflicts];
 
   // ------------------------------------------------------------------
-  // Calculer les métriques et le score
+  // Calculer les métriques et le score via le moteur de métriques (L4-17)
   // ------------------------------------------------------------------
-  const totalActivites = engineInput.activities.length;
-  const placees = placedActivities.length;
-  const nonPlacees = unplacedActivities.length;
-  const tauxPlacement = totalActivites > 0 ? (placees / totalActivites) * 100 : 0;
+  const poidsScore = (generation.profilGeneration?.poidsScore ??
+    {}) as Record<string, number> | null;
 
-  const metrics = {
-    totalActivites,
-    placees,
-    nonPlacees,
-    tauxPlacement,
+  const metricsService = new GenerationMetricsService();
+  const { metrics, score } = metricsService.compute({
+    engineInput,
+    engineSolution,
+    conflits: tousConflits,
+    poidsScore,
+    statut,
     dureeMs: durationMs,
-    totalSoftConflicts: engineSolution.totalSoftConflicts,
-    hardConflits: tousConflits.length,
-    conflits: tousConflits.map((c) => ({
-      regleCode: c.regleCode,
-      type: c.type,
-      severite: c.severite,
-      message: c.message,
-      seanceIds: c.seanceIds,
-    })),
-    cause,
-    genereLe: new Date().toISOString(),
-  };
+  });
 
-  let score: number | null = null;
-  if (statut === GenerationStatut.SUCCEEDED) {
-    score = Math.round(tauxPlacement * 0.9 + (100 - Math.min(tousConflits.length, 100)) * 0.1);
-  } else if (statut === GenerationStatut.SUCCEEDED_WITH_WARNINGS) {
-    score = Math.round(tauxPlacement * 0.7);
-  }
+  // Motif d'erreur/cause conservé dans les métriques brutes
+  (metrics as Record<string, unknown>).cause = cause ?? null;
 
   // ------------------------------------------------------------------
   // Mettre à jour la Generation
