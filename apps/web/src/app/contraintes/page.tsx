@@ -1,7 +1,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { messages } from '@/lib/messages/fr';
@@ -39,65 +39,67 @@ export default function ContraintesPage() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="p-6 space-y-6">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-bold">{messages.contraintes}</h1>
-            <p className="text-muted-foreground">
-              {messages.contraintesSubtitle}
-            </p>
-          </div>
-          {canCreate && (
-            <Button onClick={() => setCreateOpen(true)}>
-              <Plus size={18} className="mr-2" />
-              {messages.create} {messages.entityContrainteInstance}
-            </Button>
-          )}
-          {!canCreate && (
-            <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
-              {messages.errorForbidden}
-            </span>
-          )}
-        </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>{messages.instancesContraintes}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ContraintesTable />
-          </CardContent>
-        </Card>
-
-        {semestreId ? (
-          <Card>
-            <CardHeader>
-              <CardTitle>{messages.fetMappingTitle}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <FetMappingPreview semestreId={semestreId} />
-              <p className="text-xs text-muted-foreground">
-                {messages.fetMappingNote}
+    <Suspense fallback={<div>{messages.loading}</div>}>
+      <QueryClientProvider client={queryClient}>
+        <div className="p-6 space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold">{messages.contraintes}</h1>
+              <p className="text-muted-foreground">
+                {messages.contraintesSubtitle}
               </p>
-            </CardContent>
-          </Card>
-        ) : (
+            </div>
+            {canCreate && (
+              <Button onClick={() => setCreateOpen(true)}>
+                <Plus size={18} className="mr-2" />
+                {messages.create} {messages.entityContrainteInstance}
+              </Button>
+            )}
+            {!canCreate && (
+              <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">
+                {messages.errorForbidden}
+              </span>
+            )}
+          </div>
+
           <Card>
             <CardHeader>
-              <CardTitle>{messages.fetMappingTitle}</CardTitle>
+              <CardTitle>{messages.instancesContraintes}</CardTitle>
             </CardHeader>
-            <CardContent className="p-4 text-muted-foreground text-sm">
-              {messages.semestreSelectionRequired}
+            <CardContent>
+              <ContraintesTable />
             </CardContent>
           </Card>
-        )}
 
-        <ContrainteFormDialog
-          open={createOpen}
-          onOpenChange={setCreateOpen}
-        />
-      </div>
-    </QueryClientProvider>
+          {semestreId ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>{messages.fetMappingTitle}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <FetMappingPreview semestreId={semestreId} />
+                <p className="text-xs text-muted-foreground">
+                  {messages.fetMappingNote}
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
+              <CardHeader>
+                <CardTitle>{messages.fetMappingTitle}</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 text-muted-foreground text-sm">
+                {messages.semestreSelectionRequired}
+              </CardContent>
+            </Card>
+          )}
+
+          <ContrainteFormDialog
+            open={createOpen}
+            onOpenChange={setCreateOpen}
+          />
+        </div>
+      </QueryClientProvider>
+    </Suspense>
   );
 }
