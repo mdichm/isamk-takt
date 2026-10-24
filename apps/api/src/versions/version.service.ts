@@ -1,24 +1,43 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - Service de création de version (L3-09)
-import { Injectable, NotFoundException, BadRequestException, ConflictException, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ConflictException,
+  UnprocessableEntityException,
+  Inject,
+} from '@nestjs/common';
 import { createHash, randomUUID } from 'crypto';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { PrismaService } from '../prisma/prisma.service.js';
 import { PreparationService } from '../preparation/preparation.service.js';
-import { Inject } from '@nestjs/common';
+import { ConflitService } from '../conflit/conflit.service.js';
+import type {
+  VersionStatut,
+  GenerationStatut,
+  GenerationMode,
+  SeanceStatut,
+  SeanceOrigine,
+  VerrouType,
+  RessourceType,
+  JourSemaine,
+  Creneau,
+  Seance,
+} from '@takt/db';
 import type { PgBoss as PgBossType } from 'pg-boss';
-import type { VersionStatut, GenerationStatut, GenerationMode } from '@takt/db';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { VersionResponseDto } from './dto/version-response.dto.js';
 import type { CompletudeResponseDto } from './dto/completude-response.dto.js';
 import type { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import type { GenerationResponseDto } from './dto/generation-response.dto.js';
-import type { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import { Prisma as PrismaValue } from '@takt/db';
 import { mkdtemp, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { tmpdir } from 'os';
+import type { AdoptResponseDto } from './dto/adopt-response.dto.js';
+import type { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -31,6 +50,7 @@ export class VersionService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly preparationService: PreparationService,
+    private readonly conflitService: ConflitService,
     @Inject('BOSS') private readonly boss: PgBossType,
   ) {}
 
@@ -721,7 +741,7 @@ export class VersionService {
     const generation = await this.prisma.$transaction(async (tx) => {
       const gen = await tx.generation.create({
         data: {
-          id: randomUUID(),
+          id: require('crypto').randomUUID(),
           semestreId: version.semestreId,
           versionId: version.id,
           auteurId: userId,
@@ -749,6 +769,7 @@ export class VersionService {
       // Audit log
       await tx.auditLog.create({
         data: {
+          id: require('crypto').randomUUID(),
           action: 'GENERATION_LAUNCH',
           objetType: 'Generation',
           objetId: gen.id,
@@ -765,17 +786,7 @@ export class VersionService {
       return gen;
     });
 
-    // 11. Enfiler le job de génération sur pg-boss (L4-15)
-    await this.boss.send('generation', {
-      generationId: generation.id,
-      semestreId: generation.semestreId,
-    }, {
-      retryDelay: 30_000,
-      retryBackoff: true,
-      expireInSeconds: 600,
-    });
-
-    // 12. Retour DTO
+    // 11. Retour DTO
     return {
       id: generation.id,
       versionId: generation.versionId,
@@ -790,6 +801,262 @@ export class VersionService {
   }
 
   // ============================================
+  // Adoption d'une génération (L4-19)
+  // POST /versions/{id}/adopt
+  // ============================================
+
+  async adoptGeneration(
+    versionId: string,
+    generationId: string,
+    userId: string,
+  ): Promise<AdoptResponseDto> {
+    // 1. La version existe
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      include: {
+        seances: {
+          where: { origine: 'MOTEUR' as SeanceOrigine },
+          include: { verrous: true },
+        },
+      },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+
+    // 2. La version doit être mutable (pas PUBLIE / ARCHIVE) -> 409
+    const statutsImmutables = ['PUBLIE', 'ARCHIVE'] as VersionStatut[];
+    if (statutsImmutables.includes(version.statut)) {
+      throw new ConflictException({
+        code: 'INVALID_STATE_TRANSITION',
+        message: `La version "${versionId}" est immuable (statut: ${version.statut})`,
+      });
+    }
+
+    // 3. La génération existe et appartient à cette version
+    const generation = await this.prisma.generation.findUnique({
+      where: { id: generationId },
+      include: { seances: true },
+    });
+    if (!generation) {
+      throw new NotFoundException(`Génération "${generationId}" introuvable`);
+    }
+    if (generation.versionId !== versionId) {
+      throw new UnprocessableEntityException({
+        code: 'GENERATION_WRONG_VERSION',
+        message: 'La génération ne porte pas sur les snapshots de cette version',
+      });
+    }
+
+    // 4. La génération doit être réussie (y compris avec avertissements)
+    const statutsReussis = [
+      'SUCCEEDED',
+      'SUCCEEDED_WITH_WARNINGS',
+    ] as GenerationStatut[];
+    if (!statutsReussis.includes(generation.statut)) {
+      throw new UnprocessableEntityException({
+        code: 'GENERATION_NOT_SUCCESSFUL',
+        message: `La génération "${generationId}" n'est pas dans un état adopté (statut: ${generation.statut})`,
+      });
+    }
+
+    // 5. Les snapshots de la version n'ont pas changé depuis la génération
+    const perimetre = await this.getPerimetre(versionId);
+    if (perimetre.perimetreHash !== generation.perimetreHash) {
+      throw new UnprocessableEntityException({
+        code: 'SNAPSHOTS_CHANGED',
+        message: 'Les snapshots de la version ont changé depuis la génération',
+      });
+    }
+
+    // 6. Séances MOTEUR à remplacer : celles sans verrou ACTIVITE non levé
+    const seancesARemplacer = version.seances.filter(
+      (s) =>
+        !s.verrous.some(
+          (v) => v.type === 'ACTIVITE' && v.leveLe === null,
+        ),
+    );
+    const seanceIdsARemplacer = seancesARemplacer.map((s) => s.id);
+
+    // Numérotation : majeur + 1 (RC-04), mineur remis à 0
+    const ancienNumero = version.numero;
+    const majeur = parseInt(ancienNumero.split('.')[0], 10);
+    const nouveauNumero = `${Number.isNaN(majeur) ? 1 : majeur + 1}.0`;
+    const maintenant = new Date();
+
+    // 7. Transaction : suppression, insertion, occupations, mise à jour, audit
+    await this.prisma.$transaction(async (tx) => {
+      // a. Supprimer les séances MOTEUR remplaçables et leurs dépendances
+      if (seanceIdsARemplacer.length > 0) {
+        await tx.occupation.deleteMany({
+          where: { seanceId: { in: seanceIdsARemplacer } },
+        });
+        await tx.seanceGroupe.deleteMany({
+          where: { seanceId: { in: seanceIdsARemplacer } },
+        });
+        await tx.seance.deleteMany({
+          where: { id: { in: seanceIdsARemplacer } },
+        });
+      }
+
+      // b. Insérer les séances de la génération
+      const creneaux = await tx.creneau.findMany({
+        where: { semestreId: version.semestreId },
+        orderBy: [{ jour: 'asc' }, { ordre: 'asc' }],
+      });
+      const creneauxParJour = new Map<JourSemaine, Creneau[]>();
+      for (const c of creneaux) {
+        const liste = creneauxParJour.get(c.jour) ?? [];
+        liste.push(c);
+        creneauxParJour.set(c.jour, liste);
+      }
+
+      for (const gs of generation.seances) {
+        const seance = await tx.seance.create({
+          data: {
+            id: randomUUID(),
+            semestreId: version.semestreId,
+            versionId: version.id,
+            affectationKey: gs.affectationKey,
+            rang: gs.rang,
+            nbCreneaux: gs.nbCreneaux,
+            statut: gs.statut,
+            origine: 'MOTEUR' as SeanceOrigine,
+            enseignantId: gs.enseignantId,
+            salleId: gs.salleId,
+            jour: (gs.jour ?? undefined) as JourSemaine | undefined,
+            creneauDebutId: gs.creneauDebutId,
+            tag: null,
+            revision: 0,
+            groupes: {
+              create: gs.groupeIds.map((gid) => ({ groupeId: gid })),
+            },
+          },
+          include: { groupes: true },
+        });
+
+        // Reconstruire les occupations uniquement si la séance est placée
+        if (
+          seance.statut === 'PLACEE' &&
+          seance.jour &&
+          seance.creneauDebutId
+        ) {
+          const creneauxCouverts = this.creneauxCouvertsPourSeance(
+            creneauxParJour,
+            seance.jour,
+            seance.creneauDebutId,
+            seance.nbCreneaux,
+          );
+          const occupationsData: Array<{
+            versionId: string;
+            seanceId: string;
+            jour: JourSemaine;
+            creneauId: string;
+            ressourceType: RessourceType;
+            ressourceId: string;
+          }> = [];
+          for (const creneauId of creneauxCouverts) {
+            if (seance.enseignantId) {
+              occupationsData.push({
+                versionId: version.id,
+                seanceId: seance.id,
+                jour: seance.jour,
+                creneauId,
+                ressourceType: 'ENSEIGNANT',
+                ressourceId: seance.enseignantId,
+              });
+            }
+            if (seance.salleId) {
+              occupationsData.push({
+                versionId: version.id,
+                seanceId: seance.id,
+                jour: seance.jour,
+                creneauId,
+                ressourceType: 'SALLE',
+                ressourceId: seance.salleId,
+              });
+            }
+            for (const g of seance.groupes) {
+              occupationsData.push({
+                versionId: version.id,
+                seanceId: seance.id,
+                jour: seance.jour,
+                creneauId,
+                ressourceType: 'GROUPE',
+                ressourceId: g.groupeId,
+              });
+            }
+          }
+          if (occupationsData.length > 0) {
+            await tx.occupation.createMany({ data: occupationsData });
+          }
+        }
+      }
+
+      // c. Supprimer les conflits existants de la version
+      await tx.conflit.deleteMany({ where: { versionId } });
+
+      // d. Passer la version en EDITION et incrémenter le majeur (RC-04)
+      await tx.versionEdt.update({
+        where: { id: versionId },
+        data: {
+          statut: 'EDITION' as VersionStatut,
+          numero: nouveauNumero,
+          motif: `Adoption de la génération ${generationId}`,
+        },
+      });
+
+      // e. Audit
+      await tx.auditLog.create({
+        data: {
+          action: 'GENERATION_ADOPT',
+          objetType: 'Version',
+          objetId: version.id,
+          versionId: version.id,
+          userId,
+          at: maintenant,
+          details: {
+            generationId,
+            ancienNumero,
+            nouveauNumero,
+            nbSeancesRemplacees: seanceIdsARemplacer.length,
+            nbSeancesGenerees: generation.seances.length,
+          },
+        },
+      });
+    });
+
+    // 8. Recalcul complet des conflits (après la transaction, lit les nouvelles données)
+    const conflits = await this.conflitService.recomputeConflits(versionId);
+
+    return {
+      versionId: version.id,
+      numero: nouveauNumero,
+      statut: 'EDITION' as VersionStatut,
+      conflitsInitiaux: conflits.length,
+    };
+  }
+
+  /**
+   * Retourne les nbCreneaux créneaux couverts à partir de creneauDebutId,
+   * dans l'ordre du jour donné.
+   */
+  private creneauxCouvertsPourSeance(
+    creneauxParJour: Map<JourSemaine, Creneau[]>,
+    jour: JourSemaine,
+    creneauDebutId: string,
+    nbCreneaux: number,
+  ): string[] {
+    const liste = creneauxParJour.get(jour) ?? [];
+    const indexDebut = liste.findIndex((c) => c.id === creneauDebutId);
+    if (indexDebut < 0) {
+      return [];
+    }
+    return liste
+      .slice(indexDebut, indexDebut + nbCreneaux)
+      .map((c) => c.id);
+  }
+
   // Import de résultat de génération manuelle (L4-16)
   // POST /versions/{id}/generations/import
   // ============================================
@@ -822,14 +1089,14 @@ export class VersionService {
       },
     });
     if (!version) {
-      throw new NotFoundException(`Version "${versionId}" introuvable`);
+      throw new NotFoundException(`Version \"${versionId}\" introuvable`);
     }
 
     // 2. La version doit être en statut EDITION pour accepter une importation
     if (version.statut !== 'EDITION') {
       throw new BadRequestException({
         code: 'VERSION_NOT_EDITION',
-        message: `La version "${versionId}" n'est pas en statut EDITION (actuel: ${version.statut})`,
+        message: `La version \"${versionId}\" n'est pas en statut EDITION (actuel: ${version.statut})`,
       });
     }
 
@@ -844,7 +1111,7 @@ export class VersionService {
     if (generationEnCours) {
       throw new ConflictException({
         code: 'GENERATION_ALREADY_RUNNING',
-        message: `Une génération est déjà en cours sur la version "${versionId}" (id: ${generationEnCours.id}, statut: ${generationEnCours.statut})`,
+        message: `Une génération est déjà en cours sur la version \"${versionId}\" (id: ${generationEnCours.id}, statut: ${generationEnCours.statut})`,
       });
     }
 

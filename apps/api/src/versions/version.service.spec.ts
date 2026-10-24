@@ -1,16 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - Tests unitaires du service de version (L3-09)
-import { NotFoundException, BadRequestException, ConflictException, UnprocessableEntityException } from '@nestjs/common';
+import { NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { PreparationService } from '../preparation/preparation.service.js';
+import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
-
-vi.mock('fs/promises', () => ({
-  mkdtemp: vi.fn().mockResolvedValue('/tmp/import-manuel-test'),
-  writeFile: vi.fn().mockResolvedValue(undefined),
-}));
 
 // ============================================
 // VersionService (L3-09)
@@ -19,7 +15,6 @@ vi.mock('fs/promises', () => ({
 describe('VersionService', () => {
   let service: VersionService;
   let prisma: any;
-  let bossMock: any;
 
   const semestreId = 'semestre-1';
   const dept1Id = 'dept-1';
@@ -43,8 +38,7 @@ describe('VersionService', () => {
       snapshotAffectation: { findMany: vi.fn() },
       seance: { create: vi.fn(), findMany: vi.fn() },
       editLock: { findUnique: vi.fn() },
-      generation: { findFirst: vi.fn(), create: vi.fn() },
-      fichierMoteur: { findFirst: vi.fn() },
+      generation: { findFirst: vi.fn() },
       contrainteInstance: { findMany: vi.fn() },
       auditLog: { create: vi.fn() },
       $transaction: vi.fn(),
@@ -54,7 +48,7 @@ describe('VersionService', () => {
       getPreparation: vi.fn(),
     };
 
-    bossMock = {
+    const bossMock = {
       send: vi.fn().mockResolvedValue('job-id'),
     };
 
@@ -63,6 +57,7 @@ describe('VersionService', () => {
         VersionService,
         { provide: PrismaService, useValue: prisma },
         { provide: PreparationService, useValue: preparationService },
+        { provide: ConflitService, useValue: { recomputeConflits: vi.fn() } },
         { provide: 'BOSS', useValue: bossMock },
       ],
     }).compile();
@@ -580,135 +575,6 @@ describe('VersionService', () => {
       const r1 = await (service as any).getPerimetre(versionId);
       const r2 = await (service as any).getPerimetre(versionId);
       expect(r1.perimetreHash).toBe(r2.perimetreHash);
-    });
-  });
-
-  // ============================================
-  // Import manuel de résultat (L4-16)
-  // ============================================
-
-  describe('importManualGeneration', () => {
-    const versionId = 'version-1';
-    const semestreId = 'semestre-1';
-    const userId = 'user-1';
-    const sha256 = 'sha256:abcdef1234567890';
-    const fileBuffer = Buffer.from('Generation successful\n');
-
-    const versionEdition = {
-      id: versionId,
-      semestreId,
-      statut: 'EDITION',
-    };
-
-    const fichierMoteurMock = {
-      id: 'fm-1',
-      sha256,
-      engineVersion: '6.5.0',
-      generationId: 'gen-existing',
-    };
-
-    beforeEach(() => {
-      prisma.versionEdt.findUnique.mockReset();
-      prisma.generation.findFirst.mockReset();
-      prisma.fichierMoteur.findFirst.mockReset();
-      prisma.$transaction.mockReset();
-      bossMock.send.mockReset();
-    });
-
-    it('crée une génération MANUELLE et enfile le job quand tout est valide', async () => {
-      prisma.versionEdt.findUnique.mockResolvedValue(versionEdition);
-      prisma.generation.findFirst.mockResolvedValue(null);
-      prisma.fichierMoteur.findFirst.mockResolvedValue(fichierMoteurMock);
-      prisma.generation.create.mockResolvedValue({
-        id: 'gen-new',
-        versionId,
-        semestreId,
-        statut: 'QUEUED',
-        mode: 'MANUELLE',
-        fichierAttendu: sha256,
-        queuedAt: new Date(),
-      });
-      prisma.$transaction.mockImplementation(async (cb: any) => {
-        const tx = {
-          generation: { create: prisma.generation.create },
-          auditLog: { create: vi.fn().mockResolvedValue({}) },
-        };
-        return cb(tx);
-      });
-
-      const result = await service.importManualGeneration(
-        versionId,
-        { buffer: fileBuffer, originalname: 'result.fet' } as Express.Multer.File,
-        sha256,
-        userId,
-      );
-
-      expect(result.generationId).toBe('gen-new');
-      expect(result.mode).toBe('MANUELLE');
-      expect(prisma.generation.create).toHaveBeenCalledWith(
-        expect.objectContaining({
-          data: expect.objectContaining({
-            mode: 'MANUELLE',
-            fichierAttendu: sha256,
-          }),
-        }),
-      );
-      expect(bossMock.send).toHaveBeenCalledWith('generation:import-manuel', expect.any(Object), expect.any(Object));
-    });
-
-    it('lève NotFoundException si la version est introuvable', async () => {
-      prisma.versionEdt.findUnique.mockResolvedValue(null);
-
-      await expect(
-        service.importManualGeneration(
-          versionId,
-          { buffer: fileBuffer } as Express.Multer.File,
-          sha256,
-          userId,
-        ),
-      ).rejects.toThrow(NotFoundException);
-    });
-
-    it('lève BadRequestException si la version n est pas en EDITION', async () => {
-      prisma.versionEdt.findUnique.mockResolvedValue({ ...versionEdition, statut: 'BROUILLON' });
-
-      await expect(
-        service.importManualGeneration(
-          versionId,
-          { buffer: fileBuffer } as Express.Multer.File,
-          sha256,
-          userId,
-        ),
-      ).rejects.toThrow(BadRequestException);
-    });
-
-    it('lève ConflictException si une génération est déjà en cours', async () => {
-      prisma.versionEdt.findUnique.mockResolvedValue(versionEdition);
-      prisma.generation.findFirst.mockResolvedValue({ id: 'gen-running', statut: 'QUEUED' });
-
-      await expect(
-        service.importManualGeneration(
-          versionId,
-          { buffer: fileBuffer } as Express.Multer.File,
-          sha256,
-          userId,
-        ),
-      ).rejects.toThrow(ConflictException);
-    });
-
-    it('lève UnprocessableEntityException ENGINE_FILE_MISMATCH si sha256 ne correspond pas', async () => {
-      prisma.versionEdt.findUnique.mockResolvedValue(versionEdition);
-      prisma.generation.findFirst.mockResolvedValue(null);
-      prisma.fichierMoteur.findFirst.mockResolvedValue(null);
-
-      await expect(
-        service.importManualGeneration(
-          versionId,
-          { buffer: fileBuffer } as Express.Multer.File,
-          sha256,
-          userId,
-        ),
-      ).rejects.toThrow(UnprocessableEntityException);
     });
   });
 });

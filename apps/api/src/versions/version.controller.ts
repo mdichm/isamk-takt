@@ -22,6 +22,8 @@ import { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import { GenerationResponseDto } from './dto/generation-response.dto.js';
+import { AdoptGenerationDto } from './dto/adopt-generation.dto.js';
+import { AdoptResponseDto } from './dto/adopt-response.dto.js';
 import type { ImportGenerationDto } from './dto/import-generation.dto.js';
 import { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
@@ -172,6 +174,41 @@ export class VersionController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<GenerationResponseDto> {
     return this.service.createGeneration(id, dto, currentUser.id);
+  }
+
+  @Post(':id/adopt')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:adopt')
+  @ApiOperation({
+    summary: 'Adopter une génération comme base d\'édition d\'une version',
+    description:
+      'Remplace les séances MOTEUR de la version, insère les séances de la génération, ' +
+      'recalcule les conflits, passe la version en EDITION et incrémente le numéro majeur (RC-04).',
+  })
+  @ApiParam({ name: 'id', description: 'ID de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Version adoptée',
+    type: AdoptResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version ou génération introuvable' })
+  @ApiResponse({
+    status: 409,
+    description: "Version immuable (INVALID_STATE_TRANSITION)",
+  })
+  @ApiResponse({
+    status: 422,
+    description:
+      'Génération non réussie, ou snapshots de la version modifiés depuis la génération',
+  })
+  async adopt(
+    @Param('id') id: string,
+    @Body() dto: AdoptGenerationDto,
+    @CurrentUser()
+    currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<AdoptResponseDto> {
+    return this.service.adoptGeneration(id, dto.generationId, currentUser.id);
   }
 
   @Post(':id/generations/import')
