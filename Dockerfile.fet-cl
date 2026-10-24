@@ -1,0 +1,53 @@
+# Dockerfile.fet-cl — FET 7.12.0 (binaire pré-compilé Linux)
+# Usage:
+#   docker build -t fet-cl:7.12.0 -f Dockerfile.fet-cl .
+#   docker run --rm -v $(pwd)/docs:/work fet-cl:7.12.0 /work/s1_fet_tests.sh /opt/fet/bin/fet-cl /work/isamk.fet /work/s1-work
+
+# --- Stage 1: télécharger et extraire le binaire ---
+FROM ubuntu:24.04 AS fet-provider
+
+ARG FET_VERSION=7.12.0
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      wget \
+      xz-utils \
+      ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /src
+
+# Télécharger le binaire Linux pré-compilé
+RUN wget -q "https://lalescu.ro/liviu/fet/download/bin/fet-7.12.0-bin.tar.xz" -O fet-bin.tar.xz && \
+    tar -xf fet-bin.tar.xz && \
+    rm fet-bin.tar.xz
+
+# Vérifier la structure extraite
+RUN ls -la && find . -name "fet-cl" -type f
+
+# --- Stage 2: runtime minimal ---
+FROM ubuntu:24.04 AS runtime
+
+# Dépendances runtime pour FET (Qt6 libraries)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      libqt6core6t64 \
+      libqt6gui6t64 \
+      libqt6network6t64 \
+      libqt6sql6t64 \
+      libqt6sql6-sqlite \
+      libqt6widgets6t64 \
+      libqt6xml6t64 \
+      libgl1 \
+      libxcb1 \
+      libxkbcommon0 \
+      libdbus-1-3 \
+      libssl3 \
+      ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copier le binaire FET depuis le stage provider
+COPY --from=fet-provider /src/fet-7.12.0 /opt/fet
+
+ENV PATH="/opt/fet/bin:${PATH}"
+ENV LC_ALL=C.UTF-8
+
+ENTRYPOINT ["fet-cl"]
