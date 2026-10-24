@@ -5,9 +5,10 @@ import { VersionController } from './version.controller.js';
 import { VersionService } from './version.service.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
 import { PreparationModule } from '../preparation/preparation.module.js';
+import { PgBossModule } from '../pg-boss/pg-boss.module.js';
 
 @Module({
-  imports: [PrismaModule, PreparationModule],
+  imports: [PrismaModule, PreparationModule, PgBossModule],
   controllers: [VersionController],
   providers: [VersionService],
   exports: [VersionService],

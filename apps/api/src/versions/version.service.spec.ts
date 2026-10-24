@@ -47,11 +47,16 @@ describe('VersionService', () => {
       getPreparation: vi.fn(),
     };
 
+    const bossMock = {
+      send: vi.fn().mockResolvedValue('job-id'),
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         VersionService,
         { provide: PrismaService, useValue: prisma },
         { provide: PreparationService, useValue: preparationService },
+        { provide: 'BOSS', useValue: bossMock },
       ],
     }).compile();
 

@@ -46,6 +46,8 @@ import { EditLockModule } from './edit-lock/edit-lock.module.js';
 import { VerrouSeanceModule } from './verrou-seance/verrou-seance.module.js';
 import { ProfilsModule } from './profils/profils.module.js';
 import { PreparationModule } from './preparation/preparation.module.js';
+import { GenerationsModule } from './generations/generations.module.js';
+import { PgBossModule } from './pg-boss/pg-boss.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -133,6 +135,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     VerrouSeanceModule,
     ProfilsModule,
     PreparationModule,
+    GenerationsModule,
+    PgBossModule,
   ],
   controllers: [MetricsController, SecurityEventController],
   providers: [

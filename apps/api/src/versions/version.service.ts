@@ -5,6 +5,9 @@ import { createHash } from 'crypto';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { PrismaService } from '../prisma/prisma.service.js';
 import { PreparationService } from '../preparation/preparation.service.js';
+import { Inject } from '@nestjs/common';
+import { PgBoss } from 'pg-boss';
+import type { PgBoss as PgBossType } from 'pg-boss';
 import type { VersionStatut, GenerationStatut, GenerationMode } from '@takt/db';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { VersionResponseDto } from './dto/version-response.dto.js';
@@ -24,6 +27,7 @@ export class VersionService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly preparationService: PreparationService,
+    @Inject('BOSS') private readonly boss: PgBossType,
   ) {}
 
   /** Liste toutes les versions (lecture, permission version:read). */
@@ -758,7 +762,17 @@ export class VersionService {
       return gen;
     });
 
-    // 11. Retour DTO
+    // 11. Enfiler le job de génération sur pg-boss (L4-15)
+    await this.boss.send('generation', {
+      generationId: generation.id,
+      semestreId: generation.semestreId,
+    }, {
+      retryDelay: 30_000,
+      retryBackoff: true,
+      expireInSeconds: 600,
+    });
+
+    // 12. Retour DTO
     return {
       id: generation.id,
       versionId: generation.versionId,
