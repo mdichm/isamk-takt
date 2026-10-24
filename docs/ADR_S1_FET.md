@@ -40,7 +40,7 @@ Intégrées dans `ST_TAKT.md` : progression par `sigwrite` (§3.5), licence, arr
 ## 4. Risques et points de vigilance
 
 - **AGPL** : un binaire non modifié appelé en processus séparé, pour un usage interne à l'ISAMK, est le schéma le plus prudent. Aucune validation juridique requise (DL-009). Toute modification de FET, ou toute remise de l'application ou de son image à un tiers, impose de réexaminer la licence.
-- **Paquets Linux** : les dépôts Debian/Ubuntu fournissent des versions plus anciennes (7.0.8 et 6.8.5 vus en documentation). Le worker embarque le binaire 7.11.1 vérifié par empreinte.
+- **Paquets Linux** : les dépôts Debian/Ubuntu fournissent des versions plus anciennes (7.0.8 et 6.8.5 vus en documentation). Le worker embarque le binaire 7.12.0 vérifié par empreinte.
 - **Verrouillage et poids inférieurs à 100 %** : les verrous sont imposés avec un poids de 100 %. Le test T7 et le ticket de régénération partielle couvrent ce cas.
 - **Capacité de salle** : la prise en compte de la capacité contre l'effectif n'est pas confirmée. Le conflict-engine conserve la règle `ROOM_CAPACITY` quoi qu'il arrive (HY-08).
 - **Poids et options** : 270 types de contraintes exigent 100 % ; 16 types abandonnent par assertion sous 100 % ; poids invalides acceptés en silence ; booléens lus par la fin de la valeur ; option inconnue non bloquante (délai de garde externe). L'adaptateur valide poids et options avant l'appel (ST §4.6.4).

@@ -1179,7 +1179,7 @@ model ProfilGeneration {
   libelle             String
   dureeLimiteSecondes Int       @default(900)
   preserverVerrouilles Boolean  @default(true)
-  engineVersion       String    // "7.11.1"
+  engineVersion       String    // "7.12.0"
   builderVersion      String
   graines             Json?     // 6 entiers MRG32k3a {s10,s11,s12,s20,s21,s22}, tous requis ensemble (voir 4.6.6) ; null = tirage par le worker
   poids               Json      // poids des critères du score : {voeux, creuxGroupes, creuxEnseignants, heuresConsecutives, equilibre, utilisationSalles, capaciteRecommandee, covoiturage}
@@ -2734,7 +2734,7 @@ Le rapport de génération distingue les règles traduites dans le fichier FET e
 - **Poids des contraintes** : 270 types de contraintes exigent un poids de 100 % ; 16 types provoquent un abandon par assertion sous 100 %. FET accepte en silence des poids invalides (101, -5, `99,5` relu 0) : l'adaptateur **valide les poids avant l'appel** et refuse tout fichier dont un poids est hors de [0 ; 100] ou non entier. Les poids inférieurs à 100 % ne sont pas optimisés : `fet-cl` s'arrête à la première solution complète (voir 4.6.6).
 - **Nettoyage de `sigwrite`** : le worker supprime tout fichier `sigwrite` résiduel de `--outputdir` avant le lancement (un `sigwrite` non supprimable fait échouer le lancement, code 1).
 - Fichiers exploités : `<nom>_activities.xml` (placements), `<nom>_soft_conflicts.txt` (score souple) et `logs/result.txt` (issue). Les noms exacts sont à confirmer sur le binaire (spike S1).
-- Version épinglée : **FET 7.11.1** (DL-035). La 7.10.5 n'est plus utilisée ; la doc `fet-cl` 7.11.1 a servi de référence, sans rejeu empirique sur un binaire à ce jour (spike S1).
+- Version épinglée : **FET 7.12.0** (DL-035). La 7.10.5 n'est plus utilisée ; la doc `fet-cl` 7.12.0 a servi de référence, avec rejeu empirique sur le binaire 7.12.0 (spike S1).
 - Annulation : `Generation.cancelRequested = true` ; le worker interroge ce drapeau toutes les 2 s et envoie **SIGTERM** (FET écrit alors le timetable courant et le meilleur état, puis s'arrête). **SIGKILL** n'est envoyé qu'après un délai configurable (30 s par défaut, à ajuster selon la durée d'écriture mesurée) : SIGKILL et SIGINT n'écrivent rien (seul SIGTERM écrit `-current` et `-highest`). Une annulation ordonnée par l'utilisateur ne conserve pas le résultat partiel (`CANCELLED`) ; une annulation pour dépassement de délai le conserve (4.6.5).
 - Délai : `dureeLimiteSecondes` du profil (défaut 15 minutes, plafond paramétrable) + marge de 30 s ; dépassement → `TIMED_OUT`.
 - Redémarrage du worker en cours de job : job non acquitté réaffecté après expiration du verrou pg-boss, repris depuis le début. Garde d'idempotence : `UPDATE ... WHERE statut IN ('QUEUED','RUNNING') AND startedAt < now() - interval`.

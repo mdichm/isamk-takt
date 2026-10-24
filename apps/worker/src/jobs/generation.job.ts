@@ -15,6 +15,9 @@ import {
   claimGenerationForSemester,
 } from '../guards/single-job-per-semester.guard.js';
 import { handleDeadLetter, isDeadLetter } from '../services/dead-letter.service.js';
+import { FetAdapter } from '@takt/engine-fet';
+import type { EngineRunOptions, EngineRawResult, EngineFile } from '@takt/contracts';
+import { randomBytes } from 'crypto';
 
 // Données attendues dans le job pg-boss pour une génération
 interface GenerationJobData {
@@ -58,6 +61,7 @@ async function updateGenerationStatus(
     metrics?: Record<string, unknown> | null;
     resultKey?: string | null;
     logKey?: string | null;
+    engineVersion?: string | null;
   },
 ): Promise<void> {
   await prisma.generation.update({
@@ -160,20 +164,96 @@ export async function handleGenerationJob(job: Job): Promise<void> {
     span.setStatus({ code: SpanStatusCode.OK });
 
     // ------------------------------------------------------------------
-    // 5. TODO: Logique de génération FET réelle (à implémenter dans L4-08/L4-09)
+    // 5. Logique de génération FET réelle (L4-08)
     //    - Construire le XML FET avec @takt/engine-fet
     //    - Lancer fet-cl en sous-processus isolé
-    //    - Parser logs/result.txt et importer les séances
+    //    - Parser logs/result.txt et mettre à jour le statut
     // ------------------------------------------------------------------
-    console.log(
-      `Generation job ${job.id} for generation ${generationId} is running. FET execution logic not yet implemented (L4-08/L4-09).`,
-    );
 
-    // Pour l'instant, on marque comme SUCCEEDED (placeholder)
-    await updateGenerationStatus(generationId, {
-      statut: GenerationStatut.SUCCEEDED,
-      finishedAt: new Date(),
+    // Récupérer la génération depuis la base
+    const generation = await prisma.generation.findUnique({
+      where: { id: generationId },
     });
+    if (!generation) {
+      throw new Error(`Generation ${generationId} introuvable`);
+    }
+
+    // Vérifier si une annulation a été demandée avant de commencer
+    if (generation.cancelRequested) {
+      await updateGenerationStatus(generationId, {
+        statut: GenerationStatut.CANCELLED,
+        finishedAt: new Date(),
+      });
+      return;
+    }
+
+    // Instancier l'adaptateur FET
+    const fetAdapter = new FetAdapter();
+
+    // Construire EngineInput à partir des données du semestre
+    // NOTE : Le mapping complet Prisma → EngineInput doit être affiné
+    // lorsque les modèles de données nécessaires sont disponibles.
+    const engineInput = await buildEngineInputFromSemestre(semestreId);
+
+    // Construire le fichier moteur (buildProfile)
+    const engineFile = await fetAdapter.buildProfile(engineInput);
+
+    // Archiver le fichier moteur et enregistrer sa version
+    await updateGenerationStatus(generationId, {
+      engineVersion: engineFile.engineVersion,
+    });
+
+    // Préparer les options d'exécution
+    const durationLimit = 900; // défaut 15 min, à remplacer par la valeur du profil
+    const seeds = generateRandomSeeds();
+
+    const opts: EngineRunOptions = {
+      timelimitSeconds: durationLimit,
+      randomSeeds: seeds,
+      verbose: false,
+      writeTimetables: true,
+      writeConflicts: true,
+    };
+
+    // Stocker les graines pour traçabilité (si le champ existait)
+    // À activer quand le champ seeds sera ajouté au schéma Prisma
+
+    // Créer un AbortSignal lié à la demande d'annulation
+    const abortController = new AbortController();
+
+    // Surveiller cancelRequested pendant l'exécution (polling toutes les 2s)
+    const cancelPoll = setInterval(async () => {
+      const fresh = await prisma.generation.findUnique({
+        where: { id: generationId },
+        select: { cancelRequested: true },
+      });
+      if (fresh?.cancelRequested && !abortController.signal.aborted) {
+        abortController.abort();
+      }
+    }, 2000);
+
+    try {
+      // Lancer fet-cl
+      const rawResult = await fetAdapter.run(engineFile, opts, abortController.signal);
+
+      // Mettre à jour le statut selon le résultat
+      await finalizeGeneration(
+        generationId,
+        rawResult,
+        engineFile,
+        seeds,
+      );
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Erreur inconnue lors de l\'exécution FET';
+      await updateGenerationStatus(generationId, {
+        statut: GenerationStatut.FAILED,
+        finishedAt: new Date(),
+        erreur: errorMessage,
+      });
+      throw err;
+    } finally {
+      clearInterval(cancelPoll);
+    }
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'Unknown error';
 
@@ -218,4 +298,164 @@ export async function handleGenerationJob(job: Job): Promise<void> {
     }
     span.end();
   }
+}
+
+/**
+ * Construit un EngineInput à partir des données du semestre.
+ *
+ * NOTE : Ce mapping est un squelette. Le mapping complet doit être affiné
+ * lorsque les modèles de données nécessaires (créneaux, activités, salles, etc.)
+ * sont disponibles dans le schéma Prisma.
+ */
+async function buildEngineInputFromSemestre(semestreId: string): Promise<import('@takt/contracts').EngineInput> {
+  // Récupérer les affectations du semestre avec leurs relations
+  const affectations = await prisma.affectation.findMany({
+    where: { repartition: { semestreId } },
+    include: {
+      enseignant: true,
+      groupe: true,
+      module: true,
+      typeEnseignement: true,
+      activityTag: true,
+      repartition: {
+        include: { departement: true },
+      },
+    },
+  });
+
+  // Construire les enseignants uniques
+  const teachersMap = new Map<string, { id: string; code: string }>();
+  for (const a of affectations) {
+    if (!teachersMap.has(a.enseignantId)) {
+      teachersMap.set(a.enseignantId, {
+        id: a.enseignantId,
+        code: a.enseignant.matricule ?? a.enseignantId,
+      });
+    }
+  }
+
+  // Construire les groupes uniques
+  const groupsMap = new Map<string, { id: string; code: string; size: number }>();
+  for (const a of affectations) {
+    if (a.groupeId && !groupsMap.has(a.groupeId)) {
+      groupsMap.set(a.groupeId, {
+        id: a.groupeId,
+        code: a.groupe?.code ?? a.groupeId,
+        size: 0, // À renseigner depuis les données réelles
+      });
+    }
+  }
+
+  // Construire les activités à partir des affectations
+  const activities: import('@takt/contracts').EngineActivity[] = affectations.map((a, _idx) => ({
+    id: a.id,
+    code: a.module.code,
+    subject: a.module.code,
+    activityTagIds: a.activityTagId ? [a.activityTagId] : [],
+    teacherIds: [a.enseignantId],
+    groupIds: a.groupeId ? [a.groupeId] : [],
+    roomTagIds: [],
+    durationInSlots: Math.ceil(a.dureeMinutes / 30),
+    minRooms: 1,
+    maxRooms: 1,
+  }));
+
+  // Construire les périodes à partir des affectations (heuristique : une période par affectation)
+  // À remplacer par une vraie grille de créneaux depuis le semestre
+  const periods: import('@takt/contracts').EnginePeriod[] = affectations.map((a, idx) => ({
+    id: `periode-${a.id}`,
+    dayIndex: idx % 5, // Lundi=0 … Vendredi=4
+    slotIndex: Math.floor(idx / 5),
+    startTime: '08:00',
+    endTime: '08:30',
+  }));
+
+  // Récupérer les salles disponibles (à affiner)
+  const rooms: import('@takt/contracts').EngineRoom[] = [];
+  const activityTags: import('@takt/contracts').EngineActivityTag[] = affectations
+    .filter((a): a is typeof a & { activityTagId: string; activityTag: { code: string } } =>
+      Boolean(a.activityTagId) && Boolean(a.activityTag),
+    )
+    .map((a) => ({
+      id: a.activityTagId,
+      code: a.activityTag.code,
+    }));
+
+  const constraints: import('@takt/contracts').EngineConstraint[] = [];
+  const locks: import('@takt/contracts').EngineLock[] = [];
+
+  return {
+    semesterId: semestreId,
+    periods,
+    activities,
+    teachers: Array.from(teachersMap.values()),
+    groups: Array.from(groupsMap.values()),
+    rooms,
+    activityTags,
+    constraints,
+    locks,
+  };
+}
+
+/**
+ * Génère 6 graines MRG32k3a aléatoires pour fet-cl.
+ */
+function generateRandomSeeds(): [number, number, number, number, number, number] {
+  const buf = randomBytes(24);
+  return [
+    buf.readUInt32BE(0) % 4_294_967_086 || 1,
+    buf.readUInt32BE(4) % 4_294_967_086 || 1,
+    buf.readUInt32BE(8) % 4_294_967_086 || 1,
+    buf.readUInt32BE(12) % 4_294_944_442 || 1,
+    buf.readUInt32BE(16) % 4_294_944_442 || 1,
+    buf.readUInt32BE(20) % 4_294_944_442 || 1,
+  ];
+}
+
+/**
+ * Finalise une génération en fonction du résultat brut de fet-cl.
+ * Met à jour le statut de la génération en base.
+ */
+async function finalizeGeneration(
+  generationId: string,
+  rawResult: EngineRawResult,
+  _engineFile: EngineFile,
+  _seeds: [number, number, number, number, number, number],
+): Promise<void> {
+  const { exitCode, resultText, activitiesTimetableXml } = rawResult;
+
+  // Déterminer le statut à partir du résultat
+  let statut: GenerationStatut;
+  let erreur: string | null = null;
+
+  const trimmed = resultText.trim();
+  if (trimmed.includes('Generation successful')) {
+    statut = activitiesTimetableXml
+      ? GenerationStatut.SUCCEEDED
+      : GenerationStatut.SUCCEEDED_WITH_WARNINGS;
+  } else if (trimmed.includes('Impossible')) {
+    statut = GenerationStatut.FAILED;
+    erreur = 'Génération impossible : aucune solution complète trouvée';
+  } else if (trimmed.includes('Time exceeded')) {
+    statut = GenerationStatut.TIMED_OUT;
+    erreur = 'Délai de génération dépassé';
+  } else if (trimmed.includes('Generation interrupted')) {
+    statut = GenerationStatut.CANCELLED;
+    erreur = 'Génération interrompue par l\'utilisateur';
+  } else if (exitCode === 1) {
+    statut = GenerationStatut.FAILED;
+    erreur = `Erreur FET (code 1): ${trimmed}`;
+  } else if (exitCode < 0 || exitCode > 128) {
+    statut = GenerationStatut.FAILED;
+    erreur = `Processus FET tué ou planté (code ${exitCode})`;
+  } else {
+    statut = GenerationStatut.FAILED;
+    erreur = `Statut FET non reconnu: ${trimmed}`;
+  }
+
+  await updateGenerationStatus(generationId, {
+    statut,
+    finishedAt: new Date(),
+    erreur,
+  });
 }
