@@ -9,7 +9,7 @@ description: >-
   when interpreting fet-cl outputs (result.txt, activities_timetable.xml, errors.txt,
   max_placed_activities.txt), when batch-running multiple FET generations with seeds and parallel jobs, or
   when the user mentions fet-cl, FET, emploi du temps, timetable, génération d'horaires or .fet files.
-  Do not use for the FET graphical interface (fet) or for FET versions other than 7.11.1.
+  Do not use for the FET graphical interface (fet) or for FET versions other than 7.12.0.
 metadata:
   skill_version: "1.1"
   fet_cl_version: "7.12.0"
@@ -33,9 +33,9 @@ metadata:
 | Locale | `LC_ALL=C.UTF-8` **obligatoire** avant chaque appel |
 | Graines obligatoires | **Six** graines MRG32k3a : `--randomseeds10`, `--randomseeds11`, `--randomseeds12`, `--randomseeds20`, `--randomseeds21`, `--randomseeds22` |
 
-Notes critiques (vérifiées sur les sources 7.11.1) :
+Notes critiques (vérifiées sur les sources 7.12.0) :
 
-* Les options `--randomseedx` / `--randomseedy` (ancien format, deux graines) sont **refusées** en 7.11.1 (code de retour 1).
+* Les options `--randomseedx` / `--randomseedy` (ancien format, deux graines) sont **refusées** en 7.12.0 (code de retour 1).
 * Chaque exécution crée un **nouveau sous-dossier horodaté** dans `--outputdir` (comportement depuis FET 6.26.1).
 * Le code de retour `0` ne garantit **pas** le succès : le statut réel se lit dans `logs/result.txt`.
 * Les options inconnues ne sont **pas bloquantes** (`Unrecognized option:` est seulement affiché) — imposer son propre délai de garde.
