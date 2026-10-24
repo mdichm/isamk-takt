@@ -1,13 +1,18 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-// TAKT - Service de comparaison de générations (L4-18)
-// GET /generations/compare
+// TAKT - Service de générations (L4-15 + L4-18)
+// Suivi, annulation, fichier moteur, SSE, comparaison.
 
 import {
   Injectable,
   NotFoundException,
+  BadRequestException,
+  Logger,
   UnprocessableEntityException,
 } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service.js';
+import { GenerationStatut } from '@takt/db';
 import type {
   Generation,
   GenerationSeance,
@@ -15,6 +20,9 @@ import type {
   VerrouSeance,
   Conflit,
 } from '@takt/db';
+import type { GenerationDetailResponseDto } from './dto/generation-detail-response.dto.js';
+import type { CancelGenerationResponseDto } from './dto/cancel-generation-response.dto.js';
+import type { EngineFileResponseDto } from './dto/engine-file-response.dto.js';
 import type {
   CompareResponseDto,
   GenerationSummaryDto,
@@ -23,6 +31,12 @@ import type {
   ConflitDiffDto,
   VerrouDiffDto,
 } from './dto/compare-response.dto.js';
+
+// Durée de validité de l'URL signée (5 minutes)
+const SIGNED_URL_TTL_MS = 5 * 60 * 1000;
+
+// Intervalle de polling SSE (2 secondes)
+const SSE_POLL_INTERVAL_MS = 2000;
 
 // Clé d'appariement d'une séance générée : "affectationKey#rang"
 type SeanceKey = string;
@@ -36,17 +50,249 @@ interface SeancePlacement {
 
 @Injectable()
 export class GenerationsService {
-  constructor(private readonly prisma: PrismaService) {}
+  private readonly logger = new Logger(GenerationsService.name);
 
-  /**
-   * Compare 2 à 4 générations entre elles.
-   *
-   * Règles :
-   * - 400 si le nombre d'ids est hors [2, 4] ou qu'un id n'est pas un UUID (DTO).
-   * - 404 si une génération est introuvable.
-   * - 422 si les versions ne partagent pas les mêmes snapshots.
-   * - Appariement des séances par affectationKey#rang.
-   */
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  // ============================================================================
+  // Suivi des générations (L4-15)
+  // ============================================================================
+
+  async getGenerationDetail(generationId: string): Promise<GenerationDetailResponseDto> {
+    const generation = await this.prisma.generation.findUnique({
+      where: { id: generationId },
+      include: { fichierMoteur: true },
+    });
+
+    if (!generation) {
+      throw new NotFoundException(`Génération "${generationId}" introuvable`);
+    }
+
+    const startedAt = generation.startedAt ?? null;
+    const finishedAt = generation.finishedAt ?? null;
+    let durationSeconds: number | null = null;
+    if (startedAt && finishedAt) {
+      durationSeconds = (finishedAt.getTime() - startedAt.getTime()) / 1000;
+    }
+
+    const fichierMoteur = generation.fichierMoteur
+      ? {
+          sha256: generation.fichierMoteur.sha256,
+          engineVersion: generation.fichierMoteur.engineVersion,
+          downloadUrl: undefined,
+          createdAt: generation.fichierMoteur.createdAt,
+        }
+      : null;
+
+    const creationAt = (generation as unknown as { createdAt: Date }).createdAt;
+
+    return {
+      id: generation.id,
+      versionId: generation.versionId,
+      semestreId: generation.semestreId,
+      statut: generation.statut,
+      startedAt,
+      finishedAt,
+      durationSeconds,
+      erreur: generation.erreur,
+      metrics: (generation.metrics as Record<string, unknown> | null) ?? null,
+      cancelRequested: generation.cancelRequested,
+      fichierMoteur,
+      queuedAt: generation.queuedAt,
+      createdAt: creationAt,
+    };
+  }
+
+  async cancelGeneration(generationId: string): Promise<CancelGenerationResponseDto> {
+    const generation = await this.prisma.generation.findUnique({
+      where: { id: generationId },
+      select: { id: true, statut: true, cancelRequested: true },
+    });
+
+    if (!generation) {
+      throw new NotFoundException(`Génération "${generationId}" introuvable`);
+    }
+
+    const terminalStatuts: GenerationStatut[] = [
+      GenerationStatut.SUCCEEDED,
+      GenerationStatut.SUCCEEDED_WITH_WARNINGS,
+      GenerationStatut.FAILED,
+      GenerationStatut.CANCELLED,
+      GenerationStatut.TIMED_OUT,
+    ];
+    if (terminalStatuts.includes(generation.statut as GenerationStatut)) {
+      throw new BadRequestException(
+        `Génération "${generationId}" déjà terminée, annulation impossible`,
+      );
+    }
+
+    if (generation.cancelRequested) {
+      throw new BadRequestException(
+        `Annulation déjà demandée pour la génération "${generationId}"`,
+      );
+    }
+
+    await this.prisma.generation.update({
+      where: { id: generationId },
+      data: { cancelRequested: true },
+    });
+
+    return {
+      generationId,
+      cancelRequested: true,
+      message: `Annulation demandée pour la génération "${generationId}"`,
+    };
+  }
+
+  async getEngineFileInfo(generationId: string): Promise<EngineFileResponseDto> {
+    const generation = await this.prisma.generation.findUnique({
+      where: { id: generationId },
+      select: {
+        id: true,
+        fichierMoteur: {
+          select: { sha256: true, engineVersion: true, createdAt: true },
+        },
+      },
+    });
+
+    if (!generation) {
+      throw new NotFoundException(`Génération "${generationId}" introuvable`);
+    }
+
+    if (!generation.fichierMoteur) {
+      throw new NotFoundException(
+        `Aucun fichier moteur pour la génération "${generationId}"`,
+      );
+    }
+
+    const jwtSecret = this.configService.get<string>('JWT_SECRET');
+    if (!jwtSecret) {
+      throw new BadRequestException('Configuration JWT manquante');
+    }
+
+    const expiresAt = new Date(Date.now() + SIGNED_URL_TTL_MS);
+
+    const token = this.jwtService.sign(
+      {
+        generationId,
+        type: 'engine-file-download',
+      },
+      {
+        secret: jwtSecret,
+        expiresIn: SIGNED_URL_TTL_MS,
+      },
+    );
+
+    const downloadUrl = `/api/generations/${generationId}/engine-file/download?token=${token}`;
+
+    return {
+      generationId: generation.id,
+      downloadUrl,
+      sha256: generation.fichierMoteur.sha256,
+      engineVersion: generation.fichierMoteur.engineVersion,
+      expiresAt,
+    };
+  }
+
+  verifyDownloadToken(token: string): { generationId: string } {
+    const jwtSecret = this.configService.get<string>('JWT_SECRET');
+    if (!jwtSecret) {
+      throw new BadRequestException('Configuration JWT manquante');
+    }
+
+    const payload = this.jwtService.verify<{ generationId: string; type: string }>(
+      token,
+      {
+        secret: jwtSecret,
+      },
+    );
+
+    if (payload.type !== 'engine-file-download') {
+      throw new BadRequestException('Type de token invalide');
+    }
+
+    return { generationId: payload.generationId };
+  }
+
+  async *streamGenerationEvents(
+    generationId: string,
+  ): AsyncGenerator<string, void, unknown> {
+    const generation = await this.prisma.generation.findUnique({
+      where: { id: generationId },
+      select: { id: true, statut: true },
+    });
+    if (!generation) {
+      throw new NotFoundException(`Génération "${generationId}" introuvable`);
+    }
+
+    let lastStatut = generation.statut;
+    let lastMetrics: Record<string, unknown> | null = null;
+
+    yield this.formatSseEvent('status', {
+      generationId,
+      statut: generation.statut,
+    });
+
+    while (true) {
+      const current = await this.prisma.generation.findUnique({
+        where: { id: generationId },
+        select: { statut: true, metrics: true, cancelRequested: true },
+      });
+
+      if (!current) {
+        yield this.formatSseEvent('error', { message: 'Génération introuvable' });
+        return;
+      }
+
+      if (current.statut !== lastStatut) {
+        yield this.formatSseEvent('status', {
+          generationId,
+          statut: current.statut,
+          cancelRequested: current.cancelRequested,
+        });
+        lastStatut = current.statut;
+
+        const terminalStatuts: GenerationStatut[] = [
+          GenerationStatut.SUCCEEDED,
+          GenerationStatut.SUCCEEDED_WITH_WARNINGS,
+          GenerationStatut.FAILED,
+          GenerationStatut.CANCELLED,
+          GenerationStatut.TIMED_OUT,
+        ];
+        if (terminalStatuts.includes(current.statut as GenerationStatut)) {
+          yield this.formatSseEvent('done', {
+            generationId,
+            statut: current.statut,
+          });
+          return;
+        }
+      }
+
+      const currentMetrics = current.metrics as Record<string, unknown> | null;
+      if (currentMetrics && JSON.stringify(currentMetrics) !== JSON.stringify(lastMetrics)) {
+        yield this.formatSseEvent('progress', {
+          generationId,
+          metrics: currentMetrics,
+        });
+        lastMetrics = currentMetrics;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, SSE_POLL_INTERVAL_MS));
+    }
+  }
+
+  private formatSseEvent(event: string, data: unknown): string {
+    return `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
+  }
+
+  // ============================================================================
+  // Comparaison de générations (L4-18)
+  // ============================================================================
+
   async compare(ids: string[]): Promise<CompareResponseDto> {
     if (ids.length < 2 || ids.length > 4) {
       throw new UnprocessableEntityException(
@@ -54,7 +300,6 @@ export class GenerationsService {
       );
     }
 
-    // 1. Récupération des générations avec version, snapshots et séances
     const generations = await this.prisma.generation.findMany({
       where: { id: { in: ids } },
       include: {
@@ -75,22 +320,18 @@ export class GenerationsService {
       );
     }
 
-    // 2. Contrôle : toutes les versions doivent partager les mêmes snapshots
     this.verifySameSnapshots(generations);
 
-    // 3. Résumé de chaque génération
     const generationSummaries = generations.map((g) =>
       this.buildGenerationSummary(g),
     );
 
-    // 4. Appariement des séances par affectationKey#rang
     const seancesByGeneration = generations.map((g) =>
       new Map(
         g.seances.map((s) => [`${s.affectationKey}#${s.rang}`, s] as [SeanceKey, GenerationSeance]),
       ),
     );
 
-    // 5. Toutes les clés présentes dans au moins une génération
     const allKeys = new Set<SeanceKey>();
     for (const map of seancesByGeneration) {
       for (const key of map.keys()) {
@@ -98,7 +339,6 @@ export class GenerationsService {
       }
     }
 
-    // 6. Classement identique / différent
     const seancesIdentiques: string[] = [];
     const seancesDifferentes: string[] = [];
     const changements: ChangementSeanceDto[] = [];
@@ -110,30 +350,23 @@ export class GenerationsService {
           return { jour: null, creneauDebutId: null, salleId: null, enseignantId: null };
         }
         return {
-          jour: s.jour ?? null,
-          creneauDebutId: s.creneauDebutId ?? null,
-          salleId: s.salleId ?? null,
-          enseignantId: s.enseignantId ?? null,
+          jour: s.jour,
+          creneauDebutId: s.creneauDebutId,
+          salleId: s.salleId,
+          enseignantId: s.enseignantId,
         };
       });
 
-      const allPresent = placements.every(
+      const first = placements[0];
+      const identique = placements.every(
         (p) =>
-          p.jour !== null &&
-          p.creneauDebutId !== null &&
-          p.salleId !== null &&
-          p.enseignantId !== null,
+          p.jour === first.jour &&
+          p.creneauDebutId === first.creneauDebutId &&
+          p.salleId === first.salleId &&
+          p.enseignantId === first.enseignantId,
       );
 
-      const allIdentical = placements.every(
-        (p) =>
-          p.jour === placements[0].jour &&
-          p.creneauDebutId === placements[0].creneauDebutId &&
-          p.salleId === placements[0].salleId &&
-          p.enseignantId === placements[0].enseignantId,
-      );
-
-      if (allPresent && allIdentical) {
+      if (identique) {
         seancesIdentiques.push(key);
       } else {
         seancesDifferentes.push(key);
@@ -141,85 +374,45 @@ export class GenerationsService {
       }
     }
 
-    // 7. Conflits : comparaison des signatures par version
-    const conflits = await this.computeConflitDiff(generations);
-
-    // 8. Verrous : respect des verrous de version par génération
-    const verrous = await this.computeVerrouDiff(generations, seancesByGeneration);
+    const conflitDiff = await this.computeConflitDiff(generations);
+    const verrouDiff = await this.computeVerrouDiff(generations, seancesByGeneration);
 
     return {
       generations: generationSummaries,
-      diff: {
-        seancesIdentiques,
-        seancesDifferentes,
-        changements,
-        conflits,
-        verrous,
-      },
+      seancesIdentiques,
+      seancesDifferentes,
+      changements,
+      conflitDiff,
+      verrouDiff,
     };
   }
 
-  /* ========================================================================
-   * Helpers privés
-   * ======================================================================== */
-
   private verifySameSnapshots(
-    generations: (Generation & {
-      version: { snapshots: VersionSnapshot[] };
-    })[],
+    generations: (Generation & { version: { id: string } & { snapshots: VersionSnapshot[] } })[],
   ): void {
-    const firstSnapshots = new Set(
-      generations[0].version.snapshots.map((s) => s.snapshotId),
+    const snapshotSets = generations.map((g) =>
+      new Set(g.version.snapshots.map((s) => s.signature)),
     );
-    for (let i = 1; i < generations.length; i++) {
-      const snapshots = new Set(
-        generations[i].version.snapshots.map((s) => s.snapshotId),
-      );
-      if (snapshots.size !== firstSnapshots.size) {
+    const ref = snapshotSets[0];
+    for (let i = 1; i < snapshotSets.length; i++) {
+      if (ref.size !== snapshotSets[i].size || [...ref].some((s) => !snapshotSets[i].has(s))) {
         throw new UnprocessableEntityException(
-          'Les versions n ont pas les mêmes snapshots (422 SNAPSHOT_MISMATCH)',
+          'Les versions ne partagent pas les mêmes snapshots',
         );
-      }
-      for (const snapshotId of firstSnapshots) {
-        if (!snapshots.has(snapshotId)) {
-          throw new UnprocessableEntityException(
-            'Les versions n ont pas les mêmes snapshots (422 SNAPSHOT_MISMATCH)',
-          );
-        }
       }
     }
   }
 
   private buildGenerationSummary(
-    g: Generation & { seances: GenerationSeance[] },
+    g: Generation & { version: { id: string; nom: string } },
   ): GenerationSummaryDto {
-    const statut = g.statut as string;
-    const score = g.score ? Number(g.score) : undefined;
-    const classee =
-      (statut === 'SUCCEEDED' || statut === 'SUCCEEDED_WITH_WARNINGS') &&
-      score !== undefined;
-
-    let motifNonClassee: string | undefined;
-    if (!classee) {
-      if (statut === 'FAILED') {
-        motifNonClassee = 'Génération échouée';
-      } else if (statut === 'CANCELLED') {
-        motifNonClassee = 'Génération annulée';
-      } else if (statut === 'TIMED_OUT') {
-        motifNonClassee = 'Génération expirée (timeout)';
-      } else if (!score) {
-        motifNonClassee = 'Aucun score disponible';
-      } else {
-        motifNonClassee = `Statut non final : ${statut}`;
-      }
-    }
-
     return {
-      id: g.id,
-      score,
-      classee,
-      metrics: (g.metrics as Record<string, unknown> | undefined) ?? undefined,
-      motifNonClassee,
+      generationId: g.id,
+      versionId: g.version.id,
+      versionNom: g.version.nom,
+      statut: g.statut,
+      score: g.metrics?.score ?? null,
+      classement: g.metrics?.classement ?? null,
     };
   }
 
