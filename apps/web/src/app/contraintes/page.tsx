@@ -2,6 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import { messages } from '@/lib/messages/fr';
 import { ContraintesTable } from '@/components/contraintes/contraintes-table';
@@ -26,6 +27,8 @@ export default function ContraintesPage() {
   const [createOpen, setCreateOpen] = useState(false);
   const role = getCurrentUserRole();
   const canCreate = canCreateContrainte(role);
+  const searchParams = useSearchParams();
+  const semestreId = searchParams.get('semestreId') ?? undefined;
 
   if (role === undefined) {
     return (
@@ -67,30 +70,28 @@ export default function ContraintesPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{messages.fetMappingTitle}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <FetMappingPreview
-              definition={{
-                id: '',
-                code: '',
-                libelle: '',
-                categorie: 'SOUPLE',
-                portee: 'GLOBALE',
-                classe: 'SOFT_CONSTRAINT',
-                traductionFET: 'NATIF',
-                paramsSchema: {},
-                fetSupport: 'NATIF',
-                actif: true,
-              }}
-            />
-            <p className="text-xs text-muted-foreground">
-              {messages.fetMappingNote}
-            </p>
-          </CardContent>
-        </Card>
+        {semestreId ? (
+          <Card>
+            <CardHeader>
+              <CardTitle>{messages.fetMappingTitle}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <FetMappingPreview semestreId={semestreId} />
+              <p className="text-xs text-muted-foreground">
+                {messages.fetMappingNote}
+              </p>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card>
+            <CardHeader>
+              <CardTitle>{messages.fetMappingTitle}</CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 text-muted-foreground text-sm">
+              {messages.semestreSelectionRequired}
+            </CardContent>
+          </Card>
+        )}
 
         <ContrainteFormDialog
           open={createOpen}

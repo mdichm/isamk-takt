@@ -102,6 +102,33 @@ export interface ContraintesDefinitionsQuery {
 }
 
 /* ============================================================================
+   Rapport de traduction FET (L4-06)
+   ============================================================================ */
+
+export type MappingStatut = 'TRADUITE' | 'PARTIELLE' | 'NON_TRADUITE';
+
+export interface FetMappingItem {
+  regleCode: string;
+  statut: MappingStatut;
+  raison?: string;
+  controleeParApplication: boolean;
+  definitionId?: string;
+}
+
+export interface FetMappingStats {
+  TRADUITE: number;
+  PARTIELLE: number;
+  NON_TRADUITE: number;
+}
+
+export interface FetMappingReport {
+  semestreId: string;
+  items: FetMappingItem[];
+  total: number;
+  stats: FetMappingStats;
+}
+
+/* ============================================================================
    Définitions de contraintes (catalogue)
    ============================================================================ */
 
@@ -169,4 +196,17 @@ export async function updateContrainteInstance(
 
 export async function deleteContrainteInstance(id: string): Promise<void> {
   await apiFetch(`/contraintes/instances/${id}`, { method: 'DELETE' });
+}
+
+/* ============================================================================
+   Rapport de traduction FET (L4-06)
+   ============================================================================ */
+
+export async function findFetMappingReport(
+  semestreId: string,
+): Promise<FetMappingReport> {
+  const res = await apiFetch(
+    `/semestres/${semestreId}/contraintes/fet-mapping`,
+  );
+  return res.json();
 }
