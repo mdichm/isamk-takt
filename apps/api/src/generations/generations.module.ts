@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-// TAKT - Module de suivi des générations (L4-15)
+// TAKT - Module de générations (L4-15 + L4-18)
+// Suivi, annulation, fichier moteur, SSE, comparaison.
 import { Module } from '@nestjs/common';
 import { GenerationsController } from './generations.controller.js';
 import { GenerationsService } from './generations.service.js';

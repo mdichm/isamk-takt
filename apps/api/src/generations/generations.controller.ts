@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-// TAKT - Contrôleur de suivi des générations (L4-15)
-// Détail, annulation, fichier moteur, SSE.
+// TAKT - Contrôleur de générations (L4-15 + L4-18)
+// Détail, annulation, fichier moteur, SSE, comparaison.
 
 import {
   Controller,
@@ -8,21 +8,35 @@ import {
   Post,
   Param,
   Body,
+  Query,
+  UseGuards,
   HttpCode,
   HttpStatus,
-  UseGuards,
   Req,
   Res,
   StreamableFile,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import type { Response } from 'express';
 import { GenerationsService } from './generations.service.js';
 import { GenerationDetailResponseDto } from './dto/generation-detail-response.dto.js';
 import { CancelGenerationResponseDto } from './dto/cancel-generation-response.dto.js';
 import { EngineFileResponseDto } from './dto/engine-file-response.dto.js';
+import { CompareQueryDto } from './dto/compare-query.dto.js';
+import { CompareResponseDto } from './dto/compare-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
+
+// ============================================================================
+// Suivi des générations (L4-15)
+// ============================================================================
 
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
@@ -149,5 +163,54 @@ export class GenerationsController {
     res.status(404).json({
       message: 'Téléchargement direct non implémenté côté API. Le fichier moteur est servi par le worker.',
     });
+  }
+
+  // ============================================================================
+  // Comparaison de générations (L4-18)
+  // ============================================================================
+
+  @Get('compare')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({
+    summary: 'Comparer 2 à 4 générations entre elles',
+    description:
+      'Retourne le résumé de chaque génération (score, classement, métriques) ' +
+      'et un diff (séances identiques/différentes, conflits apparus/disparus, ' +
+      'verrous respectés). Toutes les versions doivent partager les mêmes snapshots.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Résultat de la comparaison',
+    type: CompareResponseDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Nombre d identifiants hors [2, 4] ou UUID invalide',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Permissions insuffisantes',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Une génération est introuvable',
+  })
+  @ApiResponse({
+    status: 422,
+    description: 'Les versions n ont pas les mêmes snapshots',
+  })
+  @ApiQuery({
+    name: 'ids',
+    type: String,
+    isArray: true,
+    required: true,
+    description: 'Identifiants des générations (2 à 4 UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
+  async compare(
+    @Query() dto: CompareQueryDto,
+  ): Promise<CompareResponseDto> {
+    return this.service.compare(dto.ids);
   }
 }
