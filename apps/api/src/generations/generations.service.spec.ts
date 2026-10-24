@@ -46,7 +46,7 @@ describe('GenerationsService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     prisma = makePrisma();
-    service = new GenerationsService(prisma as any);
+    service = new GenerationsService(prisma as any, {} as any, {} as any);
   });
 
   describe('compare', () => {

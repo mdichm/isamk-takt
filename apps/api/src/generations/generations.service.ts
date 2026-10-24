@@ -143,6 +143,7 @@ export class GenerationsService {
 
     return {
       generationId,
+      statut: generation.statut,
       cancelRequested: true,
       message: `Annulation demandée pour la génération "${generationId}"`,
     };
@@ -379,11 +380,13 @@ export class GenerationsService {
 
     return {
       generations: generationSummaries,
-      seancesIdentiques,
-      seancesDifferentes,
-      changements,
-      conflitDiff,
-      verrouDiff,
+      diff: {
+        seancesIdentiques,
+        seancesDifferentes,
+        changements,
+        conflits: conflitDiff,
+        verrous: verrouDiff,
+      },
     };
   }
 
@@ -391,28 +394,28 @@ export class GenerationsService {
     generations: (Generation & { version: { id: string } & { snapshots: VersionSnapshot[] } })[],
   ): void {
     const snapshotSets = generations.map((g) =>
-      new Set(g.version.snapshots.map((s) => s.signature)),
+      new Set(g.version.snapshots.map((s) => s.snapshotId)),
     );
     const ref = snapshotSets[0];
     for (let i = 1; i < snapshotSets.length; i++) {
       if (ref.size !== snapshotSets[i].size || [...ref].some((s) => !snapshotSets[i].has(s))) {
         throw new UnprocessableEntityException(
-          'Les versions ne partagent pas les mêmes snapshots',
+          'SNAPSHOT_MISMATCH: Les versions ne partagent pas les mêmes snapshots',
         );
       }
     }
   }
 
   private buildGenerationSummary(
-    g: Generation & { version: { id: string; nom: string } },
+    g: Generation & { version: { id: string; numero: string } },
   ): GenerationSummaryDto {
     return {
-      generationId: g.id,
+      id: g.id,
       versionId: g.version.id,
-      versionNom: g.version.nom,
-      statut: g.statut,
-      score: g.metrics?.score ?? null,
-      classement: g.metrics?.classement ?? null,
+      versionNom: g.version.numero,
+      statut: g.statut as string,
+      score: (g.metrics as { score?: number } | null)?.score ?? undefined,
+      classement: (g.metrics as { classement?: number } | null)?.classement ?? undefined,
     };
   }
 
