@@ -4,6 +4,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+
+export const dynamic = 'force-dynamic';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   Table, TableBody, TableCell, TableHeader, TableRow,
@@ -35,7 +37,7 @@ import {
   VOEU_CODES, VOEU_POIDS_VALUES, type VoeuResponseDto, type CreateVoeuDto, type VOEU_CODE, type VOEU_POIDS,
 } from '@/lib/api/voeux';
 import { useAnnees } from '@/hooks/use-structure';
-import { getCurrentUserRole } from '@/lib/auth';
+import { getCurrentUserRole, type UserRole } from '@/lib/auth';
 
 const queryClient = new QueryClient();
 
@@ -80,7 +82,7 @@ export default function VoeuxPage() {
   const [selectedSemestreId, setSelectedSemestreId] = useState<string>('');
   const [selectedEnseignantId, setSelectedEnseignantId] = useState<string>('');
   const [editingVoeu, setEditingVoeu] = useState<VoeuResponseDto | null>(null);
-  const role = getCurrentUserRole();
+  const [role, setRole] = useState<UserRole | undefined>(getCurrentUserRole());
   const canManage = canManageVoeu(role);
   const { toast } = useToast();
 
