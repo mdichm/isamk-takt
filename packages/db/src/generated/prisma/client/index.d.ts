@@ -348,6 +348,11 @@ export type ExigenceSalleAutorisee = $Result.DefaultSelection<Prisma.$ExigenceSa
  * 
  */
 export type Generation = $Result.DefaultSelection<Prisma.$GenerationPayload>
+/**
+ * Model GenerationSeance
+ * 
+ */
+export type GenerationSeance = $Result.DefaultSelection<Prisma.$GenerationSeancePayload>
 
 /**
  * Enums
@@ -1619,6 +1624,16 @@ export class PrismaClient<
     * ```
     */
   get generation(): Prisma.GenerationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.generationSeance`: Exposes CRUD operations for the **GenerationSeance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GenerationSeances
+    * const generationSeances = await prisma.generationSeance.findMany()
+    * ```
+    */
+  get generationSeance(): Prisma.GenerationSeanceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2132,7 +2147,8 @@ export namespace Prisma {
     GroupeCovoiturage: 'GroupeCovoiturage',
     ExigenceSalleActivite: 'ExigenceSalleActivite',
     ExigenceSalleAutorisee: 'ExigenceSalleAutorisee',
-    Generation: 'Generation'
+    Generation: 'Generation',
+    GenerationSeance: 'GenerationSeance'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2148,7 +2164,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage" | "exigenceSalleActivite" | "exigenceSalleAutorisee" | "generation"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage" | "exigenceSalleActivite" | "exigenceSalleAutorisee" | "generation" | "generationSeance"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7110,6 +7126,80 @@ export namespace Prisma {
           }
         }
       }
+      GenerationSeance: {
+        payload: Prisma.$GenerationSeancePayload<ExtArgs>
+        fields: Prisma.GenerationSeanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GenerationSeanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GenerationSeanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>
+          }
+          findFirst: {
+            args: Prisma.GenerationSeanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GenerationSeanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>
+          }
+          findMany: {
+            args: Prisma.GenerationSeanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>[]
+          }
+          create: {
+            args: Prisma.GenerationSeanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>
+          }
+          createMany: {
+            args: Prisma.GenerationSeanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GenerationSeanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>[]
+          }
+          delete: {
+            args: Prisma.GenerationSeanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>
+          }
+          update: {
+            args: Prisma.GenerationSeanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>
+          }
+          deleteMany: {
+            args: Prisma.GenerationSeanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GenerationSeanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GenerationSeanceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>[]
+          }
+          upsert: {
+            args: Prisma.GenerationSeanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationSeancePayload>
+          }
+          aggregate: {
+            args: Prisma.GenerationSeanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGenerationSeance>
+          }
+          groupBy: {
+            args: Prisma.GenerationSeanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GenerationSeanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GenerationSeanceCountArgs<ExtArgs>
+            result: $Utils.Optional<GenerationSeanceCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -7300,6 +7390,7 @@ export namespace Prisma {
     exigenceSalleActivite?: ExigenceSalleActiviteOmit
     exigenceSalleAutorisee?: ExigenceSalleAutoriseeOmit
     generation?: GenerationOmit
+    generationSeance?: GenerationSeanceOmit
   }
 
   /* Types for Logging */
@@ -8874,6 +8965,37 @@ export namespace Prisma {
    */
   export type ExigenceSalleActiviteCountOutputTypeCountAutoriseesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExigenceSalleAutoriseeWhereInput
+  }
+
+
+  /**
+   * Count Type GenerationCountOutputType
+   */
+
+  export type GenerationCountOutputType = {
+    seances: number
+  }
+
+  export type GenerationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    seances?: boolean | GenerationCountOutputTypeCountSeancesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GenerationCountOutputType without action
+   */
+  export type GenerationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationCountOutputType
+     */
+    select?: GenerationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GenerationCountOutputType without action
+   */
+  export type GenerationCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GenerationSeanceWhereInput
   }
 
 
@@ -85666,8 +85788,18 @@ export namespace Prisma {
 
   export type AggregateGeneration = {
     _count: GenerationCountAggregateOutputType | null
+    _avg: GenerationAvgAggregateOutputType | null
+    _sum: GenerationSumAggregateOutputType | null
     _min: GenerationMinAggregateOutputType | null
     _max: GenerationMaxAggregateOutputType | null
+  }
+
+  export type GenerationAvgAggregateOutputType = {
+    score: Decimal | null
+  }
+
+  export type GenerationSumAggregateOutputType = {
+    score: Decimal | null
   }
 
   export type GenerationMinAggregateOutputType = {
@@ -85680,6 +85812,7 @@ export namespace Prisma {
     engine: string | null
     engineVersion: string | null
     erreur: string | null
+    score: Decimal | null
     cancelRequested: boolean | null
     queuedAt: Date | null
     startedAt: Date | null
@@ -85696,6 +85829,7 @@ export namespace Prisma {
     engine: string | null
     engineVersion: string | null
     erreur: string | null
+    score: Decimal | null
     cancelRequested: boolean | null
     queuedAt: Date | null
     startedAt: Date | null
@@ -85712,6 +85846,8 @@ export namespace Prisma {
     engine: number
     engineVersion: number
     erreur: number
+    metrics: number
+    score: number
     cancelRequested: number
     queuedAt: number
     startedAt: number
@@ -85719,6 +85855,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type GenerationAvgAggregateInputType = {
+    score?: true
+  }
+
+  export type GenerationSumAggregateInputType = {
+    score?: true
+  }
 
   export type GenerationMinAggregateInputType = {
     id?: true
@@ -85730,6 +85874,7 @@ export namespace Prisma {
     engine?: true
     engineVersion?: true
     erreur?: true
+    score?: true
     cancelRequested?: true
     queuedAt?: true
     startedAt?: true
@@ -85746,6 +85891,7 @@ export namespace Prisma {
     engine?: true
     engineVersion?: true
     erreur?: true
+    score?: true
     cancelRequested?: true
     queuedAt?: true
     startedAt?: true
@@ -85762,6 +85908,8 @@ export namespace Prisma {
     engine?: true
     engineVersion?: true
     erreur?: true
+    metrics?: true
+    score?: true
     cancelRequested?: true
     queuedAt?: true
     startedAt?: true
@@ -85807,6 +85955,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: GenerationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GenerationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: GenerationMinAggregateInputType
@@ -85837,6 +85997,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: GenerationCountAggregateInputType | true
+    _avg?: GenerationAvgAggregateInputType
+    _sum?: GenerationSumAggregateInputType
     _min?: GenerationMinAggregateInputType
     _max?: GenerationMaxAggregateInputType
   }
@@ -85851,11 +86013,15 @@ export namespace Prisma {
     engine: string
     engineVersion: string | null
     erreur: string | null
+    metrics: JsonValue | null
+    score: Decimal | null
     cancelRequested: boolean
     queuedAt: Date
     startedAt: Date | null
     finishedAt: Date | null
     _count: GenerationCountAggregateOutputType | null
+    _avg: GenerationAvgAggregateOutputType | null
+    _sum: GenerationSumAggregateOutputType | null
     _min: GenerationMinAggregateOutputType | null
     _max: GenerationMaxAggregateOutputType | null
   }
@@ -85884,12 +86050,16 @@ export namespace Prisma {
     engine?: boolean
     engineVersion?: boolean
     erreur?: boolean
+    metrics?: boolean
+    score?: boolean
     cancelRequested?: boolean
     queuedAt?: boolean
     startedAt?: boolean
     finishedAt?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seances?: boolean | Generation$seancesArgs<ExtArgs>
+    _count?: boolean | GenerationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["generation"]>
 
   export type GenerationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -85902,6 +86072,8 @@ export namespace Prisma {
     engine?: boolean
     engineVersion?: boolean
     erreur?: boolean
+    metrics?: boolean
+    score?: boolean
     cancelRequested?: boolean
     queuedAt?: boolean
     startedAt?: boolean
@@ -85920,6 +86092,8 @@ export namespace Prisma {
     engine?: boolean
     engineVersion?: boolean
     erreur?: boolean
+    metrics?: boolean
+    score?: boolean
     cancelRequested?: boolean
     queuedAt?: boolean
     startedAt?: boolean
@@ -85938,16 +86112,20 @@ export namespace Prisma {
     engine?: boolean
     engineVersion?: boolean
     erreur?: boolean
+    metrics?: boolean
+    score?: boolean
     cancelRequested?: boolean
     queuedAt?: boolean
     startedAt?: boolean
     finishedAt?: boolean
   }
 
-  export type GenerationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "versionId" | "auteurId" | "statut" | "mode" | "engine" | "engineVersion" | "erreur" | "cancelRequested" | "queuedAt" | "startedAt" | "finishedAt", ExtArgs["result"]["generation"]>
+  export type GenerationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "versionId" | "auteurId" | "statut" | "mode" | "engine" | "engineVersion" | "erreur" | "metrics" | "score" | "cancelRequested" | "queuedAt" | "startedAt" | "finishedAt", ExtArgs["result"]["generation"]>
   export type GenerationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    seances?: boolean | Generation$seancesArgs<ExtArgs>
+    _count?: boolean | GenerationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GenerationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
@@ -85963,6 +86141,7 @@ export namespace Prisma {
     objects: {
       semestre: Prisma.$SemestrePayload<ExtArgs>
       version: Prisma.$VersionEdtPayload<ExtArgs>
+      seances: Prisma.$GenerationSeancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -85974,6 +86153,8 @@ export namespace Prisma {
       engine: string
       engineVersion: string | null
       erreur: string | null
+      metrics: Prisma.JsonValue | null
+      score: Prisma.Decimal | null
       cancelRequested: boolean
       queuedAt: Date
       startedAt: Date | null
@@ -86374,6 +86555,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    seances<T extends Generation$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Generation$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -86412,6 +86594,8 @@ export namespace Prisma {
     readonly engine: FieldRef<"Generation", 'String'>
     readonly engineVersion: FieldRef<"Generation", 'String'>
     readonly erreur: FieldRef<"Generation", 'String'>
+    readonly metrics: FieldRef<"Generation", 'Json'>
+    readonly score: FieldRef<"Generation", 'Decimal'>
     readonly cancelRequested: FieldRef<"Generation", 'Boolean'>
     readonly queuedAt: FieldRef<"Generation", 'DateTime'>
     readonly startedAt: FieldRef<"Generation", 'DateTime'>
@@ -86817,6 +87001,30 @@ export namespace Prisma {
   }
 
   /**
+   * Generation.seances
+   */
+  export type Generation$seancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    where?: GenerationSeanceWhereInput
+    orderBy?: GenerationSeanceOrderByWithRelationInput | GenerationSeanceOrderByWithRelationInput[]
+    cursor?: GenerationSeanceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GenerationSeanceScalarFieldEnum | GenerationSeanceScalarFieldEnum[]
+  }
+
+  /**
    * Generation without action
    */
   export type GenerationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -86832,6 +87040,1220 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GenerationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GenerationSeance
+   */
+
+  export type AggregateGenerationSeance = {
+    _count: GenerationSeanceCountAggregateOutputType | null
+    _avg: GenerationSeanceAvgAggregateOutputType | null
+    _sum: GenerationSeanceSumAggregateOutputType | null
+    _min: GenerationSeanceMinAggregateOutputType | null
+    _max: GenerationSeanceMaxAggregateOutputType | null
+  }
+
+  export type GenerationSeanceAvgAggregateOutputType = {
+    rang: number | null
+    nbCreneaux: number | null
+  }
+
+  export type GenerationSeanceSumAggregateOutputType = {
+    rang: number | null
+    nbCreneaux: number | null
+  }
+
+  export type GenerationSeanceMinAggregateOutputType = {
+    id: string | null
+    generationId: string | null
+    affectationKey: string | null
+    rang: number | null
+    moduleId: string | null
+    typeEnseignementId: string | null
+    activityTagId: string | null
+    enseignantId: string | null
+    salleId: string | null
+    jour: string | null
+    creneauDebutId: string | null
+    nbCreneaux: number | null
+    statut: $Enums.SeanceStatut | null
+  }
+
+  export type GenerationSeanceMaxAggregateOutputType = {
+    id: string | null
+    generationId: string | null
+    affectationKey: string | null
+    rang: number | null
+    moduleId: string | null
+    typeEnseignementId: string | null
+    activityTagId: string | null
+    enseignantId: string | null
+    salleId: string | null
+    jour: string | null
+    creneauDebutId: string | null
+    nbCreneaux: number | null
+    statut: $Enums.SeanceStatut | null
+  }
+
+  export type GenerationSeanceCountAggregateOutputType = {
+    id: number
+    generationId: number
+    affectationKey: number
+    rang: number
+    groupeIds: number
+    moduleId: number
+    typeEnseignementId: number
+    activityTagId: number
+    enseignantId: number
+    salleId: number
+    jour: number
+    creneauDebutId: number
+    nbCreneaux: number
+    statut: number
+    _all: number
+  }
+
+
+  export type GenerationSeanceAvgAggregateInputType = {
+    rang?: true
+    nbCreneaux?: true
+  }
+
+  export type GenerationSeanceSumAggregateInputType = {
+    rang?: true
+    nbCreneaux?: true
+  }
+
+  export type GenerationSeanceMinAggregateInputType = {
+    id?: true
+    generationId?: true
+    affectationKey?: true
+    rang?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    enseignantId?: true
+    salleId?: true
+    jour?: true
+    creneauDebutId?: true
+    nbCreneaux?: true
+    statut?: true
+  }
+
+  export type GenerationSeanceMaxAggregateInputType = {
+    id?: true
+    generationId?: true
+    affectationKey?: true
+    rang?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    enseignantId?: true
+    salleId?: true
+    jour?: true
+    creneauDebutId?: true
+    nbCreneaux?: true
+    statut?: true
+  }
+
+  export type GenerationSeanceCountAggregateInputType = {
+    id?: true
+    generationId?: true
+    affectationKey?: true
+    rang?: true
+    groupeIds?: true
+    moduleId?: true
+    typeEnseignementId?: true
+    activityTagId?: true
+    enseignantId?: true
+    salleId?: true
+    jour?: true
+    creneauDebutId?: true
+    nbCreneaux?: true
+    statut?: true
+    _all?: true
+  }
+
+  export type GenerationSeanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GenerationSeance to aggregate.
+     */
+    where?: GenerationSeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GenerationSeances to fetch.
+     */
+    orderBy?: GenerationSeanceOrderByWithRelationInput | GenerationSeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GenerationSeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GenerationSeances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GenerationSeances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GenerationSeances
+    **/
+    _count?: true | GenerationSeanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GenerationSeanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GenerationSeanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GenerationSeanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GenerationSeanceMaxAggregateInputType
+  }
+
+  export type GetGenerationSeanceAggregateType<T extends GenerationSeanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateGenerationSeance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGenerationSeance[P]>
+      : GetScalarType<T[P], AggregateGenerationSeance[P]>
+  }
+
+
+
+
+  export type GenerationSeanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GenerationSeanceWhereInput
+    orderBy?: GenerationSeanceOrderByWithAggregationInput | GenerationSeanceOrderByWithAggregationInput[]
+    by: GenerationSeanceScalarFieldEnum[] | GenerationSeanceScalarFieldEnum
+    having?: GenerationSeanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GenerationSeanceCountAggregateInputType | true
+    _avg?: GenerationSeanceAvgAggregateInputType
+    _sum?: GenerationSeanceSumAggregateInputType
+    _min?: GenerationSeanceMinAggregateInputType
+    _max?: GenerationSeanceMaxAggregateInputType
+  }
+
+  export type GenerationSeanceGroupByOutputType = {
+    id: string
+    generationId: string
+    affectationKey: string
+    rang: number
+    groupeIds: string[]
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string
+    enseignantId: string
+    salleId: string | null
+    jour: string | null
+    creneauDebutId: string | null
+    nbCreneaux: number
+    statut: $Enums.SeanceStatut
+    _count: GenerationSeanceCountAggregateOutputType | null
+    _avg: GenerationSeanceAvgAggregateOutputType | null
+    _sum: GenerationSeanceSumAggregateOutputType | null
+    _min: GenerationSeanceMinAggregateOutputType | null
+    _max: GenerationSeanceMaxAggregateOutputType | null
+  }
+
+  type GetGenerationSeanceGroupByPayload<T extends GenerationSeanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GenerationSeanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GenerationSeanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GenerationSeanceGroupByOutputType[P]>
+            : GetScalarType<T[P], GenerationSeanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GenerationSeanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    generationId?: boolean
+    affectationKey?: boolean
+    rang?: boolean
+    groupeIds?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    jour?: boolean
+    creneauDebutId?: boolean
+    nbCreneaux?: boolean
+    statut?: boolean
+    generation?: boolean | GenerationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generationSeance"]>
+
+  export type GenerationSeanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    generationId?: boolean
+    affectationKey?: boolean
+    rang?: boolean
+    groupeIds?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    jour?: boolean
+    creneauDebutId?: boolean
+    nbCreneaux?: boolean
+    statut?: boolean
+    generation?: boolean | GenerationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generationSeance"]>
+
+  export type GenerationSeanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    generationId?: boolean
+    affectationKey?: boolean
+    rang?: boolean
+    groupeIds?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    jour?: boolean
+    creneauDebutId?: boolean
+    nbCreneaux?: boolean
+    statut?: boolean
+    generation?: boolean | GenerationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generationSeance"]>
+
+  export type GenerationSeanceSelectScalar = {
+    id?: boolean
+    generationId?: boolean
+    affectationKey?: boolean
+    rang?: boolean
+    groupeIds?: boolean
+    moduleId?: boolean
+    typeEnseignementId?: boolean
+    activityTagId?: boolean
+    enseignantId?: boolean
+    salleId?: boolean
+    jour?: boolean
+    creneauDebutId?: boolean
+    nbCreneaux?: boolean
+    statut?: boolean
+  }
+
+  export type GenerationSeanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "generationId" | "affectationKey" | "rang" | "groupeIds" | "moduleId" | "typeEnseignementId" | "activityTagId" | "enseignantId" | "salleId" | "jour" | "creneauDebutId" | "nbCreneaux" | "statut", ExtArgs["result"]["generationSeance"]>
+  export type GenerationSeanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    generation?: boolean | GenerationDefaultArgs<ExtArgs>
+  }
+  export type GenerationSeanceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    generation?: boolean | GenerationDefaultArgs<ExtArgs>
+  }
+  export type GenerationSeanceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    generation?: boolean | GenerationDefaultArgs<ExtArgs>
+  }
+
+  export type $GenerationSeancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GenerationSeance"
+    objects: {
+      generation: Prisma.$GenerationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      generationId: string
+      affectationKey: string
+      rang: number
+      groupeIds: string[]
+      moduleId: string
+      typeEnseignementId: string
+      activityTagId: string
+      enseignantId: string
+      salleId: string | null
+      jour: string | null
+      creneauDebutId: string | null
+      nbCreneaux: number
+      statut: $Enums.SeanceStatut
+    }, ExtArgs["result"]["generationSeance"]>
+    composites: {}
+  }
+
+  type GenerationSeanceGetPayload<S extends boolean | null | undefined | GenerationSeanceDefaultArgs> = $Result.GetResult<Prisma.$GenerationSeancePayload, S>
+
+  type GenerationSeanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GenerationSeanceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GenerationSeanceCountAggregateInputType | true
+    }
+
+  export interface GenerationSeanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GenerationSeance'], meta: { name: 'GenerationSeance' } }
+    /**
+     * Find zero or one GenerationSeance that matches the filter.
+     * @param {GenerationSeanceFindUniqueArgs} args - Arguments to find a GenerationSeance
+     * @example
+     * // Get one GenerationSeance
+     * const generationSeance = await prisma.generationSeance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GenerationSeanceFindUniqueArgs>(args: SelectSubset<T, GenerationSeanceFindUniqueArgs<ExtArgs>>): Prisma__GenerationSeanceClient<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GenerationSeance that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GenerationSeanceFindUniqueOrThrowArgs} args - Arguments to find a GenerationSeance
+     * @example
+     * // Get one GenerationSeance
+     * const generationSeance = await prisma.generationSeance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GenerationSeanceFindUniqueOrThrowArgs>(args: SelectSubset<T, GenerationSeanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GenerationSeanceClient<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GenerationSeance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationSeanceFindFirstArgs} args - Arguments to find a GenerationSeance
+     * @example
+     * // Get one GenerationSeance
+     * const generationSeance = await prisma.generationSeance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GenerationSeanceFindFirstArgs>(args?: SelectSubset<T, GenerationSeanceFindFirstArgs<ExtArgs>>): Prisma__GenerationSeanceClient<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GenerationSeance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationSeanceFindFirstOrThrowArgs} args - Arguments to find a GenerationSeance
+     * @example
+     * // Get one GenerationSeance
+     * const generationSeance = await prisma.generationSeance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GenerationSeanceFindFirstOrThrowArgs>(args?: SelectSubset<T, GenerationSeanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__GenerationSeanceClient<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GenerationSeances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationSeanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GenerationSeances
+     * const generationSeances = await prisma.generationSeance.findMany()
+     * 
+     * // Get first 10 GenerationSeances
+     * const generationSeances = await prisma.generationSeance.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const generationSeanceWithIdOnly = await prisma.generationSeance.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GenerationSeanceFindManyArgs>(args?: SelectSubset<T, GenerationSeanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GenerationSeance.
+     * @param {GenerationSeanceCreateArgs} args - Arguments to create a GenerationSeance.
+     * @example
+     * // Create one GenerationSeance
+     * const GenerationSeance = await prisma.generationSeance.create({
+     *   data: {
+     *     // ... data to create a GenerationSeance
+     *   }
+     * })
+     * 
+     */
+    create<T extends GenerationSeanceCreateArgs>(args: SelectSubset<T, GenerationSeanceCreateArgs<ExtArgs>>): Prisma__GenerationSeanceClient<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GenerationSeances.
+     * @param {GenerationSeanceCreateManyArgs} args - Arguments to create many GenerationSeances.
+     * @example
+     * // Create many GenerationSeances
+     * const generationSeance = await prisma.generationSeance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GenerationSeanceCreateManyArgs>(args?: SelectSubset<T, GenerationSeanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GenerationSeances and returns the data saved in the database.
+     * @param {GenerationSeanceCreateManyAndReturnArgs} args - Arguments to create many GenerationSeances.
+     * @example
+     * // Create many GenerationSeances
+     * const generationSeance = await prisma.generationSeance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GenerationSeances and only return the `id`
+     * const generationSeanceWithIdOnly = await prisma.generationSeance.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GenerationSeanceCreateManyAndReturnArgs>(args?: SelectSubset<T, GenerationSeanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GenerationSeance.
+     * @param {GenerationSeanceDeleteArgs} args - Arguments to delete one GenerationSeance.
+     * @example
+     * // Delete one GenerationSeance
+     * const GenerationSeance = await prisma.generationSeance.delete({
+     *   where: {
+     *     // ... filter to delete one GenerationSeance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GenerationSeanceDeleteArgs>(args: SelectSubset<T, GenerationSeanceDeleteArgs<ExtArgs>>): Prisma__GenerationSeanceClient<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GenerationSeance.
+     * @param {GenerationSeanceUpdateArgs} args - Arguments to update one GenerationSeance.
+     * @example
+     * // Update one GenerationSeance
+     * const generationSeance = await prisma.generationSeance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GenerationSeanceUpdateArgs>(args: SelectSubset<T, GenerationSeanceUpdateArgs<ExtArgs>>): Prisma__GenerationSeanceClient<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GenerationSeances.
+     * @param {GenerationSeanceDeleteManyArgs} args - Arguments to filter GenerationSeances to delete.
+     * @example
+     * // Delete a few GenerationSeances
+     * const { count } = await prisma.generationSeance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GenerationSeanceDeleteManyArgs>(args?: SelectSubset<T, GenerationSeanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GenerationSeances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationSeanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GenerationSeances
+     * const generationSeance = await prisma.generationSeance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GenerationSeanceUpdateManyArgs>(args: SelectSubset<T, GenerationSeanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GenerationSeances and returns the data updated in the database.
+     * @param {GenerationSeanceUpdateManyAndReturnArgs} args - Arguments to update many GenerationSeances.
+     * @example
+     * // Update many GenerationSeances
+     * const generationSeance = await prisma.generationSeance.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GenerationSeances and only return the `id`
+     * const generationSeanceWithIdOnly = await prisma.generationSeance.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GenerationSeanceUpdateManyAndReturnArgs>(args: SelectSubset<T, GenerationSeanceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GenerationSeance.
+     * @param {GenerationSeanceUpsertArgs} args - Arguments to update or create a GenerationSeance.
+     * @example
+     * // Update or create a GenerationSeance
+     * const generationSeance = await prisma.generationSeance.upsert({
+     *   create: {
+     *     // ... data to create a GenerationSeance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GenerationSeance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GenerationSeanceUpsertArgs>(args: SelectSubset<T, GenerationSeanceUpsertArgs<ExtArgs>>): Prisma__GenerationSeanceClient<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GenerationSeances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationSeanceCountArgs} args - Arguments to filter GenerationSeances to count.
+     * @example
+     * // Count the number of GenerationSeances
+     * const count = await prisma.generationSeance.count({
+     *   where: {
+     *     // ... the filter for the GenerationSeances we want to count
+     *   }
+     * })
+    **/
+    count<T extends GenerationSeanceCountArgs>(
+      args?: Subset<T, GenerationSeanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GenerationSeanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GenerationSeance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationSeanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GenerationSeanceAggregateArgs>(args: Subset<T, GenerationSeanceAggregateArgs>): Prisma.PrismaPromise<GetGenerationSeanceAggregateType<T>>
+
+    /**
+     * Group by GenerationSeance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationSeanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GenerationSeanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GenerationSeanceGroupByArgs['orderBy'] }
+        : { orderBy?: GenerationSeanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GenerationSeanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGenerationSeanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GenerationSeance model
+   */
+  readonly fields: GenerationSeanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GenerationSeance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GenerationSeanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    generation<T extends GenerationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GenerationDefaultArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GenerationSeance model
+   */
+  interface GenerationSeanceFieldRefs {
+    readonly id: FieldRef<"GenerationSeance", 'String'>
+    readonly generationId: FieldRef<"GenerationSeance", 'String'>
+    readonly affectationKey: FieldRef<"GenerationSeance", 'String'>
+    readonly rang: FieldRef<"GenerationSeance", 'Int'>
+    readonly groupeIds: FieldRef<"GenerationSeance", 'String[]'>
+    readonly moduleId: FieldRef<"GenerationSeance", 'String'>
+    readonly typeEnseignementId: FieldRef<"GenerationSeance", 'String'>
+    readonly activityTagId: FieldRef<"GenerationSeance", 'String'>
+    readonly enseignantId: FieldRef<"GenerationSeance", 'String'>
+    readonly salleId: FieldRef<"GenerationSeance", 'String'>
+    readonly jour: FieldRef<"GenerationSeance", 'String'>
+    readonly creneauDebutId: FieldRef<"GenerationSeance", 'String'>
+    readonly nbCreneaux: FieldRef<"GenerationSeance", 'Int'>
+    readonly statut: FieldRef<"GenerationSeance", 'SeanceStatut'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GenerationSeance findUnique
+   */
+  export type GenerationSeanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationSeance to fetch.
+     */
+    where: GenerationSeanceWhereUniqueInput
+  }
+
+  /**
+   * GenerationSeance findUniqueOrThrow
+   */
+  export type GenerationSeanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationSeance to fetch.
+     */
+    where: GenerationSeanceWhereUniqueInput
+  }
+
+  /**
+   * GenerationSeance findFirst
+   */
+  export type GenerationSeanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationSeance to fetch.
+     */
+    where?: GenerationSeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GenerationSeances to fetch.
+     */
+    orderBy?: GenerationSeanceOrderByWithRelationInput | GenerationSeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GenerationSeances.
+     */
+    cursor?: GenerationSeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GenerationSeances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GenerationSeances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GenerationSeances.
+     */
+    distinct?: GenerationSeanceScalarFieldEnum | GenerationSeanceScalarFieldEnum[]
+  }
+
+  /**
+   * GenerationSeance findFirstOrThrow
+   */
+  export type GenerationSeanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationSeance to fetch.
+     */
+    where?: GenerationSeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GenerationSeances to fetch.
+     */
+    orderBy?: GenerationSeanceOrderByWithRelationInput | GenerationSeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GenerationSeances.
+     */
+    cursor?: GenerationSeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GenerationSeances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GenerationSeances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GenerationSeances.
+     */
+    distinct?: GenerationSeanceScalarFieldEnum | GenerationSeanceScalarFieldEnum[]
+  }
+
+  /**
+   * GenerationSeance findMany
+   */
+  export type GenerationSeanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * Filter, which GenerationSeances to fetch.
+     */
+    where?: GenerationSeanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GenerationSeances to fetch.
+     */
+    orderBy?: GenerationSeanceOrderByWithRelationInput | GenerationSeanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GenerationSeances.
+     */
+    cursor?: GenerationSeanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GenerationSeances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GenerationSeances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GenerationSeances.
+     */
+    distinct?: GenerationSeanceScalarFieldEnum | GenerationSeanceScalarFieldEnum[]
+  }
+
+  /**
+   * GenerationSeance create
+   */
+  export type GenerationSeanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GenerationSeance.
+     */
+    data: XOR<GenerationSeanceCreateInput, GenerationSeanceUncheckedCreateInput>
+  }
+
+  /**
+   * GenerationSeance createMany
+   */
+  export type GenerationSeanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GenerationSeances.
+     */
+    data: GenerationSeanceCreateManyInput | GenerationSeanceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GenerationSeance createManyAndReturn
+   */
+  export type GenerationSeanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * The data used to create many GenerationSeances.
+     */
+    data: GenerationSeanceCreateManyInput | GenerationSeanceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GenerationSeance update
+   */
+  export type GenerationSeanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GenerationSeance.
+     */
+    data: XOR<GenerationSeanceUpdateInput, GenerationSeanceUncheckedUpdateInput>
+    /**
+     * Choose, which GenerationSeance to update.
+     */
+    where: GenerationSeanceWhereUniqueInput
+  }
+
+  /**
+   * GenerationSeance updateMany
+   */
+  export type GenerationSeanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GenerationSeances.
+     */
+    data: XOR<GenerationSeanceUpdateManyMutationInput, GenerationSeanceUncheckedUpdateManyInput>
+    /**
+     * Filter which GenerationSeances to update
+     */
+    where?: GenerationSeanceWhereInput
+    /**
+     * Limit how many GenerationSeances to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GenerationSeance updateManyAndReturn
+   */
+  export type GenerationSeanceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * The data used to update GenerationSeances.
+     */
+    data: XOR<GenerationSeanceUpdateManyMutationInput, GenerationSeanceUncheckedUpdateManyInput>
+    /**
+     * Filter which GenerationSeances to update
+     */
+    where?: GenerationSeanceWhereInput
+    /**
+     * Limit how many GenerationSeances to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GenerationSeance upsert
+   */
+  export type GenerationSeanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GenerationSeance to update in case it exists.
+     */
+    where: GenerationSeanceWhereUniqueInput
+    /**
+     * In case the GenerationSeance found by the `where` argument doesn't exist, create a new GenerationSeance with this data.
+     */
+    create: XOR<GenerationSeanceCreateInput, GenerationSeanceUncheckedCreateInput>
+    /**
+     * In case the GenerationSeance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GenerationSeanceUpdateInput, GenerationSeanceUncheckedUpdateInput>
+  }
+
+  /**
+   * GenerationSeance delete
+   */
+  export type GenerationSeanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
+    /**
+     * Filter which GenerationSeance to delete.
+     */
+    where: GenerationSeanceWhereUniqueInput
+  }
+
+  /**
+   * GenerationSeance deleteMany
+   */
+  export type GenerationSeanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GenerationSeances to delete
+     */
+    where?: GenerationSeanceWhereInput
+    /**
+     * Limit how many GenerationSeances to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GenerationSeance without action
+   */
+  export type GenerationSeanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GenerationSeance
+     */
+    select?: GenerationSeanceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GenerationSeance
+     */
+    omit?: GenerationSeanceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationSeanceInclude<ExtArgs> | null
   }
 
 
@@ -87782,6 +89204,8 @@ export namespace Prisma {
     engine: 'engine',
     engineVersion: 'engineVersion',
     erreur: 'erreur',
+    metrics: 'metrics',
+    score: 'score',
     cancelRequested: 'cancelRequested',
     queuedAt: 'queuedAt',
     startedAt: 'startedAt',
@@ -87789,6 +89213,26 @@ export namespace Prisma {
   };
 
   export type GenerationScalarFieldEnum = (typeof GenerationScalarFieldEnum)[keyof typeof GenerationScalarFieldEnum]
+
+
+  export const GenerationSeanceScalarFieldEnum: {
+    id: 'id',
+    generationId: 'generationId',
+    affectationKey: 'affectationKey',
+    rang: 'rang',
+    groupeIds: 'groupeIds',
+    moduleId: 'moduleId',
+    typeEnseignementId: 'typeEnseignementId',
+    activityTagId: 'activityTagId',
+    enseignantId: 'enseignantId',
+    salleId: 'salleId',
+    jour: 'jour',
+    creneauDebutId: 'creneauDebutId',
+    nbCreneaux: 'nbCreneaux',
+    statut: 'statut'
+  };
+
+  export type GenerationSeanceScalarFieldEnum = (typeof GenerationSeanceScalarFieldEnum)[keyof typeof GenerationSeanceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -93523,12 +94967,15 @@ export namespace Prisma {
     engine?: StringFilter<"Generation"> | string
     engineVersion?: StringNullableFilter<"Generation"> | string | null
     erreur?: StringNullableFilter<"Generation"> | string | null
+    metrics?: JsonNullableFilter<"Generation">
+    score?: DecimalNullableFilter<"Generation"> | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFilter<"Generation"> | boolean
     queuedAt?: DateTimeFilter<"Generation"> | Date | string
     startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
     finishedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+    seances?: GenerationSeanceListRelationFilter
   }
 
   export type GenerationOrderByWithRelationInput = {
@@ -93541,12 +94988,15 @@ export namespace Prisma {
     engine?: SortOrder
     engineVersion?: SortOrderInput | SortOrder
     erreur?: SortOrderInput | SortOrder
+    metrics?: SortOrderInput | SortOrder
+    score?: SortOrderInput | SortOrder
     cancelRequested?: SortOrder
     queuedAt?: SortOrder
     startedAt?: SortOrderInput | SortOrder
     finishedAt?: SortOrderInput | SortOrder
     semestre?: SemestreOrderByWithRelationInput
     version?: VersionEdtOrderByWithRelationInput
+    seances?: GenerationSeanceOrderByRelationAggregateInput
   }
 
   export type GenerationWhereUniqueInput = Prisma.AtLeast<{
@@ -93562,12 +95012,15 @@ export namespace Prisma {
     engine?: StringFilter<"Generation"> | string
     engineVersion?: StringNullableFilter<"Generation"> | string | null
     erreur?: StringNullableFilter<"Generation"> | string | null
+    metrics?: JsonNullableFilter<"Generation">
+    score?: DecimalNullableFilter<"Generation"> | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFilter<"Generation"> | boolean
     queuedAt?: DateTimeFilter<"Generation"> | Date | string
     startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
     finishedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+    seances?: GenerationSeanceListRelationFilter
   }, "id">
 
   export type GenerationOrderByWithAggregationInput = {
@@ -93580,13 +95033,17 @@ export namespace Prisma {
     engine?: SortOrder
     engineVersion?: SortOrderInput | SortOrder
     erreur?: SortOrderInput | SortOrder
+    metrics?: SortOrderInput | SortOrder
+    score?: SortOrderInput | SortOrder
     cancelRequested?: SortOrder
     queuedAt?: SortOrder
     startedAt?: SortOrderInput | SortOrder
     finishedAt?: SortOrderInput | SortOrder
     _count?: GenerationCountOrderByAggregateInput
+    _avg?: GenerationAvgOrderByAggregateInput
     _max?: GenerationMaxOrderByAggregateInput
     _min?: GenerationMinOrderByAggregateInput
+    _sum?: GenerationSumOrderByAggregateInput
   }
 
   export type GenerationScalarWhereWithAggregatesInput = {
@@ -93602,10 +95059,115 @@ export namespace Prisma {
     engine?: StringWithAggregatesFilter<"Generation"> | string
     engineVersion?: StringNullableWithAggregatesFilter<"Generation"> | string | null
     erreur?: StringNullableWithAggregatesFilter<"Generation"> | string | null
+    metrics?: JsonNullableWithAggregatesFilter<"Generation">
+    score?: DecimalNullableWithAggregatesFilter<"Generation"> | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolWithAggregatesFilter<"Generation"> | boolean
     queuedAt?: DateTimeWithAggregatesFilter<"Generation"> | Date | string
     startedAt?: DateTimeNullableWithAggregatesFilter<"Generation"> | Date | string | null
     finishedAt?: DateTimeNullableWithAggregatesFilter<"Generation"> | Date | string | null
+  }
+
+  export type GenerationSeanceWhereInput = {
+    AND?: GenerationSeanceWhereInput | GenerationSeanceWhereInput[]
+    OR?: GenerationSeanceWhereInput[]
+    NOT?: GenerationSeanceWhereInput | GenerationSeanceWhereInput[]
+    id?: UuidFilter<"GenerationSeance"> | string
+    generationId?: UuidFilter<"GenerationSeance"> | string
+    affectationKey?: StringFilter<"GenerationSeance"> | string
+    rang?: IntFilter<"GenerationSeance"> | number
+    groupeIds?: StringNullableListFilter<"GenerationSeance">
+    moduleId?: UuidFilter<"GenerationSeance"> | string
+    typeEnseignementId?: UuidFilter<"GenerationSeance"> | string
+    activityTagId?: UuidFilter<"GenerationSeance"> | string
+    enseignantId?: UuidFilter<"GenerationSeance"> | string
+    salleId?: UuidNullableFilter<"GenerationSeance"> | string | null
+    jour?: StringNullableFilter<"GenerationSeance"> | string | null
+    creneauDebutId?: UuidNullableFilter<"GenerationSeance"> | string | null
+    nbCreneaux?: IntFilter<"GenerationSeance"> | number
+    statut?: EnumSeanceStatutFilter<"GenerationSeance"> | $Enums.SeanceStatut
+    generation?: XOR<GenerationScalarRelationFilter, GenerationWhereInput>
+  }
+
+  export type GenerationSeanceOrderByWithRelationInput = {
+    id?: SortOrder
+    generationId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    groupeIds?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrderInput | SortOrder
+    jour?: SortOrderInput | SortOrder
+    creneauDebutId?: SortOrderInput | SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+    generation?: GenerationOrderByWithRelationInput
+  }
+
+  export type GenerationSeanceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    generationId_affectationKey_rang?: GenerationSeanceGenerationIdAffectationKeyRangCompoundUniqueInput
+    AND?: GenerationSeanceWhereInput | GenerationSeanceWhereInput[]
+    OR?: GenerationSeanceWhereInput[]
+    NOT?: GenerationSeanceWhereInput | GenerationSeanceWhereInput[]
+    generationId?: UuidFilter<"GenerationSeance"> | string
+    affectationKey?: StringFilter<"GenerationSeance"> | string
+    rang?: IntFilter<"GenerationSeance"> | number
+    groupeIds?: StringNullableListFilter<"GenerationSeance">
+    moduleId?: UuidFilter<"GenerationSeance"> | string
+    typeEnseignementId?: UuidFilter<"GenerationSeance"> | string
+    activityTagId?: UuidFilter<"GenerationSeance"> | string
+    enseignantId?: UuidFilter<"GenerationSeance"> | string
+    salleId?: UuidNullableFilter<"GenerationSeance"> | string | null
+    jour?: StringNullableFilter<"GenerationSeance"> | string | null
+    creneauDebutId?: UuidNullableFilter<"GenerationSeance"> | string | null
+    nbCreneaux?: IntFilter<"GenerationSeance"> | number
+    statut?: EnumSeanceStatutFilter<"GenerationSeance"> | $Enums.SeanceStatut
+    generation?: XOR<GenerationScalarRelationFilter, GenerationWhereInput>
+  }, "id" | "generationId_affectationKey_rang">
+
+  export type GenerationSeanceOrderByWithAggregationInput = {
+    id?: SortOrder
+    generationId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    groupeIds?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrderInput | SortOrder
+    jour?: SortOrderInput | SortOrder
+    creneauDebutId?: SortOrderInput | SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+    _count?: GenerationSeanceCountOrderByAggregateInput
+    _avg?: GenerationSeanceAvgOrderByAggregateInput
+    _max?: GenerationSeanceMaxOrderByAggregateInput
+    _min?: GenerationSeanceMinOrderByAggregateInput
+    _sum?: GenerationSeanceSumOrderByAggregateInput
+  }
+
+  export type GenerationSeanceScalarWhereWithAggregatesInput = {
+    AND?: GenerationSeanceScalarWhereWithAggregatesInput | GenerationSeanceScalarWhereWithAggregatesInput[]
+    OR?: GenerationSeanceScalarWhereWithAggregatesInput[]
+    NOT?: GenerationSeanceScalarWhereWithAggregatesInput | GenerationSeanceScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"GenerationSeance"> | string
+    generationId?: UuidWithAggregatesFilter<"GenerationSeance"> | string
+    affectationKey?: StringWithAggregatesFilter<"GenerationSeance"> | string
+    rang?: IntWithAggregatesFilter<"GenerationSeance"> | number
+    groupeIds?: StringNullableListFilter<"GenerationSeance">
+    moduleId?: UuidWithAggregatesFilter<"GenerationSeance"> | string
+    typeEnseignementId?: UuidWithAggregatesFilter<"GenerationSeance"> | string
+    activityTagId?: UuidWithAggregatesFilter<"GenerationSeance"> | string
+    enseignantId?: UuidWithAggregatesFilter<"GenerationSeance"> | string
+    salleId?: UuidNullableWithAggregatesFilter<"GenerationSeance"> | string | null
+    jour?: StringNullableWithAggregatesFilter<"GenerationSeance"> | string | null
+    creneauDebutId?: UuidNullableWithAggregatesFilter<"GenerationSeance"> | string | null
+    nbCreneaux?: IntWithAggregatesFilter<"GenerationSeance"> | number
+    statut?: EnumSeanceStatutWithAggregatesFilter<"GenerationSeance"> | $Enums.SeanceStatut
   }
 
   export type UserCreateInput = {
@@ -98991,12 +100553,15 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
     semestre: SemestreCreateNestedOneWithoutGenerationsInput
     version: VersionEdtCreateNestedOneWithoutGenerationsInput
+    seances?: GenerationSeanceCreateNestedManyWithoutGenerationInput
   }
 
   export type GenerationUncheckedCreateInput = {
@@ -99009,10 +100574,13 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    seances?: GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput
   }
 
   export type GenerationUpdateInput = {
@@ -99023,12 +100591,15 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
     version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
+    seances?: GenerationSeanceUpdateManyWithoutGenerationNestedInput
   }
 
   export type GenerationUncheckedUpdateInput = {
@@ -99041,10 +100612,13 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    seances?: GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput
   }
 
   export type GenerationCreateManyInput = {
@@ -99057,6 +100631,8 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
@@ -99071,6 +100647,8 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -99087,10 +100665,130 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GenerationSeanceCreateInput = {
+    id?: string
+    affectationKey: string
+    rang: number
+    groupeIds?: GenerationSeanceCreategroupeIdsInput | string[]
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string
+    enseignantId: string
+    salleId?: string | null
+    jour?: string | null
+    creneauDebutId?: string | null
+    nbCreneaux: number
+    statut: $Enums.SeanceStatut
+    generation: GenerationCreateNestedOneWithoutSeancesInput
+  }
+
+  export type GenerationSeanceUncheckedCreateInput = {
+    id?: string
+    generationId: string
+    affectationKey: string
+    rang: number
+    groupeIds?: GenerationSeanceCreategroupeIdsInput | string[]
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string
+    enseignantId: string
+    salleId?: string | null
+    jour?: string | null
+    creneauDebutId?: string | null
+    nbCreneaux: number
+    statut: $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    groupeIds?: GenerationSeanceUpdategroupeIdsInput | string[]
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableStringFieldUpdateOperationsInput | string | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+    generation?: GenerationUpdateOneRequiredWithoutSeancesNestedInput
+  }
+
+  export type GenerationSeanceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    generationId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    groupeIds?: GenerationSeanceUpdategroupeIdsInput | string[]
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableStringFieldUpdateOperationsInput | string | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceCreateManyInput = {
+    id?: string
+    generationId: string
+    affectationKey: string
+    rang: number
+    groupeIds?: GenerationSeanceCreategroupeIdsInput | string[]
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string
+    enseignantId: string
+    salleId?: string | null
+    jour?: string | null
+    creneauDebutId?: string | null
+    nbCreneaux: number
+    statut: $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    groupeIds?: GenerationSeanceUpdategroupeIdsInput | string[]
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableStringFieldUpdateOperationsInput | string | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    generationId?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    groupeIds?: GenerationSeanceUpdategroupeIdsInput | string[]
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableStringFieldUpdateOperationsInput | string | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -103419,6 +105117,27 @@ export namespace Prisma {
     not?: NestedEnumGenerationModeFilter<$PrismaModel> | $Enums.GenerationMode
   }
 
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type GenerationSeanceListRelationFilter = {
+    every?: GenerationSeanceWhereInput
+    some?: GenerationSeanceWhereInput
+    none?: GenerationSeanceWhereInput
+  }
+
+  export type GenerationSeanceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type GenerationCountOrderByAggregateInput = {
     id?: SortOrder
     semestreId?: SortOrder
@@ -103429,10 +105148,16 @@ export namespace Prisma {
     engine?: SortOrder
     engineVersion?: SortOrder
     erreur?: SortOrder
+    metrics?: SortOrder
+    score?: SortOrder
     cancelRequested?: SortOrder
     queuedAt?: SortOrder
     startedAt?: SortOrder
     finishedAt?: SortOrder
+  }
+
+  export type GenerationAvgOrderByAggregateInput = {
+    score?: SortOrder
   }
 
   export type GenerationMaxOrderByAggregateInput = {
@@ -103445,6 +105170,7 @@ export namespace Prisma {
     engine?: SortOrder
     engineVersion?: SortOrder
     erreur?: SortOrder
+    score?: SortOrder
     cancelRequested?: SortOrder
     queuedAt?: SortOrder
     startedAt?: SortOrder
@@ -103461,10 +105187,15 @@ export namespace Prisma {
     engine?: SortOrder
     engineVersion?: SortOrder
     erreur?: SortOrder
+    score?: SortOrder
     cancelRequested?: SortOrder
     queuedAt?: SortOrder
     startedAt?: SortOrder
     finishedAt?: SortOrder
+  }
+
+  export type GenerationSumOrderByAggregateInput = {
+    score?: SortOrder
   }
 
   export type EnumGenerationStatutWithAggregatesFilter<$PrismaModel = never> = {
@@ -103485,6 +105216,92 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGenerationModeFilter<$PrismaModel>
     _max?: NestedEnumGenerationModeFilter<$PrismaModel>
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type GenerationScalarRelationFilter = {
+    is?: GenerationWhereInput
+    isNot?: GenerationWhereInput
+  }
+
+  export type GenerationSeanceGenerationIdAffectationKeyRangCompoundUniqueInput = {
+    generationId: string
+    affectationKey: string
+    rang: number
+  }
+
+  export type GenerationSeanceCountOrderByAggregateInput = {
+    id?: SortOrder
+    generationId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    groupeIds?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    jour?: SortOrder
+    creneauDebutId?: SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+  }
+
+  export type GenerationSeanceAvgOrderByAggregateInput = {
+    rang?: SortOrder
+    nbCreneaux?: SortOrder
+  }
+
+  export type GenerationSeanceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    generationId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    jour?: SortOrder
+    creneauDebutId?: SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+  }
+
+  export type GenerationSeanceMinOrderByAggregateInput = {
+    id?: SortOrder
+    generationId?: SortOrder
+    affectationKey?: SortOrder
+    rang?: SortOrder
+    moduleId?: SortOrder
+    typeEnseignementId?: SortOrder
+    activityTagId?: SortOrder
+    enseignantId?: SortOrder
+    salleId?: SortOrder
+    jour?: SortOrder
+    creneauDebutId?: SortOrder
+    nbCreneaux?: SortOrder
+    statut?: SortOrder
+  }
+
+  export type GenerationSeanceSumOrderByAggregateInput = {
+    rang?: SortOrder
+    nbCreneaux?: SortOrder
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -109167,12 +110984,34 @@ export namespace Prisma {
     connect?: VersionEdtWhereUniqueInput
   }
 
+  export type GenerationSeanceCreateNestedManyWithoutGenerationInput = {
+    create?: XOR<GenerationSeanceCreateWithoutGenerationInput, GenerationSeanceUncheckedCreateWithoutGenerationInput> | GenerationSeanceCreateWithoutGenerationInput[] | GenerationSeanceUncheckedCreateWithoutGenerationInput[]
+    connectOrCreate?: GenerationSeanceCreateOrConnectWithoutGenerationInput | GenerationSeanceCreateOrConnectWithoutGenerationInput[]
+    createMany?: GenerationSeanceCreateManyGenerationInputEnvelope
+    connect?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+  }
+
+  export type GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput = {
+    create?: XOR<GenerationSeanceCreateWithoutGenerationInput, GenerationSeanceUncheckedCreateWithoutGenerationInput> | GenerationSeanceCreateWithoutGenerationInput[] | GenerationSeanceUncheckedCreateWithoutGenerationInput[]
+    connectOrCreate?: GenerationSeanceCreateOrConnectWithoutGenerationInput | GenerationSeanceCreateOrConnectWithoutGenerationInput[]
+    createMany?: GenerationSeanceCreateManyGenerationInputEnvelope
+    connect?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+  }
+
   export type EnumGenerationStatutFieldUpdateOperationsInput = {
     set?: $Enums.GenerationStatut
   }
 
   export type EnumGenerationModeFieldUpdateOperationsInput = {
     set?: $Enums.GenerationMode
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type SemestreUpdateOneRequiredWithoutGenerationsNestedInput = {
@@ -109189,6 +111028,57 @@ export namespace Prisma {
     upsert?: VersionEdtUpsertWithoutGenerationsInput
     connect?: VersionEdtWhereUniqueInput
     update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutGenerationsInput, VersionEdtUpdateWithoutGenerationsInput>, VersionEdtUncheckedUpdateWithoutGenerationsInput>
+  }
+
+  export type GenerationSeanceUpdateManyWithoutGenerationNestedInput = {
+    create?: XOR<GenerationSeanceCreateWithoutGenerationInput, GenerationSeanceUncheckedCreateWithoutGenerationInput> | GenerationSeanceCreateWithoutGenerationInput[] | GenerationSeanceUncheckedCreateWithoutGenerationInput[]
+    connectOrCreate?: GenerationSeanceCreateOrConnectWithoutGenerationInput | GenerationSeanceCreateOrConnectWithoutGenerationInput[]
+    upsert?: GenerationSeanceUpsertWithWhereUniqueWithoutGenerationInput | GenerationSeanceUpsertWithWhereUniqueWithoutGenerationInput[]
+    createMany?: GenerationSeanceCreateManyGenerationInputEnvelope
+    set?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+    disconnect?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+    delete?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+    connect?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+    update?: GenerationSeanceUpdateWithWhereUniqueWithoutGenerationInput | GenerationSeanceUpdateWithWhereUniqueWithoutGenerationInput[]
+    updateMany?: GenerationSeanceUpdateManyWithWhereWithoutGenerationInput | GenerationSeanceUpdateManyWithWhereWithoutGenerationInput[]
+    deleteMany?: GenerationSeanceScalarWhereInput | GenerationSeanceScalarWhereInput[]
+  }
+
+  export type GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput = {
+    create?: XOR<GenerationSeanceCreateWithoutGenerationInput, GenerationSeanceUncheckedCreateWithoutGenerationInput> | GenerationSeanceCreateWithoutGenerationInput[] | GenerationSeanceUncheckedCreateWithoutGenerationInput[]
+    connectOrCreate?: GenerationSeanceCreateOrConnectWithoutGenerationInput | GenerationSeanceCreateOrConnectWithoutGenerationInput[]
+    upsert?: GenerationSeanceUpsertWithWhereUniqueWithoutGenerationInput | GenerationSeanceUpsertWithWhereUniqueWithoutGenerationInput[]
+    createMany?: GenerationSeanceCreateManyGenerationInputEnvelope
+    set?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+    disconnect?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+    delete?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+    connect?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
+    update?: GenerationSeanceUpdateWithWhereUniqueWithoutGenerationInput | GenerationSeanceUpdateWithWhereUniqueWithoutGenerationInput[]
+    updateMany?: GenerationSeanceUpdateManyWithWhereWithoutGenerationInput | GenerationSeanceUpdateManyWithWhereWithoutGenerationInput[]
+    deleteMany?: GenerationSeanceScalarWhereInput | GenerationSeanceScalarWhereInput[]
+  }
+
+  export type GenerationSeanceCreategroupeIdsInput = {
+    set: string[]
+  }
+
+  export type GenerationCreateNestedOneWithoutSeancesInput = {
+    create?: XOR<GenerationCreateWithoutSeancesInput, GenerationUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: GenerationCreateOrConnectWithoutSeancesInput
+    connect?: GenerationWhereUniqueInput
+  }
+
+  export type GenerationSeanceUpdategroupeIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type GenerationUpdateOneRequiredWithoutSeancesNestedInput = {
+    create?: XOR<GenerationCreateWithoutSeancesInput, GenerationUncheckedCreateWithoutSeancesInput>
+    connectOrCreate?: GenerationCreateOrConnectWithoutSeancesInput
+    upsert?: GenerationUpsertWithoutSeancesInput
+    connect?: GenerationWhereUniqueInput
+    update?: XOR<XOR<GenerationUpdateToOneWithWhereWithoutSeancesInput, GenerationUpdateWithoutSeancesInput>, GenerationUncheckedUpdateWithoutSeancesInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -110133,6 +112023,17 @@ export namespace Prisma {
     not?: NestedEnumGenerationModeFilter<$PrismaModel> | $Enums.GenerationMode
   }
 
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type NestedEnumGenerationStatutWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.GenerationStatut | EnumGenerationStatutFieldRefInput<$PrismaModel>
     in?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
@@ -110151,6 +112052,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGenerationModeFilter<$PrismaModel>
     _max?: NestedEnumGenerationModeFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateWithoutUserInput = {
@@ -114642,11 +116559,14 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
     version: VersionEdtCreateNestedOneWithoutGenerationsInput
+    seances?: GenerationSeanceCreateNestedManyWithoutGenerationInput
   }
 
   export type GenerationUncheckedCreateWithoutSemestreInput = {
@@ -114658,10 +116578,13 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    seances?: GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput
   }
 
   export type GenerationCreateOrConnectWithoutSemestreInput = {
@@ -115072,6 +116995,8 @@ export namespace Prisma {
     engine?: StringFilter<"Generation"> | string
     engineVersion?: StringNullableFilter<"Generation"> | string | null
     erreur?: StringNullableFilter<"Generation"> | string | null
+    metrics?: JsonNullableFilter<"Generation">
+    score?: DecimalNullableFilter<"Generation"> | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFilter<"Generation"> | boolean
     queuedAt?: DateTimeFilter<"Generation"> | Date | string
     startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
@@ -116637,11 +118562,14 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
     semestre: SemestreCreateNestedOneWithoutGenerationsInput
+    seances?: GenerationSeanceCreateNestedManyWithoutGenerationInput
   }
 
   export type GenerationUncheckedCreateWithoutVersionInput = {
@@ -116653,10 +118581,13 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    seances?: GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput
   }
 
   export type GenerationCreateOrConnectWithoutVersionInput = {
@@ -124175,6 +126106,48 @@ export namespace Prisma {
     create: XOR<VersionEdtCreateWithoutGenerationsInput, VersionEdtUncheckedCreateWithoutGenerationsInput>
   }
 
+  export type GenerationSeanceCreateWithoutGenerationInput = {
+    id?: string
+    affectationKey: string
+    rang: number
+    groupeIds?: GenerationSeanceCreategroupeIdsInput | string[]
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string
+    enseignantId: string
+    salleId?: string | null
+    jour?: string | null
+    creneauDebutId?: string | null
+    nbCreneaux: number
+    statut: $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceUncheckedCreateWithoutGenerationInput = {
+    id?: string
+    affectationKey: string
+    rang: number
+    groupeIds?: GenerationSeanceCreategroupeIdsInput | string[]
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string
+    enseignantId: string
+    salleId?: string | null
+    jour?: string | null
+    creneauDebutId?: string | null
+    nbCreneaux: number
+    statut: $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceCreateOrConnectWithoutGenerationInput = {
+    where: GenerationSeanceWhereUniqueInput
+    create: XOR<GenerationSeanceCreateWithoutGenerationInput, GenerationSeanceUncheckedCreateWithoutGenerationInput>
+  }
+
+  export type GenerationSeanceCreateManyGenerationInputEnvelope = {
+    data: GenerationSeanceCreateManyGenerationInput | GenerationSeanceCreateManyGenerationInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutGenerationsInput = {
     update: XOR<SemestreUpdateWithoutGenerationsInput, SemestreUncheckedUpdateWithoutGenerationsInput>
     create: XOR<SemestreCreateWithoutGenerationsInput, SemestreUncheckedCreateWithoutGenerationsInput>
@@ -124271,6 +126244,130 @@ export namespace Prisma {
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+  }
+
+  export type GenerationSeanceUpsertWithWhereUniqueWithoutGenerationInput = {
+    where: GenerationSeanceWhereUniqueInput
+    update: XOR<GenerationSeanceUpdateWithoutGenerationInput, GenerationSeanceUncheckedUpdateWithoutGenerationInput>
+    create: XOR<GenerationSeanceCreateWithoutGenerationInput, GenerationSeanceUncheckedCreateWithoutGenerationInput>
+  }
+
+  export type GenerationSeanceUpdateWithWhereUniqueWithoutGenerationInput = {
+    where: GenerationSeanceWhereUniqueInput
+    data: XOR<GenerationSeanceUpdateWithoutGenerationInput, GenerationSeanceUncheckedUpdateWithoutGenerationInput>
+  }
+
+  export type GenerationSeanceUpdateManyWithWhereWithoutGenerationInput = {
+    where: GenerationSeanceScalarWhereInput
+    data: XOR<GenerationSeanceUpdateManyMutationInput, GenerationSeanceUncheckedUpdateManyWithoutGenerationInput>
+  }
+
+  export type GenerationSeanceScalarWhereInput = {
+    AND?: GenerationSeanceScalarWhereInput | GenerationSeanceScalarWhereInput[]
+    OR?: GenerationSeanceScalarWhereInput[]
+    NOT?: GenerationSeanceScalarWhereInput | GenerationSeanceScalarWhereInput[]
+    id?: UuidFilter<"GenerationSeance"> | string
+    generationId?: UuidFilter<"GenerationSeance"> | string
+    affectationKey?: StringFilter<"GenerationSeance"> | string
+    rang?: IntFilter<"GenerationSeance"> | number
+    groupeIds?: StringNullableListFilter<"GenerationSeance">
+    moduleId?: UuidFilter<"GenerationSeance"> | string
+    typeEnseignementId?: UuidFilter<"GenerationSeance"> | string
+    activityTagId?: UuidFilter<"GenerationSeance"> | string
+    enseignantId?: UuidFilter<"GenerationSeance"> | string
+    salleId?: UuidNullableFilter<"GenerationSeance"> | string | null
+    jour?: StringNullableFilter<"GenerationSeance"> | string | null
+    creneauDebutId?: UuidNullableFilter<"GenerationSeance"> | string | null
+    nbCreneaux?: IntFilter<"GenerationSeance"> | number
+    statut?: EnumSeanceStatutFilter<"GenerationSeance"> | $Enums.SeanceStatut
+  }
+
+  export type GenerationCreateWithoutSeancesInput = {
+    id?: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    semestre: SemestreCreateNestedOneWithoutGenerationsInput
+    version: VersionEdtCreateNestedOneWithoutGenerationsInput
+  }
+
+  export type GenerationUncheckedCreateWithoutSeancesInput = {
+    id?: string
+    semestreId: string
+    versionId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+  }
+
+  export type GenerationCreateOrConnectWithoutSeancesInput = {
+    where: GenerationWhereUniqueInput
+    create: XOR<GenerationCreateWithoutSeancesInput, GenerationUncheckedCreateWithoutSeancesInput>
+  }
+
+  export type GenerationUpsertWithoutSeancesInput = {
+    update: XOR<GenerationUpdateWithoutSeancesInput, GenerationUncheckedUpdateWithoutSeancesInput>
+    create: XOR<GenerationCreateWithoutSeancesInput, GenerationUncheckedCreateWithoutSeancesInput>
+    where?: GenerationWhereInput
+  }
+
+  export type GenerationUpdateToOneWithWhereWithoutSeancesInput = {
+    where?: GenerationWhereInput
+    data: XOR<GenerationUpdateWithoutSeancesInput, GenerationUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type GenerationUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
+    version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
+  }
+
+  export type GenerationUncheckedUpdateWithoutSeancesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -125733,6 +127830,8 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
@@ -126176,11 +128275,14 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
+    seances?: GenerationSeanceUpdateManyWithoutGenerationNestedInput
   }
 
   export type GenerationUncheckedUpdateWithoutSemestreInput = {
@@ -126192,10 +128294,13 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    seances?: GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput
   }
 
   export type GenerationUncheckedUpdateManyWithoutSemestreInput = {
@@ -126207,6 +128312,8 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -126494,6 +128601,8 @@ export namespace Prisma {
     engine?: string
     engineVersion?: string | null
     erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
     cancelRequested?: boolean
     queuedAt?: Date | string
     startedAt?: Date | string | null
@@ -126724,11 +128833,14 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
+    seances?: GenerationSeanceUpdateManyWithoutGenerationNestedInput
   }
 
   export type GenerationUncheckedUpdateWithoutVersionInput = {
@@ -126740,10 +128852,13 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    seances?: GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput
   }
 
   export type GenerationUncheckedUpdateManyWithoutVersionInput = {
@@ -126755,6 +128870,8 @@ export namespace Prisma {
     engine?: StringFieldUpdateOperationsInput | string
     engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
     erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     cancelRequested?: BoolFieldUpdateOperationsInput | boolean
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -128749,6 +130866,70 @@ export namespace Prisma {
 
   export type ExigenceSalleAutoriseeUncheckedUpdateManyWithoutExigenceInput = {
     salleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GenerationSeanceCreateManyGenerationInput = {
+    id?: string
+    affectationKey: string
+    rang: number
+    groupeIds?: GenerationSeanceCreategroupeIdsInput | string[]
+    moduleId: string
+    typeEnseignementId: string
+    activityTagId: string
+    enseignantId: string
+    salleId?: string | null
+    jour?: string | null
+    creneauDebutId?: string | null
+    nbCreneaux: number
+    statut: $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceUpdateWithoutGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    groupeIds?: GenerationSeanceUpdategroupeIdsInput | string[]
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableStringFieldUpdateOperationsInput | string | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceUncheckedUpdateWithoutGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    groupeIds?: GenerationSeanceUpdategroupeIdsInput | string[]
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableStringFieldUpdateOperationsInput | string | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+  }
+
+  export type GenerationSeanceUncheckedUpdateManyWithoutGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    affectationKey?: StringFieldUpdateOperationsInput | string
+    rang?: IntFieldUpdateOperationsInput | number
+    groupeIds?: GenerationSeanceUpdategroupeIdsInput | string[]
+    moduleId?: StringFieldUpdateOperationsInput | string
+    typeEnseignementId?: StringFieldUpdateOperationsInput | string
+    activityTagId?: StringFieldUpdateOperationsInput | string
+    enseignantId?: StringFieldUpdateOperationsInput | string
+    salleId?: NullableStringFieldUpdateOperationsInput | string | null
+    jour?: NullableStringFieldUpdateOperationsInput | string | null
+    creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
+    nbCreneaux?: IntFieldUpdateOperationsInput | number
+    statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
   }
 
 

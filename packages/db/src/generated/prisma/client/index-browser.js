@@ -855,10 +855,29 @@ exports.Prisma.GenerationScalarFieldEnum = {
   engine: 'engine',
   engineVersion: 'engineVersion',
   erreur: 'erreur',
+  metrics: 'metrics',
+  score: 'score',
   cancelRequested: 'cancelRequested',
   queuedAt: 'queuedAt',
   startedAt: 'startedAt',
   finishedAt: 'finishedAt'
+};
+
+exports.Prisma.GenerationSeanceScalarFieldEnum = {
+  id: 'id',
+  generationId: 'generationId',
+  affectationKey: 'affectationKey',
+  rang: 'rang',
+  groupeIds: 'groupeIds',
+  moduleId: 'moduleId',
+  typeEnseignementId: 'typeEnseignementId',
+  activityTagId: 'activityTagId',
+  enseignantId: 'enseignantId',
+  salleId: 'salleId',
+  jour: 'jour',
+  creneauDebutId: 'creneauDebutId',
+  nbCreneaux: 'nbCreneaux',
+  statut: 'statut'
 };
 
 exports.Prisma.SortOrder = {
@@ -1194,7 +1213,8 @@ exports.Prisma.ModelName = {
   GroupeCovoiturage: 'GroupeCovoiturage',
   ExigenceSalleActivite: 'ExigenceSalleActivite',
   ExigenceSalleAutorisee: 'ExigenceSalleAutorisee',
-  Generation: 'Generation'
+  Generation: 'Generation',
+  GenerationSeance: 'GenerationSeance'
 };
 
 /**

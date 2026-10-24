@@ -5,6 +5,7 @@
 
 import type { Job } from 'pg-boss';
 import { trace, context, propagation, SpanStatusCode } from '@opentelemetry/api';
+import type { Prisma } from '@takt/db';
 import { prisma } from '@takt/db';
 import { GenerationStatut } from '@takt/db';
 import {
@@ -17,6 +18,7 @@ import {
 import { handleDeadLetter, isDeadLetter } from '../services/dead-letter.service.js';
 import { FetAdapter } from '@takt/engine-fet';
 import type { EngineRunOptions, EngineRawResult, EngineFile } from '@takt/contracts';
+import { importGenerationResult } from '../services/fet-result-import.service.js';
 import { randomBytes } from 'crypto';
 
 // Données attendues dans le job pg-boss pour une génération
@@ -58,7 +60,7 @@ async function updateGenerationStatus(
     finishedAt?: Date | null;
     erreur?: string | null;
     score?: number | null;
-    metrics?: Record<string, unknown> | null;
+    metrics?: Prisma.InputJsonValue | undefined;
     resultKey?: string | null;
     logKey?: string | null;
     engineVersion?: string | null;
@@ -236,12 +238,14 @@ export async function handleGenerationJob(job: Job): Promise<void> {
       // Lancer fet-cl
       const rawResult = await fetAdapter.run(engineFile, opts, abortController.signal);
 
-      // Mettre à jour le statut selon le résultat
-      await finalizeGeneration(
+      // Importer le résultat FET et créer les GenerationSeance (L4-09)
+      const engineSolution = await fetAdapter.importResult(rawResult, engineInput);
+      await importGenerationResult(
         generationId,
-        rawResult,
-        engineFile,
-        seeds,
+        engineSolution,
+        engineInput,
+        semestreId,
+        { exitCode: rawResult.exitCode, resultText: rawResult.resultText, durationMs: rawResult.durationMs },
       );
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erreur inconnue lors de l\'exécution FET';

@@ -1656,14 +1656,42 @@ model Generation {
   engine          String           @default("fet")
   engineVersion   String?
   erreur          String?
+  metrics         Json?
+  score           Decimal?         @db.Decimal(5, 2)
   cancelRequested Boolean          @default(false)
   queuedAt        DateTime         @default(now())
   startedAt       DateTime?
   finishedAt      DateTime?
 
-  semestre Semestre   @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  version  VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  semestre Semestre           @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  version  VersionEdt         @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  seances  GenerationSeance[] @relation("generation_seances_generation")
 
   @@index([semestreId, statut])
   @@map("generations")
+}
+
+// Résultat brut de génération (séquences placées / non placées)
+// Référence ST §4.6.5 — appariement par affectationKey#rang
+model GenerationSeance {
+  id                 String       @id @default(uuid()) @db.Uuid
+  generationId       String       @db.Uuid
+  affectationKey     String
+  rang               Int
+  groupeIds          String[]     @db.Uuid
+  moduleId           String       @db.Uuid
+  typeEnseignementId String       @db.Uuid
+  activityTagId      String       @db.Uuid
+  enseignantId       String       @db.Uuid
+  salleId            String?      @db.Uuid
+  jour               String?
+  creneauDebutId     String?      @db.Uuid
+  nbCreneaux         Int
+  statut             SeanceStatut
+
+  generation Generation @relation("generation_seances_generation", fields: [generationId], references: [id], onDelete: Cascade)
+
+  @@unique([generationId, affectationKey, rang])
+  @@index([generationId, statut])
+  @@map("generation_seances")
 }

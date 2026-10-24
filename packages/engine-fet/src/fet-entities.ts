@@ -21,7 +21,7 @@ const BUILDER_VERSION = '0.0.1';
 const FET_ENGINE_VERSION = '7.12.0';
 
 /** Génère un identifiant technique FET court et déterministe à partir d'une chaîne d'entrée. */
-function fetId(input: string): string {
+export function fetId(input: string): string {
   return createHash('sha256').update(input).digest('hex').substring(0, 8).toUpperCase();
 }
 
