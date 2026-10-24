@@ -17,7 +17,7 @@ import {
 } from '../guards/single-job-per-semester.guard.js';
 import { handleDeadLetter, isDeadLetter } from '../services/dead-letter.service.js';
 import { FetAdapter } from '@takt/engine-fet';
-import type { EngineRunOptions, EngineRawResult, EngineFile } from '@takt/contracts';
+import type { EngineLock, EngineRunOptions, EngineRawResult, EngineFile } from '@takt/contracts';
 import { importGenerationResult } from '../services/fet-result-import.service.js';
 import { randomBytes, createHash } from 'crypto';
 import { mkdtemp, mkdir, rm, writeFile, rename } from 'fs/promises';
@@ -209,13 +209,95 @@ export async function handleGenerationJob(job: Job): Promise<void> {
       return;
     }
 
+    // ------------------------------------------------------------------
+    // Régénération partielle (L4-22) : lecture de preserverVerrous depuis
+    // le profil de génération, puis construction des EngineLock depuis
+    // les verrous de séance actifs de la version.
+    // ------------------------------------------------------------------
+    let locks: EngineLock[] = [];
+    if (generation.profilGenerationId) {
+      const profilGeneration = await prisma.profilGeneration.findUnique({
+        where: { id: generation.profilGenerationId },
+        select: { preserverVerrous: true },
+      });
+      const preserverVerrous = profilGeneration?.preserverVerrous ?? false;
+
+      if (preserverVerrous && generation.versionId) {
+        const verrous = await prisma.verrouSeance.findMany({
+          where: {
+            versionId: generation.versionId,
+            leveLe: null,
+          },
+          include: {
+            seance: {
+              include: {
+                creneauDebut: true,
+                salle: true,
+              },
+            },
+          },
+        });
+
+        // Indexer les affectations par affectationKey pour résoudre séance → activité
+        const affectations = await prisma.affectation.findMany({
+          where: { repartition: { semestreId } },
+          select: {
+            id: true,
+            groupeId: true,
+            moduleId: true,
+            typeEnseignementId: true,
+            enseignantId: true,
+          },
+        });
+        const affectationByKey = new Map<string, string>();
+        for (const a of affectations) {
+          const key = `${a.groupeId ?? ''}:${a.moduleId}:${a.typeEnseignementId}:${a.enseignantId}`;
+          affectationByKey.set(key, a.id);
+        }
+
+        locks = verrous
+          .filter((v): v is Extract<typeof v, { seance: NonNullable<typeof v.seance> }> => Boolean(v.seance))
+          .flatMap((v) => {
+            const seance = v.seance!;
+            const activityId = affectationByKey.get(seance.affectationKey);
+            if (!activityId) {
+              return [];
+            }
+
+            let periodId: string | undefined;
+            let roomId: string | undefined;
+
+            if (v.type === 'CRENEAU' || v.type === 'ACTIVITE') {
+              periodId = seance.creneauDebutId ?? undefined;
+            }
+            if (v.type === 'SALLE' || v.type === 'ACTIVITE') {
+              roomId = seance.salleId ?? undefined;
+            }
+
+            // Un verrou sans créneau ni salle n'est pas traduisible en FET
+            if (!periodId && !roomId) {
+              return [];
+            }
+
+            // ENSEIGNANT : pas d'EngineLock (contrôle applicatif, pas FET)
+            return [{
+              id: v.id,
+              activityId,
+              periodId,
+              roomId,
+              weight: 100,
+            }];
+          });
+      }
+    }
+
     // Instancier l'adaptateur FET
     const fetAdapter = new FetAdapter();
 
     // Construire EngineInput à partir des données du semestre
     // NOTE : Le mapping complet Prisma → EngineInput doit être affiné
     // lorsque les modèles de données nécessaires sont disponibles.
-    const engineInput = await buildEngineInputFromSemestre(semestreId);
+    const engineInput = await buildEngineInputFromSemestre(semestreId, locks);
 
     // Construire le fichier moteur (buildProfile)
     const engineFile = await fetAdapter.buildProfile(engineInput);
@@ -399,7 +481,10 @@ export async function handleGenerationJob(job: Job): Promise<void> {
  * lorsque les modèles de données nécessaires (créneaux, activités, salles, etc.)
  * sont disponibles dans le schéma Prisma.
  */
-async function buildEngineInputFromSemestre(semestreId: string): Promise<import('@takt/contracts').EngineInput> {
+async function buildEngineInputFromSemestre(
+  semestreId: string,
+  locks: import('@takt/contracts').EngineLock[] = [],
+): Promise<import('@takt/contracts').EngineInput> {
   // Récupérer les affectations du semestre avec leurs relations
   const affectations = await prisma.affectation.findMany({
     where: { repartition: { semestreId } },
@@ -452,18 +537,42 @@ async function buildEngineInputFromSemestre(semestreId: string): Promise<import(
     maxRooms: 1,
   }));
 
-  // Construire les périodes à partir des affectations (heuristique : une période par affectation)
-  // À remplacer par une vraie grille de créneaux depuis le semestre
-  const periods: import('@takt/contracts').EnginePeriod[] = affectations.map((a, idx) => ({
-    id: `periode-${a.id}`,
-    dayIndex: idx % 5, // Lundi=0 … Vendredi=4
-    slotIndex: Math.floor(idx / 5),
-    startTime: '08:00',
-    endTime: '08:30',
+  // Construire les périodes à partir des créneaux actifs du semestre
+  // (id = creneau.id pour que les locks de séance puissent y faire référence)
+  const creneaux = await prisma.creneau.findMany({
+    where: { semestreId, estActive: true },
+    orderBy: [{ jour: 'asc' }, { ordre: 'asc' }],
+  });
+
+  const jourIndex: Record<string, number> = {
+    LUNDI: 0,
+    MARDI: 1,
+    MERCREDI: 2,
+    JEUDI: 3,
+    VENDREDI: 4,
+    SAMEDI: 5,
+  };
+
+  const periods: import('@takt/contracts').EnginePeriod[] = creneaux.map((c) => ({
+    id: c.id,
+    dayIndex: jourIndex[c.jour] ?? 0,
+    slotIndex: c.ordre - 1,
+    startTime: c.heureDebut.toISOString().substring(11, 16), // HH:MM
+    endTime: c.heureFin.toISOString().substring(11, 16), // HH:MM
   }));
 
-  // Récupérer les salles disponibles (à affiner)
-  const rooms: import('@takt/contracts').EngineRoom[] = [];
+  // Récupérer les salles actives (id = salle.id pour que les locks de séance puissent y faire référence)
+  const salles = await prisma.salle.findMany({
+    where: { estActive: true },
+  });
+
+  const rooms: import('@takt/contracts').EngineRoom[] = salles.map((s) => ({
+    id: s.id,
+    code: s.code,
+    capacity: s.capaciteMax,
+    tagIds: [],
+  }));
+
   const activityTags: import('@takt/contracts').EngineActivityTag[] = affectations
     .filter((a): a is typeof a & { activityTagId: string; activityTag: { code: string } } =>
       Boolean(a.activityTagId) && Boolean(a.activityTag),
@@ -474,7 +583,6 @@ async function buildEngineInputFromSemestre(semestreId: string): Promise<import(
     }));
 
   const constraints: import('@takt/contracts').EngineConstraint[] = [];
-  const locks: import('@takt/contracts').EngineLock[] = [];
 
   return {
     semesterId: semestreId,
@@ -487,6 +595,76 @@ async function buildEngineInputFromSemestre(semestreId: string): Promise<import(
     constraints,
     locks,
   };
+}
+
+/**
+ * Construit les EngineLock à partir des verrous de séance actifs.
+ *
+ * Règles (ST §4.14, EX-VRR-01) :
+ * - CRENEAU → verrou sur le créneau (periodId) uniquement
+ * - SALLE → verrou sur la salle (roomId) uniquement
+ * - ACTIVITE → verrou sur créneau ET salle (periodId + roomId)
+ * - ENSEIGNANT → pas d'EngineLock (contrôle applicatif, pas FET)
+ * - Un verrou sans créneau ni salle n'est pas traduisible en FET → ignoré
+ * - Une séance sans affectation résolue → ignoré
+ *
+ * @param verrous - verrous de séance actifs (leveLe IS NULL) avec leur seance incluse
+ * @param affectationByKey - index affectationKey → id d'activité
+ * @returns EngineLock[] triés par id (déterministe)
+ */
+interface VerrouSeanceInput {
+  readonly id: string;
+  readonly type: 'CRENEAU' | 'SALLE' | 'ENSEIGNANT' | 'ACTIVITE';
+  readonly seance: {
+    readonly affectationKey: string;
+    readonly creneauDebutId: string | null;
+    readonly salleId: string | null;
+  } | null;
+}
+
+export function buildLocksFromVerrous(
+  verrous: readonly VerrouSeanceInput[],
+  affectationByKey: Map<string, string>,
+): EngineLock[] {
+  const locks: EngineLock[] = [];
+
+  for (const v of verrous) {
+    const seance = v.seance;
+    if (!seance) {
+      continue;
+    }
+
+    const activityId = affectationByKey.get(seance.affectationKey);
+    if (!activityId) {
+      continue;
+    }
+
+    let periodId: string | undefined;
+    let roomId: string | undefined;
+
+    if (v.type === 'CRENEAU' || v.type === 'ACTIVITE') {
+      periodId = seance.creneauDebutId ?? undefined;
+    }
+    if (v.type === 'SALLE' || v.type === 'ACTIVITE') {
+      roomId = seance.salleId ?? undefined;
+    }
+
+    // Un verrou sans créneau ni salle n'est pas traduisible en FET
+    if (!periodId && !roomId) {
+      continue;
+    }
+
+    // ENSEIGNANT : pas d'EngineLock (contrôle applicatif, pas FET)
+    locks.push({
+      id: v.id,
+      activityId,
+      periodId,
+      roomId,
+      weight: 100,
+    });
+  }
+
+  return locks.sort((a, b) => a.id.localeCompare(b.id));
 }
 
 /**
