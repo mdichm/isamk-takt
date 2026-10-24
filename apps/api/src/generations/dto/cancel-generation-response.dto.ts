@@ -3,7 +3,7 @@
 // POST /generations/{id}/cancel -> 200
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsUUID } from 'class-validator';
+import { IsString, IsUUID, IsBoolean } from 'class-validator';
 
 // ============================================
 // Réponse d'annulation de génération (L4-15)
@@ -21,4 +21,8 @@ export class CancelGenerationResponseDto {
   @ApiProperty({ description: 'Confirmation que l annulation a été demandée' })
   @IsString()
   message: string;
+
+  @ApiProperty({ description: 'Indique si l annulation a été demandée' })
+  @IsBoolean()
+  cancelRequested: boolean;
 }

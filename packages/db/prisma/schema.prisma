@@ -1672,6 +1672,8 @@ model Generation {
   profilGenerationVersion Int
   perimetre          Json?             // périmètre figé (EX-GEN-02)
   perimetreHash    String?             // empreinte SHA-256 du périmètre (EX-GEN-02)
+  fichierAttendu   String?             // mode MANUELLE : empreinte SHA-256 du fichier moteur attendu (EX-MOT-07)
+  seeds            Json?               // 6 graines MRG32k3a (null en mode MANUELLE)
 
   @@index([semestreId, statut])
   @@index([profilGenerationId])
