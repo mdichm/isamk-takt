@@ -45,6 +45,7 @@ import { VoeuxEvalModule } from './voeux-eval/voeux-eval.module.js';
 import { EditLockModule } from './edit-lock/edit-lock.module.js';
 import { VerrouSeanceModule } from './verrou-seance/verrou-seance.module.js';
 import { ProfilsModule } from './profils/profils.module.js';
+import { PreparationModule } from './preparation/preparation.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
@@ -131,6 +132,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     EditLockModule,
     VerrouSeanceModule,
     ProfilsModule,
+    PreparationModule,
   ],
   controllers: [MetricsController, SecurityEventController],
   providers: [
