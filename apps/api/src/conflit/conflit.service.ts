@@ -241,6 +241,54 @@ export class ConflitService {
       }
     }
 
+    // --- L3-43 : exigences de salle orphelines (type COMPATIBILITE, severite AVERTISSEMENT, regleCode ROOM_ORPHAN) ---
+    const exigencesOrphelines = await this.detectExigencesOrphelines(
+      versionId,
+      version.semestreId,
+    );
+    if (exigencesOrphelines.length > 0) {
+      const existants = await this.prisma.conflit.findMany({
+        where: { versionId, regleCode: 'ROOM_ORPHAN' },
+        select: { id: true, signature: true },
+      });
+      const existantesSignatures = new Set(existants.map((c) => c.signature));
+      const aInserer = exigencesOrphelines.filter(
+        (c) => !existantesSignatures.has(c.signature),
+      );
+      if (aInserer.length > 0) {
+        await this.prisma.conflit.createMany({
+          data: aInserer.map((c) => ({
+            id: c.signature,
+            versionId,
+            regleCode: c.regleCode,
+            type: c.type as ConflitType,
+            severite: c.severite as ConflitSeverite,
+            objetType: c.objetType,
+            objetId: c.objetId,
+            seanceIds: c.seanceIds,
+            message: c.message,
+            signature: c.signature,
+            details: c.details as any,
+            resoluLe: null,
+          })),
+          skipDuplicates: true,
+        });
+      }
+      // Marquer resoluLe pour les orphelins disparus
+      const nouvellesSignatures = new Set(
+        exigencesOrphelines.map((c) => c.signature),
+      );
+      const aResoudre = existants.filter(
+        (c) => !nouvellesSignatures.has(c.signature),
+      );
+      if (aResoudre.length > 0) {
+        await this.prisma.conflit.updateMany({
+          where: { id: { in: aResoudre.map((c) => c.id) } },
+          data: { resoluLe: new Date() },
+        });
+      }
+    }
+
     return this.getConflits(versionId);
   }
 
@@ -349,6 +397,82 @@ export class ConflitService {
             });
           }
         }
+      }
+    }
+
+    return violations;
+  }
+
+  /** L3-43 : detecte les exigences de salle orphelines (affectationKey sans correspondance dans le snapshot). */
+  private async detectExigencesOrphelines(
+    versionId: string,
+    semestreId: string,
+  ): Promise<Array<{
+    regleCode: string;
+    type: ConflitType;
+    severite: ConflitSeverite;
+    objetType: string;
+    objetId: string;
+    seanceIds: string[];
+    message: string;
+    signature: string;
+    details?: Record<string, unknown>;
+  }>> {
+    const violations: Array<{
+      regleCode: string;
+      type: ConflitType;
+      severite: ConflitSeverite;
+      objetType: string;
+      objetId: string;
+      seanceIds: string[];
+      message: string;
+      signature: string;
+      details?: Record<string, unknown>;
+    }> = [];
+
+    // Reconstituer les cles d'affectation presentes dans le snapshot de la version
+    const versionSnapshots = await this.prisma.versionSnapshot.findMany({
+      where: { versionId },
+      select: { snapshotId: true },
+    });
+    const snapshotIds = versionSnapshots.map((vs) => vs.snapshotId);
+    let affectationKeys = new Set<string>();
+    if (snapshotIds.length > 0) {
+      const snapshotAffectations = await this.prisma.snapshotAffectation.findMany({
+        where: { snapshotId: { in: snapshotIds } },
+      });
+      for (const sa of snapshotAffectations) {
+        if (
+          !sa.groupeId ||
+          !sa.moduleId ||
+          !sa.typeEnseignementId ||
+          !sa.enseignantId
+        )
+          continue;
+        affectationKeys.add(
+          `${sa.groupeId}:${sa.moduleId}:${sa.typeEnseignementId}:${sa.enseignantId}`,
+        );
+      }
+    }
+
+    // Charger toutes les exigences de salle du semestre
+    const exigences = await this.prisma.exigenceSalleActivite.findMany({
+      where: { semestreId },
+    });
+
+    for (const e of exigences) {
+      if (!affectationKeys.has(e.affectationKey)) {
+        violations.push({
+          regleCode: 'ROOM_ORPHAN',
+          type: 'COMPATIBILITE',
+          severite: 'AVERTISSEMENT',
+          objetType: 'EXIGENCE_SALLE',
+          objetId: e.id,
+          seanceIds: [],
+          message: `Exigence de salle orpheline : l'affectationKey "${e.affectationKey}" ne correspond a aucune affectation du snapshot`,
+          signature: `room-orphan|${versionId}|${e.id}`,
+          details: { exigenceId: e.id, affectationKey: e.affectationKey, semestreId },
+        });
       }
     }
 
@@ -551,16 +675,41 @@ export class ConflitService {
         equipementsSouhaites,
       });
     }
+
+    // L3-43 : exigences de salle (salle imposée / liste autorisée) par affectationKey
+    const exigencesSalleRaw = await this.prisma.exigenceSalleActivite.findMany({
+      where: { semestreId },
+      include: { autorisees: { select: { salleId: true } } },
+    });
+    const exigencesSalleByAffectationKey = new Map<string, {
+      salleImposeeId: string | null;
+      sallesAutorisees: string[];
+    }>();
+    for (const e of exigencesSalleRaw) {
+      exigencesSalleByAffectationKey.set(e.affectationKey, {
+        salleImposeeId: e.salleImposeeId ?? null,
+        sallesAutorisees: e.autorisees.map((a) => a.salleId),
+      });
+    }
+
     for (const s of seancesRaw) {
       if (s.moduleId && s.typeEnseignementId) {
         const pair = `${s.moduleId}|${s.typeEnseignementId}`;
         const ex = exigencesMap.get(pair);
-        if (ex) {
-          reqs.set(s.id, {
-            equipementsObligatoires: ex.equipementsObligatoires,
-            equipementsSouhaites: ex.equipementsSouhaites,
-          });
-        }
+        const salleReq = exigencesSalleByAffectationKey.get(s.affectationKey);
+        reqs.set(s.id, {
+          equipementsObligatoires: ex?.equipementsObligatoires ?? [],
+          equipementsSouhaites: ex?.equipementsSouhaites ?? [],
+          ...(salleReq
+            ? {
+                salleImposee: salleReq.salleImposeeId ?? undefined,
+                sallesAutorisees:
+                  salleReq.sallesAutorisees.length > 0
+                    ? salleReq.sallesAutorisees
+                    : undefined,
+              }
+            : {}),
+        });
       }
     }
 

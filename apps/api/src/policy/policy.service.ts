@@ -75,6 +75,7 @@ export class PolicyService {
           'referentiel:read','salle:read','salle:write','enseignant:write','repartition:read','repartition:write',
           'repartition:validate','repartition:reopen','charges:read','charge-ruleset:read','version:read','version:validate','annee:read',
           'volume:write','volume:read',
+          'exigence-salle:read',
           'demande:handle',
           'project:read','project:write','task:read','task:write','sprint:read','sprint:write','comment:read','comment:write','activity:read','tag:read','tag:write',
           'notification:read','tableau-de-bord:read',

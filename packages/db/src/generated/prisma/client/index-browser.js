@@ -830,6 +830,21 @@ exports.Prisma.GroupeCovoiturageScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ExigenceSalleActiviteScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  affectationKey: 'affectationKey',
+  salleImposeeId: 'salleImposeeId',
+  creePar: 'creePar',
+  creeLe: 'creeLe',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ExigenceSalleAutoriseeScalarFieldEnum = {
+  exigenceId: 'exigenceId',
+  salleId: 'salleId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1145,7 +1160,9 @@ exports.Prisma.ModelName = {
   DemandeModification: 'DemandeModification',
   Conflit: 'Conflit',
   AvertissementAccepte: 'AvertissementAccepte',
-  GroupeCovoiturage: 'GroupeCovoiturage'
+  GroupeCovoiturage: 'GroupeCovoiturage',
+  ExigenceSalleActivite: 'ExigenceSalleActivite',
+  ExigenceSalleAutorisee: 'ExigenceSalleAutorisee'
 };
 
 /**
