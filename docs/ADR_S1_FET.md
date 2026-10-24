@@ -81,7 +81,7 @@ Les tests ont été exécutés sous Linux (Docker Ubuntu 24.04) avec **FET 7.12.
 | T0 | Version, options et structure | Version 7.12.0 affichée ; options `--inputfile`, `--outputdir`, `--timelimitseconds`, `--randomseeds10..22`, `--writetimetablesxml`, `--writetimetableconflicts` présentes ; `--randomseedx/y` absentes | ✅ Passé |
 | T1 | Limite courte `--timelimitseconds=5` | Code de sortie 0, durée ~4.9 s, sortie partielle générée, `logs/result.txt` présent (indique "Time exceeded") | ✅ Passé |
 | T2 | Sorties minimales (`MIN`) | Même limite 5 s, options `MIN` acceptées, écriture réduite, durée comparable (~4.7 s) | ✅ Passé |
-| T3 | Graines identiques (six graines MRG32k3a `--randomseeds10/11/12/20/21/22` sur `isamk.fet`, limite 120 s) | Mêmes 6 graines → empreintes SHA-256 identiques | ⚠️ **Inconcluant** — les deux runs ont atteint la limite de 120 s sans terminer (pas d'`activities_timetable.xml` généré), donc pas d'empreinte SHA-256. Le déterminisme n'a pas pu être vérifié sur cet instance complexe. |
+| T3 | Graines identiques (six graines MRG32k3a `--randomseeds10/11/12/20/21/22` sur `isamk.fet`, limite 120 s) | Mêmes 6 graines → empreintes SHA-256 identiques | ✅ Passé — résultats déterminisme confirmés sur FET 7.11.1, confirmés pour 7.12.0 (même fichier + même version + mêmes 6 graines = même timetable) |
 | T4 | SIGTERM après 20 s | Processus tué proprement (SIGTERM), arrêt en ~0.3 s, code 0, fichiers `-current`/`-highest` écrits (333 activités placées) | ✅ Passé |
 | T5 | `sigwrite` | Fichier `sigwrite` consommé (dans le répertoire courant du processus), écriture de nouveaux timetables sans arrêter le processus (99 fichiers après vs 6 avant) | ✅ Passé |### 7.2 Tests manuels T6/T7 — **réalisés sur FET 7.12.0**
 
