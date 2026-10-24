@@ -659,7 +659,7 @@ export class VersionService {
     // 5. Profil de génération (existence et appartenance au semestre)
     const profil = await this.prisma.profilGeneration.findUnique({
       where: { id: dto.profilId },
-      select: { id: true, semestreId: true, numero: true, nom: true },
+      select: { id: true, semestreId: true, numero: true, nom: true, preserverVerrous: true },
     });
     if (!profil) {
       throw new NotFoundException(
