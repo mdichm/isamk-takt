@@ -572,6 +572,7 @@ model Semestre {
   seances              Seance[]
   versions             VersionEdt[]
   groupesCovoiturage   GroupeCovoiturage[]
+  exigencesSalle       ExigenceSalleActivite[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -1195,13 +1196,15 @@ model Salle {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
-  departement       Departement?       @relation(fields: [departementId], references: [id], onDelete: SetNull)
-  typeSalle         TypeSalle?         @relation(fields: [typeSalleId], references: [id], onDelete: SetNull)
-  site              Site?              @relation(fields: [siteId], references: [id], onDelete: SetNull)
-  equipements       SalleEquipement[]
-  salleActivityTags SalleActivityTag[] @relation("SalleActivityTag")
-  indisponibilites  Indisponibilite[]
-  seances           Seance[]
+  departement             Departement?             @relation(fields: [departementId], references: [id], onDelete: SetNull)
+  typeSalle               TypeSalle?               @relation(fields: [typeSalleId], references: [id], onDelete: SetNull)
+  site                    Site?                    @relation(fields: [siteId], references: [id], onDelete: SetNull)
+  equipements             SalleEquipement[]
+  salleActivityTags       SalleActivityTag[]       @relation("SalleActivityTag")
+  indisponibilites        Indisponibilite[]
+  seances                 Seance[]
+  exigencesSalleImposee   ExigenceSalleActivite[]
+  exigencesSalleAutorisee ExigenceSalleAutorisee[]
 
   @@index([departementId])
   @@index([typeSalleId])
@@ -1580,4 +1583,42 @@ model GroupeCovoiturage {
 
   @@index([semestreId])
   @@map("groupes_covoiturage")
+}
+
+// ============================================
+// Exigences de salle par activité (L3-43)
+// Une exigence porte une salle imposée et/ou une liste de salles autorisées,
+// par semestre et affectationKey (groupe:module:type:enseignant).
+// Écriture réservée au Gestionnaire et à l'Administrateur.
+// ============================================
+
+model ExigenceSalleActivite {
+  id             String   @id @default(uuid()) @db.Uuid
+  semestreId     String   @db.Uuid
+  affectationKey String
+  salleImposeeId String?  @db.Uuid
+  creePar        String   @db.Uuid
+  creeLe         DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  semestre     Semestre                 @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  salleImposee Salle?                   @relation(fields: [salleImposeeId], references: [id])
+  autorisees   ExigenceSalleAutorisee[]
+
+  @@unique([semestreId, affectationKey])
+  @@index([semestreId])
+  @@index([salleImposeeId])
+  @@map("exigences_salle_activite")
+}
+
+model ExigenceSalleAutorisee {
+  exigenceId String @db.Uuid
+  salleId    String @db.Uuid
+
+  exigence ExigenceSalleActivite @relation(fields: [exigenceId], references: [id], onDelete: Cascade)
+  salle    Salle                 @relation(fields: [salleId], references: [id])
+
+  @@id([exigenceId, salleId])
+  @@index([salleId])
+  @@map("exigences_salle_autorisee")
 }
