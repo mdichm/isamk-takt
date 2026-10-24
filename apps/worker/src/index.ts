@@ -21,6 +21,7 @@ import {
   OTLPTraceExporter,
 } from '@opentelemetry/exporter-trace-otlp-grpc';
 import { handleGenerationJob } from './jobs/generation.job.js';
+import { handleGenerationImportManuelJob } from './jobs/generation-import-manuel.job.js';
 import { startOrphanRecoveryScan } from './services/orphan-recovery.service.js';
 
 // ---------------------------------------------------------------------------
@@ -68,6 +69,13 @@ async function start() {
   await boss.work('generation', { localConcurrency: 1 }, async (jobs: Job[]) => {
     for (const job of jobs) {
       await handleGenerationJob(job);
+    }
+  });
+
+  // Generation import manuel queue — import de résultat FET manuel
+  await boss.work('generation:import-manuel', { localConcurrency: 1 }, async (jobs: Job[]) => {
+    for (const job of jobs) {
+      await handleGenerationImportManuelJob(job);
     }
   });
 

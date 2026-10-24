@@ -9,8 +9,11 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiConsumes, ApiBody } from '@nestjs/swagger';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { VersionService } from './version.service.js';
 import { VersionResponseDto } from './dto/version-response.dto.js';
@@ -19,6 +22,8 @@ import { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import { GenerationResponseDto } from './dto/generation-response.dto.js';
+import type { ImportGenerationDto } from './dto/import-generation.dto.js';
+import { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
@@ -167,5 +172,60 @@ export class VersionController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<GenerationResponseDto> {
     return this.service.createGeneration(id, dto, currentUser.id);
+  }
+
+  @Post(':id/generations/import')
+  @HttpCode(HttpStatus.ACCEPTED)
+  @Permissions('generation:launch')
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiConsumes('multipart/form-data')
+  @ApiOperation({
+    summary: 'Importer le résultat d une exécution manuelle de FET',
+    description:
+      "Reçoit le fichier résultat d'une exécution manuelle de FET (.fet) ainsi que l'empreinte du fichier moteur exporté. Vérifie que l'empreinte correspond à un fichier moteur de ce périmètre (422 ENGINE_FILE_MISMATCH sinon), puis crée une génération en mode MANUELLE et l'enfile pour import.",
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version (UUID)' })
+  @ApiBody({
+    description: 'Fichier résultat FET (.fet) et empreinte du fichier moteur',
+    required: true,
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Fichier résultat d exécution FET (.fet)',
+        },
+        fichierMoteurSha256: {
+          type: 'string',
+          description: "Empreinte SHA-256 du fichier moteur exporté (GET /versions/{id}/generations/:genId/engine-file)",
+        },
+      },
+      required: ['file', 'fichierMoteurSha256'],
+    },
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Génération manuelle créée et mise en file d attente',
+    type: ImportGenerationResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  @ApiResponse({
+    status: 422,
+    description:
+      "Empreinte fichier moteur non correspondante (ENGINE_FILE_MISMATCH) ou paramètres invalides",
+  })
+  @ApiResponse({
+    status: 409,
+    description: 'Une génération est déjà en cours sur cette version (GENERATION_ALREADY_RUNNING)',
+  })
+  async importManualGeneration(
+    @Param('id') id: string,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() dto: ImportGenerationDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ImportGenerationResponseDto> {
+    return this.service.importManualGeneration(id, file, dto.fichierMoteurSha256, currentUser.id);
   }
 }
