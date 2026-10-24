@@ -5,6 +5,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { PreparationService } from '../preparation/preparation.service.js';
+import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
 
 // ============================================
@@ -52,6 +53,7 @@ describe('VersionService', () => {
         VersionService,
         { provide: PrismaService, useValue: prisma },
         { provide: PreparationService, useValue: preparationService },
+        { provide: ConflitService, useValue: { recomputeConflits: vi.fn() } },
       ],
     }).compile();
 
