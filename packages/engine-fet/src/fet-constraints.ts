@@ -8,6 +8,8 @@ import type {
   EngineActivity,
   EngineConstraint,
   EngineGroup,
+  EngineLock,
+  EnginePeriod,
   EngineRoom,
   EngineTeacher,
 } from '@takt/contracts';
@@ -208,10 +210,29 @@ function translateConstraint(
       };
     }
     case 'ACTIVITY_TIME_PREFERENCE': {
+      const activityId = entityIds[0];
+      const activity = activities.find((a) => a.id === activityId);
+      if (!activity) {
+        return { element: null, status: 'NON_TRADUITE', reason: 'Activité introuvable' };
+      }
+      const dayIndex = params['dayIndex'];
+      const slotIndex = params['slotIndex'];
+      const duration = (params['durationInSlots'] as number) ?? 1;
+      if (dayIndex === undefined || slotIndex === undefined) {
+        return { element: null, status: 'NON_TRADUITE', reason: 'Paramètres dayIndex/slotIndex manquants' };
+      }
       return {
-        element: null,
-        status: 'PARTIELLE',
-        reason: 'Préférence horaire non supportée nativement par cette version de l\'adaptateur FET',
+        element: {
+          ConstraintActivityPreferredTime: {
+            Weight_Percentage: String(weight),
+            Active: 'true',
+            Activity: fetId(activity.id),
+            Day: String(dayIndex),
+            Hour: String(slotIndex),
+            Duration: String(duration),
+          },
+        },
+        status: 'TRADUITE',
       };
     }
     default:
@@ -269,6 +290,120 @@ export function buildConstraintsXml(input: {
 
   return {
     constraintsElements: constraintElements,
+    mappingReport,
+  };
+}
+
+/** Résultat de traduction d'un verrou : 0, 1 ou 2 éléments XML selon les champs remplis. */
+interface LockTranslation {
+  readonly elements: readonly Record<string, unknown>[];
+  readonly status: 'TRADUITE' | 'NON_TRADUITE';
+  readonly reason?: string;
+}
+
+/**
+ * Traduit un EngineLock en éléments XML FET.
+ * - periodId uniquement → ConstraintActivityPreferredTime (100 %)
+ * - roomId uniquement → ConstraintActivityPreferredRoom (100 %)
+ * - les deux → les deux contraintes (100 % chacune)
+ * - aucun des deux → NON_TRADUITE "Aucun créneau ni salle spécifiés"
+ * - activité introuvable → NON_TRADUITE "Activité introuvable"
+ */
+function translateLock(
+  lock: EngineLock,
+  activities: readonly EngineActivity[],
+  periods: readonly EnginePeriod[],
+  rooms: readonly EngineRoom[],
+): LockTranslation {
+  const activity = activities.find((a) => a.id === lock.activityId);
+  if (!activity) {
+    return { elements: [], status: 'NON_TRADUITE', reason: 'Activité introuvable' };
+  }
+
+  if (!lock.periodId && !lock.roomId) {
+    return { elements: [], status: 'NON_TRADUITE', reason: 'Aucun créneau ni salle spécifiés' };
+  }
+
+  const elements: Record<string, unknown>[] = [];
+
+  if (lock.periodId) {
+    const period = periods.find((p) => p.id === lock.periodId);
+    if (!period) {
+      return { elements: [], status: 'NON_TRADUITE', reason: 'Période introuvable' };
+    }
+    elements.push({
+      ConstraintActivityPreferredTime: {
+        Weight_Percentage: WEIGHT_HARD.toString(),
+        Active: 'true',
+        Activity: fetId(activity.id),
+        Day: String(period.dayIndex),
+        Hour: String(period.slotIndex),
+        Duration: '1',
+      },
+    });
+  }
+
+  if (lock.roomId) {
+    const room = rooms.find((r) => r.id === lock.roomId);
+    if (!room) {
+      return { elements: [], status: 'NON_TRADUITE', reason: 'Salle introuvable' };
+    }
+    elements.push({
+      ConstraintActivityPreferredRoom: {
+        Weight_Percentage: WEIGHT_HARD.toString(),
+        Active: 'true',
+        Activity: fetId(activity.id),
+        Room: fetId(room.code),
+      },
+    });
+  }
+
+  return { elements, status: 'TRADUITE' };
+}
+
+/**
+ * Construit les éléments XML FET et le mappingReport pour les verrous.
+ * Les verrous sont triés par id pour garantir la déterminisme.
+ */
+export function buildLocksXml(input: {
+  readonly locks: readonly EngineLock[];
+  readonly activities: readonly EngineActivity[];
+  readonly periods: readonly EnginePeriod[];
+  readonly rooms: readonly EngineRoom[];
+}): {
+  readonly lockElements: readonly Record<string, unknown>[];
+  readonly mappingReport: readonly {
+    readonly ruleId: string;
+    readonly status: 'TRADUITE' | 'PARTIELLE' | 'NON_TRADUITE';
+    readonly reason?: string;
+  }[];
+} {
+  const { locks, activities, periods, rooms } = input;
+  const sortedLocks = byId(locks);
+
+  const mappingReport: {
+    ruleId: string;
+    status: 'TRADUITE' | 'PARTIELLE' | 'NON_TRADUITE';
+    reason?: string;
+  }[] = [];
+
+  const lockElements: Record<string, unknown>[] = [];
+
+  for (const lock of sortedLocks) {
+    const translation = translateLock(lock, activities, periods, rooms);
+    mappingReport.push({
+      ruleId: lock.id,
+      status: translation.status,
+      reason: translation.reason,
+    });
+
+    for (const element of translation.elements) {
+      lockElements.push(element);
+    }
+  }
+
+  return {
+    lockElements,
     mappingReport,
   };
 }

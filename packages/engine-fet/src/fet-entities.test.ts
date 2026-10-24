@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { buildProfile, buildFetDocument } from './fet-entities.js';
-import { buildConstraintsXml } from './fet-constraints.js';
-import type { EngineConstraint, EngineInput } from '@takt/contracts';
+import { buildConstraintsXml, buildLocksXml } from './fet-constraints.js';
+import type { EngineConstraint, EngineInput, EngineLock } from '@takt/contracts';
 
 function makePeriod(id: string, dayIndex: number, slotIndex: number, start: string, end: string): any {
   return { id, dayIndex, slotIndex, startTime: start, endTime: end };
@@ -88,6 +88,16 @@ function makeConstraint(
   parameters: Record<string, unknown> = {}
 ): EngineConstraint {
   return { id, type, weight, entityIds, parameters };
+}
+
+function makeLock(
+  id: string,
+  activityId: string,
+  periodId?: string,
+  roomId?: string,
+  weight: number = 100
+): EngineLock {
+  return { id, activityId, periodId, roomId, weight };
 }
 
 describe('HardConstraints', () => {
@@ -390,6 +400,255 @@ describe('HardConstraints', () => {
 
     const xml = buildFetDocument(input);
     expect(xml).toContain('ConstraintTeacherNotAvailableTimes');
+    expect(xml).toContain('<constraints>');
+  });
+});
+
+describe('SoftConstraintsAndLocks', () => {
+  it('traduit ACTIVITY_TIME_PREFERENCE en ConstraintActivityPreferredTime avec poids < 100 %', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'ACTIVITY_TIME_PREFERENCE', 50, ['a1'], { dayIndex: 0, slotIndex: 2, durationInSlots: 2 }),
+      ],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(1);
+    expect(constraintsElements[0]).toMatchObject({
+      ConstraintActivityPreferredTime: {
+        Weight_Percentage: '50',
+        Active: 'true',
+        Activity: 'F55FF16F',
+        Day: '0',
+        Hour: '2',
+        Duration: '2',
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({
+      ruleId: 'c1',
+      status: 'TRADUITE',
+    });
+  });
+
+  it('marque ACTIVITY_TIME_PREFERENCE comme NON_TRADUITE si activité introuvable', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'ACTIVITY_TIME_PREFERENCE', 50, ['inexistant'], { dayIndex: 0, slotIndex: 2 }),
+      ],
+    });
+
+    const { mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(mappingReport[0]).toMatchObject({
+      ruleId: 'c1',
+      status: 'NON_TRADUITE',
+      reason: 'Activité introuvable',
+    });
+  });
+
+  it('traduit un verrou periodId seul en ConstraintActivityPreferredTime à 100 %', () => {
+    const input = makeInput({
+      locks: [makeLock('l1', 'a1', 'p2')],
+    });
+
+    const { lockElements, mappingReport } = buildLocksXml({
+      locks: input.locks,
+      activities: input.activities,
+      periods: input.periods,
+      rooms: input.rooms,
+    });
+
+    expect(lockElements).toHaveLength(1);
+    expect(lockElements[0]).toMatchObject({
+      ConstraintActivityPreferredTime: {
+        Weight_Percentage: '100',
+        Active: 'true',
+        Activity: 'F55FF16F',
+        Day: '0',
+        Hour: '1',
+        Duration: '1',
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({
+      ruleId: 'l1',
+      status: 'TRADUITE',
+    });
+  });
+
+  it('traduit un verrou roomId seul en ConstraintActivityPreferredRoom à 100 %', () => {
+    const input = makeInput({
+      locks: [makeLock('l1', 'a1', undefined, 'r2')],
+    });
+
+    const { lockElements, mappingReport } = buildLocksXml({
+      locks: input.locks,
+      activities: input.activities,
+      periods: input.periods,
+      rooms: input.rooms,
+    });
+
+    expect(lockElements).toHaveLength(1);
+    expect(lockElements[0]).toMatchObject({
+      ConstraintActivityPreferredRoom: {
+        Weight_Percentage: '100',
+        Active: 'true',
+        Activity: 'F55FF16F',
+        Room: 'C842F8AF',
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({
+      ruleId: 'l1',
+      status: 'TRADUITE',
+    });
+  });
+});
+
+describe('SoftConstraintsAndLocks suite 2', () => {
+  it('traduit un verrou periodId + roomId en deux contraintes à 100 % chacune', () => {
+    const input = makeInput({
+      locks: [makeLock('l1', 'a1', 'p2', 'r1')],
+    });
+
+    const { lockElements, mappingReport } = buildLocksXml({
+      locks: input.locks,
+      activities: input.activities,
+      periods: input.periods,
+      rooms: input.rooms,
+    });
+
+    expect(lockElements).toHaveLength(2);
+    expect(lockElements[0]).toMatchObject({
+      ConstraintActivityPreferredTime: {
+        Weight_Percentage: '100',
+        Activity: 'F55FF16F',
+      },
+    });
+    expect(lockElements[1]).toMatchObject({
+      ConstraintActivityPreferredRoom: {
+        Weight_Percentage: '100',
+        Activity: 'F55FF16F',
+        Room: 'C5E0E70C',
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({
+      ruleId: 'l1',
+      status: 'TRADUITE',
+    });
+  });
+
+  it('marque un verrou sans periodId ni roomId (enseignant) comme NON_TRADUITE', () => {
+    const input = makeInput({
+      locks: [makeLock('l1', 'a1')],
+    });
+
+    const { lockElements, mappingReport } = buildLocksXml({
+      locks: input.locks,
+      activities: input.activities,
+      periods: input.periods,
+      rooms: input.rooms,
+    });
+
+    expect(lockElements).toHaveLength(0);
+    expect(mappingReport[0]).toMatchObject({
+      ruleId: 'l1',
+      status: 'NON_TRADUITE',
+      reason: 'Aucun créneau ni salle spécifiés',
+    });
+  });
+
+  it('marque un verrou avec activité introuvable comme NON_TRADUITE', () => {
+    const input = makeInput({
+      locks: [makeLock('l1', 'inexistant', 'p1')],
+    });
+
+    const { lockElements, mappingReport } = buildLocksXml({
+      locks: input.locks,
+      activities: input.activities,
+      periods: input.periods,
+      rooms: input.rooms,
+    });
+
+    expect(lockElements).toHaveLength(0);
+    expect(mappingReport[0]).toMatchObject({
+      ruleId: 'l1',
+      status: 'NON_TRADUITE',
+      reason: 'Activité introuvable',
+    });
+  });
+
+  it('trie les locks par id pour garantir la déterminisme', () => {
+    const inputUnsorted = makeInput({
+      locks: [
+        makeLock('l2', 'a1', 'p1'),
+        makeLock('l1', 'a2', undefined, 'r2'),
+      ],
+    });
+    const inputSorted = makeInput({
+      locks: [
+        makeLock('l1', 'a2', undefined, 'r2'),
+        makeLock('l2', 'a1', 'p1'),
+      ],
+    });
+
+    const xml1 = buildFetDocument(inputUnsorted);
+    const xml2 = buildFetDocument(inputSorted);
+
+    expect(xml1).toBe(xml2);
+  });
+
+  it('intègre les locks dans le mappingReport de buildProfile', () => {
+    const input = makeInput({
+      locks: [makeLock('l1', 'a1', 'p1')],
+    });
+
+    const file = buildProfile(input);
+
+    const lockEntry = file.mappingReport.find((m) => m.ruleId === 'l1');
+    expect(lockEntry).toMatchObject({
+      status: 'TRADUITE',
+    });
+  });
+
+  it('intègre ACTIVITY_TIME_PREFERENCE dans le mappingReport de buildProfile', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'ACTIVITY_TIME_PREFERENCE', 30, ['a1'], { dayIndex: 0, slotIndex: 1 }),
+      ],
+    });
+
+    const file = buildProfile(input);
+
+    const entry = file.mappingReport.find((m) => m.ruleId === 'c1');
+    expect(entry).toMatchObject({
+      status: 'TRADUITE',
+    });
+  });
+
+  it('génère du XML avec contraintes et verrous', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'TEACHER_AVAILABILITY', 100, ['t1'], { dayIndex: 0, slotIndex: 1, durationInSlots: 1 }),
+      ],
+      locks: [makeLock('l1', 'a1', 'p2')],
+    });
+
+    const xml = buildFetDocument(input);
+
+    expect(xml).toContain('ConstraintTeacherNotAvailableTimes');
+    expect(xml).toContain('ConstraintActivityPreferredTime');
     expect(xml).toContain('<constraints>');
   });
 });
