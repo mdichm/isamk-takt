@@ -8,7 +8,6 @@ import { create } from 'xmlbuilder2';
 import type {
   EngineActivity,
   EngineActivityTag,
-  EngineConstraint,
   EngineFile,
   EngineGroup,
   EngineInput,
@@ -16,6 +15,7 @@ import type {
   EngineTeacher,
 } from '@takt/contracts';
 import { createHash } from 'crypto';
+import { buildConstraintsXml } from './fet-constraints.js';
 
 const BUILDER_VERSION = '0.0.1';
 const FET_ENGINE_VERSION = '7.12.0';
@@ -81,14 +81,28 @@ export function buildFetDocument(input: EngineInput): string {
         activity: activities.map((a) => buildActivityXml(a, teachers, groups, rooms, tags)),
       },
 
-      constraints: {
-        // Les contraintes dures seront ajoutées dans L4-04
-        // Les verrous seront ajoutés dans L4-05
-      },
+      constraints: buildConstraintsElement(input),
     },
   }, { version: '1.0', encoding: 'UTF-8', standalone: null });
 
   return root.end({ prettyPrint: true, indent: '  ', newline: '\n' });
+}
+
+/** Construit l'élément XML <constraints> à partir des contraintes dures de l'input. */
+function buildConstraintsElement(input: EngineInput): Record<string, unknown> {
+  const result = buildConstraintsXml({
+    constraints: input.constraints,
+    activities: input.activities,
+    teachers: input.teachers,
+    groups: input.groups,
+    rooms: input.rooms,
+  });
+
+  if (result.constraintsElements.length === 0) {
+    return {};
+  }
+
+  return { constraint: result.constraintsElements };
 }
 
 function buildActivityXml(
@@ -126,15 +140,18 @@ export function buildProfile(input: EngineInput): EngineFile {
   const payload = Buffer.from(xml, 'utf-8');
   const sha256 = createHash('sha256').update(payload).digest('hex');
 
-  // Rapport de traduction : toutes les contraintes sont marquées NON_TRADUITE à ce stade
-  // (les contraintes dures seront traduites dans L4-04, les verrous dans L4-05)
-  const mappingReport = input.constraints.map((c: EngineConstraint) => ({
-    ruleId: c.id,
-    status: 'NON_TRADUITE' as const,
-    reason: 'Contrainte non encore traduite vers FET (L4-04)',
-  }));
+  // Rapport de traduction des contraintes dures
+  const constraintsResult = buildConstraintsXml({
+    constraints: input.constraints,
+    activities: input.activities,
+    teachers: input.teachers,
+    groups: input.groups,
+    rooms: input.rooms,
+  });
 
-  // Les verrous sont également non traduits à ce stade (L4-05)
+  const mappingReport = [...constraintsResult.mappingReport];
+
+  // Les verrous sont non traduits à ce stade (L4-05)
   for (const lock of input.locks) {
     mappingReport.push({
       ruleId: lock.id,

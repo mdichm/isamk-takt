@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { buildProfile, buildFetDocument } from './fet-entities.js';
-import type { EngineInput } from '@takt/contracts';
+import { buildConstraintsXml } from './fet-constraints.js';
+import type { EngineConstraint, EngineInput } from '@takt/contracts';
 
 function makePeriod(id: string, dayIndex: number, slotIndex: number, start: string, end: string): any {
   return { id, dayIndex, slotIndex, startTime: start, endTime: end };
@@ -78,6 +79,320 @@ function makeInput(overrides: Partial<EngineInput> = {}): EngineInput {
     ...overrides,
   };
 }
+
+function makeConstraint(
+  id: string,
+  type: string,
+  weight: number = 100,
+  entityIds: string[] = [],
+  parameters: Record<string, unknown> = {}
+): EngineConstraint {
+  return { id, type, weight, entityIds, parameters };
+}
+
+describe('HardConstraints', () => {
+  it('traduit TEACHER_AVAILABILITY en ConstraintTeacherNotAvailableTimes', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'TEACHER_AVAILABILITY', 100, ['t1'], { dayIndex: 0, slotIndex: 2, durationInSlots: 1 }),
+      ],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(1);
+    expect(constraintsElements[0]).toMatchObject({
+      ConstraintTeacherNotAvailableTimes: {
+        Weight_Percentage: '100',
+        Active: 'true',
+        Teacher: expect.stringMatching(/^[0-9A-F]{8}$/),
+        Day: '0',
+        Hour: '2',
+        Duration: '1',
+      },
+    });
+    expect(mappingReport).toHaveLength(1);
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'TRADUITE' });
+  });
+
+  it('traduit GROUP_AVAILABILITY en ConstraintStudentsNotAvailableTimes', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'GROUP_AVAILABILITY', 100, ['g1'], { dayIndex: 1, slotIndex: 3, durationInSlots: 2 }),
+      ],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(1);
+    expect(constraintsElements[0]).toMatchObject({
+      ConstraintStudentsNotAvailableTimes: {
+        Weight_Percentage: '100',
+        Active: 'true',
+        Students: expect.stringMatching(/^[0-9A-F]{8}$/),
+        Day: '1',
+        Hour: '3',
+        Duration: '2',
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'TRADUITE' });
+  });
+
+  it('traduit ROOM_CAPACITY en ConstraintRoomNotAvailableTimes', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'ROOM_CAPACITY', 100, ['r1'], { dayIndex: 0, slotIndex: 1, durationInSlots: 1 }),
+      ],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(1);
+    expect(constraintsElements[0]).toMatchObject({
+      ConstraintRoomNotAvailableTimes: {
+        Weight_Percentage: '100',
+        Active: 'true',
+        Room: expect.stringMatching(/^[0-9A-F]{8}$/),
+        Day: '0',
+        Hour: '1',
+        Duration: '1',
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'TRADUITE' });
+  });
+
+  it('traduit SALLE_IMPOSEE en ConstraintActivityPreferredRoom', () => {
+    const input = makeInput({
+      constraints: [makeConstraint('c1', 'SALLE_IMPOSEE', 100, ['a1', 'r1'])],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(1);
+    expect(constraintsElements[0]).toMatchObject({
+      ConstraintActivityPreferredRoom: {
+        Weight_Percentage: '100',
+        Active: 'true',
+        Activity: 'F55FF16F',
+        Room: expect.stringMatching(/^[0-9A-F]{8}$/),
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'TRADUITE' });
+  });
+
+  it('traduit SALLE_AUTORISEES en ConstraintActivityPreferredRooms', () => {
+    const input = makeInput({
+      constraints: [makeConstraint('c1', 'SALLE_AUTORISEES', 100, ['a1', 'r1', 'r2'])],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(1);
+    expect(constraintsElements[0]).toMatchObject({
+      ConstraintActivityPreferredRooms: {
+        Weight_Percentage: '100',
+        Active: 'true',
+        Activity: 'F55FF16F',
+        Room: expect.arrayContaining([expect.stringMatching(/^[0-9A-F]{8}$/)]),
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'TRADUITE' });
+  });
+
+  it('marque PAUSE comme TRADUITE avec ConstraintBasicCompulsoryTime', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'PAUSE', 100, [], { dayIndex: 0, slotIndex: 4, durationInSlots: 2 }),
+      ],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(1);
+    expect(constraintsElements[0]).toMatchObject({
+      ConstraintBasicCompulsoryTime: {
+        Weight_Percentage: '100',
+        Active: 'true',
+        Name: 'Pause',
+        Day: '0',
+        Hour: '4',
+        Duration: '2',
+      },
+    });
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'TRADUITE' });
+  });
+
+  it('marque MIN_GAP_BETWEEN_ACTIVITIES comme PARTIELLE', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'MIN_GAP_BETWEEN_ACTIVITIES', 100, ['a1', 'a2'], { minDays: 1 }),
+      ],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(0);
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'PARTIELLE' });
+    expect(mappingReport[0].reason).toContain('partiellement');
+  });
+
+  it('marque NO_CONFLICT_TEACHER comme PARTIELLE', () => {
+    const input = makeInput({
+      constraints: [makeConstraint('c1', 'NO_CONFLICT_TEACHER', 100, ['t1', 't2'])],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(0);
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'PARTIELLE' });
+  });
+
+  it('marque une contrainte inactivée (poids = 0) comme NON_TRADUITE', () => {
+    const input = makeInput({
+      constraints: [makeConstraint('c1', 'TEACHER_AVAILABILITY', 0, ['t1'], { dayIndex: 0, slotIndex: 1 })],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(0);
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'NON_TRADUITE' });
+  });
+
+  it('marque un type inconnu comme NON_TRADUITE', () => {
+    const input = makeInput({
+      constraints: [makeConstraint('c1', 'TYPE_INCONNU', 100, ['t1'], {})],
+    });
+
+    const { constraintsElements, mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(constraintsElements).toHaveLength(0);
+    expect(mappingReport[0]).toMatchObject({ ruleId: 'c1', status: 'NON_TRADUITE' });
+  });
+
+  it('tri les contraintes par id pour garantir la déterminisme', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c2', 'TEACHER_AVAILABILITY', 100, ['t1'], { dayIndex: 0, slotIndex: 1 }),
+        makeConstraint('c1', 'GROUP_AVAILABILITY', 100, ['g1'], { dayIndex: 1, slotIndex: 2 }),
+      ],
+    });
+
+    const { mappingReport } = buildConstraintsXml({
+      constraints: input.constraints,
+      activities: input.activities,
+      teachers: input.teachers,
+      groups: input.groups,
+      rooms: input.rooms,
+    });
+
+    expect(mappingReport).toHaveLength(2);
+    expect(mappingReport[0].ruleId).toBe('c1');
+    expect(mappingReport[1].ruleId).toBe('c2');
+  });
+
+  it('mappingReport inclut TRADUITE/PARTIELLE/NON_TRADUITE selon le type', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'TEACHER_AVAILABILITY', 100, ['t1'], { dayIndex: 0, slotIndex: 1 }),
+        makeConstraint('c2', 'MIN_GAP_BETWEEN_ACTIVITIES', 100, ['a1', 'a2'], { minDays: 1 }),
+        makeConstraint('c3', 'TYPE_INCONNU', 100, [], {}),
+      ],
+    });
+
+    const file = buildProfile(input);
+    const statuses = file.mappingReport.map((m) => m.status);
+
+    expect(statuses).toContain('TRADUITE');
+    expect(statuses).toContain('PARTIELLE');
+    expect(statuses).toContain('NON_TRADUITE');
+  });
+
+  it('buildProfile mappingReport est déterministe', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'TEACHER_AVAILABILITY', 100, ['t1'], { dayIndex: 0, slotIndex: 1 }),
+        makeConstraint('c2', 'GROUP_AVAILABILITY', 100, ['g1'], { dayIndex: 1, slotIndex: 2 }),
+      ],
+    });
+
+    const file1 = buildProfile(input);
+    const file2 = buildProfile(input);
+
+    expect(file1.mappingReport).toEqual(file2.mappingReport);
+  });
+
+  it('inclut les contraintes dans le XML généré', () => {
+    const input = makeInput({
+      constraints: [
+        makeConstraint('c1', 'TEACHER_AVAILABILITY', 100, ['t1'], { dayIndex: 0, slotIndex: 1, durationInSlots: 1 }),
+      ],
+    });
+
+    const xml = buildFetDocument(input);
+    expect(xml).toContain('ConstraintTeacherNotAvailableTimes');
+    expect(xml).toContain('<constraints>');
+  });
+});
 
 describe('FetEntityBuilder', () => {
   it('construit un document XML FET valide', () => {
