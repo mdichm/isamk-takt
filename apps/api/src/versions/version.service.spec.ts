@@ -4,6 +4,7 @@ import { NotFoundException, BadRequestException, ConflictException } from '@nest
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../prisma/prisma.service.js';
+import { PreparationService } from '../preparation/preparation.service.js';
 import { VersionService } from './version.service.js';
 
 // ============================================
@@ -28,20 +29,29 @@ describe('VersionService', () => {
       salle: { findMany: vi.fn() },
       module: { findMany: vi.fn() },
       typeEnseignement: { findMany: vi.fn() },
-      profilGeneration: { findFirst: vi.fn() },
+      profilGeneration: { findFirst: vi.fn(), findUnique: vi.fn() },
       repartition: { findFirst: vi.fn() },
       snapshot: { findFirst: vi.fn() },
       versionEdt: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
       versionSnapshot: { findMany: vi.fn(), createMany: vi.fn() },
       snapshotAffectation: { findMany: vi.fn() },
       seance: { create: vi.fn(), findMany: vi.fn() },
+      editLock: { findUnique: vi.fn() },
+      generation: { findFirst: vi.fn() },
+      contrainteInstance: { findMany: vi.fn() },
+      auditLog: { create: vi.fn() },
       $transaction: vi.fn(),
+    };
+
+    const preparationService = {
+      getPreparation: vi.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         VersionService,
         { provide: PrismaService, useValue: prisma },
+        { provide: PreparationService, useValue: preparationService },
       ],
     }).compile();
 
@@ -363,6 +373,200 @@ describe('VersionService', () => {
 
       const r1 = await service.getPerimetre('version-1');
       const r2 = await service.getPerimetre('version-1');
+      expect(r1.perimetreHash).toBe(r2.perimetreHash);
+    });
+
+    // ============================================
+    // createGeneration (L4-14)
+    // ============================================
+
+    const versionId = 'version-1';
+    const dto = {
+      profilId: 'profil-1',
+      perimetreHash: 'sha256:abcdef',
+      acknowledgeUntranslatedConstraints: false,
+    } as any;
+    const userId = 'user-1';
+
+    const versionMock = {
+      id: versionId,
+      semestreId,
+      statut: 'BROUILLON',
+      verrous: [],
+    };
+
+    const perimetreMock = {
+      versionId,
+      semestreId,
+      perimetreHash: 'sha256:abcdef',
+      genereLe: new Date(),
+    } as any;
+
+    const preparationMock = {
+      peutGenerer: true,
+      controles: [],
+      nbBloquants: 0,
+      nbAvertissements: 0,
+      nbInfos: 0,
+    };
+
+    it('crée une génération en QUEUED avec périmètre figé (cas nominal)', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(versionMock);
+      prisma.editLock.findUnique.mockResolvedValue(null);
+      prisma.generation.findFirst.mockResolvedValue(null);
+      prisma.profilGeneration.findUnique.mockResolvedValue({
+        id: 'profil-1',
+        semestreId,
+        numero: 1,
+      });
+      (service as any).preparationService.getPreparation.mockResolvedValue(preparationMock);
+      prisma.contrainteInstance.findMany.mockResolvedValue([]);
+      (service as any).getPerimetre = vi.fn().mockResolvedValue(perimetreMock);
+      prisma.$transaction.mockImplementation(async (cb: any) => {
+        const tx = {
+          generation: { create: vi.fn().mockResolvedValue({ id: 'gen-1', versionId, semestreId, profilGenerationId: 'profil-1', statut: 'QUEUED', mode: 'AUTOMATIQUE', perimetreHash: 'sha256:abcdef', queuedAt: new Date(), createdAt: new Date() }) },
+          auditLog: { create: vi.fn().mockResolvedValue({}) },
+        };
+        return cb(tx);
+      });
+
+      const result = await service.createGeneration(versionId, dto, userId);
+
+      expect(result.id).toBe('gen-1');
+      expect(result.statut).toBe('QUEUED');
+      expect(result.perimetreHash).toBe('sha256:abcdef');
+      expect(prisma.$transaction).toHaveBeenCalled();
+    });
+
+    it('lève NotFoundException si la version est introuvable', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(null);
+      await expect(service.createGeneration(versionId, dto, userId)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+
+    it('lève ConflictException PERIMETER_CHANGED si le hash a évolué', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(versionMock);
+      prisma.editLock.findUnique.mockResolvedValue(null);
+      prisma.generation.findFirst.mockResolvedValue(null);
+      prisma.profilGeneration.findUnique.mockResolvedValue({
+        id: 'profil-1',
+        semestreId,
+        numero: 1,
+      });
+      (service as any).preparationService.getPreparation.mockResolvedValue(preparationMock);
+      prisma.contrainteInstance.findMany.mockResolvedValue([]);
+      (service as any).getPerimetre = vi.fn().mockResolvedValue({
+        ...perimetreMock,
+        perimetreHash: 'sha256:different',
+      });
+
+      await expect(
+        service.createGeneration(versionId, dto, userId),
+      ).rejects.toThrow(ConflictException);
+    });
+
+    it('lève ConflictException VERSION_IMMUTABLE si la version est PUBLIE', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({
+        ...versionMock,
+        statut: 'PUBLIE',
+      });
+
+      await expect(
+        service.createGeneration(versionId, dto, userId),
+      ).rejects.toThrow(ConflictException);
+    });
+
+    it('lève ConflictException EDIT_LOCK_HELD si un bail est détenu', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(versionMock);
+      prisma.editLock.findUnique.mockResolvedValue({
+        id: 'lock-1',
+        userId: 'user-2',
+        expiresAt: new Date(Date.now() + 3600000),
+      });
+
+      await expect(
+        service.createGeneration(versionId, dto, userId),
+      ).rejects.toThrow(ConflictException);
+    });
+
+    it('lève BadRequestException PREPARATION_BLOCKED si préparation non conforme', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(versionMock);
+      prisma.editLock.findUnique.mockResolvedValue(null);
+      prisma.generation.findFirst.mockResolvedValue(null);
+      prisma.profilGeneration.findUnique.mockResolvedValue({
+        id: 'profil-1',
+        semestreId,
+        numero: 1,
+      });
+      (service as any).preparationService.getPreparation.mockResolvedValue({
+        peutGenerer: false,
+        controles: [
+          {
+            numero: 4,
+            niveau: 'BLOQUANT',
+            statut: 'NON_CONFORME',
+            anomalies: [{ explication: 'Répartition non validée' }],
+          },
+        ],
+      });
+
+      await expect(
+        service.createGeneration(versionId, dto, userId),
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it('lève BadRequestException UNTRANSLATED_CONSTRAINTS_UNACKNOWLEDGED sans acquittement', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(versionMock);
+      prisma.editLock.findUnique.mockResolvedValue(null);
+      prisma.generation.findFirst.mockResolvedValue(null);
+      prisma.profilGeneration.findUnique.mockResolvedValue({
+        id: 'profil-1',
+        semestreId,
+        numero: 1,
+      });
+      (service as any).preparationService.getPreparation.mockResolvedValue(preparationMock);
+      prisma.contrainteInstance.findMany.mockResolvedValue([
+        { id: 'c-1', definitionId: 'def-1' },
+      ]);
+      (service as any).getPerimetre = vi.fn().mockResolvedValue(perimetreMock);
+
+      await expect(
+        service.createGeneration(versionId, dto, userId),
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it('accepte UNTRANSLATED_CONSTRAINTS si acknowledgeUntranslatedConstraints=true', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(versionMock);
+      prisma.editLock.findUnique.mockResolvedValue(null);
+      prisma.generation.findFirst.mockResolvedValue(null);
+      prisma.profilGeneration.findUnique.mockResolvedValue({
+        id: 'profil-1',
+        semestreId,
+        numero: 1,
+      });
+      (service as any).preparationService.getPreparation.mockResolvedValue(preparationMock);
+      prisma.contrainteInstance.findMany.mockResolvedValue([
+        { id: 'c-1', definitionId: 'def-1' },
+      ]);
+      (service as any).getPerimetre = vi.fn().mockResolvedValue(perimetreMock);
+      prisma.$transaction.mockImplementation(async (cb: any) => {
+        const tx = {
+          generation: { create: vi.fn().mockResolvedValue({ id: 'gen-1', versionId, semestreId, profilGenerationId: 'profil-1', statut: 'QUEUED', mode: 'AUTOMATIQUE', perimetreHash: 'sha256:abcdef', queuedAt: new Date(), createdAt: new Date() }) },
+          auditLog: { create: vi.fn().mockResolvedValue({}) },
+        };
+        return cb(tx);
+      });
+
+      const dtoAvecAcquittement = { ...dto, acknowledgeUntranslatedConstraints: true };
+      const result = await service.createGeneration(versionId, dtoAvecAcquittement, userId);
+      expect(result.id).toBe('gen-1');
+    });
+
+    it('détermine le même perimetreHash à deux appels de getPerimetre', async () => {
+      (service as any).getPerimetre = vi.fn().mockResolvedValue(perimetreMock);
+      const r1 = await (service as any).getPerimetre(versionId);
+      const r2 = await (service as any).getPerimetre(versionId);
       expect(r1.perimetreHash).toBe(r2.perimetreHash);
     });
   });

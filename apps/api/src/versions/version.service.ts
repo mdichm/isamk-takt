@@ -4,11 +4,14 @@ import { Injectable, NotFoundException, BadRequestException, ConflictException }
 import { createHash } from 'crypto';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { PrismaService } from '../prisma/prisma.service.js';
-import type { VersionStatut } from '@takt/db';
+import { PreparationService } from '../preparation/preparation.service.js';
+import type { VersionStatut, GenerationStatut, GenerationMode } from '@takt/db';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { VersionResponseDto } from './dto/version-response.dto.js';
 import type { CompletudeResponseDto } from './dto/completude-response.dto.js';
 import type { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
+import type { CreateGenerationDto } from './dto/create-generation.dto.js';
+import type { GenerationResponseDto } from './dto/generation-response.dto.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -18,7 +21,10 @@ import type { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 
 @Injectable()
 export class VersionService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly preparationService: PreparationService,
+  ) {}
 
   /** Liste toutes les versions (lecture, permission version:read). */
   async findAll(): Promise<VersionResponseDto[]> {
@@ -555,6 +561,214 @@ export class VersionService {
       versionAdaptateur,
       perimetreHash,
       genereLe: new Date(),
+    };
+  }
+
+  // ============================================
+  // Lancement de génération (L4-14)
+  // POST /versions/{id}/generations -> 202 ACCEPTED
+  // ============================================
+
+  /** Lance une génération d'emploi du temps après pré-validation synchrone (L4-14). */
+  async createGeneration(
+    versionId: string,
+    dto: CreateGenerationDto,
+    userId: string,
+  ): Promise<GenerationResponseDto> {
+    // 1. Récupération de la version (404 si absente)
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: {
+        id: true,
+        semestreId: true,
+        statut: true,
+        verrous: {
+          select: { id: true, type: true, seanceId: true, leveLe: true },
+          orderBy: { id: 'asc' },
+        },
+      },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+
+    // 2. Immuabilité de la version (423 VERSION_IMMUTABLE)
+    const statutsImmutables = ['PUBLIE', 'ARCHIVE'];
+    if (statutsImmutables.includes(version.statut as string)) {
+      throw new ConflictException({
+        code: 'VERSION_IMMUTABLE',
+        message: `La version "${versionId}" est immuable (statut: ${version.statut})`,
+      });
+    }
+
+    // 3. Bail d'édition détenu (423 EDIT_LOCK_HELD)
+    const editLock = await this.prisma.editLock.findUnique({
+      where: { versionId },
+      select: { id: true, userId: true, expiresAt: true },
+    });
+    if (editLock && new Date(editLock.expiresAt) > new Date()) {
+      throw new ConflictException({
+        code: 'EDIT_LOCK_HELD',
+        message: `Un bail d'édition est détenu sur la version "${versionId}"`,
+      });
+    }
+
+    // 4. Génération déjà en cours (409 GENERATION_ALREADY_RUNNING)
+    const generationEnCours = await this.prisma.generation.findFirst({
+      where: {
+        versionId,
+        statut: { in: ['QUEUED', 'RUNNING'] as GenerationStatut[] },
+      },
+      select: { id: true, statut: true, createdAt: true },
+    });
+    if (generationEnCours) {
+      throw new ConflictException({
+        code: 'GENERATION_ALREADY_RUNNING',
+        message: `Une génération est déjà en cours sur la version "${versionId}" (statut: ${generationEnCours.statut})`,
+      });
+    }
+
+    // 5. Profil de génération (existence et appartenance au semestre)
+    const profil = await this.prisma.profilGeneration.findUnique({
+      where: { id: dto.profilId },
+      select: { id: true, semestreId: true, numero: true, nom: true },
+    });
+    if (!profil) {
+      throw new NotFoundException(
+        `Profil de génération "${dto.profilId}" introuvable`,
+      );
+    }
+    if (profil.semestreId !== version.semestreId) {
+      throw new BadRequestException({
+        code: 'PROFIL_WRONG_SEMESTRE',
+        message: `Le profil "${dto.profilId}" n'appartient pas au semestre de la version`,
+      });
+    }
+
+    // 6. Pré-validation du tableau de préparation (422 PREPARATION_BLOCKED)
+    const preparation = await this.preparationService.getPreparation(
+      version.semestreId,
+    );
+    if (!preparation.peutGenerer) {
+      const bloquants = preparation.controles
+        .filter((c) => c.niveau === 'BLOQUANT' && c.statut === 'NON_CONFORME')
+        .flatMap((c) => c.anomalies.map((a) => a.explication));
+      throw new BadRequestException({
+        code: 'PREPARATION_BLOCKED',
+        message: 'Le tableau de préparation présente des anomalies bloquantes',
+        details: bloquants,
+      });
+    }
+
+    // 7. Verrous incompatibles (422 LOCK_INCOMPATIBLE)
+    const controleVerrous = preparation.controles.find((c) => c.numero === 6);
+    if (
+      controleVerrous &&
+      controleVerrous.statut === 'NON_CONFORME' &&
+      controleVerrous.niveau === 'BLOQUANT'
+    ) {
+      throw new BadRequestException({
+        code: 'LOCK_INCOMPATIBLE',
+        message: 'Des verrous sont incompatibles avec les contraintes du semestre',
+        details: controleVerrous.anomalies.map((a) => a.explication),
+      });
+    }
+
+    // 8. Contraintes non traduites sans acquittement (422 UNTRANSLATED_CONSTRAINTS_UNACKNOWLEDGED)
+    const constraintsNonTraduites = await this.prisma.contrainteInstance.findMany({
+      where: {
+        semestreId: version.semestreId,
+        actif: true,
+        definition: {
+          fetSupport: 'AUCUN',
+        },
+      },
+      select: { id: true, definitionId: true },
+    });
+    if (
+      constraintsNonTraduites.length > 0 &&
+      !dto.acknowledgeUntranslatedConstraints
+    ) {
+      throw new BadRequestException({
+        code: 'UNTRANSLATED_CONSTRAINTS_UNACKNOWLEDGED',
+        message: `${constraintsNonTraduites.length} contrainte(s) active(s) n'a(ont) pas de traduction FET supportée`,
+        details: constraintsNonTraduites.map((c) => c.id),
+      });
+    }
+
+    // 9. Empreinte du périmètre : recalcul et comparaison (409 PERIMETER_CHANGED)
+    const perimetre = await this.getPerimetre(versionId);
+    if (perimetre.perimetreHash !== dto.perimetreHash) {
+      throw new ConflictException({
+        code: 'PERIMETER_CHANGED',
+        message:
+          "L'empreinte du périmètre ne correspond plus aux données actuelles. Rafraîchissez le périmètre et relancez.",
+        expected: perimetre.perimetreHash,
+        provided: dto.perimetreHash,
+      });
+    }
+
+    // 10. Création de la génération (dans une transaction)
+    const maintenant = new Date();
+    const generation = await this.prisma.$transaction(async (tx) => {
+      const gen = await tx.generation.create({
+        data: {
+          id: require('crypto').randomUUID(),
+          semestreId: version.semestreId,
+          versionId: version.id,
+          auteurId: userId,
+          statut: 'QUEUED' as GenerationStatut,
+          mode: 'AUTOMATIQUE' as GenerationMode,
+          engine: 'fet',
+          profilGenerationId: dto.profilId,
+          profilGenerationVersion: profil.numero,
+          perimetre: perimetre as unknown as any,
+          perimetreHash: dto.perimetreHash,
+          queuedAt: maintenant,
+        },
+        select: {
+          id: true,
+          versionId: true,
+          semestreId: true,
+          profilGenerationId: true,
+          statut: true,
+          mode: true,
+          perimetreHash: true,
+          queuedAt: true,
+        },
+      });
+
+      // Audit log
+      await tx.auditLog.create({
+        data: {
+          id: require('crypto').randomUUID(),
+          action: 'GENERATION_LAUNCH',
+          objetType: 'Generation',
+          objetId: gen.id,
+          versionId: version.id,
+          userId: userId,
+          at: maintenant,
+          details: {
+            perimetreHash: dto.perimetreHash,
+            profilId: dto.profilId,
+          },
+        },
+      });
+
+      return gen;
+    });
+
+    // 11. Retour DTO
+    return {
+      id: generation.id,
+      versionId: generation.versionId,
+      semestreId: generation.semestreId,
+      profilId: (generation.profilGenerationId ?? undefined) as string | undefined,
+      statut: generation.statut,
+      mode: generation.mode,
+      perimetreHash: generation.perimetreHash as string,
+      queuedAt: generation.queuedAt,
+      createdAt: maintenant,
     };
   }
 }
