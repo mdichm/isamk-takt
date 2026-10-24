@@ -343,6 +343,11 @@ export type ExigenceSalleActivite = $Result.DefaultSelection<Prisma.$ExigenceSal
  * 
  */
 export type ExigenceSalleAutorisee = $Result.DefaultSelection<Prisma.$ExigenceSalleAutoriseePayload>
+/**
+ * Model Generation
+ * 
+ */
+export type Generation = $Result.DefaultSelection<Prisma.$GenerationPayload>
 
 /**
  * Enums
@@ -561,6 +566,27 @@ export const TraductionFET: {
 export type TraductionFET = (typeof TraductionFET)[keyof typeof TraductionFET]
 
 
+export const GenerationStatut: {
+  QUEUED: 'QUEUED',
+  RUNNING: 'RUNNING',
+  SUCCEEDED: 'SUCCEEDED',
+  SUCCEEDED_WITH_WARNINGS: 'SUCCEEDED_WITH_WARNINGS',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED',
+  TIMED_OUT: 'TIMED_OUT'
+};
+
+export type GenerationStatut = (typeof GenerationStatut)[keyof typeof GenerationStatut]
+
+
+export const GenerationMode: {
+  AUTOMATIQUE: 'AUTOMATIQUE',
+  MANUELLE: 'MANUELLE'
+};
+
+export type GenerationMode = (typeof GenerationMode)[keyof typeof GenerationMode]
+
+
 export const VersionStatut: {
   BROUILLON: 'BROUILLON',
   EDITION: 'EDITION',
@@ -754,6 +780,14 @@ export const ClasseRegle: typeof $Enums.ClasseRegle
 export type TraductionFET = $Enums.TraductionFET
 
 export const TraductionFET: typeof $Enums.TraductionFET
+
+export type GenerationStatut = $Enums.GenerationStatut
+
+export const GenerationStatut: typeof $Enums.GenerationStatut
+
+export type GenerationMode = $Enums.GenerationMode
+
+export const GenerationMode: typeof $Enums.GenerationMode
 
 export type VersionStatut = $Enums.VersionStatut
 
@@ -1575,6 +1609,16 @@ export class PrismaClient<
     * ```
     */
   get exigenceSalleAutorisee(): Prisma.ExigenceSalleAutoriseeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.generation`: Exposes CRUD operations for the **Generation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Generations
+    * const generations = await prisma.generation.findMany()
+    * ```
+    */
+  get generation(): Prisma.GenerationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2087,7 +2131,8 @@ export namespace Prisma {
     AvertissementAccepte: 'AvertissementAccepte',
     GroupeCovoiturage: 'GroupeCovoiturage',
     ExigenceSalleActivite: 'ExigenceSalleActivite',
-    ExigenceSalleAutorisee: 'ExigenceSalleAutorisee'
+    ExigenceSalleAutorisee: 'ExigenceSalleAutorisee',
+    Generation: 'Generation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2103,7 +2148,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage" | "exigenceSalleActivite" | "exigenceSalleAutorisee"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage" | "exigenceSalleActivite" | "exigenceSalleAutorisee" | "generation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6991,6 +7036,80 @@ export namespace Prisma {
           }
         }
       }
+      Generation: {
+        payload: Prisma.$GenerationPayload<ExtArgs>
+        fields: Prisma.GenerationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GenerationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GenerationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>
+          }
+          findFirst: {
+            args: Prisma.GenerationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GenerationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>
+          }
+          findMany: {
+            args: Prisma.GenerationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>[]
+          }
+          create: {
+            args: Prisma.GenerationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>
+          }
+          createMany: {
+            args: Prisma.GenerationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GenerationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>[]
+          }
+          delete: {
+            args: Prisma.GenerationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>
+          }
+          update: {
+            args: Prisma.GenerationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>
+          }
+          deleteMany: {
+            args: Prisma.GenerationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GenerationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GenerationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>[]
+          }
+          upsert: {
+            args: Prisma.GenerationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GenerationPayload>
+          }
+          aggregate: {
+            args: Prisma.GenerationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGeneration>
+          }
+          groupBy: {
+            args: Prisma.GenerationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GenerationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GenerationCountArgs<ExtArgs>
+            result: $Utils.Optional<GenerationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -7180,6 +7299,7 @@ export namespace Prisma {
     groupeCovoiturage?: GroupeCovoiturageOmit
     exigenceSalleActivite?: ExigenceSalleActiviteOmit
     exigenceSalleAutorisee?: ExigenceSalleAutoriseeOmit
+    generation?: GenerationOmit
   }
 
   /* Types for Logging */
@@ -7668,6 +7788,7 @@ export namespace Prisma {
     versions: number
     groupesCovoiturage: number
     exigencesSalle: number
+    generations: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7682,6 +7803,7 @@ export namespace Prisma {
     versions?: boolean | SemestreCountOutputTypeCountVersionsArgs
     groupesCovoiturage?: boolean | SemestreCountOutputTypeCountGroupesCovoiturageArgs
     exigencesSalle?: boolean | SemestreCountOutputTypeCountExigencesSalleArgs
+    generations?: boolean | SemestreCountOutputTypeCountGenerationsArgs
   }
 
   // Custom InputTypes
@@ -7770,6 +7892,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountExigencesSalleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExigenceSalleActiviteWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountGenerationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GenerationWhereInput
   }
 
 
@@ -7873,6 +8002,7 @@ export namespace Prisma {
     conflits: number
     verrous: number
     avertissementsAcceptes: number
+    generations: number
   }
 
   export type VersionEdtCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7882,6 +8012,7 @@ export namespace Prisma {
     conflits?: boolean | VersionEdtCountOutputTypeCountConflitsArgs
     verrous?: boolean | VersionEdtCountOutputTypeCountVerrousArgs
     avertissementsAcceptes?: boolean | VersionEdtCountOutputTypeCountAvertissementsAcceptesArgs
+    generations?: boolean | VersionEdtCountOutputTypeCountGenerationsArgs
   }
 
   // Custom InputTypes
@@ -7935,6 +8066,13 @@ export namespace Prisma {
    */
   export type VersionEdtCountOutputTypeCountAvertissementsAcceptesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AvertissementAccepteWhereInput
+  }
+
+  /**
+   * VersionEdtCountOutputType without action
+   */
+  export type VersionEdtCountOutputTypeCountGenerationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GenerationWhereInput
   }
 
 
@@ -31944,6 +32082,7 @@ export namespace Prisma {
     versions?: boolean | Semestre$versionsArgs<ExtArgs>
     groupesCovoiturage?: boolean | Semestre$groupesCovoiturageArgs<ExtArgs>
     exigencesSalle?: boolean | Semestre$exigencesSalleArgs<ExtArgs>
+    generations?: boolean | Semestre$generationsArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -31993,6 +32132,7 @@ export namespace Prisma {
     versions?: boolean | Semestre$versionsArgs<ExtArgs>
     groupesCovoiturage?: boolean | Semestre$groupesCovoiturageArgs<ExtArgs>
     exigencesSalle?: boolean | Semestre$exigencesSalleArgs<ExtArgs>
+    generations?: boolean | Semestre$generationsArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -32017,6 +32157,7 @@ export namespace Prisma {
       versions: Prisma.$VersionEdtPayload<ExtArgs>[]
       groupesCovoiturage: Prisma.$GroupeCovoituragePayload<ExtArgs>[]
       exigencesSalle: Prisma.$ExigenceSalleActivitePayload<ExtArgs>[]
+      generations: Prisma.$GenerationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -32432,6 +32573,7 @@ export namespace Prisma {
     versions<T extends Semestre$versionsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     groupesCovoiturage<T extends Semestre$groupesCovoiturageArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$groupesCovoiturageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exigencesSalle<T extends Semestre$exigencesSalleArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$exigencesSalleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    generations<T extends Semestre$generationsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$generationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -33130,6 +33272,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExigenceSalleActiviteScalarFieldEnum | ExigenceSalleActiviteScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.generations
+   */
+  export type Semestre$generationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    where?: GenerationWhereInput
+    orderBy?: GenerationOrderByWithRelationInput | GenerationOrderByWithRelationInput[]
+    cursor?: GenerationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GenerationScalarFieldEnum | GenerationScalarFieldEnum[]
   }
 
   /**
@@ -39193,6 +39359,7 @@ export namespace Prisma {
     editLock?: boolean | VersionEdt$editLockArgs<ExtArgs>
     verrous?: boolean | VersionEdt$verrousArgs<ExtArgs>
     avertissementsAcceptes?: boolean | VersionEdt$avertissementsAcceptesArgs<ExtArgs>
+    generations?: boolean | VersionEdt$generationsArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["versionEdt"]>
 
@@ -39238,6 +39405,7 @@ export namespace Prisma {
     editLock?: boolean | VersionEdt$editLockArgs<ExtArgs>
     verrous?: boolean | VersionEdt$verrousArgs<ExtArgs>
     avertissementsAcceptes?: boolean | VersionEdt$avertissementsAcceptesArgs<ExtArgs>
+    generations?: boolean | VersionEdt$generationsArgs<ExtArgs>
     _count?: boolean | VersionEdtCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VersionEdtIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -39258,6 +39426,7 @@ export namespace Prisma {
       editLock: Prisma.$EditLockPayload<ExtArgs> | null
       verrous: Prisma.$VerrouSeancePayload<ExtArgs>[]
       avertissementsAcceptes: Prisma.$AvertissementAcceptePayload<ExtArgs>[]
+      generations: Prisma.$GenerationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -39669,6 +39838,7 @@ export namespace Prisma {
     editLock<T extends VersionEdt$editLockArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$editLockArgs<ExtArgs>>): Prisma__EditLockClient<$Result.GetResult<Prisma.$EditLockPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     verrous<T extends VersionEdt$verrousArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$verrousArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerrouSeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     avertissementsAcceptes<T extends VersionEdt$avertissementsAcceptesArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$avertissementsAcceptesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvertissementAcceptePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    generations<T extends VersionEdt$generationsArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdt$generationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -40266,6 +40436,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AvertissementAccepteScalarFieldEnum | AvertissementAccepteScalarFieldEnum[]
+  }
+
+  /**
+   * VersionEdt.generations
+   */
+  export type VersionEdt$generationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    where?: GenerationWhereInput
+    orderBy?: GenerationOrderByWithRelationInput | GenerationOrderByWithRelationInput[]
+    cursor?: GenerationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GenerationScalarFieldEnum | GenerationScalarFieldEnum[]
   }
 
   /**
@@ -85467,6 +85661,1181 @@ export namespace Prisma {
 
 
   /**
+   * Model Generation
+   */
+
+  export type AggregateGeneration = {
+    _count: GenerationCountAggregateOutputType | null
+    _min: GenerationMinAggregateOutputType | null
+    _max: GenerationMaxAggregateOutputType | null
+  }
+
+  export type GenerationMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    versionId: string | null
+    auteurId: string | null
+    statut: $Enums.GenerationStatut | null
+    mode: $Enums.GenerationMode | null
+    engine: string | null
+    engineVersion: string | null
+    erreur: string | null
+    cancelRequested: boolean | null
+    queuedAt: Date | null
+    startedAt: Date | null
+    finishedAt: Date | null
+  }
+
+  export type GenerationMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    versionId: string | null
+    auteurId: string | null
+    statut: $Enums.GenerationStatut | null
+    mode: $Enums.GenerationMode | null
+    engine: string | null
+    engineVersion: string | null
+    erreur: string | null
+    cancelRequested: boolean | null
+    queuedAt: Date | null
+    startedAt: Date | null
+    finishedAt: Date | null
+  }
+
+  export type GenerationCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    versionId: number
+    auteurId: number
+    statut: number
+    mode: number
+    engine: number
+    engineVersion: number
+    erreur: number
+    cancelRequested: number
+    queuedAt: number
+    startedAt: number
+    finishedAt: number
+    _all: number
+  }
+
+
+  export type GenerationMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    versionId?: true
+    auteurId?: true
+    statut?: true
+    mode?: true
+    engine?: true
+    engineVersion?: true
+    erreur?: true
+    cancelRequested?: true
+    queuedAt?: true
+    startedAt?: true
+    finishedAt?: true
+  }
+
+  export type GenerationMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    versionId?: true
+    auteurId?: true
+    statut?: true
+    mode?: true
+    engine?: true
+    engineVersion?: true
+    erreur?: true
+    cancelRequested?: true
+    queuedAt?: true
+    startedAt?: true
+    finishedAt?: true
+  }
+
+  export type GenerationCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    versionId?: true
+    auteurId?: true
+    statut?: true
+    mode?: true
+    engine?: true
+    engineVersion?: true
+    erreur?: true
+    cancelRequested?: true
+    queuedAt?: true
+    startedAt?: true
+    finishedAt?: true
+    _all?: true
+  }
+
+  export type GenerationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Generation to aggregate.
+     */
+    where?: GenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Generations to fetch.
+     */
+    orderBy?: GenerationOrderByWithRelationInput | GenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Generations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Generations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Generations
+    **/
+    _count?: true | GenerationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GenerationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GenerationMaxAggregateInputType
+  }
+
+  export type GetGenerationAggregateType<T extends GenerationAggregateArgs> = {
+        [P in keyof T & keyof AggregateGeneration]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGeneration[P]>
+      : GetScalarType<T[P], AggregateGeneration[P]>
+  }
+
+
+
+
+  export type GenerationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GenerationWhereInput
+    orderBy?: GenerationOrderByWithAggregationInput | GenerationOrderByWithAggregationInput[]
+    by: GenerationScalarFieldEnum[] | GenerationScalarFieldEnum
+    having?: GenerationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GenerationCountAggregateInputType | true
+    _min?: GenerationMinAggregateInputType
+    _max?: GenerationMaxAggregateInputType
+  }
+
+  export type GenerationGroupByOutputType = {
+    id: string
+    semestreId: string
+    versionId: string
+    auteurId: string
+    statut: $Enums.GenerationStatut
+    mode: $Enums.GenerationMode
+    engine: string
+    engineVersion: string | null
+    erreur: string | null
+    cancelRequested: boolean
+    queuedAt: Date
+    startedAt: Date | null
+    finishedAt: Date | null
+    _count: GenerationCountAggregateOutputType | null
+    _min: GenerationMinAggregateOutputType | null
+    _max: GenerationMaxAggregateOutputType | null
+  }
+
+  type GetGenerationGroupByPayload<T extends GenerationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GenerationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GenerationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GenerationGroupByOutputType[P]>
+            : GetScalarType<T[P], GenerationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GenerationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    versionId?: boolean
+    auteurId?: boolean
+    statut?: boolean
+    mode?: boolean
+    engine?: boolean
+    engineVersion?: boolean
+    erreur?: boolean
+    cancelRequested?: boolean
+    queuedAt?: boolean
+    startedAt?: boolean
+    finishedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generation"]>
+
+  export type GenerationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    versionId?: boolean
+    auteurId?: boolean
+    statut?: boolean
+    mode?: boolean
+    engine?: boolean
+    engineVersion?: boolean
+    erreur?: boolean
+    cancelRequested?: boolean
+    queuedAt?: boolean
+    startedAt?: boolean
+    finishedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generation"]>
+
+  export type GenerationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    versionId?: boolean
+    auteurId?: boolean
+    statut?: boolean
+    mode?: boolean
+    engine?: boolean
+    engineVersion?: boolean
+    erreur?: boolean
+    cancelRequested?: boolean
+    queuedAt?: boolean
+    startedAt?: boolean
+    finishedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["generation"]>
+
+  export type GenerationSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    versionId?: boolean
+    auteurId?: boolean
+    statut?: boolean
+    mode?: boolean
+    engine?: boolean
+    engineVersion?: boolean
+    erreur?: boolean
+    cancelRequested?: boolean
+    queuedAt?: boolean
+    startedAt?: boolean
+    finishedAt?: boolean
+  }
+
+  export type GenerationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "versionId" | "auteurId" | "statut" | "mode" | "engine" | "engineVersion" | "erreur" | "cancelRequested" | "queuedAt" | "startedAt" | "finishedAt", ExtArgs["result"]["generation"]>
+  export type GenerationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+  export type GenerationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+  export type GenerationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+  }
+
+  export type $GenerationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Generation"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      version: Prisma.$VersionEdtPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      versionId: string
+      auteurId: string
+      statut: $Enums.GenerationStatut
+      mode: $Enums.GenerationMode
+      engine: string
+      engineVersion: string | null
+      erreur: string | null
+      cancelRequested: boolean
+      queuedAt: Date
+      startedAt: Date | null
+      finishedAt: Date | null
+    }, ExtArgs["result"]["generation"]>
+    composites: {}
+  }
+
+  type GenerationGetPayload<S extends boolean | null | undefined | GenerationDefaultArgs> = $Result.GetResult<Prisma.$GenerationPayload, S>
+
+  type GenerationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GenerationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GenerationCountAggregateInputType | true
+    }
+
+  export interface GenerationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Generation'], meta: { name: 'Generation' } }
+    /**
+     * Find zero or one Generation that matches the filter.
+     * @param {GenerationFindUniqueArgs} args - Arguments to find a Generation
+     * @example
+     * // Get one Generation
+     * const generation = await prisma.generation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GenerationFindUniqueArgs>(args: SelectSubset<T, GenerationFindUniqueArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Generation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GenerationFindUniqueOrThrowArgs} args - Arguments to find a Generation
+     * @example
+     * // Get one Generation
+     * const generation = await prisma.generation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GenerationFindUniqueOrThrowArgs>(args: SelectSubset<T, GenerationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Generation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationFindFirstArgs} args - Arguments to find a Generation
+     * @example
+     * // Get one Generation
+     * const generation = await prisma.generation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GenerationFindFirstArgs>(args?: SelectSubset<T, GenerationFindFirstArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Generation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationFindFirstOrThrowArgs} args - Arguments to find a Generation
+     * @example
+     * // Get one Generation
+     * const generation = await prisma.generation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GenerationFindFirstOrThrowArgs>(args?: SelectSubset<T, GenerationFindFirstOrThrowArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Generations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Generations
+     * const generations = await prisma.generation.findMany()
+     * 
+     * // Get first 10 Generations
+     * const generations = await prisma.generation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const generationWithIdOnly = await prisma.generation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GenerationFindManyArgs>(args?: SelectSubset<T, GenerationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Generation.
+     * @param {GenerationCreateArgs} args - Arguments to create a Generation.
+     * @example
+     * // Create one Generation
+     * const Generation = await prisma.generation.create({
+     *   data: {
+     *     // ... data to create a Generation
+     *   }
+     * })
+     * 
+     */
+    create<T extends GenerationCreateArgs>(args: SelectSubset<T, GenerationCreateArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Generations.
+     * @param {GenerationCreateManyArgs} args - Arguments to create many Generations.
+     * @example
+     * // Create many Generations
+     * const generation = await prisma.generation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GenerationCreateManyArgs>(args?: SelectSubset<T, GenerationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Generations and returns the data saved in the database.
+     * @param {GenerationCreateManyAndReturnArgs} args - Arguments to create many Generations.
+     * @example
+     * // Create many Generations
+     * const generation = await prisma.generation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Generations and only return the `id`
+     * const generationWithIdOnly = await prisma.generation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GenerationCreateManyAndReturnArgs>(args?: SelectSubset<T, GenerationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Generation.
+     * @param {GenerationDeleteArgs} args - Arguments to delete one Generation.
+     * @example
+     * // Delete one Generation
+     * const Generation = await prisma.generation.delete({
+     *   where: {
+     *     // ... filter to delete one Generation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GenerationDeleteArgs>(args: SelectSubset<T, GenerationDeleteArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Generation.
+     * @param {GenerationUpdateArgs} args - Arguments to update one Generation.
+     * @example
+     * // Update one Generation
+     * const generation = await prisma.generation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GenerationUpdateArgs>(args: SelectSubset<T, GenerationUpdateArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Generations.
+     * @param {GenerationDeleteManyArgs} args - Arguments to filter Generations to delete.
+     * @example
+     * // Delete a few Generations
+     * const { count } = await prisma.generation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GenerationDeleteManyArgs>(args?: SelectSubset<T, GenerationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Generations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Generations
+     * const generation = await prisma.generation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GenerationUpdateManyArgs>(args: SelectSubset<T, GenerationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Generations and returns the data updated in the database.
+     * @param {GenerationUpdateManyAndReturnArgs} args - Arguments to update many Generations.
+     * @example
+     * // Update many Generations
+     * const generation = await prisma.generation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Generations and only return the `id`
+     * const generationWithIdOnly = await prisma.generation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GenerationUpdateManyAndReturnArgs>(args: SelectSubset<T, GenerationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Generation.
+     * @param {GenerationUpsertArgs} args - Arguments to update or create a Generation.
+     * @example
+     * // Update or create a Generation
+     * const generation = await prisma.generation.upsert({
+     *   create: {
+     *     // ... data to create a Generation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Generation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GenerationUpsertArgs>(args: SelectSubset<T, GenerationUpsertArgs<ExtArgs>>): Prisma__GenerationClient<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Generations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationCountArgs} args - Arguments to filter Generations to count.
+     * @example
+     * // Count the number of Generations
+     * const count = await prisma.generation.count({
+     *   where: {
+     *     // ... the filter for the Generations we want to count
+     *   }
+     * })
+    **/
+    count<T extends GenerationCountArgs>(
+      args?: Subset<T, GenerationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GenerationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Generation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GenerationAggregateArgs>(args: Subset<T, GenerationAggregateArgs>): Prisma.PrismaPromise<GetGenerationAggregateType<T>>
+
+    /**
+     * Group by Generation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GenerationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GenerationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GenerationGroupByArgs['orderBy'] }
+        : { orderBy?: GenerationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GenerationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGenerationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Generation model
+   */
+  readonly fields: GenerationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Generation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GenerationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Generation model
+   */
+  interface GenerationFieldRefs {
+    readonly id: FieldRef<"Generation", 'String'>
+    readonly semestreId: FieldRef<"Generation", 'String'>
+    readonly versionId: FieldRef<"Generation", 'String'>
+    readonly auteurId: FieldRef<"Generation", 'String'>
+    readonly statut: FieldRef<"Generation", 'GenerationStatut'>
+    readonly mode: FieldRef<"Generation", 'GenerationMode'>
+    readonly engine: FieldRef<"Generation", 'String'>
+    readonly engineVersion: FieldRef<"Generation", 'String'>
+    readonly erreur: FieldRef<"Generation", 'String'>
+    readonly cancelRequested: FieldRef<"Generation", 'Boolean'>
+    readonly queuedAt: FieldRef<"Generation", 'DateTime'>
+    readonly startedAt: FieldRef<"Generation", 'DateTime'>
+    readonly finishedAt: FieldRef<"Generation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Generation findUnique
+   */
+  export type GenerationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which Generation to fetch.
+     */
+    where: GenerationWhereUniqueInput
+  }
+
+  /**
+   * Generation findUniqueOrThrow
+   */
+  export type GenerationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which Generation to fetch.
+     */
+    where: GenerationWhereUniqueInput
+  }
+
+  /**
+   * Generation findFirst
+   */
+  export type GenerationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which Generation to fetch.
+     */
+    where?: GenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Generations to fetch.
+     */
+    orderBy?: GenerationOrderByWithRelationInput | GenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Generations.
+     */
+    cursor?: GenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Generations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Generations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Generations.
+     */
+    distinct?: GenerationScalarFieldEnum | GenerationScalarFieldEnum[]
+  }
+
+  /**
+   * Generation findFirstOrThrow
+   */
+  export type GenerationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which Generation to fetch.
+     */
+    where?: GenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Generations to fetch.
+     */
+    orderBy?: GenerationOrderByWithRelationInput | GenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Generations.
+     */
+    cursor?: GenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Generations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Generations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Generations.
+     */
+    distinct?: GenerationScalarFieldEnum | GenerationScalarFieldEnum[]
+  }
+
+  /**
+   * Generation findMany
+   */
+  export type GenerationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which Generations to fetch.
+     */
+    where?: GenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Generations to fetch.
+     */
+    orderBy?: GenerationOrderByWithRelationInput | GenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Generations.
+     */
+    cursor?: GenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Generations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Generations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Generations.
+     */
+    distinct?: GenerationScalarFieldEnum | GenerationScalarFieldEnum[]
+  }
+
+  /**
+   * Generation create
+   */
+  export type GenerationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Generation.
+     */
+    data: XOR<GenerationCreateInput, GenerationUncheckedCreateInput>
+  }
+
+  /**
+   * Generation createMany
+   */
+  export type GenerationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Generations.
+     */
+    data: GenerationCreateManyInput | GenerationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Generation createManyAndReturn
+   */
+  export type GenerationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Generations.
+     */
+    data: GenerationCreateManyInput | GenerationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Generation update
+   */
+  export type GenerationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Generation.
+     */
+    data: XOR<GenerationUpdateInput, GenerationUncheckedUpdateInput>
+    /**
+     * Choose, which Generation to update.
+     */
+    where: GenerationWhereUniqueInput
+  }
+
+  /**
+   * Generation updateMany
+   */
+  export type GenerationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Generations.
+     */
+    data: XOR<GenerationUpdateManyMutationInput, GenerationUncheckedUpdateManyInput>
+    /**
+     * Filter which Generations to update
+     */
+    where?: GenerationWhereInput
+    /**
+     * Limit how many Generations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Generation updateManyAndReturn
+   */
+  export type GenerationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * The data used to update Generations.
+     */
+    data: XOR<GenerationUpdateManyMutationInput, GenerationUncheckedUpdateManyInput>
+    /**
+     * Filter which Generations to update
+     */
+    where?: GenerationWhereInput
+    /**
+     * Limit how many Generations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Generation upsert
+   */
+  export type GenerationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Generation to update in case it exists.
+     */
+    where: GenerationWhereUniqueInput
+    /**
+     * In case the Generation found by the `where` argument doesn't exist, create a new Generation with this data.
+     */
+    create: XOR<GenerationCreateInput, GenerationUncheckedCreateInput>
+    /**
+     * In case the Generation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GenerationUpdateInput, GenerationUncheckedUpdateInput>
+  }
+
+  /**
+   * Generation delete
+   */
+  export type GenerationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    /**
+     * Filter which Generation to delete.
+     */
+    where: GenerationWhereUniqueInput
+  }
+
+  /**
+   * Generation deleteMany
+   */
+  export type GenerationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Generations to delete
+     */
+    where?: GenerationWhereInput
+    /**
+     * Limit how many Generations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Generation without action
+   */
+  export type GenerationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -86403,6 +87772,25 @@ export namespace Prisma {
   export type ExigenceSalleAutoriseeScalarFieldEnum = (typeof ExigenceSalleAutoriseeScalarFieldEnum)[keyof typeof ExigenceSalleAutoriseeScalarFieldEnum]
 
 
+  export const GenerationScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    versionId: 'versionId',
+    auteurId: 'auteurId',
+    statut: 'statut',
+    mode: 'mode',
+    engine: 'engine',
+    engineVersion: 'engineVersion',
+    erreur: 'erreur',
+    cancelRequested: 'cancelRequested',
+    queuedAt: 'queuedAt',
+    startedAt: 'startedAt',
+    finishedAt: 'finishedAt'
+  };
+
+  export type GenerationScalarFieldEnum = (typeof GenerationScalarFieldEnum)[keyof typeof GenerationScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -87006,6 +88394,34 @@ export namespace Prisma {
    * Reference to a field of type 'ConflitSeverite[]'
    */
   export type ListEnumConflitSeveriteFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConflitSeverite[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'GenerationStatut'
+   */
+  export type EnumGenerationStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GenerationStatut'>
+    
+
+
+  /**
+   * Reference to a field of type 'GenerationStatut[]'
+   */
+  export type ListEnumGenerationStatutFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GenerationStatut[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'GenerationMode'
+   */
+  export type EnumGenerationModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GenerationMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'GenerationMode[]'
+   */
+  export type ListEnumGenerationModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GenerationMode[]'>
     
   /**
    * Deep Input Types
@@ -88552,6 +89968,7 @@ export namespace Prisma {
     versions?: VersionEdtListRelationFilter
     groupesCovoiturage?: GroupeCovoiturageListRelationFilter
     exigencesSalle?: ExigenceSalleActiviteListRelationFilter
+    generations?: GenerationListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -88574,6 +89991,7 @@ export namespace Prisma {
     versions?: VersionEdtOrderByRelationAggregateInput
     groupesCovoiturage?: GroupeCovoiturageOrderByRelationAggregateInput
     exigencesSalle?: ExigenceSalleActiviteOrderByRelationAggregateInput
+    generations?: GenerationOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -88600,6 +90018,7 @@ export namespace Prisma {
     versions?: VersionEdtListRelationFilter
     groupesCovoiturage?: GroupeCovoiturageListRelationFilter
     exigencesSalle?: ExigenceSalleActiviteListRelationFilter
+    generations?: GenerationListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -89041,6 +90460,7 @@ export namespace Prisma {
     editLock?: XOR<EditLockNullableScalarRelationFilter, EditLockWhereInput> | null
     verrous?: VerrouSeanceListRelationFilter
     avertissementsAcceptes?: AvertissementAccepteListRelationFilter
+    generations?: GenerationListRelationFilter
   }
 
   export type VersionEdtOrderByWithRelationInput = {
@@ -89059,6 +90479,7 @@ export namespace Prisma {
     editLock?: EditLockOrderByWithRelationInput
     verrous?: VerrouSeanceOrderByRelationAggregateInput
     avertissementsAcceptes?: AvertissementAccepteOrderByRelationAggregateInput
+    generations?: GenerationOrderByRelationAggregateInput
   }
 
   export type VersionEdtWhereUniqueInput = Prisma.AtLeast<{
@@ -89080,6 +90501,7 @@ export namespace Prisma {
     editLock?: XOR<EditLockNullableScalarRelationFilter, EditLockWhereInput> | null
     verrous?: VerrouSeanceListRelationFilter
     avertissementsAcceptes?: AvertissementAccepteListRelationFilter
+    generations?: GenerationListRelationFilter
   }, "id">
 
   export type VersionEdtOrderByWithAggregationInput = {
@@ -92088,6 +93510,104 @@ export namespace Prisma {
     salleId?: UuidWithAggregatesFilter<"ExigenceSalleAutorisee"> | string
   }
 
+  export type GenerationWhereInput = {
+    AND?: GenerationWhereInput | GenerationWhereInput[]
+    OR?: GenerationWhereInput[]
+    NOT?: GenerationWhereInput | GenerationWhereInput[]
+    id?: UuidFilter<"Generation"> | string
+    semestreId?: UuidFilter<"Generation"> | string
+    versionId?: UuidFilter<"Generation"> | string
+    auteurId?: UuidFilter<"Generation"> | string
+    statut?: EnumGenerationStatutFilter<"Generation"> | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFilter<"Generation"> | $Enums.GenerationMode
+    engine?: StringFilter<"Generation"> | string
+    engineVersion?: StringNullableFilter<"Generation"> | string | null
+    erreur?: StringNullableFilter<"Generation"> | string | null
+    cancelRequested?: BoolFilter<"Generation"> | boolean
+    queuedAt?: DateTimeFilter<"Generation"> | Date | string
+    startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+    finishedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+  }
+
+  export type GenerationOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    versionId?: SortOrder
+    auteurId?: SortOrder
+    statut?: SortOrder
+    mode?: SortOrder
+    engine?: SortOrder
+    engineVersion?: SortOrderInput | SortOrder
+    erreur?: SortOrderInput | SortOrder
+    cancelRequested?: SortOrder
+    queuedAt?: SortOrder
+    startedAt?: SortOrderInput | SortOrder
+    finishedAt?: SortOrderInput | SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    version?: VersionEdtOrderByWithRelationInput
+  }
+
+  export type GenerationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: GenerationWhereInput | GenerationWhereInput[]
+    OR?: GenerationWhereInput[]
+    NOT?: GenerationWhereInput | GenerationWhereInput[]
+    semestreId?: UuidFilter<"Generation"> | string
+    versionId?: UuidFilter<"Generation"> | string
+    auteurId?: UuidFilter<"Generation"> | string
+    statut?: EnumGenerationStatutFilter<"Generation"> | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFilter<"Generation"> | $Enums.GenerationMode
+    engine?: StringFilter<"Generation"> | string
+    engineVersion?: StringNullableFilter<"Generation"> | string | null
+    erreur?: StringNullableFilter<"Generation"> | string | null
+    cancelRequested?: BoolFilter<"Generation"> | boolean
+    queuedAt?: DateTimeFilter<"Generation"> | Date | string
+    startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+    finishedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
+  }, "id">
+
+  export type GenerationOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    versionId?: SortOrder
+    auteurId?: SortOrder
+    statut?: SortOrder
+    mode?: SortOrder
+    engine?: SortOrder
+    engineVersion?: SortOrderInput | SortOrder
+    erreur?: SortOrderInput | SortOrder
+    cancelRequested?: SortOrder
+    queuedAt?: SortOrder
+    startedAt?: SortOrderInput | SortOrder
+    finishedAt?: SortOrderInput | SortOrder
+    _count?: GenerationCountOrderByAggregateInput
+    _max?: GenerationMaxOrderByAggregateInput
+    _min?: GenerationMinOrderByAggregateInput
+  }
+
+  export type GenerationScalarWhereWithAggregatesInput = {
+    AND?: GenerationScalarWhereWithAggregatesInput | GenerationScalarWhereWithAggregatesInput[]
+    OR?: GenerationScalarWhereWithAggregatesInput[]
+    NOT?: GenerationScalarWhereWithAggregatesInput | GenerationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Generation"> | string
+    semestreId?: UuidWithAggregatesFilter<"Generation"> | string
+    versionId?: UuidWithAggregatesFilter<"Generation"> | string
+    auteurId?: UuidWithAggregatesFilter<"Generation"> | string
+    statut?: EnumGenerationStatutWithAggregatesFilter<"Generation"> | $Enums.GenerationStatut
+    mode?: EnumGenerationModeWithAggregatesFilter<"Generation"> | $Enums.GenerationMode
+    engine?: StringWithAggregatesFilter<"Generation"> | string
+    engineVersion?: StringNullableWithAggregatesFilter<"Generation"> | string | null
+    erreur?: StringNullableWithAggregatesFilter<"Generation"> | string | null
+    cancelRequested?: BoolWithAggregatesFilter<"Generation"> | boolean
+    queuedAt?: DateTimeWithAggregatesFilter<"Generation"> | Date | string
+    startedAt?: DateTimeNullableWithAggregatesFilter<"Generation"> | Date | string | null
+    finishedAt?: DateTimeNullableWithAggregatesFilter<"Generation"> | Date | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -93748,6 +95268,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -93769,6 +95290,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -93790,6 +95312,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -93811,6 +95334,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -94252,6 +95776,7 @@ export namespace Prisma {
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateInput = {
@@ -94269,6 +95794,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUpdateInput = {
@@ -94286,6 +95812,7 @@ export namespace Prisma {
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateInput = {
@@ -94303,6 +95830,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtCreateManyInput = {
@@ -97455,6 +98983,116 @@ export namespace Prisma {
     salleId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type GenerationCreateInput = {
+    id?: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    semestre: SemestreCreateNestedOneWithoutGenerationsInput
+    version: VersionEdtCreateNestedOneWithoutGenerationsInput
+  }
+
+  export type GenerationUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    versionId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+  }
+
+  export type GenerationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
+    version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
+  }
+
+  export type GenerationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GenerationCreateManyInput = {
+    id?: string
+    semestreId: string
+    versionId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+  }
+
+  export type GenerationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GenerationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -99022,6 +100660,12 @@ export namespace Prisma {
     none?: ExigenceSalleActiviteWhereInput
   }
 
+  export type GenerationListRelationFilter = {
+    every?: GenerationWhereInput
+    some?: GenerationWhereInput
+    none?: GenerationWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -99059,6 +100703,10 @@ export namespace Prisma {
   }
 
   export type ExigenceSalleActiviteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GenerationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -101757,6 +103405,88 @@ export namespace Prisma {
     salleId?: SortOrder
   }
 
+  export type EnumGenerationStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.GenerationStatut | EnumGenerationStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenerationStatutFilter<$PrismaModel> | $Enums.GenerationStatut
+  }
+
+  export type EnumGenerationModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.GenerationMode | EnumGenerationModeFieldRefInput<$PrismaModel>
+    in?: $Enums.GenerationMode[] | ListEnumGenerationModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GenerationMode[] | ListEnumGenerationModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenerationModeFilter<$PrismaModel> | $Enums.GenerationMode
+  }
+
+  export type GenerationCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    versionId?: SortOrder
+    auteurId?: SortOrder
+    statut?: SortOrder
+    mode?: SortOrder
+    engine?: SortOrder
+    engineVersion?: SortOrder
+    erreur?: SortOrder
+    cancelRequested?: SortOrder
+    queuedAt?: SortOrder
+    startedAt?: SortOrder
+    finishedAt?: SortOrder
+  }
+
+  export type GenerationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    versionId?: SortOrder
+    auteurId?: SortOrder
+    statut?: SortOrder
+    mode?: SortOrder
+    engine?: SortOrder
+    engineVersion?: SortOrder
+    erreur?: SortOrder
+    cancelRequested?: SortOrder
+    queuedAt?: SortOrder
+    startedAt?: SortOrder
+    finishedAt?: SortOrder
+  }
+
+  export type GenerationMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    versionId?: SortOrder
+    auteurId?: SortOrder
+    statut?: SortOrder
+    mode?: SortOrder
+    engine?: SortOrder
+    engineVersion?: SortOrder
+    erreur?: SortOrder
+    cancelRequested?: SortOrder
+    queuedAt?: SortOrder
+    startedAt?: SortOrder
+    finishedAt?: SortOrder
+  }
+
+  export type EnumGenerationStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GenerationStatut | EnumGenerationStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenerationStatutWithAggregatesFilter<$PrismaModel> | $Enums.GenerationStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenerationStatutFilter<$PrismaModel>
+    _max?: NestedEnumGenerationStatutFilter<$PrismaModel>
+  }
+
+  export type EnumGenerationModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GenerationMode | EnumGenerationModeFieldRefInput<$PrismaModel>
+    in?: $Enums.GenerationMode[] | ListEnumGenerationModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GenerationMode[] | ListEnumGenerationModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenerationModeWithAggregatesFilter<$PrismaModel> | $Enums.GenerationMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenerationModeFilter<$PrismaModel>
+    _max?: NestedEnumGenerationModeFilter<$PrismaModel>
+  }
+
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
     create?: XOR<UserSystemRoleCreateWithoutUserInput, UserSystemRoleUncheckedCreateWithoutUserInput> | UserSystemRoleCreateWithoutUserInput[] | UserSystemRoleUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserSystemRoleCreateOrConnectWithoutUserInput | UserSystemRoleCreateOrConnectWithoutUserInput[]
@@ -103381,6 +105111,13 @@ export namespace Prisma {
     connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
   }
 
+  export type GenerationCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<GenerationCreateWithoutSemestreInput, GenerationUncheckedCreateWithoutSemestreInput> | GenerationCreateWithoutSemestreInput[] | GenerationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutSemestreInput | GenerationCreateOrConnectWithoutSemestreInput[]
+    createMany?: GenerationCreateManySemestreInputEnvelope
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -103456,6 +105193,13 @@ export namespace Prisma {
     connectOrCreate?: ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput | ExigenceSalleActiviteCreateOrConnectWithoutSemestreInput[]
     createMany?: ExigenceSalleActiviteCreateManySemestreInputEnvelope
     connect?: ExigenceSalleActiviteWhereUniqueInput | ExigenceSalleActiviteWhereUniqueInput[]
+  }
+
+  export type GenerationUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<GenerationCreateWithoutSemestreInput, GenerationUncheckedCreateWithoutSemestreInput> | GenerationCreateWithoutSemestreInput[] | GenerationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutSemestreInput | GenerationCreateOrConnectWithoutSemestreInput[]
+    createMany?: GenerationCreateManySemestreInputEnvelope
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -103620,6 +105364,20 @@ export namespace Prisma {
     deleteMany?: ExigenceSalleActiviteScalarWhereInput | ExigenceSalleActiviteScalarWhereInput[]
   }
 
+  export type GenerationUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<GenerationCreateWithoutSemestreInput, GenerationUncheckedCreateWithoutSemestreInput> | GenerationCreateWithoutSemestreInput[] | GenerationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutSemestreInput | GenerationCreateOrConnectWithoutSemestreInput[]
+    upsert?: GenerationUpsertWithWhereUniqueWithoutSemestreInput | GenerationUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: GenerationCreateManySemestreInputEnvelope
+    set?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    disconnect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    delete?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    update?: GenerationUpdateWithWhereUniqueWithoutSemestreInput | GenerationUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: GenerationUpdateManyWithWhereWithoutSemestreInput | GenerationUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -103772,6 +105530,20 @@ export namespace Prisma {
     update?: ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSemestreInput | ExigenceSalleActiviteUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: ExigenceSalleActiviteUpdateManyWithWhereWithoutSemestreInput | ExigenceSalleActiviteUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: ExigenceSalleActiviteScalarWhereInput | ExigenceSalleActiviteScalarWhereInput[]
+  }
+
+  export type GenerationUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<GenerationCreateWithoutSemestreInput, GenerationUncheckedCreateWithoutSemestreInput> | GenerationCreateWithoutSemestreInput[] | GenerationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutSemestreInput | GenerationCreateOrConnectWithoutSemestreInput[]
+    upsert?: GenerationUpsertWithWhereUniqueWithoutSemestreInput | GenerationUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: GenerationCreateManySemestreInputEnvelope
+    set?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    disconnect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    delete?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    update?: GenerationUpdateWithWhereUniqueWithoutSemestreInput | GenerationUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: GenerationUpdateManyWithWhereWithoutSemestreInput | GenerationUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -104224,6 +105996,13 @@ export namespace Prisma {
     connect?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
   }
 
+  export type GenerationCreateNestedManyWithoutVersionInput = {
+    create?: XOR<GenerationCreateWithoutVersionInput, GenerationUncheckedCreateWithoutVersionInput> | GenerationCreateWithoutVersionInput[] | GenerationUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutVersionInput | GenerationCreateOrConnectWithoutVersionInput[]
+    createMany?: GenerationCreateManyVersionInputEnvelope
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+  }
+
   export type SeanceUncheckedCreateNestedManyWithoutVersionInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -104270,6 +106049,13 @@ export namespace Prisma {
     connectOrCreate?: AvertissementAccepteCreateOrConnectWithoutVersionInput | AvertissementAccepteCreateOrConnectWithoutVersionInput[]
     createMany?: AvertissementAccepteCreateManyVersionInputEnvelope
     connect?: AvertissementAccepteWhereUniqueInput | AvertissementAccepteWhereUniqueInput[]
+  }
+
+  export type GenerationUncheckedCreateNestedManyWithoutVersionInput = {
+    create?: XOR<GenerationCreateWithoutVersionInput, GenerationUncheckedCreateWithoutVersionInput> | GenerationCreateWithoutVersionInput[] | GenerationUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutVersionInput | GenerationCreateOrConnectWithoutVersionInput[]
+    createMany?: GenerationCreateManyVersionInputEnvelope
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
   }
 
   export type EnumVersionStatutFieldUpdateOperationsInput = {
@@ -104378,6 +106164,20 @@ export namespace Prisma {
     deleteMany?: AvertissementAccepteScalarWhereInput | AvertissementAccepteScalarWhereInput[]
   }
 
+  export type GenerationUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<GenerationCreateWithoutVersionInput, GenerationUncheckedCreateWithoutVersionInput> | GenerationCreateWithoutVersionInput[] | GenerationUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutVersionInput | GenerationCreateOrConnectWithoutVersionInput[]
+    upsert?: GenerationUpsertWithWhereUniqueWithoutVersionInput | GenerationUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: GenerationCreateManyVersionInputEnvelope
+    set?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    disconnect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    delete?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    update?: GenerationUpdateWithWhereUniqueWithoutVersionInput | GenerationUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: GenerationUpdateManyWithWhereWithoutVersionInput | GenerationUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
+  }
+
   export type SeanceUncheckedUpdateManyWithoutVersionNestedInput = {
     create?: XOR<SeanceCreateWithoutVersionInput, SeanceUncheckedCreateWithoutVersionInput> | SeanceCreateWithoutVersionInput[] | SeanceUncheckedCreateWithoutVersionInput[]
     connectOrCreate?: SeanceCreateOrConnectWithoutVersionInput | SeanceCreateOrConnectWithoutVersionInput[]
@@ -104470,6 +106270,20 @@ export namespace Prisma {
     update?: AvertissementAccepteUpdateWithWhereUniqueWithoutVersionInput | AvertissementAccepteUpdateWithWhereUniqueWithoutVersionInput[]
     updateMany?: AvertissementAccepteUpdateManyWithWhereWithoutVersionInput | AvertissementAccepteUpdateManyWithWhereWithoutVersionInput[]
     deleteMany?: AvertissementAccepteScalarWhereInput | AvertissementAccepteScalarWhereInput[]
+  }
+
+  export type GenerationUncheckedUpdateManyWithoutVersionNestedInput = {
+    create?: XOR<GenerationCreateWithoutVersionInput, GenerationUncheckedCreateWithoutVersionInput> | GenerationCreateWithoutVersionInput[] | GenerationUncheckedCreateWithoutVersionInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutVersionInput | GenerationCreateOrConnectWithoutVersionInput[]
+    upsert?: GenerationUpsertWithWhereUniqueWithoutVersionInput | GenerationUpsertWithWhereUniqueWithoutVersionInput[]
+    createMany?: GenerationCreateManyVersionInputEnvelope
+    set?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    disconnect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    delete?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    update?: GenerationUpdateWithWhereUniqueWithoutVersionInput | GenerationUpdateWithWhereUniqueWithoutVersionInput[]
+    updateMany?: GenerationUpdateManyWithWhereWithoutVersionInput | GenerationUpdateManyWithWhereWithoutVersionInput[]
+    deleteMany?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
   }
 
   export type VersionEdtCreateNestedOneWithoutSnapshotsInput = {
@@ -107341,6 +109155,42 @@ export namespace Prisma {
     update?: XOR<XOR<SalleUpdateToOneWithWhereWithoutExigencesSalleAutoriseeInput, SalleUpdateWithoutExigencesSalleAutoriseeInput>, SalleUncheckedUpdateWithoutExigencesSalleAutoriseeInput>
   }
 
+  export type SemestreCreateNestedOneWithoutGenerationsInput = {
+    create?: XOR<SemestreCreateWithoutGenerationsInput, SemestreUncheckedCreateWithoutGenerationsInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutGenerationsInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type VersionEdtCreateNestedOneWithoutGenerationsInput = {
+    create?: XOR<VersionEdtCreateWithoutGenerationsInput, VersionEdtUncheckedCreateWithoutGenerationsInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutGenerationsInput
+    connect?: VersionEdtWhereUniqueInput
+  }
+
+  export type EnumGenerationStatutFieldUpdateOperationsInput = {
+    set?: $Enums.GenerationStatut
+  }
+
+  export type EnumGenerationModeFieldUpdateOperationsInput = {
+    set?: $Enums.GenerationMode
+  }
+
+  export type SemestreUpdateOneRequiredWithoutGenerationsNestedInput = {
+    create?: XOR<SemestreCreateWithoutGenerationsInput, SemestreUncheckedCreateWithoutGenerationsInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutGenerationsInput
+    upsert?: SemestreUpsertWithoutGenerationsInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutGenerationsInput, SemestreUpdateWithoutGenerationsInput>, SemestreUncheckedUpdateWithoutGenerationsInput>
+  }
+
+  export type VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput = {
+    create?: XOR<VersionEdtCreateWithoutGenerationsInput, VersionEdtUncheckedCreateWithoutGenerationsInput>
+    connectOrCreate?: VersionEdtCreateOrConnectWithoutGenerationsInput
+    upsert?: VersionEdtUpsertWithoutGenerationsInput
+    connect?: VersionEdtWhereUniqueInput
+    update?: XOR<XOR<VersionEdtUpdateToOneWithWhereWithoutGenerationsInput, VersionEdtUpdateWithoutGenerationsInput>, VersionEdtUncheckedUpdateWithoutGenerationsInput>
+  }
+
   export type NestedUuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -108267,6 +110117,40 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumConflitSeveriteFilter<$PrismaModel>
     _max?: NestedEnumConflitSeveriteFilter<$PrismaModel>
+  }
+
+  export type NestedEnumGenerationStatutFilter<$PrismaModel = never> = {
+    equals?: $Enums.GenerationStatut | EnumGenerationStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenerationStatutFilter<$PrismaModel> | $Enums.GenerationStatut
+  }
+
+  export type NestedEnumGenerationModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.GenerationMode | EnumGenerationModeFieldRefInput<$PrismaModel>
+    in?: $Enums.GenerationMode[] | ListEnumGenerationModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GenerationMode[] | ListEnumGenerationModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenerationModeFilter<$PrismaModel> | $Enums.GenerationMode
+  }
+
+  export type NestedEnumGenerationStatutWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GenerationStatut | EnumGenerationStatutFieldRefInput<$PrismaModel>
+    in?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GenerationStatut[] | ListEnumGenerationStatutFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenerationStatutWithAggregatesFilter<$PrismaModel> | $Enums.GenerationStatut
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenerationStatutFilter<$PrismaModel>
+    _max?: NestedEnumGenerationStatutFilter<$PrismaModel>
+  }
+
+  export type NestedEnumGenerationModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GenerationMode | EnumGenerationModeFieldRefInput<$PrismaModel>
+    in?: $Enums.GenerationMode[] | ListEnumGenerationModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GenerationMode[] | ListEnumGenerationModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumGenerationModeWithAggregatesFilter<$PrismaModel> | $Enums.GenerationMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenerationModeFilter<$PrismaModel>
+    _max?: NestedEnumGenerationModeFilter<$PrismaModel>
   }
 
   export type UserSystemRoleCreateWithoutUserInput = {
@@ -112025,6 +113909,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -112045,6 +113930,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -112660,6 +114546,7 @@ export namespace Prisma {
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSemestreInput = {
@@ -112676,6 +114563,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSemestreInput = {
@@ -112743,6 +114631,46 @@ export namespace Prisma {
 
   export type ExigenceSalleActiviteCreateManySemestreInputEnvelope = {
     data: ExigenceSalleActiviteCreateManySemestreInput | ExigenceSalleActiviteCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GenerationCreateWithoutSemestreInput = {
+    id?: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    version: VersionEdtCreateNestedOneWithoutGenerationsInput
+  }
+
+  export type GenerationUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    versionId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+  }
+
+  export type GenerationCreateOrConnectWithoutSemestreInput = {
+    where: GenerationWhereUniqueInput
+    create: XOR<GenerationCreateWithoutSemestreInput, GenerationUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type GenerationCreateManySemestreInputEnvelope = {
+    data: GenerationCreateManySemestreInput | GenerationCreateManySemestreInput[]
     skipDuplicates?: boolean
   }
 
@@ -113115,6 +115043,41 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ExigenceSalleActivite"> | Date | string
   }
 
+  export type GenerationUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: GenerationWhereUniqueInput
+    update: XOR<GenerationUpdateWithoutSemestreInput, GenerationUncheckedUpdateWithoutSemestreInput>
+    create: XOR<GenerationCreateWithoutSemestreInput, GenerationUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type GenerationUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: GenerationWhereUniqueInput
+    data: XOR<GenerationUpdateWithoutSemestreInput, GenerationUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type GenerationUpdateManyWithWhereWithoutSemestreInput = {
+    where: GenerationScalarWhereInput
+    data: XOR<GenerationUpdateManyMutationInput, GenerationUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type GenerationScalarWhereInput = {
+    AND?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
+    OR?: GenerationScalarWhereInput[]
+    NOT?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
+    id?: UuidFilter<"Generation"> | string
+    semestreId?: UuidFilter<"Generation"> | string
+    versionId?: UuidFilter<"Generation"> | string
+    auteurId?: UuidFilter<"Generation"> | string
+    statut?: EnumGenerationStatutFilter<"Generation"> | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFilter<"Generation"> | $Enums.GenerationMode
+    engine?: StringFilter<"Generation"> | string
+    engineVersion?: StringNullableFilter<"Generation"> | string | null
+    erreur?: StringNullableFilter<"Generation"> | string | null
+    cancelRequested?: BoolFilter<"Generation"> | boolean
+    queuedAt?: DateTimeFilter<"Generation"> | Date | string
+    startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+    finishedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+  }
+
   export type SemestreCreateWithoutCreneauxInput = {
     id?: string
     numero: number
@@ -113133,6 +115096,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -113153,6 +115117,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -113265,6 +115230,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -113285,6 +115251,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -113420,6 +115387,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutSeancesInput = {
@@ -113440,6 +115408,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutSeancesInput = {
@@ -113461,6 +115430,7 @@ export namespace Prisma {
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSeancesInput = {
@@ -113477,6 +115447,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSeancesInput = {
@@ -113718,6 +115689,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutSeancesInput = {
@@ -113738,6 +115710,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type VersionEdtUpsertWithoutSeancesInput = {
@@ -113765,6 +115738,7 @@ export namespace Prisma {
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSeancesInput = {
@@ -113781,6 +115755,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type EnseignantUpsertWithoutSeancesInput = {
@@ -114210,6 +116185,7 @@ export namespace Prisma {
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutOccupationsInput = {
@@ -114226,6 +116202,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutOccupationsInput = {
@@ -114305,6 +116282,7 @@ export namespace Prisma {
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutOccupationsInput = {
@@ -114321,6 +116299,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SeanceUpsertWithoutOccupationsInput = {
@@ -114394,6 +116373,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutVersionsInput = {
@@ -114414,6 +116394,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutVersionsInput = {
@@ -114648,6 +116629,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type GenerationCreateWithoutVersionInput = {
+    id?: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    semestre: SemestreCreateNestedOneWithoutGenerationsInput
+  }
+
+  export type GenerationUncheckedCreateWithoutVersionInput = {
+    id?: string
+    semestreId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+  }
+
+  export type GenerationCreateOrConnectWithoutVersionInput = {
+    where: GenerationWhereUniqueInput
+    create: XOR<GenerationCreateWithoutVersionInput, GenerationUncheckedCreateWithoutVersionInput>
+  }
+
+  export type GenerationCreateManyVersionInputEnvelope = {
+    data: GenerationCreateManyVersionInput | GenerationCreateManyVersionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SemestreUpsertWithoutVersionsInput = {
     update: XOR<SemestreUpdateWithoutVersionsInput, SemestreUncheckedUpdateWithoutVersionsInput>
     create: XOR<SemestreCreateWithoutVersionsInput, SemestreUncheckedCreateWithoutVersionsInput>
@@ -114677,6 +116698,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutVersionsInput = {
@@ -114697,6 +116719,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SeanceUpsertWithWhereUniqueWithoutVersionInput = {
@@ -114866,6 +116889,22 @@ export namespace Prisma {
     caduqueLe?: DateTimeNullableFilter<"AvertissementAccepte"> | Date | string | null
   }
 
+  export type GenerationUpsertWithWhereUniqueWithoutVersionInput = {
+    where: GenerationWhereUniqueInput
+    update: XOR<GenerationUpdateWithoutVersionInput, GenerationUncheckedUpdateWithoutVersionInput>
+    create: XOR<GenerationCreateWithoutVersionInput, GenerationUncheckedCreateWithoutVersionInput>
+  }
+
+  export type GenerationUpdateWithWhereUniqueWithoutVersionInput = {
+    where: GenerationWhereUniqueInput
+    data: XOR<GenerationUpdateWithoutVersionInput, GenerationUncheckedUpdateWithoutVersionInput>
+  }
+
+  export type GenerationUpdateManyWithWhereWithoutVersionInput = {
+    where: GenerationScalarWhereInput
+    data: XOR<GenerationUpdateManyMutationInput, GenerationUncheckedUpdateManyWithoutVersionInput>
+  }
+
   export type VersionEdtCreateWithoutSnapshotsInput = {
     id?: string
     numero: string
@@ -114880,6 +116919,7 @@ export namespace Prisma {
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutSnapshotsInput = {
@@ -114896,6 +116936,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutSnapshotsInput = {
@@ -114957,6 +116998,7 @@ export namespace Prisma {
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSnapshotsInput = {
@@ -114973,6 +117015,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SnapshotUpsertWithoutVersionSnapshotsInput = {
@@ -115024,6 +117067,7 @@ export namespace Prisma {
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutEditLockInput = {
@@ -115040,6 +117084,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutEditLockInput = {
@@ -115072,6 +117117,7 @@ export namespace Prisma {
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutEditLockInput = {
@@ -115088,6 +117134,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtCreateWithoutVerrousInput = {
@@ -115104,6 +117151,7 @@ export namespace Prisma {
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutVerrousInput = {
@@ -115120,6 +117168,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutVerrousInput = {
@@ -115199,6 +117248,7 @@ export namespace Prisma {
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutVerrousInput = {
@@ -115215,6 +117265,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SeanceUpsertWithoutVerrousInput = {
@@ -115985,6 +118036,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -116005,6 +118057,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -116219,6 +118272,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -116239,6 +118293,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -118543,6 +120598,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -118563,6 +120619,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -118650,6 +120707,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -118670,6 +120728,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -119290,6 +121349,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -119310,6 +121370,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -119440,6 +121501,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -119460,6 +121522,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -120258,6 +122321,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
@@ -120278,6 +122342,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
@@ -120345,6 +122410,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
@@ -120365,6 +122431,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ContrainteDefinitionUpsertWithoutInstancesInput = {
@@ -120422,6 +122489,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutRepartitionsInput = {
@@ -120442,6 +122510,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutRepartitionsInput = {
@@ -120553,6 +122622,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutRepartitionsInput = {
@@ -120573,6 +122643,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type DepartementUpsertWithoutRepartitionsInput = {
@@ -121130,6 +123201,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDemandesModificationInput = {
@@ -121150,6 +123222,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDemandesModificationInput = {
@@ -121253,6 +123326,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDemandesModificationInput = {
@@ -121273,6 +123347,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type UserUpsertWithoutDemandesModificationInput = {
@@ -121362,6 +123437,7 @@ export namespace Prisma {
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutConflitsInput = {
@@ -121378,6 +123454,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutConflitsInput = {
@@ -121410,6 +123487,7 @@ export namespace Prisma {
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutConflitsInput = {
@@ -121426,6 +123504,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtCreateWithoutAvertissementsAcceptesInput = {
@@ -121442,6 +123521,7 @@ export namespace Prisma {
     conflits?: ConflitCreateNestedManyWithoutVersionInput
     editLock?: EditLockCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    generations?: GenerationCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtUncheckedCreateWithoutAvertissementsAcceptesInput = {
@@ -121458,6 +123538,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
     editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
     verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutVersionInput
   }
 
   export type VersionEdtCreateOrConnectWithoutAvertissementsAcceptesInput = {
@@ -121490,6 +123571,7 @@ export namespace Prisma {
     conflits?: ConflitUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutAvertissementsAcceptesInput = {
@@ -121506,6 +123588,7 @@ export namespace Prisma {
     conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type SemestreCreateWithoutGroupesCovoiturageInput = {
@@ -121526,6 +123609,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesCovoiturageInput = {
@@ -121546,6 +123630,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesCovoiturageInput = {
@@ -121582,6 +123667,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesCovoiturageInput = {
@@ -121602,6 +123688,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateWithoutExigencesSalleInput = {
@@ -121622,6 +123709,7 @@ export namespace Prisma {
     seances?: SeanceCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutExigencesSalleInput = {
@@ -121642,6 +123730,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutExigencesSalleInput = {
@@ -121745,6 +123834,7 @@ export namespace Prisma {
     seances?: SeanceUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutExigencesSalleInput = {
@@ -121765,6 +123855,7 @@ export namespace Prisma {
     seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleUpsertWithoutExigencesSalleImposeeInput = {
@@ -121996,6 +124087,190 @@ export namespace Prisma {
     indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSalleNestedInput
     seances?: SeanceUncheckedUpdateManyWithoutSalleNestedInput
     exigencesSalleImposee?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSalleImposeeNestedInput
+  }
+
+  export type SemestreCreateWithoutGenerationsInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutGenerationsInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutGenerationsInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutGenerationsInput, SemestreUncheckedCreateWithoutGenerationsInput>
+  }
+
+  export type VersionEdtCreateWithoutGenerationsInput = {
+    id?: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutVersionsInput
+    seances?: SeanceCreateNestedManyWithoutVersionInput
+    occupations?: OccupationCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotCreateNestedManyWithoutVersionInput
+    conflits?: ConflitCreateNestedManyWithoutVersionInput
+    editLock?: EditLockCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtUncheckedCreateWithoutGenerationsInput = {
+    id?: string
+    semestreId: string
+    numero: string
+    statut?: $Enums.VersionStatut
+    motif?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    seances?: SeanceUncheckedCreateNestedManyWithoutVersionInput
+    occupations?: OccupationUncheckedCreateNestedManyWithoutVersionInput
+    snapshots?: VersionSnapshotUncheckedCreateNestedManyWithoutVersionInput
+    conflits?: ConflitUncheckedCreateNestedManyWithoutVersionInput
+    editLock?: EditLockUncheckedCreateNestedOneWithoutVersionInput
+    verrous?: VerrouSeanceUncheckedCreateNestedManyWithoutVersionInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedCreateNestedManyWithoutVersionInput
+  }
+
+  export type VersionEdtCreateOrConnectWithoutGenerationsInput = {
+    where: VersionEdtWhereUniqueInput
+    create: XOR<VersionEdtCreateWithoutGenerationsInput, VersionEdtUncheckedCreateWithoutGenerationsInput>
+  }
+
+  export type SemestreUpsertWithoutGenerationsInput = {
+    update: XOR<SemestreUpdateWithoutGenerationsInput, SemestreUncheckedUpdateWithoutGenerationsInput>
+    create: XOR<SemestreCreateWithoutGenerationsInput, SemestreUncheckedCreateWithoutGenerationsInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutGenerationsInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutGenerationsInput, SemestreUncheckedUpdateWithoutGenerationsInput>
+  }
+
+  export type SemestreUpdateWithoutGenerationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutGenerationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type VersionEdtUpsertWithoutGenerationsInput = {
+    update: XOR<VersionEdtUpdateWithoutGenerationsInput, VersionEdtUncheckedUpdateWithoutGenerationsInput>
+    create: XOR<VersionEdtCreateWithoutGenerationsInput, VersionEdtUncheckedCreateWithoutGenerationsInput>
+    where?: VersionEdtWhereInput
+  }
+
+  export type VersionEdtUpdateToOneWithWhereWithoutGenerationsInput = {
+    where?: VersionEdtWhereInput
+    data: XOR<VersionEdtUpdateWithoutGenerationsInput, VersionEdtUncheckedUpdateWithoutGenerationsInput>
+  }
+
+  export type VersionEdtUpdateWithoutGenerationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutVersionsNestedInput
+    seances?: SeanceUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+  }
+
+  export type VersionEdtUncheckedUpdateWithoutGenerationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    numero?: StringFieldUpdateOperationsInput | string
+    statut?: EnumVersionStatutFieldUpdateOperationsInput | $Enums.VersionStatut
+    motif?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seances?: SeanceUncheckedUpdateManyWithoutVersionNestedInput
+    occupations?: OccupationUncheckedUpdateManyWithoutVersionNestedInput
+    snapshots?: VersionSnapshotUncheckedUpdateManyWithoutVersionNestedInput
+    conflits?: ConflitUncheckedUpdateManyWithoutVersionNestedInput
+    editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
+    verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
+    avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -123152,6 +125427,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -123172,6 +125448,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -123445,6 +125722,21 @@ export namespace Prisma {
     creePar: string
     creeLe?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type GenerationCreateManySemestreInput = {
+    id?: string
+    versionId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
   }
 
   export type GroupeUpdateWithoutSemestreInput = {
@@ -123791,6 +126083,7 @@ export namespace Prisma {
     editLock?: EditLockUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateWithoutSemestreInput = {
@@ -123807,6 +126100,7 @@ export namespace Prisma {
     editLock?: EditLockUncheckedUpdateOneWithoutVersionNestedInput
     verrous?: VerrouSeanceUncheckedUpdateManyWithoutVersionNestedInput
     avertissementsAcceptes?: AvertissementAccepteUncheckedUpdateManyWithoutVersionNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutVersionNestedInput
   }
 
   export type VersionEdtUncheckedUpdateManyWithoutSemestreInput = {
@@ -123872,6 +126166,51 @@ export namespace Prisma {
     creePar?: StringFieldUpdateOperationsInput | string
     creeLe?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GenerationUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
+  }
+
+  export type GenerationUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GenerationUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CreneauAffichageCreateManyCreneauInput = {
@@ -124146,6 +126485,21 @@ export namespace Prisma {
     caduqueLe?: Date | string | null
   }
 
+  export type GenerationCreateManyVersionInput = {
+    id?: string
+    semestreId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+  }
+
   export type SeanceUpdateWithoutVersionInput = {
     id?: StringFieldUpdateOperationsInput | string
     affectationKey?: StringFieldUpdateOperationsInput | string
@@ -124360,6 +126714,51 @@ export namespace Prisma {
     acceptePar?: StringFieldUpdateOperationsInput | string
     accepteLe?: DateTimeFieldUpdateOperationsInput | Date | string
     caduqueLe?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GenerationUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
+  }
+
+  export type GenerationUncheckedUpdateWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type GenerationUncheckedUpdateManyWithoutVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type FormationCreateManyDepartementInput = {

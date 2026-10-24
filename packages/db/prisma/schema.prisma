@@ -171,6 +171,23 @@ enum TraductionFET {
   APPLICATION_ONLY
 }
 
+// Statut d'une génération d'emploi du temps — L4-07
+enum GenerationStatut {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  SUCCEEDED_WITH_WARNINGS
+  FAILED
+  CANCELLED
+  TIMED_OUT
+}
+
+// Mode de génération — L4-07
+enum GenerationMode {
+  AUTOMATIQUE
+  MANUELLE
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -573,6 +590,7 @@ model Semestre {
   versions             VersionEdt[]
   groupesCovoiturage   GroupeCovoiturage[]
   exigencesSalle       ExigenceSalleActivite[]
+  generations          Generation[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -746,6 +764,7 @@ model VersionEdt {
   editLock                        EditLock?
   verrous                         VerrouSeance[]
   avertissementsAcceptes          AvertissementAccepte[]
+  generations                     Generation[]
 
   @@index([semestreId])
   @@index([statut])
@@ -1621,4 +1640,30 @@ model ExigenceSalleAutorisee {
   @@id([exigenceId, salleId])
   @@index([salleId])
   @@map("exigences_salle_autorisee")
+}
+
+// ============================================
+// Génération d'emploi du temps — L4-07
+// ============================================
+
+model Generation {
+  id            String           @id @default(uuid()) @db.Uuid
+  semestreId    String           @db.Uuid
+  versionId     String           @db.Uuid
+  auteurId      String           @db.Uuid
+  statut        GenerationStatut @default(QUEUED)
+  mode          GenerationMode   @default(AUTOMATIQUE)
+  engine        String           @default("fet")
+  engineVersion String?
+  erreur        String?
+  cancelRequested Boolean      @default(false)
+  queuedAt      DateTime         @default(now())
+  startedAt     DateTime?
+  finishedAt    DateTime?
+
+  semestre Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  version  VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+
+  @@index([semestreId, statut])
+  @@map("generations")
 }

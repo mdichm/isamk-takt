@@ -845,6 +845,22 @@ exports.Prisma.ExigenceSalleAutoriseeScalarFieldEnum = {
   salleId: 'salleId'
 };
 
+exports.Prisma.GenerationScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  versionId: 'versionId',
+  auteurId: 'auteurId',
+  statut: 'statut',
+  mode: 'mode',
+  engine: 'engine',
+  engineVersion: 'engineVersion',
+  erreur: 'erreur',
+  cancelRequested: 'cancelRequested',
+  queuedAt: 'queuedAt',
+  startedAt: 'startedAt',
+  finishedAt: 'finishedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1096,6 +1112,21 @@ exports.ConflitSeverite = exports.$Enums.ConflitSeverite = {
   INFORMATION: 'INFORMATION'
 };
 
+exports.GenerationStatut = exports.$Enums.GenerationStatut = {
+  QUEUED: 'QUEUED',
+  RUNNING: 'RUNNING',
+  SUCCEEDED: 'SUCCEEDED',
+  SUCCEEDED_WITH_WARNINGS: 'SUCCEEDED_WITH_WARNINGS',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED',
+  TIMED_OUT: 'TIMED_OUT'
+};
+
+exports.GenerationMode = exports.$Enums.GenerationMode = {
+  AUTOMATIQUE: 'AUTOMATIQUE',
+  MANUELLE: 'MANUELLE'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   UserSystemRole: 'UserSystemRole',
@@ -1162,7 +1193,8 @@ exports.Prisma.ModelName = {
   AvertissementAccepte: 'AvertissementAccepte',
   GroupeCovoiturage: 'GroupeCovoiturage',
   ExigenceSalleActivite: 'ExigenceSalleActivite',
-  ExigenceSalleAutorisee: 'ExigenceSalleAutorisee'
+  ExigenceSalleAutorisee: 'ExigenceSalleAutorisee',
+  Generation: 'Generation'
 };
 
 /**

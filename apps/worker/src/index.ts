@@ -20,6 +20,8 @@ import {
 import {
   OTLPTraceExporter,
 } from '@opentelemetry/exporter-trace-otlp-grpc';
+import { handleGenerationJob } from './jobs/generation.job.js';
+import { startOrphanRecoveryScan } from './services/orphan-recovery.service.js';
 
 // ---------------------------------------------------------------------------
 // Initialisation OpenTelemetry (traces uniquement)
@@ -52,45 +54,20 @@ process.on('SIGTERM', async () => {
 
 const boss = new PgBoss(process.env.DATABASE_URL || '');
 
+// Fonctions d'arrêt pour les services de fond
+let stopOrphanScan: (() => void) | undefined;
+
 async function start() {
   await boss.start();
   console.log('Worker started, listening for jobs...');
 
-  // Generation queue
+  // Démarrage du scan des jobs orphelins (reprise idempotente)
+  stopOrphanScan = startOrphanRecoveryScan();
+
+  // Generation queue — consommateur idempotent avec claim et guard par semestre
   await boss.work('generation', { localConcurrency: 1 }, async (jobs: Job[]) => {
     for (const job of jobs) {
-      // Propager le contexte de trace depuis les headers du job (si envoyés par l'API)
-      const parentCtx = propagation.extract(context.active(), {
-        'traceparent': (job.data as Record<string, unknown> | undefined)?.traceparent as string | undefined,
-        'tracestate': (job.data as Record<string, unknown> | undefined)?.tracestate as string | undefined,
-      });
-
-      const tracer = trace.getTracer('takt-worker');
-      const span = tracer.startSpan('worker.job.generation', {
-        attributes: {
-          'job.id': job.id,
-          'job.queue': 'generation',
-        },
-      }, parentCtx);
-
-      try {
-        console.log(`Processing generation job: ${job.id}`);
-        // TODO: Implement FET generation logic
-        // 1. Fetch generation data from DB
-        // 2. Build FET XML using @takt/engine-fet
-        // 3. Run FET binary (fet-cl)
-        // 4. Parse results and store back to DB
-
-        span.setStatus({ code: SpanStatusCode.OK });
-      } catch (err) {
-        span.setStatus({
-          code: SpanStatusCode.ERROR,
-          message: err instanceof Error ? err.message : 'Unknown error',
-        });
-        throw err;
-      } finally {
-        span.end();
-      }
+      await handleGenerationJob(job);
     }
   });
 
@@ -165,6 +142,7 @@ async function start() {
   // Graceful shutdown
   process.on('SIGTERM', async () => {
     console.log('SIGTERM received, stopping worker...');
+    if (stopOrphanScan) stopOrphanScan();
     await boss.stop();
     await prisma.$disconnect();
     process.exit(0);
