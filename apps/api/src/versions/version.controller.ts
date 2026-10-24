@@ -17,8 +17,11 @@ import { VersionResponseDto } from './dto/version-response.dto.js';
 import { CompletudeResponseDto } from './dto/completude-response.dto.js';
 import { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
+import type { CreateGenerationDto } from './dto/create-generation.dto.js';
+import { GenerationResponseDto } from './dto/generation-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
+import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 
 // ============================================
 // Version (L3-09)
@@ -125,5 +128,44 @@ export class VersionController {
   @ApiResponse({ status: 404, description: 'Version introuvable' })
   async perimetre(@Param('id') id: string): Promise<PerimetreResponseDto> {
     return this.service.getPerimetre(id);
+  }
+
+  @Post(':id/generations')
+  @HttpCode(HttpStatus.ACCEPTED)
+  @Permissions('generation:launch')
+  @ApiOperation({
+    summary: 'Lancer une génération d emploi du temps',
+    description:
+      "Lance une génération en statut QUEUED après pré-validation synchrone (préparation, verrous, contraintes, empreinte du périmètre). Retourne 202 ACCEPTED.",
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version (UUID)' })
+  @ApiResponse({
+    status: 202,
+    description: 'Génération créée et mise en file d attente',
+    type: GenerationResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  @ApiResponse({
+    status: 409,
+    description:
+      "L'empreinte du périmètre ne correspond plus aux données actuelles (PERIMETER_CHANGED) ou une génération est déjà en cours (GENERATION_ALREADY_RUNNING)",
+  })
+  @ApiResponse({
+    status: 422,
+    description:
+      'Préparation non conforme (PREPARATION_BLOCKED), verrou incompatible (LOCK_INCOMPATIBLE) ou contraintes non traduites sans acquittement (UNTRANSLATED_CONSTRAINTS_UNACKNOWLEDGED)',
+  })
+  @ApiResponse({
+    status: 423,
+    description:
+      'Version immuable (VERSION_IMMUTABLE) ou bail d edition détenu (EDIT_LOCK_HELD)',
+  })
+  async createGeneration(
+    @Param('id') id: string,
+    @Body() dto: CreateGenerationDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<GenerationResponseDto> {
+    return this.service.createGeneration(id, dto, currentUser.id);
   }
 }
