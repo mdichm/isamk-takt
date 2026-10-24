@@ -885,6 +885,26 @@ export const messages = {
   columnFetSupport: 'Support FET',
   columnActif: 'Actif',
 
+  // Rapport de traduction FET (L4-06)
+  statutTraduite: 'Traduit',
+  statutPartielle: 'Partiel',
+  statutNonTraduite: 'Non traduit',
+  errorLoadFetMapping: 'Impossible de charger le rapport de traduction',
+  loadingFetMapping: 'Chargement du rapport de traduction',
+  noContraintesActives: 'Aucune contrainte active pour ce semestre',
+  statTraduite: 'Traduit',
+  statPartielle: 'Partiel',
+  statNonTraduite: 'Non traduit',
+  colRegle: 'Règle',
+  colStatut: 'Statut',
+  colRaison: 'Raison',
+  colControlee: 'Appli.',
+  raisonControleeApplication: 'Contrôlée par l\'application',
+  raisonTraduitFichier: 'Traduit dans le fichier FET',
+  oui: 'Oui',
+  non: 'Non',
+  semestreSelectionRequired: 'Sélectionnez un semestre pour afficher le rapport de traduction FET.',
+
   // Vue annuelle des charges (L2-19)
   chargesAnnueles: 'Charges annuelles',
   chargeGlobale: 'Charge globale',
