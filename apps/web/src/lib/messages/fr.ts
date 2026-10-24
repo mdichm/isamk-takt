@@ -1068,6 +1068,58 @@ export const messages = {
   loadingGroupes: 'Chargement des groupes…',
   errorCovoiturageForbidden:
     'Accès réservé à l’Administrateur et au Gestionnaire.',
+
+  // Exigences de salle (L3-44)
+  entityExigenceSalle: 'exigence de salle',
+  exigencesSalle: 'Exigences de salle',
+  exigencesSalleSubtitle:
+    'Salle imposée ou liste de salles autorisées par activité et semestre.',
+  exigencesSalleDesc:
+    'Choisissez une salle imposée ou une liste de salles autorisées depuis une affectation ou une séance.',
+  createExigenceSalle: 'Créer une exigence de salle',
+  editExigenceSalle: 'Modifier l’exigence de salle',
+  deleteExigenceSalle: 'Supprimer l’exigence de salle',
+  noExigencesSalle: 'Aucune exigence de salle pour ce semestre.',
+  deleteExigenceSalleConfirm:
+    'Supprimer cette exigence de salle ? Cette action est irréversible.',
+  createExigenceSalleDesc:
+    'Définissez une salle imposée ou une liste de salles autorisées pour une activité.',
+  editExigenceSalleDesc: 'Modifiez l’exigence de salle sélectionnée.',
+
+  // Colonnes spécifiques exigences de salle
+  columnAffectationKey: 'Affectation',
+  columnSalleImposee: 'Salle imposée',
+  columnSallesAutorisees: 'Salles autorisées',
+  columnIncompatibles: 'Incompatibles',
+
+  // Formulaire exigence de salle
+  formAffectationKey: "Clé d'affectation",
+  formSalleImposee: 'Salle imposée',
+  formSallesAutorisees: 'Salles autorisées',
+  formSalleImposeePlaceholder: 'Sélectionner une salle',
+  formSallesAutoriseesPlaceholder: 'Sélectionner une ou plusieurs salles',
+  labelCapacite: 'Capacité',
+  labelSalleIncompatible: 'Salle incompatible',
+  labelLectureSeule: 'Lecture seule',
+  infoLectureSeule:
+    'Vous consultez les exigences de salle en lecture seule (Responsable de département).',
+  aucuneSalleDisponible: 'Aucune salle disponible.',
+  salleIncompatibleCapacite:
+    'Cette salle est incompatible (capacité ou tags) pour cette activité.',
+  aucuneContrainte: 'Aucune contrainte de salle.',
+  uneSeuleSalleImposee: 'Une seule salle peut être imposée.',
+  auMoinsUneSalleAutorisee:
+    'Sélectionnez au moins une salle autorisée ou une salle imposée.',
+
+  // Messages de succès / erreur
+  successExigenceSalleCreated: 'Exigence de salle créée avec succès.',
+  successExigenceSalleUpdated: 'Exigence de salle mise à jour avec succès.',
+  successExigenceSalleDeleted: 'Exigence de salle supprimée.',
+  errorLoadExigencesSalle: 'Impossible de charger les exigences de salle.',
+  errorCreateExigenceSalle: 'Impossible de créer l’exigence de salle.',
+  errorUpdateExigenceSalle: 'Impossible de mettre à jour l’exigence de salle.',
+  errorDeleteExigenceSalle: 'Impossible de supprimer l’exigence de salle.',
+  errorExigenceSalleNotFound: 'Exigence de salle introuvable.',
 } as const;
 
 export type Messages = typeof messages;
