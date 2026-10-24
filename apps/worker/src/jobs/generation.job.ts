@@ -19,7 +19,27 @@ import { handleDeadLetter, isDeadLetter } from '../services/dead-letter.service.
 import { FetAdapter } from '@takt/engine-fet';
 import type { EngineRunOptions, EngineRawResult, EngineFile } from '@takt/contracts';
 import { importGenerationResult } from '../services/fet-result-import.service.js';
-import { randomBytes } from 'crypto';
+import { randomBytes, createHash } from 'crypto';
+import { mkdtemp, mkdir, rm, writeFile, rename } from 'fs/promises';
+import { join } from 'path';
+import { tmpdir } from 'os';
+
+// Données attendues dans le job pg-boss pour une génération
+interface GenerationJobData {
+  generationId: string;
+  semestreId: string;
+  traceparent?: string;
+  tracestate?: string;
+}
+
+// Répertoire de stockage des fichiers moteurs (.fet) sur le worker
+const ENGINE_FILE_STORAGE_DIR = process.env.ENGINE_FILE_STORAGE_DIR ?? join(tmpdir(), 'takt-engine-files');
+
+// Intervalle d'écriture du fichier sigwrite et de mise à jour des métriques (ms)
+const SIGWRITE_INTERVAL_MS = 30_000;
+
+// Nombre d'activités totales attendu (mis à jour après buildProfile)
+let totalActivitiesExpected = 0;
 
 // Données attendues dans le job pg-boss pour une génération
 interface GenerationJobData {
@@ -200,9 +220,30 @@ export async function handleGenerationJob(job: Job): Promise<void> {
     // Construire le fichier moteur (buildProfile)
     const engineFile = await fetAdapter.buildProfile(engineInput);
 
-    // Archiver le fichier moteur et enregistrer sa version
-    await updateGenerationStatus(generationId, {
-      engineVersion: engineFile.engineVersion,
+    // Nombre total d'activités attendues (pour le suivi de progression)
+    totalActivitiesExpected = engineInput.activities.length;
+
+    // ------------------------------------------------------------------
+    // Archiver le fichier moteur (.fet) sur le worker + enregistrement FichierMoteur
+    // ------------------------------------------------------------------
+    await mkdir(ENGINE_FILE_STORAGE_DIR, { recursive: true });
+    const sha256 = createHash('sha256').update(engineFile.payload).digest('hex');
+    const storageFileName = `${generationId}.fet`;
+    const storageFilePath = join(ENGINE_FILE_STORAGE_DIR, storageFileName);
+    // Écrire dans un fichier temporaire puis renommer (écriture atomique)
+    const tmpFilePath = storageFilePath + `.tmp.${Date.now()}`;
+    await writeFile(tmpFilePath, engineFile.payload);
+    await rename(tmpFilePath, storageFilePath);
+
+    await prisma.fichierMoteur.create({
+      data: {
+        generationId,
+        sha256,
+        engineVersion: engineFile.engineVersion,
+        builderVersion: engineFile.builderVersion,
+        filePath: storageFilePath,
+        mappingReport: engineFile.mappingReport as unknown as Prisma.InputJsonValue | undefined,
+      },
     });
 
     // Préparer les options d'exécution
@@ -223,8 +264,25 @@ export async function handleGenerationJob(job: Job): Promise<void> {
     // Créer un AbortSignal lié à la demande d'annulation
     const abortController = new AbortController();
 
-    // Surveiller cancelRequested pendant l'exécution (polling toutes les 2s)
+    // Surveiller cancelRequested et écrire sigwrite + métriques de progression (polling toutes les 2s)
+    let sigwriteCounter = 0;
+    const startTime = Date.now();
     const cancelPoll = setInterval(async () => {
+      // Écrire sigwrite à intervalle régulier (30s) pour signaler que le worker est vivant
+      sigwriteCounter += 2;
+      if (sigwriteCounter >= SIGWRITE_INTERVAL_MS / 2000) {
+        sigwriteCounter = 0;
+        try {
+          await writeFile(
+            join(ENGINE_FILE_STORAGE_DIR, `sigwrite-${generationId}`),
+            `${Date.now()}\n`,
+          );
+        } catch {
+          // Ignorer les erreurs d'écriture sigwrite
+        }
+      }
+
+      // Vérifier l'annulation
       const fresh = await prisma.generation.findUnique({
         where: { id: generationId },
         select: { cancelRequested: true },
@@ -232,6 +290,17 @@ export async function handleGenerationJob(job: Job): Promise<void> {
       if (fresh?.cancelRequested && !abortController.signal.aborted) {
         abortController.abort();
       }
+
+      // Mettre à jour les métriques de progression (phase + elapsedSeconds)
+      const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+      await updateGenerationStatus(generationId, {
+        metrics: {
+          phase: 'RUNNING',
+          elapsedSeconds,
+          placed: null,
+          total: totalActivitiesExpected,
+        } as Prisma.InputJsonValue,
+      });
     }, 2000);
 
     try {
@@ -247,6 +316,19 @@ export async function handleGenerationJob(job: Job): Promise<void> {
         semestreId,
         { exitCode: rawResult.exitCode, resultText: rawResult.resultText, durationMs: rawResult.durationMs },
       );
+
+      // Métriques finales : compter les activités placées
+      const placedCount = engineSolution.placedActivities.length;
+      const totalCount = engineSolution.unplacedActivities.length + placedCount;
+      const elapsedSeconds = Math.floor((Date.now() - startTime) / 1000);
+      await updateGenerationStatus(generationId, {
+        metrics: {
+          phase: 'DONE',
+          elapsedSeconds,
+          placed: placedCount,
+          total: totalCount,
+        } as Prisma.InputJsonValue,
+      });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erreur inconnue lors de l\'exécution FET';
       await updateGenerationStatus(generationId, {
@@ -299,6 +381,12 @@ export async function handleGenerationJob(job: Job): Promise<void> {
   } finally {
     if (lockRenewalStop) {
       lockRenewalStop();
+    }
+    // Nettoyer le fichier sigwrite de cette génération
+    try {
+      await rm(join(ENGINE_FILE_STORAGE_DIR, `sigwrite-${generationId}`), { force: true });
+    } catch {
+      // Ignorer
     }
     span.end();
   }

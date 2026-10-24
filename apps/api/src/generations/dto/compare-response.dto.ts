@@ -15,6 +15,24 @@ export class GenerationSummaryDto {
   })
   id: string;
 
+  @ApiProperty({
+    description: 'Identifiant de la version',
+    example: '550e8400-e29b-41d4-a716-446655440001',
+  })
+  versionId: string;
+
+  @ApiProperty({
+    description: 'Nom de la version',
+    example: 'Version automne 2026',
+  })
+  versionNom: string;
+
+  @ApiProperty({
+    description: 'Statut de la génération',
+    example: 'SUCCEEDED',
+  })
+  statut: string;
+
   @ApiPropertyOptional({
     description: 'Score global de la génération (0-100)',
     example: 87.5,
@@ -22,11 +40,18 @@ export class GenerationSummaryDto {
   })
   score?: number;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'La génération est classée (état SUCCEEDED avec score)',
     example: true,
   })
-  classee: boolean;
+  classee?: boolean;
+
+  @ApiPropertyOptional({
+    description: 'Classement de la génération',
+    example: 1,
+    type: Number,
+  })
+  classement?: number;
 
   @ApiPropertyOptional({
     description: 'Métriques calculées par GenerationMetricsService (L4-17)',
