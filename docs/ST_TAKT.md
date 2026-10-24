@@ -25,7 +25,7 @@
 | Frontend | Next.js 15 (App Router), TypeScript strict, React Query, dnd-kit (grille d'édition), Tailwind + shadcn/ui, i18n (textes externalisés), interface en français uniquement, polices auto-hébergées |
 | Backend | Node.js 24 LTS, NestJS 10+, monolithe modulaire, OpenAPI généré (`@nestjs/swagger`) |
 | Base de données | PostgreSQL 16, Prisma 8 (`@prisma/orm-postgres`) – contrat PSL 8 (`prisma/contract.prisma`), artefacts générés (`contract.json`/`contract.d.ts`), client ORM dans `@takt/db` ; migrations gérées par `prisma migration plan` / `db migrate` (graphes, refs) ; migrations SQL brutes uniquement pour les invariants non supportés par Prisma |
-| Moteur de planification | FET 7.11.1 (binaire `fet-cl`), isolé dans un worker conteneurisé, derrière un port `SchedulingEngine` |
+| Moteur de planification | FET 7.12.0 (binaire `fet-cl`), isolé dans un worker conteneurisé, derrière un port `SchedulingEngine` |
 | Asynchrone | File de jobs dans PostgreSQL (pg-boss) pour les générations, les exports et l'envoi d'e-mails ; SSE pour le suivi temps réel |
 | Hébergement | Sur site, réseau interne de l'ISAMK (1.8) : Nginx (reverse proxy, TLS), Docker Compose, PostgreSQL 16, stockage de fichiers local derrière un port `FileStore`, secrets en fichiers, Prometheus et Grafana |
 | Authentification | Locale : argon2id, JWT d'accès court + refresh rotatif, RBAC avec portée par département |

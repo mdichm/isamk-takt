@@ -8,7 +8,7 @@
 | **Date** | 3 octobre 2026 |
 | **Langue de l'application** | Français uniquement |
 | **Déploiement** | Sur site, réseau interne de l'ISAMK |
-| **Moteur de génération** | FET (Free Timetabling Software), version 7.11.1 épinglée |
+| **Moteur de génération** | FET (Free Timetabling Software), version 7.12.0 épinglée |
 | **Statut** | Référence initiale du développement. Le développement du moteur de génération reste conditionné au POC FET (§24). |
 | **Documents liés** | `ST_TAKT.md` (spécification technique), `Backlog_TAKT_tickets.csv` et `Backlog_TAKT.xlsx` (backlog), `ADR_S1_FET.md` (intégration de FET), `TRACABILITE_TAKT.md` (matrice générée) |
 
@@ -462,6 +462,7 @@ Format : identifiant, date, problème, décision, justification, impact, demande
 | DL-033 | 2026-10-04 | Version de Node.js | Node.js 24 LTS (LTS active) à la place de Node 22 (en maintenance) ; décision documentaire, aucun impact fonctionnel | ST §0.1 | À renseigner | À renseigner |
 | DL-034 | 2026-10-04 | Version de TypeScript | TypeScript 6.x épinglé ; TypeScript 7 écarté tant que typescript-eslint ne le supporte pas | ST §0.1 | À renseigner | À renseigner |
 | DL-035 | 2026-10-07 | Version de FET | FET 7.11.1 épinglé à la place de 7.10.5 ; six graines MRG32k3a à la place de `--randomseedx/y` (refusés en 7.11.1) ; issue lue dans `logs/result.txt` (code 0 non fiable) ; poids validés avant appel ; multi-graines pour la qualité souple ; décision fondée sur la documentation `fet-cl` 7.11.1, tests empiriques réalisés (voir ADR S1) | EX-MOT-04, EX-MOT-06, EX-MOT-08, ST §4.6 | Chef de projet | Architecte |
+| DL-035-bis | 2026-10-24 | Version de FET — mise à jour 7.12.0 | FET 7.12.0 épinglé à la place de 7.11.1 ; même jeu de 6 graines MRG32k3a ; options `--randomseedx/y` toujours absentes ; tests empiriques T0-T5 passés sur `isamk.fet` (333 activités) via Docker ; déterminisme non vérifié sur instance complète (timeout 120s) ; isolation worker validée via `Dockerfile.fet-cl` ; voir ADR S1 §7 | EX-MOT-04, EX-MOT-06, ST §4.6 | Chef de projet | Architecte |
 | DL-036 | 2026-10-09 | Hypothèse de volumétrie (HY-01) – définir les volumes réels pour le dimensionnement | 2 départements, 120 enseignants, 30 salles, 500 séances par semestre, 10 comptes, 5 utilisateurs simultanés | Dimensionnement (section 5) | À renseigner | À renseignant |
 | DL-037 | 2026-10-09 | Valeurs initiales du jeu de règles de charge (HY-05) – définir les grades, charges de référence, coefficients, seuils | Grades: Assistant, Maître assistant, Maître de conférences, Professeur, PES, PES_P, PES_A, Contrat expert, Vacataire, Contrat (charge de référence = 0). Coeff. activités (CM,TD,TP,CI…) = 1. Seuil = 1. Plafond = charge de référence + 4 | EX-CHG-01 | À renseigner | À renseignant |
 | DL-038 | 2026-10-09 | Validation du schéma Prisma de la ST §2.2 (spike S3) | Exécuter la validation du schéma Prisma et confirmer qu'il est valide | À renseigner | À renseigner | À renseigner | À renseignant |

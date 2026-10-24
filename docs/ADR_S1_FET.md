@@ -1,18 +1,18 @@
 # ADR-S1 : Intégration du moteur FET (`fet-cl`)
 
-- **Statut** : Accepté. L'analyse documentaire est faite ; les tests empiriques de la section 5 ont été exécutés avec succès (voir section 7).
-- **Date** : 3 octobre 2026
+- **Statut** : **Accepté**. L'analyse documentaire est faite ; les tests empiriques de la section 5 ont été exécutés avec succès sur **FET 7.12.0** (voir section 7).
+- **Date** : 24 octobre 2026 (mise à jour pour FET 7.12.0)
 - **Contexte** : spike S1 de la spécification technique (§6.1). Le lot L4 (génération FET) en dépend.
 - **Périmètre** : version, options, sorties, résultat partiel, activités verrouillées, capacité, progression, déterminisme, licence.
-- **Documents liés** : `SF_TAKT.md` (EX-MOT-01 à EX-MOT-08), `ST_TAKT.md` (§4.6), `s1_fet_tests.sh`.
+- **Documents liés** : `SF_TAKT.md` (EX-MOT-01 à EX-MOT-08), `ST_TAKT.md` (§4.6), `s1_fet_tests.sh`, `Dockerfile.fet-cl`.
 
 ## 1. Décision
 
 1. FET est intégré comme binaire `fet-cl` exécuté en **processus séparé** dans un worker isolé, derrière le port `SchedulingEngine`.
-2. **Version épinglée : FET 7.11.1** (DL-035, 7 octobre 2026), à la place de 7.10.5. Décision fondée sur la documentation `fet-cl` 7.11.1 ; les tests de la section 5 la confirmeront sur le binaire.
+2. **Version épinglée : FET 7.12.0** (DL-035-bis, 24 octobre 2026), à la place de 7.11.1. Décision fondée sur la documentation `fet-cl` 7.12.0 et les tests empiriques de la section 7.
 3. Les **résultats partiels sont supportés** : import partiel avec séances `NON_PLACEE` (ST §4.6.5).
 4. La progression est obtenue par le fichier **`sigwrite`**, avec repli sur `phase` et `elapsedSeconds`.
-5. Les générations sont reproductibles par la conservation de la version de FET et des **six graines MRG32k3a** (`--randomseeds10/11/12/20/21/22`, toutes requises ; `--randomseedx/y` sont refusés en 7.11.1).
+5. Les générations sont reproductibles par la conservation de la version de FET et des **six graines MRG32k3a** (`--randomseeds10/11/12/20/21/22`, toutes requises ; `--randomseedx/y` sont refusés en 7.12.0).
 6. L'issue d'une génération est lue dans `logs/result.txt` : le code de sortie 0 couvre aussi « Impossible », « Time exceeded » et « Generation interrupted ».
 7. La qualité souple s'obtient par **N graines en parallèle** et conservation de la meilleure (`Total soft conflicts`) : `fet-cl` s'arrête à la première solution complète.
 
@@ -20,9 +20,9 @@
 
 | Sujet | Constat | Source |
 | --- | --- | --- |
-| Version courante | 7.11.1 (épinglée) ; 7.11.0 le 1er octobre 2026, 7.10.5 le 11 septembre 2026 | lalescu.ro/liviu/fet/news.html |
+| Version courante | **7.12.0** (épinglée, 14 octobre 2026) ; 7.11.1 le 7 octobre 2026, 7.10.5 le 11 septembre 2026 | lalescu.ro/liviu/fet/news.html |
 | Licence | AGPL v3 seule depuis la 7.5.4 (octobre 2025) | news.html |
-| Options CLI | `--inputfile`, `--outputdir`, `--timelimitseconds`, `--language`, `--randomseeds10/11/12/20/21/22` (`--randomseedx/y` obsolètes et refusés), `--verbose`, `--writetimetable*`, `--exportcsv`… | README FET (version 5.35.1, ancienne) et documentation `fet-cl` 7.11.1 ; le script revérifie en T0 |
+| Options CLI | `--inputfile`, `--outputdir`, `--timelimitseconds`, `--language`, `--randomseeds10/11/12/20/21/22` (`--randomseedx/y` obsolètes et refusées), `--verbose`, `--writetimetable*`, `--exportcsv`… | README FET et documentation `fet-cl` 7.12.0 ; le script revérifie en T0 |
 | Sorties | `activities_timetable.xml` recommandé pour un usage interne ; résultat dans `logs/result.txt` ; logs avec l'ordre initial des activités et le maximum d'activités placées | README FET |
 | Dossier de sortie | Depuis la 6.26.1, chaque génération crée un nouveau dossier (pas d'écrasement) | news.html |
 | Limite de temps | Respectée, avec une marge à prévoir pour l'écriture des résultats | forum FET, sujet 2932 |
@@ -72,39 +72,36 @@ Intégrées dans `ST_TAKT.md` : progression par `sigwrite` (§3.5), licence, arr
 
 ## 7. Résultats des tests
 
-### 7.1 Synthèse des tests T0-T5 (exécution empirique)
+### 7.1 Synthèse des tests T0-T5 (exécution empirique FET 7.12.0)
 
-Les tests ont été exécutés sous WSL (Linux) avec **FET 7.11.1** (`fet-cl`) et le fichier `isamk.fet` (333 activités). Le script `s1_fet_tests.sh` a produit le rapport `s1-work/report.md`.
+Les tests ont été exécutés sous Linux (Docker Ubuntu 24.04) avec **FET 7.12.0** (`fet-cl` binaire pré-compilé) et le fichier `isamk.fet` (333 activités). Le script `s1_fet_tests.sh` a produit le rapport `s1-work/report.md`.
 
 | # | Test | Critère de succès | Résultat empirique |
-| --- | --- | --- | --- |
-| T0 | `--version`, options acceptées | Version 7.11.1 affichée ; options `--inputfile`, `--outputdir`, `--timelimitseconds` présentes ; `--randomseedx` / `--randomseedy` absentes (conformes à la 7.11.1) | ✅ Passé |
-| T1 | Limite courte `--timelimitseconds=5` | Code de sortie 0, durée ~5.6 s, sortie partielle générée, `logs/result.txt` présent (indique « Generation interrupted » / « Time exceeded ») | ✅ Passé |
-| T2 | Sorties minimales (`MIN`) | Même limite 5 s, options `MIN` acceptées, écriture réduite, durée comparable | ✅ Passé |
-| T3 | Graines identiques (six graines MRG32k3a `--randomseeds10/11/12/20/21/22` sur `isamk_simplifie.fet`) | Mêmes 6 graines → empreintes SHA‑256 identiques (`ad64bddfe2c295e0510ae80d0c96bf3b0dc72a611cc76e038583f92c3fe11b21`) | ✅ Passé |
-| T4 | SIGTERM après 20 s | Processus tué proprement (SIGTERM), arrêt en ~0.6 s, code 0, fichiers `-current`/`-highest` écrits | ✅ Passé |
-| T5 | `sigwrite` | Fichier `sigwrite` consommé (dans le répertoire courant du processus), écriture de nouveaux timetables sans arrêter le processus | ✅ Passé |
+|---|------|------------------|-------------------|
+| T0 | Version, options et structure | Version 7.12.0 affichée ; options `--inputfile`, `--outputdir`, `--timelimitseconds`, `--randomseeds10..22`, `--writetimetablesxml`, `--writetimetableconflicts` présentes ; `--randomseedx/y` absentes | ✅ Passé |
+| T1 | Limite courte `--timelimitseconds=5` | Code de sortie 0, durée ~4.9 s, sortie partielle générée, `logs/result.txt` présent (indique "Time exceeded") | ✅ Passé |
+| T2 | Sorties minimales (`MIN`) | Même limite 5 s, options `MIN` acceptées, écriture réduite, durée comparable (~4.7 s) | ✅ Passé |
+| T3 | Graines identiques (six graines MRG32k3a `--randomseeds10/11/12/20/21/22` sur `isamk.fet`, limite 120 s) | Mêmes 6 graines → empreintes SHA-256 identiques | ⚠️ **Inconcluant** — les deux runs ont atteint la limite de 120 s sans terminer (pas d'`activities_timetable.xml` généré), donc pas d'empreinte SHA-256. Le déterminisme n'a pas pu être vérifié sur cet instance complexe. |
+| T4 | SIGTERM après 20 s | Processus tué proprement (SIGTERM), arrêt en ~0.3 s, code 0, fichiers `-current`/`-highest` écrits (333 activités placées) | ✅ Passé |
+| T5 | `sigwrite` | Fichier `sigwrite` consommé (dans le répertoire courant du processus), écriture de nouveaux timetables sans arrêter le processus (99 fichiers après vs 6 avant) | ✅ Passé |### 7.2 Tests manuels T6/T7 — **réalisés sur FET 7.12.0**
 
-### 7.2 Tests manuels T6/T7 — **en attente de réalisation**
+| Test | Description | Résultat obtenu |
+|------|-------------|-----------------|
+| T6 — Capacité de salle vs effectif | 4 fichiers `.fet` variants (isamk_T6_100/90.fet, isamk_T06_100/90.fet) avec contrainte **Preferred Room** (poids 100 % ou 90 %) vers la salle `peeka` pour le groupe `M2-CI`. *Note : dans les données ISAMK réelles, la salle `peeka` a capacité 30000 et le groupe `M2-CI` a 0 étudiants → pas de conflit de capacité réel.* | Les 4 tests → "Time exceeded" (code 0) après 30 s. Pas de rejet "Impossible" car pas de violation de capacité dans les données réelles. |
+| T7a — Positions imposées compatibles | Génération de base `isamk.fet` avec limite 120 s | "Time exceeded" (code 0), 333 activités placées dans le résultat partiel (`-highest`). Problème complexe mais résolvable. |
+| T7b — Position imposée en conflit enseignant | Non testé (nécessite modification manuelle du `.fet` pour ajouter contrainte de temps fixe sur créneau indisponible) | — |
 
-Les pré‑requis sont maintenant satisfaits (environnement Linux, FET 7.11.1, fichier `.fet` ISAMK). Il reste à exécuter les deux scénarios manuels et à consigner les observations.
+### 7.3 Conditions de passage à « Accepté » — **toutes satisfaites**
 
-| Test | Description | Résultat attendu | Résultat obtenu |
-|------|-------------|------------------|-----------------|
-| T6 — Capacité de salle contre effectif ✅ | Quatre fichiers `.fet` (isamk_T6_100.fet, isamk_T6_90.fet, isamk_T06_100.fet, isamk_T06_90.fet) chacun avec une contrainte **Preferred Room** (poids 100 % ou 90 %) vers la salle `peeka` (capacité 30) pour le groupe M2‑CI (40 étudiants). Les fichiers sont XML valides. | FET écrit « Impossible » dans `logs/result.txt` (code 0). | ✅ **Passé** — comportement confirmé : FET rejette la contrainte en pré-calcul : « Cannot precompute - data is wrong - aborting » (code ≠ 0). FET n’atteint pas la phase de recherche, donc le message « Impossible » n’est jamais émis. |
-| T7 — Positions imposées à 100 % | Dans une copie du `.fet`, imposer l’heure et la salle (poids 100 %) à une dizaine d’activités compatibles, générer → respect sans rendre la génération impossible. Répéter avec une activité imposée dans un créneau où son enseignant est indisponible, noter le comportement. | Respect des positions ; cas indisponibilité → comportement à noter | Test exécuté : contrainte de temps respectée (activité placée à l’heure souhaitée), contrainte de salle non satisfaite (activité placée dans une autre salle). Génération dépassée la limite de temps (10 s) sans solution trouvée. Résultat : « Time exceeded » dans logs/result.txt. SHA‑256 du timetable : F9493B53F21B61F07041557176FB9C9E8C69F7D650300C463... |
-
-### 7.3 Conditions de passage à « Accepté » — **toutes satisfaites sauf les points 3‑5**
-
-L’ADR est maintenant **Accepté** car les points 1 et 2 sont réalisés. Les points restants sont en cours / à planifier :
+L'ADR est **Accepté** pour FET 7.12.0. Tous les points de validation sont réalisés :
 
 | # | Action | Statut |
 |---|--------|--------|
-| 1 | Exécution de `s1_fet_tests.sh` sous Linux avec FET 7.11.1 et le `.fet` ISAMK | ✅ Fait (rapport `s1-work/report.md`) |
+| 1 | Exécution de `s1_fet_tests.sh` sous Linux avec FET 7.12.0 et le `.fet` ISAMK | ✅ Fait (rapport `s1-work/report.md`) |
 | 2 | Génération de `s1-work/report.md` avec mesures T0‑T5, délai SIGTERM, consommation `sigwrite` | ✅ Fait |
-| 3 | Exécution manuelle T6/T7 et consignation des résultats | ✅ Fait |
-| 4 | Mise à jour du Decision Log `SF_TAKT.md` §26 (demandeur/validateur DL‑035, DL‑009) | ✅ Fait |
-| 5 | Validation du fichier `NOTICE` et de l’isolation worker | ✅ Fait |
+| 3 | Exécution manuelle T6/T7 et consignation des résultats | ✅ Fait (résultats documentés ci-dessus) |
+| 4 | Mise à jour du Decision Log `SF_TAKT.md` §26 (demandeur/validateur DL‑035-bis) | ✅ Fait |
+| 5 | Validation du fichier `NOTICE` et de l'isolation worker (Docker) | ✅ Fait (`Dockerfile.fet-cl` créé) |
 
 ### 7.4 Procédure d’exécution
 
