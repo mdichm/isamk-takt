@@ -24,16 +24,22 @@ describe('ImportsService', () => {
     vi.clearAllMocks();
 
     prisma = {
-      enseignant: { findFirst: vi.fn(), create: vi.fn() },
-      salle: { findFirst: vi.fn(), create: vi.fn() },
+      enseignant: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
+      salle: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
       groupe: { findFirst: vi.fn(), create: vi.fn() },
-      module: { findFirst: vi.fn(), create: vi.fn() },
+      module: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
       annee: { findUnique: vi.fn() },
       departement: { findUnique: vi.fn() },
       niveau: { findUnique: vi.fn() },
       typeEnseignement: { findUnique: vi.fn() },
       semestre: { findUnique: vi.fn() },
       affectation: { findMany: vi.fn() },
+      indisponibilite: { findFirst: vi.fn(), create: vi.fn() },
+      enseignantModule: { findFirst: vi.fn(), create: vi.fn() },
+      contrainteInstance: { findFirst: vi.fn(), create: vi.fn() },
+      contrainteDefinition: { findUnique: vi.fn() },
+      groupeCovoiturage: { findFirst: vi.fn(), create: vi.fn() },
+      repartition: { findMany: vi.fn() },
     };
 
     audit = {
@@ -157,6 +163,61 @@ describe('ImportsService', () => {
 
       expect((result as any).resume.erreur).toBeGreaterThan(0);
     });
+
+    it('devrait générer un aperçu pour les indisponibilités en dryRun', async () => {
+      prisma.semestre.findUnique.mockResolvedValue({ id: 'sem-id' });
+      const csv = `semestreId,jour,ordre\nsem-id,LUNDI,1\n`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.INDISPONIBILITES, dto, file, userId);
+
+      expect((result as any).entite).toBe('indisponibilites');
+      expect((result as any).resume.ajout).toBe(1);
+      expect((result as any).resume.erreur).toBe(0);
+    });
+
+    it('devrait générer un aperçu pour les vœux en dryRun', async () => {
+      prisma.semestre.findUnique.mockResolvedValue({ id: 'sem-id' });
+      prisma.enseignant.findUnique.mockResolvedValue({ id: 'ens-id' });
+      prisma.module.findUnique.mockResolvedValue({ id: 'mod-id' });
+      const csv = `semestreId,enseignantId,moduleId,priorite\nsem-id,ens-id,mod-id,1\n`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.VOEUX, dto, file, userId);
+
+      expect((result as any).entite).toBe('voeux');
+      expect((result as any).resume.ajout).toBe(1);
+      expect((result as any).resume.erreur).toBe(0);
+    });
+
+    it('devrait générer un aperçu pour les contraintes en dryRun', async () => {
+      prisma.semestre.findUnique.mockResolvedValue({ id: 'sem-id' });
+      prisma.contrainteDefinition.findUnique.mockResolvedValue({ id: 'def-id' });
+      const csv = `semestreId,definitionId\nsem-id,def-id\n`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.CONTRAINTES, dto, file, userId);
+
+      expect((result as any).entite).toBe('contraintes');
+      expect((result as any).resume.ajout).toBe(1);
+      expect((result as any).resume.erreur).toBe(0);
+    });
+
+    it('devrait générer un aperçu pour le covoiturage en dryRun', async () => {
+      prisma.semestre.findUnique.mockResolvedValue({ id: 'sem-id' });
+      const csv = `semestreId,margeMinutes,joursCommunsMin\nsem-id,60,2\n`;
+      const file = makeFile(Buffer.from(csv), 'test.csv');
+      const dto: ImportCsvDto = { dryRun: true };
+
+      const result = await service.importCsv(ImportEntity.COVOITURAGE, dto, file, userId);
+
+      expect((result as any).entite).toBe('covoiturage');
+      expect((result as any).resume.ajout).toBe(1);
+      expect((result as any).resume.erreur).toBe(0);
+    });
   });
 
   describe('applyImport (confirmation)', () => {
@@ -229,6 +290,66 @@ M001,Doe,doe@example.com,${departementId},${anneeId}`;
       const items = (service as any).validateModule({ code: 'INFO301', semestreNumero: '3' }, 2);
       const erreur = items.find((i: any) => i.action === 'erreur');
       expect(erreur.colonne).toBe('semestreNumero');
+    });
+
+    it('devrait rejeter une indisponibilité sans semestreId', () => {
+      const items = (service as any).validateIndisponibilite({ jour: 'LUNDI', ordre: '1' }, 2);
+      const erreur = items.find((i: any) => i.action === 'erreur');
+      expect(erreur.colonne).toBe('semestreId');
+    });
+
+    it('devrait rejeter une indisponibilité sans jour', () => {
+      const items = (service as any).validateIndisponibilite({ semestreId: 'sem-id', ordre: '1' }, 2);
+      const erreur = items.find((i: any) => i.action === 'erreur');
+      expect(erreur.colonne).toBe('jour');
+    });
+
+    it('devrait rejeter un vœux sans enseignantId', () => {
+      const items = (service as any).validateVoeux({ semestreId: 'sem-id', moduleId: 'mod-id' }, 2);
+      const erreur = items.find((i: any) => i.action === 'erreur');
+      expect(erreur.colonne).toBe('enseignantId');
+    });
+
+    it('devrait rejeter un vœux sans moduleId', () => {
+      const items = (service as any).validateVoeux({ semestreId: 'sem-id', enseignantId: 'ens-id' }, 2);
+      const erreur = items.find((i: any) => i.action === 'erreur');
+      expect(erreur.colonne).toBe('moduleId');
+    });
+
+    it('devrait rejeter une contrainte sans definitionId', () => {
+      const items = (service as any).validateContrainte({ semestreId: 'sem-id' }, 2);
+      const erreur = items.find((i: any) => i.action === 'erreur');
+      expect(erreur.colonne).toBe('definitionId');
+    });
+
+    it('devrait accepter un vœux valide', () => {
+      const items = (service as any).validateVoeux({ semestreId: 'sem-id', enseignantId: 'ens-id', moduleId: 'mod-id' }, 2);
+      const ajout = items.find((i: any) => i.action === 'ajout');
+      expect(ajout).toBeDefined();
+    });
+
+    it('devrait accepter une contrainte valide', () => {
+      const items = (service as any).validateContrainte({ semestreId: 'sem-id', definitionId: 'def-id' }, 2);
+      const ajout = items.find((i: any) => i.action === 'ajout');
+      expect(ajout).toBeDefined();
+    });
+
+    it('devrait accepter une indisponibilité valide', () => {
+      const items = (service as any).validateIndisponibilite({ semestreId: 'sem-id', jour: 'LUNDI', ordre: '1' }, 2);
+      const ajout = items.find((i: any) => i.action === 'ajout');
+      expect(ajout).toBeDefined();
+    });
+
+    it('devrait accepter un covoiturage valide', () => {
+      const items = (service as any).validateCovoiturage({ semestreId: 'sem-id' }, 2);
+      const ajout = items.find((i: any) => i.action === 'ajout');
+      expect(ajout).toBeDefined();
+    });
+
+    it('devrait rejeter un covoiturage sans semestreId', () => {
+      const items = (service as any).validateCovoiturage({}, 2);
+      const erreur = items.find((i: any) => i.action === 'erreur');
+      expect(erreur.colonne).toBe('semestreId');
     });
   });
 

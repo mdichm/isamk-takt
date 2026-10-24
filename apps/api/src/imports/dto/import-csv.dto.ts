@@ -13,6 +13,10 @@ export const ImportEntity = {
   SALLES: 'salles',
   GROUPES: 'groupes',
   MODULES: 'modules',
+  INDISPONIBILITES: 'indisponibilites',
+  VOEUX: 'voeux',
+  CONTRAINTES: 'contraintes',
+  COVOITURAGE: 'covoiturage',
 } as const;
 
 export type ImportEntity = (typeof ImportEntity)[keyof typeof ImportEntity];
@@ -22,6 +26,10 @@ export const ALL_IMPORT_ENTITIES: ImportEntity[] = [
   ImportEntity.SALLES,
   ImportEntity.GROUPES,
   ImportEntity.MODULES,
+  ImportEntity.INDISPONIBILITES,
+  ImportEntity.VOEUX,
+  ImportEntity.CONTRAINTES,
+  ImportEntity.COVOITURAGE,
 ];
 
 // Taille maximale d'un fichier d'import : 10 Mo
