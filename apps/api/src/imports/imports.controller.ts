@@ -42,7 +42,7 @@ export class ImportsController {
   @ApiOperation({
     summary: 'Importer des données depuis un fichier CSV ou XLSX',
     description:
-      'Entités supportées : enseignants, salles, groupes, modules. Avec dryRun=true (défaut), retourne un aperçu sans écriture. Avec confirmation=true, applique l’import de manière transactionnelle.',
+      "Entités supportées : enseignants, salles, groupes, modules, indisponibilites, voeux, contraintes, covoiturage. Avec dryRun=true (défaut), retourne un aperçu sans écriture. Avec confirmation=true, applique l'import de manière transactionnelle.",
   })
   @ApiConsumes('multipart/form-data')
   @ApiParam({

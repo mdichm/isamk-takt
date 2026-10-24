@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 import { WriteAuditDto } from '../audit/dto/audit.dto.js';
+import type { JourSemaine, ContrainteNature } from '@takt/db';
 
 import {
   ImportEntity,
@@ -277,6 +278,18 @@ export class ImportsService {
       case ImportEntity.MODULES:
         items.push(...this.validateModule(row, ligne));
         break;
+      case ImportEntity.INDISPONIBILITES:
+        items.push(...this.validateIndisponibilite(row, ligne));
+        break;
+      case ImportEntity.VOEUX:
+        items.push(...this.validateVoeux(row, ligne));
+        break;
+      case ImportEntity.CONTRAINTES:
+        items.push(...this.validateContrainte(row, ligne));
+        break;
+      case ImportEntity.COVOITURAGE:
+        items.push(...this.validateCovoiturage(row, ligne));
+        break;
     }
 
     return { items };
@@ -370,6 +383,121 @@ export class ImportsService {
             modele: 'TypeEnseignement',
             appel: () =>
               this.prisma.typeEnseignement.findUnique({ where: { id: typeId } }),
+          });
+        }
+        break;
+      }
+      case ImportEntity.INDISPONIBILITES: {
+        const semestreId = (row.semestreId ?? '').trim();
+        const enseignantId = (row.enseignantId ?? '').trim();
+        const salleId = (row.salleId ?? '').trim();
+        if (semestreId) {
+          verifications.push({
+            champ: 'semestreId',
+            valeur: semestreId,
+            modele: 'Semestre',
+            appel: () => this.prisma.semestre.findUnique({ where: { id: semestreId } }),
+          });
+        }
+        if (enseignantId) {
+          verifications.push({
+            champ: 'enseignantId',
+            valeur: enseignantId,
+            modele: 'Enseignant',
+            appel: () =>
+              this.prisma.enseignant.findUnique({ where: { id: enseignantId } }),
+          });
+        }
+        if (salleId) {
+          verifications.push({
+            champ: 'salleId',
+            valeur: salleId,
+            modele: 'Salle',
+            appel: () => this.prisma.salle.findUnique({ where: { id: salleId } }),
+          });
+        }
+        break;
+      }
+      case ImportEntity.VOEUX: {
+        const semestreId = (row.semestreId ?? '').trim();
+        const enseignantId = (row.enseignantId ?? '').trim();
+        const moduleId = (row.moduleId ?? '').trim();
+        if (semestreId) {
+          verifications.push({
+            champ: 'semestreId',
+            valeur: semestreId,
+            modele: 'Semestre',
+            appel: () => this.prisma.semestre.findUnique({ where: { id: semestreId } }),
+          });
+        }
+        if (enseignantId) {
+          verifications.push({
+            champ: 'enseignantId',
+            valeur: enseignantId,
+            modele: 'Enseignant',
+            appel: () =>
+              this.prisma.enseignant.findUnique({ where: { id: enseignantId } }),
+          });
+        }
+        if (moduleId) {
+          verifications.push({
+            champ: 'moduleId',
+            valeur: moduleId,
+            modele: 'Module',
+            appel: () => this.prisma.module.findUnique({ where: { id: moduleId } }),
+          });
+        }
+        break;
+      }
+      case ImportEntity.CONTRAINTES: {
+        const semestreId = (row.semestreId ?? '').trim();
+        const definitionId = (row.definitionId ?? '').trim();
+        const enseignantId = (row.enseignantId ?? '').trim();
+        const groupeId = (row.groupeId ?? '').trim();
+        if (semestreId) {
+          verifications.push({
+            champ: 'semestreId',
+            valeur: semestreId,
+            modele: 'Semestre',
+            appel: () => this.prisma.semestre.findUnique({ where: { id: semestreId } }),
+          });
+        }
+        if (definitionId) {
+          verifications.push({
+            champ: 'definitionId',
+            valeur: definitionId,
+            modele: 'ContrainteDefinition',
+            appel: () =>
+              this.prisma.contrainteDefinition.findUnique({ where: { id: definitionId } }),
+          });
+        }
+        if (enseignantId) {
+          verifications.push({
+            champ: 'enseignantId',
+            valeur: enseignantId,
+            modele: 'Enseignant',
+            appel: () =>
+              this.prisma.enseignant.findUnique({ where: { id: enseignantId } }),
+          });
+        }
+        if (groupeId) {
+          verifications.push({
+            champ: 'groupeId',
+            valeur: groupeId,
+            modele: 'Groupe',
+            appel: () => this.prisma.groupe.findUnique({ where: { id: groupeId } }),
+          });
+        }
+        break;
+      }
+      case ImportEntity.COVOITURAGE: {
+        const semestreId = (row.semestreId ?? '').trim();
+        if (semestreId) {
+          verifications.push({
+            champ: 'semestreId',
+            valeur: semestreId,
+            modele: 'Semestre',
+            appel: () => this.prisma.semestre.findUnique({ where: { id: semestreId } }),
           });
         }
         break;
@@ -499,6 +627,138 @@ export class ImportsService {
       }
       case ImportEntity.SALLES: {
         // Pas de lien direct Affectation<Salle> dans le schéma actuel : aucun impact à signaler pour l'instant.
+        break;
+      }
+      case ImportEntity.INDISPONIBILITES: {
+        const enseignantId = (row.enseignantId ?? '').trim();
+        const salleId = (row.salleId ?? '').trim();
+        const semestreId = (row.semestreId ?? '').trim();
+        if (!semestreId) break;
+        const indisponibilite = await prisma.indisponibilite.findFirst({
+          where: { semestreId, enseignantId, salleId },
+          select: { id: true },
+        });
+        if (!indisponibilite) break;
+        const repartitions = await prisma.repartition.findMany({
+          where: { semestreId },
+          select: { id: true, statut: true },
+        });
+        const valideRepIds = repartitions
+          .filter((r) => r.statut === 'VALIDEE')
+          .map((r) => r.id);
+        const affectations = await prisma.affectation.findMany({
+          where: { repartitionId: { in: valideRepIds } },
+        });
+        if (affectations.length > 0) {
+          const ids = affectations.map((a) => `repartition:${a.repartitionId}`);
+          impacts.push({ entite, code: semestreId, utiliseDans: ids });
+          items.push({
+            ligne,
+            colonne: 'semestreId',
+            valeur: semestreId,
+            action: 'conflit',
+            message: `Indisponibilité du semestre ${semestreId} utilisée dans ${affectations.length} répartition(s) validée(s)`,
+          });
+        }
+        break;
+      }
+      case ImportEntity.VOEUX: {
+        const enseignantId = (row.enseignantId ?? '').trim();
+        const moduleId = (row.moduleId ?? '').trim();
+        const semestreId = (row.semestreId ?? '').trim();
+        if (!enseignantId || !moduleId || !semestreId) break;
+        const existing = await prisma.enseignantModule.findFirst({
+          where: { enseignantId, moduleId },
+          select: { enseignantId: true, moduleId: true },
+        });
+        if (!existing) break;
+        const repartitions = await prisma.repartition.findMany({
+          where: { semestreId },
+          select: { id: true, statut: true },
+        });
+        const valideRepIds = repartitions
+          .filter((r) => r.statut === 'VALIDEE')
+          .map((r) => r.id);
+        const affectations = await prisma.affectation.findMany({
+          where: {
+            repartitionId: { in: valideRepIds },
+            OR: [{ enseignantId }, { moduleId }],
+          },
+        });
+        if (affectations.length > 0) {
+          const ids = affectations.map((a) => `repartition:${a.repartitionId}`);
+          impacts.push({ entite, code: `${enseignantId}:${moduleId}`, utiliseDans: ids });
+          items.push({
+            ligne,
+            colonne: 'enseignantId',
+            valeur: enseignantId,
+            action: 'conflit',
+            message: `Vœu enseignant ${enseignantId} / module ${moduleId} impacté dans ${affectations.length} répartition(s) validée(s)`,
+          });
+        }
+        break;
+      }
+      case ImportEntity.CONTRAINTES: {
+        const definitionId = (row.definitionId ?? '').trim();
+        const semestreId = (row.semestreId ?? '').trim();
+        if (!definitionId || !semestreId) break;
+        const contrainte = await prisma.contrainteInstance.findFirst({
+          where: { definitionId, semestreId },
+          select: { id: true },
+        });
+        if (!contrainte) break;
+        const repartitions = await prisma.repartition.findMany({
+          where: { semestreId },
+          select: { id: true, statut: true },
+        });
+        const valideRepIds = repartitions
+          .filter((r) => r.statut === 'VALIDEE')
+          .map((r) => r.id);
+        const affectations = await prisma.affectation.findMany({
+          where: { repartitionId: { in: valideRepIds } },
+        });
+        if (affectations.length > 0) {
+          const ids = affectations.map((a) => `repartition:${a.repartitionId}`);
+          impacts.push({ entite, code: definitionId, utiliseDans: ids });
+          items.push({
+            ligne,
+            colonne: 'definitionId',
+            valeur: definitionId,
+            action: 'conflit',
+            message: `Contrainte ${definitionId} utilisée dans ${affectations.length} répartition(s) validée(s)`,
+          });
+        }
+        break;
+      }
+      case ImportEntity.COVOITURAGE: {
+        const semestreId = (row.semestreId ?? '').trim();
+        if (!semestreId) break;
+        const groupe = await prisma.groupeCovoiturage.findFirst({
+          where: { semestreId },
+          select: { id: true },
+        });
+        if (!groupe) break;
+        const repartitions = await prisma.repartition.findMany({
+          where: { semestreId },
+          select: { id: true, statut: true },
+        });
+        const valideRepIds = repartitions
+          .filter((r) => r.statut === 'VALIDEE')
+          .map((r) => r.id);
+        const affectations = await prisma.affectation.findMany({
+          where: { repartitionId: { in: valideRepIds } },
+        });
+        if (affectations.length > 0) {
+          const ids = affectations.map((a) => `repartition:${a.repartitionId}`);
+          impacts.push({ entite, code: semestreId, utiliseDans: ids });
+          items.push({
+            ligne,
+            colonne: 'semestreId',
+            valeur: semestreId,
+            action: 'conflit',
+            message: `Groupe de covoiturage du semestre ${semestreId} utilisé dans ${affectations.length} répartition(s) validée(s)`,
+          });
+        }
         break;
       }
     }
@@ -672,6 +932,226 @@ export class ImportsService {
     return items;
   }
 
+  private validateIndisponibilite(
+    row: Record<string, string>,
+    ligne: number,
+  ): ImportPreviewItem[] {
+    const items: ImportPreviewItem[] = [];
+    const semestreId = (row.semestreId ?? '').trim();
+    const jour = (row.jour ?? '').trim();
+    const ordre = parseInt((row.ordre ?? '').trim(), 10);
+    const enseignantId = (row.enseignantId ?? '').trim() || undefined;
+    const salleId = (row.salleId ?? '').trim() || undefined;
+
+    if (!semestreId) {
+      items.push({
+        ligne,
+        colonne: 'semestreId',
+        valeur: semestreId,
+        action: 'erreur',
+        message: 'Semestre obligatoire',
+        correctionAttendue: 'Renseigner l\'ID du semestre',
+      });
+      return items;
+    }
+    if (!jour) {
+      items.push({
+        ligne,
+        colonne: 'jour',
+        valeur: jour,
+        action: 'erreur',
+        message: 'Jour obligatoire',
+        correctionAttendue: 'Renseigner le jour de la semaine (LUN, MAR, MER, JEU, VEN, SAM, DIM)',
+      });
+      return items;
+    }
+    if (!Number.isInteger(ordre) || ordre < 1) {
+      items.push({
+        ligne,
+        colonne: 'ordre',
+        valeur: row.ordre ?? '',
+        action: 'erreur',
+        message: 'Ordre obligatoire et supérieur à 0',
+        correctionAttendue: 'Renseigner un ordre entier >= 1',
+      });
+      return items;
+    }
+
+    items.push({
+      ligne,
+      colonne: 'semestreId',
+      valeur: semestreId,
+      action: 'ajout',
+      message: `Indisponibilité ${jour} ordre ${ordre}`,
+    });
+
+    return items;
+  }
+
+  private validateVoeux(
+    row: Record<string, string>,
+    ligne: number,
+  ): ImportPreviewItem[] {
+    const items: ImportPreviewItem[] = [];
+    const semestreId = (row.semestreId ?? '').trim();
+    const enseignantId = (row.enseignantId ?? '').trim();
+    const moduleId = (row.moduleId ?? '').trim();
+    const priorite = parseInt((row.priorite ?? '1').trim(), 10);
+
+    if (!semestreId) {
+      items.push({
+        ligne,
+        colonne: 'semestreId',
+        valeur: semestreId,
+        action: 'erreur',
+        message: 'Semestre obligatoire',
+        correctionAttendue: 'Renseigner l\'ID du semestre',
+      });
+      return items;
+    }
+    if (!enseignantId) {
+      items.push({
+        ligne,
+        colonne: 'enseignantId',
+        valeur: enseignantId,
+        action: 'erreur',
+        message: 'Enseignant obligatoire',
+        correctionAttendue: 'Renseigner l\'ID de l\'enseignant',
+      });
+      return items;
+    }
+    if (!moduleId) {
+      items.push({
+        ligne,
+        colonne: 'moduleId',
+        valeur: moduleId,
+        action: 'erreur',
+        message: 'Module obligatoire',
+        correctionAttendue: 'Renseigner l\'ID du module',
+      });
+      return items;
+    }
+    if (!Number.isInteger(priorite) || priorite < 1) {
+      items.push({
+        ligne,
+        colonne: 'priorite',
+        valeur: row.priorite ?? '',
+        action: 'erreur',
+        message: 'Priorité obligatoire et supérieure à 0',
+        correctionAttendue: 'Renseigner une priorité entière >= 1',
+      });
+      return items;
+    }
+
+    items.push({
+      ligne,
+      colonne: 'enseignantId',
+      valeur: enseignantId,
+      action: 'ajout',
+      message: `Vœu ${enseignantId} → ${moduleId} (priorité ${priorite})`,
+    });
+
+    return items;
+  }
+
+  private validateContrainte(
+    row: Record<string, string>,
+    ligne: number,
+  ): ImportPreviewItem[] {
+    const items: ImportPreviewItem[] = [];
+    const semestreId = (row.semestreId ?? '').trim();
+    const definitionId = (row.definitionId ?? '').trim();
+    const enseignantId = (row.enseignantId ?? '').trim() || undefined;
+    const groupeId = (row.groupeId ?? '').trim() || undefined;
+
+    if (!semestreId) {
+      items.push({
+        ligne,
+        colonne: 'semestreId',
+        valeur: semestreId,
+        action: 'erreur',
+        message: 'Semestre obligatoire',
+        correctionAttendue: 'Renseigner l\'ID du semestre',
+      });
+      return items;
+    }
+    if (!definitionId) {
+      items.push({
+        ligne,
+        colonne: 'definitionId',
+        valeur: definitionId,
+        action: 'erreur',
+        message: 'Définition de contrainte obligatoire',
+        correctionAttendue: 'Renseigner l\'ID de la définition de contrainte',
+      });
+      return items;
+    }
+
+    items.push({
+      ligne,
+      colonne: 'definitionId',
+      valeur: definitionId,
+      action: 'ajout',
+      message: `Contrainte ${definitionId} (semestre ${semestreId})`,
+    });
+
+    return items;
+  }
+
+  private validateCovoiturage(
+    row: Record<string, string>,
+    ligne: number,
+  ): ImportPreviewItem[] {
+    const items: ImportPreviewItem[] = [];
+    const semestreId = (row.semestreId ?? '').trim();
+    const margeMinutes = parseInt((row.margeMinutes ?? '60').trim(), 10);
+    const joursCommunsMin = parseInt((row.joursCommunsMin ?? '1').trim(), 10);
+
+    if (!semestreId) {
+      items.push({
+        ligne,
+        colonne: 'semestreId',
+        valeur: semestreId,
+        action: 'erreur',
+        message: 'Semestre obligatoire',
+        correctionAttendue: 'Renseigner l\'ID du semestre',
+      });
+      return items;
+    }
+    if (!Number.isInteger(margeMinutes) || margeMinutes < 0) {
+      items.push({
+        ligne,
+        colonne: 'margeMinutes',
+        valeur: row.margeMinutes ?? '',
+        action: 'erreur',
+        message: 'Marge en minutes obligatoire et supérieure ou égale à 0',
+        correctionAttendue: 'Renseigner une marge entière >= 0',
+      });
+      return items;
+    }
+    if (!Number.isInteger(joursCommunsMin) || joursCommunsMin < 1) {
+      items.push({
+        ligne,
+        colonne: 'joursCommunsMin',
+        valeur: row.joursCommunsMin ?? '',
+        action: 'erreur',
+        message: 'Jours communs minimum obligatoire et supérieur à 0',
+        correctionAttendue: 'Renseigner un nombre de jours entier >= 1',
+      });
+      return items;
+    }
+
+    items.push({
+      ligne,
+      colonne: 'semestreId',
+      valeur: semestreId,
+      action: 'ajout',
+      message: `Groupe de covoiturage semestre ${semestreId}`,
+    });
+
+    return items;
+  }
+
   private async applyImport(
     tx: PrismaService,
     entite: ImportEntity,
@@ -734,6 +1214,14 @@ export class ImportsService {
         return this.upsertGroupe(tx, row, importId);
       case ImportEntity.MODULES:
         return this.upsertModule(tx, row, importId);
+      case ImportEntity.INDISPONIBILITES:
+        return this.upsertIndisponibilite(tx, row, importId);
+      case ImportEntity.VOEUX:
+        return this.upsertVoeux(tx, row, importId);
+      case ImportEntity.CONTRAINTES:
+        return this.upsertContrainte(tx, row, importId);
+      case ImportEntity.COVOITURAGE:
+        return this.upsertCovoiturage(tx, row, importId);
     }
   }
 
@@ -900,6 +1388,186 @@ export class ImportsService {
     });
 
     return { action: 'created', id: created.id, code };
+  }
+
+  private async upsertIndisponibilite(
+    tx: PrismaService,
+    row: Record<string, string>,
+    importId: string,
+  ): Promise<{ action: 'created' | 'ignored' | 'conflict'; id: string; code: string }> {
+    const semestreId = (row.semestreId ?? '').trim();
+    const jour = (row.jour ?? '').trim();
+    const ordre = parseInt((row.ordre ?? '').trim(), 10);
+    const enseignantId = (row.enseignantId ?? '').trim() || null;
+    const salleId = (row.salleId ?? '').trim() || null;
+    const estActive = (row.estActive ?? 'true').trim() !== 'false';
+
+    if (!semestreId || !jour || !Number.isInteger(ordre) || ordre < 1) {
+      throw new ConflictException(
+        `Indisponibilite ${semestreId}: semestreId, jour et ordre (>=1) requis`,
+      );
+    }
+
+    const existing = await tx.indisponibilite.findFirst({
+      where: { semestreId, jour: jour as JourSemaine, ordre, enseignantId, salleId },
+      select: { id: true },
+    });
+
+    if (existing) {
+      return { action: 'ignored', id: existing.id, code: `${semestreId}:${jour}:${ordre}` };
+    }
+
+    const created = await tx.indisponibilite.create({
+      data: {
+        semestreId,
+        jour: jour as JourSemaine,
+        ordre,
+        enseignantId,
+        salleId,
+        estActive,
+        originId: importId,
+      },
+      select: { id: true },
+    });
+
+    return { action: 'created', id: created.id, code: `${semestreId}:${jour}:${ordre}` };
+  }
+
+  private async upsertVoeux(
+    tx: PrismaService,
+    row: Record<string, string>,
+    importId: string,
+  ): Promise<{ action: 'created' | 'ignored' | 'conflict'; id: string; code: string }> {
+    const semestreId = (row.semestreId ?? '').trim();
+    const enseignantId = (row.enseignantId ?? '').trim();
+    const moduleId = (row.moduleId ?? '').trim();
+    const priorite = parseInt((row.priorite ?? '1').trim(), 10);
+
+    if (!semestreId || !enseignantId || !moduleId) {
+      throw new ConflictException(
+        `Voeux ${enseignantId}:${moduleId}: semestreId, enseignantId et moduleId requis`,
+      );
+    }
+
+    const existing = await tx.enseignantModule.findFirst({
+      where: { enseignantId, moduleId },
+      select: { enseignantId: true, moduleId: true },
+    });
+
+    if (existing) {
+      return { action: 'ignored', id: `${enseignantId}:${moduleId}`, code: `${enseignantId}:${moduleId}` };
+    }
+
+    const created = await tx.enseignantModule.create({
+      data: {
+        enseignantId,
+        moduleId,
+      },
+      select: { enseignantId: true, moduleId: true },
+    });
+
+    return { action: 'created', id: `${created.enseignantId}:${created.moduleId}`, code: `${enseignantId}:${moduleId}` };
+  }
+
+  private async upsertContrainte(
+    tx: PrismaService,
+    row: Record<string, string>,
+    importId: string,
+  ): Promise<{ action: 'created' | 'ignored' | 'conflict'; id: string; code: string }> {
+    const semestreId = (row.semestreId ?? '').trim();
+    const definitionId = (row.definitionId ?? '').trim();
+    const enseignantId = (row.enseignantId ?? '').trim() || null;
+    const groupeId = (row.groupeId ?? '').trim() || null;
+    const salleId = (row.salleId ?? '').trim() || null;
+    const moduleId = (row.moduleId ?? '').trim() || null;
+    const poids = parseInt((row.poids ?? '').trim(), 10) || undefined;
+    const nature = (row.nature ?? 'REGLE') as ContrainteNature;
+    const commentaire = (row.commentaire ?? '').trim() || null;
+    const creePar = (row.creePar ?? '').trim() || '';
+
+    if (!semestreId || !definitionId) {
+      throw new ConflictException(
+        `Contrainte ${definitionId}: semestreId et definitionId requis`,
+      );
+    }
+
+    const existing = await tx.contrainteInstance.findFirst({
+      where: { semestreId, definitionId, enseignantId, groupeId, salleId, moduleId },
+      select: { id: true },
+    });
+
+    if (existing) {
+      return { action: 'ignored', id: existing.id, code: definitionId };
+    }
+
+    let paramsJson: any = {};
+    try {
+      paramsJson = (row.params ?? '').trim() ? JSON.parse(row.params) : {};
+    } catch {
+      paramsJson = {};
+    }
+
+    const created = await tx.contrainteInstance.create({
+      data: {
+        semestreId,
+        definitionId,
+        enseignantId,
+        groupeId,
+        salleId,
+        moduleId,
+        poids,
+        nature,
+        commentaire,
+        creePar,
+        params: paramsJson,
+        originId: importId,
+      },
+      select: { id: true },
+    });
+
+    return { action: 'created', id: created.id, code: definitionId };
+  }
+
+  private async upsertCovoiturage(
+    tx: PrismaService,
+    row: Record<string, string>,
+    importId: string,
+  ): Promise<{ action: 'created' | 'ignored' | 'conflict'; id: string; code: string }> {
+    const semestreId = (row.semestreId ?? '').trim();
+    const margeMinutes = parseInt((row.margeMinutes ?? '60').trim(), 10);
+    const joursCommunsMin = parseInt((row.joursCommunsMin ?? '1').trim(), 10);
+    const strict = (row.strict ?? 'false').trim() === 'true';
+    const enseignantIds = (row.enseignantIds ?? '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    if (!semestreId) {
+      throw new ConflictException(`Covoiturage ${semestreId}: semestreId requis`);
+    }
+
+    const existing = await tx.groupeCovoiturage.findFirst({
+      where: { semestreId },
+      select: { id: true },
+    });
+
+    if (existing) {
+      return { action: 'ignored', id: existing.id, code: semestreId };
+    }
+
+    const created = await tx.groupeCovoiturage.create({
+      data: {
+        semestreId,
+        margeMinutes: Number.isInteger(margeMinutes) && margeMinutes >= 0 ? margeMinutes : 60,
+        joursCommunsMin: Number.isInteger(joursCommunsMin) && joursCommunsMin >= 1 ? joursCommunsMin : 1,
+        strict,
+        enseignantIds,
+        originId: importId,
+      },
+      select: { id: true },
+    });
+
+    return { action: 'created', id: created.id, code: semestreId };
   }
 
   private buildAuditData(

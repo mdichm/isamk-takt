@@ -4,7 +4,7 @@
 import { apiFetch } from './client';
 import type { Messages } from '@/lib/messages/fr';
 
-export type ImportEntity = 'enseignants' | 'salles' | 'groupes' | 'modules';
+export type ImportEntity = 'enseignants' | 'salles' | 'groupes' | 'modules' | 'indisponibilites' | 'voeux' | 'contraintes' | 'covoiturage';
 
 export type ImportAction = 'ajout' | 'modification' | 'doublon' | 'conflit' | 'erreur';
 
@@ -69,6 +69,10 @@ export const IMPORT_ENTITIES: {
   { value: 'salles', labelKey: 'entiteSalles' },
   { value: 'groupes', labelKey: 'entiteGroupes' },
   { value: 'modules', labelKey: 'entiteModules' },
+  { value: 'indisponibilites', labelKey: 'entiteIndisponibilites' },
+  { value: 'voeux', labelKey: 'entiteVoeux' },
+  { value: 'contraintes', labelKey: 'entiteContraintes' },
+  { value: 'covoiturage', labelKey: 'entiteCovoiturage' },
 ];
 
 function queryString(options: ImportFichierOptions): string {
