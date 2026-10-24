@@ -99,6 +99,7 @@ beforeEach(() => {
     id: 'gen-1',
     versionId: 'v-1',
     statut: 'RUNNING',
+    profilGeneration: { poidsScore: { creuxGroupes: 1, utilisationSalles: 1 } },
   } as any);
 
   mockPrisma.generationSeance.create.mockResolvedValue({} as any);
@@ -261,7 +262,7 @@ describe('importGenerationResult — mise à jour Generation', () => {
     expect(call.data.erreur).toBeNull();
     expect(typeof call.data.score).toBe('number');
     expect(call.data.metrics).toEqual(expect.objectContaining({
-      totalActivites: 1,
+      seancesTotal: 1,
       placees: 1,
       nonPlacees: 0,
       tauxPlacement: 100,
