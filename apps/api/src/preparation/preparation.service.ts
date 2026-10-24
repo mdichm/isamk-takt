@@ -30,7 +30,19 @@ export class PreparationService {
       include: {
         annee: true,
         creneaux: true,
-        groupes: true,
+        groupes: {
+          include: {
+            niveau: {
+              include: {
+                formation: {
+                  include: {
+                    departement: true,
+                  },
+                },
+              },
+            },
+          },
+        },
         enseignants: true,
         salles: true,
         modules: true,
