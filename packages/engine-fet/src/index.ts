@@ -9,9 +9,18 @@ import type {
   EngineRunOptions,
   EngineRawResult,
   EngineSolution,
+  EnginePlacedActivity,
+  EngineUnplacedActivity,
   EngineCapabilities,
 } from '@takt/contracts';
-import { buildProfile as buildFetProfile } from './fet-entities.js';
+import { buildProfile as buildFetProfile, fetId as computeFetId } from './fet-entities.js';
+import {
+  parseActivitiesTimetableXml,
+  buildDayIndexMap,
+  buildHourIndexMap,
+  jourIndexToJourSemaine,
+  type FetActivityPlacement,
+} from './fet-result-parser.js';
 import { execFile, type ChildProcess } from 'child_process';
 import { join } from 'path';
 import { mkdtemp, rm, writeFile } from 'fs/promises';
@@ -315,9 +324,83 @@ export class FetAdapter implements SchedulingEngine {
   }
 
   async importResult(
-    _raw: EngineRawResult,
-    _input: EngineInput,
+    raw: EngineRawResult,
+    input: EngineInput,
   ): Promise<EngineSolution> {
-    throw new Error('Not implemented');
+    // 1. Parser le fichier activities_timetable.xml (placements FET)
+    const placements =
+      raw.activitiesTimetableXml !== undefined
+        ? parseActivitiesTimetableXml(raw.activitiesTimetableXml)
+        : [];
+
+    // 2. Index jours FET → dayIndex et heures FET → slotIndex (par ordre d'apparition)
+    const dayIndexMap = buildDayIndexMap(placements);
+    const hourIndexMap = buildHourIndexMap(placements);
+
+    // 3. Index fetId(activity.id) → activité pour retrouver l'activité depuis le placement XML
+    const activityByFetId = new Map<string, (typeof input.activities)[number]>();
+    for (const activity of input.activities) {
+      activityByFetId.set(computeFetId(activity.id), activity);
+    }
+
+    // 4. Index fetId(room.code) → salle pour retrouver la salle depuis le placement XML
+    const roomByFetId = new Map<string, (typeof input.rooms)[number]>();
+    for (const room of input.rooms) {
+      roomByFetId.set(computeFetId(room.code), room);
+    }
+
+    // 5. Construire les activités placées
+    const placedActivities: EnginePlacedActivity[] = [];
+    const placedActivityIds = new Set<string>();
+
+    for (const p of placements) {
+      const activity = activityByFetId.get(p.activityId);
+      if (!activity) {
+        // Activité inconnue dans l'input : ignorer
+        continue;
+      }
+
+      const dayIndex = dayIndexMap.get(p.day);
+      const hourIndex = hourIndexMap.get(p.hour);
+      if (dayIndex === undefined || hourIndex === undefined) {
+        continue;
+      }
+
+      // Trouver la période correspondante (même dayIndex et slotIndex)
+      const period = input.periods.find(
+        (pr) => pr.dayIndex === dayIndex && pr.slotIndex === hourIndex,
+      );
+      if (!period) {
+        continue;
+      }
+
+      const room = p.room !== null ? roomByFetId.get(p.room) : undefined;
+
+      placedActivities.push({
+        activityId: activity.id,
+        periodId: period.id,
+        roomId: room?.id ?? null,
+      });
+      placedActivityIds.add(activity.id);
+    }
+
+    // 6. Activités non placées par le moteur
+    const unplacedActivities: EngineUnplacedActivity[] = input.activities
+      .filter((a) => !placedActivityIds.has(a.id))
+      .map((a) => ({
+        activityId: a.id,
+        reason: 'Non placée par le moteur',
+      }));
+
+    // 7. Les conflits durs et le score souple sont calculés par le ConflictEngine
+    //    côté worker après l'import (ST §4.6.5, §4.7).
+    return {
+      input,
+      rawResult: raw,
+      placedActivities,
+      unplacedActivities,
+      totalSoftConflicts: 0,
+      hardConflicts: [],
+    };
   }
 }

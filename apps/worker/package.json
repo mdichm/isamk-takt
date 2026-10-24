@@ -23,6 +23,7 @@
     "@opentelemetry/instrumentation-pg": "^0.73.0",
     "@opentelemetry/sdk-node": "^0.223.0",
     "@prisma/client": "^7.10.0",
+    "@takt/conflict-engine": "workspace:*",
     "@takt/contracts": "workspace:*",
     "@takt/db": "workspace:*",
     "@takt/engine-fet": "workspace:*",
