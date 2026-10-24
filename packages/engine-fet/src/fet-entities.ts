@@ -15,7 +15,7 @@ import type {
   EngineTeacher,
 } from '@takt/contracts';
 import { createHash } from 'crypto';
-import { buildConstraintsXml } from './fet-constraints.js';
+import { buildConstraintsXml, buildLocksXml } from './fet-constraints.js';
 
 const BUILDER_VERSION = '0.0.1';
 const FET_ENGINE_VERSION = '7.12.0';
@@ -88,7 +88,7 @@ export function buildFetDocument(input: EngineInput): string {
   return root.end({ prettyPrint: true, indent: '  ', newline: '\n' });
 }
 
-/** Construit l'élément XML <constraints> à partir des contraintes dures de l'input. */
+/** Construit l'élément XML <constraints> à partir des contraintes dures et des verrous. */
 function buildConstraintsElement(input: EngineInput): Record<string, unknown> {
   const result = buildConstraintsXml({
     constraints: input.constraints,
@@ -98,11 +98,20 @@ function buildConstraintsElement(input: EngineInput): Record<string, unknown> {
     rooms: input.rooms,
   });
 
-  if (result.constraintsElements.length === 0) {
+  const locksResult = buildLocksXml({
+    locks: input.locks,
+    activities: input.activities,
+    periods: input.periods,
+    rooms: input.rooms,
+  });
+
+  const allElements = [...result.constraintsElements, ...locksResult.lockElements];
+
+  if (allElements.length === 0) {
     return {};
   }
 
-  return { constraint: result.constraintsElements };
+  return { constraint: allElements };
 }
 
 function buildActivityXml(
@@ -149,16 +158,15 @@ export function buildProfile(input: EngineInput): EngineFile {
     rooms: input.rooms,
   });
 
-  const mappingReport = [...constraintsResult.mappingReport];
+  // Rapport de traduction des verrous (L4-05)
+  const locksResult = buildLocksXml({
+    locks: input.locks,
+    activities: input.activities,
+    periods: input.periods,
+    rooms: input.rooms,
+  });
 
-  // Les verrous sont non traduits à ce stade (L4-05)
-  for (const lock of input.locks) {
-    mappingReport.push({
-      ruleId: lock.id,
-      status: 'NON_TRADUITE' as const,
-      reason: 'Verrou non encore traduit vers FET (L4-05)',
-    });
-  }
+  const mappingReport = [...constraintsResult.mappingReport, ...locksResult.mappingReport];
 
   return {
     engineVersion: FET_ENGINE_VERSION,
