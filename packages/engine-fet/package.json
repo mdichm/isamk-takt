@@ -1,7 +1,7 @@
 {
   "name": "@takt/engine-fet",
   "version": "0.0.1",
-  "description": "TAKT FET Engine - XML builder/parser for FET 7.11.1",
+  "description": "TAKT FET Engine - XML builder/parser for FET 7.12.0",
   "author": "",
   "private": true,
   "license": "AGPL-3.0-only",

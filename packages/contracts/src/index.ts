@@ -29,6 +29,11 @@ export * from './zod/user.js';
 export * from './zod/audit.js';
 
 // ============================================================
+// Scheduling Engine port (moteur de planification)
+// ============================================================
+export * from './scheduling-engine.js';
+
+// ============================================================
 // Types OpenAPI générés (ne pas éditer à la main)
 // ============================================================
 export * from './openapi/index.js';
