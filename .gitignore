@@ -37,6 +37,7 @@ coverage
 # Prisma
 prisma/migrations/
 packages/.generated/
+packages/db/src/generated/
 
 # Docker
 docker-compose.override.yml

@@ -591,6 +591,7 @@ model Semestre {
   groupesCovoiturage   GroupeCovoiturage[]
   exigencesSalle       ExigenceSalleActivite[]
   generations          Generation[]
+  profilsGeneration    ProfilGeneration[]
 
   @@unique([anneeId, numero])
   @@map("semestres")
@@ -1663,11 +1664,15 @@ model Generation {
   startedAt       DateTime?
   finishedAt      DateTime?
 
-  semestre Semestre           @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  version  VersionEdt         @relation(fields: [versionId], references: [id], onDelete: Cascade)
-  seances  GenerationSeance[] @relation("generation_seances_generation")
+  semestre                Semestre           @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  version                 VersionEdt         @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  seances                 GenerationSeance[] @relation("generation_seances_generation")
+  profilGeneration        ProfilGeneration?  @relation(fields: [profilGenerationId], references: [id], onDelete: SetNull)
+  profilGenerationId      String?            @db.Uuid
+  profilGenerationVersion Int
 
   @@index([semestreId, statut])
+  @@index([profilGenerationId])
   @@map("generations")
 }
 
@@ -1694,4 +1699,43 @@ model GenerationSeance {
   @@unique([generationId, affectationKey, rang])
   @@index([generationId, statut])
   @@map("generation_seances")
+}
+
+// ============================================
+// Profils de génération versionnés — L4-10
+// ============================================
+
+// Un profil de génération définit les paramètres de génération d'emploi du temps
+// (durée limite, préservation des verrous, versions du moteur et du constructeur,
+// graines, poids du score). Un profil utilisé par une génération est immuable ;
+// le modifier crée une nouvelle version du profil.
+
+// Un profil par défaut peut être défini par semestre (géré en logique applicative,
+// Prisma ne supportant pas les index partiels uniques).
+
+// Création et modification réservées au Gestionnaire et à l'Administrateur.
+model ProfilGeneration {
+  id           String   @id @default(uuid()) @db.Uuid
+  semestreId   String   @db.Uuid
+  semestre     Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
+  nom          String
+  numero       Int      @default(1)
+  estParDefaut Boolean  @default(false)
+
+  dureeLimiteMinutes  Int
+  preserverVerrous    Boolean @default(false)
+  engineVersion       String?
+  constructeurVersion String?
+  graines             Json
+  poidsScore          Json
+  valeursSnapshot     Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  generations Generation[]
+
+  @@index([semestreId])
+  @@index([estParDefaut])
+  @@map("profils_generation")
 }

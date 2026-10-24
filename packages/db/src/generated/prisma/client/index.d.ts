@@ -353,6 +353,11 @@ export type Generation = $Result.DefaultSelection<Prisma.$GenerationPayload>
  * 
  */
 export type GenerationSeance = $Result.DefaultSelection<Prisma.$GenerationSeancePayload>
+/**
+ * Model ProfilGeneration
+ * 
+ */
+export type ProfilGeneration = $Result.DefaultSelection<Prisma.$ProfilGenerationPayload>
 
 /**
  * Enums
@@ -1634,6 +1639,16 @@ export class PrismaClient<
     * ```
     */
   get generationSeance(): Prisma.GenerationSeanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.profilGeneration`: Exposes CRUD operations for the **ProfilGeneration** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProfilGenerations
+    * const profilGenerations = await prisma.profilGeneration.findMany()
+    * ```
+    */
+  get profilGeneration(): Prisma.ProfilGenerationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2148,7 +2163,8 @@ export namespace Prisma {
     ExigenceSalleActivite: 'ExigenceSalleActivite',
     ExigenceSalleAutorisee: 'ExigenceSalleAutorisee',
     Generation: 'Generation',
-    GenerationSeance: 'GenerationSeance'
+    GenerationSeance: 'GenerationSeance',
+    ProfilGeneration: 'ProfilGeneration'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2164,7 +2180,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage" | "exigenceSalleActivite" | "exigenceSalleAutorisee" | "generation" | "generationSeance"
+      modelProps: "user" | "userSystemRole" | "refreshToken" | "passwordHistory" | "passwordResetToken" | "project" | "projectMember" | "boardColumn" | "task" | "sprint" | "sprintMember" | "comment" | "tag" | "taskTag" | "activity" | "parametreSecurite" | "parametreWorkflow" | "securityEvent" | "auditLog" | "annee" | "semestre" | "creneau" | "creneauAffichage" | "seance" | "seanceGroupe" | "occupation" | "versionEdt" | "versionSnapshot" | "editLock" | "verrouSeance" | "departement" | "formation" | "niveau" | "groupe" | "typeEnseignement" | "grade" | "module" | "moduleVolume" | "chargeRuleSet" | "chargeReferenceGrade" | "chargeCoefficient" | "activityTag" | "enseignant" | "enseignantModule" | "decharge" | "typeSalle" | "site" | "salle" | "indisponibilite" | "equipement" | "salleEquipement" | "salleActivityTag" | "exigenceEquipement" | "contrainteDefinition" | "contrainteInstance" | "repartition" | "affectation" | "snapshot" | "snapshotAffectation" | "snapshotCharge" | "demandeModification" | "conflit" | "avertissementAccepte" | "groupeCovoiturage" | "exigenceSalleActivite" | "exigenceSalleAutorisee" | "generation" | "generationSeance" | "profilGeneration"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -7200,6 +7216,80 @@ export namespace Prisma {
           }
         }
       }
+      ProfilGeneration: {
+        payload: Prisma.$ProfilGenerationPayload<ExtArgs>
+        fields: Prisma.ProfilGenerationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProfilGenerationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProfilGenerationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>
+          }
+          findFirst: {
+            args: Prisma.ProfilGenerationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProfilGenerationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>
+          }
+          findMany: {
+            args: Prisma.ProfilGenerationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>[]
+          }
+          create: {
+            args: Prisma.ProfilGenerationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>
+          }
+          createMany: {
+            args: Prisma.ProfilGenerationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProfilGenerationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>[]
+          }
+          delete: {
+            args: Prisma.ProfilGenerationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>
+          }
+          update: {
+            args: Prisma.ProfilGenerationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProfilGenerationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProfilGenerationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProfilGenerationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProfilGenerationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProfilGenerationPayload>
+          }
+          aggregate: {
+            args: Prisma.ProfilGenerationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProfilGeneration>
+          }
+          groupBy: {
+            args: Prisma.ProfilGenerationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProfilGenerationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProfilGenerationCountArgs<ExtArgs>
+            result: $Utils.Optional<ProfilGenerationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -7391,6 +7481,7 @@ export namespace Prisma {
     exigenceSalleAutorisee?: ExigenceSalleAutoriseeOmit
     generation?: GenerationOmit
     generationSeance?: GenerationSeanceOmit
+    profilGeneration?: ProfilGenerationOmit
   }
 
   /* Types for Logging */
@@ -7880,6 +7971,7 @@ export namespace Prisma {
     groupesCovoiturage: number
     exigencesSalle: number
     generations: number
+    profilsGeneration: number
   }
 
   export type SemestreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7895,6 +7987,7 @@ export namespace Prisma {
     groupesCovoiturage?: boolean | SemestreCountOutputTypeCountGroupesCovoiturageArgs
     exigencesSalle?: boolean | SemestreCountOutputTypeCountExigencesSalleArgs
     generations?: boolean | SemestreCountOutputTypeCountGenerationsArgs
+    profilsGeneration?: boolean | SemestreCountOutputTypeCountProfilsGenerationArgs
   }
 
   // Custom InputTypes
@@ -7990,6 +8083,13 @@ export namespace Prisma {
    */
   export type SemestreCountOutputTypeCountGenerationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GenerationWhereInput
+  }
+
+  /**
+   * SemestreCountOutputType without action
+   */
+  export type SemestreCountOutputTypeCountProfilsGenerationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProfilGenerationWhereInput
   }
 
 
@@ -8996,6 +9096,37 @@ export namespace Prisma {
    */
   export type GenerationCountOutputTypeCountSeancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GenerationSeanceWhereInput
+  }
+
+
+  /**
+   * Count Type ProfilGenerationCountOutputType
+   */
+
+  export type ProfilGenerationCountOutputType = {
+    generations: number
+  }
+
+  export type ProfilGenerationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    generations?: boolean | ProfilGenerationCountOutputTypeCountGenerationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProfilGenerationCountOutputType without action
+   */
+  export type ProfilGenerationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGenerationCountOutputType
+     */
+    select?: ProfilGenerationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProfilGenerationCountOutputType without action
+   */
+  export type ProfilGenerationCountOutputTypeCountGenerationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GenerationWhereInput
   }
 
 
@@ -32205,6 +32336,7 @@ export namespace Prisma {
     groupesCovoiturage?: boolean | Semestre$groupesCovoiturageArgs<ExtArgs>
     exigencesSalle?: boolean | Semestre$exigencesSalleArgs<ExtArgs>
     generations?: boolean | Semestre$generationsArgs<ExtArgs>
+    profilsGeneration?: boolean | Semestre$profilsGenerationArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["semestre"]>
 
@@ -32255,6 +32387,7 @@ export namespace Prisma {
     groupesCovoiturage?: boolean | Semestre$groupesCovoiturageArgs<ExtArgs>
     exigencesSalle?: boolean | Semestre$exigencesSalleArgs<ExtArgs>
     generations?: boolean | Semestre$generationsArgs<ExtArgs>
+    profilsGeneration?: boolean | Semestre$profilsGenerationArgs<ExtArgs>
     _count?: boolean | SemestreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SemestreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -32280,6 +32413,7 @@ export namespace Prisma {
       groupesCovoiturage: Prisma.$GroupeCovoituragePayload<ExtArgs>[]
       exigencesSalle: Prisma.$ExigenceSalleActivitePayload<ExtArgs>[]
       generations: Prisma.$GenerationPayload<ExtArgs>[]
+      profilsGeneration: Prisma.$ProfilGenerationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -32696,6 +32830,7 @@ export namespace Prisma {
     groupesCovoiturage<T extends Semestre$groupesCovoiturageArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$groupesCovoiturageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupeCovoituragePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exigencesSalle<T extends Semestre$exigencesSalleArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$exigencesSalleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExigenceSalleActivitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     generations<T extends Semestre$generationsArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$generationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    profilsGeneration<T extends Semestre$profilsGenerationArgs<ExtArgs> = {}>(args?: Subset<T, Semestre$profilsGenerationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -33418,6 +33553,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GenerationScalarFieldEnum | GenerationScalarFieldEnum[]
+  }
+
+  /**
+   * Semestre.profilsGeneration
+   */
+  export type Semestre$profilsGenerationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    where?: ProfilGenerationWhereInput
+    orderBy?: ProfilGenerationOrderByWithRelationInput | ProfilGenerationOrderByWithRelationInput[]
+    cursor?: ProfilGenerationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProfilGenerationScalarFieldEnum | ProfilGenerationScalarFieldEnum[]
   }
 
   /**
@@ -85796,10 +85955,12 @@ export namespace Prisma {
 
   export type GenerationAvgAggregateOutputType = {
     score: Decimal | null
+    profilGenerationVersion: number | null
   }
 
   export type GenerationSumAggregateOutputType = {
     score: Decimal | null
+    profilGenerationVersion: number | null
   }
 
   export type GenerationMinAggregateOutputType = {
@@ -85817,6 +85978,8 @@ export namespace Prisma {
     queuedAt: Date | null
     startedAt: Date | null
     finishedAt: Date | null
+    profilGenerationId: string | null
+    profilGenerationVersion: number | null
   }
 
   export type GenerationMaxAggregateOutputType = {
@@ -85834,6 +85997,8 @@ export namespace Prisma {
     queuedAt: Date | null
     startedAt: Date | null
     finishedAt: Date | null
+    profilGenerationId: string | null
+    profilGenerationVersion: number | null
   }
 
   export type GenerationCountAggregateOutputType = {
@@ -85852,16 +86017,20 @@ export namespace Prisma {
     queuedAt: number
     startedAt: number
     finishedAt: number
+    profilGenerationId: number
+    profilGenerationVersion: number
     _all: number
   }
 
 
   export type GenerationAvgAggregateInputType = {
     score?: true
+    profilGenerationVersion?: true
   }
 
   export type GenerationSumAggregateInputType = {
     score?: true
+    profilGenerationVersion?: true
   }
 
   export type GenerationMinAggregateInputType = {
@@ -85879,6 +86048,8 @@ export namespace Prisma {
     queuedAt?: true
     startedAt?: true
     finishedAt?: true
+    profilGenerationId?: true
+    profilGenerationVersion?: true
   }
 
   export type GenerationMaxAggregateInputType = {
@@ -85896,6 +86067,8 @@ export namespace Prisma {
     queuedAt?: true
     startedAt?: true
     finishedAt?: true
+    profilGenerationId?: true
+    profilGenerationVersion?: true
   }
 
   export type GenerationCountAggregateInputType = {
@@ -85914,6 +86087,8 @@ export namespace Prisma {
     queuedAt?: true
     startedAt?: true
     finishedAt?: true
+    profilGenerationId?: true
+    profilGenerationVersion?: true
     _all?: true
   }
 
@@ -86019,6 +86194,8 @@ export namespace Prisma {
     queuedAt: Date
     startedAt: Date | null
     finishedAt: Date | null
+    profilGenerationId: string | null
+    profilGenerationVersion: number
     _count: GenerationCountAggregateOutputType | null
     _avg: GenerationAvgAggregateOutputType | null
     _sum: GenerationSumAggregateOutputType | null
@@ -86056,9 +86233,12 @@ export namespace Prisma {
     queuedAt?: boolean
     startedAt?: boolean
     finishedAt?: boolean
+    profilGenerationId?: boolean
+    profilGenerationVersion?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | VersionEdtDefaultArgs<ExtArgs>
     seances?: boolean | Generation$seancesArgs<ExtArgs>
+    profilGeneration?: boolean | Generation$profilGenerationArgs<ExtArgs>
     _count?: boolean | GenerationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["generation"]>
 
@@ -86078,8 +86258,11 @@ export namespace Prisma {
     queuedAt?: boolean
     startedAt?: boolean
     finishedAt?: boolean
+    profilGenerationId?: boolean
+    profilGenerationVersion?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    profilGeneration?: boolean | Generation$profilGenerationArgs<ExtArgs>
   }, ExtArgs["result"]["generation"]>
 
   export type GenerationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -86098,8 +86281,11 @@ export namespace Prisma {
     queuedAt?: boolean
     startedAt?: boolean
     finishedAt?: boolean
+    profilGenerationId?: boolean
+    profilGenerationVersion?: boolean
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    profilGeneration?: boolean | Generation$profilGenerationArgs<ExtArgs>
   }, ExtArgs["result"]["generation"]>
 
   export type GenerationSelectScalar = {
@@ -86118,22 +86304,27 @@ export namespace Prisma {
     queuedAt?: boolean
     startedAt?: boolean
     finishedAt?: boolean
+    profilGenerationId?: boolean
+    profilGenerationVersion?: boolean
   }
 
-  export type GenerationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "versionId" | "auteurId" | "statut" | "mode" | "engine" | "engineVersion" | "erreur" | "metrics" | "score" | "cancelRequested" | "queuedAt" | "startedAt" | "finishedAt", ExtArgs["result"]["generation"]>
+  export type GenerationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "versionId" | "auteurId" | "statut" | "mode" | "engine" | "engineVersion" | "erreur" | "metrics" | "score" | "cancelRequested" | "queuedAt" | "startedAt" | "finishedAt" | "profilGenerationId" | "profilGenerationVersion", ExtArgs["result"]["generation"]>
   export type GenerationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | VersionEdtDefaultArgs<ExtArgs>
     seances?: boolean | Generation$seancesArgs<ExtArgs>
+    profilGeneration?: boolean | Generation$profilGenerationArgs<ExtArgs>
     _count?: boolean | GenerationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GenerationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    profilGeneration?: boolean | Generation$profilGenerationArgs<ExtArgs>
   }
   export type GenerationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     semestre?: boolean | SemestreDefaultArgs<ExtArgs>
     version?: boolean | VersionEdtDefaultArgs<ExtArgs>
+    profilGeneration?: boolean | Generation$profilGenerationArgs<ExtArgs>
   }
 
   export type $GenerationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -86142,6 +86333,7 @@ export namespace Prisma {
       semestre: Prisma.$SemestrePayload<ExtArgs>
       version: Prisma.$VersionEdtPayload<ExtArgs>
       seances: Prisma.$GenerationSeancePayload<ExtArgs>[]
+      profilGeneration: Prisma.$ProfilGenerationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -86159,6 +86351,8 @@ export namespace Prisma {
       queuedAt: Date
       startedAt: Date | null
       finishedAt: Date | null
+      profilGenerationId: string | null
+      profilGenerationVersion: number
     }, ExtArgs["result"]["generation"]>
     composites: {}
   }
@@ -86556,6 +86750,7 @@ export namespace Prisma {
     semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     version<T extends VersionEdtDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VersionEdtDefaultArgs<ExtArgs>>): Prisma__VersionEdtClient<$Result.GetResult<Prisma.$VersionEdtPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     seances<T extends Generation$seancesArgs<ExtArgs> = {}>(args?: Subset<T, Generation$seancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationSeancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    profilGeneration<T extends Generation$profilGenerationArgs<ExtArgs> = {}>(args?: Subset<T, Generation$profilGenerationArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -86600,6 +86795,8 @@ export namespace Prisma {
     readonly queuedAt: FieldRef<"Generation", 'DateTime'>
     readonly startedAt: FieldRef<"Generation", 'DateTime'>
     readonly finishedAt: FieldRef<"Generation", 'DateTime'>
+    readonly profilGenerationId: FieldRef<"Generation", 'String'>
+    readonly profilGenerationVersion: FieldRef<"Generation", 'Int'>
   }
     
 
@@ -87022,6 +87219,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GenerationSeanceScalarFieldEnum | GenerationSeanceScalarFieldEnum[]
+  }
+
+  /**
+   * Generation.profilGeneration
+   */
+  export type Generation$profilGenerationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    where?: ProfilGenerationWhereInput
   }
 
   /**
@@ -88258,6 +88474,1242 @@ export namespace Prisma {
 
 
   /**
+   * Model ProfilGeneration
+   */
+
+  export type AggregateProfilGeneration = {
+    _count: ProfilGenerationCountAggregateOutputType | null
+    _avg: ProfilGenerationAvgAggregateOutputType | null
+    _sum: ProfilGenerationSumAggregateOutputType | null
+    _min: ProfilGenerationMinAggregateOutputType | null
+    _max: ProfilGenerationMaxAggregateOutputType | null
+  }
+
+  export type ProfilGenerationAvgAggregateOutputType = {
+    numero: number | null
+    dureeLimiteMinutes: number | null
+  }
+
+  export type ProfilGenerationSumAggregateOutputType = {
+    numero: number | null
+    dureeLimiteMinutes: number | null
+  }
+
+  export type ProfilGenerationMinAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    nom: string | null
+    numero: number | null
+    estParDefaut: boolean | null
+    dureeLimiteMinutes: number | null
+    preserverVerrous: boolean | null
+    engineVersion: string | null
+    constructeurVersion: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProfilGenerationMaxAggregateOutputType = {
+    id: string | null
+    semestreId: string | null
+    nom: string | null
+    numero: number | null
+    estParDefaut: boolean | null
+    dureeLimiteMinutes: number | null
+    preserverVerrous: boolean | null
+    engineVersion: string | null
+    constructeurVersion: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProfilGenerationCountAggregateOutputType = {
+    id: number
+    semestreId: number
+    nom: number
+    numero: number
+    estParDefaut: number
+    dureeLimiteMinutes: number
+    preserverVerrous: number
+    engineVersion: number
+    constructeurVersion: number
+    graines: number
+    poidsScore: number
+    valeursSnapshot: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProfilGenerationAvgAggregateInputType = {
+    numero?: true
+    dureeLimiteMinutes?: true
+  }
+
+  export type ProfilGenerationSumAggregateInputType = {
+    numero?: true
+    dureeLimiteMinutes?: true
+  }
+
+  export type ProfilGenerationMinAggregateInputType = {
+    id?: true
+    semestreId?: true
+    nom?: true
+    numero?: true
+    estParDefaut?: true
+    dureeLimiteMinutes?: true
+    preserverVerrous?: true
+    engineVersion?: true
+    constructeurVersion?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProfilGenerationMaxAggregateInputType = {
+    id?: true
+    semestreId?: true
+    nom?: true
+    numero?: true
+    estParDefaut?: true
+    dureeLimiteMinutes?: true
+    preserverVerrous?: true
+    engineVersion?: true
+    constructeurVersion?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProfilGenerationCountAggregateInputType = {
+    id?: true
+    semestreId?: true
+    nom?: true
+    numero?: true
+    estParDefaut?: true
+    dureeLimiteMinutes?: true
+    preserverVerrous?: true
+    engineVersion?: true
+    constructeurVersion?: true
+    graines?: true
+    poidsScore?: true
+    valeursSnapshot?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProfilGenerationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProfilGeneration to aggregate.
+     */
+    where?: ProfilGenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProfilGenerations to fetch.
+     */
+    orderBy?: ProfilGenerationOrderByWithRelationInput | ProfilGenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProfilGenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProfilGenerations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProfilGenerations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProfilGenerations
+    **/
+    _count?: true | ProfilGenerationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProfilGenerationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProfilGenerationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProfilGenerationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProfilGenerationMaxAggregateInputType
+  }
+
+  export type GetProfilGenerationAggregateType<T extends ProfilGenerationAggregateArgs> = {
+        [P in keyof T & keyof AggregateProfilGeneration]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProfilGeneration[P]>
+      : GetScalarType<T[P], AggregateProfilGeneration[P]>
+  }
+
+
+
+
+  export type ProfilGenerationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProfilGenerationWhereInput
+    orderBy?: ProfilGenerationOrderByWithAggregationInput | ProfilGenerationOrderByWithAggregationInput[]
+    by: ProfilGenerationScalarFieldEnum[] | ProfilGenerationScalarFieldEnum
+    having?: ProfilGenerationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProfilGenerationCountAggregateInputType | true
+    _avg?: ProfilGenerationAvgAggregateInputType
+    _sum?: ProfilGenerationSumAggregateInputType
+    _min?: ProfilGenerationMinAggregateInputType
+    _max?: ProfilGenerationMaxAggregateInputType
+  }
+
+  export type ProfilGenerationGroupByOutputType = {
+    id: string
+    semestreId: string
+    nom: string
+    numero: number
+    estParDefaut: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous: boolean
+    engineVersion: string | null
+    constructeurVersion: string | null
+    graines: JsonValue
+    poidsScore: JsonValue
+    valeursSnapshot: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    _count: ProfilGenerationCountAggregateOutputType | null
+    _avg: ProfilGenerationAvgAggregateOutputType | null
+    _sum: ProfilGenerationSumAggregateOutputType | null
+    _min: ProfilGenerationMinAggregateOutputType | null
+    _max: ProfilGenerationMaxAggregateOutputType | null
+  }
+
+  type GetProfilGenerationGroupByPayload<T extends ProfilGenerationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProfilGenerationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProfilGenerationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProfilGenerationGroupByOutputType[P]>
+            : GetScalarType<T[P], ProfilGenerationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProfilGenerationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    nom?: boolean
+    numero?: boolean
+    estParDefaut?: boolean
+    dureeLimiteMinutes?: boolean
+    preserverVerrous?: boolean
+    engineVersion?: boolean
+    constructeurVersion?: boolean
+    graines?: boolean
+    poidsScore?: boolean
+    valeursSnapshot?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    generations?: boolean | ProfilGeneration$generationsArgs<ExtArgs>
+    _count?: boolean | ProfilGenerationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["profilGeneration"]>
+
+  export type ProfilGenerationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    nom?: boolean
+    numero?: boolean
+    estParDefaut?: boolean
+    dureeLimiteMinutes?: boolean
+    preserverVerrous?: boolean
+    engineVersion?: boolean
+    constructeurVersion?: boolean
+    graines?: boolean
+    poidsScore?: boolean
+    valeursSnapshot?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["profilGeneration"]>
+
+  export type ProfilGenerationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    semestreId?: boolean
+    nom?: boolean
+    numero?: boolean
+    estParDefaut?: boolean
+    dureeLimiteMinutes?: boolean
+    preserverVerrous?: boolean
+    engineVersion?: boolean
+    constructeurVersion?: boolean
+    graines?: boolean
+    poidsScore?: boolean
+    valeursSnapshot?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["profilGeneration"]>
+
+  export type ProfilGenerationSelectScalar = {
+    id?: boolean
+    semestreId?: boolean
+    nom?: boolean
+    numero?: boolean
+    estParDefaut?: boolean
+    dureeLimiteMinutes?: boolean
+    preserverVerrous?: boolean
+    engineVersion?: boolean
+    constructeurVersion?: boolean
+    graines?: boolean
+    poidsScore?: boolean
+    valeursSnapshot?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProfilGenerationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "semestreId" | "nom" | "numero" | "estParDefaut" | "dureeLimiteMinutes" | "preserverVerrous" | "engineVersion" | "constructeurVersion" | "graines" | "poidsScore" | "valeursSnapshot" | "createdAt" | "updatedAt", ExtArgs["result"]["profilGeneration"]>
+  export type ProfilGenerationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+    generations?: boolean | ProfilGeneration$generationsArgs<ExtArgs>
+    _count?: boolean | ProfilGenerationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ProfilGenerationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+  export type ProfilGenerationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    semestre?: boolean | SemestreDefaultArgs<ExtArgs>
+  }
+
+  export type $ProfilGenerationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProfilGeneration"
+    objects: {
+      semestre: Prisma.$SemestrePayload<ExtArgs>
+      generations: Prisma.$GenerationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      semestreId: string
+      nom: string
+      numero: number
+      estParDefaut: boolean
+      dureeLimiteMinutes: number
+      preserverVerrous: boolean
+      engineVersion: string | null
+      constructeurVersion: string | null
+      graines: Prisma.JsonValue
+      poidsScore: Prisma.JsonValue
+      valeursSnapshot: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["profilGeneration"]>
+    composites: {}
+  }
+
+  type ProfilGenerationGetPayload<S extends boolean | null | undefined | ProfilGenerationDefaultArgs> = $Result.GetResult<Prisma.$ProfilGenerationPayload, S>
+
+  type ProfilGenerationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProfilGenerationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProfilGenerationCountAggregateInputType | true
+    }
+
+  export interface ProfilGenerationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProfilGeneration'], meta: { name: 'ProfilGeneration' } }
+    /**
+     * Find zero or one ProfilGeneration that matches the filter.
+     * @param {ProfilGenerationFindUniqueArgs} args - Arguments to find a ProfilGeneration
+     * @example
+     * // Get one ProfilGeneration
+     * const profilGeneration = await prisma.profilGeneration.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProfilGenerationFindUniqueArgs>(args: SelectSubset<T, ProfilGenerationFindUniqueArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProfilGeneration that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProfilGenerationFindUniqueOrThrowArgs} args - Arguments to find a ProfilGeneration
+     * @example
+     * // Get one ProfilGeneration
+     * const profilGeneration = await prisma.profilGeneration.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProfilGenerationFindUniqueOrThrowArgs>(args: SelectSubset<T, ProfilGenerationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProfilGeneration that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfilGenerationFindFirstArgs} args - Arguments to find a ProfilGeneration
+     * @example
+     * // Get one ProfilGeneration
+     * const profilGeneration = await prisma.profilGeneration.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProfilGenerationFindFirstArgs>(args?: SelectSubset<T, ProfilGenerationFindFirstArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProfilGeneration that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfilGenerationFindFirstOrThrowArgs} args - Arguments to find a ProfilGeneration
+     * @example
+     * // Get one ProfilGeneration
+     * const profilGeneration = await prisma.profilGeneration.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProfilGenerationFindFirstOrThrowArgs>(args?: SelectSubset<T, ProfilGenerationFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProfilGenerations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfilGenerationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProfilGenerations
+     * const profilGenerations = await prisma.profilGeneration.findMany()
+     * 
+     * // Get first 10 ProfilGenerations
+     * const profilGenerations = await prisma.profilGeneration.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const profilGenerationWithIdOnly = await prisma.profilGeneration.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProfilGenerationFindManyArgs>(args?: SelectSubset<T, ProfilGenerationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProfilGeneration.
+     * @param {ProfilGenerationCreateArgs} args - Arguments to create a ProfilGeneration.
+     * @example
+     * // Create one ProfilGeneration
+     * const ProfilGeneration = await prisma.profilGeneration.create({
+     *   data: {
+     *     // ... data to create a ProfilGeneration
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProfilGenerationCreateArgs>(args: SelectSubset<T, ProfilGenerationCreateArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProfilGenerations.
+     * @param {ProfilGenerationCreateManyArgs} args - Arguments to create many ProfilGenerations.
+     * @example
+     * // Create many ProfilGenerations
+     * const profilGeneration = await prisma.profilGeneration.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProfilGenerationCreateManyArgs>(args?: SelectSubset<T, ProfilGenerationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProfilGenerations and returns the data saved in the database.
+     * @param {ProfilGenerationCreateManyAndReturnArgs} args - Arguments to create many ProfilGenerations.
+     * @example
+     * // Create many ProfilGenerations
+     * const profilGeneration = await prisma.profilGeneration.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProfilGenerations and only return the `id`
+     * const profilGenerationWithIdOnly = await prisma.profilGeneration.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProfilGenerationCreateManyAndReturnArgs>(args?: SelectSubset<T, ProfilGenerationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProfilGeneration.
+     * @param {ProfilGenerationDeleteArgs} args - Arguments to delete one ProfilGeneration.
+     * @example
+     * // Delete one ProfilGeneration
+     * const ProfilGeneration = await prisma.profilGeneration.delete({
+     *   where: {
+     *     // ... filter to delete one ProfilGeneration
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProfilGenerationDeleteArgs>(args: SelectSubset<T, ProfilGenerationDeleteArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProfilGeneration.
+     * @param {ProfilGenerationUpdateArgs} args - Arguments to update one ProfilGeneration.
+     * @example
+     * // Update one ProfilGeneration
+     * const profilGeneration = await prisma.profilGeneration.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProfilGenerationUpdateArgs>(args: SelectSubset<T, ProfilGenerationUpdateArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProfilGenerations.
+     * @param {ProfilGenerationDeleteManyArgs} args - Arguments to filter ProfilGenerations to delete.
+     * @example
+     * // Delete a few ProfilGenerations
+     * const { count } = await prisma.profilGeneration.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProfilGenerationDeleteManyArgs>(args?: SelectSubset<T, ProfilGenerationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProfilGenerations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfilGenerationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProfilGenerations
+     * const profilGeneration = await prisma.profilGeneration.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProfilGenerationUpdateManyArgs>(args: SelectSubset<T, ProfilGenerationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProfilGenerations and returns the data updated in the database.
+     * @param {ProfilGenerationUpdateManyAndReturnArgs} args - Arguments to update many ProfilGenerations.
+     * @example
+     * // Update many ProfilGenerations
+     * const profilGeneration = await prisma.profilGeneration.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProfilGenerations and only return the `id`
+     * const profilGenerationWithIdOnly = await prisma.profilGeneration.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProfilGenerationUpdateManyAndReturnArgs>(args: SelectSubset<T, ProfilGenerationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProfilGeneration.
+     * @param {ProfilGenerationUpsertArgs} args - Arguments to update or create a ProfilGeneration.
+     * @example
+     * // Update or create a ProfilGeneration
+     * const profilGeneration = await prisma.profilGeneration.upsert({
+     *   create: {
+     *     // ... data to create a ProfilGeneration
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProfilGeneration we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProfilGenerationUpsertArgs>(args: SelectSubset<T, ProfilGenerationUpsertArgs<ExtArgs>>): Prisma__ProfilGenerationClient<$Result.GetResult<Prisma.$ProfilGenerationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProfilGenerations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfilGenerationCountArgs} args - Arguments to filter ProfilGenerations to count.
+     * @example
+     * // Count the number of ProfilGenerations
+     * const count = await prisma.profilGeneration.count({
+     *   where: {
+     *     // ... the filter for the ProfilGenerations we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProfilGenerationCountArgs>(
+      args?: Subset<T, ProfilGenerationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProfilGenerationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProfilGeneration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfilGenerationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProfilGenerationAggregateArgs>(args: Subset<T, ProfilGenerationAggregateArgs>): Prisma.PrismaPromise<GetProfilGenerationAggregateType<T>>
+
+    /**
+     * Group by ProfilGeneration.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProfilGenerationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProfilGenerationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProfilGenerationGroupByArgs['orderBy'] }
+        : { orderBy?: ProfilGenerationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProfilGenerationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProfilGenerationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProfilGeneration model
+   */
+  readonly fields: ProfilGenerationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProfilGeneration.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProfilGenerationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    semestre<T extends SemestreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SemestreDefaultArgs<ExtArgs>>): Prisma__SemestreClient<$Result.GetResult<Prisma.$SemestrePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    generations<T extends ProfilGeneration$generationsArgs<ExtArgs> = {}>(args?: Subset<T, ProfilGeneration$generationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProfilGeneration model
+   */
+  interface ProfilGenerationFieldRefs {
+    readonly id: FieldRef<"ProfilGeneration", 'String'>
+    readonly semestreId: FieldRef<"ProfilGeneration", 'String'>
+    readonly nom: FieldRef<"ProfilGeneration", 'String'>
+    readonly numero: FieldRef<"ProfilGeneration", 'Int'>
+    readonly estParDefaut: FieldRef<"ProfilGeneration", 'Boolean'>
+    readonly dureeLimiteMinutes: FieldRef<"ProfilGeneration", 'Int'>
+    readonly preserverVerrous: FieldRef<"ProfilGeneration", 'Boolean'>
+    readonly engineVersion: FieldRef<"ProfilGeneration", 'String'>
+    readonly constructeurVersion: FieldRef<"ProfilGeneration", 'String'>
+    readonly graines: FieldRef<"ProfilGeneration", 'Json'>
+    readonly poidsScore: FieldRef<"ProfilGeneration", 'Json'>
+    readonly valeursSnapshot: FieldRef<"ProfilGeneration", 'Json'>
+    readonly createdAt: FieldRef<"ProfilGeneration", 'DateTime'>
+    readonly updatedAt: FieldRef<"ProfilGeneration", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProfilGeneration findUnique
+   */
+  export type ProfilGenerationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfilGeneration to fetch.
+     */
+    where: ProfilGenerationWhereUniqueInput
+  }
+
+  /**
+   * ProfilGeneration findUniqueOrThrow
+   */
+  export type ProfilGenerationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfilGeneration to fetch.
+     */
+    where: ProfilGenerationWhereUniqueInput
+  }
+
+  /**
+   * ProfilGeneration findFirst
+   */
+  export type ProfilGenerationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfilGeneration to fetch.
+     */
+    where?: ProfilGenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProfilGenerations to fetch.
+     */
+    orderBy?: ProfilGenerationOrderByWithRelationInput | ProfilGenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProfilGenerations.
+     */
+    cursor?: ProfilGenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProfilGenerations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProfilGenerations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProfilGenerations.
+     */
+    distinct?: ProfilGenerationScalarFieldEnum | ProfilGenerationScalarFieldEnum[]
+  }
+
+  /**
+   * ProfilGeneration findFirstOrThrow
+   */
+  export type ProfilGenerationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfilGeneration to fetch.
+     */
+    where?: ProfilGenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProfilGenerations to fetch.
+     */
+    orderBy?: ProfilGenerationOrderByWithRelationInput | ProfilGenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProfilGenerations.
+     */
+    cursor?: ProfilGenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProfilGenerations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProfilGenerations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProfilGenerations.
+     */
+    distinct?: ProfilGenerationScalarFieldEnum | ProfilGenerationScalarFieldEnum[]
+  }
+
+  /**
+   * ProfilGeneration findMany
+   */
+  export type ProfilGenerationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * Filter, which ProfilGenerations to fetch.
+     */
+    where?: ProfilGenerationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProfilGenerations to fetch.
+     */
+    orderBy?: ProfilGenerationOrderByWithRelationInput | ProfilGenerationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProfilGenerations.
+     */
+    cursor?: ProfilGenerationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProfilGenerations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProfilGenerations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProfilGenerations.
+     */
+    distinct?: ProfilGenerationScalarFieldEnum | ProfilGenerationScalarFieldEnum[]
+  }
+
+  /**
+   * ProfilGeneration create
+   */
+  export type ProfilGenerationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProfilGeneration.
+     */
+    data: XOR<ProfilGenerationCreateInput, ProfilGenerationUncheckedCreateInput>
+  }
+
+  /**
+   * ProfilGeneration createMany
+   */
+  export type ProfilGenerationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProfilGenerations.
+     */
+    data: ProfilGenerationCreateManyInput | ProfilGenerationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProfilGeneration createManyAndReturn
+   */
+  export type ProfilGenerationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProfilGenerations.
+     */
+    data: ProfilGenerationCreateManyInput | ProfilGenerationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProfilGeneration update
+   */
+  export type ProfilGenerationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProfilGeneration.
+     */
+    data: XOR<ProfilGenerationUpdateInput, ProfilGenerationUncheckedUpdateInput>
+    /**
+     * Choose, which ProfilGeneration to update.
+     */
+    where: ProfilGenerationWhereUniqueInput
+  }
+
+  /**
+   * ProfilGeneration updateMany
+   */
+  export type ProfilGenerationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProfilGenerations.
+     */
+    data: XOR<ProfilGenerationUpdateManyMutationInput, ProfilGenerationUncheckedUpdateManyInput>
+    /**
+     * Filter which ProfilGenerations to update
+     */
+    where?: ProfilGenerationWhereInput
+    /**
+     * Limit how many ProfilGenerations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProfilGeneration updateManyAndReturn
+   */
+  export type ProfilGenerationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * The data used to update ProfilGenerations.
+     */
+    data: XOR<ProfilGenerationUpdateManyMutationInput, ProfilGenerationUncheckedUpdateManyInput>
+    /**
+     * Filter which ProfilGenerations to update
+     */
+    where?: ProfilGenerationWhereInput
+    /**
+     * Limit how many ProfilGenerations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProfilGeneration upsert
+   */
+  export type ProfilGenerationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProfilGeneration to update in case it exists.
+     */
+    where: ProfilGenerationWhereUniqueInput
+    /**
+     * In case the ProfilGeneration found by the `where` argument doesn't exist, create a new ProfilGeneration with this data.
+     */
+    create: XOR<ProfilGenerationCreateInput, ProfilGenerationUncheckedCreateInput>
+    /**
+     * In case the ProfilGeneration was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProfilGenerationUpdateInput, ProfilGenerationUncheckedUpdateInput>
+  }
+
+  /**
+   * ProfilGeneration delete
+   */
+  export type ProfilGenerationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+    /**
+     * Filter which ProfilGeneration to delete.
+     */
+    where: ProfilGenerationWhereUniqueInput
+  }
+
+  /**
+   * ProfilGeneration deleteMany
+   */
+  export type ProfilGenerationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProfilGenerations to delete
+     */
+    where?: ProfilGenerationWhereInput
+    /**
+     * Limit how many ProfilGenerations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProfilGeneration.generations
+   */
+  export type ProfilGeneration$generationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Generation
+     */
+    select?: GenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Generation
+     */
+    omit?: GenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GenerationInclude<ExtArgs> | null
+    where?: GenerationWhereInput
+    orderBy?: GenerationOrderByWithRelationInput | GenerationOrderByWithRelationInput[]
+    cursor?: GenerationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GenerationScalarFieldEnum | GenerationScalarFieldEnum[]
+  }
+
+  /**
+   * ProfilGeneration without action
+   */
+  export type ProfilGenerationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProfilGeneration
+     */
+    select?: ProfilGenerationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProfilGeneration
+     */
+    omit?: ProfilGenerationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProfilGenerationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -89209,7 +90661,9 @@ export namespace Prisma {
     cancelRequested: 'cancelRequested',
     queuedAt: 'queuedAt',
     startedAt: 'startedAt',
-    finishedAt: 'finishedAt'
+    finishedAt: 'finishedAt',
+    profilGenerationId: 'profilGenerationId',
+    profilGenerationVersion: 'profilGenerationVersion'
   };
 
   export type GenerationScalarFieldEnum = (typeof GenerationScalarFieldEnum)[keyof typeof GenerationScalarFieldEnum]
@@ -89233,6 +90687,26 @@ export namespace Prisma {
   };
 
   export type GenerationSeanceScalarFieldEnum = (typeof GenerationSeanceScalarFieldEnum)[keyof typeof GenerationSeanceScalarFieldEnum]
+
+
+  export const ProfilGenerationScalarFieldEnum: {
+    id: 'id',
+    semestreId: 'semestreId',
+    nom: 'nom',
+    numero: 'numero',
+    estParDefaut: 'estParDefaut',
+    dureeLimiteMinutes: 'dureeLimiteMinutes',
+    preserverVerrous: 'preserverVerrous',
+    engineVersion: 'engineVersion',
+    constructeurVersion: 'constructeurVersion',
+    graines: 'graines',
+    poidsScore: 'poidsScore',
+    valeursSnapshot: 'valeursSnapshot',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProfilGenerationScalarFieldEnum = (typeof ProfilGenerationScalarFieldEnum)[keyof typeof ProfilGenerationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -91413,6 +92887,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageListRelationFilter
     exigencesSalle?: ExigenceSalleActiviteListRelationFilter
     generations?: GenerationListRelationFilter
+    profilsGeneration?: ProfilGenerationListRelationFilter
   }
 
   export type SemestreOrderByWithRelationInput = {
@@ -91436,6 +92911,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageOrderByRelationAggregateInput
     exigencesSalle?: ExigenceSalleActiviteOrderByRelationAggregateInput
     generations?: GenerationOrderByRelationAggregateInput
+    profilsGeneration?: ProfilGenerationOrderByRelationAggregateInput
   }
 
   export type SemestreWhereUniqueInput = Prisma.AtLeast<{
@@ -91463,6 +92939,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageListRelationFilter
     exigencesSalle?: ExigenceSalleActiviteListRelationFilter
     generations?: GenerationListRelationFilter
+    profilsGeneration?: ProfilGenerationListRelationFilter
   }, "id" | "anneeId_numero">
 
   export type SemestreOrderByWithAggregationInput = {
@@ -94973,9 +96450,12 @@ export namespace Prisma {
     queuedAt?: DateTimeFilter<"Generation"> | Date | string
     startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
     finishedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+    profilGenerationId?: UuidNullableFilter<"Generation"> | string | null
+    profilGenerationVersion?: IntFilter<"Generation"> | number
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
     seances?: GenerationSeanceListRelationFilter
+    profilGeneration?: XOR<ProfilGenerationNullableScalarRelationFilter, ProfilGenerationWhereInput> | null
   }
 
   export type GenerationOrderByWithRelationInput = {
@@ -94994,9 +96474,12 @@ export namespace Prisma {
     queuedAt?: SortOrder
     startedAt?: SortOrderInput | SortOrder
     finishedAt?: SortOrderInput | SortOrder
+    profilGenerationId?: SortOrderInput | SortOrder
+    profilGenerationVersion?: SortOrder
     semestre?: SemestreOrderByWithRelationInput
     version?: VersionEdtOrderByWithRelationInput
     seances?: GenerationSeanceOrderByRelationAggregateInput
+    profilGeneration?: ProfilGenerationOrderByWithRelationInput
   }
 
   export type GenerationWhereUniqueInput = Prisma.AtLeast<{
@@ -95018,9 +96501,12 @@ export namespace Prisma {
     queuedAt?: DateTimeFilter<"Generation"> | Date | string
     startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
     finishedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+    profilGenerationId?: UuidNullableFilter<"Generation"> | string | null
+    profilGenerationVersion?: IntFilter<"Generation"> | number
     semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
     version?: XOR<VersionEdtScalarRelationFilter, VersionEdtWhereInput>
     seances?: GenerationSeanceListRelationFilter
+    profilGeneration?: XOR<ProfilGenerationNullableScalarRelationFilter, ProfilGenerationWhereInput> | null
   }, "id">
 
   export type GenerationOrderByWithAggregationInput = {
@@ -95039,6 +96525,8 @@ export namespace Prisma {
     queuedAt?: SortOrder
     startedAt?: SortOrderInput | SortOrder
     finishedAt?: SortOrderInput | SortOrder
+    profilGenerationId?: SortOrderInput | SortOrder
+    profilGenerationVersion?: SortOrder
     _count?: GenerationCountOrderByAggregateInput
     _avg?: GenerationAvgOrderByAggregateInput
     _max?: GenerationMaxOrderByAggregateInput
@@ -95065,6 +96553,8 @@ export namespace Prisma {
     queuedAt?: DateTimeWithAggregatesFilter<"Generation"> | Date | string
     startedAt?: DateTimeNullableWithAggregatesFilter<"Generation"> | Date | string | null
     finishedAt?: DateTimeNullableWithAggregatesFilter<"Generation"> | Date | string | null
+    profilGenerationId?: UuidNullableWithAggregatesFilter<"Generation"> | string | null
+    profilGenerationVersion?: IntWithAggregatesFilter<"Generation"> | number
   }
 
   export type GenerationSeanceWhereInput = {
@@ -95168,6 +96658,111 @@ export namespace Prisma {
     creneauDebutId?: UuidNullableWithAggregatesFilter<"GenerationSeance"> | string | null
     nbCreneaux?: IntWithAggregatesFilter<"GenerationSeance"> | number
     statut?: EnumSeanceStatutWithAggregatesFilter<"GenerationSeance"> | $Enums.SeanceStatut
+  }
+
+  export type ProfilGenerationWhereInput = {
+    AND?: ProfilGenerationWhereInput | ProfilGenerationWhereInput[]
+    OR?: ProfilGenerationWhereInput[]
+    NOT?: ProfilGenerationWhereInput | ProfilGenerationWhereInput[]
+    id?: UuidFilter<"ProfilGeneration"> | string
+    semestreId?: UuidFilter<"ProfilGeneration"> | string
+    nom?: StringFilter<"ProfilGeneration"> | string
+    numero?: IntFilter<"ProfilGeneration"> | number
+    estParDefaut?: BoolFilter<"ProfilGeneration"> | boolean
+    dureeLimiteMinutes?: IntFilter<"ProfilGeneration"> | number
+    preserverVerrous?: BoolFilter<"ProfilGeneration"> | boolean
+    engineVersion?: StringNullableFilter<"ProfilGeneration"> | string | null
+    constructeurVersion?: StringNullableFilter<"ProfilGeneration"> | string | null
+    graines?: JsonFilter<"ProfilGeneration">
+    poidsScore?: JsonFilter<"ProfilGeneration">
+    valeursSnapshot?: JsonFilter<"ProfilGeneration">
+    createdAt?: DateTimeFilter<"ProfilGeneration"> | Date | string
+    updatedAt?: DateTimeFilter<"ProfilGeneration"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    generations?: GenerationListRelationFilter
+  }
+
+  export type ProfilGenerationOrderByWithRelationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    nom?: SortOrder
+    numero?: SortOrder
+    estParDefaut?: SortOrder
+    dureeLimiteMinutes?: SortOrder
+    preserverVerrous?: SortOrder
+    engineVersion?: SortOrderInput | SortOrder
+    constructeurVersion?: SortOrderInput | SortOrder
+    graines?: SortOrder
+    poidsScore?: SortOrder
+    valeursSnapshot?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    semestre?: SemestreOrderByWithRelationInput
+    generations?: GenerationOrderByRelationAggregateInput
+  }
+
+  export type ProfilGenerationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProfilGenerationWhereInput | ProfilGenerationWhereInput[]
+    OR?: ProfilGenerationWhereInput[]
+    NOT?: ProfilGenerationWhereInput | ProfilGenerationWhereInput[]
+    semestreId?: UuidFilter<"ProfilGeneration"> | string
+    nom?: StringFilter<"ProfilGeneration"> | string
+    numero?: IntFilter<"ProfilGeneration"> | number
+    estParDefaut?: BoolFilter<"ProfilGeneration"> | boolean
+    dureeLimiteMinutes?: IntFilter<"ProfilGeneration"> | number
+    preserverVerrous?: BoolFilter<"ProfilGeneration"> | boolean
+    engineVersion?: StringNullableFilter<"ProfilGeneration"> | string | null
+    constructeurVersion?: StringNullableFilter<"ProfilGeneration"> | string | null
+    graines?: JsonFilter<"ProfilGeneration">
+    poidsScore?: JsonFilter<"ProfilGeneration">
+    valeursSnapshot?: JsonFilter<"ProfilGeneration">
+    createdAt?: DateTimeFilter<"ProfilGeneration"> | Date | string
+    updatedAt?: DateTimeFilter<"ProfilGeneration"> | Date | string
+    semestre?: XOR<SemestreScalarRelationFilter, SemestreWhereInput>
+    generations?: GenerationListRelationFilter
+  }, "id">
+
+  export type ProfilGenerationOrderByWithAggregationInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    nom?: SortOrder
+    numero?: SortOrder
+    estParDefaut?: SortOrder
+    dureeLimiteMinutes?: SortOrder
+    preserverVerrous?: SortOrder
+    engineVersion?: SortOrderInput | SortOrder
+    constructeurVersion?: SortOrderInput | SortOrder
+    graines?: SortOrder
+    poidsScore?: SortOrder
+    valeursSnapshot?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProfilGenerationCountOrderByAggregateInput
+    _avg?: ProfilGenerationAvgOrderByAggregateInput
+    _max?: ProfilGenerationMaxOrderByAggregateInput
+    _min?: ProfilGenerationMinOrderByAggregateInput
+    _sum?: ProfilGenerationSumOrderByAggregateInput
+  }
+
+  export type ProfilGenerationScalarWhereWithAggregatesInput = {
+    AND?: ProfilGenerationScalarWhereWithAggregatesInput | ProfilGenerationScalarWhereWithAggregatesInput[]
+    OR?: ProfilGenerationScalarWhereWithAggregatesInput[]
+    NOT?: ProfilGenerationScalarWhereWithAggregatesInput | ProfilGenerationScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ProfilGeneration"> | string
+    semestreId?: UuidWithAggregatesFilter<"ProfilGeneration"> | string
+    nom?: StringWithAggregatesFilter<"ProfilGeneration"> | string
+    numero?: IntWithAggregatesFilter<"ProfilGeneration"> | number
+    estParDefaut?: BoolWithAggregatesFilter<"ProfilGeneration"> | boolean
+    dureeLimiteMinutes?: IntWithAggregatesFilter<"ProfilGeneration"> | number
+    preserverVerrous?: BoolWithAggregatesFilter<"ProfilGeneration"> | boolean
+    engineVersion?: StringNullableWithAggregatesFilter<"ProfilGeneration"> | string | null
+    constructeurVersion?: StringNullableWithAggregatesFilter<"ProfilGeneration"> | string | null
+    graines?: JsonWithAggregatesFilter<"ProfilGeneration">
+    poidsScore?: JsonWithAggregatesFilter<"ProfilGeneration">
+    valeursSnapshot?: JsonWithAggregatesFilter<"ProfilGeneration">
+    createdAt?: DateTimeWithAggregatesFilter<"ProfilGeneration"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ProfilGeneration"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -96831,6 +98426,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateInput = {
@@ -96853,6 +98449,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUpdateInput = {
@@ -96875,6 +98472,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateInput = {
@@ -96897,6 +98495,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateManyInput = {
@@ -100559,9 +102158,11 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationVersion: number
     semestre: SemestreCreateNestedOneWithoutGenerationsInput
     version: VersionEdtCreateNestedOneWithoutGenerationsInput
     seances?: GenerationSeanceCreateNestedManyWithoutGenerationInput
+    profilGeneration?: ProfilGenerationCreateNestedOneWithoutGenerationsInput
   }
 
   export type GenerationUncheckedCreateInput = {
@@ -100580,6 +102181,8 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationId?: string | null
+    profilGenerationVersion: number
     seances?: GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput
   }
 
@@ -100597,9 +102200,11 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
     semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
     version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
     seances?: GenerationSeanceUpdateManyWithoutGenerationNestedInput
+    profilGeneration?: ProfilGenerationUpdateOneWithoutGenerationsNestedInput
   }
 
   export type GenerationUncheckedUpdateInput = {
@@ -100618,6 +102223,8 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
     seances?: GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput
   }
 
@@ -100637,6 +102244,8 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationId?: string | null
+    profilGenerationVersion: number
   }
 
   export type GenerationUpdateManyMutationInput = {
@@ -100653,6 +102262,7 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
   }
 
   export type GenerationUncheckedUpdateManyInput = {
@@ -100671,6 +102281,8 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
   }
 
   export type GenerationSeanceCreateInput = {
@@ -100789,6 +102401,128 @@ export namespace Prisma {
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+  }
+
+  export type ProfilGenerationCreateInput = {
+    id?: string
+    nom: string
+    numero?: number
+    estParDefaut?: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous?: boolean
+    engineVersion?: string | null
+    constructeurVersion?: string | null
+    graines: JsonNullValueInput | InputJsonValue
+    poidsScore: JsonNullValueInput | InputJsonValue
+    valeursSnapshot: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutProfilsGenerationInput
+    generations?: GenerationCreateNestedManyWithoutProfilGenerationInput
+  }
+
+  export type ProfilGenerationUncheckedCreateInput = {
+    id?: string
+    semestreId: string
+    nom: string
+    numero?: number
+    estParDefaut?: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous?: boolean
+    engineVersion?: string | null
+    constructeurVersion?: string | null
+    graines: JsonNullValueInput | InputJsonValue
+    poidsScore: JsonNullValueInput | InputJsonValue
+    valeursSnapshot: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    generations?: GenerationUncheckedCreateNestedManyWithoutProfilGenerationInput
+  }
+
+  export type ProfilGenerationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutProfilsGenerationNestedInput
+    generations?: GenerationUpdateManyWithoutProfilGenerationNestedInput
+  }
+
+  export type ProfilGenerationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    generations?: GenerationUncheckedUpdateManyWithoutProfilGenerationNestedInput
+  }
+
+  export type ProfilGenerationCreateManyInput = {
+    id?: string
+    semestreId: string
+    nom: string
+    numero?: number
+    estParDefaut?: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous?: boolean
+    engineVersion?: string | null
+    constructeurVersion?: string | null
+    graines: JsonNullValueInput | InputJsonValue
+    poidsScore: JsonNullValueInput | InputJsonValue
+    valeursSnapshot: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProfilGenerationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProfilGenerationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -102364,6 +104098,12 @@ export namespace Prisma {
     none?: GenerationWhereInput
   }
 
+  export type ProfilGenerationListRelationFilter = {
+    every?: ProfilGenerationWhereInput
+    some?: ProfilGenerationWhereInput
+    none?: ProfilGenerationWhereInput
+  }
+
   export type GroupeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -102405,6 +104145,10 @@ export namespace Prisma {
   }
 
   export type GenerationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProfilGenerationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -105134,6 +106878,11 @@ export namespace Prisma {
     none?: GenerationSeanceWhereInput
   }
 
+  export type ProfilGenerationNullableScalarRelationFilter = {
+    is?: ProfilGenerationWhereInput | null
+    isNot?: ProfilGenerationWhereInput | null
+  }
+
   export type GenerationSeanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -105154,10 +106903,13 @@ export namespace Prisma {
     queuedAt?: SortOrder
     startedAt?: SortOrder
     finishedAt?: SortOrder
+    profilGenerationId?: SortOrder
+    profilGenerationVersion?: SortOrder
   }
 
   export type GenerationAvgOrderByAggregateInput = {
     score?: SortOrder
+    profilGenerationVersion?: SortOrder
   }
 
   export type GenerationMaxOrderByAggregateInput = {
@@ -105175,6 +106927,8 @@ export namespace Prisma {
     queuedAt?: SortOrder
     startedAt?: SortOrder
     finishedAt?: SortOrder
+    profilGenerationId?: SortOrder
+    profilGenerationVersion?: SortOrder
   }
 
   export type GenerationMinOrderByAggregateInput = {
@@ -105192,10 +106946,13 @@ export namespace Prisma {
     queuedAt?: SortOrder
     startedAt?: SortOrder
     finishedAt?: SortOrder
+    profilGenerationId?: SortOrder
+    profilGenerationVersion?: SortOrder
   }
 
   export type GenerationSumOrderByAggregateInput = {
     score?: SortOrder
+    profilGenerationVersion?: SortOrder
   }
 
   export type EnumGenerationStatutWithAggregatesFilter<$PrismaModel = never> = {
@@ -105302,6 +107059,61 @@ export namespace Prisma {
   export type GenerationSeanceSumOrderByAggregateInput = {
     rang?: SortOrder
     nbCreneaux?: SortOrder
+  }
+
+  export type ProfilGenerationCountOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    nom?: SortOrder
+    numero?: SortOrder
+    estParDefaut?: SortOrder
+    dureeLimiteMinutes?: SortOrder
+    preserverVerrous?: SortOrder
+    engineVersion?: SortOrder
+    constructeurVersion?: SortOrder
+    graines?: SortOrder
+    poidsScore?: SortOrder
+    valeursSnapshot?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProfilGenerationAvgOrderByAggregateInput = {
+    numero?: SortOrder
+    dureeLimiteMinutes?: SortOrder
+  }
+
+  export type ProfilGenerationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    nom?: SortOrder
+    numero?: SortOrder
+    estParDefaut?: SortOrder
+    dureeLimiteMinutes?: SortOrder
+    preserverVerrous?: SortOrder
+    engineVersion?: SortOrder
+    constructeurVersion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProfilGenerationMinOrderByAggregateInput = {
+    id?: SortOrder
+    semestreId?: SortOrder
+    nom?: SortOrder
+    numero?: SortOrder
+    estParDefaut?: SortOrder
+    dureeLimiteMinutes?: SortOrder
+    preserverVerrous?: SortOrder
+    engineVersion?: SortOrder
+    constructeurVersion?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProfilGenerationSumOrderByAggregateInput = {
+    numero?: SortOrder
+    dureeLimiteMinutes?: SortOrder
   }
 
   export type UserSystemRoleCreateNestedManyWithoutUserInput = {
@@ -106935,6 +108747,13 @@ export namespace Prisma {
     connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
   }
 
+  export type ProfilGenerationCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<ProfilGenerationCreateWithoutSemestreInput, ProfilGenerationUncheckedCreateWithoutSemestreInput> | ProfilGenerationCreateWithoutSemestreInput[] | ProfilGenerationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ProfilGenerationCreateOrConnectWithoutSemestreInput | ProfilGenerationCreateOrConnectWithoutSemestreInput[]
+    createMany?: ProfilGenerationCreateManySemestreInputEnvelope
+    connect?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+  }
+
   export type GroupeUncheckedCreateNestedManyWithoutSemestreInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -107017,6 +108836,13 @@ export namespace Prisma {
     connectOrCreate?: GenerationCreateOrConnectWithoutSemestreInput | GenerationCreateOrConnectWithoutSemestreInput[]
     createMany?: GenerationCreateManySemestreInputEnvelope
     connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+  }
+
+  export type ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput = {
+    create?: XOR<ProfilGenerationCreateWithoutSemestreInput, ProfilGenerationUncheckedCreateWithoutSemestreInput> | ProfilGenerationCreateWithoutSemestreInput[] | ProfilGenerationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ProfilGenerationCreateOrConnectWithoutSemestreInput | ProfilGenerationCreateOrConnectWithoutSemestreInput[]
+    createMany?: ProfilGenerationCreateManySemestreInputEnvelope
+    connect?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
   }
 
   export type AnneeUpdateOneRequiredWithoutSemestresNestedInput = {
@@ -107195,6 +109021,20 @@ export namespace Prisma {
     deleteMany?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
   }
 
+  export type ProfilGenerationUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<ProfilGenerationCreateWithoutSemestreInput, ProfilGenerationUncheckedCreateWithoutSemestreInput> | ProfilGenerationCreateWithoutSemestreInput[] | ProfilGenerationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ProfilGenerationCreateOrConnectWithoutSemestreInput | ProfilGenerationCreateOrConnectWithoutSemestreInput[]
+    upsert?: ProfilGenerationUpsertWithWhereUniqueWithoutSemestreInput | ProfilGenerationUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: ProfilGenerationCreateManySemestreInputEnvelope
+    set?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+    disconnect?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+    delete?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+    connect?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+    update?: ProfilGenerationUpdateWithWhereUniqueWithoutSemestreInput | ProfilGenerationUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: ProfilGenerationUpdateManyWithWhereWithoutSemestreInput | ProfilGenerationUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: ProfilGenerationScalarWhereInput | ProfilGenerationScalarWhereInput[]
+  }
+
   export type GroupeUncheckedUpdateManyWithoutSemestreNestedInput = {
     create?: XOR<GroupeCreateWithoutSemestreInput, GroupeUncheckedCreateWithoutSemestreInput> | GroupeCreateWithoutSemestreInput[] | GroupeUncheckedCreateWithoutSemestreInput[]
     connectOrCreate?: GroupeCreateOrConnectWithoutSemestreInput | GroupeCreateOrConnectWithoutSemestreInput[]
@@ -107361,6 +109201,20 @@ export namespace Prisma {
     update?: GenerationUpdateWithWhereUniqueWithoutSemestreInput | GenerationUpdateWithWhereUniqueWithoutSemestreInput[]
     updateMany?: GenerationUpdateManyWithWhereWithoutSemestreInput | GenerationUpdateManyWithWhereWithoutSemestreInput[]
     deleteMany?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
+  }
+
+  export type ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput = {
+    create?: XOR<ProfilGenerationCreateWithoutSemestreInput, ProfilGenerationUncheckedCreateWithoutSemestreInput> | ProfilGenerationCreateWithoutSemestreInput[] | ProfilGenerationUncheckedCreateWithoutSemestreInput[]
+    connectOrCreate?: ProfilGenerationCreateOrConnectWithoutSemestreInput | ProfilGenerationCreateOrConnectWithoutSemestreInput[]
+    upsert?: ProfilGenerationUpsertWithWhereUniqueWithoutSemestreInput | ProfilGenerationUpsertWithWhereUniqueWithoutSemestreInput[]
+    createMany?: ProfilGenerationCreateManySemestreInputEnvelope
+    set?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+    disconnect?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+    delete?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+    connect?: ProfilGenerationWhereUniqueInput | ProfilGenerationWhereUniqueInput[]
+    update?: ProfilGenerationUpdateWithWhereUniqueWithoutSemestreInput | ProfilGenerationUpdateWithWhereUniqueWithoutSemestreInput[]
+    updateMany?: ProfilGenerationUpdateManyWithWhereWithoutSemestreInput | ProfilGenerationUpdateManyWithWhereWithoutSemestreInput[]
+    deleteMany?: ProfilGenerationScalarWhereInput | ProfilGenerationScalarWhereInput[]
   }
 
   export type SemestreCreateNestedOneWithoutCreneauxInput = {
@@ -110991,6 +112845,12 @@ export namespace Prisma {
     connect?: GenerationSeanceWhereUniqueInput | GenerationSeanceWhereUniqueInput[]
   }
 
+  export type ProfilGenerationCreateNestedOneWithoutGenerationsInput = {
+    create?: XOR<ProfilGenerationCreateWithoutGenerationsInput, ProfilGenerationUncheckedCreateWithoutGenerationsInput>
+    connectOrCreate?: ProfilGenerationCreateOrConnectWithoutGenerationsInput
+    connect?: ProfilGenerationWhereUniqueInput
+  }
+
   export type GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput = {
     create?: XOR<GenerationSeanceCreateWithoutGenerationInput, GenerationSeanceUncheckedCreateWithoutGenerationInput> | GenerationSeanceCreateWithoutGenerationInput[] | GenerationSeanceUncheckedCreateWithoutGenerationInput[]
     connectOrCreate?: GenerationSeanceCreateOrConnectWithoutGenerationInput | GenerationSeanceCreateOrConnectWithoutGenerationInput[]
@@ -111044,6 +112904,16 @@ export namespace Prisma {
     deleteMany?: GenerationSeanceScalarWhereInput | GenerationSeanceScalarWhereInput[]
   }
 
+  export type ProfilGenerationUpdateOneWithoutGenerationsNestedInput = {
+    create?: XOR<ProfilGenerationCreateWithoutGenerationsInput, ProfilGenerationUncheckedCreateWithoutGenerationsInput>
+    connectOrCreate?: ProfilGenerationCreateOrConnectWithoutGenerationsInput
+    upsert?: ProfilGenerationUpsertWithoutGenerationsInput
+    disconnect?: ProfilGenerationWhereInput | boolean
+    delete?: ProfilGenerationWhereInput | boolean
+    connect?: ProfilGenerationWhereUniqueInput
+    update?: XOR<XOR<ProfilGenerationUpdateToOneWithWhereWithoutGenerationsInput, ProfilGenerationUpdateWithoutGenerationsInput>, ProfilGenerationUncheckedUpdateWithoutGenerationsInput>
+  }
+
   export type GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput = {
     create?: XOR<GenerationSeanceCreateWithoutGenerationInput, GenerationSeanceUncheckedCreateWithoutGenerationInput> | GenerationSeanceCreateWithoutGenerationInput[] | GenerationSeanceUncheckedCreateWithoutGenerationInput[]
     connectOrCreate?: GenerationSeanceCreateOrConnectWithoutGenerationInput | GenerationSeanceCreateOrConnectWithoutGenerationInput[]
@@ -111079,6 +112949,62 @@ export namespace Prisma {
     upsert?: GenerationUpsertWithoutSeancesInput
     connect?: GenerationWhereUniqueInput
     update?: XOR<XOR<GenerationUpdateToOneWithWhereWithoutSeancesInput, GenerationUpdateWithoutSeancesInput>, GenerationUncheckedUpdateWithoutSeancesInput>
+  }
+
+  export type SemestreCreateNestedOneWithoutProfilsGenerationInput = {
+    create?: XOR<SemestreCreateWithoutProfilsGenerationInput, SemestreUncheckedCreateWithoutProfilsGenerationInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutProfilsGenerationInput
+    connect?: SemestreWhereUniqueInput
+  }
+
+  export type GenerationCreateNestedManyWithoutProfilGenerationInput = {
+    create?: XOR<GenerationCreateWithoutProfilGenerationInput, GenerationUncheckedCreateWithoutProfilGenerationInput> | GenerationCreateWithoutProfilGenerationInput[] | GenerationUncheckedCreateWithoutProfilGenerationInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutProfilGenerationInput | GenerationCreateOrConnectWithoutProfilGenerationInput[]
+    createMany?: GenerationCreateManyProfilGenerationInputEnvelope
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+  }
+
+  export type GenerationUncheckedCreateNestedManyWithoutProfilGenerationInput = {
+    create?: XOR<GenerationCreateWithoutProfilGenerationInput, GenerationUncheckedCreateWithoutProfilGenerationInput> | GenerationCreateWithoutProfilGenerationInput[] | GenerationUncheckedCreateWithoutProfilGenerationInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutProfilGenerationInput | GenerationCreateOrConnectWithoutProfilGenerationInput[]
+    createMany?: GenerationCreateManyProfilGenerationInputEnvelope
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+  }
+
+  export type SemestreUpdateOneRequiredWithoutProfilsGenerationNestedInput = {
+    create?: XOR<SemestreCreateWithoutProfilsGenerationInput, SemestreUncheckedCreateWithoutProfilsGenerationInput>
+    connectOrCreate?: SemestreCreateOrConnectWithoutProfilsGenerationInput
+    upsert?: SemestreUpsertWithoutProfilsGenerationInput
+    connect?: SemestreWhereUniqueInput
+    update?: XOR<XOR<SemestreUpdateToOneWithWhereWithoutProfilsGenerationInput, SemestreUpdateWithoutProfilsGenerationInput>, SemestreUncheckedUpdateWithoutProfilsGenerationInput>
+  }
+
+  export type GenerationUpdateManyWithoutProfilGenerationNestedInput = {
+    create?: XOR<GenerationCreateWithoutProfilGenerationInput, GenerationUncheckedCreateWithoutProfilGenerationInput> | GenerationCreateWithoutProfilGenerationInput[] | GenerationUncheckedCreateWithoutProfilGenerationInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutProfilGenerationInput | GenerationCreateOrConnectWithoutProfilGenerationInput[]
+    upsert?: GenerationUpsertWithWhereUniqueWithoutProfilGenerationInput | GenerationUpsertWithWhereUniqueWithoutProfilGenerationInput[]
+    createMany?: GenerationCreateManyProfilGenerationInputEnvelope
+    set?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    disconnect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    delete?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    update?: GenerationUpdateWithWhereUniqueWithoutProfilGenerationInput | GenerationUpdateWithWhereUniqueWithoutProfilGenerationInput[]
+    updateMany?: GenerationUpdateManyWithWhereWithoutProfilGenerationInput | GenerationUpdateManyWithWhereWithoutProfilGenerationInput[]
+    deleteMany?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
+  }
+
+  export type GenerationUncheckedUpdateManyWithoutProfilGenerationNestedInput = {
+    create?: XOR<GenerationCreateWithoutProfilGenerationInput, GenerationUncheckedCreateWithoutProfilGenerationInput> | GenerationCreateWithoutProfilGenerationInput[] | GenerationUncheckedCreateWithoutProfilGenerationInput[]
+    connectOrCreate?: GenerationCreateOrConnectWithoutProfilGenerationInput | GenerationCreateOrConnectWithoutProfilGenerationInput[]
+    upsert?: GenerationUpsertWithWhereUniqueWithoutProfilGenerationInput | GenerationUpsertWithWhereUniqueWithoutProfilGenerationInput[]
+    createMany?: GenerationCreateManyProfilGenerationInputEnvelope
+    set?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    disconnect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    delete?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    connect?: GenerationWhereUniqueInput | GenerationWhereUniqueInput[]
+    update?: GenerationUpdateWithWhereUniqueWithoutProfilGenerationInput | GenerationUpdateWithWhereUniqueWithoutProfilGenerationInput[]
+    updateMany?: GenerationUpdateManyWithWhereWithoutProfilGenerationInput | GenerationUpdateManyWithWhereWithoutProfilGenerationInput[]
+    deleteMany?: GenerationScalarWhereInput | GenerationScalarWhereInput[]
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -115827,6 +117753,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutAnneeInput = {
@@ -115848,6 +117775,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutAnneeInput = {
@@ -116565,8 +118493,10 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationVersion: number
     version: VersionEdtCreateNestedOneWithoutGenerationsInput
     seances?: GenerationSeanceCreateNestedManyWithoutGenerationInput
+    profilGeneration?: ProfilGenerationCreateNestedOneWithoutGenerationsInput
   }
 
   export type GenerationUncheckedCreateWithoutSemestreInput = {
@@ -116584,6 +118514,8 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationId?: string | null
+    profilGenerationVersion: number
     seances?: GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput
   }
 
@@ -116594,6 +118526,50 @@ export namespace Prisma {
 
   export type GenerationCreateManySemestreInputEnvelope = {
     data: GenerationCreateManySemestreInput | GenerationCreateManySemestreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProfilGenerationCreateWithoutSemestreInput = {
+    id?: string
+    nom: string
+    numero?: number
+    estParDefaut?: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous?: boolean
+    engineVersion?: string | null
+    constructeurVersion?: string | null
+    graines: JsonNullValueInput | InputJsonValue
+    poidsScore: JsonNullValueInput | InputJsonValue
+    valeursSnapshot: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    generations?: GenerationCreateNestedManyWithoutProfilGenerationInput
+  }
+
+  export type ProfilGenerationUncheckedCreateWithoutSemestreInput = {
+    id?: string
+    nom: string
+    numero?: number
+    estParDefaut?: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous?: boolean
+    engineVersion?: string | null
+    constructeurVersion?: string | null
+    graines: JsonNullValueInput | InputJsonValue
+    poidsScore: JsonNullValueInput | InputJsonValue
+    valeursSnapshot: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    generations?: GenerationUncheckedCreateNestedManyWithoutProfilGenerationInput
+  }
+
+  export type ProfilGenerationCreateOrConnectWithoutSemestreInput = {
+    where: ProfilGenerationWhereUniqueInput
+    create: XOR<ProfilGenerationCreateWithoutSemestreInput, ProfilGenerationUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type ProfilGenerationCreateManySemestreInputEnvelope = {
+    data: ProfilGenerationCreateManySemestreInput | ProfilGenerationCreateManySemestreInput[]
     skipDuplicates?: boolean
   }
 
@@ -117001,6 +118977,44 @@ export namespace Prisma {
     queuedAt?: DateTimeFilter<"Generation"> | Date | string
     startedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
     finishedAt?: DateTimeNullableFilter<"Generation"> | Date | string | null
+    profilGenerationId?: UuidNullableFilter<"Generation"> | string | null
+    profilGenerationVersion?: IntFilter<"Generation"> | number
+  }
+
+  export type ProfilGenerationUpsertWithWhereUniqueWithoutSemestreInput = {
+    where: ProfilGenerationWhereUniqueInput
+    update: XOR<ProfilGenerationUpdateWithoutSemestreInput, ProfilGenerationUncheckedUpdateWithoutSemestreInput>
+    create: XOR<ProfilGenerationCreateWithoutSemestreInput, ProfilGenerationUncheckedCreateWithoutSemestreInput>
+  }
+
+  export type ProfilGenerationUpdateWithWhereUniqueWithoutSemestreInput = {
+    where: ProfilGenerationWhereUniqueInput
+    data: XOR<ProfilGenerationUpdateWithoutSemestreInput, ProfilGenerationUncheckedUpdateWithoutSemestreInput>
+  }
+
+  export type ProfilGenerationUpdateManyWithWhereWithoutSemestreInput = {
+    where: ProfilGenerationScalarWhereInput
+    data: XOR<ProfilGenerationUpdateManyMutationInput, ProfilGenerationUncheckedUpdateManyWithoutSemestreInput>
+  }
+
+  export type ProfilGenerationScalarWhereInput = {
+    AND?: ProfilGenerationScalarWhereInput | ProfilGenerationScalarWhereInput[]
+    OR?: ProfilGenerationScalarWhereInput[]
+    NOT?: ProfilGenerationScalarWhereInput | ProfilGenerationScalarWhereInput[]
+    id?: UuidFilter<"ProfilGeneration"> | string
+    semestreId?: UuidFilter<"ProfilGeneration"> | string
+    nom?: StringFilter<"ProfilGeneration"> | string
+    numero?: IntFilter<"ProfilGeneration"> | number
+    estParDefaut?: BoolFilter<"ProfilGeneration"> | boolean
+    dureeLimiteMinutes?: IntFilter<"ProfilGeneration"> | number
+    preserverVerrous?: BoolFilter<"ProfilGeneration"> | boolean
+    engineVersion?: StringNullableFilter<"ProfilGeneration"> | string | null
+    constructeurVersion?: StringNullableFilter<"ProfilGeneration"> | string | null
+    graines?: JsonFilter<"ProfilGeneration">
+    poidsScore?: JsonFilter<"ProfilGeneration">
+    valeursSnapshot?: JsonFilter<"ProfilGeneration">
+    createdAt?: DateTimeFilter<"ProfilGeneration"> | Date | string
+    updatedAt?: DateTimeFilter<"ProfilGeneration"> | Date | string
   }
 
   export type SemestreCreateWithoutCreneauxInput = {
@@ -117022,6 +119036,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutCreneauxInput = {
@@ -117043,6 +119058,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutCreneauxInput = {
@@ -117156,6 +119172,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutCreneauxInput = {
@@ -117177,6 +119194,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type CreneauAffichageUpsertWithWhereUniqueWithoutCreneauInput = {
@@ -117313,6 +119331,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutSeancesInput = {
@@ -117334,6 +119353,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutSeancesInput = {
@@ -117615,6 +119635,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutSeancesInput = {
@@ -117636,6 +119657,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type VersionEdtUpsertWithoutSeancesInput = {
@@ -118299,6 +120321,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutVersionsInput = {
@@ -118320,6 +120343,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutVersionsInput = {
@@ -118568,8 +120592,10 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationVersion: number
     semestre: SemestreCreateNestedOneWithoutGenerationsInput
     seances?: GenerationSeanceCreateNestedManyWithoutGenerationInput
+    profilGeneration?: ProfilGenerationCreateNestedOneWithoutGenerationsInput
   }
 
   export type GenerationUncheckedCreateWithoutVersionInput = {
@@ -118587,6 +120613,8 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationId?: string | null
+    profilGenerationVersion: number
     seances?: GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput
   }
 
@@ -118630,6 +120658,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutVersionsInput = {
@@ -118651,6 +120680,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SeanceUpsertWithWhereUniqueWithoutVersionInput = {
@@ -119968,6 +121998,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesInput = {
@@ -119989,6 +122020,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesInput = {
@@ -120204,6 +122236,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesInput = {
@@ -120225,6 +122258,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type GroupeUpsertWithoutEnfantsInput = {
@@ -122530,6 +124564,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDechargesInput = {
@@ -122551,6 +124586,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDechargesInput = {
@@ -122639,6 +124675,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDechargesInput = {
@@ -122660,6 +124697,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleCreateWithoutTypeSalleInput = {
@@ -123281,6 +125319,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutIndisponibilitesInput = {
@@ -123302,6 +125341,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutIndisponibilitesInput = {
@@ -123433,6 +125473,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutIndisponibilitesInput = {
@@ -123454,6 +125495,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type EnseignantUpsertWithoutIndisponibilitesInput = {
@@ -124253,6 +126295,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutContrainteInstancesInput = {
@@ -124274,6 +126317,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutContrainteInstancesInput = {
@@ -124342,6 +126386,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutContrainteInstancesInput = {
@@ -124363,6 +126408,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type ContrainteDefinitionUpsertWithoutInstancesInput = {
@@ -124421,6 +126467,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutRepartitionsInput = {
@@ -124442,6 +126489,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutRepartitionsInput = {
@@ -124554,6 +126602,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutRepartitionsInput = {
@@ -124575,6 +126624,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type DepartementUpsertWithoutRepartitionsInput = {
@@ -125133,6 +127183,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutDemandesModificationInput = {
@@ -125154,6 +127205,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutDemandesModificationInput = {
@@ -125258,6 +127310,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutDemandesModificationInput = {
@@ -125279,6 +127332,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type UserUpsertWithoutDemandesModificationInput = {
@@ -125541,6 +127595,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGroupesCovoiturageInput = {
@@ -125562,6 +127617,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGroupesCovoiturageInput = {
@@ -125599,6 +127655,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGroupesCovoiturageInput = {
@@ -125620,6 +127677,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreCreateWithoutExigencesSalleInput = {
@@ -125641,6 +127699,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     generations?: GenerationCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutExigencesSalleInput = {
@@ -125662,6 +127721,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutExigencesSalleInput = {
@@ -125766,6 +127826,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutExigencesSalleInput = {
@@ -125787,6 +127848,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SalleUpsertWithoutExigencesSalleImposeeInput = {
@@ -126039,6 +128101,7 @@ export namespace Prisma {
     versions?: VersionEdtCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreUncheckedCreateWithoutGenerationsInput = {
@@ -126060,6 +128123,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    profilsGeneration?: ProfilGenerationUncheckedCreateNestedManyWithoutSemestreInput
   }
 
   export type SemestreCreateOrConnectWithoutGenerationsInput = {
@@ -126148,6 +128212,45 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProfilGenerationCreateWithoutGenerationsInput = {
+    id?: string
+    nom: string
+    numero?: number
+    estParDefaut?: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous?: boolean
+    engineVersion?: string | null
+    constructeurVersion?: string | null
+    graines: JsonNullValueInput | InputJsonValue
+    poidsScore: JsonNullValueInput | InputJsonValue
+    valeursSnapshot: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    semestre: SemestreCreateNestedOneWithoutProfilsGenerationInput
+  }
+
+  export type ProfilGenerationUncheckedCreateWithoutGenerationsInput = {
+    id?: string
+    semestreId: string
+    nom: string
+    numero?: number
+    estParDefaut?: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous?: boolean
+    engineVersion?: string | null
+    constructeurVersion?: string | null
+    graines: JsonNullValueInput | InputJsonValue
+    poidsScore: JsonNullValueInput | InputJsonValue
+    valeursSnapshot: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProfilGenerationCreateOrConnectWithoutGenerationsInput = {
+    where: ProfilGenerationWhereUniqueInput
+    create: XOR<ProfilGenerationCreateWithoutGenerationsInput, ProfilGenerationUncheckedCreateWithoutGenerationsInput>
+  }
+
   export type SemestreUpsertWithoutGenerationsInput = {
     update: XOR<SemestreUpdateWithoutGenerationsInput, SemestreUncheckedUpdateWithoutGenerationsInput>
     create: XOR<SemestreCreateWithoutGenerationsInput, SemestreUncheckedCreateWithoutGenerationsInput>
@@ -126178,6 +128281,7 @@ export namespace Prisma {
     versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutGenerationsInput = {
@@ -126199,6 +128303,7 @@ export namespace Prisma {
     versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type VersionEdtUpsertWithoutGenerationsInput = {
@@ -126282,6 +128387,51 @@ export namespace Prisma {
     statut?: EnumSeanceStatutFilter<"GenerationSeance"> | $Enums.SeanceStatut
   }
 
+  export type ProfilGenerationUpsertWithoutGenerationsInput = {
+    update: XOR<ProfilGenerationUpdateWithoutGenerationsInput, ProfilGenerationUncheckedUpdateWithoutGenerationsInput>
+    create: XOR<ProfilGenerationCreateWithoutGenerationsInput, ProfilGenerationUncheckedCreateWithoutGenerationsInput>
+    where?: ProfilGenerationWhereInput
+  }
+
+  export type ProfilGenerationUpdateToOneWithWhereWithoutGenerationsInput = {
+    where?: ProfilGenerationWhereInput
+    data: XOR<ProfilGenerationUpdateWithoutGenerationsInput, ProfilGenerationUncheckedUpdateWithoutGenerationsInput>
+  }
+
+  export type ProfilGenerationUpdateWithoutGenerationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    semestre?: SemestreUpdateOneRequiredWithoutProfilsGenerationNestedInput
+  }
+
+  export type ProfilGenerationUncheckedUpdateWithoutGenerationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type GenerationCreateWithoutSeancesInput = {
     id?: string
     auteurId: string
@@ -126296,8 +128446,10 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationVersion: number
     semestre: SemestreCreateNestedOneWithoutGenerationsInput
     version: VersionEdtCreateNestedOneWithoutGenerationsInput
+    profilGeneration?: ProfilGenerationCreateNestedOneWithoutGenerationsInput
   }
 
   export type GenerationUncheckedCreateWithoutSeancesInput = {
@@ -126316,6 +128468,8 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationId?: string | null
+    profilGenerationVersion: number
   }
 
   export type GenerationCreateOrConnectWithoutSeancesInput = {
@@ -126348,8 +128502,10 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
     semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
     version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
+    profilGeneration?: ProfilGenerationUpdateOneWithoutGenerationsNestedInput
   }
 
   export type GenerationUncheckedUpdateWithoutSeancesInput = {
@@ -126368,6 +128524,178 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SemestreCreateWithoutProfilsGenerationInput = {
+    id?: string
+    numero: number
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    annee: AnneeCreateNestedOneWithoutSemestresInput
+    groupes?: GroupeCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationCreateNestedManyWithoutSemestreInput
+    seances?: SeanceCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteCreateNestedManyWithoutSemestreInput
+    generations?: GenerationCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreUncheckedCreateWithoutProfilsGenerationInput = {
+    id?: string
+    numero: number
+    anneeId: string
+    nbSemaines?: number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groupes?: GroupeUncheckedCreateNestedManyWithoutSemestreInput
+    decharges?: DechargeUncheckedCreateNestedManyWithoutSemestreInput
+    creneaux?: CreneauUncheckedCreateNestedManyWithoutSemestreInput
+    indisponibilites?: IndisponibiliteUncheckedCreateNestedManyWithoutSemestreInput
+    contrainteInstances?: ContrainteInstanceUncheckedCreateNestedManyWithoutSemestreInput
+    repartitions?: RepartitionUncheckedCreateNestedManyWithoutSemestreInput
+    demandesModification?: DemandeModificationUncheckedCreateNestedManyWithoutSemestreInput
+    seances?: SeanceUncheckedCreateNestedManyWithoutSemestreInput
+    versions?: VersionEdtUncheckedCreateNestedManyWithoutSemestreInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedCreateNestedManyWithoutSemestreInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedCreateNestedManyWithoutSemestreInput
+    generations?: GenerationUncheckedCreateNestedManyWithoutSemestreInput
+  }
+
+  export type SemestreCreateOrConnectWithoutProfilsGenerationInput = {
+    where: SemestreWhereUniqueInput
+    create: XOR<SemestreCreateWithoutProfilsGenerationInput, SemestreUncheckedCreateWithoutProfilsGenerationInput>
+  }
+
+  export type GenerationCreateWithoutProfilGenerationInput = {
+    id?: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    profilGenerationVersion: number
+    semestre: SemestreCreateNestedOneWithoutGenerationsInput
+    version: VersionEdtCreateNestedOneWithoutGenerationsInput
+    seances?: GenerationSeanceCreateNestedManyWithoutGenerationInput
+  }
+
+  export type GenerationUncheckedCreateWithoutProfilGenerationInput = {
+    id?: string
+    semestreId: string
+    versionId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    profilGenerationVersion: number
+    seances?: GenerationSeanceUncheckedCreateNestedManyWithoutGenerationInput
+  }
+
+  export type GenerationCreateOrConnectWithoutProfilGenerationInput = {
+    where: GenerationWhereUniqueInput
+    create: XOR<GenerationCreateWithoutProfilGenerationInput, GenerationUncheckedCreateWithoutProfilGenerationInput>
+  }
+
+  export type GenerationCreateManyProfilGenerationInputEnvelope = {
+    data: GenerationCreateManyProfilGenerationInput | GenerationCreateManyProfilGenerationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SemestreUpsertWithoutProfilsGenerationInput = {
+    update: XOR<SemestreUpdateWithoutProfilsGenerationInput, SemestreUncheckedUpdateWithoutProfilsGenerationInput>
+    create: XOR<SemestreCreateWithoutProfilsGenerationInput, SemestreUncheckedCreateWithoutProfilsGenerationInput>
+    where?: SemestreWhereInput
+  }
+
+  export type SemestreUpdateToOneWithWhereWithoutProfilsGenerationInput = {
+    where?: SemestreWhereInput
+    data: XOR<SemestreUpdateWithoutProfilsGenerationInput, SemestreUncheckedUpdateWithoutProfilsGenerationInput>
+  }
+
+  export type SemestreUpdateWithoutProfilsGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    annee?: AnneeUpdateOneRequiredWithoutSemestresNestedInput
+    groupes?: GroupeUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type SemestreUncheckedUpdateWithoutProfilsGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    anneeId?: StringFieldUpdateOperationsInput | string
+    nbSemaines?: IntFieldUpdateOperationsInput | number
+    grilleParams?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groupes?: GroupeUncheckedUpdateManyWithoutSemestreNestedInput
+    decharges?: DechargeUncheckedUpdateManyWithoutSemestreNestedInput
+    creneaux?: CreneauUncheckedUpdateManyWithoutSemestreNestedInput
+    indisponibilites?: IndisponibiliteUncheckedUpdateManyWithoutSemestreNestedInput
+    contrainteInstances?: ContrainteInstanceUncheckedUpdateManyWithoutSemestreNestedInput
+    repartitions?: RepartitionUncheckedUpdateManyWithoutSemestreNestedInput
+    demandesModification?: DemandeModificationUncheckedUpdateManyWithoutSemestreNestedInput
+    seances?: SeanceUncheckedUpdateManyWithoutSemestreNestedInput
+    versions?: VersionEdtUncheckedUpdateManyWithoutSemestreNestedInput
+    groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
+    exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
+    generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+  }
+
+  export type GenerationUpsertWithWhereUniqueWithoutProfilGenerationInput = {
+    where: GenerationWhereUniqueInput
+    update: XOR<GenerationUpdateWithoutProfilGenerationInput, GenerationUncheckedUpdateWithoutProfilGenerationInput>
+    create: XOR<GenerationCreateWithoutProfilGenerationInput, GenerationUncheckedCreateWithoutProfilGenerationInput>
+  }
+
+  export type GenerationUpdateWithWhereUniqueWithoutProfilGenerationInput = {
+    where: GenerationWhereUniqueInput
+    data: XOR<GenerationUpdateWithoutProfilGenerationInput, GenerationUncheckedUpdateWithoutProfilGenerationInput>
+  }
+
+  export type GenerationUpdateManyWithWhereWithoutProfilGenerationInput = {
+    where: GenerationScalarWhereInput
+    data: XOR<GenerationUpdateManyMutationInput, GenerationUncheckedUpdateManyWithoutProfilGenerationInput>
   }
 
   export type UserSystemRoleCreateManyUserInput = {
@@ -127525,6 +129853,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateWithoutAnneeInput = {
@@ -127546,6 +129875,7 @@ export namespace Prisma {
     groupesCovoiturage?: GroupeCovoiturageUncheckedUpdateManyWithoutSemestreNestedInput
     exigencesSalle?: ExigenceSalleActiviteUncheckedUpdateManyWithoutSemestreNestedInput
     generations?: GenerationUncheckedUpdateManyWithoutSemestreNestedInput
+    profilsGeneration?: ProfilGenerationUncheckedUpdateManyWithoutSemestreNestedInput
   }
 
   export type SemestreUncheckedUpdateManyWithoutAnneeInput = {
@@ -127836,6 +130166,24 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationId?: string | null
+    profilGenerationVersion: number
+  }
+
+  export type ProfilGenerationCreateManySemestreInput = {
+    id?: string
+    nom: string
+    numero?: number
+    estParDefaut?: boolean
+    dureeLimiteMinutes: number
+    preserverVerrous?: boolean
+    engineVersion?: string | null
+    constructeurVersion?: string | null
+    graines: JsonNullValueInput | InputJsonValue
+    poidsScore: JsonNullValueInput | InputJsonValue
+    valeursSnapshot: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type GroupeUpdateWithoutSemestreInput = {
@@ -128281,8 +130629,10 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
     version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
     seances?: GenerationSeanceUpdateManyWithoutGenerationNestedInput
+    profilGeneration?: ProfilGenerationUpdateOneWithoutGenerationsNestedInput
   }
 
   export type GenerationUncheckedUpdateWithoutSemestreInput = {
@@ -128300,6 +130650,8 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
     seances?: GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput
   }
 
@@ -128318,6 +130670,58 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ProfilGenerationUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    generations?: GenerationUpdateManyWithoutProfilGenerationNestedInput
+  }
+
+  export type ProfilGenerationUncheckedUpdateWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    generations?: GenerationUncheckedUpdateManyWithoutProfilGenerationNestedInput
+  }
+
+  export type ProfilGenerationUncheckedUpdateManyWithoutSemestreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nom?: StringFieldUpdateOperationsInput | string
+    numero?: IntFieldUpdateOperationsInput | number
+    estParDefaut?: BoolFieldUpdateOperationsInput | boolean
+    dureeLimiteMinutes?: IntFieldUpdateOperationsInput | number
+    preserverVerrous?: BoolFieldUpdateOperationsInput | boolean
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    constructeurVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    graines?: JsonNullValueInput | InputJsonValue
+    poidsScore?: JsonNullValueInput | InputJsonValue
+    valeursSnapshot?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CreneauAffichageCreateManyCreneauInput = {
@@ -128607,6 +131011,8 @@ export namespace Prisma {
     queuedAt?: Date | string
     startedAt?: Date | string | null
     finishedAt?: Date | string | null
+    profilGenerationId?: string | null
+    profilGenerationVersion: number
   }
 
   export type SeanceUpdateWithoutVersionInput = {
@@ -128839,8 +131245,10 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
     semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
     seances?: GenerationSeanceUpdateManyWithoutGenerationNestedInput
+    profilGeneration?: ProfilGenerationUpdateOneWithoutGenerationsNestedInput
   }
 
   export type GenerationUncheckedUpdateWithoutVersionInput = {
@@ -128858,6 +131266,8 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
     seances?: GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput
   }
 
@@ -128876,6 +131286,8 @@ export namespace Prisma {
     queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationId?: NullableStringFieldUpdateOperationsInput | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
   }
 
   export type FormationCreateManyDepartementInput = {
@@ -130930,6 +133342,84 @@ export namespace Prisma {
     creneauDebutId?: NullableStringFieldUpdateOperationsInput | string | null
     nbCreneaux?: IntFieldUpdateOperationsInput | number
     statut?: EnumSeanceStatutFieldUpdateOperationsInput | $Enums.SeanceStatut
+  }
+
+  export type GenerationCreateManyProfilGenerationInput = {
+    id?: string
+    semestreId: string
+    versionId: string
+    auteurId: string
+    statut?: $Enums.GenerationStatut
+    mode?: $Enums.GenerationMode
+    engine?: string
+    engineVersion?: string | null
+    erreur?: string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: boolean
+    queuedAt?: Date | string
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    profilGenerationVersion: number
+  }
+
+  export type GenerationUpdateWithoutProfilGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
+    semestre?: SemestreUpdateOneRequiredWithoutGenerationsNestedInput
+    version?: VersionEdtUpdateOneRequiredWithoutGenerationsNestedInput
+    seances?: GenerationSeanceUpdateManyWithoutGenerationNestedInput
+  }
+
+  export type GenerationUncheckedUpdateWithoutProfilGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
+    seances?: GenerationSeanceUncheckedUpdateManyWithoutGenerationNestedInput
+  }
+
+  export type GenerationUncheckedUpdateManyWithoutProfilGenerationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    semestreId?: StringFieldUpdateOperationsInput | string
+    versionId?: StringFieldUpdateOperationsInput | string
+    auteurId?: StringFieldUpdateOperationsInput | string
+    statut?: EnumGenerationStatutFieldUpdateOperationsInput | $Enums.GenerationStatut
+    mode?: EnumGenerationModeFieldUpdateOperationsInput | $Enums.GenerationMode
+    engine?: StringFieldUpdateOperationsInput | string
+    engineVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    erreur?: NullableStringFieldUpdateOperationsInput | string | null
+    metrics?: NullableJsonNullValueInput | InputJsonValue
+    score?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    cancelRequested?: BoolFieldUpdateOperationsInput | boolean
+    queuedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    profilGenerationVersion?: IntFieldUpdateOperationsInput | number
   }
 
 

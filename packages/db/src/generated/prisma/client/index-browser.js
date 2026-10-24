@@ -860,7 +860,9 @@ exports.Prisma.GenerationScalarFieldEnum = {
   cancelRequested: 'cancelRequested',
   queuedAt: 'queuedAt',
   startedAt: 'startedAt',
-  finishedAt: 'finishedAt'
+  finishedAt: 'finishedAt',
+  profilGenerationId: 'profilGenerationId',
+  profilGenerationVersion: 'profilGenerationVersion'
 };
 
 exports.Prisma.GenerationSeanceScalarFieldEnum = {
@@ -878,6 +880,23 @@ exports.Prisma.GenerationSeanceScalarFieldEnum = {
   creneauDebutId: 'creneauDebutId',
   nbCreneaux: 'nbCreneaux',
   statut: 'statut'
+};
+
+exports.Prisma.ProfilGenerationScalarFieldEnum = {
+  id: 'id',
+  semestreId: 'semestreId',
+  nom: 'nom',
+  numero: 'numero',
+  estParDefaut: 'estParDefaut',
+  dureeLimiteMinutes: 'dureeLimiteMinutes',
+  preserverVerrous: 'preserverVerrous',
+  engineVersion: 'engineVersion',
+  constructeurVersion: 'constructeurVersion',
+  graines: 'graines',
+  poidsScore: 'poidsScore',
+  valeursSnapshot: 'valeursSnapshot',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -1214,7 +1233,8 @@ exports.Prisma.ModelName = {
   ExigenceSalleActivite: 'ExigenceSalleActivite',
   ExigenceSalleAutorisee: 'ExigenceSalleAutorisee',
   Generation: 'Generation',
-  GenerationSeance: 'GenerationSeance'
+  GenerationSeance: 'GenerationSeance',
+  ProfilGeneration: 'ProfilGeneration'
 };
 
 /**
