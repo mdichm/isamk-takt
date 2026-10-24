@@ -16,6 +16,7 @@ describe('VersionService.adoptGeneration (L4-19)', () => {
   let service: VersionService;
   let prisma: any;
   let conflitService: any;
+  let bossMock: any;
 
   const versionId = 'version-1';
   const generationId = 'generation-1';
@@ -35,12 +36,14 @@ describe('VersionService.adoptGeneration (L4-19)', () => {
       $transaction: vi.fn(),
     };
     conflitService = { recomputeConflits: vi.fn() };
+    bossMock = { send: vi.fn().mockResolvedValue('job-id') };
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         VersionService,
         { provide: PrismaService, useValue: prisma },
         { provide: PreparationService, useValue: { getPreparation: vi.fn() } },
         { provide: ConflitService, useValue: conflitService },
+        { provide: 'BOSS', useValue: bossMock },
       ],
     }).compile();
     service = module.get(VersionService);

@@ -6,6 +6,7 @@ import {
   BadRequestException,
   ConflictException,
   UnprocessableEntityException,
+  Inject,
 } from '@nestjs/common';
 import { createHash, randomUUID } from 'crypto';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
@@ -24,13 +25,19 @@ import type {
   Creneau,
   Seance,
 } from '@takt/db';
+import type { PgBoss as PgBossType } from 'pg-boss';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { VersionResponseDto } from './dto/version-response.dto.js';
 import type { CompletudeResponseDto } from './dto/completude-response.dto.js';
 import type { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import type { GenerationResponseDto } from './dto/generation-response.dto.js';
+import { Prisma as PrismaValue } from '@takt/db';
+import { mkdtemp, writeFile } from 'fs/promises';
+import { join } from 'path';
+import { tmpdir } from 'os';
 import type { AdoptResponseDto } from './dto/adopt-response.dto.js';
+import type { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -44,6 +51,7 @@ export class VersionService {
     private readonly prisma: PrismaService,
     private readonly preparationService: PreparationService,
     private readonly conflitService: ConflitService,
+    @Inject('BOSS') private readonly boss: PgBossType,
   ) {}
 
   /** Liste toutes les versions (lecture, permission version:read). */
@@ -1047,5 +1055,167 @@ export class VersionService {
     return liste
       .slice(indexDebut, indexDebut + nbCreneaux)
       .map((c) => c.id);
+  }
+
+  // Import de résultat de génération manuelle (L4-16)
+  // POST /versions/{id}/generations/import
+  // ============================================
+
+  /**
+   * Importe le résultat d'une exécution manuelle de FET pour une version.
+   *
+   * Étapes :
+   * 1. Vérifier que la version existe et est en statut EDITION
+   * 2. Vérifier qu'aucune génération n'est déjà en cours sur cette version
+   * 3. Vérifier que l'empreinte du fichier moteur correspond à un FichierMoteur lié à une génération de cette version
+   * 4. Créer la Generation en mode MANUELLE (sans graines, fichierAttendu = sha256)
+   * 5. Stocker le fichier uploadé temporairement
+   * 6. Enfiler un job pg-boss pour l'import du résultat par le worker
+   * 7. Retourner { generationId, mode: 'MANUELLE' }
+   */
+  async importManualGeneration(
+    versionId: string,
+    file: Express.Multer.File,
+    fichierMoteurSha256: string,
+    userId: string,
+  ): Promise<ImportGenerationResponseDto> {
+    // 1. Récupérer la version
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: {
+        id: true,
+        semestreId: true,
+        statut: true,
+      },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version \"${versionId}\" introuvable`);
+    }
+
+    // 2. La version doit être en statut EDITION pour accepter une importation
+    if (version.statut !== 'EDITION') {
+      throw new BadRequestException({
+        code: 'VERSION_NOT_EDITION',
+        message: `La version \"${versionId}\" n'est pas en statut EDITION (actuel: ${version.statut})`,
+      });
+    }
+
+    // 3. Vérifier qu'aucune génération n'est déjà en cours (RUNNING ou QUEUED) sur cette version
+    const generationEnCours = await this.prisma.generation.findFirst({
+      where: {
+        versionId,
+        statut: { in: ['QUEUED', 'RUNNING'] as GenerationStatut[] },
+      },
+      select: { id: true, statut: true },
+    });
+    if (generationEnCours) {
+      throw new ConflictException({
+        code: 'GENERATION_ALREADY_RUNNING',
+        message: `Une génération est déjà en cours sur la version \"${versionId}\" (id: ${generationEnCours.id}, statut: ${generationEnCours.statut})`,
+      });
+    }
+
+    // 4. Vérifier que l'empreinte correspond à un FichierMoteur lié à une génération de cette version
+    const fichierMoteur = await this.prisma.fichierMoteur.findFirst({
+      where: {
+        sha256: fichierMoteurSha256,
+        generation: {
+          versionId,
+        },
+      },
+      select: {
+        id: true,
+        sha256: true,
+        engineVersion: true,
+        generationId: true,
+      },
+    });
+    if (!fichierMoteur) {
+      throw new UnprocessableEntityException({
+        code: 'ENGINE_FILE_MISMATCH',
+        message:
+          "L'empreinte du fichier moteur ne correspond à aucun fichier moteur exporté pour cette version",
+        expected: fichierMoteurSha256,
+      });
+    }
+
+    // 5. Stocker le fichier uploadé temporairement pour le worker
+    const storageDir = process.env.ENGINE_FILE_STORAGE_DIR ?? join(tmpdir(), 'takt-engine-files');
+    const importDir = await mkdtemp(join(storageDir, 'import-manuel-'));
+    const filePath = join(importDir, file.originalname ?? 'import.fet');
+    await writeFile(filePath, file.buffer);
+
+    // 6. Créer la Generation en mode MANUELLE dans une transaction
+    const maintenant = new Date();
+    const generation = await this.prisma.$transaction(async (tx) => {
+      const gen = await tx.generation.create({
+        data: {
+          id: randomUUID(),
+          semestreId: version.semestreId,
+          versionId: version.id,
+          auteurId: userId,
+          statut: 'QUEUED' as GenerationStatut,
+          mode: 'MANUELLE' as GenerationMode,
+          engine: 'fet',
+          engineVersion: fichierMoteur.engineVersion ?? null,
+          fichierAttendu: fichierMoteurSha256,
+          seeds: PrismaValue.JsonNull,
+          perimetre: PrismaValue.JsonNull,
+          perimetreHash: null,
+          profilGenerationVersion: 0,
+          queuedAt: maintenant,
+        },
+        select: {
+          id: true,
+          versionId: true,
+          semestreId: true,
+          statut: true,
+          mode: true,
+          fichierAttendu: true,
+          queuedAt: true,
+        },
+      });
+
+      // Audit log
+      await tx.auditLog.create({
+        data: {
+          action: 'GENERATION_IMPORT_MANUEL',
+          objetType: 'Generation',
+          objetId: gen.id,
+          versionId: version.id,
+          userId: userId,
+          at: maintenant,
+          details: {
+            fichierMoteurId: fichierMoteur.id,
+            fichierMoteurSha256: fichierMoteurSha256,
+            engineVersion: fichierMoteur.engineVersion,
+          },
+        },
+      });
+
+      return gen;
+    });
+
+    // 7. Enfiler le job d'import manuel sur pg-boss
+    await this.boss.send(
+      'generation:import-manuel',
+      {
+        generationId: generation.id,
+        semestreId: generation.semestreId,
+        filePath,
+        versionId: version.id,
+      },
+      {
+        retryDelay: 30_000,
+        retryBackoff: true,
+        expireInSeconds: 600,
+      },
+    );
+
+    // 8. Retour DTO
+    return {
+      generationId: generation.id,
+      mode: generation.mode,
+    };
   }
 }

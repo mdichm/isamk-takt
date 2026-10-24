@@ -1672,10 +1672,33 @@ model Generation {
   profilGenerationVersion Int
   perimetre          Json?             // périmètre figé (EX-GEN-02)
   perimetreHash    String?             // empreinte SHA-256 du périmètre (EX-GEN-02)
+  fichierAttendu   String?             // mode MANUELLE : empreinte SHA-256 du fichier moteur attendu (EX-MOT-07)
+  seeds            Json?               // 6 graines MRG32k3a (null en mode MANUELLE)
+  fichierMoteur    FichierMoteur?
 
   @@index([semestreId, statut])
   @@index([profilGenerationId])
   @@map("generations")
+}
+
+// ============================================
+// Fichier moteur exporté par le worker (L4-15)
+// Un fichier .fet archivé par génération, téléchargeable par URL signée.
+// ============================================
+model FichierMoteur {
+  id             String     @id @default(uuid()) @db.Uuid
+  generationId   String     @db.Uuid @unique
+  sha256         String     // empreinte SHA-256 du fichier .fet
+  engineVersion  String     // version de FET utilisée
+  builderVersion String     // version du constructeur d'XML
+  filePath       String     // chemin de stockage du fichier sur le worker
+  mappingReport  Json?      // rapport de traduction contraintes → FET
+  createdAt      DateTime   @default(now())
+
+  generation Generation @relation(fields: [generationId], references: [id], onDelete: Cascade)
+
+  @@index([generationId])
+  @@map("fichiers_moteur")
 }
 
 // Résultat brut de génération (séquences placées / non placées)

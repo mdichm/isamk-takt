@@ -6,9 +6,10 @@ import { VersionService } from './version.service.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
 import { PreparationModule } from '../preparation/preparation.module.js';
 import { ConflitModule } from '../conflit/conflit.module.js';
+import { PgBossModule } from '../pg-boss/pg-boss.module.js';
 
 @Module({
-  imports: [PrismaModule, PreparationModule, ConflitModule],
+  imports: [PrismaModule, PreparationModule, ConflitModule, PgBossModule],
   controllers: [VersionController],
   providers: [VersionService],
   exports: [VersionService],
