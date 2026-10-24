@@ -24,10 +24,15 @@ describe('VersionService', () => {
     prisma = {
       semestre: { findUnique: vi.fn() },
       departement: { findMany: vi.fn() },
+      enseignant: { findMany: vi.fn() },
+      salle: { findMany: vi.fn() },
+      module: { findMany: vi.fn() },
+      typeEnseignement: { findMany: vi.fn() },
+      profilGeneration: { findFirst: vi.fn() },
       repartition: { findFirst: vi.fn() },
       snapshot: { findFirst: vi.fn() },
       versionEdt: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
-      versionSnapshot: { createMany: vi.fn() },
+      versionSnapshot: { findMany: vi.fn(), createMany: vi.fn() },
       snapshotAffectation: { findMany: vi.fn() },
       seance: { create: vi.fn(), findMany: vi.fn() },
       $transaction: vi.fn(),
@@ -233,5 +238,132 @@ describe('VersionService', () => {
   it('lève NotFoundException si la version n\'existe pas', async () => {
     prisma.versionEdt.findUnique.mockResolvedValue(null);
     await expect(service.getCompletude('inconnu')).rejects.toThrow(NotFoundException);
+  });
+
+  // ============================================
+  // getPerimetre (L4-13)
+  // ============================================
+
+  describe('getPerimetre', () => {
+    it('retourne le perimetre avec son empreinte SHA-256', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({
+        id: 'version-1',
+        semestreId: semestreId,
+        numero: '1.0',
+        statut: 'BROUILLON',
+        verrous: [],
+      } as any);
+
+      prisma.semestre.findUnique.mockResolvedValue({
+        id: semestreId,
+        numero: 1,
+        anneeId: 'annee-1',
+        annee: { id: 'annee-1', code: '2026-2027', numero: 2026 },
+        groupes: [
+          {
+            id: 'groupe-1',
+            code: 'INFO-L3-S1',
+            effectif: 30,
+            niveau: { code: 'L3', libelle: 'Licence 3', formation: { departementId: dept1Id } },
+          },
+        ],
+        creneaux: [],
+        contrainteInstances: [
+          { id: 'ci-1', actif: true, definition: { id: 'cd-1', code: 'CD-1', libelle: 'Contrainte 1', portee: 'GLOBAL' } },
+        ],
+        exigencesSalle: [],
+      } as any);
+
+      prisma.departement.findMany.mockResolvedValue([
+        { id: dept1Id, code: 'INFO', libelle: 'Informatique' },
+      ] as any);
+
+      prisma.enseignant.findMany.mockResolvedValue([
+        { id: 'ens-1', nom: 'Dupont', prenom: 'Jean' },
+      ] as any);
+
+      prisma.salle.findMany.mockResolvedValue([
+        { id: 'salle-1', code: 'AMPHI-A', capaciteMax: 100 },
+      ] as any);
+
+      prisma.versionSnapshot.findMany.mockResolvedValue([
+        { snapshotId: 'snapshot-1' },
+      ] as any);
+
+      prisma.snapshotAffectation.findMany.mockResolvedValue([
+        { id: 'aff-1', groupeId: 'groupe-1', moduleId: 'module-1', typeEnseignementId: 'type-1', activityTagId: null },
+      ] as any);
+
+      prisma.module.findMany.mockResolvedValue([
+        { id: 'module-1', code: 'INFO101' },
+      ] as any);
+
+      prisma.typeEnseignement.findMany.mockResolvedValue([
+        { id: 'type-1', code: 'CM' },
+      ] as any);
+
+      prisma.profilGeneration.findFirst.mockResolvedValue({
+        id: 'profil-1',
+        nom: 'Par defaut',
+        numero: 1,
+        estParDefaut: true,
+        engineVersion: '7.12.0',
+        constructeurVersion: '1.0.0',
+      } as any);
+
+      const result = await service.getPerimetre('version-1');
+
+      expect(result.versionId).toBe('version-1');
+      expect(result.semestreId).toBe(semestreId);
+      expect(result.perimetreHash).toHaveLength(64);
+      expect(result.genereLe).toBeInstanceOf(Date);
+      expect(result.departements).toHaveLength(1);
+      expect(result.groupes).toHaveLength(1);
+      expect(result.enseignants).toHaveLength(1);
+      expect(result.salles).toHaveLength(1);
+      expect(result.contraintes).toHaveLength(1);
+      expect(result.activites).toHaveLength(1);
+      expect(result.profil).not.toBeNull();
+      expect(result.profil!.nom).toBe('Par defaut');
+      expect(result.versionDuJeuDeRegles).toBe('1');
+      expect(result.versionAdaptateur).toBe('1.0.0');
+    });
+
+    it('leve NotFoundException si la version n\'existe pas', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(null);
+      await expect(service.getPerimetre('inconnu')).rejects.toThrow(NotFoundException);
+    });
+
+    it('empreinte deterministe: meme input donne le meme hash', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({
+        id: 'version-1',
+        semestreId: semestreId,
+        numero: '1.0',
+        statut: 'BROUILLON',
+        verrous: [],
+      } as any);
+      prisma.semestre.findUnique.mockResolvedValue({
+        id: semestreId,
+        numero: 1,
+        anneeId: 'annee-1',
+        annee: { id: 'annee-1', code: '2026-2027', numero: 2026 },
+        groupes: [],
+        creneaux: [],
+        contrainteInstances: [],
+        exigencesSalle: [],
+      } as any);
+      prisma.departement.findMany.mockResolvedValue([]);
+      prisma.enseignant.findMany.mockResolvedValue([]);
+      prisma.salle.findMany.mockResolvedValue([]);
+      prisma.versionSnapshot.findMany.mockResolvedValue([]);
+      prisma.snapshotAffectation.findMany.mockResolvedValue([]);
+      prisma.module.findMany.mockResolvedValue([]);
+      prisma.typeEnseignement.findMany.mockResolvedValue([]);
+      prisma.profilGeneration.findFirst.mockResolvedValue(null);
+
+      const r1 = await service.getPerimetre('version-1');
+      const r2 = await service.getPerimetre('version-1');
+      expect(r1.perimetreHash).toBe(r2.perimetreHash);
+    });
   });
 });

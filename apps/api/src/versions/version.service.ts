@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - Service de création de version (L3-09)
 import { Injectable, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
+import { createHash } from 'crypto';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { PrismaService } from '../prisma/prisma.service.js';
 import type { VersionStatut } from '@takt/db';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { VersionResponseDto } from './dto/version-response.dto.js';
 import type { CompletudeResponseDto } from './dto/completude-response.dto.js';
+import type { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -344,5 +346,215 @@ export class VersionService {
         },
       },
     });
+  }
+
+  // ============================================
+  // Périmètre de génération (L4-13)
+  // GET /versions/{id}/perimetre : périmètre figé du semestre complet et empreinte.
+  // ============================================
+
+  /** Retourne le périmètre figé d'une version avec son empreinte SHA-256 (L4-13). */
+  async getPerimetre(versionId: string): Promise<PerimetreResponseDto> {
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: {
+        id: true,
+        semestreId: true,
+        numero: true,
+        statut: true,
+        verrous: {
+          select: { id: true, type: true, seanceId: true, leveLe: true },
+          orderBy: { id: 'asc' },
+        },
+      },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+
+    const semestre = await this.prisma.semestre.findUnique({
+      where: { id: version.semestreId },
+      select: {
+        id: true,
+        numero: true,
+        anneeId: true,
+        annee: { select: { id: true, code: true, numero: true } },
+        groupes: {
+          select: {
+            id: true,
+            code: true,
+            effectif: true,
+            niveau: { select: { code: true, libelle: true, formation: { select: { departementId: true } } } },
+          },
+          orderBy: { code: 'asc' },
+        },
+        creneaux: { select: { id: true, jour: true, ordre: true, heureDebut: true, heureFin: true }, orderBy: { jour: 'asc', ordre: 'asc' } },
+        contrainteInstances: {
+          where: { actif: true },
+          include: { definition: true },
+          orderBy: { id: 'asc' },
+        },
+        exigencesSalle: { select: { id: true, affectationKey: true, salleImposeeId: true }, orderBy: { id: 'asc' } },
+      },
+    });
+    if (!semestre) {
+      throw new NotFoundException(`Semestre "${version.semestreId}" introuvable`);
+    }
+
+    // Départements distincts des groupes du semestre
+    const deptIds = [...new Set(
+      semestre.groupes
+        .map((g) => g.niveau.formation.departementId)
+        .filter((id): id is string => id !== null),
+    )];
+    const departements = await this.prisma.departement.findMany({
+      where: { id: { in: deptIds } },
+      select: { id: true, code: true, libelle: true },
+      orderBy: { code: 'asc' },
+    });
+
+    // Enseignants de l'année du semestre
+    const enseignants = await this.prisma.enseignant.findMany({
+      where: { anneeId: semestre.anneeId },
+      select: { id: true, nom: true, prenom: true },
+      orderBy: { nom: 'asc', prenom: 'asc' },
+    });
+
+    // Salles actives des départements du semestre
+    const salles = await this.prisma.salle.findMany({
+      where: { departementId: { in: deptIds }, estActive: true },
+      select: { id: true, code: true, capaciteMax: true },
+      orderBy: { code: 'asc' },
+    });
+
+    // Profil de génération par défaut du semestre (profil suggéré pour le lancement)
+    const profilParDefaut = await this.prisma.profilGeneration.findFirst({
+      where: { semestreId: version.semestreId, estParDefaut: true },
+      select: {
+        id: true,
+        nom: true,
+        numero: true,
+        estParDefaut: true,
+        engineVersion: true,
+        constructeurVersion: true,
+      },
+    });
+
+    // Activités (affectations des snapshots de la version)
+    const versionSnapshots = await this.prisma.versionSnapshot.findMany({
+      where: { versionId },
+      select: { snapshotId: true },
+    });
+    const snapshotIds = versionSnapshots.map((vs) => vs.snapshotId);
+    const affectations = snapshotIds.length > 0
+      ? await this.prisma.snapshotAffectation.findMany({
+          where: { snapshotId: { in: snapshotIds } },
+          select: { id: true, groupeId: true, moduleId: true, typeEnseignementId: true, activityTagId: true },
+          orderBy: { id: 'asc' },
+        })
+      : [];
+
+    const moduleIds = [...new Set(affectations.map((a) => a.moduleId))];
+    const typeIds = [...new Set(affectations.map((a) => a.typeEnseignementId))];
+    const modules = await this.prisma.module.findMany({
+      where: { id: { in: moduleIds } },
+      select: { id: true, code: true },
+    });
+    const typesEnseignement = await this.prisma.typeEnseignement.findMany({
+      where: { id: { in: typeIds } },
+      select: { id: true, code: true },
+    });
+    const moduleById = new Map(modules.map((m) => [m.id, m.code]));
+    const typeById = new Map(typesEnseignement.map((t) => [t.id, t.code]));
+
+    const activites = affectations.map((a) => ({
+      id: a.id,
+      moduleCode: moduleById.get(a.moduleId) ?? '',
+      typeEnseignement: typeById.get(a.typeEnseignementId) ?? '',
+    }));
+
+    // Empreinte déterministe (snapshots, contraintes, exigences, verrous, grille)
+    const perimetreContent = {
+      contraintes: semestre.contrainteInstances.map((ci) => ({
+        id: ci.id,
+        code: ci.definition.code,
+        actif: ci.actif,
+      })),
+      exigences: semestre.exigencesSalle.map((e) => ({
+        id: e.id,
+        affectationKey: e.affectationKey,
+        salleImposeeId: e.salleImposeeId,
+      })),
+      grille: semestre.creneaux.map((c) => ({
+        jour: c.jour,
+        ordre: c.ordre,
+        heureDebut: c.heureDebut,
+        heureFin: c.heureFin,
+      })),
+      snapshots: versionSnapshots.map((vs) => ({ id: vs.snapshotId })).sort((a, b) => a.id.localeCompare(b.id)),
+      verrous: version.verrous.map((v) => ({
+        id: v.id,
+        type: v.type,
+        seanceId: v.seanceId,
+        leveLe: v.leveLe,
+      })),
+    };
+    const perimetreHash = createHash('sha256')
+      .update(JSON.stringify(perimetreContent, Object.keys(perimetreContent).sort()))
+      .digest('hex');
+
+    // Profil de génération (par défaut du semestre)
+    let profil: PerimetreResponseDto['profil'] = null;
+    let versionDuJeuDeRegles: string | null = null;
+    let versionAdaptateur: string | null = null;
+    if (profilParDefaut) {
+      const p = profilParDefaut;
+      profil = {
+        id: p.id,
+        nom: p.nom,
+        numero: p.numero,
+        estParDefaut: p.estParDefaut,
+        engineVersion: p.engineVersion,
+        constructeurVersion: p.constructeurVersion,
+      };
+      versionDuJeuDeRegles = String(p.numero);
+      versionAdaptateur = p.constructeurVersion;
+    }
+
+    return {
+      versionId: version.id,
+      semestreId: version.semestreId,
+      annee: semestre.annee.code ?? String(semestre.annee.numero),
+      semestreNumero: semestre.numero,
+      departements: departements.map((d) => ({ id: d.id, code: d.code, libelle: d.libelle })),
+      activites,
+      groupes: semestre.groupes.map((g) => ({
+        id: g.id,
+        code: g.code,
+        niveau: g.niveau.libelle,
+        effectif: g.effectif,
+      })),
+      enseignants: enseignants.map((e) => ({ id: e.id, nom: e.nom, prenom: e.prenom })),
+      salles: salles.map((s) => ({ id: s.id, code: s.code, capacite: s.capaciteMax })),
+      contraintes: semestre.contrainteInstances.map((ci) => ({
+        id: ci.id,
+        code: ci.definition.code,
+        libelle: ci.definition.libelle,
+        nature: ci.nature,
+        portee: ci.definition.portee,
+        actif: ci.actif,
+      })),
+      verrous: version.verrous.map((v) => ({
+        id: v.id,
+        type: v.type,
+        seanceId: v.seanceId,
+        leveLe: v.leveLe,
+      })),
+      profil,
+      versionDuJeuDeRegles,
+      versionAdaptateur,
+      perimetreHash,
+      genereLe: new Date(),
+    };
   }
 }

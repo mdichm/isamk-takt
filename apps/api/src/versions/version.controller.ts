@@ -10,11 +10,12 @@ import {
   HttpStatus,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { VersionService } from './version.service.js';
 import { VersionResponseDto } from './dto/version-response.dto.js';
 import { CompletudeResponseDto } from './dto/completude-response.dto.js';
+import { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -108,5 +109,21 @@ export class VersionController {
   @ApiResponse({ status: 404, description: 'Version introuvable' })
   async completude(@Param('id') id: string): Promise<CompletudeResponseDto> {
     return this.service.getCompletude(id);
+  }
+
+  @Get(':id/perimetre')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({ summary: 'Perimetre fige et empreinte d une version (L4-13)' })
+  @ApiParam({ name: 'id', description: 'ID de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Périmètre figé du semestre avec son empreinte',
+    type: PerimetreResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async perimetre(@Param('id') id: string): Promise<PerimetreResponseDto> {
+    return this.service.getPerimetre(id);
   }
 }
