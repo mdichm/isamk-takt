@@ -8,6 +8,8 @@ import {
   GenerationLaunchForm,
   GenerationSseTracker,
   GenerationEngineFile,
+  GenerationHistoryList,
+  GenerationComparison,
 } from '@/components/generations';
 import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
@@ -21,6 +23,7 @@ import {
   type PerimetreResponse,
   type FetMappingReport,
 } from '@/lib/api/generations';
+import { useGenerationsByVersion } from '@/hooks/use-generations';
 
 export default function GenerationsPage() {
   const params = useParams();
@@ -42,6 +45,9 @@ export default function GenerationsPage() {
     null,
   );
   const [generationComplete, setGenerationComplete] = useState(false);
+
+  const { data: generations, isPending: generationsLoading } =
+    useGenerationsByVersion(versionId);
 
   // Charger la version pour récupérer le semestreId
   useEffect(() => {
@@ -185,6 +191,27 @@ export default function GenerationsPage() {
               <GenerationEngineFile generationId={currentGenerationId} />
             </div>
           )}
+        </div>
+      )}
+      {/* Historique et comparaison des générations */}
+      {generations && (
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="col-span-full">
+            <CardHeader>
+              <CardTitle>{t('historiqueGenerations')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <GenerationHistoryList generations={generations} />
+            </CardContent>
+          </Card>
+          <Card className="col-span-full">
+            <CardHeader>
+              <CardTitle>{t('comparaison')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <GenerationComparison generations={generations} />
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>
