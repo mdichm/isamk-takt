@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -16,7 +15,6 @@ import { GenerationStatusBadge } from './GenerationStatusBadge';
 import { GenerationEngineFile } from './GenerationEngineFile';
 import { useGenerationDetail } from '@/hooks/use-generations';
 import { useRelancerGeneration } from '@/hooks/use-generations';
-import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
 import { type GenerationStatut } from '@/lib/api/generations';
 
@@ -119,11 +117,11 @@ const { data: detail, isPending, error } = useGenerationDetail(generationId);
                     <p className="font-mono text-xs break-all">{detail.perimetreHash}</p>
                   </div>
                 )}
-                {detail.metrics && (detail.metrics as any).graines && (
+                {detail.metrics && 'graines' in detail.metrics && Array.isArray(detail.metrics.graines) && (
                   <div>
                     <label className="text-xs text-muted-foreground">{t('graines')}</label>
                     <p className="font-mono text-xs">
-                      {(detail.metrics as any).graines.join(', ')}
+                      {detail.metrics.graines.join(', ')}
                     </p>
                   </div>
                 )}
@@ -165,7 +163,7 @@ const { data: detail, isPending, error } = useGenerationDetail(generationId);
               <CardContent>
                 {detail.metrics ? (
                   <pre className="p-3 bg-muted rounded text-sm text-muted-foreground whitespace-pre-wrap">
-                    {JSON.stringify(detail.metrics, null, 2)}
+                    {JSON.stringify(detail.metrics as unknown, null, 2)}
                   </pre>
                 ) : (
                   <p className="text-sm text-muted-foreground">{t('sansLogs')}</p>
@@ -183,8 +181,10 @@ const { data: detail, isPending, error } = useGenerationDetail(generationId);
                     <div>
                       <label className="text-xs text-muted-foreground">{t('scoreGlobal')}</label>
                       <p>
-                        {detail.classee
-                          ? `${detail.score?.toFixed(1) ?? '—'} / 100`
+                        {detail.classee && typeof detail.score === 'number'
+                          ? `${detail.score.toFixed(1)} / 100`
+                          : detail.classee
+                          ? '— / 100'
                           : t('nonClassee')}
                       </p>
                     </div>
@@ -199,7 +199,7 @@ const { data: detail, isPending, error } = useGenerationDetail(generationId);
                     <div>
                       <label className="text-xs text-muted-foreground">{t('metriques')}</label>
                       <pre className="p-3 bg-muted rounded text-xs text-muted-foreground whitespace-pre-wrap">
-                        {JSON.stringify(detail.metrics, null, 2)}
+                        {JSON.stringify(detail.metrics as unknown, null, 2)}
                       </pre>
                     </div>
                   )}
@@ -208,14 +208,14 @@ const { data: detail, isPending, error } = useGenerationDetail(generationId);
             )}
 
             {/* Conflits (si présents dans metrics) */}
-            {detail.metrics && (detail.metrics as any).conflits && (
+            {detail.metrics && 'conflits' in detail.metrics && detail.metrics.conflits && (
               <Card>
                 <CardHeader>
                   <CardTitle>{t('conflitsGeneration')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <pre className="p-3 bg-muted rounded text-xs text-muted-foreground whitespace-pre-wrap">
-                    {JSON.stringify((detail.metrics as any).conflits, null, 2)}
+                    {JSON.stringify(detail.metrics.conflits, null, 2)}
                   </pre>
                 </CardContent>
               </Card>
