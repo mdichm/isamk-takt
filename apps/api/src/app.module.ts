@@ -41,6 +41,7 @@ import { CovoiturageModule } from './covoiturage/covoiturage.module.js';
 import { ExigencesSalleModule } from './exigences-salle/exigences-salle.module.js';
 import { VoeuxModule } from './voeux/voeux.module.js';
 import { EvalsModule } from './evals/evals.module.js';
+import { ParametresModule } from './parametres/parametres.module.js';
 import { VoeuxEvalModule } from './voeux-eval/voeux-eval.module.js';
 import { EditLockModule } from './edit-lock/edit-lock.module.js';
 import { VerrouSeanceModule } from './verrou-seance/verrou-seance.module.js';
@@ -139,6 +140,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     GenerationsModule,
     PgBossModule,
     ExportSpikeModule,
+    ParametresModule,
   ],
   controllers: [MetricsController, SecurityEventController],
   providers: [
