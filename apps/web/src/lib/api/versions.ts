@@ -246,3 +246,25 @@ export async function publishVersion(
   });
   return res.json() as Promise<PublishResponseDto>;
 }
+
+/* ============================================================================
+   Nouvelle révision d'une version publiée (L5-10)
+   POST /versions/{id}/new-revision
+   ============================================================================ */
+
+export interface NewRevisionResponseDto {
+  versionId: string;
+  numero: string;
+  statut: string;
+  parentId: string | null;
+  at: string;
+}
+
+export async function newRevision(
+  versionId: string,
+): Promise<NewRevisionResponseDto> {
+  const res = await apiFetch(`/versions/${versionId}/new-revision`, {
+    method: 'POST',
+  });
+  return res.json() as Promise<NewRevisionResponseDto>;
+}

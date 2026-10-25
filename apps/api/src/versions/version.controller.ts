@@ -38,6 +38,7 @@ import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { ValidationDepartementDto } from './dto/validation-departement.dto.js';
 import { ValidationResponseDto } from './dto/validation-response.dto.js';
 import { PublishResponseDto } from './dto/publish-response.dto.js';
+import { NewRevisionResponseDto } from './dto/new-revision-response.dto.js';
 import { PrevisualisationPublicationDto } from './dto/previsualisation-publication.dto.js';
 
 // ============================================
@@ -427,6 +428,36 @@ export class VersionController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<PublishResponseDto> {
     return this.service.publishVersion(id, currentUser.id);
+  }
+
+  @Post(':id/new-revision')
+  @HttpCode(HttpStatus.CREATED)
+  @Permissions('version:publish')
+  @ApiOperation({
+    summary: 'Nouvelle révision d\'une version publiée (L5-10)',
+    description:
+      'Crée une version enfant (EDITION) à partir d\'une version publiée. ' +
+      'Les séances et les verrous de la version parente sont copiés. ' +
+      'La numérotation suit RC-04 (mineur + 1 pour une correction manuelle). ' +
+      'Réservée au Gestionnaire et à l\'Administrateur (permission version:publish).',
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version parente publiée (UUID)' })
+  @ApiResponse({
+    status: 201,
+    description: 'Version enfant créée',
+    type: NewRevisionResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  @ApiResponse({
+    status: 409,
+    description: 'Version non publiée (PUBLIE requis)',
+  })
+  async newRevision(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<NewRevisionResponseDto> {
+    return this.service.newRevision(id, currentUser.id);
   }
 
   @Get(':id/previsualisation-publication')

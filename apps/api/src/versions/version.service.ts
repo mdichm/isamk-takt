@@ -53,6 +53,7 @@ import type { ValidationDepartementDto } from './dto/validation-departement.dto.
 import type { ValidationResponseDto } from './dto/validation-response.dto.js';
 import type { PublishResponseDto } from './dto/publish-response.dto.js';
 import type { PrevisualisationPublicationDto } from './dto/previsualisation-publication.dto.js';
+import type { NewRevisionResponseDto } from './dto/new-revision-response.dto.js';
 import { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
@@ -2195,6 +2196,150 @@ async submitValidation(
         at: maintenant,
       };
     });
+  }
+
+  // ============================================
+  // Nouvelle révision d'une version publiée (L5-10)
+  // POST /versions/{id}/new-revision
+  // ============================================
+
+  async newRevision(
+    versionId: string,
+    userId: string,
+  ): Promise<NewRevisionResponseDto> {
+    // 1. La version parente doit exister et être PUBLIE
+    const parent = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      include: {
+        seances: {
+          include: {
+            groupes: true,
+            verrous: true,
+          },
+        },
+      },
+    });
+    if (!parent) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+    if (parent.statut !== 'PUBLIE') {
+      throw new ConflictException({
+        code: 'INVALID_STATE_TRANSITION',
+        message: `Impossible de créer une révision à partir d'une version dont le statut est "${parent.statut}" (PUBLIE requis)`,
+      });
+    }
+
+    // 2. Numérotation : mineur + 1 (RC-04, correction manuelle)
+    const ancienNumero = parent.numero;
+    const parties = ancienNumero.split('.');
+    const majeur = parseInt(parties[0], 10);
+    const mineur = parseInt(parties[1] ?? '0', 10);
+    const nouveauNumero = `${Number.isNaN(majeur) ? 1 : majeur}.${Number.isNaN(mineur) ? 0 : mineur + 1}`;
+
+    const maintenant = new Date();
+
+    // 3. Transaction : créer la version enfant, copier séances + verrous, historiser
+    const enfant = await this.prisma.$transaction(async (tx) => {
+      // a. Créer la version enfant (EDITION)
+      const v = await tx.versionEdt.create({
+        data: {
+          semestreId: parent.semestreId,
+          numero: nouveauNumero,
+          statut: 'EDITION' as VersionStatut,
+          parentId: parent.id,
+          auteurId: userId,
+          motif: `Révision de la version ${ancienNumero}`,
+          revision: 0,
+        },
+      });
+
+      // b. Copier les séances de la version parente
+      const seanceMap = new Map<string, string>(); // ancienId -> nouvelId
+      for (const s of parent.seances) {
+        const nouvelle = await tx.seance.create({
+          data: {
+            id: randomUUID(),
+            semestreId: s.semestreId,
+            versionId: v.id,
+            affectationKey: s.affectationKey,
+            rang: s.rang,
+            tag: s.tag,
+            jour: s.jour,
+            creneauDebutId: s.creneauDebutId,
+            nbCreneaux: s.nbCreneaux,
+            statut: s.statut,
+            origine: s.origine,
+            enseignantId: s.enseignantId,
+            salleId: s.salleId,
+          },
+        });
+        seanceMap.set(s.id, nouvelle.id);
+
+        // c. Copier les groupes de séance
+        if (s.groupes.length > 0) {
+          await tx.seanceGroupe.createMany({
+            data: s.groupes.map((g) => ({
+              seanceId: nouvelle.id,
+              groupeId: g.groupeId,
+            })),
+          });
+        }
+
+        // d. Copier les verrous de séance (suivent la séance, ST §4.14)
+        if (s.verrous.length > 0) {
+          await tx.verrouSeance.createMany({
+            data: s.verrous.map((vr) => ({
+              versionId: v.id,
+              seanceId: nouvelle.id,
+              type: vr.type,
+              auteurId: userId,
+              justification: vr.justification,
+              leveLe: null,
+              levePar: null,
+            })),
+          });
+        }
+      }
+
+      // e. Transition de workflow PUBLIE -> EDITION
+      await tx.workflowTransition.create({
+        data: {
+          versionId: v.id,
+          de: 'PUBLIE' as VersionStatut,
+          vers: 'EDITION' as VersionStatut,
+          userId,
+          automatique: false,
+          commentaire: `Nouvelle révision de la version ${ancienNumero}`,
+        },
+      });
+
+      // f. Audit
+      await tx.auditLog.create({
+        data: {
+          action: 'VERSION_NEW_REVISION',
+          objetType: 'VersionEdt',
+          objetId: v.id,
+          versionId: v.id,
+          userId,
+          at: maintenant,
+          details: {
+            parentId: parent.id,
+            parentNumero: ancienNumero,
+            nouveauNumero,
+          },
+        },
+      });
+
+      return v;
+    });
+
+    return {
+      versionId: enfant.id,
+      numero: enfant.numero,
+      statut: 'EDITION' as VersionStatut,
+      parentId: parent.id,
+      at: maintenant,
+    };
   }
 
   // ============================================
