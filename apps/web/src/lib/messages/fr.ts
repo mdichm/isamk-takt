@@ -1359,6 +1359,30 @@ export const messages = {
   validationVersionIntrouvable: 'Version introuvable.',
   erreurChargementDepartement: 'Impossible de charger votre département.',
   erreurChargementImpact: 'Impossible de charger l\'impact de la version.',
+
+  // Synthèse d'impact (L5-06)
+  impactPageTitre: 'Synthèse d\'impact',
+  impactPageSousTitre:
+    'Statut par département, séances modifiées, enseignants concernés et raisons de l\'impact.',
+  impactResume: 'Résumé',
+  impactDepartementsImpactes: 'Départements impactés',
+  impactDepartementsNonImpactes: 'Départements non impactés',
+  impactDepartementsReportees: 'Approbations reportées',
+  impactColDepartement: 'Département',
+  impactColStatut: 'Statut',
+  impactColRaison: 'Raison',
+  impactColReportee: 'Reportée',
+  impactStatutImpacte: 'Impacté',
+  impactStatutNonImpacte: 'Non impacté',
+  impactRaisonPremièreVersion: 'Première version',
+  impactRaisonSeancesModifiees: 'Séances modifiées',
+  impactRaisonEnseignantPartage: 'Enseignant concerné',
+  impactRaisonSnapshotModifie: 'Snapshot modifié',
+  impactRaisonAucunChangement: 'Aucun changement',
+  impactApprobationReportee: 'Approbation reportée sur la version parente',
+  impactVersionParente: 'Version parente',
+  impactChargement: 'Chargement de la synthèse d\'impact…',
+  impactErreur: 'Impossible de charger la synthèse d\'impact.',
 } as const;
 
 export type Messages = typeof messages;
