@@ -27,6 +27,18 @@ const USERS = {
 
 type Role = keyof typeof USERS;
 
+interface ApiVersion {
+  id: string;
+  statut: string;
+  [key: string]: unknown;
+}
+
+interface ApiDepartementImpact {
+  departementCode: string;
+  reportee: boolean;
+  [key: string]: unknown;
+}
+
 // ============================================================================
 // Helpers API
 // ============================================================================
@@ -130,7 +142,7 @@ test('parcours rejet puis correction (Responsable)', async ({
   const versionsRes = await apiGet(request, '/versions');
   const versions = await versionsRes.json();
   const version = Array.isArray(versions)
-    ? versions.find((v: any) => v.statut === 'EN_VALIDATION')
+    ? versions.find((v: ApiVersion) => v.statut === 'EN_VALIDATION')
     : null;
   if (!version) {
     test.skip();
@@ -175,7 +187,7 @@ test('parcours enseignant partagé : report d\'approbation et revalidation', asy
   const versionsRes = await apiGet(request, '/versions');
   const versions = await versionsRes.json();
   const version = Array.isArray(versions)
-    ? versions.find((v: any) => v.statut === 'EN_VALIDATION')
+    ? versions.find((v: ApiVersion) => v.statut === 'EN_VALIDATION')
     : null;
   if (!version) {
     test.skip();
@@ -187,7 +199,7 @@ test('parcours enseignant partagé : report d\'approbation et revalidation', asy
   const impactRes = await apiGet(request, `/versions/${versionId}/impact`);
   const impact = await impactRes.json();
   const reporteeDept = impact.departements.find(
-    (d: any) => d.reportee === true,
+    (d: ApiDepartementImpact) => d.reportee === true,
   );
 
   if (reporteeDept) {
@@ -255,7 +267,7 @@ test('prévisualisation avant publication affiche les données complètes (Gesti
   const versionsRes = await apiGet(request, '/versions');
   const versions = await versionsRes.json();
   const version = Array.isArray(versions)
-    ? versions.find((v: any) => v.statut === 'VALIDE')
+    ? versions.find((v: ApiVersion) => v.statut === 'VALIDE')
     : null;
   if (!version) {
     test.skip();
