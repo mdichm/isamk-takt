@@ -4,11 +4,14 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import {
   GenerationLaunchForm,
   GenerationSseTracker,
   GenerationEngineFile,
   ManualGenerationImportDialog,
+  GenerationHistoryList,
+  GenerationComparison,
 } from '@/components/generations';
 import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
@@ -23,6 +26,7 @@ import {
   type FetMappingReport,
   type GenerationMode,
 } from '@/lib/api/generations';
+import { useGenerationsByVersion } from '@/hooks/use-generations';
 
 export default function GenerationsPage() {
   const params = useParams();
@@ -50,6 +54,10 @@ export default function GenerationsPage() {
   const [engineSha256, setEngineSha256] = useState<string | null>(null);
   const [engineVersion, setEngineVersion] = useState<string | null>(null);
   const [generationMode, setGenerationMode] = useState<GenerationMode | null>(null);
+
+  // Historique et comparaison (L4-21)
+  const { data: generations, isPending: generationsLoading } =
+    useGenerationsByVersion(versionId);
 
   // Charger la version pour récupérer le semestreId
   useEffect(() => {
@@ -228,7 +236,6 @@ export default function GenerationsPage() {
           )}
         </div>
       )}
-
       {/* Dialog import manuel */}
       <ManualGenerationImportDialog
         open={showImportDialog}
@@ -238,6 +245,28 @@ export default function GenerationsPage() {
         engineVersion={engineVersion!}
         onSuccess={handleImportSuccess}
       />
+
+      {/* Historique et comparaison des générations */}
+      {generations && (
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="col-span-full">
+            <CardHeader>
+              <CardTitle>{t('historiqueGenerations')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <GenerationHistoryList generations={generations} />
+            </CardContent>
+          </Card>
+          <Card className="col-span-full">
+            <CardHeader>
+              <CardTitle>{t('comparaison')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <GenerationComparison generations={generations} />
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

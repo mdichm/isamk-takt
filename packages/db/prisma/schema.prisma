@@ -1663,6 +1663,11 @@ model Generation {
   queuedAt      DateTime         @default(now())
   startedAt     DateTime?
   finishedAt    DateTime?
+  createdAt     DateTime      @default(now())
+  durationSeconds Int?
+  classee       Boolean?
+  classement    Int?
+  motifNonClassee String?
 
   semestre Semestre @relation(fields: [semestreId], references: [id], onDelete: Cascade)
   version  VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)

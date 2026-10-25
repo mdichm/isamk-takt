@@ -77,6 +77,72 @@ export interface EngineFileResponse {
 }
 
 /* ============================================================================
+   Types alignés sur les DTO backend (L4-18, L4-19, L4-21)
+   ============================================================================ */
+
+export interface GenerationSummary {
+  id: string;
+  versionId: string;
+  versionNom: string;
+  statut: string;
+  score?: number | null;
+  classee?: boolean | null;
+  classement?: number | null;
+  metrics?: Record<string, unknown> | null;
+  motifNonClassee?: string | null;
+  createdAt?: string;
+  startedAt?: string | null;
+  finishedAt?: string | null;
+  durationSeconds?: number | null;
+}
+
+export interface SeanceValeur {
+  generationId: string;
+  jour?: string;
+  creneauDebutId?: string;
+  salleId?: string;
+  enseignantId?: string;
+}
+
+export interface ChangementSeance {
+  cle: string;
+  generations: SeanceValeur[];
+}
+
+export interface ConflitDiff {
+  conflitsApparus: string[];
+  conflitsDisparus: string[];
+}
+
+export interface VerrouDiff {
+  verrousRespectes: boolean[];
+}
+
+export interface CompareDiff {
+  seancesIdentiques: string[];
+  seancesDifferentes: string[];
+  changements: ChangementSeance[];
+  conflits: ConflitDiff;
+  verrous: VerrouDiff;
+}
+
+export interface CompareResponse {
+  generations: GenerationSummary[];
+  diff: CompareDiff;
+}
+
+export interface AdoptGenerationInput {
+  generationId: string;
+}
+
+export interface AdoptResponse {
+  versionId: string;
+  numero: string;
+  statut: string;
+  conflitsInitiaux: number;
+}
+
+/* ============================================================================
    API fonctions — Générations
    ============================================================================ */
 
@@ -162,6 +228,52 @@ export async function importManualGeneration(
  */
 export function createGenerationEventSource(id: string): EventSource {
   return new EventSource(`${API_BASE}/generations/${id}/events`);
+}
+
+/* ============================================================================
+   API fonctions — Historique, comparaison et adoption (L4-21)
+   ============================================================================ */
+
+/**
+ * Liste les générations d'une version.
+ * GET /versions/{id}/generations -> 200
+ */
+export async function getGenerationsByVersion(
+  versionId: string,
+): Promise<GenerationSummary[]> {
+  const res = await apiFetch(`/versions/${versionId}/generations`);
+  const data = await res.json();
+  return data.items ?? [];
+}
+
+/**
+ * Compare 2 à 4 générations entre elles.
+ * GET /generations/compare?ids=... -> 200
+ */
+export async function compareGenerations(
+  ids: string[],
+): Promise<CompareResponse> {
+  const searchParams = new URLSearchParams();
+  for (const id of ids) {
+    searchParams.append('ids', id);
+  }
+  const res = await apiFetch(`/generations/compare?${searchParams.toString()}`);
+  return res.json();
+}
+
+/**
+ * Adopte une génération comme base d'édition d'une version.
+ * POST /versions/{id}/adopt -> 200
+ */
+export async function adoptGeneration(
+  versionId: string,
+  input: AdoptGenerationInput,
+): Promise<AdoptResponse> {
+  const res = await apiFetch(`/versions/${versionId}/adopt`, {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
+  return res.json();
 }
 
 /* ============================================================================
