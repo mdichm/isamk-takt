@@ -27,6 +27,8 @@ import { AdoptResponseDto } from './dto/adopt-response.dto.js';
 import { GenerationListResponseDto } from './dto/generation-list-response.dto.js';
 import type { ImportGenerationDto } from './dto/import-generation.dto.js';
 import { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
+import { TransitionDto } from './dto/transition.dto.js';
+import { TransitionResponseDto } from './dto/transition-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
@@ -210,6 +212,37 @@ export class VersionController {
     currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<AdoptResponseDto> {
     return this.service.adoptGeneration(id, dto.generationId, currentUser.id);
+  }
+
+  @Post(':id/transitions')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:transition')
+  @ApiOperation({
+    summary: 'Exécuter une transition de workflow sur une version (machine d\'états)',
+    description:
+      'Exécute une action de transition (DEMARRER_EDITION, MARQUER_PRET, SOUMETTRE, REPRENDRE, RESOUMETTRE, ABANDONNER). ' +
+      'Écrit atomiquement : VersionEdt (statut + revision), WorkflowTransition et AuditLog.',
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version (UUID)' })
+  @ApiBody({ type: TransitionDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Transition effectuée avec succès',
+    type: TransitionResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  @ApiResponse({
+    status: 409,
+    description:
+      'Transition interdite depuis l\'état actuel (INVALID_STATE_TRANSITION) ou garde de métier non satisfaite (SEANCES_NON_PLACES, NO_SEANCES_TO_EDIT)',
+  })
+  async transition(
+    @Param('id') id: string,
+    @Body() dto: TransitionDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<TransitionResponseDto> {
+    return this.service.transition(id, dto.action, currentUser.id, dto.commentaire);
   }
 
   @Get(':id/generations')

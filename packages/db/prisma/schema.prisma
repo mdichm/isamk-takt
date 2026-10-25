@@ -228,6 +228,7 @@ model User {
   passwordHistory      PasswordHistory[]
   resetTokens          PasswordResetToken[]
   demandesModification DemandeModification[]
+  workflowTransitions  WorkflowTransition[]
 
   @@index([email])
   @@index([isActive])
@@ -725,11 +726,13 @@ model Occupation {
 enum VersionStatut {
   BROUILLON
   EDITION
+  PRET_POUR_VALIDATION
   EN_VALIDATION
   VALIDE
   PUBLIE
   ARCHIVE
   CORRECTION
+  REJETE
 }
 
 enum SeanceStatut {
@@ -766,10 +769,34 @@ model VersionEdt {
   verrous                         VerrouSeance[]
   avertissementsAcceptes          AvertissementAccepte[]
   generations                     Generation[]
+  transitions                     WorkflowTransition[]
+  revision                        Int         @default(0)
 
   @@index([semestreId])
   @@index([statut])
   @@map("versions_edt")
+}
+
+// ============================================
+// Workflow : transitions d'état de version (L5-01)
+// Chaque transition d'une VersionEdt est historisée ici, avec l'auteur,
+// le statut source/cible et un commentaire facultatif.
+// ============================================
+model WorkflowTransition {
+  id          String        @id @default(uuid()) @db.Uuid
+  versionId   String        @db.Uuid
+  de          VersionStatut
+  vers        VersionStatut
+  userId      String        @db.Uuid
+  automatique Boolean       @default(false)
+  commentaire String?
+  at          DateTime      @default(now())
+
+  version VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  user    User       @relation(fields: [userId], references: [id])
+
+  @@index([versionId, at])
+  @@map("workflow_transitions")
 }
 
 model VersionSnapshot {
