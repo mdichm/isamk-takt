@@ -145,3 +145,104 @@ export async function submitValidation(
   });
   return res.json() as Promise<ValidationResponseDto>;
 }
+
+/* ============================================================================
+   Prévisualisation avant publication (L5-08)
+   GET /versions/{id}/previsualisation-publication
+   ============================================================================ */
+
+export interface DepartementValideDto {
+  departementId: string;
+  departementCode: string;
+  departementLibelle: string;
+  decision: string;
+  userId: string | null;
+  at: string | null;
+}
+
+export interface ConflitPrevisDto {
+  id: string;
+  type: string;
+  severite: 'BLOQUANT' | 'AVERTISSEMENT' | 'INFORMATION';
+  resoluLe: string | null;
+}
+
+export interface AvertissementAccepteDto {
+  regleCode: string;
+  auteurId: string;
+  accepteLe: string;
+}
+
+export interface VerrouPrevisDto {
+  id: string;
+  type: 'CRENEAU' | 'SALLE' | 'ENSEIGNANT' | 'ACTIVITE';
+  seanceId: string;
+  auteurId: string;
+  creeLe: string;
+}
+
+export interface ProvenanceDto {
+  generationId: string | null;
+  profilVersion: string | null;
+  profilNom: string | null;
+  perimetreHash: string | null;
+  engineVersion: string | null;
+}
+
+export interface ActivitePrevisDto {
+  affectationKey: string;
+  enseignantId: string | null;
+  enseignantNom: string;
+  salleId: string | null;
+  salleCode: string | null;
+  planifiee: boolean;
+}
+
+export interface PrevisualisationPublicationDto {
+  versionId: string;
+  versionNumero: string;
+  statut: string;
+  revision: number;
+  versionPrecedenteId: string | null;
+  versionPrecedenteNumero: string | null;
+  departementsValides: DepartementValideDto[];
+  activitesModifiees: number;
+  conflits: ConflitPrevisDto[];
+  avertissementsAcceptes: AvertissementAccepteDto[];
+  verrous: VerrouPrevisDto[];
+  provenance: ProvenanceDto;
+  activites: ActivitePrevisDto[];
+  at: string;
+}
+
+export async function fetchPrevisualisationPublication(
+  versionId: string,
+): Promise<PrevisualisationPublicationDto> {
+  const res = await apiFetch(
+    `/versions/${versionId}/previsualisation-publication`,
+  );
+  return res.json() as Promise<PrevisualisationPublicationDto>;
+}
+
+/* ============================================================================
+   Publication de version (L5-07)
+   POST /versions/{id}/publish
+   ============================================================================ */
+
+export interface PublishResponseDto {
+  versionId: string;
+  numero: string;
+  statut: string;
+  versionPrecedenteId: string | null;
+  versionPrecedenteNumero: string | null;
+  at: string;
+}
+
+export async function publishVersion(
+  versionId: string,
+): Promise<PublishResponseDto> {
+  const res = await apiFetch(`/versions/${versionId}/publish`, {
+    method: 'POST',
+  });
+  return res.json() as Promise<PublishResponseDto>;
+}

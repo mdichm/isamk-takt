@@ -1383,6 +1383,40 @@ export const messages = {
   impactVersionParente: 'Version parente',
   impactChargement: 'Chargement de la synthèse d\'impact…',
   impactErreur: 'Impossible de charger la synthèse d\'impact.',
+
+  // Prévisualisation avant publication (L5-08)
+  previsualisationTitre: 'Prévisualisation avant publication',
+  previsualisationSousTitre:
+    'Vérifiez la version candidate et les contrôles avant de publier.',
+  previsualisationVersionCandidate: 'Version candidate',
+  previsualisationVersionPrecedente: 'Version précédente publiée',
+  previsualisationAucunePrecedente: 'Aucune version précédente publiée',
+  previsualisationDepartementsValides: 'Départements validés',
+  previsualisationDepartementValide: 'Validé',
+  previsualisationActivitesModifiees: 'Activités planifiées',
+  previsualisationActivitePlanifiee: 'Planifiée',
+  previsualisationActiviteNonPlanifiee: 'Non planifiée',
+  previsualisationConflits: 'Conflits',
+  previsualisationConflitBloquant: 'Bloquant',
+  previsualisationConflitAvertissement: 'Avertissement',
+  previsualisationConflitInfo: 'Information',
+  previsualisationConflitResolu: 'Résolu',
+  previsualisationConflitNonResolu: 'Non résolu',
+  previsualisationAvertissements: 'Avertissements acceptés',
+  previsualisationVerrous: 'Verrous de séance actifs',
+  previsualisationProvenance: 'Provenance',
+  previsualisationProvenanceGeneration: 'Génération source',
+  previsualisationProvenanceProfil: 'Profil de génération',
+  previsualisationProvenancePerimetre: 'Empreinte du périmètre',
+  previsualisationProvenanceMoteur: 'Version du moteur d\'export',
+  previsualisationBtnPublier: 'Publier la version',
+  previsualisationConfirmation:
+    'Êtes-vous sûr de vouloir publier cette version ? Cette action est irréversible.',
+  previsualisationConfirmationPublier: 'Oui, publier',
+  previsualisationChargement: 'Chargement de la prévisualisation…',
+  previsualisationErreur: 'Impossible de charger la prévisualisation.',
+  previsualisationSucces: 'Version publiée avec succès.',
+  previsualisationErreurPublier: 'Impossible de publier la version.',
 } as const;
 
 export type Messages = typeof messages;

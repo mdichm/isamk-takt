@@ -41,6 +41,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     generations: 'Générations',
     validation: 'Validation du département',
     impact: 'Synthèse d\'impact',
+    previsualisation: 'Prévisualisation avant publication',
     lancerGeneration: 'Lancer la génération',
     annulerGeneration: 'Annuler la génération',
     telechargerFichierMoteur: 'Télécharger le fichier moteur',
