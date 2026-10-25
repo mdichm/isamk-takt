@@ -771,6 +771,7 @@ model VersionEdt {
   avertissementsAcceptes          AvertissementAccepte[]
   generations                     Generation[]
   transitions                     WorkflowTransition[]
+  impactDepartements              ImpactDepartement[]
   revision                        Int         @default(0)
   cycleValidation   Int         @default(0)
   soumisPar          String?     @db.Uuid
@@ -812,6 +813,34 @@ model VersionSnapshot {
 
   @@id([versionId, snapshotId])
   @@map("version_snapshots")
+}
+
+// ============================================
+// Analyse d'impact par département (L5-03)
+// Tracée du statut IMPACTE / NON_IMPACTE par département,
+// avec report d'approbation (reportee, cycleSource).
+// ============================================
+enum ImpactDepartementStatut {
+  IMPACTE
+  NON_IMPACTE
+}
+
+model ImpactDepartement {
+  id           String                   @id @default(uuid()) @db.Uuid
+  versionId    String                   @db.Uuid
+  version      VersionEdt               @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  departementId String                  @db.Uuid
+  departement  Departement              @relation(fields: [departementId], references: [id], onDelete: Cascade)
+  statut       ImpactDepartementStatut
+  raison       String
+  reportee     Boolean                  @default(false)
+  cycleSource  String?
+  createdAt    DateTime                 @default(now())
+
+  @@index([versionId])
+  @@index([departementId])
+  @@unique([versionId, departementId])
+  @@map("impact_departements")
 }
 
 model EditLock {
@@ -876,6 +905,7 @@ model Departement {
   enseignants  Enseignant[]
   salles       Salle[]
   repartitions Repartition[]
+  impactDepartements ImpactDepartement[]
 
   @@unique([anneeId, code])
   @@index([anneeId, ordre])
