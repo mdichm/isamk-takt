@@ -26,6 +26,7 @@ import type {
   Creneau,
   Seance,
   ImpactDepartementStatut,
+  ConflitSeverite,
 } from '@takt/db';
 import type { PgBoss as PgBossType } from 'pg-boss';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
@@ -50,6 +51,7 @@ import type { ImpactResponseDto } from './dto/impact-response.dto.js';
 import type { ImpactDepartementDto } from './dto/impact-departement.dto.js';
 import type { ValidationDepartementDto } from './dto/validation-departement.dto.js';
 import type { ValidationResponseDto } from './dto/validation-response.dto.js';
+import type { PublishResponseDto } from './dto/publish-response.dto.js';
 import { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
@@ -1998,5 +2000,199 @@ async submitValidation(
       unanimiteAtteinte: validation.unanimous,
       nouveauStatutVersion: validation.nouveauStatutVersion,
     };
+  }
+
+  // ============================================
+  // Publication atomique de version (L5-07)
+  // POST /versions/{id}/publish
+  // ============================================
+
+  async publishVersion(
+    versionId: string,
+    userId: string,
+  ): Promise<PublishResponseDto> {
+    // Vérifications préliminaires hors transaction (lecture seule)
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: {
+        id: true,
+        numero: true,
+        statut: true,
+        semestreId: true,
+        revision: true,
+      },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version \\\"${versionId}\\\" introuvable`);
+    }
+    if (version.statut !== 'VALIDE') {
+      throw new ConflictException({
+        code: 'INVALID_STATE_FOR_PUBLISH',
+        message: `Impossible de publier une version dont le statut est "${version.statut}" (VALIDE requis)`,
+      });
+    }
+    const nbPublie = await this.prisma.versionEdt.count({
+      where: {
+        semestreId: version.semestreId,
+        id: { not: versionId },
+        statut: 'PUBLIE' as VersionStatut,
+      },
+    });
+    if (nbPublie > 0) {
+      throw new ConflictException({
+        code: 'ALREADY_PUBLISHED',
+        message: 'Une version est déjà publiée pour ce semestre',
+      });
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      const maintenant = new Date();
+      const impactDepartements = await tx.impactDepartement.findMany({
+        where: { versionId },
+        select: { departementId: true },
+      });
+      const deptsImpactes = impactDepartements.map((d) => d.departementId);
+      const validations = await tx.validationDepartement.findMany({
+        where: { versionId },
+        select: { departementId: true, decision: true },
+      });
+      const decisionsParDept = new Map(
+        validations.map((v) => [v.departementId, v.decision as string]),
+      );
+      for (const deptId of deptsImpactes) {
+        const decision = decisionsParDept.get(deptId);
+        if (decision !== 'APPROUVE') {
+          throw new ConflictException({
+            code: 'VALIDATION_INCOMPLETE',
+            message: `Le département ${deptId} n'a pas encore approuvé la version`,
+          });
+        }
+      }
+      const conflitsBloquants = await tx.conflit.count({
+        where: {
+          versionId,
+          severite: 'BLOQUANT' as ConflitSeverite,
+          resoluLe: null,
+        },
+      });
+      if (conflitsBloquants > 0) {
+        throw new ConflictException({
+          code: 'CONFLITS_BLOQUANTS',
+          message: `${conflitsBloquants} conflit(s) bloquant(s) non résolu(x)`,
+        });
+      }
+      const editLock = await tx.editLock.findUnique({
+        where: { versionId },
+        select: { expiresAt: true },
+      });
+      if (editLock && new Date(editLock.expiresAt) > maintenant) {
+        throw new ConflictException({
+          code: 'EDIT_LOCK_HELD',
+          message: 'Un verrou d\'édition est actif sur cette version',
+        });
+      }
+      const verrousActifs = await tx.verrouSeance.count({
+        where: { versionId, leveLe: null },
+      });
+      if (verrousActifs > 0) {
+        throw new ConflictException({
+          code: 'VERROUS_SEANCES_ACTIFS',
+          message: `${verrousActifs} verrou(x) de séance(x) actif(s)`,
+        });
+      }
+      const snapshotCount = await tx.versionSnapshot.count({
+        where: { versionId },
+      });
+      if (snapshotCount === 0) {
+        throw new ConflictException({
+          code: 'NO_SNAPSHOTS',
+          message: 'Aucun snapshot lié à cette version (provenance manquante)',
+        });
+      }
+      const publieExistante = await tx.versionEdt.findFirst({
+        where: {
+          semestreId: version.semestreId,
+          id: { not: versionId },
+          statut: 'PUBLIE' as VersionStatut,
+        },
+        select: { id: true, numero: true },
+      });
+      if (publieExistante) {
+        await tx.versionEdt.update({
+          where: { id: publieExistante.id },
+          data: {
+            statut: 'ARCHIVE' as VersionStatut,
+            revision: { increment: 1 },
+          },
+        });
+        await tx.workflowTransition.create({
+          data: {
+            versionId: publieExistante.id,
+            de: 'PUBLIE',
+            vers: 'ARCHIVE',
+            userId,
+            automatique: true,
+            commentaire: `Archivée par publication de la version ${version.numero}`,
+          },
+        });
+        await tx.auditLog.create({
+          data: {
+            action: 'VERSION_ARCHIVE_PAR_PUBLICATION',
+            objetType: 'VersionEdt',
+            objetId: publieExistante.id,
+            versionId: publieExistante.id,
+            userId,
+            at: maintenant,
+            details: {
+              ancienStatut: 'PUBLIE',
+              nouveauStatut: 'ARCHIVE',
+              raison: 'PUBLICATION_NOUVELLE_VERSION',
+              publiePar: version.id,
+            },
+          },
+        });
+      }
+      const updated = await tx.versionEdt.update({
+        where: { id: versionId },
+        data: {
+          statut: 'PUBLIE' as VersionStatut,
+          revision: { increment: 1 },
+        },
+      });
+      await tx.workflowTransition.create({
+        data: {
+          versionId,
+          de: 'VALIDE',
+          vers: 'PUBLIE',
+          userId,
+          automatique: false,
+          commentaire: 'Publication atomique',
+        },
+      });
+      await tx.auditLog.create({
+        data: {
+          action: 'VERSION_PUBLIER',
+          objetType: 'VersionEdt',
+          objetId: versionId,
+          versionId,
+          userId,
+          at: maintenant,
+          details: {
+            ancienStatut: 'VALIDE',
+            nouveauStatut: 'PUBLIE',
+            ancienneRevision: version.revision,
+            nouvelleRevision: (version.revision ?? 0) + 1,
+          },
+        },
+      });
+      return {
+        versionId: updated.id,
+        numero: updated.numero,
+        statut: 'PUBLIE' as VersionStatut,
+        versionPrecedenteId: publieExistante?.id ?? null,
+        versionPrecedenteNumero: publieExistante?.numero ?? null,
+        at: maintenant,
+      };
+    });
   }
 }

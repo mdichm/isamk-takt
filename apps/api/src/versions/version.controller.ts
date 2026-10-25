@@ -37,6 +37,7 @@ import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { ValidationDepartementDto } from './dto/validation-departement.dto.js';
 import { ValidationResponseDto } from './dto/validation-response.dto.js';
+import { PublishResponseDto } from './dto/publish-response.dto.js';
 
 // ============================================
 // Version (L3-09)
@@ -395,5 +396,35 @@ export class VersionController {
       currentUser.role,
       currentUser.departments ?? [],
     );
+  }
+
+  @Post(':id/publish')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:publish')
+  @ApiOperation({
+    summary: 'Publication atomique d\'une version (L5-07)',
+    description:
+      'Publie une version VALIDE de façon atomique. Réservée au Gestionnaire et à l\'Administrateur. ' +
+      'L\'ancienne version publiée du même semestre passe en ARCHIVE dans la même transaction. ' +
+      'Contrôles finaux : validations, conflits, couverture, verrous, provenance, snapshot, périmètre.',
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Version publiée',
+    type: PublishResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  @ApiResponse({
+    status: 409,
+    description:
+      'Version non VALIDE, déjà publiée pour ce semestre, contrôles non satisfaits, ou verrou actif',
+  })
+  async publish(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<PublishResponseDto> {
+    return this.service.publishVersion(id, currentUser.id);
   }
 }
