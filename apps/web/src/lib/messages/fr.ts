@@ -1329,6 +1329,36 @@ export const messages = {
   statutArchivee: 'Archivée',
   statutRejetee: 'Rejetée',
   statutCorrection: 'En correction',
+
+  // Validation par département (L5-05)
+  validationDepartement: 'Validation du département',
+  validationDepartementTitre: 'Validation du planning — {departement}',
+  validationDepartementSousTitre:
+    'Consultez le planning de votre département, ses conflits et ses avertissements avant de prendre une décision.',
+  btnApprouver: 'Approuver',
+  btnRejeter: 'Rejeter',
+  btnApprobationEnCours: 'Décision en cours…',
+  validationLabelMotif: 'Motif de la décision',
+  validationMotifPlaceholder: 'Précisez le motif du rejet (obligatoire)',
+  motifRequis: 'Un motif est requis pour rejeter.',
+  departementImpacte: 'Ce département est impacté par la version.',
+  departementNonImpacte: 'Ce département n\'est pas impacté.',
+  approbationReportee: 'Approbation reportée sur la version parente.',
+  decisionEnAttente: 'En attente de décision',
+  decisionApprouvee: 'Approuvé',
+  decisionRejetee: 'Rejeté',
+  decisionParAdministrateur: 'Validé par l\'Administrateur',
+  validationSucces: 'Décision enregistrée avec succès.',
+  validationApprouveeSucces: 'Département approuvé avec succès.',
+  validationRejeteeSucces: 'Département rejeté.',
+  validationUnanimiteSucces:
+    'Unanimité atteinte : la version passe en {nouveauStatut}.',
+  validationMotifRequis: 'Un motif est obligatoire pour rejeter.',
+  validationDejaDecidee: 'Une décision a déjà été enregistrée pour ce département dans ce cycle.',
+  validationInterdite: 'Vous n\'êtes pas autorisé à prendre cette décision.',
+  validationVersionIntrouvable: 'Version introuvable.',
+  erreurChargementDepartement: 'Impossible de charger votre département.',
+  erreurChargementImpact: 'Impossible de charger l\'impact de la version.',
 } as const;
 
 export type Messages = typeof messages;

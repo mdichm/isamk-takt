@@ -39,6 +39,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     // Générations (L4-20)
     generation: 'Génération',
     generations: 'Générations',
+    validation: 'Validation du département',
     lancerGeneration: 'Lancer la génération',
     annulerGeneration: 'Annuler la génération',
     telechargerFichierMoteur: 'Télécharger le fichier moteur',

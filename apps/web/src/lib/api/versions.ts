@@ -76,3 +76,72 @@ export async function fetchHistory(versionId: string): Promise<HistoryResponse> 
   const res = await apiFetch(`/versions/${versionId}/history`);
   return res.json();
 }
+
+/* ============================================================================
+   Analyse d'impact par département (L5-03)
+   GET /versions/{id}/impact
+   ============================================================================ */
+
+export interface ImpactDepartementDto {
+  departementId: string;
+  departementCode: string;
+  departementLibelle: string;
+  statut: 'IMPACTE' | 'NON_IMPACTE';
+  raison: string;
+  reportee: boolean;
+  cycleSource?: string;
+}
+
+export interface ImpactResumeDto {
+  impactes: number;
+  nonImpactes: number;
+  reportees: number;
+}
+
+export interface ImpactResponseDto {
+  versionId: string;
+  versionNumero: string;
+  departements: ImpactDepartementDto[];
+  resume: ImpactResumeDto;
+}
+
+export async function fetchImpact(versionId: string): Promise<ImpactResponseDto> {
+  const res = await apiFetch(`/versions/${versionId}/impact`);
+  return res.json() as Promise<ImpactResponseDto>;
+}
+
+/* ============================================================================
+   Décision de validation par département (L5-04 / L5-05)
+   POST /versions/{id}/validations
+   ============================================================================ */
+
+export type DecisionDepartement = 'EN_ATTENTE' | 'APPROUVE' | 'REJETE';
+
+export interface ValidationDepartementDto {
+  departementId: string;
+  decision: DecisionDepartement;
+  motif?: string;
+}
+
+export interface ValidationResponseDto {
+  versionId: string;
+  versionNumero: string;
+  departementId: string;
+  decision: DecisionDepartement;
+  motif?: string;
+  parAdministrateur: boolean;
+  unanimiteAtteinte: boolean;
+  nouveauStatutVersion?: string;
+  at?: string;
+}
+
+export async function submitValidation(
+  versionId: string,
+  dto: ValidationDepartementDto,
+): Promise<ValidationResponseDto> {
+  const res = await apiFetch(`/versions/${versionId}/validations`, {
+    method: 'POST',
+    body: JSON.stringify(dto),
+  });
+  return res.json() as Promise<ValidationResponseDto>;
+}
