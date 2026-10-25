@@ -24,6 +24,7 @@ import type {
   JourSemaine,
   Creneau,
   Seance,
+  ImpactDepartementStatut,
 } from '@takt/db';
 import type { PgBoss as PgBossType } from 'pg-boss';
 import type { CreateVersionDto } from './dto/create-version.dto.js';
@@ -44,6 +45,8 @@ import type { AdoptResponseDto } from './dto/adopt-response.dto.js';
 import type { GenerationListResponseDto } from './dto/generation-list-response.dto.js';
 import type { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import type { HistoryResponseDto } from './dto/history-response.dto.js';
+import type { ImpactResponseDto } from './dto/impact-response.dto.js';
+import type { ImpactDepartementDto } from './dto/impact-departement.dto.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -1571,6 +1574,217 @@ export class VersionService {
     return {
       generationId: generation.id,
       mode: generation.mode,
+    };
+  }
+
+  async getImpact(versionId: string): Promise<ImpactResponseDto> {
+    // 1. Récupération de la version (404 si absente)
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: { id: true, semestreId: true, numero: true, statut: true, createdAt: true },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+
+    // 2. Départements du semestre (distincts, via groupes → niveau → formation)
+    const groupes = await this.prisma.groupe.findMany({
+      where: { semestreId: version.semestreId },
+      select: {
+        id: true,
+        niveau: {
+          select: {
+            formation: {
+              select: {
+                departement: { select: { id: true, code: true, libelle: true } },
+              },
+            },
+          },
+        },
+      },
+    });
+    const deptMap = new Map<string, { id: string; code: string; libelle: string }>();
+    for (const g of groupes) {
+      const d = g.niveau.formation.departement;
+      if (!deptMap.has(d.id)) {
+        deptMap.set(d.id, { id: d.id, code: d.code, libelle: d.libelle });
+      }
+    }
+    const departements = Array.from(deptMap.values());
+    // 3. Séances modifiées de cette version (revision > 0)
+    const seancesModifiees = await this.prisma.seance.findMany({
+      where: { versionId, revision: { gt: 0 } },
+      select: {
+        id: true,
+        enseignantId: true,
+        groupes: { select: { groupeId: true } },
+      },
+    });
+
+    // 4. Départements concernés par les séances modifiées (via leurs groupes)
+    const seanceGroupeModifie: { groupeId: string }[] = [];
+    for (const s of seancesModifiees) {
+      for (const sg of s.groupes) {
+        seanceGroupeModifie.push({ groupeId: sg.groupeId });
+      }
+    }
+
+    const groupeIdsModifies = new Set(seanceGroupeModifie.map((sg) => sg.groupeId));
+    const groupeToDept = new Map<string, string>();
+    if (groupeIdsModifies.size > 0) {
+      const groupesModifies = await this.prisma.groupe.findMany({
+        where: { id: { in: Array.from(groupeIdsModifies) } },
+        select: {
+          id: true,
+          niveau: { select: { formation: { select: { departementId: true } } } },
+        },
+      });
+      for (const g of groupesModifies) {
+        groupeToDept.set(g.id, g.niveau.formation.departementId);
+      }
+    }
+
+    const deptsAvecSeancesModifiees = new Set<string>();
+    for (const { groupeId } of seanceGroupeModifie) {
+      const deptId = groupeToDept.get(groupeId);
+      if (deptId) deptsAvecSeancesModifiees.add(deptId);
+    }
+
+    // 5. Enseignants affectés aux séances modifiées → leurs départements sont impactés
+    const enseignantIdsModifies = new Set<string>();
+    for (const s of seancesModifiees) {
+      if (s.enseignantId) enseignantIdsModifies.add(s.enseignantId);
+    }
+
+    const deptsAvecEnseignantPartage = new Set<string>();
+    if (enseignantIdsModifies.size > 0) {
+      const enseignants = await this.prisma.enseignant.findMany({
+        where: { id: { in: Array.from(enseignantIdsModifies) } },
+        select: { id: true, departementId: true },
+      });
+      for (const e of enseignants) {
+        deptsAvecEnseignantPartage.add(e.departementId);
+      }
+    }
+
+    // 6. Snapshots modifiés : un département est impacté si sa répartition a un snapshot
+    //    créé après la version courante (nouvelle validation depuis)
+    const deptsSnapshotModifie = new Set<string>();
+    const repartitions = await this.prisma.repartition.findMany({
+      where: { semestreId: version.semestreId },
+      select: { id: true, departementId: true },
+    });
+    if (repartitions.length > 0) {
+      const repartIds = repartitions.map((r) => r.id);
+      const snapshots = await this.prisma.snapshot.findMany({
+        where: { repartitionId: { in: repartIds } },
+        select: { repartitionId: true, valideLe: true },
+        orderBy: { valideLe: 'desc' },
+      });
+      const dernierSnapshotParRepart = new Map<string, Date>();
+      for (const snap of snapshots) {
+        const exist = dernierSnapshotParRepart.get(snap.repartitionId);
+        if (!exist || snap.valideLe > exist) {
+          dernierSnapshotParRepart.set(snap.repartitionId, snap.valideLe);
+        }
+      }
+      for (const r of repartitions) {
+        const dernier = dernierSnapshotParRepart.get(r.id);
+        if (dernier && dernier > version.createdAt) {
+          deptsSnapshotModifie.add(r.departementId);
+        }
+      }
+    }
+
+    // 7. Version parente : dernière version PUBLIE ou ARCHIVE du même semestre, avant la courante
+    const versionParente = await this.prisma.versionEdt.findFirst({
+      where: {
+        semestreId: version.semestreId,
+        id: { not: version.id },
+        statut: { in: ['PUBLIE', 'ARCHIVE'] as VersionStatut[] },
+        createdAt: { lt: version.createdAt },
+      },
+      orderBy: { createdAt: 'desc' },
+      select: { id: true, statut: true, numero: true },
+    });
+
+    const parenteApprouvee = !!versionParente;
+
+    // 8. Construire le résultat par département
+    const departementsDto: ImpactDepartementDto[] = [];
+    for (const dept of departements) {
+      const id = dept.id;
+      const seanceModifiee = deptsAvecSeancesModifiees.has(id);
+      const enseignantPartage = deptsAvecEnseignantPartage.has(id);
+      const snapshotModifie = deptsSnapshotModifie.has(id);
+
+      let statut: ImpactDepartementStatut;
+      let raison: string;
+
+      if (!parenteApprouvee) {
+        statut = 'IMPACTE';
+        raison = 'PREMIERE_VERSION';
+      } else if (seanceModifiee || enseignantPartage || snapshotModifie) {
+        statut = 'IMPACTE';
+        raison = seanceModifiee
+          ? 'SEANCES_MODIFIEES'
+          : enseignantPartage
+          ? 'ENSEIGNANT_PARTAGE'
+          : 'SNAPSHOT_MODIFIE';
+      } else {
+        statut = 'NON_IMPACTE';
+        raison = 'AUCUN_CHANGEMENT';
+      }
+
+      let reportee = false;
+      let cycleSource: string | undefined;
+      if (statut === 'NON_IMPACTE' && parenteApprouvee && versionParente) {
+        reportee = true;
+        cycleSource = versionParente.id;
+      }
+
+      departementsDto.push({
+        departementId: id,
+        departementCode: dept.code,
+        departementLibelle: dept.libelle,
+        statut,
+        raison,
+        reportee,
+        cycleSource,
+      });
+    }
+
+    // 9. Persister (upsert par [versionId, departementId])
+    for (const dto of departementsDto) {
+      await this.prisma.impactDepartement.upsert({
+        where: { versionId_departementId: { versionId, departementId: dto.departementId } },
+        update: {
+          statut: dto.statut,
+          raison: dto.raison,
+          reportee: dto.reportee,
+          cycleSource: dto.cycleSource ?? null,
+        },
+        create: {
+          versionId,
+          departementId: dto.departementId,
+          statut: dto.statut,
+          raison: dto.raison,
+          reportee: dto.reportee,
+          cycleSource: dto.cycleSource ?? null,
+        },
+      });
+    }
+
+    // 10. Synthèse
+    const impactes = departementsDto.filter((d) => d.statut === 'IMPACTE').length;
+    const nonImpactes = departementsDto.filter((d) => d.statut === 'NON_IMPACTE').length;
+    const reportees = departementsDto.filter((d) => d.reportee).length;
+
+    return {
+      versionId,
+      versionNumero: version.numero,
+      departements: departementsDto,
+      resume: { impactes, nonImpactes, reportees },
     };
   }
 }

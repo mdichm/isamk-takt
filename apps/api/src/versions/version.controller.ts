@@ -31,6 +31,7 @@ import { TransitionDto } from './dto/transition.dto.js';
 import { TransitionResponseDto } from './dto/transition-response.dto.js';
 import { VersionNotSubmittableDto } from './dto/version-not-submittable.dto.js';
 import { HistoryResponseDto } from './dto/history-response.dto.js';
+import { ImpactResponseDto } from './dto/impact-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
@@ -156,6 +157,24 @@ export class VersionController {
   @ApiResponse({ status: 404, description: 'Version introuvable' })
   async history(@Param('id') id: string): Promise<HistoryResponseDto> {
     return this.service.getHistory(id);
+  }
+
+  @Get(':id/impact')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({ summary: 'Analyse d impact par département' })
+  @ApiParam({ name: 'id', description: 'ID de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Synthèse d impact par département',
+    type: ImpactResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async getImpact(
+    @Param('id') id: string,
+  ): Promise<ImpactResponseDto> {
+    return this.service.getImpact(id);
   }
 
   @Post(':id/generations')
