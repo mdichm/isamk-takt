@@ -255,6 +255,7 @@ export type EmailStatut = z.infer<typeof emailStatutSchema>;
 
 /** Type de transition de workflow */
 export const transitionTypeSchema = z.enum([
+  'DEMARRER_EDITION',
   'MARQUER_PRET',
   'SOUMETTRE',
   'REPRENDRE',

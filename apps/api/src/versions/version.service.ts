@@ -32,6 +32,9 @@ import type { CompletudeResponseDto } from './dto/completude-response.dto.js';
 import type { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
 import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import type { GenerationResponseDto } from './dto/generation-response.dto.js';
+import type { TransitionDto } from './dto/transition.dto.js';
+import type { TransitionResponseDto } from './dto/transition-response.dto.js';
+import type { TransitionType } from '@takt/contracts';
 import { Prisma as PrismaValue } from '@takt/db';
 import { mkdtemp, writeFile } from 'fs/promises';
 import { join } from 'path';
@@ -1035,6 +1038,143 @@ export class VersionService {
       numero: nouveauNumero,
       statut: 'EDITION' as VersionStatut,
       conflitsInitiaux: conflits.length,
+    };
+  }
+
+  // ============================================
+  // Transitions de workflow de version (L5-01)
+  // POST /versions/{id}/transitions
+  // ============================================
+
+  /** Table des transitions autorisées (ST §4.1.1). */
+  private readonly TRANSITION_TABLE: { de: VersionStatut; vers: VersionStatut; action: TransitionType }[] = [
+    { de: 'BROUILLON', vers: 'EDITION', action: 'DEMARRER_EDITION' },
+    { de: 'EDITION', vers: 'PRET_POUR_VALIDATION', action: 'MARQUER_PRET' },
+    { de: 'PRET_POUR_VALIDATION', vers: 'EDITION', action: 'REPRENDRE' },
+    { de: 'PRET_POUR_VALIDATION', vers: 'EN_VALIDATION', action: 'SOUMETTRE' },
+    { de: 'REJETE', vers: 'CORRECTION', action: 'REPRENDRE' },
+    { de: 'CORRECTION', vers: 'EN_VALIDATION', action: 'RESOUMETTRE' },
+  ];
+
+  /** Statuts immuables sur lesquels aucune transition n'est permise. */
+  private readonly STATUTS_IMMUTABLES = ['PUBLIE', 'ARCHIVE'] as VersionStatut[];
+
+  async transition(
+    versionId: string,
+    action: TransitionType,
+    userId: string,
+    commentaire?: string,
+  ): Promise<TransitionResponseDto> {
+    return this.prisma.$transaction(async (tx) => {
+      const version = await tx.versionEdt.findUnique({
+        where: { id: versionId },
+        select: { id: true, numero: true, statut: true, revision: true },
+      });
+      if (!version) {
+        throw new NotFoundException(`Version \"${versionId}\" introuvable`);
+      }
+      if (action === 'ABANDONNER') {
+        if (this.STATUTS_IMMUTABLES.includes(version.statut)) {
+          throw new ConflictException({
+            code: 'INVALID_STATE_TRANSITION',
+            message: `Impossible d'abandonner une version déjà publiée ou archivée (statut: ${version.statut})`,
+          });
+        }
+        await tx.versionEdt.update({
+          where: { id: versionId },
+          data: {
+            statut: 'ARCHIVE' as VersionStatut,
+            revision: { increment: 1 },
+            motif: commentaire ?? null,
+          },
+        });
+        await tx.workflowTransition.create({
+          data: { versionId, de: version.statut, vers: 'ARCHIVE', userId, automatique: false, commentaire: commentaire ?? null },
+        });
+        await tx.auditLog.create({
+          data: {
+            userId, action: 'VERSION_ABANDONNER', objetType: 'VersionEdt', objetId: versionId,
+            ancienneValeur: { statut: version.statut, revision: version.revision },
+            nouvelleValeur: { statut: 'ARCHIVE', revision: (version.revision ?? 0) + 1 },
+            versionId, motif: commentaire ?? null,
+          },
+        });
+        const updated = await tx.versionEdt.findUnique({
+          where: { id: versionId },
+          select: { id: true, numero: true, statut: true, revision: true },
+        });
+        return this.toTransitionResponse(updated!, version.statut, 'ARCHIVE', action, commentaire);
+      }
+      const transition = this.TRANSITION_TABLE.find((t) => t.de === version.statut && t.action === action);
+      if (!transition) {
+        throw new ConflictException({
+          code: 'INVALID_STATE_TRANSITION',
+          message: `Action "${action}" interdite depuis l'état "${version.statut}"`,
+        });
+      }
+      if (action === 'DEMARRER_EDITION') {
+        const seanceNonPlacee = await tx.seance.findFirst({
+          where: { versionId, statut: 'NON_PLACEE' as SeanceStatut }, select: { id: true },
+        });
+        if (!seanceNonPlacee) {
+          throw new ConflictException({
+            code: 'NO_SEANCES_TO_EDIT',
+            message: 'Aucune séance à placer (NON_PLACEE) sur cette version',
+          });
+        }
+      }
+      if (action === 'MARQUER_PRET' || action === 'SOUMETTRE' || action === 'RESOUMETTRE') {
+        const seanceNonPlacee = await tx.seance.findFirst({
+          where: { versionId, statut: 'NON_PLACEE' as SeanceStatut }, select: { id: true },
+        });
+        if (seanceNonPlacee) {
+          throw new ConflictException({
+            code: 'SEANCES_NON_PLACES',
+            message: 'Des séances restent à placer (NON_PLACEE) : couverture incomplète',
+          });
+        }
+      }
+      await tx.versionEdt.update({
+        where: { id: versionId },
+        data: { statut: transition.vers, revision: { increment: 1 } },
+      });
+      await tx.workflowTransition.create({
+        data: {
+          versionId, de: version.statut, vers: transition.vers, userId, automatique: false, commentaire: commentaire ?? null,
+        },
+      });
+      await tx.auditLog.create({
+        data: {
+          userId, action: `VERSION_${action}`, objetType: 'VersionEdt', objetId: versionId,
+          ancienneValeur: { statut: version.statut, revision: version.revision },
+          nouvelleValeur: { statut: transition.vers, revision: (version.revision ?? 0) + 1 },
+          versionId, motif: commentaire ?? null,
+        },
+      });
+      const updated = await tx.versionEdt.findUnique({
+        where: { id: versionId },
+        select: { id: true, numero: true, statut: true, revision: true },
+      });
+      return this.toTransitionResponse(updated!, version.statut, transition.vers, action, commentaire);
+    });
+  }
+
+  private toTransitionResponse(
+    version: { id: string; numero: string; statut: VersionStatut; revision: number },
+    de: VersionStatut,
+    vers: VersionStatut,
+    action: TransitionType,
+    commentaire?: string,
+  ): TransitionResponseDto {
+    return {
+      versionId: version.id,
+      numero: version.numero,
+      de,
+      vers,
+      action,
+      revision: version.revision,
+      commentaire,
+      at: new Date(),
     };
   }
 
