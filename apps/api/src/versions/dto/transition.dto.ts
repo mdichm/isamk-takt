@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - DTO de demande de transition de workflow (L5-01)
 // POST /versions/{id}/transitions
-import { IsString, IsOptional } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import type { TransitionType } from '@takt/contracts';
 
@@ -30,4 +30,12 @@ export class TransitionDto {
   @IsOptional()
   @IsString()
   commentaire?: string;
+
+  @ApiPropertyOptional({
+    example: false,
+    description: 'Confirme la publication de la version existante (requis quand la soumission publiera, ex. PUBLIE)',
+  })
+  @IsOptional()
+  @IsBoolean()
+  confirmerPublication?: boolean;
 }

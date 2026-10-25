@@ -28,6 +28,9 @@ export class TransitionResponseDto {
   @ApiProperty({ description: 'Nouveau numéro de révision de la version' })
   revision: number;
 
+  @ApiProperty({ description: 'Numéro du cycle de validation ouvert par cette soumission' })
+  cycleValidation: number;
+
   @ApiPropertyOptional({ description: 'Commentaire de la transition' })
   commentaire?: string;
 

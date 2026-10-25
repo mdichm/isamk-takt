@@ -29,6 +29,7 @@ import type { ImportGenerationDto } from './dto/import-generation.dto.js';
 import { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import { TransitionDto } from './dto/transition.dto.js';
 import { TransitionResponseDto } from './dto/transition-response.dto.js';
+import { VersionNotSubmittableDto } from './dto/version-not-submittable.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
@@ -236,6 +237,12 @@ export class VersionController {
     status: 409,
     description:
       'Transition interdite depuis l\'état actuel (INVALID_STATE_TRANSITION) ou garde de métier non satisfaite (SEANCES_NON_PLACES, NO_SEANCES_TO_EDIT)',
+  })
+  @ApiResponse({
+    status: 422,
+    description:
+      'Version non soumettable : conflits bloquants ou couverture incomplète (VERSION_NOT_SUBMITTABLE)',
+    type: VersionNotSubmittableDto,
   })
   async transition(
     @Param('id') id: string,
