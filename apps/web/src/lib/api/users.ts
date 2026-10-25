@@ -105,4 +105,17 @@ export async function resetUserPassword(id: string): Promise<{ message: string }
   return response.json();
 }
 
+/**
+ * Récupère le profil de l'utilisateur connecté (inclut ses départements).
+ * GET /auth/me
+ */
+export async function fetchMe(): Promise<{
+  id: string;
+  role: string;
+  departments: string[];
+}> {
+  const res = await apiFetch('/auth/me');
+  return res.json() as Promise<{ id: string; role: string; departments: string[] }>;
+}
+
 export type { UserDto, CreateUserInput, UpdateUserInput };
