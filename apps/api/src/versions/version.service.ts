@@ -1238,7 +1238,13 @@ export class VersionService {
       const updated = await tx.versionEdt.findUnique({
         where: { id: versionId },
         select: { id: true, numero: true, statut: true, revision: true, cycleValidation: true, soumisPar: true },
-      }) ?? { id: versionId, numero: version.numero, statut: transition.vers, revision: (version.revision ?? 0) + 1, cycleValidation: version.cycleValidation ?? 0 };
+      }) ?? {
+        id: versionId,
+        numero: version.numero,
+        statut: transition.vers,
+        revision: (version.revision ?? 0) + 1,
+        cycleValidation: 0,
+      } as { id: string; numero: string; statut: VersionStatut; revision: number; cycleValidation?: number };
       return this.toTransitionResponse(updated, version.statut, transition.vers, action, commentaire);
     });
   }
