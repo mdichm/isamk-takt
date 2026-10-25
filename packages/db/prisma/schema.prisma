@@ -230,6 +230,7 @@ model User {
   demandesModification DemandeModification[]
   workflowTransitions  WorkflowTransition[]
   versionsSoumises     VersionEdt[]   @relation("VersionSoumisPar")
+  validationDepartements ValidationDepartement[]
 
   @@index([email])
   @@index([isActive])
@@ -772,6 +773,7 @@ model VersionEdt {
   generations                     Generation[]
   transitions                     WorkflowTransition[]
   impactDepartements              ImpactDepartement[]
+  validations                     ValidationDepartement[]
   revision                        Int         @default(0)
   cycleValidation   Int         @default(0)
   soumisPar          String?     @db.Uuid
@@ -825,6 +827,13 @@ enum ImpactDepartementStatut {
   NON_IMPACTE
 }
 
+// Décision de validation par département (L5-04)
+enum DecisionDepartement {
+  EN_ATTENTE
+  APPROUVE
+  REJETE
+}
+
 model ImpactDepartement {
   id           String                   @id @default(uuid()) @db.Uuid
   versionId    String                   @db.Uuid
@@ -841,6 +850,33 @@ model ImpactDepartement {
   @@index([departementId])
   @@unique([versionId, departementId])
   @@map("impact_departements")
+}
+
+// Décision de validation par département pour un cycle (L5-04)
+// EX-WFL-03, EX-WFL-04 ; ST §3.4.12, §4.1.1
+model ValidationDepartement {
+  id                String              @id @default(uuid()) @db.Uuid
+  versionId         String              @db.Uuid
+  cycle             Int                 // numéro du cycle de validation de la version
+  departementId     String              @db.Uuid
+  departement       Departement         @relation(fields: [departementId], references: [id], onDelete: Cascade)
+  impact            ImpactDepartementStatut // statut d'impact du département au moment de la décision
+  decision          DecisionDepartement @default(EN_ATTENTE)
+  reportee          Boolean             @default(false) // approbation reportée d'un cycle précédent
+  cycleSource       Int?                // cycle source du report
+  userId            String?             @db.Uuid
+  parAdministrateur Boolean             @default(false) // décision prise par l'Administrateur
+  motif             String?             // obligatoire en cas de rejet
+  raisonImpact      Json?               // séances modifiées, enseignant partagé, snapshot modifié
+  at                DateTime?           // horodatage de la décision
+
+  version VersionEdt @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  user    User?      @relation(fields: [userId], references: [id])
+
+  @@index([versionId])
+  @@index([departementId])
+  @@unique([versionId, departementId])
+  @@map("validation_departements")
 }
 
 model EditLock {
@@ -906,6 +942,7 @@ model Departement {
   salles       Salle[]
   repartitions Repartition[]
   impactDepartements ImpactDepartement[]
+  validations ValidationDepartement[]
 
   @@unique([anneeId, code])
   @@index([anneeId, ordre])
