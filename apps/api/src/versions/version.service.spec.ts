@@ -822,4 +822,161 @@ describe('VersionService', () => {
       expect(result.entries[0].automatique).toBe(true);
     });
   });
+
+  // ============================================
+  // Nouvelle révision (L5-10)
+  // ============================================
+  describe('newRevision', () => {
+    const parentId = 'version-publiee-1';
+    const userId = 'user-gestionnaire';
+
+    const seanceAvecGroupeEtVerrou = {
+      id: 'seance-1',
+      semestreId,
+      versionId: parentId,
+      affectationKey: 'g1:m1:t1:e1',
+      rang: 1,
+      tag: null,
+      jour: 'LUNDI',
+      creneauDebutId: 'creneau-1',
+      nbCreneaux: 2,
+      statut: 'PLACEE' as any,
+      origine: 'MOTEUR' as any,
+      enseignantId: 'ens-1',
+      salleId: 'salle-1',
+      groupes: [{ groupeId: 'groupe-1' }],
+      verrous: [
+        { id: 'verrou-1', type: 'SALLE' as any, justification: 'Salle imposée', auteurId: 'user-1', leveLe: null, levePar: null },
+      ],
+    };
+
+    beforeEach(() => {
+      prisma.seanceGroupe = { createMany: vi.fn() };
+      prisma.verrouSeance = { createMany: vi.fn() };
+      prisma.$transaction.mockImplementation(async (cb: any) => cb(prisma));
+    });
+
+    it('crée une version enfant EDITION avec parentId, séances et verrous copiés, numéro mineur+1', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({
+        id: parentId,
+        numero: '1.0',
+        statut: 'PUBLIE',
+        semestreId,
+        seances: [seanceAvecGroupeEtVerrou],
+      } as any);
+      prisma.versionEdt.create.mockResolvedValue({
+        id: 'version-enfant-1',
+        numero: '1.1',
+        statut: 'EDITION',
+      } as any);
+      prisma.seance.create.mockResolvedValue({ id: 'seance-enfant-1' } as any);
+      prisma.workflowTransition.create.mockResolvedValue({} as any);
+      prisma.auditLog.create.mockResolvedValue({} as any);
+
+      const result = await service.newRevision(parentId, userId);
+
+      expect(result.versionId).toBe('version-enfant-1');
+      expect(result.numero).toBe('1.1');
+      expect(result.statut).toBe('EDITION');
+      expect(result.parentId).toBe(parentId);
+      expect(prisma.versionEdt.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            parentId,
+            statut: 'EDITION',
+            numero: '1.1',
+            semestreId,
+            auteurId: userId,
+          }),
+        }),
+      );
+      // La séance a été copiée
+      expect(prisma.seance.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            versionId: 'version-enfant-1',
+            affectationKey: 'g1:m1:t1:e1',
+            rang: 1,
+          }),
+        }),
+      );
+      // Le verrou a été copié sur la nouvelle séance
+      expect(prisma.verrouSeance.createMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.arrayContaining([
+            expect.objectContaining({
+              type: 'SALLE',
+              seanceId: 'seance-enfant-1',
+            }),
+          ]),
+        }),
+      );
+      // Historisation
+      expect(prisma.workflowTransition.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            de: 'PUBLIE',
+            vers: 'EDITION',
+            userId,
+          }),
+        }),
+      );
+      expect(prisma.auditLog.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({
+            action: 'VERSION_NEW_REVISION',
+          }),
+        }),
+      );
+    });
+
+    it('passe de 2.0 à 2.1 (mineur+1) pour une révision', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({
+        id: parentId,
+        numero: '2.0',
+        statut: 'PUBLIE',
+        semestreId,
+        seances: [],
+      } as any);
+      prisma.versionEdt.create.mockResolvedValue({
+        id: 'version-enfant-2',
+        numero: '2.1',
+        statut: 'EDITION',
+      } as any);
+      prisma.seance.create.mockResolvedValue({} as any);
+      prisma.workflowTransition.create.mockResolvedValue({} as any);
+      prisma.auditLog.create.mockResolvedValue({} as any);
+
+      const result = await service.newRevision(parentId, userId);
+
+      expect(result.numero).toBe('2.1');
+      expect(prisma.versionEdt.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: expect.objectContaining({ numero: '2.1' }),
+        }),
+      );
+    });
+
+    it('lève NotFoundException si la version parente est introuvable', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(null);
+
+      await expect(service.newRevision(parentId, userId)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+
+    it('lève ConflictException si la version parente n\'est pas PUBLIE', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({
+        id: parentId,
+        numero: '1.0',
+        statut: 'EDITION',
+        semestreId,
+        seances: [],
+      } as any);
+
+      await expect(service.newRevision(parentId, userId)).rejects.toThrow(
+        ConflictException,
+      );
+    });
+  });
 });

@@ -757,11 +757,15 @@ model VersionEdt {
   id          String        @id @default(uuid()) @db.Uuid
   semestreId  String        @db.Uuid
   semestre    Semestre      @relation(fields: [semestreId], references: [id], onDelete: Cascade)
-  numero      String        // ex. "1.0", "2.0"
+  numero      String        // ex. "1.0", "2.0", "1.1"
   statut      VersionStatut @default(BROUILLON)
   motif       String?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+
+  parentId    String?       @db.Uuid
+  parent      VersionEdt?   @relation("VersionParent", fields: [parentId], references: [id])
+  enfants     VersionEdt[]  @relation("VersionParent")
 
   seances                         Seance[]
   occupations                     Occupation[]
@@ -782,6 +786,7 @@ model VersionEdt {
   @@index([semestreId])
   @@index([statut])
   @@index([soumisPar])
+  @@index([parentId])
   @@map("versions_edt")
 }
 
