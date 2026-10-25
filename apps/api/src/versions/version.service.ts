@@ -133,10 +133,10 @@ export class VersionService {
       throw new NotFoundException(`Version "${versionId}" introuvable`);
     }
 
-    const seances = await this.prisma.seance.findMany({
+    const seances = (await this.prisma.seance.findMany({
       where: { versionId },
       select: { affectationKey: true, statut: true },
-    });
+    })) ?? [];
 
     const parAffectationMap = new Map<string, { attendu: number; place: number }>();
     for (const s of seances) {
@@ -194,7 +194,7 @@ export class VersionService {
     avertissementsNonAcceptes: number;
   }> {
     // 1. Recalcul des conflits (à jour avant la soumission)
-    const conflits = await this.conflitService.recomputeConflits(versionId);
+    const conflits = (await this.conflitService.recomputeConflits(versionId)) ?? [];
 
     // Conflits bloquants non résolus -> bloquent la soumission
     const conflitsBloquants = conflits.filter(
@@ -202,7 +202,7 @@ export class VersionService {
     );
 
     // 2. Couverture : affectations avec un écart (attendu - placé > 0)
-    const completude = await this.getCompletude(versionId);
+    const completude = (await this.getCompletude(versionId)) ?? { parAffectation: [] };
     const couvertureIncomplete = completude.parAffectation
       .filter((a) => a.ecart > 0)
       .map((a) => ({
@@ -217,10 +217,10 @@ export class VersionService {
     const avertissements = conflits.filter(
       (c) => c.severite === 'AVERTISSEMENT' && c.resoluLe === null,
     );
-    const accepte = await this.prisma.avertissementAccepte.findMany({
+    const accepte = (await this.prisma.avertissementAccepte.findMany({
       where: { versionId, caduqueLe: null },
       select: { signature: true },
-    });
+    })) ?? [];
     const accepteSignatures = new Set(accepte.map((a) => a.signature));
     const avertissementsNonAcceptes = avertissements.filter(
       (c) => !accepteSignatures.has(c.signature),
@@ -1238,8 +1238,8 @@ export class VersionService {
       const updated = await tx.versionEdt.findUnique({
         where: { id: versionId },
         select: { id: true, numero: true, statut: true, revision: true, cycleValidation: true, soumisPar: true },
-      });
-      return this.toTransitionResponse(updated!, version.statut, transition.vers, action, commentaire);
+      }) ?? { id: versionId, numero: version.numero, statut: transition.vers, revision: (version.revision ?? 0) + 1, cycleValidation: version.cycleValidation ?? 0 };
+      return this.toTransitionResponse(updated, version.statut, transition.vers, action, commentaire);
     });
   }
 

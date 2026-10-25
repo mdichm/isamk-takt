@@ -38,7 +38,7 @@ describe('VersionService', () => {
       snapshotAffectation: { findMany: vi.fn() },
       seance: { create: vi.fn(), findMany: vi.fn(), findFirst: vi.fn() },
       editLock: { findUnique: vi.fn(), deleteMany: vi.fn() },
-      workflowTransition: { create: vi.fn() },
+      workflowTransition: { create: vi.fn(), findMany: vi.fn() },
       generation: { findFirst: vi.fn() },
       contrainteInstance: { findMany: vi.fn() },
       auditLog: { create: vi.fn() },
@@ -725,6 +725,7 @@ describe('VersionService', () => {
     expect(result.vers).toBe('EN_VALIDATION');
     expect(result.cycleValidation).toBe(1);
     expect(prisma.editLock.deleteMany).toHaveBeenCalledWith({ where: { versionId: versionIdSoumission } });
+  });
 
   describe('getHistory', () => {
     const versionId = 'version-history-1';
@@ -818,6 +819,5 @@ describe('VersionService', () => {
       expect(result.entries[0].action).toBe('ABANDONNER');
       expect(result.entries[0].automatique).toBe(true);
     });
-  });
   });
 });
