@@ -24,7 +24,7 @@ import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import { GenerationResponseDto } from './dto/generation-response.dto.js';
 import { AdoptGenerationDto } from './dto/adopt-generation.dto.js';
 import { AdoptResponseDto } from './dto/adopt-response.dto.js';
-import type { GenerationListResponseDto } from './dto/generation-list-response.dto.js';
+import { GenerationListResponseDto } from './dto/generation-list-response.dto.js';
 import type { ImportGenerationDto } from './dto/import-generation.dto.js';
 import { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';

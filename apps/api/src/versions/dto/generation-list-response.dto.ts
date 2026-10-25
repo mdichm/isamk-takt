@@ -4,7 +4,7 @@
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDate, IsOptional, IsString, IsUUID } from 'class-validator';
-import type { GenerationStatut } from '@takt/db';
+import { GenerationStatut } from '@takt/db';
 
 // ============================================
 // Élément de liste des générations d'une version (L4-21)
