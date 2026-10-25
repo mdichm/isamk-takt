@@ -29,6 +29,7 @@ import type { ImportGenerationDto } from './dto/import-generation.dto.js';
 import { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import { TransitionDto } from './dto/transition.dto.js';
 import { TransitionResponseDto } from './dto/transition-response.dto.js';
+import { HistoryResponseDto } from './dto/history-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
@@ -138,6 +139,22 @@ export class VersionController {
   @ApiResponse({ status: 404, description: 'Version introuvable' })
   async perimetre(@Param('id') id: string): Promise<PerimetreResponseDto> {
     return this.service.getPerimetre(id);
+  }
+
+  @Get(':id/history')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({ summary: "Historique des transitions d'une version" })
+  @ApiParam({ name: 'id', description: 'ID de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Chronologie des transitions de la version',
+    type: HistoryResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async history(@Param('id') id: string): Promise<HistoryResponseDto> {
+    return this.service.getHistory(id);
   }
 
   @Post(':id/generations')
@@ -261,6 +278,24 @@ export class VersionController {
     @Param('id') id: string,
   ): Promise<GenerationListResponseDto> {
     return this.service.getGenerationsByVersion(id);
+  }
+
+  @Get(':id/history')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({ summary: 'Retourne l historique des transitions de workflow d une version' })
+  @ApiParam({ name: 'id', description: 'ID de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Chronologie des transitions de la version',
+    type: HistoryResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async getHistory(
+    @Param('id') id: string,
+  ): Promise<HistoryResponseDto> {
+    return this.service.getHistory(id);
   }
 
   @Post(':id/generations/import')

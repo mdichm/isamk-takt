@@ -41,6 +41,7 @@ describe('VersionService', () => {
       generation: { findFirst: vi.fn() },
       contrainteInstance: { findMany: vi.fn() },
       auditLog: { create: vi.fn() },
+      workflowTransition: { findMany: vi.fn() },
       $transaction: vi.fn(),
     };
 
@@ -575,6 +576,104 @@ describe('VersionService', () => {
       const r1 = await (service as any).getPerimetre(versionId);
       const r2 = await (service as any).getPerimetre(versionId);
       expect(r1.perimetreHash).toBe(r2.perimetreHash);
+    });
+  });
+
+  // ============================================
+  // Historique de version (L5-09)
+  // ============================================
+
+  describe('getHistory', () => {
+    const versionId = 'version-history-1';
+    const now = new Date('2026-01-15T10:00:00Z');
+
+    it('retourne la chronologie des transitions triée par date décroissante', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({ id: versionId } as any);
+      prisma.workflowTransition.findMany.mockResolvedValue([
+        {
+          id: 't-2',
+          versionId,
+          de: 'EDITION',
+          vers: 'PRET_POUR_VALIDATION',
+          userId: 'user-1',
+          automatique: false,
+          commentaire: 'Prête pour validation',
+          at: now,
+          user: { id: 'user-1', email: 'alice@takt.fr', firstName: 'Alice', lastName: 'Dupont' },
+        },
+        {
+          id: 't-1',
+          versionId,
+          de: 'BROUILLON',
+          vers: 'EDITION',
+          userId: 'user-1',
+          automatique: false,
+          commentaire: null,
+          at: new Date('2026-01-14T09:00:00Z'),
+          user: { id: 'user-1', email: 'alice@takt.fr', firstName: 'Alice', lastName: 'Dupont' },
+        },
+      ] as any);
+
+      const result = await service.getHistory(versionId);
+
+      expect(result.versionId).toBe(versionId);
+      expect(result.entries).toHaveLength(2);
+      expect(result.entries[0].id).toBe('t-2');
+      expect(result.entries[0].action).toBe('MARQUER_PRET');
+      expect(result.entries[0].userName).toBe('Alice Dupont');
+      expect(result.entries[0].automatique).toBe(false);
+      expect(result.entries[0].commentaire).toBe('Prête pour validation');
+      expect(result.entries[1].id).toBe('t-1');
+      expect(result.entries[1].action).toBe('DEMARRER_EDITION');
+      expect(result.entries[1].automatique).toBe(false);
+      expect(prisma.workflowTransition.findMany).toHaveBeenCalledWith({
+        where: { versionId },
+        include: {
+          user: {
+            select: { id: true, email: true, firstName: true, lastName: true },
+          },
+        },
+        orderBy: { at: 'desc' },
+      });
+    });
+
+    it('retourne une liste vide quand il n y a pas de transition', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({ id: versionId } as any);
+      prisma.workflowTransition.findMany.mockResolvedValue([]);
+
+      const result = await service.getHistory(versionId);
+
+      expect(result.versionId).toBe(versionId);
+      expect(result.entries).toEqual([]);
+    });
+
+    it('lève NotFoundException si la version est introuvable', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(null);
+
+      await expect(service.getHistory(versionId)).rejects.toThrow(NotFoundException);
+    });
+
+    it('utilise le email comme nom quand les noms sont absents', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({ id: versionId } as any);
+      prisma.workflowTransition.findMany.mockResolvedValue([
+        {
+          id: 't-1',
+          versionId,
+          de: 'EDITION',
+          vers: 'ARCHIVE',
+          userId: 'user-2',
+          automatique: true,
+          commentaire: null,
+          at: now,
+          user: { id: 'user-2', email: 'bob@takt.fr', firstName: null, lastName: null },
+        },
+      ] as any);
+
+      const result = await service.getHistory(versionId);
+
+      expect(result.entries[0].userName).toBe('bob@takt.fr');
+      expect(result.entries[0].action).toBe('ABANDONNER');
+      expect(result.entries[0].automatique).toBe(true);
     });
   });
 });
