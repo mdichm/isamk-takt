@@ -1246,6 +1246,21 @@ export const messages = {
   colActions: 'Actions',
   modeAutomatique: 'Automatique',
   modeManuelle: 'Manuelle',
+
+  // Import manuel (L4-23)
+  importerResultatManuel: 'Importer un résultat manuel',
+  fichierMoteurSha256: 'Empreinte SHA-256 du fichier moteur',
+  versionMoteur: 'Version du moteur',
+  empreinteCorrespond: 'L\'empreinte correspond ✓',
+  empreinteNonCorrespond: 'L\'empreinte ne correspond pas ✗',
+  selectionnerFichierResultat: 'Sélectionner le fichier de résultat (.fet)',
+  importer: 'Importer',
+  importEnCours: 'Import en cours...',
+  importReussi: 'Résultat importé avec succès',
+  importEchec: 'Échec de l\'import',
+  erreurEmpreinteInvalide: 'L\'empreinte du fichier ne correspond pas au fichier moteur exporté.',
+  erreurFichierRequis: 'Veuillez sélectionner un fichier .fet',
+  dropzoneText: 'Déposez le fichier .fet ici ou cliquez pour sélectionner',
 } as const;
 
 export type Messages = typeof messages;

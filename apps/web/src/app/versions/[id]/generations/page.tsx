@@ -3,11 +3,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import {
   GenerationLaunchForm,
   GenerationSseTracker,
   GenerationEngineFile,
+  ManualGenerationImportDialog,
 } from '@/components/generations';
 import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
@@ -20,6 +21,7 @@ import {
   findFetMappingReport,
   type PerimetreResponse,
   type FetMappingReport,
+  type GenerationMode,
 } from '@/lib/api/generations';
 
 export default function GenerationsPage() {
@@ -42,6 +44,12 @@ export default function GenerationsPage() {
     null,
   );
   const [generationComplete, setGenerationComplete] = useState(false);
+
+  // Import manuel state
+  const [showImportDialog, setShowImportDialog] = useState(false);
+  const [engineSha256, setEngineSha256] = useState<string | null>(null);
+  const [engineVersion, setEngineVersion] = useState<string | null>(null);
+  const [generationMode, setGenerationMode] = useState<GenerationMode | null>(null);
 
   // Charger la version pour récupérer le semestreId
   useEffect(() => {
@@ -95,7 +103,7 @@ export default function GenerationsPage() {
           setFetMapping(f ?? null);
           setFetMappingLoading(false);
         }
-      } catch (err) {
+      } catch {
         if (!cancelled) {
           setPerimetreError('Impossible de charger le périmètre.');
           setPerimetreLoading(false);
@@ -109,6 +117,17 @@ export default function GenerationsPage() {
       cancelled = true;
     };
   }, [versionId, semestreId]);
+
+  const handleEngineFileReady = (sha256: string, engVersion: string) => {
+    setEngineSha256(sha256);
+    setEngineVersion(engVersion);
+  };
+
+  const handleImportSuccess = (generationId: string) => {
+    setCurrentGenerationId(generationId);
+    setGenerationMode('MANUELLE');
+    setGenerationComplete(false);
+  };
 
   if (versionError) {
     return (
@@ -166,6 +185,7 @@ export default function GenerationsPage() {
           fetMapping={fetMapping}
           onGenerationLaunched={(generation) => {
             setCurrentGenerationId(generation.id);
+            setGenerationMode(generation.mode);
             setGenerationComplete(false);
           }}
         />
@@ -182,11 +202,42 @@ export default function GenerationsPage() {
           />
           {generationComplete && (
             <div className="mt-6">
-              <GenerationEngineFile generationId={currentGenerationId} />
+              <div className="flex items-center gap-2 mb-4">
+                <GenerationEngineFile
+                  generationId={currentGenerationId}
+                  mode={generationMode ?? undefined}
+                  onReady={handleEngineFileReady}
+                />
+                {generationMode && (
+                  <Badge variant={generationMode === 'MANUELLE' ? 'secondary' : 'default'}>
+                    {generationMode === 'MANUELLE' ? t('modeManuel') : t('modeAutomatique')}
+                  </Badge>
+                )}
+              </div>
+              {engineSha256 && engineVersion && generationMode && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowImportDialog(true)}
+                  className="mt-2"
+                >
+                  {t('importerResultatManuel')}
+                </Button>
+              )}
             </div>
           )}
         </div>
       )}
+
+      {/* Dialog import manuel */}
+      <ManualGenerationImportDialog
+        open={showImportDialog}
+        onOpenChange={setShowImportDialog}
+        versionId={versionId}
+        expectedSha256={engineSha256!}
+        engineVersion={engineVersion!}
+        onSuccess={handleImportSuccess}
+      />
     </div>
   );
 }

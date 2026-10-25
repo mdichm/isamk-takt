@@ -62,6 +62,23 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     erreurGeneration: 'Erreur de génération',
     recharger: 'Recharger',
 
+    // Import manuel (L4-23)
+    importerResultatManuel: 'Importer un résultat manuel',
+    fichierMoteurSha256: 'Empreinte SHA-256 du fichier moteur',
+    versionMoteur: 'Version du moteur',
+    empreinteCorrespond: 'L\'empreinte correspond ✓',
+    empreinteNonCorrespond: 'L\'empreinte ne correspond pas ✗',
+    modeManuel: 'Manuel',
+    modeAutomatique: 'Automatique',
+    selectionnerFichierResultat: 'Sélectionner le fichier de résultat (.fet)',
+    importer: 'Importer',
+    importEnCours: 'Import en cours...',
+    importReussi: 'Résultat importé avec succès',
+    importEchec: 'Échec de l\'import',
+    erreurEmpreinteInvalide: 'L\'empreinte du fichier ne correspond pas au fichier moteur exporté.',
+    erreurFichierRequis: 'Veuillez sélectionner un fichier .fet',
+    dropzoneText: 'Déposez le fichier .fet ici ou cliquez pour sélectionner',
+
     // Auth
     signInTitle: 'Connexion',
     emailLabel: 'E-mail',

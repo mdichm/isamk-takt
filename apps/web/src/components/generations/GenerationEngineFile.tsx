@@ -1,23 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   getEngineFileUrl,
   type EngineFileResponse,
+  type GenerationMode,
 } from '@/lib/api/generations';
-import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
 
 interface GenerationEngineFileProps {
   generationId: string;
+  mode?: GenerationMode;
+  onReady?: (sha256: string, engineVersion: string) => void;
 }
 
-export function GenerationEngineFile({ generationId }: GenerationEngineFileProps) {
+export function GenerationEngineFile({ generationId, mode, onReady }: GenerationEngineFileProps) {
   const [isFetching, setIsFetching] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
+  const [engineInfo, setEngineInfo] = useState<EngineFileResponse | null>(null);
 
   const handleDownload = async () => {
     setIsFetching(true);
@@ -25,12 +28,23 @@ export function GenerationEngineFile({ generationId }: GenerationEngineFileProps
     try {
       const data: EngineFileResponse = await getEngineFileUrl(generationId);
       setDownloadUrl(data.downloadUrl);
-    } catch (err) {
+      setEngineInfo(data);
+      if (onReady) {
+        onReady(data.sha256, data.engineVersion);
+      }
+    } catch {
       setError(t('erreurGeneration'));
     } finally {
       setIsFetching(false);
     }
   };
+
+  // Call onReady when engine info is available
+  useEffect(() => {
+    if (engineInfo && onReady) {
+      onReady(engineInfo.sha256, engineInfo.engineVersion);
+    }
+  }, [engineInfo, onReady]);
 
   if (!downloadUrl && !error) {
     return (
