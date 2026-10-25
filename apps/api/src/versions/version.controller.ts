@@ -38,6 +38,7 @@ import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { ValidationDepartementDto } from './dto/validation-departement.dto.js';
 import { ValidationResponseDto } from './dto/validation-response.dto.js';
 import { PublishResponseDto } from './dto/publish-response.dto.js';
+import { PrevisualisationPublicationDto } from './dto/previsualisation-publication.dto.js';
 
 // ============================================
 // Version (L3-09)
@@ -426,5 +427,29 @@ export class VersionController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<PublishResponseDto> {
     return this.service.publishVersion(id, currentUser.id);
+  }
+
+  @Get(':id/previsualisation-publication')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:publish')
+  @ApiOperation({
+    summary: 'Prévisualisation avant publication (L5-08)',
+    description:
+      'Retourne les informations nécessaires pour prévisualiser une version avant sa publication : ' +
+      'version candidate et précédente, départements validés, activités modifiées, conflits, ' +
+      'avertissements acceptés, verrous, provenance, profil et activités planifiées ou non.',
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Données de prévisualisation avant publication',
+    type: PrevisualisationPublicationDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async getPrevisualisationPublication(
+    @Param('id') id: string,
+  ): Promise<PrevisualisationPublicationDto> {
+    return this.service.getPrevisualisationPublication(id);
   }
 }

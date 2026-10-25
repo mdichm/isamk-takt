@@ -52,7 +52,8 @@ import type { ImpactDepartementDto } from './dto/impact-departement.dto.js';
 import type { ValidationDepartementDto } from './dto/validation-departement.dto.js';
 import type { ValidationResponseDto } from './dto/validation-response.dto.js';
 import type { PublishResponseDto } from './dto/publish-response.dto.js';
-import { PolicyService } from '../policy/policy.service.js';
+import type { PrevisualisationPublicationDto } from './dto/previsualisation-publication.dto.js';
+import type { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -2194,5 +2195,180 @@ async submitValidation(
         at: maintenant,
       };
     });
+  }
+
+  // ============================================
+  // Prévisualisation avant publication (L5-08)
+  // GET /versions/{id}/previsualisation-publication
+  // ============================================
+
+  async getPrevisualisationPublication(
+    versionId: string,
+  ): Promise<PrevisualisationPublicationDto> {
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: {
+        id: true,
+        numero: true,
+        statut: true,
+        revision: true,
+        semestreId: true,
+      },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+
+    // Version précédente publiée du même semestre
+    const versionPrecedente = await this.prisma.versionEdt.findFirst({
+      where: {
+        semestreId: version.semestreId,
+        id: { not: versionId },
+        statut: 'PUBLIE' as VersionStatut,
+      },
+      select: { id: true, numero: true },
+    });
+
+    // Départements ayant validé (APPROUVE)
+    const validations = await this.prisma.validationDepartement.findMany({
+      where: { versionId, decision: 'APPROUVE' },
+      select: {
+        departementId: true,
+        userId: true,
+        at: true,
+        departement: {
+          select: { code: true, libelle: true },
+        },
+      },
+    });
+
+    const departementsValides = validations.map((v) => ({
+      departementId: v.departementId,
+      departementCode: v.departement.code,
+      departementLibelle: v.departement.libelle,
+      decision: 'APPROUVE',
+      userId: v.userId ?? null,
+      at: v.at?.toISOString() ?? null,
+    }));
+
+    // Conflits de la version
+    const conflits = await this.prisma.conflit.findMany({
+      where: { versionId },
+      select: {
+        id: true,
+        type: true,
+        severite: true,
+        resoluLe: true,
+      },
+      orderBy: [{ severite: 'desc' }, { createdAt: 'desc' }],
+    });
+
+    // Avertissements acceptés
+    const avertissements = await this.prisma.avertissementAccepte.findMany({
+      where: { versionId },
+      select: {
+        regleCode: true,
+        auteurId: true,
+        accepteLe: true,
+      },
+      orderBy: { accepteLe: 'desc' },
+    });
+
+    // Verrous de séance actifs
+    const verrous = await this.prisma.verrouSeance.findMany({
+      where: { versionId, leveLe: null },
+      select: {
+        id: true,
+        type: true,
+        seanceId: true,
+        auteurId: true,
+        creeLe: true,
+      },
+      orderBy: { creeLe: 'desc' },
+    });
+
+    // Provenance : génération liée et son profil
+    const generation = await this.prisma.generation.findFirst({
+      where: { versionId },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        profilGenerationVersion: true,
+        perimetreHash: true,
+        engineVersion: true,
+        profilGeneration: {
+          select: { nom: true, numero: true },
+        },
+      },
+    });
+
+    // Activités : séances de la version avec enseignant et salle
+    const seances = await this.prisma.seance.findMany({
+      where: { versionId },
+      select: {
+        affectationKey: true,
+        enseignantId: true,
+        enseignant: {
+          select: { nom: true, prenom: true },
+        },
+        salleId: true,
+        salle: {
+          select: { code: true },
+        },
+      },
+      orderBy: { affectationKey: 'asc' },
+    });
+
+    const activites = seances.map((s) => ({
+      affectationKey: s.affectationKey,
+      enseignantId: s.enseignantId,
+      enseignantNom:
+        s.enseignant != null
+          ? `${s.enseignant.prenom} ${s.enseignant.nom}`
+          : '',
+      salleId: s.salleId ?? null,
+      salleCode: s.salle?.code ?? null,
+      planifiee: s.salleId != null,
+    }));
+
+    return {
+      versionId: version.id,
+      versionNumero: version.numero,
+      statut: version.statut,
+      revision: version.revision,
+      versionPrecedenteId: versionPrecedente?.id ?? null,
+      versionPrecedenteNumero: versionPrecedente?.numero ?? null,
+      departementsValides,
+      activitesModifiees: activites.length,
+      conflits: conflits.map((c) => ({
+        id: c.id,
+        type: c.type,
+        severite: c.severite,
+        resoluLe: c.resoluLe?.toISOString() ?? null,
+      })),
+      avertissementsAcceptes: avertissements.map((a) => ({
+        regleCode: a.regleCode,
+        auteurId: a.auteurId,
+        accepteLe: a.accepteLe.toISOString(),
+      })),
+      verrous: verrous.map((v) => ({
+        id: v.id,
+        type: v.type,
+        seanceId: v.seanceId,
+        auteurId: v.auteurId,
+        creeLe: v.creeLe.toISOString(),
+      })),
+      provenance: {
+        generationId: generation?.id ?? null,
+        profilVersion: generation?.profilGenerationVersion
+          ? String(generation.profilGenerationVersion)
+          : null,
+        profilNom: generation?.profilGeneration?.nom ?? null,
+        perimetreHash: generation?.perimetreHash ?? null,
+        engineVersion: generation?.engineVersion ?? null,
+      },
+      activites,
+      at: new Date().toISOString(),
+    };
   }
 }
