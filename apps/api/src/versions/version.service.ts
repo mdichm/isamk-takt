@@ -37,6 +37,7 @@ import { mkdtemp, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { tmpdir } from 'os';
 import type { AdoptResponseDto } from './dto/adopt-response.dto.js';
+import type { GenerationListResponseDto } from './dto/generation-list-response.dto.js';
 import type { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 
 // ============================================
@@ -1034,6 +1035,61 @@ export class VersionService {
       numero: nouveauNumero,
       statut: 'EDITION' as VersionStatut,
       conflitsInitiaux: conflits.length,
+    };
+  }
+
+  // ============================================
+  // Listage des générations d'une version (L4-21)
+  // GET /versions/{id}/generations
+  // ============================================
+
+  /** Liste toutes les générations d'une version (lecture, permission version:read). */
+  async getGenerationsByVersion(
+    versionId: string,
+  ): Promise<GenerationListResponseDto> {
+    // Vérifier que la version existe
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: { id: true, numero: true },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version \"${versionId}\" introuvable`);
+    }
+
+    const generations = await this.prisma.generation.findMany({
+      where: { versionId },
+      select: {
+        id: true,
+        versionId: true,
+        statut: true,
+        score: true,
+        classee: true,
+        classement: true,
+        motifNonClassee: true,
+        createdAt: true,
+        startedAt: true,
+        finishedAt: true,
+        durationSeconds: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return {
+      items: generations.map((g) => ({
+        id: g.id,
+        versionId: g.versionId,
+        versionNom: version.numero,
+        statut: g.statut,
+        score: g.score ?? null,
+        classee: g.classee ?? null,
+        classement: g.classement ?? null,
+        motifNonClassee: g.motifNonClassee ?? null,
+        createdAt: g.createdAt,
+        startedAt: g.startedAt ?? null,
+        finishedAt: g.finishedAt ?? null,
+        durationSeconds: g.durationSeconds ?? null,
+      })),
+      total: generations.length,
     };
   }
 

@@ -24,6 +24,7 @@ import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import { GenerationResponseDto } from './dto/generation-response.dto.js';
 import { AdoptGenerationDto } from './dto/adopt-generation.dto.js';
 import { AdoptResponseDto } from './dto/adopt-response.dto.js';
+import type { GenerationListResponseDto } from './dto/generation-list-response.dto.js';
 import type { ImportGenerationDto } from './dto/import-generation.dto.js';
 import { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
@@ -209,6 +210,24 @@ export class VersionController {
     currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<AdoptResponseDto> {
     return this.service.adoptGeneration(id, dto.generationId, currentUser.id);
+  }
+
+  @Get(':id/generations')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({ summary: 'Lister les générations d une version' })
+  @ApiParam({ name: 'id', description: 'ID de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Liste des générations de la version',
+    type: GenerationListResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async getGenerationsByVersion(
+    @Param('id') id: string,
+  ): Promise<GenerationListResponseDto> {
+    return this.service.getGenerationsByVersion(id);
   }
 
   @Post(':id/generations/import')
