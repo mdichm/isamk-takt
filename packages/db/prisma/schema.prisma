@@ -229,6 +229,7 @@ model User {
   resetTokens          PasswordResetToken[]
   demandesModification DemandeModification[]
   workflowTransitions  WorkflowTransition[]
+  versionsSoumises     VersionEdt[]   @relation("VersionSoumisPar")
 
   @@index([email])
   @@index([isActive])
@@ -771,9 +772,13 @@ model VersionEdt {
   generations                     Generation[]
   transitions                     WorkflowTransition[]
   revision                        Int         @default(0)
+  cycleValidation   Int         @default(0)
+  soumisPar          String?     @db.Uuid
+  soumisParUser      User?       @relation("VersionSoumisPar", fields: [soumisPar], references: [id])
 
   @@index([semestreId])
   @@index([statut])
+  @@index([soumisPar])
   @@map("versions_edt")
 }
 

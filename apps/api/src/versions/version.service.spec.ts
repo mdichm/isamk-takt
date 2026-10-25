@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - Tests unitaires du service de version (L3-09)
-import { NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
+import { NotFoundException, BadRequestException, ConflictException, UnprocessableEntityException } from '@nestjs/common';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../prisma/prisma.service.js';
@@ -33,15 +33,16 @@ describe('VersionService', () => {
       profilGeneration: { findFirst: vi.fn(), findUnique: vi.fn() },
       repartition: { findFirst: vi.fn() },
       snapshot: { findFirst: vi.fn() },
-      versionEdt: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn() },
+      versionEdt: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn(), update: vi.fn() },
       versionSnapshot: { findMany: vi.fn(), createMany: vi.fn() },
       snapshotAffectation: { findMany: vi.fn() },
-      seance: { create: vi.fn(), findMany: vi.fn() },
-      editLock: { findUnique: vi.fn() },
+      seance: { create: vi.fn(), findMany: vi.fn(), findFirst: vi.fn() },
+      editLock: { findUnique: vi.fn(), deleteMany: vi.fn() },
+      workflowTransition: { create: vi.fn(), findMany: vi.fn() },
       generation: { findFirst: vi.fn() },
       contrainteInstance: { findMany: vi.fn() },
       auditLog: { create: vi.fn() },
-      workflowTransition: { findMany: vi.fn() },
+      avertissementAccepte: { findMany: vi.fn() },
       $transaction: vi.fn(),
     };
 
@@ -578,10 +579,153 @@ describe('VersionService', () => {
       expect(r1.perimetreHash).toBe(r2.perimetreHash);
     });
   });
+  // ============================================
+  // Contrôle de soumission (L5-02)
+  // ============================================
 
-  // ============================================
-  // Historique de version (L5-09)
-  // ============================================
+  const versionIdSoumission = 'version-1';
+
+  function setupTransitionMocks({
+    conflitBloquant = false,
+    couvertureIncomplete = false,
+    statutInitial = 'EDITION',
+    statutFinal = 'PRET_POUR_VALIDATION',
+    cycleValidationFinal = 0,
+  }: {
+    conflitBloquant?: boolean;
+    couvertureIncomplete?: boolean;
+    statutInitial?: string;
+    statutFinal?: string;
+    cycleValidationFinal?: number;
+  } = {}) {
+    // 1er appel findUnique (début de transition) -> statut initial
+    prisma.versionEdt.findUnique.mockResolvedValueOnce({
+      id: versionIdSoumission,
+      numero: '1.0',
+      statut: statutInitial,
+      revision: 1,
+    });
+    // 2ème appel findUnique (updated à la fin) -> statut final
+    prisma.versionEdt.findUnique.mockResolvedValue({
+      id: versionIdSoumission,
+      numero: '1.0',
+      statut: statutFinal,
+      revision: 2,
+      cycleValidation: cycleValidationFinal,
+    } as any);
+    prisma.seance.findFirst.mockResolvedValue(null);
+    (service as any).conflitService.recomputeConflits = vi.fn().mockResolvedValue(
+      conflitBloquant
+        ? [
+            {
+              id: 'c1',
+              regleCode: 'R1',
+              type: 'CONFLIT_SALLE',
+              severite: 'BLOQUANT',
+              objetType: 'Seance',
+              objetId: 's1',
+              seanceIds: ['s1'],
+              message: 'Conflit de salle',
+              signature: 'sig1',
+              resoluLe: null,
+              createdAt: new Date(),
+            },
+          ]
+        : [],
+    );
+    prisma.seance.findMany.mockResolvedValue(
+      couvertureIncomplete
+        ? [{ affectationKey: 'g1:m1:t1:e1', statut: 'NON_PLACEE' }]
+        : [{ affectationKey: 'g1:m1:t1:e1', statut: 'PLACEE' }],
+    );
+    prisma.avertissementAccepte.findMany.mockResolvedValue([]);
+    prisma.$transaction.mockImplementation(async (cb: any) => cb(prisma));
+    prisma.versionEdt.update.mockResolvedValue({
+      id: versionIdSoumission,
+      numero: '1.0',
+      statut: statutFinal,
+      revision: 2,
+      cycleValidation: cycleValidationFinal,
+    } as any);
+    prisma.workflowTransition.create.mockResolvedValue({});
+    prisma.auditLog.create.mockResolvedValue({});
+    prisma.editLock.deleteMany.mockResolvedValue({ count: 1 });
+  }
+
+  it('lève 422 VERSION_NOT_SUBMITTABLE sur MARQUER_PRET quand un conflit bloquant n\'est pas résolu', async () => {
+    setupTransitionMocks({ conflitBloquant: true });
+
+    try {
+      await service.transition(versionIdSoumission, 'MARQUER_PRET', 'user-1');
+      throw new Error('aurait dû lever');
+    } catch (e: any) {
+      expect(e).toBeInstanceOf(UnprocessableEntityException);
+      expect(e.response.code).toBe('VERSION_NOT_SUBMITTABLE');
+      expect(e.response.status).toBe(422);
+      expect(e.response.conflits.length).toBe(1);
+      expect(e.response.conflits[0].severite).toBe('BLOQUANT');
+    }
+  });
+
+  it('lève 422 VERSION_NOT_SUBMITTABLE sur MARQUER_PRET quand la couverture est incomplète', async () => {
+    setupTransitionMocks({ couvertureIncomplete: true });
+
+    try {
+      await service.transition(versionIdSoumission, 'MARQUER_PRET', 'user-1');
+      throw new Error('aurait dû lever');
+    } catch (e: any) {
+      expect(e).toBeInstanceOf(UnprocessableEntityException);
+      expect(e.response.code).toBe('VERSION_NOT_SUBMITTABLE');
+      expect(e.response.status).toBe(422);
+      expect(e.response.couverture.length).toBe(1);
+      expect(e.response.couverture[0].ecart).toBeGreaterThan(0);
+    }
+  });
+
+  it('MARQUER_PRET réussit quand pas de conflit bloquant et couverture complète', async () => {
+    setupTransitionMocks({
+      statutInitial: 'EDITION',
+      statutFinal: 'PRET_POUR_VALIDATION',
+      cycleValidationFinal: 0,
+    });
+
+    const result = await service.transition(versionIdSoumission, 'MARQUER_PRET', 'user-1');
+
+    expect(result.action).toBe('MARQUER_PRET');
+    expect(result.vers).toBe('PRET_POUR_VALIDATION');
+    expect(result.cycleValidation).toBe(0);
+    expect(prisma.editLock.deleteMany).not.toHaveBeenCalled();
+  });
+
+  it('SOUMETTRE réussit, incrémente cycleValidation et libère le editLock', async () => {
+    setupTransitionMocks({
+      statutInitial: 'PRET_POUR_VALIDATION',
+      statutFinal: 'EN_VALIDATION',
+      cycleValidationFinal: 1,
+    });
+
+    const result = await service.transition(versionIdSoumission, 'SOUMETTRE', 'user-1');
+
+    expect(result.action).toBe('SOUMETTRE');
+    expect(result.vers).toBe('EN_VALIDATION');
+    expect(result.cycleValidation).toBe(1);
+    expect(prisma.editLock.deleteMany).toHaveBeenCalledWith({ where: { versionId: versionIdSoumission } });
+  });
+
+  it('RESOUMETTRE réussit, incrémente cycleValidation et libère le editLock', async () => {
+    setupTransitionMocks({
+      statutInitial: 'CORRECTION',
+      statutFinal: 'EN_VALIDATION',
+      cycleValidationFinal: 1,
+    });
+
+    const result = await service.transition(versionIdSoumission, 'RESOUMETTRE', 'user-1');
+
+    expect(result.action).toBe('RESOUMETTRE');
+    expect(result.vers).toBe('EN_VALIDATION');
+    expect(result.cycleValidation).toBe(1);
+    expect(prisma.editLock.deleteMany).toHaveBeenCalledWith({ where: { versionId: versionIdSoumission } });
+  });
 
   describe('getHistory', () => {
     const versionId = 'version-history-1';

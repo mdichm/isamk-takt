@@ -29,6 +29,7 @@ import type { ImportGenerationDto } from './dto/import-generation.dto.js';
 import { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
 import { TransitionDto } from './dto/transition.dto.js';
 import { TransitionResponseDto } from './dto/transition-response.dto.js';
+import { VersionNotSubmittableDto } from './dto/version-not-submittable.dto.js';
 import { HistoryResponseDto } from './dto/history-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
@@ -254,6 +255,12 @@ export class VersionController {
     description:
       'Transition interdite depuis l\'état actuel (INVALID_STATE_TRANSITION) ou garde de métier non satisfaite (SEANCES_NON_PLACES, NO_SEANCES_TO_EDIT)',
   })
+  @ApiResponse({
+    status: 422,
+    description:
+      'Version non soumettable : conflits bloquants ou couverture incomplète (VERSION_NOT_SUBMITTABLE)',
+    type: VersionNotSubmittableDto,
+  })
   async transition(
     @Param('id') id: string,
     @Body() dto: TransitionDto,
@@ -278,24 +285,6 @@ export class VersionController {
     @Param('id') id: string,
   ): Promise<GenerationListResponseDto> {
     return this.service.getGenerationsByVersion(id);
-  }
-
-  @Get(':id/history')
-  @HttpCode(HttpStatus.OK)
-  @Permissions('version:read')
-  @ApiOperation({ summary: 'Retourne l historique des transitions de workflow d une version' })
-  @ApiParam({ name: 'id', description: 'ID de la version (UUID)' })
-  @ApiResponse({
-    status: 200,
-    description: 'Chronologie des transitions de la version',
-    type: HistoryResponseDto,
-  })
-  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
-  @ApiResponse({ status: 404, description: 'Version introuvable' })
-  async getHistory(
-    @Param('id') id: string,
-  ): Promise<HistoryResponseDto> {
-    return this.service.getHistory(id);
   }
 
   @Post(':id/generations/import')

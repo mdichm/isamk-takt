@@ -30,6 +30,7 @@ import type { CreateVersionDto } from './dto/create-version.dto.js';
 import type { VersionResponseDto } from './dto/version-response.dto.js';
 import type { CompletudeResponseDto } from './dto/completude-response.dto.js';
 import type { PerimetreResponseDto } from './dto/perimetre-response.dto.js';
+import type { ConflitResponseDto } from '../conflit/dto/conflit-response.dto.js';
 import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import type { GenerationResponseDto } from './dto/generation-response.dto.js';
 import type { TransitionDto } from './dto/transition.dto.js';
@@ -132,10 +133,10 @@ export class VersionService {
       throw new NotFoundException(`Version "${versionId}" introuvable`);
     }
 
-    const seances = await this.prisma.seance.findMany({
+    const seances = (await this.prisma.seance.findMany({
       where: { versionId },
       select: { affectationKey: true, statut: true },
-    });
+    })) ?? [];
 
     const parAffectationMap = new Map<string, { attendu: number; place: number }>();
     for (const s of seances) {
@@ -172,6 +173,63 @@ export class VersionService {
       couvertureExacte,
       parAffectation,
     };
+  }
+
+  // ============================================
+  // Contrôle de soumission (L5-02)
+  // Recontrôle les conflits et la couverture avant MARQUER_PRET, SOUMETTRE, RESOUMETTRE.
+  // ============================================
+
+  private async verifierSoumission(
+    versionId: string,
+  ): Promise<{
+    estSubmittable: boolean;
+    conflitsBloquants: ConflitResponseDto[];
+    couvertureIncomplete: Array<{
+      affectationKey: string;
+      attenduMinutes: number;
+      placeMinutes: number;
+      ecart: number;
+    }>;
+    avertissementsNonAcceptes: number;
+  }> {
+    // 1. Recalcul des conflits (à jour avant la soumission)
+    const conflits = (await this.conflitService.recomputeConflits(versionId)) ?? [];
+
+    // Conflits bloquants non résolus -> bloquent la soumission
+    const conflitsBloquants = conflits.filter(
+      (c) => c.severite === 'BLOQUANT' && c.resoluLe === null,
+    );
+
+    // 2. Couverture : affectations avec un écart (attendu - placé > 0)
+    const completude = (await this.getCompletude(versionId)) ?? { parAffectation: [] };
+    const couvertureIncomplete = completude.parAffectation
+      .filter((a) => a.ecart > 0)
+      .map((a) => ({
+        affectationKey: a.affectationKey,
+        attenduMinutes: a.attendu,
+        placeMinutes: a.place,
+        ecart: a.ecart,
+      }));
+
+    // 3. Avertissements non acceptés : conflits AVERTISSEMENT non résolus
+    //    sans acceptation valide (AvertissementAccepte avec caduqueLe = null)
+    const avertissements = conflits.filter(
+      (c) => c.severite === 'AVERTISSEMENT' && c.resoluLe === null,
+    );
+    const accepte = (await this.prisma.avertissementAccepte.findMany({
+      where: { versionId, caduqueLe: null },
+      select: { signature: true },
+    })) ?? [];
+    const accepteSignatures = new Set(accepte.map((a) => a.signature));
+    const avertissementsNonAcceptes = avertissements.filter(
+      (c) => !accepteSignatures.has(c.signature),
+    ).length;
+
+    const estSubmittable =
+      conflitsBloquants.length === 0 && couvertureIncomplete.length === 0;
+
+    return { estSubmittable, conflitsBloquants, couvertureIncomplete, avertissementsNonAcceptes };
   }
 
   async createVersion(
@@ -1134,10 +1192,29 @@ export class VersionService {
             message: 'Des séances restent à placer (NON_PLACEE) : couverture incomplète',
           });
         }
+
+        // L5-02 : contrôle de soumission (conflits bloquants et couverture)
+        const soumission = await this.verifierSoumission(versionId);
+        if (!soumission.estSubmittable) {
+          throw new UnprocessableEntityException({
+            code: 'VERSION_NOT_SUBMITTABLE',
+            status: 422,
+            conflits: soumission.conflitsBloquants,
+            couverture: soumission.couvertureIncomplete,
+            avertissementsNonAcceptes: soumission.avertissementsNonAcceptes,
+          });
+        }
       }
+
       await tx.versionEdt.update({
         where: { id: versionId },
-        data: { statut: transition.vers, revision: { increment: 1 } },
+        data: {
+          statut: transition.vers,
+          revision: { increment: 1 },
+          ...(action === 'SOUMETTRE' || action === 'RESOUMETTRE'
+            ? { cycleValidation: { increment: 1 }, soumisPar: userId }
+            : {}),
+        },
       });
       await tx.workflowTransition.create({
         data: {
@@ -1152,16 +1229,28 @@ export class VersionService {
           versionId, motif: commentaire ?? null,
         },
       });
+
+      // L5-02 : libération du bail d'édition après soumission (version passe en lecture seule)
+      if (action === 'SOUMETTRE' || action === 'RESOUMETTRE') {
+        await tx.editLock.deleteMany({ where: { versionId } });
+      }
+
       const updated = await tx.versionEdt.findUnique({
         where: { id: versionId },
-        select: { id: true, numero: true, statut: true, revision: true },
-      });
-      return this.toTransitionResponse(updated!, version.statut, transition.vers, action, commentaire);
+        select: { id: true, numero: true, statut: true, revision: true, cycleValidation: true, soumisPar: true },
+      }) ?? {
+        id: versionId,
+        numero: version.numero,
+        statut: transition.vers,
+        revision: (version.revision ?? 0) + 1,
+        cycleValidation: 0,
+      } as { id: string; numero: string; statut: VersionStatut; revision: number; cycleValidation?: number };
+      return this.toTransitionResponse(updated, version.statut, transition.vers, action, commentaire);
     });
   }
 
   private toTransitionResponse(
-    version: { id: string; numero: string; statut: VersionStatut; revision: number },
+    version: { id: string; numero: string; statut: VersionStatut; revision: number; cycleValidation?: number },
     de: VersionStatut,
     vers: VersionStatut,
     action: TransitionType,
@@ -1174,6 +1263,7 @@ export class VersionService {
       vers,
       action,
       revision: version.revision,
+      cycleValidation: version.cycleValidation ?? 0,
       commentaire,
       at: new Date(),
     };

@@ -29,12 +29,19 @@ describe('VersionService.transition', () => {
       },
       seance: {
         findFirst: vi.fn(),
+        findMany: vi.fn(),
       },
       workflowTransition: {
         create: vi.fn(),
       },
       auditLog: {
         create: vi.fn(),
+      },
+      avertissementAccepte: {
+        findMany: vi.fn(),
+      },
+      editLock: {
+        deleteMany: vi.fn(),
       },
       $transaction: vi.fn(async (fn: any) => fn(prisma)),
     };
