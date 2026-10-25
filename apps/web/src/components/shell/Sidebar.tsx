@@ -69,6 +69,7 @@ const NAV_ENTRIES: NavEntry[] = [
   { label: t('profils'), href: '/versions/[id]/profils', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES },
   { label: t('generations'), href: '/versions/[id]/generations', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES },
   { label: t('validation'), href: '/versions/[id]/validation', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: RULES },
+  { label: t('impact'), href: '/versions/[id]/impact', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: RULES },
 ];
 
 export default function Sidebar() {
