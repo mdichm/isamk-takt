@@ -7,6 +7,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { PreparationService } from '../preparation/preparation.service.js';
 import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
+import { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
 // VersionService (L3-09)
@@ -61,6 +62,7 @@ describe('VersionService', () => {
         { provide: PreparationService, useValue: preparationService },
         { provide: ConflitService, useValue: { recomputeConflits: vi.fn() } },
         { provide: 'BOSS', useValue: bossMock },
+        { provide: PolicyService, useValue: { checkSegregationOfDuties: vi.fn() } },
       ],
     }).compile();
 

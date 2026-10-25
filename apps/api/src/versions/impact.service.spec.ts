@@ -7,6 +7,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { PreparationService } from '../preparation/preparation.service.js';
 import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
+import { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
 // VersionService.getImpact (L5-03)
@@ -64,6 +65,7 @@ describe('VersionService.getImpact', () => {
         { provide: PreparationService, useValue: preparationService },
         { provide: ConflitService, useValue: conflitService },
         { provide: 'BOSS', useValue: bossMock },
+        { provide: PolicyService, useValue: { checkSegregationOfDuties: vi.fn() } },
       ],
     }).compile();
 

@@ -6,6 +6,7 @@ import {
   BadRequestException,
   ConflictException,
   UnprocessableEntityException,
+  ForbiddenException,
   Inject,
 } from '@nestjs/common';
 import { createHash, randomUUID } from 'crypto';
@@ -47,6 +48,9 @@ import type { ImportGenerationResponseDto } from './dto/import-generation-respon
 import type { HistoryResponseDto } from './dto/history-response.dto.js';
 import type { ImpactResponseDto } from './dto/impact-response.dto.js';
 import type { ImpactDepartementDto } from './dto/impact-departement.dto.js';
+import type { ValidationDepartementDto } from './dto/validation-departement.dto.js';
+import type { ValidationResponseDto } from './dto/validation-response.dto.js';
+import { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -60,6 +64,7 @@ export class VersionService {
     private readonly prisma: PrismaService,
     private readonly preparationService: PreparationService,
     private readonly conflitService: ConflitService,
+    private readonly policyService: PolicyService,
     @Inject('BOSS') private readonly boss: PgBossType,
   ) {}
 
@@ -1785,6 +1790,213 @@ export class VersionService {
       versionNumero: version.numero,
       departements: departementsDto,
       resume: { impactes, nonImpactes, reportees },
+    };
+  }
+
+// ============================================
+// Décision de validation par département (L5-04)
+// POST /versions/:id/validations
+// ============================================
+
+async submitValidation(
+  versionId: string,
+  dto: ValidationDepartementDto,
+  userId: string,
+  role: string,
+  userDepartements: string[],
+): Promise<ValidationResponseDto> {
+  const maintenant = new Date();
+
+  // 1. Récupération de la version (404 si absente)
+  const version = await this.prisma.versionEdt.findUnique({
+    where: { id: versionId },
+    select: {
+      id: true,
+      numero: true,
+      statut: true,
+      cycleValidation: true,
+      soumisPar: true,
+    },
+  });
+  if (!version) {
+    throw new NotFoundException(`Version "${versionId}" introuvable`);
+  }
+
+  // 2. La validation doit être ouverte sur la version
+  if (version.statut !== 'EN_VALIDATION') {
+    throw new BadRequestException(
+      `La version n'est pas en cours de validation (statut: ${version.statut})`,
+    );
+  }
+
+  // 3. Décision déjà donnée sur ce département dans ce cycle (409)
+  const existante = await this.prisma.validationDepartement.findUnique({
+    where: {
+      versionId_departementId: {
+        versionId,
+        departementId: dto.departementId,
+      },
+    },
+    select: { decision: true },
+  });
+  if (existante && existante.decision !== 'EN_ATTENTE') {
+    throw new ConflictException(
+      'Une décision a déjà été enregistrée pour ce département dans ce cycle',
+    );
+  }
+
+  // 4. Le département doit être impacté
+  const impact = await this.prisma.impactDepartement.findUnique({
+    where: {
+      versionId_departementId: {
+        versionId,
+        departementId: dto.departementId,
+      },
+    },
+    select: { statut: true },
+  });
+  if (!impact || impact.statut !== 'IMPACTE') {
+    throw new BadRequestException(
+      'Le département n\'est pas impacté pour cette version',
+    );
+  }
+    // 5. Permissions selon le rôle et la portée département
+    let parAdministrateur = false;
+    if (role === 'ADMINISTRATEUR') {
+      parAdministrateur = true;
+    } else if (role === 'RESPONSABLE_DEPARTEMENT') {
+      if (!userDepartements.includes(dto.departementId)) {
+        throw new ForbiddenException(
+          'Vous ne pouvez décider que pour votre propre département',
+        );
+      }
+    } else {
+      throw new ForbiddenException(
+        'Rôle non autorisé à prendre une décision de validation',
+      );
+    }
+
+    // 6. Séparation des tâches : le soumetteur du cycle ne peut pas décider
+    const submitterId = version.soumisPar ?? undefined;
+    this.policyService.checkSegregationOfDuties(submitterId, userId);
+
+    // 7. Motif obligatoire en cas de rejet
+    if (dto.decision === 'REJETE' && !dto.motif) {
+      throw new UnprocessableEntityException(
+        'Un motif est obligatoire en cas de rejet',
+      );
+    }
+
+    const cycle = version.cycleValidation ?? 0;
+
+    // 8. Créer / mettre à jour la décision + gestion de l'unanimité (transaction)
+    const validation = await this.prisma.$transaction(async (tx) => {
+      const v = await tx.validationDepartement.upsert({
+        where: {
+          versionId_departementId: {
+            versionId,
+            departementId: dto.departementId,
+          },
+        },
+        update: {
+          decision: dto.decision,
+          motif: dto.motif ?? null,
+          userId,
+          parAdministrateur,
+          at: maintenant,
+          impact: impact.statut,
+          cycle,
+        },
+        create: {
+          versionId,
+          departementId: dto.departementId,
+          cycle,
+          impact: impact.statut,
+          decision: dto.decision,
+          motif: dto.motif ?? null,
+          userId,
+          parAdministrateur,
+          at: maintenant,
+        },
+        select: {
+          id: true,
+          decision: true,
+          motif: true,
+          parAdministrateur: true,
+          at: true,
+        },
+      });
+
+      // 9. Unanimité : tous les départements impactés ont-ils décidé ?
+      const departementsImpactes = await tx.impactDepartement.findMany({
+        where: { versionId },
+        select: { departementId: true },
+      });
+      const totalImpactes = departementsImpactes.length;
+
+      const decidees = await tx.validationDepartement.count({
+        where: {
+          versionId,
+          decision: { not: 'EN_ATTENTE' },
+        },
+      });
+
+      let nouveauStatutVersion: string | undefined;
+      let unanimous = false;
+
+      if (decidees === totalImpactes && totalImpactes > 0) {
+        unanimous = true;
+        const rejects = await tx.validationDepartement.count({
+          where: { versionId, decision: 'REJETE' },
+        });
+        const cible: VersionStatut = rejects > 0 ? 'REJETE' : 'VALIDE';
+
+        await tx.versionEdt.update({
+          where: { id: versionId },
+          data: { statut: cible },
+        });
+
+        await tx.workflowTransition.create({
+          data: {
+            versionId,
+            de: 'EN_VALIDATION',
+            vers: cible,
+            userId,
+            automatique: true,
+            commentaire: `Unanimité atteinte : ${cible}`,
+          },
+        });
+
+        await tx.auditLog.create({
+          data: {
+            action: 'VERSION_VALIDATION_UNANIMITE',
+            objetType: 'VersionEdt',
+            objetId: version.id,
+            versionId: version.id,
+            userId,
+            at: maintenant,
+            motif: cible === 'REJETE' ? 'AU_MOINS_UN_REJET' : 'TOUS_APPROUVE',
+            details: { statutAvant: 'EN_VALIDATION', statutApres: cible },
+          },
+        });
+
+        nouveauStatutVersion = cible;
+      }
+
+      return { v, nouveauStatutVersion, unanimous };
+    });
+
+    // 10. Retour DTO
+    return {
+      versionId: version.id,
+      versionNumero: version.numero,
+      departementId: dto.departementId,
+      decision: validation.v.decision,
+      motif: validation.v.motif ?? undefined,
+      parAdministrateur: validation.v.parAdministrateur,
+      at: validation.v.at ?? undefined,
+      unanimiteAtteinte: validation.unanimous,
+      nouveauStatutVersion: validation.nouveauStatutVersion,
     };
   }
 }
