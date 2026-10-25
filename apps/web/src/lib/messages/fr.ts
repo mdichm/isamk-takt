@@ -1311,6 +1311,24 @@ export const messages = {
   versionFET: 'Version FET',
   metriques: 'Métriques',
   aucunMetrique: 'Aucune métrique disponible.',
+
+  // Historique de version (L5-09)
+  historiqueVersion: 'Historique de la version',
+  historiqueVersionSousTitre: 'Chronologie des transitions de workflow de cette version.',
+  colAction: 'Action',
+  colUtilisateur: 'Utilisateur',
+  colAutomatique: 'Auto.',
+  colCommentaire: 'Commentaire',
+  historiqueVide: 'Aucune transition enregistrée pour cette version.',
+  statutNonPlacee: 'Non placée',
+  statutBrouillon: 'Brouillon',
+  statutEdition: 'En édition',
+  statutPret: 'Prête pour validation',
+  statutValidation: 'En validation',
+  statutPubliee: 'Publiée',
+  statutArchivee: 'Archivée',
+  statutRejetee: 'Rejetée',
+  statutCorrection: 'En correction',
 } as const;
 
 export type Messages = typeof messages;

@@ -43,6 +43,7 @@ import { tmpdir } from 'os';
 import type { AdoptResponseDto } from './dto/adopt-response.dto.js';
 import type { GenerationListResponseDto } from './dto/generation-list-response.dto.js';
 import type { ImportGenerationResponseDto } from './dto/import-generation-response.dto.js';
+import type { HistoryResponseDto } from './dto/history-response.dto.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -1315,6 +1316,74 @@ export class VersionService {
       })),
       total: generations.length,
     };
+  }
+
+  // ============================================
+  // Historique de version (L5-09)
+  // GET /versions/{id}/history
+  // ============================================
+
+  /** Retourne la chronologie des transitions de workflow d'une version. */
+  async getHistory(versionId: string): Promise<HistoryResponseDto> {
+    // Vérifier que la version existe
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: { id: true },
+    });
+    if (!version) {
+      throw new NotFoundException(`Version \"${versionId}\" introuvable`);
+    }
+
+    const transitions = await this.prisma.workflowTransition.findMany({
+      where: { versionId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+      orderBy: { at: 'desc' },
+    });
+
+    const entries = transitions.map((t) => {
+      const userName =
+        t.user.firstName && t.user.lastName
+          ? `${t.user.firstName} ${t.user.lastName}`
+          : t.user.email;
+
+      return {
+        id: t.id,
+        de: t.de,
+        vers: t.vers,
+        action: this.actionFromTransition(t.de, t.vers),
+        userId: t.userId,
+        userName,
+        automatique: t.automatique,
+        commentaire: t.commentaire ?? null,
+        at: t.at,
+      };
+    });
+
+    return {
+      versionId,
+      entries,
+    };
+  }
+
+  /** Déduit le libellé d'action d'une transition à partir des statuts source/cible. */
+  private actionFromTransition(de: VersionStatut, vers: VersionStatut): string {
+    const found = this.TRANSITION_TABLE.find((t) => t.de === de && t.vers === vers);
+    if (found) {
+      return found.action;
+    }
+    if (vers === 'ARCHIVE') {
+      return 'ABANDONNER';
+    }
+    return `${de} → ${vers}`;
   }
 
   /**
