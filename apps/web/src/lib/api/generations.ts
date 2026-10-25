@@ -197,6 +197,32 @@ export async function getEngineFileUrl(
 }
 
 /**
+ * Importe un résultat de génération manuelle.
+ * POST /versions/{id}/generations/import -> 202
+ * multipart/form-data avec file (.fet) et fichierMoteurSha256
+ */
+export interface ImportManualGenerationResponse {
+  generationId: string;
+  mode: GenerationMode;
+}
+
+export async function importManualGeneration(
+  versionId: string,
+  file: File,
+  fichierMoteurSha256: string,
+): Promise<ImportManualGenerationResponse> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('fichierMoteurSha256', fichierMoteurSha256);
+
+  const res = await apiFetch(`/versions/${versionId}/generations/import`, {
+    method: 'POST',
+    body: formData,
+  });
+  return res.json();
+}
+
+/**
  * Crée une EventSource vers le flux SSE d'une génération.
  * GET /generations/{id}/events
  */
