@@ -13,19 +13,25 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { GenerationStatusBadge } from './GenerationStatusBadge';
 import { GenerationAdoptDialog } from './GenerationAdoptDialog';
+import { GenerationDetailDialog } from './GenerationDetailDialog';
 import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
 import { type GenerationStatut, type GenerationSummary } from '@/lib/api/generations';
 
 interface GenerationHistoryListProps {
   generations: GenerationSummary[];
+  versionId: string;
 }
 
 export function GenerationHistoryList({
   generations,
+  versionId,
 }: GenerationHistoryListProps) {
   const [adoptOpen, setAdoptOpen] = useState(false);
   const [selectedForAdoption, setSelectedForAdoption] =
+    useState<GenerationSummary | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [selectedForDetail, setSelectedForDetail] =
     useState<GenerationSummary | null>(null);
 
   const adoptable = generations.filter(
@@ -80,7 +86,7 @@ export function GenerationHistoryList({
                   ? Math.round(g.durationSeconds / 60) + ' min'
                   : '—'}
               </TableCell>
-              <TableCell>
+              <TableCell className="flex items-center gap-2">
                 {adoptable.includes(g) && (
                   <Button
                     size="sm"
@@ -92,6 +98,16 @@ export function GenerationHistoryList({
                     {t('btnAdopter')}
                   </Button>
                 )}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setSelectedForDetail(g);
+                    setDetailOpen(true);
+                  }}
+                >
+                  {t('btnVoirDetail')}
+                </Button>
               </TableCell>
             </TableRow>
           ))}
@@ -105,6 +121,16 @@ export function GenerationHistoryList({
             if (!open) setSelectedForAdoption(null);
           }}
           generation={selectedForAdoption}
+        />
+      )}
+      {selectedForDetail && (
+        <GenerationDetailDialog
+          open={detailOpen}
+          onOpenChange={(open) => {
+            setDetailOpen(open);
+            if (!open) setSelectedForDetail(null);
+          }}
+          generationId={selectedForDetail.id}
         />
       )}
     </div>

@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-// TAKT - DTO de détail d'une génération (L4-15)
+// TAKT - DTO de détail d'une génération (L4-15 + L4-24)
 // GET /generations/{id} -> 200
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDate, IsOptional, IsString, IsUUID } from 'class-validator';
-import { GenerationStatut } from '@takt/db';
+import { GenerationStatut, GenerationMode } from '@takt/db';
 
 // ============================================
-// Détail d'une génération (L4-15)
+// Détail d'une génération (L4-15 + L4-24)
 // ============================================
 
 export class FichierMoteurInfoDto {
@@ -24,7 +24,7 @@ export class FichierMoteurInfoDto {
   @IsString()
   downloadUrl?: string;
 
-  @ApiPropertyOptional({ description: 'Date de création de l\'enregistrement' })
+  @ApiPropertyOptional({ description: "Date de création de l'enregistrement" })
   @IsOptional()
   @IsDate()
   createdAt?: Date;
@@ -46,12 +46,51 @@ export class GenerationDetailResponseDto {
   @ApiProperty({ enum: GenerationStatut, description: 'Statut de la génération' })
   statut: GenerationStatut;
 
-  @ApiPropertyOptional({ description: 'Date et heure de début d\'exécution' })
+  @ApiProperty({ enum: GenerationMode, description: 'Mode de génération' })
+  mode: GenerationMode;
+
+  @ApiPropertyOptional({ description: 'Identifiant du profil de génération utilisé' })
+  @IsOptional()
+  @IsUUID()
+  profilGenerationId?: string | null;
+
+  @ApiPropertyOptional({ description: 'Version du profil de génération' })
+  @IsOptional()
+  @IsString()
+  profilGenerationVersion?: string | null;
+
+  @ApiPropertyOptional({ description: 'Empreinte du périmètre figé' })
+  @IsOptional()
+  @IsString()
+  perimetreHash?: string | null;
+
+  @ApiPropertyOptional({ description: 'Version du moteur FET utilisée' })
+  @IsOptional()
+  @IsString()
+  engineVersion?: string | null;
+
+  @ApiPropertyOptional({ description: 'Graines aléatoires utilisées' })
+  @IsOptional()
+  seeds?: number[] | null;
+
+  @ApiPropertyOptional({ description: 'Score global de la génération' })
+  @IsOptional()
+  score?: number | null;
+
+  @ApiPropertyOptional({ description: 'Indique si la génération est classée' })
+  @IsOptional()
+  classee?: boolean | null;
+
+  @ApiPropertyOptional({ description: 'Classement de la génération' })
+  @IsOptional()
+  classement?: number | null;
+
+  @ApiPropertyOptional({ description: "Date et heure de début d'exécution" })
   @IsOptional()
   @IsDate()
   startedAt?: Date | null;
 
-  @ApiPropertyOptional({ description: 'Date et heure de fin d\'exécution' })
+  @ApiPropertyOptional({ description: "Date et heure de fin d'exécution" })
   @IsOptional()
   @IsDate()
   finishedAt?: Date | null;
@@ -60,16 +99,16 @@ export class GenerationDetailResponseDto {
   @IsOptional()
   durationSeconds?: number | null;
 
-  @ApiPropertyOptional({ description: 'Message d\'erreur en cas d\'échec' })
+  @ApiPropertyOptional({ description: "Message d'erreur en cas d'échec" })
   @IsOptional()
   @IsString()
   erreur?: string | null;
 
-  @ApiPropertyOptional({ description: 'Métriques d\'exécution (progression, score, etc.)' })
+  @ApiPropertyOptional({ description: "Métriques d'exécution (progression, score, etc.)" })
   @IsOptional()
   metrics?: Record<string, unknown> | null;
 
-  @ApiPropertyOptional({ description: 'Annulation demandée par l\'utilisateur' })
+  @ApiPropertyOptional({ description: "Annulation demandée par l'utilisateur" })
   @IsOptional()
   cancelRequested?: boolean;
 
@@ -81,7 +120,7 @@ export class GenerationDetailResponseDto {
   @IsDate()
   queuedAt: Date;
 
-  @ApiProperty({ description: 'Date et heure de création de l enregistrement' })
+  @ApiProperty({ description: "Date et heure de création de l'enregistrement" })
   @IsDate()
   createdAt: Date;
 }

@@ -8,6 +8,7 @@ import {
   getGenerationsByVersion,
   compareGenerations,
   adoptGeneration,
+  relancerGeneration,
   type GenerationResponse,
   type GenerationDetail,
   type CancelGenerationResponse,
@@ -16,6 +17,7 @@ import {
   type CompareResponse,
   type AdoptGenerationInput,
   type AdoptResponse,
+  type RelancerGenerationResponse,
 } from '@/lib/api/generations';
 import { useToast } from '@/components/ui/use-toast';
 import { getErrorMessage } from '@/lib/api/errors';
@@ -142,6 +144,35 @@ export function useAdoptGeneration(versionId: string) {
       });
       toast({
         description: `Génération adoptée. Version ${data.numero} (${data.conflitsInitiaux} conflit(s) initial(s)).`,
+      });
+    },
+    onError: (error) => {
+      toast({
+        variant: 'destructive',
+        description: getErrorMessage(error),
+      });
+    },
+  });
+}
+// ============================================================================
+// Hook : relance d'une génération (L4-24)
+// ============================================================================
+
+export function useRelancerGeneration() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation<RelancerGenerationResponse, Error, string>({
+    mutationFn: (generationId) => relancerGeneration(generationId),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: generationsKeys.version(data.versionId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: generationsKeys.detail(data.id),
+      });
+      toast({
+        description: 'Génération relancée avec succès.',
       });
     },
     onError: (error) => {

@@ -8,11 +8,14 @@ import {
   BadRequestException,
   Logger,
   UnprocessableEntityException,
+  ConflictException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service.js';
-import { GenerationStatut } from '@takt/db';
+import { GenerationStatut, GenerationMode } from '@takt/db';
+import { PgBossService } from '../pg-boss/pg-boss.service.js';
+import type { RelancerGenerationResponseDto } from './dto/relancer-generation-response.dto.js';
 import type {
   Generation,
   GenerationSeance,
@@ -56,6 +59,7 @@ export class GenerationsService {
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly pgBossService: PgBossService,
   ) {}
 
   // ============================================================================
@@ -95,6 +99,15 @@ export class GenerationsService {
       versionId: generation.versionId,
       semestreId: generation.semestreId,
       statut: generation.statut,
+      mode: generation.mode,
+      profilGenerationId: generation.profilGenerationId ?? null,
+      profilGenerationVersion: generation.profilGenerationVersion != null ? String(generation.profilGenerationVersion) : null,
+      perimetreHash: generation.perimetreHash ?? null,
+      engineVersion: generation.engineVersion ?? null,
+      seeds: (generation.seeds as unknown as number[]) ?? null,
+      score: generation.score ?? null,
+      classee: generation.classee ?? null,
+      classement: generation.classement ?? null,
       startedAt,
       finishedAt,
       durationSeconds,
@@ -523,5 +536,123 @@ export class GenerationsService {
     });
 
     return { verrousRespectes };
+  }
+
+  // ============================================================================
+  // Relance d'une génération (L4-24)
+  // ============================================================================
+
+  async relancerGeneration(
+    generationId: string,
+    auteurId: string,
+  ): Promise<RelancerGenerationResponseDto> {
+    // 1. Récupération de la génération source (404 si absente)
+    const generation = await this.prisma.generation.findUnique({
+      where: { id: generationId },
+      include: {
+        fichierMoteur: true,
+      },
+    });
+
+    if (!generation) {
+      throw new NotFoundException(`Génération \"${generationId}\" introuvable`);
+    }
+
+    // 2. Seules les générations en échec peuvent être relancées (422)
+    const relancableStatuts: GenerationStatut[] = [
+      GenerationStatut.FAILED,
+      GenerationStatut.TIMED_OUT,
+    ];
+    if (!relancableStatuts.includes(generation.statut as GenerationStatut)) {
+      throw new UnprocessableEntityException({
+        code: 'GENERATION_NOT_FAILED',
+        message: `La génération \"${generationId}\" n'est pas en état d'échec (statut actuel: ${generation.statut})`,
+      });
+    }
+
+    // 3. Garde : une seule génération active par semestre (409 GENERATION_ALREADY_RUNNING)
+    const generationEnCours = await this.prisma.generation.findFirst({
+      where: {
+        semestreId: generation.semestreId,
+        statut: { in: ['QUEUED', 'RUNNING'] as GenerationStatut[] },
+      },
+      select: { id: true, statut: true, createdAt: true },
+    });
+    if (generationEnCours) {
+      throw new ConflictException({
+        code: 'GENERATION_ALREADY_RUNNING',
+        message: `Une génération est déjà en cours sur le semestre \"${generation.semestreId}\" (id: ${generationEnCours.id}, statut: ${generationEnCours.statut})`,
+      });
+    }
+
+    // 4. Création de la nouvelle génération (copie des paramètres de la source)
+    const maintenant = new Date();
+    const nouvelleGeneration = await this.prisma.generation.create({
+      data: {
+        id: require('crypto').randomUUID(),
+        semestreId: generation.semestreId,
+        versionId: generation.versionId,
+        auteurId,
+        statut: 'QUEUED' as GenerationStatut,
+        mode: generation.mode as GenerationMode,
+        engine: generation.engine,
+        engineVersion: generation.engineVersion,
+        profilGenerationId: generation.profilGenerationId,
+        profilGenerationVersion: generation.profilGenerationVersion,
+        perimetre: generation.perimetre as any,
+        perimetreHash: generation.perimetreHash,
+        fichierAttendu: generation.fichierAttendu,
+        seeds: generation.seeds as any,
+        queuedAt: maintenant,
+      },
+      select: {
+        id: true,
+        versionId: true,
+        semestreId: true,
+        profilGenerationId: true,
+        statut: true,
+        mode: true,
+        perimetreHash: true,
+        queuedAt: true,
+      },
+    });
+
+    // 5. Audit log
+    await this.prisma.auditLog.create({
+      data: {
+        id: require('crypto').randomUUID(),
+        action: 'GENERATION_RELANCER',
+        objetType: 'Generation',
+        objetId: nouvelleGeneration.id,
+        versionId: generation.versionId,
+        userId: auteurId,
+        at: maintenant,
+        details: {
+          generationSourceId: generation.id,
+          statutSource: generation.statut,
+          perimetreHash: generation.perimetreHash,
+          profilId: generation.profilGenerationId,
+        },
+      },
+    });
+
+    // 6. Enfoutre un job pg-boss pour l'exécution par le worker
+    await this.pgBossService.enqueueGenerationJob({
+      generationId: nouvelleGeneration.id,
+      semestreId: generation.semestreId,
+    });
+
+    // 7. Retour DTO
+    return {
+      id: nouvelleGeneration.id,
+      versionId: nouvelleGeneration.versionId,
+      semestreId: nouvelleGeneration.semestreId,
+      profilId: (nouvelleGeneration.profilGenerationId ?? undefined) as string | undefined,
+      statut: nouvelleGeneration.statut,
+      mode: nouvelleGeneration.mode,
+      perimetreHash: nouvelleGeneration.perimetreHash as string,
+      queuedAt: nouvelleGeneration.queuedAt,
+      createdAt: maintenant,
+    };
   }
 }
