@@ -32,6 +32,15 @@ export interface GenerationDetail {
   versionId: string;
   semestreId: string;
   statut: GenerationStatut;
+  mode: GenerationMode;
+  profilGenerationId?: string | null;
+  profilGenerationVersion?: string | null;
+  perimetreHash?: string | null;
+  engineVersion?: string | null;
+  seeds?: number[] | null;
+  score?: number | null;
+  classee?: boolean | null;
+  classement?: number | null;
   startedAt?: string | null;
   finishedAt?: string | null;
   durationSeconds?: number | null;
@@ -272,6 +281,35 @@ export async function adoptGeneration(
   const res = await apiFetch(`/versions/${versionId}/adopt`, {
     method: 'POST',
     body: JSON.stringify(input),
+  });
+  return res.json();
+}
+
+/* ============================================================================
+   Relance d'une génération (L4-24)
+   ============================================================================ */
+
+export interface RelancerGenerationResponse {
+  id: string;
+  versionId: string;
+  semestreId: string;
+  profilId?: string | null;
+  statut: string;
+  mode: string;
+  perimetreHash: string;
+  queuedAt: string;
+  createdAt: string;
+}
+
+/**
+ * Relance une génération en échec.
+ * POST /generations/{id}/relancer -> 200
+ */
+export async function relancerGeneration(
+  generationId: string,
+): Promise<RelancerGenerationResponse> {
+  const res = await apiFetch(`/generations/${generationId}/relancer`, {
+    method: 'POST',
   });
   return res.json();
 }

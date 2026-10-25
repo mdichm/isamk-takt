@@ -32,7 +32,9 @@ import { EngineFileResponseDto } from './dto/engine-file-response.dto.js';
 import { CompareQueryDto } from './dto/compare-query.dto.js';
 import { CompareResponseDto } from './dto/compare-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
+import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
+import { RelancerGenerationResponseDto } from './dto/relancer-generation-response.dto.js';
 
 // ============================================================================
 // Suivi des générations (L4-15)
@@ -212,5 +214,30 @@ export class GenerationsController {
     @Query() dto: CompareQueryDto,
   ): Promise<CompareResponseDto> {
     return this.service.compare(dto.ids);
+  }
+
+  // ============================================================================
+  // Relance d'une génération (L4-24)
+  // ============================================================================
+
+  @Post(':id/relancer')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('generation:launch')
+  @ApiOperation({ summary: 'Relancer une génération en échec' })
+  @ApiParam({ name: 'id', description: 'Identifiant de la génération (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Génération relancée',
+    type: RelancerGenerationResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Génération introuvable' })
+  @ApiResponse({ status: 409, description: 'Une génération est déjà en cours sur ce semestre' })
+  @ApiResponse({ status: 422, description: 'Génération non en échec (FAILED ou TIMED_OUT)' })
+  async relancerGeneration(
+    @Param('id') id: string,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<RelancerGenerationResponseDto> {
+    return this.service.relancerGeneration(id, currentUser.id);
   }
 }

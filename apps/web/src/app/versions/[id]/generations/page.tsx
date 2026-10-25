@@ -247,14 +247,14 @@ export default function GenerationsPage() {
       />
 
       {/* Historique et comparaison des générations */}
-      {generations && (
+      {generations && versionId && (
         <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card className="col-span-full">
             <CardHeader>
               <CardTitle>{t('historiqueGenerations')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <GenerationHistoryList generations={generations} />
+              <GenerationHistoryList generations={generations} versionId={versionId} />
             </CardContent>
           </Card>
           <Card className="col-span-full">

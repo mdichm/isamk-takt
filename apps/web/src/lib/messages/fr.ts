@@ -824,7 +824,6 @@ export const messages = {
   chargeLabelVolume: 'Volume',
   chargeLabelCoefficient: 'Coefficient',
   chargeLabelContribution: 'Contribution',
-  btnVoirDetail: 'Voir le détail',
   erreurChargesNonTrouvees: 'Aucune année active ou aucun jeu de règles publié.',
   errorLoadCharges: 'Impossible de charger les charges.',
   errorChargeEnseignantNonTrouve: 'Enseignant introuvable.',
@@ -1290,6 +1289,28 @@ export const messages = {
   verrousRespectesTous: 'Tous les verrous sont respectés.',
   aucuneDifference: 'Aucune différence détectée entre les générations sélectionnées.',
   chargement: 'Chargement…',
+
+  // Historique détaillé & relance (L4-24)
+  detailsGeneration: 'Détails de la génération',
+  btnRelancer: 'Relancer',
+  btnVoirDetail: 'Voir le détail',
+  relancerConfirmation: 'Relancer cette génération avec les mêmes paramètres ?',
+  journalGeneration: 'Journaux',
+  messageErreur: 'Message d\'erreur',
+  parametresGeneration: 'Paramètres',
+  resultatsGeneration: 'Résultats',
+  conflitsGeneration: 'Conflits',
+  sansLogs: 'Aucun journal disponible pour cette génération.',
+  relancerSucces: 'Génération relancée avec succès.',
+  relancerEchec: 'Échec de la relance.',
+  mode: 'Mode',
+  dateFileAttente: 'Date de mise en file d\'attente',
+  duree: 'Durée',
+  profil: 'Profil',
+  empreintePerimetre: 'Empreinte du périmètre',
+  versionFET: 'Version FET',
+  metriques: 'Métriques',
+  aucunMetrique: 'Aucune métrique disponible.',
 } as const;
 
 export type Messages = typeof messages;
