@@ -29,6 +29,7 @@ import { CommentsController } from '../comments/comments.controller.js';
 import { ActivitiesController } from '../activities/activities.controller.js';
 import { TagsController } from '../tags/tags.controller.js';
 import { AuditController } from '../audit/audit.controller.js';
+import { ParametresController } from '../parametres/parametres.controller.js';
 
 /**
  * Controles couverts par la matrice RBAC (ST §5.2).
@@ -50,6 +51,7 @@ const CONTROLES_COUVERTS_PAR_MATRICE = [
   ActivitiesController,
   TagsController,
   AuditController,
+  ParametresController,
 ];
 
 /**
