@@ -35,6 +35,8 @@ import { ImpactResponseDto } from './dto/impact-response.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { ValidationDepartementDto } from './dto/validation-departement.dto.js';
+import { ValidationResponseDto } from './dto/validation-response.dto.js';
 
 // ============================================
 // Version (L3-09)
@@ -359,5 +361,39 @@ export class VersionController {
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<ImportGenerationResponseDto> {
     return this.service.importManualGeneration(id, file, dto.fichierMoteurSha256, currentUser.id);
+  }
+
+  @Post(':id/validations')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:validate')
+  @ApiOperation({
+    summary: 'Prendre une décision de validation pour un département (L5-04)',
+    description:
+      'Le Responsable décide pour son département impacté; l Administrateur pour tout département nommé. ' +
+      'Motif obligatoire en cas de rejet. Passe la version en VALIDE/REJETE si unanimite atteinte.',
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version (UUID)' })
+  @ApiBody({ type: ValidationDepartementDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Décision enregistrée',
+    type: ValidationResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes / SEGREGATION_OF_DUTIES' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  @ApiResponse({ status: 409, description: 'Décision déjà donnée dans ce cycle' })
+  @ApiResponse({ status: 422, description: 'Motif obligatoire en cas de rejet' })
+  async decideValidation(
+    @Param('id') id: string,
+    @Body() dto: ValidationDepartementDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ValidationResponseDto> {
+    return this.service.submitValidation(
+      id,
+      dto,
+      currentUser.id,
+      currentUser.role,
+      currentUser.departments ?? [],
+    );
   }
 }

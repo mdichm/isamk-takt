@@ -11,6 +11,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { PreparationService } from '../preparation/preparation.service.js';
 import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
+import { PolicyService } from '../policy/policy.service.js';
 
 describe('VersionService.adoptGeneration (L4-19)', () => {
   let service: VersionService;
@@ -44,6 +45,7 @@ describe('VersionService.adoptGeneration (L4-19)', () => {
         { provide: PreparationService, useValue: { getPreparation: vi.fn() } },
         { provide: ConflitService, useValue: conflitService },
         { provide: 'BOSS', useValue: bossMock },
+        { provide: PolicyService, useValue: { checkSegregationOfDuties: vi.fn() } },
       ],
     }).compile();
     service = module.get(VersionService);
