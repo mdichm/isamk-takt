@@ -54,6 +54,8 @@ import type { ValidationResponseDto } from './dto/validation-response.dto.js';
 import type { PublishResponseDto } from './dto/publish-response.dto.js';
 import type { PrevisualisationPublicationDto } from './dto/previsualisation-publication.dto.js';
 import type { NewRevisionResponseDto } from './dto/new-revision-response.dto.js';
+import type { VersionDiffResponseDto } from './dto/diff-response.dto.js';
+import type { ChangementSeanceDto } from './dto/diff-response.dto.js';
 import { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
@@ -2514,6 +2516,189 @@ async submitValidation(
       },
       activites,
       at: new Date().toISOString(),
+    };
+  }
+
+  // ============================================
+  // Différence entre deux versions (L5-11)
+  // GET /versions/{id}/diff?against=
+  // ============================================
+
+  async getDiff(
+    versionId: string,
+    againstId: string,
+  ): Promise<VersionDiffResponseDto> {
+    const [version, against] = await Promise.all([
+      this.prisma.versionEdt.findUnique({
+        where: { id: versionId },
+        select: { id: true, numero: true, semestreId: true },
+      }),
+      this.prisma.versionEdt.findUnique({
+        where: { id: againstId },
+        select: { id: true, numero: true, semestreId: true },
+      }),
+    ]);
+
+    if (!version) {
+      throw new NotFoundException(`Version "${versionId}" introuvable`);
+    }
+    if (!against) {
+      throw new NotFoundException(`Version "${againstId}" introuvable`);
+    }
+    if (version.semestreId !== against.semestreId) {
+      throw new ConflictException({
+        code: 'DIFF_DIFFERENT_SEMESTRE',
+        message:
+          'Le diff entre deux versions nécessite qu elles appartiennent au même semestre',
+      });
+    }
+
+    const [seancesGauche, seancesDroite, conflitsGauche, conflitsDroite, verrousGauche, verrousDroite] =
+      await Promise.all([
+        this.prisma.seance.findMany({
+          where: { versionId },
+          select: {
+            affectationKey: true,
+            rang: true,
+            jour: true,
+            creneauDebutId: true,
+            salleId: true,
+            enseignantId: true,
+            statut: true,
+          },
+        }),
+        this.prisma.seance.findMany({
+          where: { versionId: againstId },
+          select: {
+            affectationKey: true,
+            rang: true,
+            jour: true,
+            creneauDebutId: true,
+            salleId: true,
+            enseignantId: true,
+            statut: true,
+          },
+        }),
+        this.prisma.conflit.findMany({
+          where: { versionId },
+          select: { signature: true, resoluLe: true },
+        }),
+        this.prisma.conflit.findMany({
+          where: { versionId: againstId },
+          select: { signature: true, resoluLe: true },
+        }),
+        this.prisma.verrouSeance.count({
+          where: { versionId, leveLe: null },
+        }),
+        this.prisma.verrouSeance.count({
+          where: { versionId: againstId, leveLe: null },
+        }),
+      ]);
+
+    const cle = (s: { affectationKey: string; rang: number }) =>
+      `${s.affectationKey}#${s.rang}`;
+
+    const mapGauche = new Map<string, typeof seancesGauche[number]>();
+    for (const s of seancesGauche) {
+      mapGauche.set(cle(s), s);
+    }
+    const mapDroite = new Map<string, typeof seancesDroite[number]>();
+    for (const s of seancesDroite) {
+      mapDroite.set(cle(s), s);
+    }
+
+    const toutesCles = new Set([...mapGauche.keys(), ...mapDroite.keys()]);
+
+    const changements: ChangementSeanceDto[] = [];
+    const seulesAGauche: string[] = [];
+    const seulesADroite: string[] = [];
+    let seancesIdentiques = 0;
+    let seancesDifferentes = 0;
+
+    for (const key of toutesCles) {
+      const g = mapGauche.get(key);
+      const d = mapDroite.get(key);
+
+      if (!g) {
+        seulesADroite.push(key);
+        continue;
+      }
+      if (!d) {
+        seulesAGauche.push(key);
+        continue;
+      }
+
+      const identique =
+        g.jour === d.jour &&
+        g.creneauDebutId === d.creneauDebutId &&
+        g.salleId === d.salleId &&
+        g.enseignantId === d.enseignantId &&
+        g.statut === d.statut;
+
+      if (identique) {
+        seancesIdentiques += 1;
+      } else {
+        seancesDifferentes += 1;
+        let type: ChangementSeanceDto['type'];
+        if (g.jour !== d.jour || g.creneauDebutId !== d.creneauDebutId) {
+          type = 'DEPLACE';
+        } else if (g.salleId !== d.salleId) {
+          type = 'SALLE_MODIFIEE';
+        } else if (g.enseignantId !== d.enseignantId) {
+          type = 'ENSEIGNANT_MODIFIE';
+        } else {
+          type = 'STATUT_MODIFIE';
+        }
+        changements.push({
+          cle: key,
+          type,
+          gauche: {
+            jour: g.jour ?? undefined,
+            creneauDebutId: g.creneauDebutId ?? undefined,
+            salleId: g.salleId ?? undefined,
+            enseignantId: g.enseignantId ?? undefined,
+            statut: g.statut ?? undefined,
+          },
+          droite: {
+            jour: d.jour ?? undefined,
+            creneauDebutId: d.creneauDebutId ?? undefined,
+            salleId: d.salleId ?? undefined,
+            enseignantId: d.enseignantId ?? undefined,
+            statut: d.statut ?? undefined,
+          },
+        });
+      }
+    }
+
+    const signaturesGauche = new Set(
+      conflitsGauche.filter((c) => c.resoluLe === null).map((c) => c.signature),
+    );
+    const signaturesDroite = new Set(
+      conflitsDroite.filter((c) => c.resoluLe === null).map((c) => c.signature),
+    );
+
+    const conflitsApparus = [...signaturesGauche].filter(
+      (sig) => !signaturesDroite.has(sig),
+    ).length;
+    const conflitsDisparus = [...signaturesDroite].filter(
+      (sig) => !signaturesGauche.has(sig),
+    ).length;
+
+    return {
+      versionId: version.id,
+      versionNumero: version.numero,
+      againstId: against.id,
+      againstNumero: against.numero,
+      seancesIdentiques,
+      seancesDifferentes,
+      changements,
+      seulesAGauche,
+      seulesADroite,
+      conflits: { apparus: conflitsApparus, disparus: conflitsDisparus },
+      verrous: {
+        respectesGauche: verrousGauche,
+        respectesDroite: verrousDroite,
+      },
     };
   }
 }

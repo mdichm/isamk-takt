@@ -6,6 +6,7 @@ import {
   Post,
   Body,
   Param,
+  Query,
   HttpCode,
   HttpStatus,
   UseGuards,
@@ -13,7 +14,7 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiConsumes, ApiBody, ApiQuery } from '@nestjs/swagger';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { VersionService } from './version.service.js';
 import { VersionResponseDto } from './dto/version-response.dto.js';
@@ -40,6 +41,8 @@ import { ValidationResponseDto } from './dto/validation-response.dto.js';
 import { PublishResponseDto } from './dto/publish-response.dto.js';
 import { NewRevisionResponseDto } from './dto/new-revision-response.dto.js';
 import { PrevisualisationPublicationDto } from './dto/previsualisation-publication.dto.js';
+import { DiffQueryDto } from './dto/diff-query.dto.js';
+import { VersionDiffResponseDto } from './dto/diff-response.dto.js';
 
 // ============================================
 // Version (L3-09)
@@ -482,5 +485,42 @@ export class VersionController {
     @Param('id') id: string,
   ): Promise<PrevisualisationPublicationDto> {
     return this.service.getPrevisualisationPublication(id);
+  }
+
+  @Get(':id/diff')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({
+    summary: 'Différences entre deux versions (L5-11)',
+    description:
+      'Compare la version courante avec une version de référence (against). ' +
+      'Retourne les séances identiques, déplacées, changées de salle ou d enseignant, ' +
+      'les séances présentes dans une seule des deux versions, les conflits apparus/disparus ' +
+      'et les verrous actifs.',
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version courante (UUID)' })
+  @ApiQuery({
+    name: 'against',
+    type: String,
+    required: true,
+    description: 'Identifiant de la version de référence (UUID)',
+    example: '550e8400-e29b-41d4-a716-446655440001',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Diff entre les deux versions',
+    type: VersionDiffResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable (id ou against)' })
+  @ApiResponse({
+    status: 409,
+    description: 'Les versions n appartiennent pas au même semestre',
+  })
+  async getDiff(
+    @Param('id') id: string,
+    @Query() dto: DiffQueryDto,
+  ): Promise<VersionDiffResponseDto> {
+    return this.service.getDiff(id, dto.against);
   }
 }

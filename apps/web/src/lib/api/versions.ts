@@ -268,3 +268,57 @@ export async function newRevision(
   });
   return res.json() as Promise<NewRevisionResponseDto>;
 }
+
+/* ============================================================================
+   Différence entre deux versions (L5-11)
+   GET /versions/{id}/diff?against=
+   ============================================================================ */
+
+export interface SeanceValeurDto {
+  jour?: string;
+  creneauDebutId?: string;
+  salleId?: string;
+  enseignantId?: string;
+  statut?: string;
+}
+
+export interface ChangementSeanceDto {
+  cle: string;
+  type: 'DEPLACE' | 'SALLE_MODIFIEE' | 'ENSEIGNANT_MODIFIE' | 'STATUT_MODIFIE';
+  gauche: SeanceValeurDto;
+  droite: SeanceValeurDto;
+}
+
+export interface ConflitDiffDto {
+  apparus: number;
+  disparus: number;
+}
+
+export interface VerrouDiffDto {
+  respectesGauche: number;
+  respectesDroite: number;
+}
+
+export interface VersionDiffDto {
+  versionId: string;
+  versionNumero: string;
+  againstId: string;
+  againstNumero: string;
+  seancesIdentiques: number;
+  seancesDifferentes: number;
+  changements: ChangementSeanceDto[];
+  seulesAGauche: string[];
+  seulesADroite: string[];
+  conflits: ConflitDiffDto;
+  verrous: VerrouDiffDto;
+}
+
+export async function fetchVersionDiff(
+  versionId: string,
+  againstId: string,
+): Promise<VersionDiffDto> {
+  const res = await apiFetch(
+    `/versions/${versionId}/diff?against=${encodeURIComponent(againstId)}`,
+  );
+  return res.json() as Promise<VersionDiffDto>;
+}
