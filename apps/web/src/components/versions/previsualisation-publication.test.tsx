@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, waitFor, cleanup } from '@testing-library/react';
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, type UseQueryResult, type UseMutationResult } from '@tanstack/react-query';
 import { PrevisualisationPublication } from './previsualisation-publication';
-import type { PrevisualisationPublicationDto } from '@/lib/api/versions';
+import type { PrevisualisationPublicationDto, PublishResponseDto } from '@/lib/api/versions';
 import { usePrevisualisationPublication, usePublishVersion } from '@/hooks/use-previsualisation-publication';
 
 vi.mock('@/lib/api/versions', () => ({
@@ -115,7 +115,7 @@ describe('PrevisualisationPublication', () => {
       isRefetchError: false,
       isLoadingError: false,
       status: 'loading',
-    } as any);
+    } as unknown as UseQueryResult<PrevisualisationPublicationDto, Error>);
 
     render(
       <QueryClientProvider client={new QueryClient()}>
@@ -141,11 +141,11 @@ describe('PrevisualisationPublication', () => {
       isRefetchError: false,
       isLoadingError: false,
       status: 'success',
-    } as any);
+    } as unknown as UseQueryResult<PrevisualisationPublicationDto, Error>);
     mockUsePublishVersion.mockReturnValue({
       mutate: vi.fn(),
       isPending: false,
-    } as any);
+    } as unknown as UseMutationResult<PublishResponseDto, Error, void, unknown>);
 
     const { findByText } = render(
       <QueryClientProvider client={new QueryClient()}>
@@ -182,7 +182,7 @@ describe('PrevisualisationPublication', () => {
       isRefetchError: false,
       isLoadingError: false,
       status: 'error',
-    } as any);
+    } as unknown as UseQueryResult<PrevisualisationPublicationDto, Error>);
 
     const { findByText } = render(
       <QueryClientProvider client={new QueryClient()}>
@@ -220,11 +220,11 @@ describe('PrevisualisationPublication', () => {
       isRefetchError: false,
       isLoadingError: false,
       status: 'success',
-    } as any);
+    } as unknown as UseQueryResult<PrevisualisationPublicationDto, Error>);
     mockUsePublishVersion.mockReturnValue({
       mutate: vi.fn(),
       isPending: false,
-    } as any);
+    } as unknown as UseMutationResult<PublishResponseDto, Error, void, unknown>);
 
     const { getByText } = render(
       <QueryClientProvider client={new QueryClient()}>
@@ -252,11 +252,11 @@ describe('PrevisualisationPublication', () => {
       isRefetchError: false,
       isLoadingError: false,
       status: 'success',
-    } as any);
+    } as unknown as UseQueryResult<PrevisualisationPublicationDto, Error>);
     mockUsePublishVersion.mockReturnValue({
       mutate: vi.fn(),
       isPending: false,
-    } as any);
+    } as unknown as UseMutationResult<PublishResponseDto, Error, void, unknown>);
 
     const { findByText } = render(
       <QueryClientProvider client={new QueryClient()}>

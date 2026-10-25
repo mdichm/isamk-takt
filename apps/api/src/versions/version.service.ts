@@ -53,7 +53,7 @@ import type { ValidationDepartementDto } from './dto/validation-departement.dto.
 import type { ValidationResponseDto } from './dto/validation-response.dto.js';
 import type { PublishResponseDto } from './dto/publish-response.dto.js';
 import type { PrevisualisationPublicationDto } from './dto/previsualisation-publication.dto.js';
-import type { PolicyService } from '../policy/policy.service.js';
+import { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
 // Création de version (L3-09)
