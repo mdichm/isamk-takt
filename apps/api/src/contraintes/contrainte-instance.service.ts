@@ -20,6 +20,7 @@ import type {
   CoherenceReportDto,
   IncoherenceDto,
 } from './dto/contrainte-instance.dto.js';
+import type { ContrainteInstanceImpactResponseDto } from './dto/contrainte-instance-impact.dto.js';
 
 @Injectable()
 export class ContrainteInstanceService {
@@ -205,6 +206,159 @@ export class ContrainteInstanceService {
     });
 
     return this.toDto(instance);
+  }
+
+  // ============================================
+  // Impact d'un changement de règle (L5-13)
+  // GET /contraintes/instances/{id}/impact-versions
+  // ============================================
+
+  /**
+   * Analyse l'impact d'un changement de règle sur les versions du semestre.
+   *
+   * Identifie les versions non publiées concernées par la modification de l'instance
+   * de contrainte, sans jamais toucher aux versions PUBLIE ou ARCHIVE (immutabilité
+   * rétroactive garantie par EX-DAT-03 / ST §4.19).
+   *
+   * @param instanceId ID de l'instance de contrainte
+   * @returns Les versions non publiées impactées avec le détail par version
+   */
+  async analyserImpactChangementRegle(
+    instanceId: string,
+  ): Promise<ContrainteInstanceImpactResponseDto> {
+    // 1. Récupération de l'instance avec sa définition (404 si absente)
+    const instance = await this.prisma.contrainteInstance.findUnique({
+      where: { id: instanceId },
+      include: { definition: true },
+    });
+    if (!instance) {
+      throw new NotFoundException(`Instance de contrainte "${instanceId}" introuvable`);
+    }
+
+    const {
+      definition,
+      semestreId,
+      enseignantId,
+      groupeId,
+      salleId,
+      moduleId,
+    } = instance;
+    const portee = definition.portee;
+
+    // 2. Versions non publiées du même semestre (PUBLIE et ARCHIVE exclues)
+    const versions = await this.prisma.versionEdt.findMany({
+      where: {
+        semestreId,
+        statut: { notIn: ['PUBLIE', 'ARCHIVE'] },
+      },
+      select: {
+        id: true,
+        numero: true,
+        statut: true,
+      },
+    });
+
+    if (versions.length === 0) {
+      return {
+        instanceId,
+        code: definition.code,
+        portee,
+        versionsImpactees: [],
+        total: 0,
+      };
+    }
+
+    // 3. Détermination des versions impactées selon la portée
+    let seanceFilters: Record<string, unknown> = {};
+    let impactedVersionIds: string[] = [];
+
+    switch (portee) {
+      case 'GLOBALE':
+        impactedVersionIds = versions.map((v) => v.id);
+        break;
+      case 'ENSEIGNANT':
+        if (enseignantId) {
+          seanceFilters = { ...seanceFilters, enseignantId };
+        }
+        break;
+      case 'GROUPE':
+        if (groupeId) {
+          seanceFilters = { ...seanceFilters, groupes: { some: { groupeId } } };
+        }
+        break;
+      case 'SALLE':
+        if (salleId) {
+          seanceFilters = { ...seanceFilters, salleId };
+        }
+        break;
+      case 'MODULE':
+        if (moduleId) {
+          seanceFilters = {
+            ...seanceFilters,
+            affectationKey: { contains: `:${moduleId}:` },
+          };
+        }
+        break;
+    }
+
+    if (portee !== 'GLOBALE' && Object.keys(seanceFilters).length > 0) {
+      const seances = await this.prisma.seance.findMany({
+        where: {
+          semestreId,
+          ...seanceFilters,
+        },
+        select: { versionId: true, id: true },
+      });
+      impactedVersionIds = [
+        ...new Set(seances.map((s) => s.versionId).filter((id): id is string => id != null)),
+      ];
+    }
+
+    // 4. Comptage des séances concernées par version impactée
+    const seanceCounts = new Map<string, number>();
+    if (impactedVersionIds.length > 0) {
+      const seances = await this.prisma.seance.findMany({
+        where: {
+          versionId: { in: impactedVersionIds },
+          ...seanceFilters,
+        },
+        select: { versionId: true, id: true },
+      });
+      for (const s of seances) {
+        if (s.versionId) {
+          seanceCounts.set(s.versionId, (seanceCounts.get(s.versionId) ?? 0) + 1);
+        }
+      }
+    }
+
+    const impactedVersionSet = new Set(impactedVersionIds);
+
+    const versionsImpactees = versions
+      .filter((v) => impactedVersionSet.has(v.id))
+      .map((v) => ({
+        versionId: v.id,
+        versionNumero: String(v.numero),
+        statut: v.statut,
+        raison:
+          portee === 'GLOBALE'
+            ? 'Règle globale modifiée'
+            : portee === 'ENSEIGNANT'
+              ? 'Enseignant concerné par une séance de cette version'
+              : portee === 'GROUPE'
+                ? 'Groupe concerné par une séance de cette version'
+                : portee === 'SALLE'
+                  ? 'Salle concernée par une séance de cette version'
+                  : 'Module concerné par une séance de cette version',
+        nbSeances: seanceCounts.get(v.id) ?? 0,
+      }));
+
+    return {
+      instanceId,
+      code: definition.code,
+      portee,
+      versionsImpactees,
+      total: versionsImpactees.length,
+    };
   }
 
   /**

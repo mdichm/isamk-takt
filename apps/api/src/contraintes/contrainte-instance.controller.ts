@@ -26,6 +26,7 @@ import {
   ContrainteCoherenceQueryDto,
   CoherenceReportDto,
 } from './dto/contrainte-instance.dto.js';
+import { ContrainteInstanceImpactResponseDto } from './dto/contrainte-instance-impact.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 
@@ -113,6 +114,27 @@ export class ContrainteInstanceController {
     @Query() query: ContrainteCoherenceQueryDto,
   ): Promise<CoherenceReportDto> {
     return this.service.verifierCoherenceSemestre(query.semestreId);
+  }
+
+  @Get(':id/impact-versions')
+  @Permissions('contrainte:read')
+  @ApiOperation({
+    summary: 'Impact d un changement de règle sur les versions du semestre',
+    description:
+      'Liste les versions non publiées du même semestre impactées par une modification de cette instance de contrainte. ' +
+      'Les versions PUBLIE et ARCHIVE ne sont jamais listées ni modifiées (immutabilité rétroactive, EX-DAT-03).',
+  })
+  @ApiParam({ name: 'id', description: 'ID de l instance de contrainte (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Versions non publiées impactées',
+    type: ContrainteInstanceImpactResponseDto,
+  })
+  @ApiResponse({ status: 404, description: 'Instance de contrainte non trouvée' })
+  async impactVersions(
+    @Param('id') id: string,
+  ): Promise<ContrainteInstanceImpactResponseDto> {
+    return this.service.analyserImpactChangementRegle(id);
   }
 
   @Get(':id')
