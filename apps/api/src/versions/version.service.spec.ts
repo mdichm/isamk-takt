@@ -42,6 +42,8 @@ describe('VersionService', () => {
       workflowTransition: { create: vi.fn(), findMany: vi.fn() },
       generation: { findFirst: vi.fn() },
       contrainteInstance: { findMany: vi.fn() },
+      conflit: { findMany: vi.fn() },
+      verrouSeance: { count: vi.fn() },
       auditLog: { create: vi.fn() },
       avertissementAccepte: { findMany: vi.fn() },
       $transaction: vi.fn(async (cb: any) => cb(prisma)),
@@ -984,6 +986,189 @@ describe('VersionService', () => {
       } as any);
 
       await expect(service.newRevision(parentId, userId)).rejects.toThrow(
+        ConflictException,
+      );
+    });
+  });
+  // ============================================
+  // Différence entre deux versions (L5-11)
+  // ============================================
+
+  describe('getDiff', () => {
+    const versionId = 'version-1';
+    const againstId = 'version-2';
+    const version = { id: versionId, numero: '1.1', semestreId } as any;
+    const against = { id: againstId, numero: '1.0', semestreId } as any;
+
+    beforeEach(() => {
+      prisma.versionEdt.findUnique
+        .mockResolvedValueOnce(version)
+        .mockResolvedValueOnce(against);
+    });
+    it('retourne le diff avec séances identiques, déplacées et modifiées', async () => {
+      prisma.seance.findMany
+        .mockResolvedValueOnce([
+          {
+            affectationKey: 'INFO:M01:CM:ENS01',
+            rang: 1,
+            jour: 'LUNDI',
+            creneauDebutId: 'creneau-1',
+            salleId: 'salle-1',
+            enseignantId: 'ens-1',
+            statut: 'PLACEE',
+          },
+          {
+            affectationKey: 'INFO:M01:CM:ENS01',
+            rang: 2,
+            jour: 'LUNDI',
+            creneauDebutId: 'creneau-1',
+            salleId: 'salle-1',
+            enseignantId: 'ens-1',
+            statut: 'PLACEE',
+          },
+          {
+            affectationKey: 'INFO:M02:TD:ENS02',
+            rang: 1,
+            jour: 'LUNDI',
+            creneauDebutId: 'creneau-2',
+            salleId: 'salle-1',
+            enseignantId: 'ens-2',
+            statut: 'PLACEE',
+          },
+          {
+            affectationKey: 'INFO:M03:TD:ENS03',
+            rang: 1,
+            jour: 'LUNDI',
+            creneauDebutId: 'creneau-1',
+            salleId: 'salle-2',
+            enseignantId: 'ens-3',
+            statut: 'PLACEE',
+          },
+        ])
+        .mockResolvedValueOnce([
+          {
+            affectationKey: 'INFO:M01:CM:ENS01',
+            rang: 1,
+            jour: 'LUNDI',
+            creneauDebutId: 'creneau-1',
+            salleId: 'salle-1',
+            enseignantId: 'ens-1',
+            statut: 'PLACEE',
+          },
+          {
+            affectationKey: 'INFO:M01:CM:ENS01',
+            rang: 2,
+            jour: 'MARDI',
+            creneauDebutId: 'creneau-3',
+            salleId: 'salle-1',
+            enseignantId: 'ens-1',
+            statut: 'PLACEE',
+          },
+          {
+            affectationKey: 'INFO:M02:TD:ENS02',
+            rang: 1,
+            jour: 'LUNDI',
+            creneauDebutId: 'creneau-2',
+            salleId: 'salle-99',
+            enseignantId: 'ens-2',
+            statut: 'PLACEE',
+          },
+          {
+            affectationKey: 'INFO:M04:TD:ENS04',
+            rang: 1,
+            jour: 'LUNDI',
+            creneauDebutId: 'creneau-1',
+            salleId: 'salle-5',
+            enseignantId: 'ens-4',
+            statut: 'PLACEE',
+          },
+        ]);
+      prisma.conflit.findMany
+        .mockResolvedValueOnce([
+          { signature: 'sig-a', resoluLe: null },
+          { signature: 'sig-b', resoluLe: null },
+          { signature: 'sig-c', resoluLe: new Date() },
+        ])
+        .mockResolvedValueOnce([
+          { signature: 'sig-a', resoluLe: null },
+          { signature: 'sig-d', resoluLe: null },
+        ]);
+      prisma.verrouSeance.count
+        .mockResolvedValueOnce(2)
+        .mockResolvedValueOnce(1);
+
+      const result = await service.getDiff(versionId, againstId);
+
+      expect(result.versionId).toBe(versionId);
+      expect(result.versionNumero).toBe('1.1');
+      expect(result.againstId).toBe(againstId);
+      expect(result.againstNumero).toBe('1.0');
+      expect(result.seancesIdentiques).toBe(1);
+      expect(result.seancesDifferentes).toBe(2);
+      expect(result.seulesAGauche).toEqual(['INFO:M03:TD:ENS03#1']);
+      expect(result.seulesADroite).toEqual(['INFO:M04:TD:ENS04#1']);
+      expect(result.changements).toHaveLength(2);
+      expect(result.changements[0].cle).toBe('INFO:M01:CM:ENS01#2');
+      expect(result.changements[0].type).toBe('DEPLACE');
+      expect(result.changements[1].cle).toBe('INFO:M02:TD:ENS02#1');
+      expect(result.changements[1].type).toBe('SALLE_MODIFIEE');
+      expect(result.conflits).toEqual({ apparus: 1, disparus: 1 });
+      expect(result.verrous).toEqual({ respectesGauche: 2, respectesDroite: 1 });
+    });
+    it('retourne aucune différence quand les versions sont identiques', async () => {
+      const seances = [
+        {
+          affectationKey: 'INFO:M01:CM:ENS01',
+          rang: 1,
+          jour: 'LUNDI',
+          creneauDebutId: 'creneau-1',
+          salleId: 'salle-1',
+          enseignantId: 'ens-1',
+          statut: 'PLACEE',
+        },
+      ];
+      prisma.seance.findMany.mockResolvedValue(seances).mockResolvedValue(seances);
+      prisma.conflit.findMany.mockResolvedValue([]).mockResolvedValue([]);
+      prisma.verrouSeance.count.mockResolvedValue(0).mockResolvedValue(0);
+
+      const result = await service.getDiff(versionId, againstId);
+
+      expect(result.seancesIdentiques).toBe(1);
+      expect(result.seancesDifferentes).toBe(0);
+      expect(result.changements).toEqual([]);
+      expect(result.seulesAGauche).toEqual([]);
+      expect(result.seulesADroite).toEqual([]);
+      expect(result.conflits).toEqual({ apparus: 0, disparus: 0 });
+      expect(result.verrous).toEqual({ respectesGauche: 0, respectesDroite: 0 });
+    });
+
+    it('lève NotFoundException si la version courante est introuvable', async () => {
+      prisma.versionEdt.findUnique.mockReset();
+      prisma.versionEdt.findUnique.mockResolvedValueOnce(null);
+
+      await expect(service.getDiff(versionId, againstId)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+
+    it('lève NotFoundException si la version de référence est introuvable', async () => {
+      prisma.versionEdt.findUnique.mockReset();
+      prisma.versionEdt.findUnique.mockResolvedValueOnce(version).mockResolvedValueOnce(null);
+      prisma.seance.findMany.mockResolvedValue([]);
+
+      await expect(service.getDiff(versionId, againstId)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+
+    it('lève ConflictException si les versions ne sont pas du même semestre', async () => {
+      prisma.versionEdt.findUnique.mockReset();
+      prisma.versionEdt.findUnique
+        .mockResolvedValueOnce({ id: versionId, numero: '1.1', semestreId: 'semestre-1' })
+        .mockResolvedValueOnce({ id: againstId, numero: '1.0', semestreId: 'semestre-2' });
+      prisma.seance.findMany.mockResolvedValue([]);
+
+      await expect(service.getDiff(versionId, againstId)).rejects.toThrow(
         ConflictException,
       );
     });
