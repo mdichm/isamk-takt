@@ -1173,4 +1173,152 @@ describe('VersionService', () => {
       );
     });
   });
+
+  // ============================================
+  // Provenance (L5-12)
+  // ============================================
+
+  describe('getProvenance', () => {
+    const versionId = 'version-provenance-1';
+    const generationSourceId = 'gen-1';
+    const profileId = 'profile-1';
+    const snapshot1Id = 'snapshot-1';
+    const crs1Id = 'crs-1';
+
+    beforeEach(() => {
+      prisma.versionEdt.findUnique.mockReset();
+    });
+
+    it('retourne la provenance complète pour une version issue d une génération', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValueOnce({
+        id: versionId,
+        numero: '1.1',
+        statut: 'PUBLIE',
+        generationSourceId,
+        generationSource: {
+          id: generationSourceId,
+          statut: 'TERMINEE',
+          mode: 'AUTOMATIQUE',
+          engine: 'fet',
+          engineVersion: '7.12.0',
+          perimetreHash: 'hash-perimetre',
+          createdAt: new Date('2024-01-15T10:00:00Z'),
+          profil: {
+            id: profileId,
+            code: 'PROF-INFO',
+            numero: 3,
+            libelle: 'Profil INFO',
+            engineVersion: '7.12.0',
+            builderVersion: '1.0.0',
+          },
+          fichierMoteur: {
+            id: 'fm-1',
+            engine: 'fet',
+            engineVersion: '7.12.0',
+            builderVersion: '1.0.0',
+            storageKey: 'storage/key',
+            sha256: 'abc123',
+          },
+        },
+        snapshots: [
+          {
+            snapshot: {
+              id: snapshot1Id,
+              repartitionId: 'rep-1',
+              revision: 2,
+              contentHash: 'hash-snap',
+              parAdministrateur: true,
+              validatedAt: new Date('2024-01-16T12:00:00Z'),
+              chargeRuleSet: {
+                id: crs1Id,
+                code: 'CRS-INFO',
+                libelle: 'Règles de charge INFO',
+              },
+            },
+          },
+        ],
+        seances: [],
+      });
+
+      const result = await service.getProvenance(versionId);
+
+      expect(result.versionId).toBe(versionId);
+      expect(result.versionNumero).toBe('1.1');
+      expect(result.statut).toBe('PUBLIE');
+      expect(result.origine).toBe('GENERATION');
+      expect(result.generation).toBeDefined();
+      expect(result.generation!.id).toBe(generationSourceId);
+      expect(result.generation!.mode).toBe('AUTOMATIQUE');
+      expect(result.generation!.profil).toBeDefined();
+      expect(result.generation!.profil!.code).toBe('PROF-INFO');
+      expect(result.generation!.profil!.numero).toBe(3);
+      expect(result.snapshots).toHaveLength(1);
+      expect(result.snapshots![0].id).toBe(snapshot1Id);
+      expect(result.snapshots![0].chargeRuleSet.id).toBe(crs1Id);
+      expect(result.chargeRuleSets).toHaveLength(1);
+      expect(result.chargeRuleSets![0].code).toBe('CRS-INFO');
+      expect(result.adaptateur).toBeDefined();
+      expect(result.adaptateur!.nom).toBe('fet');
+      expect(result.seancesOrigine).toBeUndefined();
+      expect(result.at).toBeDefined();
+    });
+
+    it('retourne la provenance pour une version saisie manuellement', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValueOnce({
+        id: versionId,
+        numero: '2.0',
+        statut: 'EDITION',
+        generationSourceId: null,
+        generationSource: null,
+        snapshots: [
+          {
+            snapshot: {
+              id: snapshot1Id,
+              repartitionId: 'rep-1',
+              revision: 1,
+              contentHash: 'hash-snap-2',
+              parAdministrateur: false,
+              validatedAt: new Date('2024-02-01T09:00:00Z'),
+              chargeRuleSet: {
+                id: crs1Id,
+                code: 'CRS-INFO',
+                libelle: 'Règles de charge INFO',
+              },
+            },
+          },
+        ],
+        seances: [
+          {
+            id: 'seance-1',
+            affectationKey: 'INFO:M01:CM:ENS01#1',
+            jour: 'LUNDI',
+            creneauDebutId: 'creneau-1',
+            salleId: 'salle-1',
+            enseignantId: 'ens-1',
+            statut: 'PLACEE',
+          },
+        ],
+      });
+
+      const result = await service.getProvenance(versionId);
+
+      expect(result.origine).toBe('MANUELLE');
+      expect(result.generation).toBeNull();
+      expect(result.snapshots).toHaveLength(1);
+      expect(result.chargeRuleSets).toHaveLength(1);
+      expect(result.chargeRuleSet).toBeDefined();
+      expect(result.chargeRuleSet!.code).toBe('CRS-INFO');
+      expect(result.adaptateur).toBeUndefined();
+      expect(result.seancesOrigine).toHaveLength(1);
+      expect(result.seancesOrigine![0].affectationKey).toBe('INFO:M01:CM:ENS01#1');
+    });
+
+    it('lève NotFoundException si la version est introuvable', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValueOnce(null);
+
+      await expect(service.getProvenance(versionId)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+  });
 });
