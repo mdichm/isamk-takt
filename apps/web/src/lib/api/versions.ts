@@ -322,3 +322,82 @@ export async function fetchVersionDiff(
   );
   return res.json() as Promise<VersionDiffDto>;
 }
+
+/* ============================================================================
+   Chaîne de provenance d'une version (L5-12)
+   GET /versions/{id}/provenance
+   ============================================================================ */
+
+export interface ProfilProvenanceDto {
+  id?: string | null;
+  code?: string | null;
+  numero?: number | null;
+  libelle?: string | null;
+  engineVersion?: string | null;
+  builderVersion?: string | null;
+}
+
+export interface GenerationProvenanceDto {
+  id?: string | null;
+  statut?: string | null;
+  mode?: string | null;
+  engine?: string | null;
+  engineVersion?: string | null;
+  perimetreHash?: string | null;
+  creeLe?: string | null;
+  profil?: ProfilProvenanceDto | null;
+}
+
+export interface ChargeRuleSetProvenanceDto {
+  id: string;
+  code: string;
+  libelle: string;
+  version?: string | null;
+}
+
+export interface SnapshotProvenanceDto {
+  id: string;
+  repartitionId: string;
+  revision: number;
+  contentHash: string;
+  parAdministrateur?: boolean | null;
+  validatedAt: string;
+  chargeRuleSet: ChargeRuleSetProvenanceDto;
+}
+
+export interface SeanceOrigineDto {
+  id: string;
+  affectationKey: string;
+  jour?: string | null;
+  creneauDebutId?: string | null;
+  salleId?: string | null;
+  enseignantId?: string | null;
+  statut: string;
+}
+
+export interface AdaptateurProvenanceDto {
+  nom: string;
+  version?: string | null;
+  params?: string | null;
+}
+
+export interface VersionProvenanceDto {
+  versionId: string;
+  versionNumero: string;
+  statut: string;
+  origine: 'GENERATION' | 'MANUELLE';
+  generation?: GenerationProvenanceDto | null;
+  snapshots?: SnapshotProvenanceDto[];
+  chargeRuleSet?: ChargeRuleSetProvenanceDto | null;
+  chargeRuleSets?: ChargeRuleSetProvenanceDto[];
+  adaptateur?: AdaptateurProvenanceDto | null;
+  seancesOrigine?: SeanceOrigineDto[];
+  at: string;
+}
+
+export async function fetchVersionProvenance(
+  versionId: string,
+): Promise<VersionProvenanceDto> {
+  const res = await apiFetch(`/versions/${versionId}/provenance`);
+  return res.json() as Promise<VersionProvenanceDto>;
+}

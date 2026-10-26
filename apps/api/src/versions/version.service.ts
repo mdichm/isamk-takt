@@ -56,6 +56,8 @@ import type { PrevisualisationPublicationDto } from './dto/previsualisation-publ
 import type { NewRevisionResponseDto } from './dto/new-revision-response.dto.js';
 import type { VersionDiffResponseDto } from './dto/diff-response.dto.js';
 import type { ChangementSeanceDto } from './dto/diff-response.dto.js';
+import type { VersionProvenanceResponseDto } from './dto/provenance-response.dto.js';
+import type { ChargeRuleSetProvenanceDto } from './dto/provenance-response.dto.js';
 import { PolicyService } from '../policy/policy.service.js';
 
 // ============================================
@@ -2699,6 +2701,181 @@ async submitValidation(
         respectesGauche: verrousGauche,
         respectesDroite: verrousDroite,
       },
+    };
+  }
+
+  // ============================================
+  // Chaîne de provenance d'une version (L5-12)
+  // GET /versions/{id}/provenance
+  // ============================================
+
+  async getProvenance(
+    versionId: string,
+  ): Promise<VersionProvenanceResponseDto> {
+    const version = await this.prisma.versionEdt.findUnique({
+      where: { id: versionId },
+      select: {
+        id: true,
+        numero: true,
+        statut: true,
+        generationSourceId: true,
+        generationSource: {
+          select: {
+            id: true,
+            statut: true,
+            mode: true,
+            engine: true,
+            engineVersion: true,
+            perimetreHash: true,
+            createdAt: true,
+            profil: {
+              select: {
+                id: true,
+                code: true,
+                numero: true,
+                libelle: true,
+                engineVersion: true,
+                builderVersion: true,
+              },
+            },
+            fichierMoteur: {
+              select: {
+                id: true,
+                engine: true,
+                engineVersion: true,
+                builderVersion: true,
+                storageKey: true,
+                sha256: true,
+              },
+            },
+          },
+        },
+        snapshots: {
+          select: {
+            snapshot: {
+              select: {
+                id: true,
+                repartitionId: true,
+                revision: true,
+                contentHash: true,
+                parAdministrateur: true,
+                validatedAt: true,
+                chargeRuleSet: {
+                  select: {
+                    id: true,
+                    code: true,
+                    libelle: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+        seances: {
+          select: {
+            id: true,
+            affectationKey: true,
+            jour: true,
+            creneauDebutId: true,
+            salleId: true,
+            enseignantId: true,
+            statut: true,
+          },
+        },
+      },
+    });
+
+    if (!version) {
+      throw new NotFoundException(`Version \"${versionId}\" introuvable`);
+    }
+
+    const v = version as any;
+    const generationSource = v.generationSource;
+    const origine =
+      generationSource != null
+        ? ('GENERATION' as const)
+        : ('MANUELLE' as const);
+
+    const generationDto =
+      generationSource != null
+        ? {
+            id: generationSource.id,
+            statut: generationSource.statut,
+            mode: generationSource.mode,
+            engine: generationSource.engine,
+            engineVersion: generationSource.engineVersion,
+            perimetreHash: generationSource.perimetreHash,
+            creeLe: generationSource.createdAt.toISOString(),
+            profil:
+              generationSource.profil != null
+                ? {
+                    id: generationSource.profil.id,
+                    code: generationSource.profil.code,
+                    numero: generationSource.profil.numero,
+                    libelle: generationSource.profil.libelle,
+                    engineVersion: generationSource.profil.engineVersion,
+                    builderVersion: generationSource.profil.builderVersion,
+                  }
+                : null,
+          }
+        : null;
+
+    const snapshotsDto = v.snapshots.map((vs: any) => ({
+      id: vs.snapshot.id,
+      repartitionId: vs.snapshot.repartitionId,
+      revision: vs.snapshot.revision,
+      contentHash: vs.snapshot.contentHash,
+      parAdministrateur: vs.snapshot.parAdministrateur ?? null,
+      validatedAt: vs.snapshot.validatedAt.toISOString(),
+      chargeRuleSet: {
+        id: vs.snapshot.chargeRuleSet.id,
+        code: vs.snapshot.chargeRuleSet.code,
+        libelle: vs.snapshot.chargeRuleSet.libelle,
+      },
+    }));
+
+    const chargeRuleSetMap = new Map<string, ChargeRuleSetProvenanceDto>();
+    for (const s of snapshotsDto) {
+      chargeRuleSetMap.set(s.chargeRuleSet.id, s.chargeRuleSet);
+    }
+    const chargeRuleSets = [...chargeRuleSetMap.values()];
+
+    const seancesOrigineDto =
+      origine === 'MANUELLE'
+        ? v.seances.map((s: any) => ({
+            id: s.id,
+            affectationKey: s.affectationKey,
+            jour: s.jour ?? null,
+            creneauDebutId: s.creneauDebutId ?? null,
+            salleId: s.salleId ?? null,
+            enseignantId: s.enseignantId ?? null,
+            statut: s.statut,
+          }))
+        : undefined;
+
+    const adaptateurDto = generationSource?.fichierMoteur != null
+      ? {
+          nom: generationSource.fichierMoteur.engine,
+          version: generationSource.fichierMoteur.engineVersion,
+          params: undefined,
+        }
+      : undefined;
+
+    return {
+      versionId: v.id,
+      versionNumero: String(v.numero),
+      statut: v.statut,
+      origine,
+      generation: generationDto,
+      snapshots: snapshotsDto,
+      chargeRuleSet:
+        origine === 'MANUELLE' && chargeRuleSets.length > 0
+          ? chargeRuleSets[0]
+          : undefined,
+      chargeRuleSets,
+      adaptateur: adaptateurDto,
+      seancesOrigine: seancesOrigineDto,
+      at: new Date().toISOString(),
     };
   }
 }

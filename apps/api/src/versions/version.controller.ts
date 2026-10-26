@@ -43,6 +43,7 @@ import { NewRevisionResponseDto } from './dto/new-revision-response.dto.js';
 import { PrevisualisationPublicationDto } from './dto/previsualisation-publication.dto.js';
 import { DiffQueryDto } from './dto/diff-query.dto.js';
 import { VersionDiffResponseDto } from './dto/diff-response.dto.js';
+import { VersionProvenanceResponseDto } from './dto/provenance-response.dto.js';
 
 // ============================================
 // Version (L3-09)
@@ -522,5 +523,30 @@ export class VersionController {
     @Query() dto: DiffQueryDto,
   ): Promise<VersionDiffResponseDto> {
     return this.service.getDiff(id, dto.against);
+  }
+
+  @Get(':id/provenance')
+  @HttpCode(HttpStatus.OK)
+  @Permissions('version:read')
+  @ApiOperation({
+    summary: 'Chaîne de provenance d\'une version (L5-12)',
+    description:
+      'Retourne la chaîne complète de provenance d\'une version EDT : ' +
+      'origine (génération automatique ou saisie manuelle), génération source, ' +
+      'profil utilisé, snapshots de répartition référencés, jeux de règles de charge, ' +
+      'adaptateur et séances d origine si saisie manuelle.',
+  })
+  @ApiParam({ name: 'id', description: 'Identifiant de la version (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Chaîne de provenance de la version',
+    type: VersionProvenanceResponseDto,
+  })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  @ApiResponse({ status: 404, description: 'Version introuvable' })
+  async getProvenance(
+    @Param('id') id: string,
+  ): Promise<VersionProvenanceResponseDto> {
+    return this.service.getProvenance(id);
   }
 }
