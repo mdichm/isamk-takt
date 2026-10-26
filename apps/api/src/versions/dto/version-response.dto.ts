@@ -3,6 +3,7 @@
 // L3-24 : ajout du dernier auteur et de la dernière modification sur le détail de version.
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import type { VersionStatut } from '@takt/db';
+import { WorkflowCircuitDto } from './workflow-circuit.dto.js';
 
 // ============================================
 // Version (L3-09)
@@ -29,6 +30,13 @@ export class VersionResponseDto {
 
   @ApiPropertyOptional({ description: 'Date et heure de la dernière modification de la version' })
   derniereModificationAt?: Date;
+
+  @ApiProperty({
+    description:
+      'Circuit de workflow figé appliqué à la version (interrupteurs copiés à la soumission)',
+    type: WorkflowCircuitDto,
+  })
+  circuit: WorkflowCircuitDto;
 
   @ApiProperty()
   createdAt: Date;

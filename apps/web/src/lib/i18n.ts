@@ -28,6 +28,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     ramadan: 'Ramadan',
     import: 'Import',
     adminUsers: 'Administration des utilisateurs',
+    adminCircuit: 'Circuit de validation et de publication',
     adminSecurity: 'Sécurité',
     adminSecurityEvents: 'Journal de sécurité',
     modulesVolumes: 'Volumes par module',

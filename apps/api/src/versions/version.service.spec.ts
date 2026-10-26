@@ -50,7 +50,7 @@ describe('VersionService', () => {
       contrainteInstance: { findMany: vi.fn() },
       conflit: { findMany: vi.fn() },
       verrouSeance: { count: vi.fn() },
-      auditLog: { create: vi.fn() },
+      auditLog: { create: vi.fn(), findFirst: vi.fn().mockResolvedValue(null) },
       avertissementAccepte: { findMany: vi.fn() },
       $transaction: vi.fn(async (cb: any) => cb(prisma)),
       userSystemRole: { findMany: vi.fn().mockResolvedValue([]) },
@@ -218,6 +218,41 @@ describe('VersionService', () => {
       service.createVersion({ semestreId: 'inexistant' }, 'user-1'),
     ).rejects.toThrow(NotFoundException);
   });
+  // ============================================
+  // findOne — circuit figé exposé (L5-19)
+  // ============================================
+
+  describe('findOne', () => {
+    it('expose le circuit figé appliqué à la version', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue({
+        id: 'version-1',
+        semestreId: 'semestre-1',
+        numero: '1.0',
+        statut: 'EN_VALIDATION',
+        motif: null,
+        validationPlanningRequise: false,
+        publicationRequise: false,
+        createdAt: new Date('2026-10-26T08:00:00Z'),
+        updatedAt: new Date('2026-10-26T09:00:00Z'),
+      } as any);
+
+      const result = await service.findOne('version-1');
+
+      expect(result.circuit).toEqual({
+        validationPlanningRequise: false,
+        publicationRequise: false,
+      });
+    });
+
+    it('lève NotFoundException si la version est introuvable', async () => {
+      prisma.versionEdt.findUnique.mockResolvedValue(null);
+
+      await expect(service.findOne('inexistant')).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+  });
+
   // ============================================
   // getCompletude (L3-30)
   // ============================================

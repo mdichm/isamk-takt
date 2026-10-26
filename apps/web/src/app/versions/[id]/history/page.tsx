@@ -38,6 +38,19 @@ export default function HistoriqueVersionPage() {
   );
 }
 
+/**
+ * Publication automatique (L5-19) : transition VALIDE → PUBLIE déclenchée par
+ * le circuit figé (publication non requise). Les autres transitions
+ * automatiques (archivage, unanimité) ne portent pas ce libellé.
+ */
+function estPublicationAutomatique(entry: {
+  de: string;
+  vers: string;
+  automatique: boolean;
+}): boolean {
+  return entry.automatique && entry.de === 'VALIDE' && entry.vers === 'PUBLIE';
+}
+
 function statutBadge(statut: string) {
   const variants: Record<string, string> = {
     BROUILLON: 'bg-secondary text-secondary-foreground',
@@ -107,11 +120,11 @@ function HistoriqueVersionPageContent({ versionId }: { versionId: string }) {
           </caption>
           <TableHeader>
             <TableRow>
-              <TableCell className="w-24">{messages.colAction}</TableCell>
-              <TableCell>{messages.colUtilisateur}</TableCell>
-              <TableCell>{messages.colDate}</TableCell>
-              <TableCell className="w-20">{messages.colAutomatique}</TableCell>
-              <TableCell>{messages.colCommentaire}</TableCell>
+              <TableHead className="w-24">{messages.colAction}</TableHead>
+              <TableHead>{messages.colUtilisateur}</TableHead>
+              <TableHead>{messages.colDate}</TableHead>
+              <TableHead className="w-20">{messages.colAutomatique}</TableHead>
+              <TableHead>{messages.colCommentaire}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -123,7 +136,15 @@ function HistoriqueVersionPageContent({ versionId }: { versionId: string }) {
                 <TableCell>{entry.userName}</TableCell>
                 <TableCell>{new Date(entry.at).toLocaleString('fr-FR')}</TableCell>
                 <TableCell>
-                  {entry.automatique ? 'Oui' : 'Non'}
+                  {estPublicationAutomatique(entry) ? (
+                    <Badge variant="secondary" className="bg-blue-100 text-blue-900">
+                      {messages.historiquePublicationAutomatique}
+                    </Badge>
+                  ) : (
+                    (entry.automatique
+                      ? messages.colAutomatiqueOui
+                      : messages.colAutomatiqueNon)
+                  )}
                 </TableCell>
                 <TableCell className="text-muted-foreground text-sm">
                   {entry.commentaire ?? '—'}
