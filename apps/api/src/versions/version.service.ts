@@ -57,6 +57,9 @@ import type { NewRevisionResponseDto } from './dto/new-revision-response.dto.js'
 import type { VersionDiffResponseDto } from './dto/diff-response.dto.js';
 import type { ChangementSeanceDto } from './dto/diff-response.dto.js';
 import { PolicyService } from '../policy/policy.service.js';
+import { NotificationsService } from '../notifications/notifications.service.js';
+import { CreateNotificationDto } from '../notifications/dto/create-notification.dto.js';
+import { EvenementNotification } from '../notifications/notifications.constants.js';
 
 // ============================================
 // Création de version (L3-09)
@@ -72,6 +75,7 @@ export class VersionService {
     private readonly conflitService: ConflitService,
     private readonly policyService: PolicyService,
     @Inject('BOSS') private readonly boss: PgBossType,
+    private readonly notifications: NotificationsService,
   ) {}
 
   /** Liste toutes les versions (lecture, permission version:read). */
@@ -400,6 +404,29 @@ export class VersionService {
             snapshot.tag,
           );
         }
+      }
+
+      // Notification VERSION_CREEE aux responsables et enseignants des départements du semestre (SF §14)
+      const departementCodes = departements.map((d) => d.code);
+      const destRoles = await tx.userSystemRole.findMany({
+        where: {
+          departementCode: { in: departementCodes },
+          role: { in: ['RESPONSABLE_DEPARTEMENT', 'ENSEIGNANT'] },
+        },
+        select: { userId: true },
+      });
+      const destinataires = [...new Set(destRoles.map((r) => r.userId))];
+
+      const dtos: CreateNotificationDto[] = destinataires.map((destinataireId) => ({
+        destinataireId,
+        versionId: v.id,
+        evenement: EvenementNotification.VERSION_CREEE,
+        titre: `Version ${numero} créée`,
+        lien: `/versions/${v.id}`,
+      }));
+
+      if (dtos.length > 0) {
+        await this.notifications.creerNotifications(tx, dtos);
       }
 
       return v;
@@ -1141,7 +1168,7 @@ export class VersionService {
     return this.prisma.$transaction(async (tx) => {
       const version = await tx.versionEdt.findUnique({
         where: { id: versionId },
-        select: { id: true, numero: true, statut: true, revision: true },
+        select: { id: true, numero: true, statut: true, revision: true, semestreId: true },
       });
       if (!version) {
         throw new NotFoundException(`Version \"${versionId}\" introuvable`);
@@ -1230,6 +1257,36 @@ export class VersionService {
             : {}),
         },
       });
+
+      // Notification VERSION_MODIFIEE aux enseignants des départements du semestre (SF §14)
+      const semestre = await tx.semestre.findUnique({
+        where: { id: version.semestreId },
+        select: { anneeId: true },
+      });
+      if (semestre) {
+        const departements = await tx.departement.findMany({
+          where: { anneeId: semestre.anneeId },
+          select: { code: true },
+        });
+        const enseignants = await tx.userSystemRole.findMany({
+          where: {
+            departementCode: { in: departements.map((d) => d.code) },
+            role: 'ENSEIGNANT',
+          },
+          select: { userId: true },
+        });
+        const dtos: CreateNotificationDto[] = enseignants.map((r) => ({
+          destinataireId: r.userId,
+          versionId,
+          evenement: EvenementNotification.VERSION_MODIFIEE,
+          titre: `Version ${version.numero} modifiée (${transition.vers})`,
+          lien: `/versions/${versionId}`,
+        }));
+        if (dtos.length > 0) {
+          await this.notifications.creerNotifications(tx, dtos);
+        }
+      }
+
       await tx.workflowTransition.create({
         data: {
           versionId, de: version.statut, vers: transition.vers, userId, automatique: false, commentaire: commentaire ?? null,
@@ -1987,6 +2044,28 @@ async submitValidation(
         });
 
         nouveauStatutVersion = cible;
+      }
+
+      // Notification VALIDATION_DEPARTEMENT aux responsables du département (SF §14)
+      const dept = await tx.departement.findUnique({
+        where: { id: dto.departementId },
+        select: { code: true },
+      });
+      if (dept) {
+        const responsables = await tx.userSystemRole.findMany({
+          where: { departementCode: dept.code, role: 'RESPONSABLE_DEPARTEMENT' },
+          select: { userId: true },
+        });
+        const dtos: CreateNotificationDto[] = responsables.map((r) => ({
+          destinataireId: r.userId,
+          versionId,
+          evenement: EvenementNotification.VALIDATION_DEPARTEMENT,
+          titre: `Validation département pour la version ${version.numero}`,
+          lien: `/versions/${versionId}`,
+        }));
+        if (dtos.length > 0) {
+          await this.notifications.creerNotifications(tx, dtos);
+        }
       }
 
       return { v, nouveauStatutVersion, unanimous };

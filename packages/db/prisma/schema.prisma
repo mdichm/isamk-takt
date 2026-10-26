@@ -231,6 +231,7 @@ model User {
   workflowTransitions  WorkflowTransition[]
   versionsSoumises     VersionEdt[]   @relation("VersionSoumisPar")
   validationDepartements ValidationDepartement[]
+  notifications          Notification[]
 
   @@index([email])
   @@index([isActive])
@@ -778,6 +779,7 @@ model VersionEdt {
   transitions                     WorkflowTransition[]
   impactDepartements              ImpactDepartement[]
   validations                     ValidationDepartement[]
+  notifications                   Notification[]
   revision                        Int         @default(0)
   cycleValidation   Int         @default(0)
   soumisPar          String?     @db.Uuid
@@ -1612,6 +1614,7 @@ model DemandeModification {
 
   semestre Semestre @relation(fields: [semestreId], references: [id])
   auteur   User     @relation(fields: [auteurId], references: [id])
+  notifications Notification[]
 
   @@index([departementCode, statut])
   @@map("demandes_modification")
@@ -1871,4 +1874,40 @@ model ProfilGeneration {
   @@index([semestreId])
   @@index([estParDefaut])
   @@map("profils_generation")
+}
+
+// ============================================
+// Notifications (L5-21)
+// Une ligne par destinataire. Inseree dans la transaction du use case
+// qui declenche l'evenement. emailStatut est geré par le processeur
+// de la file email (L5-22) ; ce ticket pose le statut initial.
+// ============================================
+enum EmailStatut {
+  EN_ATTENTE
+  ENVOYE
+  ECHEC
+  NON_APPLICABLE
+}
+
+model Notification {
+  id            String   @id @default(uuid()) @db.Uuid
+  destinataireId String @db.Uuid
+  versionId     String?  @db.Uuid
+  demandeId     String?  @db.Uuid
+  evenement     String
+  titre         String
+  lien          String?  @db.Text
+  emailStatut   EmailStatut @default(EN_ATTENTE)
+  lu            Boolean  @default(false)
+  luALe         DateTime?
+  createdAt     DateTime @default(now())
+
+  destinataire User    @relation(fields: [destinataireId], references: [id], onDelete: Cascade)
+  version      VersionEdt? @relation(fields: [versionId], references: [id], onDelete: SetNull)
+  demande      DemandeModification? @relation(fields: [demandeId], references: [id], onDelete: SetNull)
+
+  @@index([destinataireId, lu])
+  @@index([createdAt])
+  @@index([emailStatut])
+  @@map("notifications")
 }

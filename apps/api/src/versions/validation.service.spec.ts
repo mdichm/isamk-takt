@@ -15,6 +15,7 @@ import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
 import type { ValidationDepartementDto } from './dto/validation-departement.dto.js';
 import { PolicyService } from '../policy/policy.service.js';
+import { NotificationsService } from '../notifications/notifications.service.js';
 
 // ============================================
 // VersionService.submitValidation (L5-04)
@@ -69,6 +70,8 @@ describe('VersionService.submitValidation', () => {
         create: vi.fn(),
       },
       $transaction: vi.fn(async (cb: any) => cb(prisma)),
+      userSystemRole: { findMany: vi.fn().mockResolvedValue([]) },
+      departement: { findUnique: vi.fn().mockResolvedValue({ id: dept1Id, code: 'INFO' }) },
     };
 
     const preparationService = { getPreparation: vi.fn() };
@@ -79,6 +82,8 @@ describe('VersionService.submitValidation', () => {
     void conflitService;
     void bossMock;
 
+    const notificationsService = { creerNotifications: vi.fn().mockResolvedValue({ count: 0 }) };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         VersionService,
@@ -87,6 +92,7 @@ describe('VersionService.submitValidation', () => {
         { provide: ConflitService, useValue: conflitService },
         { provide: 'BOSS', useValue: bossMock },
         { provide: PolicyService, useValue: policyService },
+        { provide: NotificationsService, useValue: notificationsService },
       ],
     }).compile();
 

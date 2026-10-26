@@ -8,6 +8,7 @@ import { PreparationService } from '../preparation/preparation.service.js';
 import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
 import { PolicyService } from '../policy/policy.service.js';
+import { NotificationsService } from '../notifications/notifications.service.js';
 
 // ============================================
 // VersionService (L3-09)
@@ -26,7 +27,6 @@ describe('VersionService', () => {
   beforeEach(async () => {
     prisma = {
       semestre: { findUnique: vi.fn() },
-      departement: { findMany: vi.fn() },
       enseignant: { findMany: vi.fn() },
       salle: { findMany: vi.fn() },
       module: { findMany: vi.fn() },
@@ -46,7 +46,12 @@ describe('VersionService', () => {
       verrouSeance: { count: vi.fn() },
       auditLog: { create: vi.fn() },
       avertissementAccepte: { findMany: vi.fn() },
-      $transaction: vi.fn(),
+      $transaction: vi.fn(async (cb: any) => cb(prisma)),
+      userSystemRole: { findMany: vi.fn().mockResolvedValue([]) },
+      departement: {
+        findUnique: vi.fn().mockResolvedValue({ id: 'dept-1', code: 'INFO' }),
+        findMany: vi.fn(),
+      },
     };
 
     const preparationService = {
@@ -65,6 +70,10 @@ describe('VersionService', () => {
         { provide: ConflitService, useValue: { recomputeConflits: vi.fn() } },
         { provide: 'BOSS', useValue: bossMock },
         { provide: PolicyService, useValue: { checkSegregationOfDuties: vi.fn() } },
+        {
+          provide: NotificationsService,
+          useValue: { creerNotifications: vi.fn().mockResolvedValue({ count: 0 }) },
+        },
       ],
     }).compile();
 
