@@ -8,6 +8,7 @@ import { PreparationService } from '../preparation/preparation.service.js';
 import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
 import { PolicyService } from '../policy/policy.service.js';
+import { NotificationsService } from '../notifications/notifications.service.js';
 
 // ============================================
 // VersionService.getImpact (L5-03)
@@ -66,6 +67,10 @@ describe('VersionService.getImpact', () => {
         { provide: ConflitService, useValue: conflitService },
         { provide: 'BOSS', useValue: bossMock },
         { provide: PolicyService, useValue: { checkSegregationOfDuties: vi.fn() } },
+        {
+          provide: NotificationsService,
+          useValue: { creerNotifications: vi.fn().mockResolvedValue({ count: 0 }) },
+        },
       ],
     }).compile();
 

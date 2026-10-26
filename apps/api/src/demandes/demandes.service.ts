@@ -9,6 +9,9 @@ import {
 import { Prisma } from '@takt/db';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
+import { NotificationsService } from '../notifications/notifications.service.js';
+import { CreateNotificationDto } from '../notifications/dto/create-notification.dto.js';
+import { EvenementNotification } from '../notifications/notifications.constants.js';
 import {
   CreateDemandeDto,
   TraiterDemandeDto,
@@ -27,6 +30,7 @@ export class DemandesService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private notifications: NotificationsService,
   ) {}
 
   async createDemande(
@@ -43,7 +47,7 @@ export class DemandesService {
 
     const demande = await this.audit.auditTransaction<any>(
       async (tx) => {
-        return tx.demandeModification.create({
+        const d = await tx.demandeModification.create({
           data: {
             semestreId: dto.semestreId,
             departementCode: dto.departementCode,
@@ -55,6 +59,29 @@ export class DemandesService {
             statut: DemandeStatut.OUVERTE,
           },
         });
+
+        // Notification DEMANDE_CREEE aux responsables du département (SF §14)
+        const responsables = await tx.userSystemRole.findMany({
+          where: {
+            departementCode: dto.departementCode,
+            role: 'RESPONSABLE_DEPARTEMENT',
+          },
+          select: { userId: true },
+        });
+
+        const dtos: CreateNotificationDto[] = responsables.map((r) => ({
+          destinataireId: r.userId,
+          demandeId: d.id,
+          evenement: EvenementNotification.DEMANDE_CREEE,
+          titre: `Nouvelle demande de modification (${dto.type})`,
+          lien: `/demandes/${d.id}`,
+        }));
+
+        if (dtos.length > 0) {
+          await this.notifications.creerNotifications(tx, dtos);
+        }
+
+        return d;
       },
       {
         userId: auteurId,
@@ -166,7 +193,7 @@ export class DemandesService {
 
     const updated = await this.audit.auditTransaction<any>(
       async (tx) => {
-        return tx.demandeModification.update({
+        const u = await tx.demandeModification.update({
           where: { id },
           data: {
             statut: dto.statut as DemandeStatut,
@@ -175,6 +202,19 @@ export class DemandesService {
             traiteeLe: new Date(),
           },
         });
+
+        // Notification DEMANDE_TRAITEE à l'auteur (SF §14)
+        await this.notifications.creerNotifications(tx, [
+          {
+            destinataireId: demande.auteurId,
+            demandeId: id,
+            evenement: EvenementNotification.DEMANDE_TRAITEE,
+            titre: `Votre demande a été traitée (${dto.statut})`,
+            lien: `/demandes/${id}`,
+          },
+        ]);
+
+        return u;
       },
       {
         userId: currentUser.id,

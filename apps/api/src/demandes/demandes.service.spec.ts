@@ -8,6 +8,8 @@ import {
   DemandeStatut,
   DemandeType,
 } from './dto/demande.dto.js';
+import { NotificationsService } from '../notifications/notifications.service.js';
+import { EvenementNotification } from '../notifications/notifications.constants.js';
 
 vi.mock('@takt/db', () => ({
   PrismaClient: vi.fn(),
@@ -19,6 +21,7 @@ describe('DemandesService', () => {
   let service: DemandesService;
   let prisma: any;
   let audit: any;
+  let notifications: any;
 
   const demandeId = '550e8400-e29b-41d4-a716-446655440010';
   const semestreId = '550e8400-e29b-41d4-a716-446655440011';
@@ -48,9 +51,16 @@ describe('DemandesService', () => {
       user: {
         findUnique: vi.fn(),
       },
+      userSystemRole: {
+        findMany: vi.fn().mockResolvedValue([]),
+      },
     };
 
-    service = new DemandesService(prisma, audit);
+    notifications = {
+      creerNotifications: vi.fn().mockResolvedValue({ count: 0 }),
+    };
+
+    service = new DemandesService(prisma, audit, notifications);
   });
 
   describe('createDemande', () => {
