@@ -5,6 +5,11 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import type { VersionStatut } from '@takt/db';
 import type { TransitionType } from '@takt/contracts';
 
+interface WorkflowCircuit {
+  validationPlanningRequise: boolean;
+  publicationRequise: boolean;
+}
+
 // ============================================
 // Réponse de transition (L5-01)
 // ============================================
@@ -24,6 +29,9 @@ export class TransitionResponseDto {
 
   @ApiProperty({ description: 'Action de workflow exécutée' })
   action: TransitionType;
+
+  @ApiProperty({ description: 'Circuit de workflow figé appliqué à la version (interrupteurs copiés depuis ParametreWorkflow)' })
+  circuit: WorkflowCircuit;
 
   @ApiProperty({ description: 'Nouveau numéro de révision de la version' })
   revision: number;

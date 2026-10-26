@@ -1166,6 +1166,7 @@ export class VersionService {
     action: TransitionType,
     userId: string,
     commentaire?: string,
+    confirmerPublication?: boolean,
   ): Promise<TransitionResponseDto> {
     return this.prisma.$transaction(async (tx) => {
       const version = await tx.versionEdt.findUnique({
@@ -1175,6 +1176,28 @@ export class VersionService {
       if (!version) {
         throw new NotFoundException(`Version \"${versionId}\" introuvable`);
       }
+
+      // L5-18 : lecture du circuit figé depuis ParametreWorkflow (défauts true si ligne absente)
+      const parametre = await tx.parametreWorkflow.findUnique({
+        where: { id: 1 },
+        select: { validationPlanningRequise: true, publicationRequise: true },
+      });
+      const validationPlanningRequise = parametre?.validationPlanningRequise ?? true;
+      const publicationRequise = parametre?.publicationRequise ?? true;
+
+      // L5-18 : confirmation requise avant toute écriture quand la soumission publiera
+      if (
+        (action === 'SOUMETTRE' || action === 'RESOUMETTRE') &&
+        !publicationRequise &&
+        confirmerPublication !== true
+      ) {
+        throw new UnprocessableEntityException({
+          code: 'CONFIRMATION_PUBLICATION_REQUISE',
+          message:
+            'La version actuellement publiée sera archivée. confirmerPublication est obligatoire.',
+        });
+      }
+
       if (action === 'ABANDONNER') {
         if (this.STATUTS_IMMUTABLES.includes(version.statut)) {
           throw new ConflictException({
@@ -1205,7 +1228,14 @@ export class VersionService {
           where: { id: versionId },
           select: { id: true, numero: true, statut: true, revision: true },
         });
-        return this.toTransitionResponse(updated!, version.statut, 'ARCHIVE', action, commentaire);
+        return this.toTransitionResponse(
+          updated!,
+          version.statut,
+          'ARCHIVE',
+          action,
+          commentaire,
+          { validationPlanningRequise, publicationRequise },
+        );
       }
       const transition = this.TRANSITION_TABLE.find((t) => t.de === version.statut && t.action === action);
       if (!transition) {
@@ -1249,13 +1279,21 @@ export class VersionService {
         }
       }
 
+      // L5-18 : quand validationPlanningRequise=false, court-circuiter EN_VALIDATION → VALIDE directement
+      const targetVers = validationPlanningRequise ? transition.vers : 'VALIDE';
+
       await tx.versionEdt.update({
         where: { id: versionId },
         data: {
-          statut: transition.vers,
+          statut: targetVers as VersionStatut,
           revision: { increment: 1 },
           ...(action === 'SOUMETTRE' || action === 'RESOUMETTRE'
-            ? { cycleValidation: { increment: 1 }, soumisPar: userId }
+            ? {
+                cycleValidation: { increment: 1 },
+                soumisPar: userId,
+                validationPlanningRequise,
+                publicationRequise,
+              }
             : {}),
         },
       });
@@ -1291,14 +1329,14 @@ export class VersionService {
 
       await tx.workflowTransition.create({
         data: {
-          versionId, de: version.statut, vers: transition.vers, userId, automatique: false, commentaire: commentaire ?? null,
+          versionId, de: version.statut, vers: targetVers, userId, automatique: false, commentaire: commentaire ?? null,
         },
       });
       await tx.auditLog.create({
         data: {
           userId, action: `VERSION_${action}`, objetType: 'VersionEdt', objetId: versionId,
           ancienneValeur: { statut: version.statut, revision: version.revision },
-          nouvelleValeur: { statut: transition.vers, revision: (version.revision ?? 0) + 1 },
+          nouvelleValeur: { statut: targetVers, revision: (version.revision ?? 0) + 1 },
           versionId, motif: commentaire ?? null,
         },
       });
@@ -1308,17 +1346,194 @@ export class VersionService {
         await tx.editLock.deleteMany({ where: { versionId } });
       }
 
+      // L5-18 : publication automatique quand le circuit est figé (pas de validation, pas de publication requise)
+      // L'échec de la publication automatique laisse la version en VALIDE (pas d'erreur bloquante)
+      if (targetVers === 'VALIDE' && !publicationRequise) {
+        try {
+          await this.tryAutoPublishVersion(tx, versionId, userId, version.semestreId, version.numero);
+        } catch {
+          // Échec des contrôles : la version reste VALIDE, événement d'échec consigné
+          await tx.auditLog.create({
+            data: {
+              userId,
+              action: 'VERSION_PUBLICATION_AUTOMATIQUE_ECHEC',
+              objetType: 'VersionEdt',
+              objetId: versionId,
+              ancienneValeur: { statut: 'VALIDE' },
+              nouvelleValeur: { statut: 'VALIDE', motif: 'CONTROLES_PUBLICATION_AUTOMATIQUE_ECHEC' },
+              versionId,
+              motif: 'Contrôles de publication automatique non satisfaits ; publication ignorée',
+            },
+          });
+        }
+      }
+
+
       const updated = await tx.versionEdt.findUnique({
         where: { id: versionId },
         select: { id: true, numero: true, statut: true, revision: true, cycleValidation: true, soumisPar: true },
       }) ?? {
         id: versionId,
         numero: version.numero,
-        statut: transition.vers,
+        statut: targetVers,
         revision: (version.revision ?? 0) + 1,
         cycleValidation: 0,
       } as { id: string; numero: string; statut: VersionStatut; revision: number; cycleValidation?: number };
-      return this.toTransitionResponse(updated, version.statut, transition.vers, action, commentaire);
+      return this.toTransitionResponse(
+        updated,
+        version.statut,
+        updated.statut,
+        action,
+        commentaire,
+        { validationPlanningRequise, publicationRequise },
+      );
+    });
+  }
+
+  // L5-18 : tentative de publication automatique d'une version VALIDE dans un circuit figé
+  // Ne rejette jamais : l'échec est consigné en audit et la version reste VALIDE
+  private async tryAutoPublishVersion(
+    tx: PrismaValue.TransactionClient,
+    versionId: string,
+    userId: string,
+    semestreId: string,
+    numero: string,
+  ): Promise<void> {
+    const now = new Date();
+    const actuelle = await tx.versionEdt.findUnique({
+      where: { id: versionId },
+      select: { statut: true },
+    });
+    if (!actuelle || actuelle.statut !== 'VALIDE') {
+      throw new Error('Version non VALIDE');
+    }
+
+    const nbPublie = await tx.versionEdt.count({
+      where: {
+        semestreId,
+        id: { not: versionId },
+        statut: 'PUBLIE' as VersionStatut,
+      },
+    });
+    if (nbPublie > 0) {
+      throw new Error('Une version est déjà publiée sur ce semestre');
+    }
+
+    // Contrôles identiques à publishVersion (L5-07)
+    const deptsImpactes = await tx.impactDepartement.findMany({
+      where: { versionId },
+      select: { departementId: true },
+    });
+    const validations = await tx.validationDepartement.findMany({
+      where: { versionId },
+      select: { departementId: true, decision: true },
+    });
+    const decisionsParDept = new Map(
+      validations.map((v) => [v.departementId, v.decision as string]),
+    );
+    for (const deptId of deptsImpactes.map((d) => d.departementId)) {
+      if (decisionsParDept.get(deptId) !== 'APPROUVE') {
+        throw new Error(`Département ${deptId} non approuvé`);
+      }
+    }
+
+    const conflitsBloquants = await tx.conflit.count({
+      where: {
+        versionId,
+        severite: 'BLOQUANT' as ConflitSeverite,
+        resoluLe: null,
+      },
+    });
+    if (conflitsBloquants > 0) {
+      throw new Error('Conflits bloquants non résolus');
+    }
+
+    const editLock = await tx.editLock.findUnique({
+      where: { versionId },
+      select: { expiresAt: true },
+    });
+    if (editLock && new Date(editLock.expiresAt) > now) {
+      throw new Error("Verrou d'édition actif");
+    }
+
+    const verrousActifs = await tx.verrouSeance.count({
+      where: { versionId, leveLe: null },
+    });
+    if (verrousActifs > 0) {
+      throw new Error('Verrous de séance actifs');
+    }
+
+    const snapshotCount = await tx.versionSnapshot.count({ where: { versionId } });
+    if (snapshotCount === 0) {
+      throw new Error('Aucun snapshot lié à cette version');
+    }
+
+    const publieExistante = await tx.versionEdt.findFirst({
+      where: {
+        semestreId,
+        id: { not: versionId },
+        statut: 'PUBLIE' as VersionStatut,
+      },
+    });
+    if (publieExistante) {
+      await tx.versionEdt.update({
+        where: { id: publieExistante.id },
+        data: { statut: 'ARCHIVE' as VersionStatut, revision: { increment: 1 } },
+      });
+      await tx.workflowTransition.create({
+        data: {
+          versionId: publieExistante.id,
+          de: 'PUBLIE',
+          vers: 'ARCHIVE',
+          userId,
+          automatique: true,
+          commentaire: `Archivée par publication automatique de la version ${numero}`,
+        },
+      });
+      await tx.auditLog.create({
+        data: {
+          userId,
+          action: 'VERSION_ARCHIVE_PAR_PUBLICATION',
+          objetType: 'VersionEdt',
+          objetId: publieExistante.id,
+          versionId: publieExistante.id,
+          at: now,
+          details: {
+            ancienStatut: 'PUBLIE',
+            nouveauStatut: 'ARCHIVE',
+            raison: 'PUBLICATION_AUTOMATIQUE',
+            publiePar: versionId,
+          },
+        },
+      });
+    }
+
+    await tx.versionEdt.update({
+      where: { id: versionId },
+      data: { statut: 'PUBLIE' as VersionStatut, revision: { increment: 1 } },
+    });
+    await tx.workflowTransition.create({
+      data: {
+        versionId,
+        de: 'VALIDE',
+        vers: 'PUBLIE',
+        userId,
+        automatique: true,
+        commentaire: 'Publication automatique (circuit figé)',
+      },
+    });
+    await tx.auditLog.create({
+      data: {
+        userId,
+        action: 'VERSION_PUBLIEE_AUTOMATIQUEMENT',
+        objetType: 'VersionEdt',
+        objetId: versionId,
+        versionId,
+        at: now,
+        ancienneValeur: { statut: 'VALIDE', revision: 0 },
+        nouvelleValeur: { statut: 'PUBLIE', revision: 1 },
+        motif: 'Publication automatique circuit figé',
+      },
     });
   }
 
@@ -1328,6 +1543,7 @@ export class VersionService {
     vers: VersionStatut,
     action: TransitionType,
     commentaire?: string,
+    circuit?: { validationPlanningRequise: boolean; publicationRequise: boolean },
   ): TransitionResponseDto {
     return {
       versionId: version.id,
@@ -1335,6 +1551,7 @@ export class VersionService {
       de,
       vers,
       action,
+      circuit: circuit ?? { validationPlanningRequise: true, publicationRequise: true },
       revision: version.revision,
       cycleValidation: version.cycleValidation ?? 0,
       commentaire,

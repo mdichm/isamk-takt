@@ -294,7 +294,13 @@ export class VersionController {
     @Body() dto: TransitionDto,
     @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<TransitionResponseDto> {
-    return this.service.transition(id, dto.action, currentUser.id, dto.commentaire);
+    return this.service.transition(
+      id,
+      dto.action,
+      currentUser.id,
+      dto.commentaire,
+      dto.confirmerPublication,
+    );
   }
 
   @Get(':id/generations')
