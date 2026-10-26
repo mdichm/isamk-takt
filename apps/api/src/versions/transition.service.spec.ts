@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - Tests unitaires des transitions de version (L5-01)
 // POST /versions/{id}/transitions
-import { NotFoundException, ConflictException } from '@nestjs/common';
+import { NotFoundException, ConflictException, UnprocessableEntityException } from '@nestjs/common';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../prisma/prisma.service.js';
@@ -44,8 +44,19 @@ describe('VersionService.transition', () => {
       },
       editLock: {
         deleteMany: vi.fn(),
+        findUnique: vi.fn().mockResolvedValue(null),
       },
       userSystemRole: { findMany: vi.fn().mockResolvedValue([]) },
+      // L5-18 : circuit figé (défaut : interrupteurs activés)
+      parametreWorkflow: {
+        findUnique: vi.fn().mockResolvedValue({ validationPlanningRequise: true, publicationRequise: true }),
+      },
+      // Tables utilisées par la publication automatique (tryAutoPublishVersion)
+      impactDepartement: { findMany: vi.fn().mockResolvedValue([]) },
+      validationDepartement: { findMany: vi.fn().mockResolvedValue([]) },
+      conflit: { count: vi.fn().mockResolvedValue(0) },
+      verrouSeance: { count: vi.fn().mockResolvedValue(0) },
+      versionSnapshot: { count: vi.fn().mockResolvedValue(1) },
       departement: {
         findUnique: vi.fn().mockResolvedValue({ id: 'dept-1', code: 'INFO' }),
         findMany: vi.fn().mockResolvedValue([{ id: 'dept-1', code: 'INFO' }]),
@@ -314,5 +325,73 @@ describe('VersionService.transition', () => {
     await expect(service.transition(versionId, 'DEMARRER_EDITION', userId)).rejects.toThrow(
       ConflictException,
     );
+  });
+  // ------------------------------------------------------------------
+  // L5-18 : transitions selon le circuit figé
+  // ------------------------------------------------------------------
+  it('validationPlanningRequise=false : SOUMETTRE passe directement PRET_POUR_VALIDATION → VALIDE (sans EN_VALIDATION)', async () => {
+    prisma.parametreWorkflow.findUnique.mockResolvedValueOnce({ validationPlanningRequise: false, publicationRequise: true } as any);
+    prisma.versionEdt.findUnique
+      .mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'PRET_POUR_VALIDATION', revision: 3 } as any)
+      .mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'VALIDE', revision: 4 } as any);
+    prisma.seance.findFirst.mockResolvedValue(null);
+    prisma.versionEdt.update.mockResolvedValue({ id: versionId, numero: '1.0', statut: 'VALIDE', revision: 4 } as any);
+    const result = await service.transition(versionId, 'SOUMETTRE', userId);
+
+    expect(result.vers).toBe('VALIDE');
+    expect(result.action).toBe('SOUMETTRE');
+    expect(result.circuit).toEqual({ validationPlanningRequise: false, publicationRequise: true });
+    expect(prisma.workflowTransition.create).toHaveBeenCalledWith({ data: { versionId, de: 'PRET_POUR_VALIDATION', vers: 'VALIDE', userId, automatique: false, commentaire: null } });
+    const publies = (prisma.workflowTransition.create as any).mock.calls.filter((c: any) => c[0].data.vers === 'PUBLIE');
+    expect(publies).toHaveLength(0);
+  });
+
+  it('validationPlanningRequise=false + publicationRequise=false : SOUMETTRE publie automatiquement en PUBLIE', async () => {
+    prisma.parametreWorkflow.findUnique.mockResolvedValueOnce({ validationPlanningRequise: false, publicationRequise: false } as any);
+    prisma.versionEdt.findUnique
+      .mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'PRET_POUR_VALIDATION', revision: 3 } as any)
+      .mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'VALIDE', revision: 4 } as any);
+    prisma.seance.findFirst.mockResolvedValue(null);
+    prisma.versionEdt.update.mockResolvedValue({ id: versionId, numero: '1.0', statut: 'VALIDE', revision: 4 } as any);
+    const publishSpy = vi.spyOn(service as any, 'tryAutoPublishVersion').mockResolvedValue(undefined);
+    const result = await service.transition(versionId, 'SOUMETTRE', userId, undefined, true);
+    expect(publishSpy).toHaveBeenCalled();
+    expect(result.circuit).toEqual({ validationPlanningRequise: false, publicationRequise: false });
+    publishSpy.mockRestore();
+  });
+
+  it('validationPlanningRequise=true + publicationRequise=false : SOUMETTRE va en EN_VALIDATION (pas de publication auto)', async () => {
+    prisma.parametreWorkflow.findUnique.mockResolvedValueOnce({ validationPlanningRequise: true, publicationRequise: false } as any);
+    prisma.versionEdt.findUnique
+      .mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'PRET_POUR_VALIDATION', revision: 3 } as any)
+      .mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'EN_VALIDATION', revision: 4 } as any);
+    prisma.seance.findFirst.mockResolvedValue(null);
+    prisma.versionEdt.update.mockResolvedValue({ id: versionId, numero: '1.0', statut: 'EN_VALIDATION', revision: 4 } as any);
+    const result = await service.transition(versionId, 'SOUMETTRE', userId, undefined, true);
+    expect(result.vers).toBe('EN_VALIDATION');
+    expect(result.circuit).toEqual({ validationPlanningRequise: true, publicationRequise: false });
+    const publies = (prisma.workflowTransition.create as any).mock.calls.filter((c: any) => c[0].data.vers === 'PUBLIE');
+    expect(publies).toHaveLength(0);
+  });
+
+  it('validationPlanningRequise=false + publicationRequise=true : SOUMETTRE va en VALIDE sans publication auto', async () => {
+    prisma.parametreWorkflow.findUnique.mockResolvedValueOnce({ validationPlanningRequise: false, publicationRequise: true } as any);
+    prisma.versionEdt.findUnique
+      .mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'PRET_POUR_VALIDATION', revision: 3 } as any)
+      .mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'VALIDE', revision: 4 } as any);
+    prisma.seance.findFirst.mockResolvedValue(null);
+    prisma.versionEdt.update.mockResolvedValue({ id: versionId, numero: '1.0', statut: 'VALIDE', revision: 4 } as any);
+    const result = await service.transition(versionId, 'SOUMETTRE', userId);
+    expect(result.vers).toBe('VALIDE');
+    expect(result.circuit).toEqual({ validationPlanningRequise: false, publicationRequise: true });
+    const publies = (prisma.workflowTransition.create as any).mock.calls.filter((c: any) => c[0].data.vers === 'PUBLIE');
+    expect(publies).toHaveLength(0);
+  });
+
+  it('publicationRequise=false sans confirmerPublication : 422 CONFIRMATION_PUBLICATION_REQUISE', async () => {
+    prisma.parametreWorkflow.findUnique.mockResolvedValueOnce({ validationPlanningRequise: true, publicationRequise: false } as any);
+    prisma.versionEdt.findUnique.mockResolvedValueOnce({ id: versionId, numero: '1.0', statut: 'PRET_POUR_VALIDATION', revision: 3 } as any);
+    await expect(service.transition(versionId, 'SOUMETTRE', userId)).rejects.toThrow(UnprocessableEntityException);
+    expect(prisma.versionEdt.update).not.toHaveBeenCalled();
   });
 });

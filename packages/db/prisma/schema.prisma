@@ -785,6 +785,10 @@ model VersionEdt {
   soumisPar          String?     @db.Uuid
   soumisParUser      User?       @relation("VersionSoumisPar", fields: [soumisPar], references: [id])
 
+  // Circuit figé à la soumission (L5-18) : interrupteurs du workflow copiés depuis ParametreWorkflow
+  validationPlanningRequise Boolean @default(true)
+  publicationRequise        Boolean @default(true)
+
   @@index([semestreId])
   @@index([statut])
   @@index([soumisPar])
