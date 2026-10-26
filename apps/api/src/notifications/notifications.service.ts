@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { Prisma } from '@takt/db';
 import { CreateNotificationDto } from './dto/create-notification.dto.js';
-import { EvenementNotification } from './notifications.constants.js';
+import { CATALOGUE_EVENEMENTS } from './notifications.constants.js';
 
 /**
  * L5-21 notif_core — Cœur du module de notifications.
@@ -42,7 +42,9 @@ export class NotificationsService {
         lien: dto.lien ?? null,
         versionId: dto.versionId ?? null,
         demandeId: dto.demandeId ?? null,
-        // emailStatut vaut par défaut 'EN_ATTENTE' (contrainte DB)
+        emailStatut: CATALOGUE_EVENEMENTS[dto.evenement].emailRequis
+          ? 'EN_ATTENTE'
+          : 'NON_APPLICABLE',
       })),
     });
 

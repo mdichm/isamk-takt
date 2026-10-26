@@ -23,7 +23,7 @@ all:
     takt_smtp_secure: false
     takt_smtp_user: ""
     takt_smtp_pass: ""
-    takt_smtp_from: noreply@takt.local
+    takt_smtp_from_file: /run/secrets/smtp_from
     takt_nginx_ports:
       - "80:80"
       - "443:443"

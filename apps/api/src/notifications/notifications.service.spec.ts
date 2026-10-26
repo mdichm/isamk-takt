@@ -66,6 +66,7 @@ describe('NotificationsService', () => {
             lien: '/versions/' + versionId,
             versionId,
             demandeId: null,
+            emailStatut: 'EN_ATTENTE',
           },
           {
             destinataireId: '550e8400-e29b-41d4-a716-446655440003',
@@ -74,10 +75,32 @@ describe('NotificationsService', () => {
             lien: '/versions/' + versionId,
             versionId,
             demandeId: null,
+            emailStatut: 'EN_ATTENTE',
           },
         ],
       });
       expect(result).toEqual({ count: 2 });
+    });
+
+    it('marque NON_APPLICABLE un événement qui ne requiert pas d’e-mail', async () => {
+      notificationMock.createMany.mockResolvedValue({ count: 1 });
+
+      await service.creerNotifications(prisma, [
+        {
+          destinataireId,
+          evenement: EvenementNotification.GENERATION_LANCEE,
+          titre: 'Génération lancée',
+        },
+      ]);
+
+      expect(notificationMock.createMany).toHaveBeenCalledWith({
+        data: [
+          expect.objectContaining({
+            evenement: EvenementNotification.GENERATION_LANCEE,
+            emailStatut: 'NON_APPLICABLE',
+          }),
+        ],
+      });
     });
 
     it('n\'appelle pas createMany quand la liste est vide et retourne count 0', async () => {
@@ -110,6 +133,7 @@ describe('NotificationsService', () => {
             lien: null,
             versionId: null,
             demandeId,
+            emailStatut: 'EN_ATTENTE',
           },
         ],
       });

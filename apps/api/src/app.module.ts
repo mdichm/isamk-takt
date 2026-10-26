@@ -62,7 +62,7 @@ import { SegregationOfDutiesGuard } from './policy/guards/segregation-of-duties.
 import { PolicyModule } from './policy/policy.module.js';
 import appConfig from './config/app.config.js';
 import { MetricsController } from './common/metrics/metrics.controller.js';
-import { MetricsService } from './common/metrics/metrics.service.js';
+import { MetricsModule } from './common/metrics/metrics.module.js';
 import { PinoLoggerService } from './common/logging/pino-logger.service.js';
 import { AuditLoggerService } from './common/logging/audit-logger.service.js';
 import { TracingInterceptor } from './common/interceptors/tracing.interceptor.js';
@@ -143,6 +143,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     PgBossModule,
     ExportSpikeModule,
     ParametresModule,
+    MetricsModule,
   ],
   controllers: [MetricsController, SecurityEventController],
   providers: [
@@ -203,7 +204,6 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     SecurityEventService,
     SecurityEventInterceptor,
     AdminGuard,
-    MetricsService,
   ],
 })
 export class AppModule {}

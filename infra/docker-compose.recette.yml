@@ -38,9 +38,13 @@ services:
       SMTP_SECURE: ${SMTP_SECURE:-false}
       SMTP_USER_FILE: /run/secrets/smtp_user
       SMTP_PASS_FILE: /run/secrets/smtp_pass
-      SMTP_FROM: ${SMTP_FROM:-noreply@takt.recette.local}
+      SMTP_FROM: ${SMTP_FROM:-}
+      SMTP_FROM_FILE: /run/secrets/smtp_from
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME:-TAKT Recette}
+      APP_URL: ${APP_URL:-https://recette.takt.local}
     volumes:
       - filestore_recette_data:/filestore
+      - /run/secrets:/run/secrets:ro
     depends_on:
       postgres:
         condition: service_healthy
@@ -59,6 +63,7 @@ services:
       start_period: 40s
     networks:
       - backend
+      - smtp
     restart: unless-stopped
     deploy:
       replicas: 2

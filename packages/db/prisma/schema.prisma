@@ -1901,8 +1901,11 @@ model Notification {
   evenement     String
   titre         String
   lien          String?  @db.Text
-  emailStatut   EmailStatut @default(EN_ATTENTE)
-  lu            Boolean  @default(false)
+  emailStatut     EmailStatut @default(EN_ATTENTE)
+  emailEnvoyeLe   DateTime?
+  emailTentatives Int        @default(0)
+  emailErreur     String?    @db.Text
+  lu              Boolean    @default(false)
   luALe         DateTime?
   createdAt     DateTime @default(now())
 
@@ -1912,6 +1915,6 @@ model Notification {
 
   @@index([destinataireId, lu])
   @@index([createdAt])
-  @@index([emailStatut])
+  @@index([emailStatut, createdAt])
   @@map("notifications")
 }
