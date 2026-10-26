@@ -39,6 +39,12 @@ describe('VersionService', () => {
       snapshotAffectation: { findMany: vi.fn() },
       seance: { create: vi.fn(), findMany: vi.fn(), findFirst: vi.fn() },
       editLock: { findUnique: vi.fn(), deleteMany: vi.fn() },
+      parametreWorkflow: {
+        findUnique: vi.fn().mockResolvedValue({
+          validationPlanningRequise: true,
+          publicationRequise: true,
+        }),
+      },
       workflowTransition: { create: vi.fn(), findMany: vi.fn() },
       generation: { findFirst: vi.fn() },
       contrainteInstance: { findMany: vi.fn() },
