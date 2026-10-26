@@ -38,6 +38,7 @@ import type { CreateGenerationDto } from './dto/create-generation.dto.js';
 import type { GenerationResponseDto } from './dto/generation-response.dto.js';
 import type { TransitionDto } from './dto/transition.dto.js';
 import type { TransitionResponseDto } from './dto/transition-response.dto.js';
+import type { WorkflowCircuitDto } from './dto/workflow-circuit.dto.js';
 import type { TransitionType } from '@takt/contracts';
 import { Prisma as PrismaValue } from '@takt/db';
 import { mkdtemp, writeFile } from 'fs/promises';
@@ -89,6 +90,9 @@ export class VersionService {
         numero: true,
         statut: true,
         motif: true,
+        // L5-19 : circuit figé appliqué à la version (copié à la soumission)
+        validationPlanningRequise: true,
+        publicationRequise: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -100,6 +104,10 @@ export class VersionService {
       numero: v.numero,
       statut: v.statut,
       motif: v.motif ?? undefined,
+      circuit: {
+        validationPlanningRequise: v.validationPlanningRequise,
+        publicationRequise: v.publicationRequise,
+      },
       createdAt: v.createdAt,
       updatedAt: v.updatedAt,
     }));
@@ -115,6 +123,9 @@ export class VersionService {
         numero: true,
         statut: true,
         motif: true,
+        // L5-19 : circuit figé appliqué à la version (copié à la soumission)
+        validationPlanningRequise: true,
+        publicationRequise: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -138,6 +149,11 @@ export class VersionService {
       motif: version.motif ?? undefined,
       dernierAuteurId: dernierAudit?.userId ?? undefined,
       derniereModificationAt: dernierAudit?.at ?? undefined,
+      // L5-19 : circuit figé appliqué à la version (EX-WFL-02)
+      circuit: {
+        validationPlanningRequise: version.validationPlanningRequise,
+        publicationRequise: version.publicationRequise,
+      },
       createdAt: version.createdAt,
       updatedAt: version.updatedAt,
     };
@@ -440,6 +456,11 @@ export class VersionService {
       numero: version.numero,
       statut: version.statut,
       motif: version.motif ?? undefined,
+      // L5-19 : circuit applicable à une version neuve (interrupteurs par défaut)
+      circuit: {
+        validationPlanningRequise: version.validationPlanningRequise ?? true,
+        publicationRequise: version.publicationRequise ?? true,
+      },
       createdAt: version.createdAt,
       updatedAt: version.updatedAt,
     };
@@ -1543,7 +1564,7 @@ export class VersionService {
     vers: VersionStatut,
     action: TransitionType,
     commentaire?: string,
-    circuit?: { validationPlanningRequise: boolean; publicationRequise: boolean },
+    circuit?: WorkflowCircuitDto,
   ): TransitionResponseDto {
     return {
       versionId: version.id,
