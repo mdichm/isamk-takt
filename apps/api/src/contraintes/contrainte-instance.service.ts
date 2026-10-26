@@ -21,10 +21,17 @@ import type {
   IncoherenceDto,
 } from './dto/contrainte-instance.dto.js';
 import type { ContrainteInstanceImpactResponseDto } from './dto/contrainte-instance-impact.dto.js';
+import type { ContrainteInstanceApresValidationResponseDto } from './dto/contrainte-instance-apres-validation.dto.js';
+import { VersionService } from '../versions/version.service.js';
+import { ConflitService } from '../conflit/conflit.service.js';
 
 @Injectable()
 export class ContrainteInstanceService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private versionService: VersionService,
+    private conflitService: ConflitService,
+  ) {}
 
   async createContrainteInstance(
     dto: ContrainteInstanceCreateDto,
@@ -359,6 +366,151 @@ export class ContrainteInstanceService {
       versionsImpactees,
       total: versionsImpactees.length,
     };
+  }
+
+  // ============================================
+  // Modification de contrainte après validation (L5-14)
+  // PATCH /contraintes/instances/{id}/appliquer-apres-validation
+  // ============================================
+
+  /**
+   * Applique une modification de contrainte après validation.
+   *
+   * Si une version PUBLIE existe pour le semestre, cree une version de travail
+   * (EDITION) via new-revision (version parente immuable preservee), puis applique
+   * la modification de la contrainte sur cette version de travail.
+   *
+   * - application = 'immediate' : recalcule les conflits sur la version de travail.
+   * - application = 'next_generation' : reporte l application a la prochaine generation.
+   *
+   * EX-WFL-08 / ST §4.1.1 : la version publiee reste immuable.
+   *
+   * @param instanceId ID de l instance de contrainte a modifier
+   * @param dto Choix d application + modifications de la contrainte
+   * @param userId ID de l utilisateur qui declenche la modification
+   * @returns Version de travail creee, conflits identifies (si immediate), action requise
+   */
+  async appliquerContrainteApresValidation(
+    instanceId: string,
+    dto: {
+      application: 'immediate' | 'next_generation';
+      profilId?: string;
+      definitionId?: string;
+      enseignantId?: string;
+      groupeId?: string;
+      salleId?: string;
+      moduleId?: string;
+      poids?: number;
+      nature?: 'REGLE' | 'VOEU';
+      commentaire?: string;
+      actif?: boolean;
+    },
+    userId: string,
+  ): Promise<ContrainteInstanceApresValidationResponseDto> {
+    // 1. Récupération de l instance avec sa definition (404 si absente)
+    const instance = await this.prisma.contrainteInstance.findUnique({
+      where: { id: instanceId },
+      include: { definition: true },
+    });
+    if (!instance) {
+      throw new NotFoundException(
+        `Instance de contrainte "${instanceId}" introuvable`,
+      );
+    }
+
+    const { semestreId } = instance;
+
+    // 2. Recherche d une version PUBLIE pour ce semestre
+    const versionPubliee = await this.prisma.versionEdt.findFirst({
+      where: { semestreId, statut: 'PUBLIE' },
+    });
+
+    // Cas A : aucune version publiee -> modification directe simple
+    if (!versionPubliee) {
+      await this.prisma.contrainteInstance.update({
+        where: { id: instanceId },
+        data: this.buildUpdateData(dto),
+      });
+      return {
+        versionId: instanceId,
+        statut: 'EDITION' as const,
+        actionRequiree: 'aucun',
+        conflits: [],
+        versionPublieeId: null,
+      };
+    }
+
+    // Cas B : version publiee existe -> creer une version de travail (EDITION)
+    const revision = await this.versionService.newRevision(
+      versionPubliee.id,
+      userId,
+    );
+
+    // Validation : profilId requis pour next_generation
+    if (dto.application === 'next_generation' && !dto.profilId) {
+      throw new BadRequestException(
+        'profilId est obligatoire quand application = "next_generation"',
+      );
+    }
+
+    // Appliquer la modification de la contrainte sur le semestre
+    await this.prisma.contrainteInstance.update({
+      where: { id: instanceId },
+      data: this.buildUpdateData(dto),
+    });
+
+    if (dto.application === 'next_generation') {
+      return {
+        versionId: revision.versionId,
+        statut: 'EDITION' as const,
+        actionRequiree: 'regenerer',
+        conflits: [],
+        versionPublieeId: versionPubliee.id,
+      };
+    }
+
+    // application === 'immediate' : recalcul des conflits sur la version de travail
+    const conflits = await this.conflitService.recomputeConflits(
+      revision.versionId,
+    );
+
+    const actionRequiree: 'aucun' | 'regenerer' | 'annuler' =
+      conflits.some((c) => c.severite === 'BLOQUANT') ? 'regenerer' : 'aucun';
+
+    return {
+      versionId: revision.versionId,
+      statut: 'EDITION' as const,
+      actionRequiree,
+      conflits,
+      versionPublieeId: versionPubliee.id,
+    };
+  }
+
+  /**
+   * Construit les données de mise à jour de contrainte à partir du DTO.
+   */
+  private buildUpdateData(dto: {
+    definitionId?: string;
+    enseignantId?: string;
+    groupeId?: string;
+    salleId?: string;
+    moduleId?: string;
+    poids?: number;
+    nature?: 'REGLE' | 'VOEU';
+    commentaire?: string;
+    actif?: boolean;
+  }): Prisma.ContrainteInstanceUncheckedUpdateInput {
+    const data: Prisma.ContrainteInstanceUncheckedUpdateInput = {};
+    if (dto.definitionId !== undefined) data.definitionId = dto.definitionId;
+    if (dto.enseignantId !== undefined) data.enseignantId = dto.enseignantId;
+    if (dto.groupeId !== undefined) data.groupeId = dto.groupeId;
+    if (dto.salleId !== undefined) data.salleId = dto.salleId;
+    if (dto.moduleId !== undefined) data.moduleId = dto.moduleId;
+    if (dto.poids !== undefined) data.poids = dto.poids;
+    if (dto.nature !== undefined) data.nature = dto.nature;
+    if (dto.commentaire !== undefined) data.commentaire = dto.commentaire;
+    if (dto.actif !== undefined) data.actif = dto.actif;
+    return data;
   }
 
   /**

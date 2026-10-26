@@ -34,6 +34,14 @@ class MockPrismaService {
   };
 }
 
+class MockVersionService {
+  newRevision = vi.fn();
+}
+
+class MockConflitService {
+  recomputeConflits = vi.fn();
+}
+
 function makeSemestre(id: string) {
   return { id, code: 'S1', libelle: 'Semestre 1' } as any;
 }
@@ -100,7 +108,11 @@ describe('ContrainteInstanceService (L3-06 - précédence et cohérence)', () =>
 
   beforeEach(() => {
     prisma = new MockPrismaService();
-    service = new ContrainteInstanceService(prisma as unknown as PrismaService);
+    service = new ContrainteInstanceService(
+      prisma as unknown as PrismaService,
+      new MockVersionService() as any,
+      new MockConflitService() as any,
+    );
   });
 
   describe('resolveContraintesPourSujet', () => {

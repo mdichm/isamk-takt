@@ -883,6 +883,23 @@ export const messages = {
   columnPoids: 'Poids',
   columnFetSupport: 'Support FET',
   columnActif: 'Actif',
+  formSelectProfil: 'Sélectionner un profil',
+
+  // Modification de contrainte après validation (L5-14)
+  contrainteApresValidation: 'Modification après validation',
+  labelModeApplication: 'Mode d application',
+  modeImmediate: 'Application immédiate',
+  modeNextGeneration: "À la prochaine génération",
+  labelProfil: 'Profil de génération',
+  labelProfilHint: "Sélectionnez le profil à utiliser pour la prochaine génération.",
+  successContrainteApresValidation: "La contrainte a été modifiée avec succès.",
+  errorContrainteApresValidation: "Impossible de modifier la contrainte après validation.",
+  actionAucune: 'Aucune action requise.',
+  actionRegenerer: 'Régénération requise : le planning est devenu non conforme.',
+  actionAnnuler: 'Annulation de la modification.',
+  versionPubliee: 'Version publiée de référence',
+  versionTravail: 'Version de travail créée',
+  infoVersionPubliee: 'Une version publiée existe pour ce semestre. Choisissez le mode d application.',
 
   // Rapport de traduction FET (L4-06)
   statutTraduite: 'Traduit',

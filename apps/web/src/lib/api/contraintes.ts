@@ -199,6 +199,57 @@ export async function deleteContrainteInstance(id: string): Promise<void> {
 }
 
 /* ============================================================================
+   Modification de contrainte après validation (L5-14)
+   ============================================================================ */
+
+export type ApplicationMode = 'immediate' | 'next_generation';
+
+export interface AppliquerContrainteApresValidationInput {
+  application: ApplicationMode;
+  profilId?: string;
+  definitionId?: string;
+  enseignantId?: string;
+  groupeId?: string;
+  salleId?: string;
+  moduleId?: string;
+  poids?: number;
+  nature?: 'REGLE' | 'VOEU';
+  commentaire?: string;
+  actif?: boolean;
+}
+
+export interface AppliquerContrainteApresValidationOutput {
+  versionId: string;
+  statut: string;
+  actionRequiree: 'aucun' | 'regenerer' | 'annuler';
+  conflits: Array<{
+    id: string;
+    regleCode: string;
+    type: string;
+    severite: string;
+    objetType: string;
+    objetId: string;
+    seanceIds: string[];
+    message: string;
+  }>;
+  versionPublieeId: string | null;
+}
+
+export async function appliquerContrainteApresValidation(
+  id: string,
+  input: AppliquerContrainteApresValidationInput,
+): Promise<AppliquerContrainteApresValidationOutput> {
+  const res = await apiFetch(
+    `/contraintes/instances/${id}/appliquer-apres-validation`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(input),
+    },
+  );
+  return res.json();
+}
+
+/* ============================================================================
    Rapport de traduction FET (L4-06)
    ============================================================================ */
 

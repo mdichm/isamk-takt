@@ -27,8 +27,13 @@ import {
   CoherenceReportDto,
 } from './dto/contrainte-instance.dto.js';
 import { ContrainteInstanceImpactResponseDto } from './dto/contrainte-instance-impact.dto.js';
+import {
+  ContrainteInstanceApresValidationDto,
+  ContrainteInstanceApresValidationResponseDto,
+} from './dto/contrainte-instance-apres-validation.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
+import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 
 @ApiTags('Instances de contraintes')
 @Controller('contraintes/instances')
@@ -159,6 +164,32 @@ export class ContrainteInstanceController {
     @Body() dto: ContrainteInstanceUpdateDto,
   ): Promise<ContrainteInstanceResponseDto> {
     return this.service.updateContrainteInstance(id, dto, 'system');
+  }
+
+  @Patch(':id/appliquer-apres-validation')
+  @Permissions('contrainte:write')
+  @ApiOperation({
+    summary: 'Modifier une contrainte après validation (L5-14)',
+    description:
+      "Applique une modification de contrainte sur une version de travail. " +
+      'Si une version PUBLIE existe pour le semestre, cree une version EDITION via new-revision ' +
+      '(version publiee preservee). Le choix immediate recalcule les conflits ; next_generation ' +
+      'reporte l application a la prochaine generation. EX-WFL-08 / ST §4.1.1.',
+  })
+  @ApiParam({ name: 'id', description: 'ID de l instance de contrainte (UUID)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Contrainte modifiee sur une version de travail',
+    type: ContrainteInstanceApresValidationResponseDto,
+  })
+  @ApiResponse({ status: 400, description: 'Paramètres invalides (ex: profilId manquant)' })
+  @ApiResponse({ status: 404, description: 'Instance de contrainte non trouvee' })
+  async appliquerApresValidation(
+    @Param('id') id: string,
+    @Body() dto: ContrainteInstanceApresValidationDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
+  ): Promise<ContrainteInstanceApresValidationResponseDto> {
+    return this.service.appliquerContrainteApresValidation(id, dto, currentUser.id);
   }
 
   @Delete(':id')

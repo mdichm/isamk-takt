@@ -6,9 +6,11 @@ import { ContrainteInstanceService } from './contrainte-instance.service.js';
 import { ContrainteFetMappingController } from './contrainte-fet-mapping.controller.js';
 import { ContrainteFetMappingService } from './contrainte-fet-mapping.service.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
+import { VersionsModule } from '../versions/versions.module.js';
+import { ConflitModule } from '../conflit/conflit.module.js';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, VersionsModule, ConflitModule],
   controllers: [
     ContrainteDefinitionController,
     ContrainteInstanceController,
