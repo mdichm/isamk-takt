@@ -476,6 +476,7 @@ export const messages = {
   validationPlanningNonRequiseDescription:
     'Le cycle de validation n’a pas été ouvert pour cette version : aucune décision de Responsable n’est attendue.',
   historiquePublicationAutomatique: 'Publication automatique',
+  colAutomatiqueOui: 'Oui',
   colAutomatiqueNon: 'Non',
   decisionDejaPrise: 'Décision déjà prise pour ce département.',
   chargementVersion: 'Chargement de la version…',

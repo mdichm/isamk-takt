@@ -38,6 +38,19 @@ export default function HistoriqueVersionPage() {
   );
 }
 
+/**
+ * Publication automatique (L5-19) : transition VALIDE → PUBLIE déclenchée par
+ * le circuit figé (publication non requise). Les autres transitions
+ * automatiques (archivage, unanimité) ne portent pas ce libellé.
+ */
+function estPublicationAutomatique(entry: {
+  de: string;
+  vers: string;
+  automatique: boolean;
+}): boolean {
+  return entry.automatique && entry.de === 'VALIDE' && entry.vers === 'PUBLIE';
+}
+
 function statutBadge(statut: string) {
   const variants: Record<string, string> = {
     BROUILLON: 'bg-secondary text-secondary-foreground',
@@ -123,12 +136,14 @@ function HistoriqueVersionPageContent({ versionId }: { versionId: string }) {
                 <TableCell>{entry.userName}</TableCell>
                 <TableCell>{new Date(entry.at).toLocaleString('fr-FR')}</TableCell>
                 <TableCell>
-                  {entry.automatique ? (
+                  {estPublicationAutomatique(entry) ? (
                     <Badge variant="secondary" className="bg-blue-100 text-blue-900">
                       {messages.historiquePublicationAutomatique}
                     </Badge>
                   ) : (
-                    messages.colAutomatiqueNon
+                    (entry.automatique
+                      ? messages.colAutomatiqueOui
+                      : messages.colAutomatiqueNon)
                   )}
                 </TableCell>
                 <TableCell className="text-muted-foreground text-sm">
