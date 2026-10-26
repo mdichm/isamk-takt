@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useExecuteTransition } from '@/hooks/use-version-transition';
+import { useWorkflowParams } from '@/hooks/use-workflow-params';
 import { newRevision, publishVersion } from '@/lib/api/versions';
 import { getErrorMessage } from '@/lib/api/errors';
 import type { TransitionType } from '@takt/contracts';
@@ -110,6 +111,11 @@ export function VersionActions({
   const router = useRouter();
   const { mutate: executeTransition, isPending: transitionPending } =
     useExecuteTransition(version.id);
+  // L5-19 : circuit global courant. Si la publication n'est pas requise, la
+  // soumission publiera la version et archivera la version publiée actuelle :
+  // une confirmation est alors exigée (EX-WFL-02).
+  const { data: workflowParams } = useWorkflowParams();
+  const publicationAutomatique = workflowParams?.publicationRequise === false;
   const [publishPending, setPublishPending] = useState(false);
   const [newRevisionPending, setNewRevisionPending] = useState(false);
   const [confirmAction, setConfirmAction] = useState<Action | null>(null);
@@ -149,7 +155,12 @@ export function VersionActions({
       void handleDediee(action);
       return;
     }
-    if (ACTIONS_A_CONFIRMER.has(action) && hasAvertissements) {
+    // L5-19 : la confirmation est exigée si des avertissements ne sont pas
+    // acceptés (L5-15) ou si la soumission publiera la version (EX-WFL-02).
+    if (
+      ACTIONS_A_CONFIRMER.has(action) &&
+      (hasAvertissements || publicationAutomatique)
+    ) {
       setConfirmAction(action);
       return;
     }
@@ -217,9 +228,22 @@ export function VersionActions({
         >
           <DialogContent className="sm:max-w-[400px]">
             <DialogHeader>
-              <DialogTitle>{messages.confirmationSoumissionTitre}</DialogTitle>
+              <DialogTitle>
+                {publicationAutomatique
+                  ? messages.confirmationSoumissionPublicationTitre
+                  : messages.confirmationSoumissionTitre}
+              </DialogTitle>
               <DialogDescription>
-                {messages.confirmationSoumissionAvertissements}
+                {[
+                  hasAvertissements
+                    ? messages.confirmationSoumissionAvertissements
+                    : null,
+                  publicationAutomatique
+                    ? messages.confirmationSoumissionPublication
+                    : null,
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>

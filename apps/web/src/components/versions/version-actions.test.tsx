@@ -6,6 +6,9 @@ import type { UseMutationResult } from '@tanstack/react-query';
 vi.mock('@/hooks/use-version-transition', () => ({
   useExecuteTransition: vi.fn(),
 }));
+vi.mock('@/hooks/use-workflow-params', () => ({
+  useWorkflowParams: vi.fn(),
+}));
 vi.mock('@/lib/api/versions', () => ({
   publishVersion: vi.fn(),
   newRevision: vi.fn(),
@@ -31,16 +34,22 @@ vi.mock('@/lib/messages/fr', () => ({
     confirmationSoumissionTitre: 'Confirmer la soumission',
     confirmationSoumissionAvertissements:
       'Avertissements non acceptés. Continuer ?',
+    confirmationSoumissionPublication:
+      'La version actuellement publiée sera archivée.',
+    confirmationSoumissionPublicationTitre:
+      'Confirmer la soumission et la publication',
     confirmationSoumissionBoutonConfirmer: 'Oui, soumettre',
     confirmationSoumissionBoutonAnnuler: 'Annuler',
   },
 }));
 
 import { useExecuteTransition } from '@/hooks/use-version-transition';
+import { useWorkflowParams } from '@/hooks/use-workflow-params';
 import { publishVersion, newRevision, type TransitionRequestDto, type TransitionResponseDto } from '@/lib/api/versions';
 import { messages } from '@/lib/messages/fr';
 
 const mockUseExecuteTransition = vi.mocked(useExecuteTransition);
+const mockUseWorkflowParams = vi.mocked(useWorkflowParams);
 const mockPublishVersion = vi.mocked(publishVersion);
 const mockNewRevision = vi.mocked(newRevision);
 
@@ -61,6 +70,7 @@ function renderActions(overrides: {
   isPending?: boolean;
   publishPending?: boolean;
   newRevisionPending?: boolean;
+  publicationRequise?: boolean;
 } = {}) {
   const mutate = vi.fn() as TransitionMutate;
   mockUseExecuteTransition.mockReturnValue({
@@ -72,6 +82,19 @@ function renderActions(overrides: {
     TransitionRequestDto,
     unknown
   >);
+
+  // L5-19 : circuit global courant (valeurs par défaut : les deux requis).
+  mockUseWorkflowParams.mockReturnValue({
+    data: {
+      validationPlanningRequise: true,
+      publicationRequise: overrides.publicationRequise ?? true,
+      updatedAt: '2026-10-26T08:00:00.000Z',
+      updatedBy: null,
+    },
+    isLoading: false,
+    isError: false,
+    error: null,
+  } as unknown as ReturnType<typeof useWorkflowParams>);
 
   const props = {
     version: { ...baseVersion, statut: overrides.statut ?? baseVersion.statut },
@@ -93,6 +116,9 @@ describe('VersionActions', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     cleanup();
+    // Les dialogues sont rendus dans un portal : purger le body pour éviter
+    // que les modales d'un test restent dans le document.
+    document.body.innerHTML = '';
   });
 
   it('ne rend rien quand aucun rôle n\'est fourni', () => {
@@ -214,5 +240,58 @@ describe('VersionActions', () => {
       isPending: true,
     });
     expect(screen.getByText('Soumettre')).toBeDisabled();
+  });
+
+  // ==================================================================
+  // L5-19 : confirmation quand la soumission publiera la version
+  // ==================================================================
+
+  it('Soumettre sans avertissements mais avec publication automatique ouvre la confirmation', () => {
+    const { mutate } = renderActions({
+      role: 'GESTIONNAIRE',
+      statut: 'PRET_POUR_VALIDATION',
+      avertissementsNonAcceptes: 0,
+      publicationRequise: false,
+    });
+    fireEvent.click(screen.getByText('Soumettre'));
+    expect(mutate).not.toHaveBeenCalled();
+    expect(
+      screen.getByText('Confirmer la soumission et la publication'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('La version actuellement publiée sera archivée.'),
+    ).toBeInTheDocument();
+  });
+
+  it('confirme la publication automatique avec confirmerPublication=true', () => {
+    const { mutate } = renderActions({
+      role: 'GESTIONNAIRE',
+      statut: 'PRET_POUR_VALIDATION',
+      avertissementsNonAcceptes: 0,
+      publicationRequise: false,
+    });
+    fireEvent.click(screen.getByText('Soumettre'));
+    // Le bouton d'action porte aussi le libellé de confirmation : on cible
+    // celui de la modale.
+    const dialog = screen.getByRole('dialog');
+    fireEvent.click(within(dialog).getByText('Oui, soumettre'));
+    expect(mutate).toHaveBeenCalledWith({
+      action: 'SOUMETTRE',
+      confirmerPublication: true,
+    });
+  });
+
+  it('n’affiche pas la mention d’archivage quand la publication est requise', () => {
+    renderActions({
+      role: 'GESTIONNAIRE',
+      statut: 'PRET_POUR_VALIDATION',
+      avertissementsNonAcceptes: 2,
+      publicationRequise: true,
+    });
+    fireEvent.click(screen.getByText('Soumettre'));
+    expect(screen.getByText('Confirmer la soumission')).toBeInTheDocument();
+    expect(
+      screen.queryByText('La version actuellement publiée sera archivée.'),
+    ).not.toBeInTheDocument();
   });
 });

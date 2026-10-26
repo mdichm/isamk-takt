@@ -20,6 +20,8 @@ import {
   useImpact,
   useSubmitValidation,
 } from '@/hooks/use-validation-departement';
+import { useVersion } from '@/hooks/use-version';
+import { getErrorMessage } from '@/lib/api/errors';
 import { messages } from '@/lib/messages/fr';
 
 const rejectFormSchema = z.object({
@@ -42,7 +44,15 @@ export function ValidationDepartement({
     useUserDepartment();
   const { data: impact, isLoading: loadingImpact, error: impactError } =
     useImpact(versionId);
+  const { data: version } = useVersion(versionId);
   const submitValidation = useSubmitValidation(versionId);
+
+  // L5-19 : la validation requise est celle qui était en vigueur à la
+  // soumission (circuit figé sur la version). Sans validation requise, aucun
+  // cycle de validation n'a été ouvert : aucune décision n'est attendue
+  // (EX-WFL-02, ST §4.1.1).
+  const validationRequise =
+    version?.circuit?.validationPlanningRequise ?? true;
 
   const form = useForm<RejectFormData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- react-hook-form zodResolver requires any cast
@@ -162,7 +172,12 @@ export function ValidationDepartement({
         )}
       </div>
 
-      {canDecide && isResponsable ? (
+      {!validationRequise ? (
+        <div className="flex flex-col gap-1 text-blue-800 bg-blue-50 rounded p-3 mb-6">
+          <span className="font-medium">{messages.validationPlanningNonRequise}</span>
+          <span className="text-sm">{messages.validationPlanningNonRequiseDescription}</span>
+        </div>
+      ) : canDecide && isResponsable ? (
         <div className="flex gap-3 mb-6">
           <Button
             onClick={onApprove}
@@ -185,7 +200,7 @@ export function ValidationDepartement({
         <div className="text-sm text-muted-foreground mb-6">
           {isNonImpacte || isReportee
             ? messages.approbationReportee
-            : 'Décision déjà prise pour ce département.'}
+            : messages.decisionDejaPrise}
         </div>
       )}
 
@@ -221,7 +236,7 @@ export function ValidationDepartement({
                 onClick={() => setRejectOpen(false)}
                 disabled={submitValidation.isPending}
               >
-                Annuler
+                {messages.btnAnnuler}
               </Button>
               <Button type="submit" disabled={submitValidation.isPending}>
                 {submitValidation.isPending
@@ -234,11 +249,4 @@ export function ValidationDepartement({
       </Dialog>
     </div>
   );
-}
-
-function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return String(error);
 }

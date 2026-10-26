@@ -5,12 +5,24 @@ import type { TransitionType } from '@takt/contracts';
    Versions (aligné sur VersionResponseDto du backend L3-09)
    ============================================================================ */
 
+/**
+ * Circuit de workflow figé appliqué à une version.
+ * Les valeurs sont copiées sur la version à chaque soumission : un changement
+ * ultérieur du paramètre global ne touche pas un cycle déjà ouvert (EX-WFL-02).
+ */
+export interface WorkflowCircuit {
+  validationPlanningRequise: boolean;
+  publicationRequise: boolean;
+}
+
 export interface Version {
   id: string;
   semestreId: string;
   numero: string;
   statut: string;
   motif?: string;
+  /** Circuit figé appliqué à cette version (L5-19). */
+  circuit?: WorkflowCircuit;
   createdAt: string;
   updatedAt: string;
 }
@@ -287,6 +299,8 @@ export interface TransitionResponseDto {
   de: string;
   vers: string;
   action: TransitionType;
+  /** Circuit figé appliqué à la version lors de la transition (L5-18 / L5-19). */
+  circuit: WorkflowCircuit;
   revision: number;
   cycleValidation: number;
   commentaire?: string;

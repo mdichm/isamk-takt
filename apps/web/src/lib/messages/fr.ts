@@ -446,6 +446,42 @@ export const messages = {
   securityJournal: 'Journal de sécurité',
   securitySettings: 'Paramètres de sécurité',
   securityConfig: 'Configuration de sécurité',
+  // Circuit de validation et de publication (L5-19, EX-WFL-02)
+  adminCircuit: 'Circuit de validation et de publication',
+  adminCircuitSubtitle:
+    'Paramètres globaux du workflow. Les valeurs sont figées sur chaque version à sa soumission.',
+  circuitInterrupteurs: 'Interrupteurs du circuit',
+  circuitInterrupteursDescription:
+    'Ces deux réglages s’appliquent aux prochaines soumissions. Les cycles déjà ouverts conservent les valeurs figées à leur soumission.',
+  circuitValidationRequise: 'Validation du planning requise',
+  circuitValidationRequiseDescription:
+    'Lorsque cette option est désactivée, la soumission mène directement à « Validé », sans validation par les Responsables de département.',
+  circuitPublicationRequise: 'Publication requise',
+  circuitPublicationRequiseDescription:
+    'Lorsque cette option est désactivée, une version validée est publiée automatiquement ; la version publiée précédemment est archivée.',
+  circuitMotif: 'Motif de la modification (facultatif)',
+  circuitMotifPlaceholder: 'Ex. : passage en production',
+  circuitEnregistrer: 'Enregistrer les paramètres du workflow',
+  circuitEnregistrementEnCours: 'Enregistrement…',
+  circuitDerniereModification: 'Dernière modification :',
+  circuitModifiePar: 'par',
+  circuitParametresEnregistres: 'Paramètres du workflow enregistrés.',
+  circuitParametresEnregistrementEchec:
+    'Échec de l’enregistrement des paramètres du workflow.',
+  confirmationSoumissionPublication:
+    'La version actuellement publiée sera archivée.',
+  confirmationSoumissionPublicationTitre:
+    'Confirmer la soumission et la publication',
+  validationPlanningNonRequise: 'Validation du planning non requise',
+  validationPlanningNonRequiseDescription:
+    'Le cycle de validation n’a pas été ouvert pour cette version : aucune décision de Responsable n’est attendue.',
+  historiquePublicationAutomatique: 'Publication automatique',
+  colAutomatiqueNon: 'Non',
+  decisionDejaPrise: 'Décision déjà prise pour ce département.',
+  chargementVersion: 'Chargement de la version…',
+  versionChargementImpossible: 'Impossible de charger la version.',
+  versionIntrouvable: 'Version introuvable.',
+  versionIdentifiantManquant: 'Identifiant de version manquant.',
   journalTitle: 'Journal de sécurité',
   journalSubtitle: "Consultation des événements de sécurité (connexions, MFA, exports, etc.)",
   settingsTitle: 'Paramètres de sécurité',

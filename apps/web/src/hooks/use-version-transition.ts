@@ -4,8 +4,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { executeTransition, type TransitionRequestDto } from '@/lib/api/versions';
 import { conflitsKeys } from '@/hooks/use-conflits';
 import { historyKeys } from '@/hooks/use-history';
+import { versionKeys } from '@/hooks/use-version';
 import { apiFetch } from '@/lib/api/client';
-import { getErrorMessage } from '@/lib/api/errors';
+import { getErrorCode, getErrorMessage } from '@/lib/api/errors';
 import { toast } from 'sonner';
 import { messages } from '@/lib/messages/fr';
 
@@ -50,11 +51,23 @@ export function useExecuteTransition(versionId: string) {
       queryClient.invalidateQueries({
         queryKey: versionTransitionKeys.detail(versionId),
       });
+      // L5-19 : le statut final (validé, publié) et le circuit de la version
+      // doivent être reflétés immédiatement à l'écran.
+      queryClient.invalidateQueries({
+        queryKey: versionKeys.detail(versionId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: versionKeys.avertissements(versionId),
+      });
     },
 
     onError: (error) => {
       const status = (error as { status?: number }).status;
-      if (status === 409) {
+      const code = getErrorCode(error);
+      // L5-19 : la confirmation de publication a été exigée par le backend.
+      if (code === 'CONFIRMATION_PUBLICATION_REQUISE') {
+        toast.error(messages.confirmationSoumissionPublication);
+      } else if (status === 409) {
         toast.error(messages.versionTransitionInterdite);
       } else if (status === 422) {
         toast.error(messages.versionNonSoumettable);

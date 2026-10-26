@@ -73,13 +73,29 @@ export async function apiFetch(
 
   if (!response.ok) {
     let detail: string | undefined;
+    let code: string | undefined;
     try {
-      const body = await response.json();
-      detail = body.message || body.error || JSON.stringify(body);
+      const body = (await response.json()) as {
+        message?: unknown;
+        error?: unknown;
+        code?: unknown;
+      };
+      const rawMessage = body?.message ?? body?.error;
+      if (Array.isArray(rawMessage)) {
+        // Validation DTO : class-validator renvoie une liste de messages.
+        detail = rawMessage.join(', ');
+      } else if (typeof rawMessage === 'string') {
+        detail = rawMessage;
+      } else {
+        detail = JSON.stringify(body);
+      }
+      if (typeof body?.code === 'string') {
+        code = body.code;
+      }
     } catch {
       detail = response.statusText;
     }
-    throw new ApiError(response.status, detail ?? 'Erreur API');
+    throw new ApiError(response.status, detail ?? 'Erreur API', code);
   }
 
   return response;

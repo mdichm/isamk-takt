@@ -35,6 +35,7 @@ const icon = (d: string) => (
 
 const DASHBOARD = icon('M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2zM4 12a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 12a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z');
 const USERS = icon('M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z');
+const CIRCUIT = icon('M6 4v6m0 0a3 3 0 103 3m-3-3H4m2 3v3a3 3 0 103 3m-3-3h2m11-8V5m0 0a3 3 0 10-3 3m3-3h2m-2 3v9a3 3 0 103 3m-3-3h2');
 const STRUCTURE = icon('M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10');
 const SLOTS = icon('M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z');
 const RAMADAN = icon('M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.29l-.707-.707M12 19l.707-.707M5 19l.707.707M21 19l-.707.707');
@@ -59,6 +60,7 @@ const NAV_ENTRIES: NavEntry[] = [
   { label: t('covoiturage'), href: '/covoiturage', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: COVOITURAGE },
   { label: t('import'), href: '/import', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: IMPORT },
   { label: t('adminUsers'), href: '/admin/users', roles: ['ADMINISTRATEUR'], icon: USERS },
+  { label: t('adminCircuit'), href: '/admin/circuit', roles: ['ADMINISTRATEUR'], icon: CIRCUIT },
   { label: t('adminSecurity'), href: '/admin/security', roles: ['ADMINISTRATEUR'], icon: SECURITY },
   { label: t('adminSecurityEvents'), href: '/admin/security-events', roles: ['ADMINISTRATEUR'], icon: SECURITY },
   { label: t('modulesVolumes'), href: '/modules', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: VOLUMES },

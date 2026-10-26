@@ -12,6 +12,9 @@ vi.mock('@/lib/api/errors', () => ({
   getErrorMessage: vi.fn((error: unknown) =>
     error instanceof Error ? error.message : 'Erreur inattendue',
   ),
+  getErrorCode: vi.fn((error: unknown) =>
+    error instanceof Error ? (error as { code?: string }).code : undefined,
+  ),
 }));
 vi.mock('sonner', () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
 vi.mock('@/lib/messages/fr', () => ({
@@ -24,6 +27,8 @@ vi.mock('@/lib/messages/fr', () => ({
     confirmationSoumissionTitre: 'Confirmer la soumission',
     confirmationSoumissionAvertissements:
       'Avertissements non acceptés. Continuer ?',
+    confirmationSoumissionPublication:
+      'La version actuellement publiée sera archivée.',
     confirmationSoumissionBoutonConfirmer: 'Oui, soumettre',
     confirmationSoumissionBoutonAnnuler: 'Annuler',
   },
@@ -37,6 +42,7 @@ import { messages } from '@/lib/messages/fr';
 /** Erreur simulée avec un code HTTP pour les tests du hook. */
 interface ErreurApiSimulee extends Error {
   status: number;
+  code?: string;
 }
 
 const queryClient = new QueryClient({
@@ -123,6 +129,25 @@ describe('useExecuteTransition', () => {
     });
 
     expect(toast.error).toHaveBeenCalledWith(messages.versionNonSoumettable);
+  });
+
+  it('affiche un message dédié en cas de 422 CONFIRMATION_PUBLICATION_REQUISE (L5-19)', async () => {
+    const err = new Error('Confirmation requise') as ErreurApiSimulee;
+    err.status = 422;
+    err.code = 'CONFIRMATION_PUBLICATION_REQUISE';
+    vi.mocked(apiFetch).mockRejectedValue(err);
+
+    const { result } = renderHook(() => useExecuteTransition('v-1'), {
+      wrapper,
+    });
+
+    await act(async () => {
+      result.current.mutate({ action: 'SOUMETTRE' });
+    });
+
+    expect(toast.error).toHaveBeenCalledWith(
+      messages.confirmationSoumissionPublication,
+    );
   });
 
   it('affiche une erreur interdite en cas de 403', async () => {
