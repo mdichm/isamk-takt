@@ -1373,6 +1373,33 @@ export const messages = {
   statutRejetee: 'Rejetée',
   statutCorrection: 'En correction',
 
+  // Cycle de vie des versions (L5-15)
+  statutPretPourValidation: 'Prêt pour validation',
+  statutEnValidation: 'En validation',
+  btnDemarrerEdition: 'Démarrer l\'édition',
+  btnMarquerPret: 'Marquer prêt',
+  btnSoumettre: 'Soumettre',
+  btnReprendre: 'Reprendre',
+  btnResoumettre: 'Résoumettre',
+  btnAbandonner: 'Abandonner',
+  btnPublierVersion: 'Publier',
+  btnNouvelleRevision: 'Nouvelle version',
+  versionTransitionSucces: 'Transition effectuée avec succès.',
+  versionTransitionInterdite:
+    'Cette action n\'est pas autorisée depuis l\'état actuel de la version.',
+  versionNonSoumettable:
+    'La version n\'est pas soumettable (conflits bloquants ou couverture incomplète).',
+  versionTransitionErreur: 'Une erreur est survenue lors de la transition.',
+  confirmationSoumissionTitre: 'Confirmer la soumission',
+  confirmationSoumissionAvertissements:
+    'Cette version comporte des avertissements non acceptés. Souhaitez-vous poursuivre la soumission pour validation ?',
+  confirmationSoumissionBoutonConfirmer: 'Oui, soumettre',
+  confirmationSoumissionBoutonAnnuler: 'Annuler',
+  versionTitre: 'Version',
+  versionSousTitre: 'Cycle de vie et actions autorisées selon le rôle et l\'état.',
+  versionDerniereModification: 'Dernière modification',
+  versionAvertissementsNonAcceptees: 'Avertissements non acceptés',
+
   // Validation par département (L5-05)
   validationDepartement: 'Validation du département',
   validationDepartementTitre: 'Validation du planning — {departement}',

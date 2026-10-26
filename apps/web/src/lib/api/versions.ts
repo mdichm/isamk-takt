@@ -1,4 +1,5 @@
 import { apiFetch } from './client';
+import type { TransitionType } from '@takt/contracts';
 
 /* ============================================================================
    Versions (aligné sur VersionResponseDto du backend L3-09)
@@ -267,6 +268,41 @@ export async function newRevision(
     method: 'POST',
   });
   return res.json() as Promise<NewRevisionResponseDto>;
+}
+
+/* ============================================================================
+   Transition de workflow d'une version (L5-01)
+   POST /versions/{id}/transitions
+   ============================================================================ */
+
+export interface TransitionRequestDto {
+  action: TransitionType;
+  commentaire?: string;
+  confirmerPublication?: boolean;
+}
+
+export interface TransitionResponseDto {
+  versionId: string;
+  numero: string;
+  de: string;
+  vers: string;
+  action: TransitionType;
+  revision: number;
+  cycleValidation: number;
+  commentaire?: string;
+  at: string;
+}
+
+/** Exécute une transition de workflow sur une version (L5-01). */
+export async function executeTransition(
+  versionId: string,
+  dto: TransitionRequestDto,
+): Promise<TransitionResponseDto> {
+  const res = await apiFetch(`/versions/${versionId}/transitions`, {
+    method: 'POST',
+    body: JSON.stringify(dto),
+  });
+  return res.json() as Promise<TransitionResponseDto>;
 }
 
 /* ============================================================================
