@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { NotificationsService } from './notifications.service.js';
+import { NotificationsController } from './notifications.controller.js';
+import { SseNotifier } from './notifications.sse.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
 import { PgBossModule } from '../pg-boss/pg-boss.module.js';
 import { EmailDispatcherService } from './email/email-dispatcher.service.js';
@@ -16,6 +18,7 @@ import { loadSmtpConfig, type SmtpConfig } from '../config/smtp-config.js';
   imports: [PrismaModule, PgBossModule],
   providers: [
     NotificationsService,
+    SseNotifier,
     EmailDispatcherService,
     EmailProcessorService,
     EmailQueueService,
@@ -37,6 +40,7 @@ import { loadSmtpConfig, type SmtpConfig } from '../config/smtp-config.js';
       ) => new SmtpEmailService(config, transport),
     },
   ],
-  exports: [NotificationsService],
+  controllers: [NotificationsController],
+  exports: [NotificationsService, SseNotifier],
 })
 export class NotificationsModule {}
