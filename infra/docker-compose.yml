@@ -78,7 +78,10 @@ services:
       SMTP_SECURE: ${SMTP_SECURE:-false}
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASS: ${SMTP_PASS:-}
-      SMTP_FROM: ${SMTP_FROM:-noreply@takt.local}
+      SMTP_FROM: ${SMTP_FROM:-}
+      SMTP_FROM_FILE: ${SMTP_FROM_FILE:-}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME:-TAKT}
+      APP_URL: ${APP_URL:-http://localhost:3000}
       # OpenTelemetry - traces vers Tempo
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://tempo:4317
     volumes:

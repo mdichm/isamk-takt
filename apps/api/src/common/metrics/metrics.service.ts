@@ -2,7 +2,7 @@
 // TAKT - Métriques Prometheus pour l'API
 // Conforme ST §5.4 : latence par route, durée de génération, taille des files, taux d'erreurs 422, e-mails en échec
 
-import { Injectable, Scope, OnModuleDestroy } from '@nestjs/common';
+import { Injectable, OnModuleDestroy } from '@nestjs/common';
 import {
   Counter,
   Histogram,
@@ -14,7 +14,7 @@ import {
 /**
  * Registre Prometheus pour les métriques de l'API TAKT.
  */
-@Injectable({ scope: Scope.TRANSIENT })
+@Injectable()
 export class MetricsService implements OnModuleDestroy {
   private readonly registry: Registry;
 
@@ -32,6 +32,11 @@ export class MetricsService implements OnModuleDestroy {
   readonly generationDuration: Histogram;
   readonly exportDuration: Histogram;
   readonly emailErrorsTotal: Counter;
+  readonly emailSentTotal: Counter;
+  readonly emailAttemptsTotal: Counter;
+  readonly emailFinalFailuresTotal: Counter;
+  readonly emailPending: Gauge;
+  readonly emailFailed: Gauge;
   readonly failedQueueSize: Gauge;
   // --- Métriques de satisfaction des vœux (L3-35) ---
   readonly voeuxSatisfactionScore: Gauge;
@@ -111,6 +116,37 @@ export class MetricsService implements OnModuleDestroy {
     this.emailErrorsTotal = new Counter({
       name: 'takt_email_errors_total',
       help: 'Nombre d’erreurs d’envoi d’e-mail',
+      registers: [this.registry],
+    });
+
+    // --- E-mails envoyés, tentatives et échecs définitifs ---
+    this.emailSentTotal = new Counter({
+      name: 'takt_email_sent_total',
+      help: 'Nombre total d’e-mails de notification envoyés',
+      registers: [this.registry],
+    });
+
+    this.emailAttemptsTotal = new Counter({
+      name: 'takt_email_attempts_total',
+      help: 'Nombre total de tentatives d’envoi d’e-mail',
+      registers: [this.registry],
+    });
+
+    this.emailFinalFailuresTotal = new Counter({
+      name: 'takt_email_final_failures_total',
+      help: 'Nombre total d’échecs définitifs d’envoi d’e-mail',
+      registers: [this.registry],
+    });
+
+    this.emailPending = new Gauge({
+      name: 'takt_email_pending',
+      help: 'Nombre de notifications en attente d’envoi d’e-mail',
+      registers: [this.registry],
+    });
+
+    this.emailFailed = new Gauge({
+      name: 'takt_email_failed',
+      help: 'Nombre de notifications dont l’envoi d’e-mail a échoué définitivement',
       registers: [this.registry],
     });
 
@@ -225,6 +261,26 @@ export class MetricsService implements OnModuleDestroy {
    */
   incrementEmailErrors(): void {
     this.emailErrorsTotal.inc();
+  }
+
+  incrementEmailSent(): void {
+    this.emailSentTotal.inc();
+  }
+
+  incrementEmailAttempts(): void {
+    this.emailAttemptsTotal.inc();
+  }
+
+  incrementEmailFinalFailures(): void {
+    this.emailFinalFailuresTotal.inc();
+  }
+
+  setEmailPending(count: number): void {
+    this.emailPending.set(count);
+  }
+
+  setEmailFailed(count: number): void {
+    this.emailFailed.set(count);
   }
 
   /**

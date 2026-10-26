@@ -113,39 +113,9 @@ async function start() {
     }
   });
 
-  // Email queue
-  await boss.work('email', { localConcurrency: 5 }, async (jobs: Job[]) => {
-    for (const job of jobs) {
-      // Propager le contexte de trace depuis les headers du job (si envoyés par l'API)
-      const parentCtx = propagation.extract(context.active(), {
-        'traceparent': (job.data as Record<string, unknown> | undefined)?.traceparent as string | undefined,
-        'tracestate': (job.data as Record<string, unknown> | undefined)?.tracestate as string | undefined,
-      });
-
-      const tracer = trace.getTracer('takt-worker');
-      const span = tracer.startSpan('worker.job.email', {
-        attributes: {
-          'job.id': job.id,
-          'job.queue': 'email',
-        },
-      }, parentCtx);
-
-      try {
-        console.log(`Processing email job: ${job.id}`);
-        // TODO: Implement email sending logic
-
-        span.setStatus({ code: SpanStatusCode.OK });
-      } catch (err) {
-        span.setStatus({
-          code: SpanStatusCode.ERROR,
-          message: err instanceof Error ? err.message : 'Unknown error',
-        });
-        throw err;
-      } finally {
-        span.end();
-      }
-    }
-  });
+  // La file e-mail est consommée par l'API (ST §4.16), qui est le seul
+  // point de sortie SMTP autorisé. Le worker reste dédié aux traitements
+  // génération/import/export.
 
   // Graceful shutdown
   process.on('SIGTERM', async () => {

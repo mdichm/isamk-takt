@@ -21,9 +21,11 @@ all:
     takt_smtp_host: cck.rnu.tn
     takt_smtp_port: 587
     takt_smtp_secure: false
-    takt_smtp_user: ""
-    takt_smtp_pass: ""
-    takt_smtp_from: noreply@takt.recette.local
+    takt_smtp_user_file: /run/secrets/smtp_user
+    takt_smtp_pass_file: /run/secrets/smtp_pass
+    takt_smtp_from_file: /run/secrets/smtp_from
+    takt_smtp_from_name: TAKT Recette
+    takt_app_url: https://recette.takt.local
     takt_nginx_ports:
       - "443:443"
     takt_api_replicas: 2

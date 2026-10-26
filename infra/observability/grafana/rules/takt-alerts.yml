@@ -67,6 +67,18 @@ groups:
           description: "Une génération FET dépasse 10 minutes. Vérifier le worker et les traces OpenTelemetry."
 
       # -----------------------------------------------------------------------
+      # Alerte : échec définitif d'envoi d'e-mail
+      # -----------------------------------------------------------------------
+      - alert: TAKT_Email_Final_Failures
+        expr: increase(takt_email_final_failures_total[10m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Échec définitif d'envoi d'e-mail TAKT"
+          description: "Au moins un e-mail de notification a échoué après toutes les reprises. Vérifier la file email:failed et le SMTP institutionnel."
+
+      # -----------------------------------------------------------------------
       # Alerte : erreurs d'envoi d'e-mail
       # -----------------------------------------------------------------------
       - alert: TAKT_Email_Errors
