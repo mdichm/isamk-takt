@@ -6,9 +6,10 @@ import { GenerationsController } from './generations.controller.js';
 import { GenerationsService } from './generations.service.js';
 import { PrismaModule } from '../prisma/prisma.module.js';
 import { PgBossModule } from '../pg-boss/pg-boss.module.js';
+import { NotificationsModule } from '../notifications/notifications.module.js';
 
 @Module({
-  imports: [PrismaModule, PgBossModule],
+  imports: [PrismaModule, PgBossModule, NotificationsModule],
   controllers: [GenerationsController],
   providers: [GenerationsService],
   exports: [GenerationsService],

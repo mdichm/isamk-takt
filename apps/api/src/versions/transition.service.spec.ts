@@ -9,6 +9,7 @@ import { PreparationService } from '../preparation/preparation.service.js';
 import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
 import { PolicyService } from '../policy/policy.service.js';
+import { NotificationsService } from '../notifications/notifications.service.js';
 import type { TransitionType } from '@takt/contracts';
 
 // ============================================
@@ -44,6 +45,12 @@ describe('VersionService.transition', () => {
       editLock: {
         deleteMany: vi.fn(),
       },
+      userSystemRole: { findMany: vi.fn().mockResolvedValue([]) },
+      departement: {
+        findUnique: vi.fn().mockResolvedValue({ id: 'dept-1', code: 'INFO' }),
+        findMany: vi.fn().mockResolvedValue([{ id: 'dept-1', code: 'INFO' }]),
+      },
+      semestre: { findUnique: vi.fn().mockResolvedValue({ id: 'semestre-1', anneeId: 'annee-1' }) },
       $transaction: vi.fn(async (fn: any) => fn(prisma)),
     };
 
@@ -59,6 +66,10 @@ describe('VersionService.transition', () => {
         { provide: ConflitService, useValue: conflitService },
         { provide: 'BOSS', useValue: bossMock },
         { provide: PolicyService, useValue: { checkSegregationOfDuties: vi.fn() } },
+        {
+          provide: NotificationsService,
+          useValue: { creerNotifications: vi.fn().mockResolvedValue({ count: 0 }) },
+        },
       ],
     }).compile();
 
