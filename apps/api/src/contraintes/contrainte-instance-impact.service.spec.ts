@@ -33,6 +33,14 @@ class MockPrismaService {
   };
 }
 
+class MockVersionService {
+  newRevision = vi.fn();
+}
+
+class MockConflitService {
+  recomputeConflits = vi.fn();
+}
+
 function makeDefinition(
   code: string,
   portee: ContraintePortee,
@@ -145,7 +153,11 @@ describe('ContrainteInstanceService.analyserImpactChangementRegle (L5-13)', () =
 
   beforeEach(() => {
     prisma = new MockPrismaService();
-    service = new ContrainteInstanceService(prisma as unknown as PrismaService);
+    service = new ContrainteInstanceService(
+      prisma as unknown as PrismaService,
+      new MockVersionService() as any,
+      new MockConflitService() as any,
+    );
   });
 
   describe('Instance introuvable', () => {

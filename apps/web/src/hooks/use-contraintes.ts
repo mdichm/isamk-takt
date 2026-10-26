@@ -8,12 +8,15 @@ import {
   createContrainteInstance,
   updateContrainteInstance,
   deleteContrainteInstance,
+  appliquerContrainteApresValidation,
 
   type ContrainteInstance,
   type CreateContrainteInstanceInput,
   type UpdateContrainteInstanceInput,
   type ContraintesQuery,
   type ContraintesDefinitionsQuery,
+  type AppliquerContrainteApresValidationInput,
+  type AppliquerContrainteApresValidationOutput,
 } from '@/lib/api/contraintes';
 import { getErrorMessage } from '@/lib/api/errors';
 import { toast } from 'sonner';
@@ -111,6 +114,29 @@ export function useUpdateContrainteInstance() {
     },
     onError: (error) => {
       toast.error(getErrorMessage(error) || messages.errorUpdateContrainteInstance);
+    },
+  });
+}
+
+/**
+ * Hook pour modifier une contrainte après validation (L5-14).
+ * Permet de choisir entre application immédiate et application à la prochaine génération.
+ */
+export function useContrainteApresValidation() {
+  const queryClient = useQueryClient();
+  return useMutation<
+    AppliquerContrainteApresValidationOutput,
+    Error,
+    { id: string; input: AppliquerContrainteApresValidationInput }
+  >({
+    mutationFn: ({ id, input }) => appliquerContrainteApresValidation(id, input),
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: contraintesKeys.instances.detail(id) });
+      queryClient.invalidateQueries({ queryKey: contraintesKeys.instances.all });
+      toast.success(messages.successContrainteApresValidation);
+    },
+    onError: (error) => {
+      toast.error(getErrorMessage(error) || messages.errorContrainteApresValidation);
     },
   });
 }
