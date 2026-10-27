@@ -188,6 +188,15 @@ enum GenerationMode {
   MANUELLE
 }
 
+// Statut d'un job asynchrone (L6-04)
+enum JobStatut {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  FAILED
+  CANCELLED
+}
+
 // ============================================
 // MODELS
 // ============================================
@@ -780,6 +789,7 @@ model VersionEdt {
   impactDepartements              ImpactDepartement[]
   validations                     ValidationDepartement[]
   notifications                   Notification[]
+  exportJobs                      ExportJob[]
   revision                        Int         @default(0)
   cycleValidation   Int         @default(0)
   soumisPar          String?     @db.Uuid
@@ -794,6 +804,100 @@ model VersionEdt {
   @@index([soumisPar])
   @@index([parentId])
   @@map("versions_edt")
+}
+
+// ============================================
+// Format et mode d'export (L6)
+// ============================================
+enum ExportFormat {
+  PDF
+  XLSX
+}
+
+enum ExportMode {
+  BROUILLON
+  OFFICIEL
+}
+
+// ============================================
+// Modèle visuel d'export versionné (L6-02)
+// Logo(s), en-tête, pied de page, couleurs, orientation, format, éléments affichés.
+// Versionné et immuable une fois utilisé (utiliseLe renseigné).
+// ============================================
+model ExportStyle {
+  id           String     @id @default(uuid()) @db.Uuid
+  code         String
+  styleVersion Int
+  libelle      String
+  config       Json
+  actif        Boolean    @default(true)
+  utiliseLe    DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  jobs ExportJob[]
+
+  @@unique([code, styleVersion])
+  @@index([code])
+  @@index([actif])
+  @@map("export_styles")
+}
+
+// ============================================
+// Configuration de vue d'export versionnée (L6-03)
+// Vue, colonnes, ordre, feuilles, regroupements.
+// ============================================
+model ExportView {
+  id          String     @id @default(uuid()) @db.Uuid
+  code        String
+  viewVersion Int
+  libelle     String
+  vue         String
+  format      ExportFormat
+  config      Json
+  actif       Boolean    @default(true)
+  utiliseLe   DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  jobs ExportJob[]
+
+  @@unique([code, viewVersion])
+  @@index([code])
+  @@index([actif])
+  @@map("export_views")
+}
+
+// ============================================
+// Job d'export asynchrone (L6-04)
+// ============================================
+model ExportJob {
+  id         String          @id @default(uuid()) @db.Uuid
+  versionId  String          @db.Uuid
+  styleId    String          @db.Uuid
+  viewId     String          @db.Uuid
+  auteurId   String          @db.Uuid
+  format     ExportFormat
+  mode       ExportMode
+  grille     GrilleAffichage @default(NORMALE)
+  parametres Json
+  statut     JobStatut       @default(QUEUED)
+  storageKey String?
+  sha256     String?
+  erreur     String?
+  createdAt  DateTime        @default(now())
+  finishedAt DateTime?
+
+  version VersionEdt @relation(fields: [versionId], references: [id])
+  style   ExportStyle @relation(fields: [styleId], references: [id])
+  view    ExportView  @relation(fields: [viewId], references: [id])
+
+  @@index([versionId])
+  @@index([styleId])
+  @@index([viewId])
+  @@index([auteurId])
+  @@index([statut])
+  @@map("export_jobs")
 }
 
 // ============================================

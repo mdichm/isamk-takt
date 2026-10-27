@@ -48,6 +48,8 @@ import { VerrouSeanceModule } from './verrou-seance/verrou-seance.module.js';
 import { ExportSpikeModule } from './exports/export-spike.module.js';
 import { DirectionModule } from './direction/direction.module.js';
 import { ProfilsModule } from './profils/profils.module.js';
+import { FilestoreModule } from './filestore/filestore.module.js';
+import { ExportStyleModule } from './export-style/export-style.module.js';
 import { PreparationModule } from './preparation/preparation.module.js';
 import { GenerationsModule } from './generations/generations.module.js';
 import { TableauDeBordModule } from './tableau-de-bord/tableau-de-bord.module.js';
@@ -146,6 +148,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     PgBossModule,
     ExportSpikeModule,
     DirectionModule,
+    FilestoreModule,
+    ExportStyleModule,
     ParametresModule,
     MetricsModule,
   ],
