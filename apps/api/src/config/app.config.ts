@@ -24,4 +24,7 @@ export default registerAs('app', () => ({
     enabled: process.env.OPENAPI_ENABLED !== 'false',
     path: process.env.OPENAPI_PATH || 'api/docs',
   },
+  filestore: {
+    path: process.env.FILESTORE_PATH || '/filestore',
+  },
 }));
