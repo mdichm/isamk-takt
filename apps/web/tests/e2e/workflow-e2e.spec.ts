@@ -287,3 +287,40 @@ test('prévisualisation avant publication affiche les données complètes (Gesti
   expect(Array.isArray(previs.activites)).toBe(true);
   expect(previs.provenance).toBeDefined();
 });
+
+// ============================================================================
+// Test 6 : Tableau de bord accessible pour GESTIONNAIRE et ADMINISTRATEUR (L5-27)
+// ============================================================================
+
+async function verifierTableauDeBord(page: Page, _role: 'GESTIONNAIRE' | 'ADMINISTRATEUR') {
+  await page.goto('/tableau-de-bord');
+
+  // La page doit afficher le titre
+  await expect(page.getByRole('heading', { name: 'Tableau de bord' })).toBeVisible();
+
+  // Le contexte (année / semestre) doit être affiché
+  await expect(page.getByText(/Année/)).toBeVisible();
+  await expect(page.getByText(/Semestre/)).toBeVisible();
+
+  // Le menu latéral doit contenir l'entrée Tableau de bord
+  await expect(page.getByRole('link', { name: 'Tableau de bord' })).toBeVisible();
+}
+
+test('tableau de bord accessible pour GESTIONNAIRE', async ({ request, page }) => {
+  await setAuthCookie(request, page, 'GESTIONNAIRE');
+  await verifierTableauDeBord(page, 'GESTIONNAIRE');
+});
+
+test('tableau de bord accessible pour ADMINISTRATEUR', async ({ request, page }) => {
+  await setAuthCookie(request, page, 'ADMINISTRATEUR');
+  await verifierTableauDeBord(page, 'ADMINISTRATEUR');
+});
+
+test('tableau de bord inaccessible pour RESPONSABLE_DEPARTEMENT', async ({ request, page }) => {
+  await setAuthCookie(request, page, 'RESPONSABLE');
+  await page.goto('/tableau-de-bord');
+  // Doit afficher un message d'accès refusé ou rediriger
+  await expect(
+    page.getByText(/accès.*tableau de bord|Vous n.avez pas accès/),
+  ).toBeVisible();
+});

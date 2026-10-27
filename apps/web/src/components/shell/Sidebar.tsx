@@ -51,6 +51,7 @@ const NOTIF = icon('M18.364 5.636l-.707-.707a3 3 0 00-4.242 4.242l.707.707q.112.
 
 const NAV_ENTRIES: NavEntry[] = [
   { label: t('home'), href: '/', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT', 'ETUDIANT'], icon: DASHBOARD },
+  { label: t('tableauDeBord'), href: '/tableau-de-bord', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: DASHBOARD },
   { label: t('structure'), href: '/structure', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT'], icon: STRUCTURE },
   { label: t("repartitions"), href: "/repartitions", roles: ["ADMINISTRATEUR", "GESTIONNAIRE", "RESPONSABLE_DEPARTEMENT", "DIRECTION"], icon: REPARTITIONS },
   { label: t('demandes'), href: '/demandes', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: DEMANDES },
