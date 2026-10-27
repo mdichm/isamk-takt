@@ -46,6 +46,7 @@ import { VoeuxEvalModule } from './voeux-eval/voeux-eval.module.js';
 import { EditLockModule } from './edit-lock/edit-lock.module.js';
 import { VerrouSeanceModule } from './verrou-seance/verrou-seance.module.js';
 import { ExportSpikeModule } from './exports/export-spike.module.js';
+import { DirectionModule } from './direction/direction.module.js';
 import { ProfilsModule } from './profils/profils.module.js';
 import { PreparationModule } from './preparation/preparation.module.js';
 import { GenerationsModule } from './generations/generations.module.js';
@@ -144,6 +145,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     NotificationsModule,
     PgBossModule,
     ExportSpikeModule,
+    DirectionModule,
     ParametresModule,
     MetricsModule,
   ],
