@@ -3,6 +3,8 @@
 // Lecture seule : plannings publiés/archivés, répartition, charges, contraintes, audit, exports officiels.
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@/components/shell/AuthProvider';
 import { t } from '@/lib/i18n';

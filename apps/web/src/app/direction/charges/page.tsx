@@ -2,6 +2,8 @@
 // TAKT - Page Charges de l'espace Direction (L5-29)
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@/components/shell/AuthProvider';
 import { t } from '@/lib/i18n';
