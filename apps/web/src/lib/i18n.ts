@@ -35,6 +35,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     demandes: 'Demandes de modification',
     charges: 'Charges',
     chargesAnnueles: 'Charges annuelles',
+    notifications: 'Notifications',
     profils: 'Profils de génération',
 
     // Générations (L4-20)
