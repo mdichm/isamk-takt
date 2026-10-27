@@ -1568,6 +1568,20 @@ export const messages = {
   provenanceSeanceEnseignant: 'Enseignant',
   provenanceSeanceStatut: 'Statut',
   provenanceGenereLe: 'Généré le',
+
+  // Notifications (L5-24)
+  notifications: 'Notifications',
+  notificationsAucune: 'Aucune notification.',
+  notificationMarquerLu: 'Marquer comme lue',
+  notificationMarquerTousLus: 'Tout marquer lu',
+  notificationNouvelle: 'Nouvelle notification',
+  notificationVoir: 'Voir',
+  notificationCompteur: '{count} non lue(s)',
+  notificationErreur: 'Impossible de charger les notifications.',
+  notificationErreurLecture: 'Impossible de marquer comme lue.',
+  notificationVide: 'Aucune notification pour le moment.',
+  notificationChargement: 'Chargement…',
+  bellLabel: 'Boîte de notifications',
 } as const;
 
 export type Messages = typeof messages;

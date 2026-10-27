@@ -9,6 +9,7 @@
 
 import { useAuth } from './AuthProvider';
 import { t } from '@/lib/i18n';
+import { NotificationBell } from '@/components/notifications/NotificationBell';
 
 const LOGO = (
   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,6 +48,7 @@ export default function Header() {
               <span className="text-zinc-500">{role}</span>
             </div>
           )}
+          <NotificationBell />
           <button
             onClick={logout}
             className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
