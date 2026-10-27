@@ -49,6 +49,7 @@ import { ExportSpikeModule } from './exports/export-spike.module.js';
 import { ProfilsModule } from './profils/profils.module.js';
 import { PreparationModule } from './preparation/preparation.module.js';
 import { GenerationsModule } from './generations/generations.module.js';
+import { TableauDeBordModule } from './tableau-de-bord/tableau-de-bord.module.js';
 import { NotificationsModule } from './notifications/notifications.module.js';
 import { PgBossModule } from './pg-boss/pg-boss.module.js';
 import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
@@ -139,6 +140,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     ProfilsModule,
     PreparationModule,
     GenerationsModule,
+    TableauDeBordModule,
     NotificationsModule,
     PgBossModule,
     ExportSpikeModule,
