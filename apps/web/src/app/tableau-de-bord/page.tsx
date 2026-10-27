@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-// TAKT - Page du tableau de bord (L5-27)
-// Accès : GESTIONNAIRE, ADMINISTRATEUR
+// TAKT - Page du tableau de bord (L5-27 / L5-28)
+// Accès : GESTIONNAIRE, ADMINISTRATEUR, RESPONSABLE_DEPARTEMENT, DIRECTION
 
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@/components/shell/AuthProvider';
 import { fetchTableauDeBord, type TableauDeBordResponse } from '@/lib/api/tableau-de-bord';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { t } from '@/lib/i18n';
@@ -19,12 +18,18 @@ import { VersionPublieeBloc } from '@/components/tableau-de-bord/VersionPublieeB
 import { ChangementsBloc } from '@/components/tableau-de-bord/ChangementsBloc';
 import { ActionsPrioritairesBloc } from '@/components/tableau-de-bord/ActionsPrioritairesBloc';
 import { ValidationsEnAttenteBloc } from '@/components/tableau-de-bord/ValidationsEnAttenteBloc';
+import { ChargesEnseignantsBloc } from '@/components/tableau-de-bord/ChargesEnseignantsBloc';
+import { ValidationsResponsableBloc } from '@/components/tableau-de-bord/ValidationsResponsableBloc';
+import { DemandesDepartementBloc } from '@/components/tableau-de-bord/DemandesDepartementBloc';
+import { DirectionBloc } from '@/components/tableau-de-bord/DirectionBloc';
 
 // Clés de cache React Query
 export const tableauDeBordKeys = {
   all: ['tableau-de-bord'] as const,
   detail: (semestreId?: string) => [...tableauDeBordKeys.all, 'detail', semestreId ?? 'actif'] as const,
 };
+
+const ROLES_GESTION = ['GESTIONNAIRE', 'ADMINISTRATEUR'];
 
 export function TableauDeBordPageContent({
   data,
@@ -67,6 +72,9 @@ export function TableauDeBordPageContent({
     );
   }
 
+  const estResponsable = data.role === 'RESPONSABLE_DEPARTEMENT';
+  const estDirection = data.role === 'DIRECTION';
+
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
@@ -81,36 +89,75 @@ export function TableauDeBordPageContent({
 
       <TableauDeBordHeader contexte={data.contexte} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {data.repartitions && (
-          <RepartitionsBloc repartitions={data.repartitions} />
-        )}
-        {data.preparation && (
-          <PreparationBloc preparation={data.preparation} />
-        )}
-        {data.generations && (
-          <GenerationsBloc generations={data.generations} />
-        )}
-        {data.versionPubliee !== undefined && (
-          <VersionPublieeBloc versionPubliee={data.versionPubliee} />
-        )}
-      </div>
+      {/* Blocs Gestionnaire / Administrateur */}
+      {!estResponsable && !estDirection && (
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {data.repartitions && (
+              <RepartitionsBloc repartitions={data.repartitions} />
+            )}
+            {data.preparation && (
+              <PreparationBloc preparation={data.preparation} />
+            )}
+            {data.generations && (
+              <GenerationsBloc generations={data.generations} />
+            )}
+            {data.versionPubliee !== undefined && (
+              <VersionPublieeBloc versionPubliee={data.versionPubliee} />
+            )}
+          </div>
 
-      <Separator className="my-6" />
+          <Separator className="my-6" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {data.changements && (
-          <ChangementsBloc changements={data.changements} />
-        )}
-        {data.validationsEnAttente && (
-          <ValidationsEnAttenteBloc validations={data.validationsEnAttente} />
-        )}
-      </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {data.changements && (
+              <ChangementsBloc changements={data.changements} />
+            )}
+            {data.validationsEnAttente && (
+              <ValidationsEnAttenteBloc validations={data.validationsEnAttente} />
+            )}
+          </div>
 
-      <Separator className="my-6" />
+          <Separator className="my-6" />
 
-      {data.actionsPrioritaires && (
-        <ActionsPrioritairesBloc actions={data.actionsPrioritaires} />
+          {data.actionsPrioritaires && (
+            <ActionsPrioritairesBloc actions={data.actionsPrioritaires} />
+          )}
+        </>
+      )}
+
+      {/* Blocs Responsable de département */}
+      {estResponsable && (
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {data.repartitions && (
+              <RepartitionsBloc repartitions={data.repartitions} />
+            )}
+            {data.responsable?.charges && (
+              <ChargesEnseignantsBloc charges={data.responsable.charges} />
+            )}
+          </div>
+
+          <Separator className="my-6" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {data.responsable?.validations && (
+              <ValidationsResponsableBloc validations={data.responsable.validations} />
+            )}
+            {data.responsable?.demandes && (
+              <DemandesDepartementBloc demandes={data.responsable.demandes} />
+            )}
+          </div>
+        </>
+      )}
+
+      {/* Blocs Direction */}
+      {estDirection && (
+        <>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {data.direction && <DirectionBloc direction={data.direction} />}
+          </div>
+        </>
       )}
     </div>
   );
@@ -120,7 +167,9 @@ export default function TableauDeBordPage() {
   const { role } = useAuth();
 
   const peutVoir =
-    role === 'GESTIONNAIRE' || role === 'ADMINISTRATEUR';
+    ROLES_GESTION.includes(role ?? '') ||
+    role === 'RESPONSABLE_DEPARTEMENT' ||
+    role === 'DIRECTION';
 
   if (!peutVoir) {
     return (

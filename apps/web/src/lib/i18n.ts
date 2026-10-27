@@ -56,6 +56,29 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     actionsPrioritaires: 'Actions prioritaires',
     aucuneActionPrioritaire: 'Aucune action prioritaire.',
     allerA: 'Aller à',
+
+    // Tableau de bord Responsable (L5-28)
+    chargesEnseignantsResponsable: 'Charges des enseignants',
+    aucuneChargeEnseignant: 'Aucune charge d\'enseignant pour ce département.',
+    alertesDepassement: 'Alerte(s) de dépassement de seuil',
+    aucuneAlerte: 'Aucune alerte de dépassement',
+    enseignant: 'Enseignant',
+    charge: 'Charge',
+    seuil: 'Seuil',
+    depasseSeuil: 'Dépasse le seuil',
+    dansSeuil: 'Dans le seuil',
+    validationsResponsable: 'Validations à donner',
+    aucuneValidationResponsable: 'Aucune validation en attente pour votre département.',
+    aValider: 'À valider',
+    demandesDepartement: 'Demandes du département',
+    aucuneDemandeOuverte: 'Aucune demande ouverte.',
+
+    // Tableau de bord Direction (L5-28)
+    espaceDirection: 'Direction',
+    exportsDirection: 'Exports officiels',
+    actif: 'Actif',
+    inactif: 'Inactif',
+
     validationsEnAttente: 'Validations en attente',
     aucuneValidationEnAttente: 'Aucune validation en attente.',
     aTraiter: 'À traiter',

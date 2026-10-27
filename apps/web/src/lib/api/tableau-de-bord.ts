@@ -54,16 +54,24 @@ export interface Changements {
   totalImpactes: number;
 }
 
+export interface ChargeEnseignantAlerte {
+  enseignantId: string;
+  nom: string;
+  charge: string;
+  seuil: string;
+  depassement: string;
+}
+
 export interface ResponsableView {
   repartitions: Repartition[];
-  charges: Array<{ enseignantId: string; nom: string; chargeCalculee: number; serviceDu: number; alerte: boolean }>;
-  validationsEnAttente: number;
-  demandesOuvertes: number;
+  charges: ChargeEnseignantAlerte[];
+  validations?: string[];
+  demandes?: string[];
 }
 
 export interface DirectionView {
-  versionPubliee: VersionPubliee | null;
-  exportsDisponibles: boolean;
+  versionPubliee: string;
+  exports: string;
 }
 
 export interface TableauDeBordResponse {
