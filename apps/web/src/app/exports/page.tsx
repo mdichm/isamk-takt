@@ -132,7 +132,7 @@ export default function ExportsPage() {
           <CardHeader>
             <CardTitle>{t('accessDeniedExport')}</CardTitle>
             <CardDescription>
-              Votre rôle n'autorise pas l'accès aux exports.
+              {t('accessDeniedExportDescription')}
             </CardDescription>
           </CardHeader>
         </Card>
@@ -244,8 +244,9 @@ export default function ExportsPage() {
         grille: 'NORMALE',
         departementId: '',
       });
-    } catch (err: any) {
-      setError(err?.message ?? t('exportError'));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t('exportError');
+      setError(message);
     } finally {
       setCreating(false);
     }
@@ -257,8 +258,9 @@ export default function ExportsPage() {
       const { downloadUrl } = await fetchExportDownloadUrl(id);
       setDownloadUrl(downloadUrl);
       window.location.href = downloadUrl;
-    } catch (err: any) {
-      setError(err?.message ?? t('exportError'));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : t('exportError');
+      setError(message);
     }
   };
 

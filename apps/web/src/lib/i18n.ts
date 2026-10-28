@@ -295,6 +295,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     exportError: 'Erreur lors de l\'export.',
     exportSuccess: 'Export lancé avec succès.',
     accessDeniedExport: 'Vous n\'avez pas accès aux exports.',
+    accessDeniedExportDescription: 'Votre rôle n\'autorise pas l\'accès aux exports.',
     erreurDepartementInterdit: 'Vous ne pouvez exporter que pour votre propre département.',
 
     roleAdministrateur: 'Administrateur',
