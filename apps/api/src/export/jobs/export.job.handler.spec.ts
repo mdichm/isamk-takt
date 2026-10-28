@@ -6,6 +6,7 @@ import { ExportService } from '../export.service.js';
 import { FilestoreService } from '../../filestore/filestore.service.js';
 import { ExportXlsxService } from './export.xlsx.service.js';
 import { ExportPdfService } from './export.pdf.service.js';
+import { ExportCsvService } from './export.csv.service.js';
 import type { PgBoss as PgBossType } from 'pg-boss';
 
 const mockExportService = {
@@ -25,6 +26,10 @@ const mockPdfService = {
   generatePdfForJob: vi.fn(),
 };
 
+const mockCsvService = {
+  generateCsvForJob: vi.fn(),
+};
+
 const mockBoss = {
   subscribe: vi.fn(),
   send: vi.fn(),
@@ -37,6 +42,7 @@ function makeHandler() {
     mockFilestore as never,
     mockXlsxService as never,
     mockPdfService as never,
+    mockCsvService as never,
   );
 }
 
@@ -186,6 +192,55 @@ describe('ExportJobHandler', () => {
         'job-1',
         'abc/export-job-1.pdf',
         'hash789',
+      );
+    });
+
+    it('devrait générer un CSV via ExportCsvService quand format=CSV', async () => {
+      mockCsvService.generateCsvForJob.mockResolvedValue({
+        buffer: Buffer.from('csv-content'),
+        filename: 'charges-2.0-20241028.csv',
+      });
+      mockFilestore.storeFile.mockReturnValue({
+        storageKey: 'abc/export-job-1.csv',
+        sha256: 'hash-csv',
+        size: 1500,
+      });
+      mockExportService.complete.mockResolvedValue(undefined);
+
+      const handler = makeHandler();
+      (handler as any).currentJobData = {
+        ...baseJobData,
+        format: 'CSV',
+      };
+      await (handler as any).processJob('job-1');
+
+      expect(mockCsvService.generateCsvForJob).toHaveBeenCalledWith('job-1');
+      expect(mockFilestore.storeFile).toHaveBeenCalledWith(
+        Buffer.from('csv-content'),
+        'charges-2.0-20241028.csv',
+      );
+      expect(mockExportService.complete).toHaveBeenCalledWith(
+        'job-1',
+        'abc/export-job-1.csv',
+        'hash-csv',
+      );
+    });
+
+    it('devrait marquer le job FAILED quand generateCsvForJob rejette', async () => {
+      const error = new Error('csv render failed');
+      mockCsvService.generateCsvForJob.mockRejectedValue(error);
+      mockExportService.fail.mockResolvedValue(undefined);
+
+      const handler = makeHandler();
+      (handler as any).currentJobData = {
+        ...baseJobData,
+        format: 'CSV',
+      };
+      await (handler as any).processJob('job-1');
+
+      expect(mockExportService.fail).toHaveBeenCalledWith(
+        'job-1',
+        'csv render failed',
       );
     });
 

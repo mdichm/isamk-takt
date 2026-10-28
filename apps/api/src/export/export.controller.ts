@@ -85,7 +85,7 @@ export class ExportController {
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
   @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
   @ApiQuery({ name: 'statut', required: false, enum: ['QUEUED', 'RUNNING', 'DONE', 'FAILED'] })
-  @ApiQuery({ name: 'format', required: false, enum: ['PDF', 'XLSX'] })
+  @ApiQuery({ name: 'format', required: false, enum: ['PDF', 'XLSX', 'CSV'] })
   @ApiQuery({ name: 'mode', required: false, enum: ['BROUILLON', 'OFFICIEL'] })
   @ApiQuery({ name: 'versionId', required: false, type: String })
   async findAll(

@@ -104,6 +104,29 @@ export class ExportService {
       );
     }
 
+    // --- L6-08 : RBAC Responsable sur export des charges (CSV) ---
+    // Le Responsable ne peut exporter que son propre département.
+    if (
+      dto.format === ExportFormat.CSV &&
+      currentUser.role === 'RESPONSABLE_DEPARTEMENT' &&
+      currentUser.departments
+    ) {
+      const departementIds = (dto.parametres.departementIds as string[]) ?? [];
+      const allowed = new Set(currentUser.departments);
+      const horsPerimetre = departementIds.filter((d) => !allowed.has(d));
+      if (horsPerimetre.length > 0) {
+        throw new BadRequestException(
+          `Departement(s) hors perimetre : ${horsPerimetre.join(', ')}. Le Responsable ne peut exporter que son propre departement.`,
+        );
+      }
+      // Si aucun departement n'est specifie, restreindre a celui du Responsable.
+      if (departementIds.length === 0) {
+        (dto.parametres as Record<string, unknown>).departementIds = [
+          ...currentUser.departments,
+        ];
+      }
+    }
+
     let styleId = dto.styleId;
     let styleVersion: number | undefined;
     if (!styleId) {

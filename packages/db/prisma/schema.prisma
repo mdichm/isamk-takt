@@ -814,6 +814,7 @@ model VersionEdt {
 enum ExportFormat {
   PDF
   XLSX
+  CSV
 }
 
 enum ExportMode {

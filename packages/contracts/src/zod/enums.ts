@@ -218,6 +218,7 @@ export type VerrouType = z.infer<typeof verrouTypeSchema>;
 export const exportFormatSchema = z.enum([
   'PDF',
   'XLSX',
+  'CSV',
 ]);
 export type ExportFormat = z.infer<typeof exportFormatSchema>;
 
