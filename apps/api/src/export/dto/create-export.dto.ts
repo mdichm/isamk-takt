@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - DTO de création d'un job d'export (L6-04)
-import { IsString, IsOptional, IsObject, IsEnum, IsUUID } from 'class-validator';
+import { IsString, IsOptional, IsObject, IsEnum, IsUUID, IsArray } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ExportFormat, ExportMode, GrilleAffichage } from '@takt/db';
 
@@ -74,4 +74,14 @@ export class CreateExportDto {
   })
   @IsObject()
   parametres: Record<string, unknown>;
+
+  @ApiPropertyOptional({
+    type: [String],
+    format: 'uuid',
+    description: 'IDs des avertissements acceptés à afficher en pied de page (export officiel uniquement)',
+    example: ['550e8400-e29b-41d4-a716-446655440003'],
+  })
+  @IsOptional()
+  @IsArray()
+  avertissementsAcceptes?: string[];
 }

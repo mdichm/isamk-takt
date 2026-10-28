@@ -15,11 +15,17 @@ import { FilestoreService } from '../../filestore/filestore.service.js';
 
 interface ExportJobData {
   exportJobId: string;
+  mode: string;
+  grille: string;
+  avertissementIds: string[];
+  numeroVersion: string;
+  publieLe: string | null;
 }
 
 @Injectable()
 export class ExportJobHandler implements OnModuleInit {
   private readonly logger = new Logger(ExportJobHandler.name);
+  private currentJobData: ExportJobData | null = null;
 
   constructor(
     @Inject('BOSS') private readonly boss: any,
@@ -29,6 +35,7 @@ export class ExportJobHandler implements OnModuleInit {
 
   async onModuleInit(): Promise<void> {
     await this.boss.subscribe('export', async (job: any) => {
+      this.currentJobData = job.data as ExportJobData;
       const { exportJobId } = job.data as ExportJobData;
       try {
         await this.processJob(exportJobId);
@@ -44,9 +51,22 @@ export class ExportJobHandler implements OnModuleInit {
 
   private async processJob(exportJobId: string): Promise<void> {
     try {
-      // Stub L6-04 : génère un fichier placeholder.
+      // Stub L6-04/L6-05 : génère un fichier placeholder enrichi des métadonnées d'export.
       // Le rendu réel (PDF via Playwright, XLSX via ExcelJS) est délégué à L6-06 et L6-07.
-      const content = `TAKT — Export placeholder (job ${exportJobId})\nGénéré par le worker L6-04.\nRendu réel : voir L6-06 (XLSX) et L6-07 (PDF).`;
+      const job = this.currentJobData;
+      if (!job) {
+        throw new Error(`Données de job manquantes pour ${exportJobId}`);
+      }
+
+      const modeLibelle =
+        job.mode === 'OFFICIEL' ? 'OFFICIEL' : 'BROUILLON';
+      const pubInfo = job.publieLe
+        ? `, publiée le ${job.publieLe}`
+        : '';
+      const avertInfo = job.avertissementIds.length > 0
+        ? `, ${job.avertissementIds.length} avertissement(s) accepté(s)`
+        : '';
+      const content = `TAKT — Export placeholder (job ${exportJobId})\nMode : ${modeLibelle}\nVersion : ${job.numeroVersion}${pubInfo}\nGrille : ${job.grille}${avertInfo}\nGénéré par le worker L6-05.\nRendu réel : voir L6-06 (XLSX) et L6-07 (PDF).\n`;
       const buffer = Buffer.from(content, 'utf-8');
 
       const { storageKey, sha256 } = this.filestore.storeFile(

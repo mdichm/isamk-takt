@@ -48,6 +48,7 @@ export class ExportService {
   ): Promise<ExportJobResponseDto> {
     const version = await this.prisma.versionEdt.findUnique({
       where: { id: dto.versionId },
+      include: { avertissementsAcceptes: true },
     });
     if (!version) {
       throw new NotFoundException(`Version introuvable : ${dto.versionId}`);
@@ -66,6 +67,34 @@ export class ExportService {
           'L export brouillon est refusé sur une version PUBLIEE ou ARCHIVEE (422).',
         );
       }
+    }
+
+    // --- L6-05 : résolution de la grille effective + validation des avertissements ---
+    const grilleEffective: GrilleAffichage =
+      dto.grille ??
+      (dto.mode === ExportMode.OFFICIEL && version.grilleFigée
+        ? version.grilleFigée
+        : GrilleAffichage.NORMALE);
+
+    let avertissementIds: string[] = [];
+    if (dto.avertissementsAcceptes && dto.avertissementsAcceptes.length > 0) {
+      const accepteIds = new Set(
+        version.avertissementsAcceptes.map((a) => a.id),
+      );
+      for (const id of dto.avertissementsAcceptes) {
+        if (!accepteIds.has(id)) {
+          throw new BadRequestException(
+            `Avertissement ${id} introuvable, ne appartient pas à cette version ou est caduc (422).`,
+          );
+        }
+        const accepte = version.avertissementsAcceptes.find((a) => a.id === id);
+        if (accepte!.caduqueLe !== null) {
+          throw new BadRequestException(
+            `Avertissement ${id} est caduc (422).`,
+          );
+        }
+      }
+      avertissementIds = dto.avertissementsAcceptes;
     }
 
     const objetCount = this.countExportObjects(dto.parametres);
@@ -127,7 +156,8 @@ export class ExportService {
         auteurId: currentUser.id,
         format: dto.format,
         mode: dto.mode,
-        grille: dto.grille ?? 'NORMALE',
+        grille: grilleEffective,
+        avertissementIds,
         parametres: dto.parametres as Prisma.InputJsonValue,
         statut: JobStatut.QUEUED,
       },
@@ -136,6 +166,11 @@ export class ExportService {
 
     await this.boss.send(EXPORT_JOB_QUEUE, {
       exportJobId: exportJob.id,
+      mode: dto.mode,
+      grille: grilleEffective,
+      avertissementIds,
+      numeroVersion: version.numero,
+      publieLe: version.publieLe ?? null,
     }, {
       retryDelay: 30_000,
       retryBackoff: true,
@@ -297,11 +332,13 @@ export class ExportService {
       format: job.format as ExportFormat,
       mode: job.mode as ExportMode,
       grille: job.grille as GrilleAffichage,
+      grilleEffective: job.grille as GrilleAffichage,
       parametres: job.parametres as Record<string, unknown>,
       statut: job.statut as JobStatut,
       storageKey: job.storageKey ?? undefined,
       sha256: job.sha256 ?? undefined,
       erreur: job.erreur ?? undefined,
+      avertissementsAcceptes: job.avertissementIds ?? [],
       styleVersion,
       viewVersion,
       createdAt: job.createdAt,

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - DTO de réponse d'un job d'export (L6-04)
-import { IsString, IsOptional, IsDate, IsEnum, IsUUID, IsObject } from 'class-validator';
+import { IsString, IsOptional, IsDate, IsEnum, IsUUID, IsObject, IsArray } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   ExportFormat,
@@ -76,6 +76,23 @@ export class ExportJobResponseDto {
   @ApiPropertyOptional({ description: 'Version de la vue figée au moment du job' })
   @IsOptional()
   viewVersion?: number;
+
+  @ApiPropertyOptional({
+    type: [String],
+    format: 'uuid',
+    description: 'IDs des avertissements acceptés liés à ce job (pied de page, audit)',
+  })
+  @IsOptional()
+  @IsArray()
+  avertissementsAcceptes?: string[];
+
+  @ApiPropertyOptional({
+    enum: GrilleAffichage,
+    description: 'Grille d\'affichage effective utilisée pour ce job (résolution : dto.grille > version.grilleFigée > NORMALE)',
+  })
+  @IsOptional()
+  @IsEnum(GrilleAffichage)
+  grilleEffective?: GrilleAffichage;
 
   @ApiProperty()
   @IsDate()

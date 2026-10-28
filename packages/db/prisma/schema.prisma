@@ -770,6 +770,8 @@ model VersionEdt {
   numero      String        // ex. "1.0", "2.0", "1.1"
   statut      VersionStatut @default(BROUILLON)
   motif       String?
+  publieLe    DateTime?     // date de publication (remplie quand la version passe PUBLIEE/ARCHIVEE)
+  grilleFigée GrilleAffichage? // grille Ramadan figée pour l'export officiel
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
@@ -872,16 +874,17 @@ model ExportView {
 // Job d'export asynchrone (L6-04)
 // ============================================
 model ExportJob {
-  id         String          @id @default(uuid()) @db.Uuid
-  versionId  String          @db.Uuid
-  styleId    String          @db.Uuid
-  viewId     String          @db.Uuid
-  auteurId   String          @db.Uuid
-  format     ExportFormat
-  mode       ExportMode
-  grille     GrilleAffichage @default(NORMALE)
-  parametres Json
-  statut     JobStatut       @default(QUEUED)
+  id                 String          @id @default(uuid()) @db.Uuid
+  versionId          String          @db.Uuid
+  styleId            String          @db.Uuid
+  viewId             String          @db.Uuid
+  auteurId           String          @db.Uuid
+  format             ExportFormat
+  mode               ExportMode
+  grille             GrilleAffichage @default(NORMALE)
+  avertissementIds   String[] @db.Uuid // IDs des avertissements acceptés pour le pied de page et l'audit
+  parametres         Json
+  statut             JobStatut       @default(QUEUED)
   storageKey String?
   sha256     String?
   erreur     String?
