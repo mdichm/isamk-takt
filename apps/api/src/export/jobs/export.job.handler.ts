@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+// TAKT - Worker pg-boss des jobs d'export (L6-04)
+// Souscrit à la file 'export' et traite le rendu (stub : rendu réel délégué à L6-06/L6-07).
+import {
+  Injectable,
+  Logger,
+  OnModuleInit,
+  Inject,
+} from '@nestjs/common';
+import { PgBoss } from 'pg-boss';
+import type { PgBoss as PgBossClass } from 'pg-boss';
+import type { Job as PgBossJob } from 'pg-boss';
+import { ExportService } from '../export.service.js';
+import { FilestoreService } from '../../filestore/filestore.service.js';
+
+interface ExportJobData {
+  exportJobId: string;
+}
+
+@Injectable()
+export class ExportJobHandler implements OnModuleInit {
+  private readonly logger = new Logger(ExportJobHandler.name);
+
+  constructor(
+    @Inject('BOSS') private readonly boss: any,
+    private readonly exportService: ExportService,
+    private readonly filestore: FilestoreService,
+  ) {}
+
+  async onModuleInit(): Promise<void> {
+    await this.boss.subscribe('export', async (job: any) => {
+      const { exportJobId } = job.data as ExportJobData;
+      try {
+        await this.processJob(exportJobId);
+      } catch (error) {
+        await this.exportService.fail(
+          exportJobId,
+          error instanceof Error ? error.message : String(error),
+        );
+      }
+    });
+    this.logger.log('Worker export souscrit sur la file pg-boss');
+  }
+
+  private async processJob(exportJobId: string): Promise<void> {
+    try {
+      // Stub L6-04 : génère un fichier placeholder.
+      // Le rendu réel (PDF via Playwright, XLSX via ExcelJS) est délégué à L6-06 et L6-07.
+      const content = `TAKT — Export placeholder (job ${exportJobId})\nGénéré par le worker L6-04.\nRendu réel : voir L6-06 (XLSX) et L6-07 (PDF).`;
+      const buffer = Buffer.from(content, 'utf-8');
+
+      const { storageKey, sha256 } = this.filestore.storeFile(
+        buffer,
+        `export-${exportJobId}.txt`,
+      );
+
+      await this.exportService.complete(exportJobId, storageKey, sha256);
+      this.logger.log(`ExportJob traité : id=${exportJobId} storageKey=${storageKey}`);
+    } catch (error) {
+      await this.exportService.fail(
+        exportJobId,
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+}
