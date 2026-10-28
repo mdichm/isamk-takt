@@ -154,17 +154,14 @@ export default function ExportConfigPage() {
 
   // Chargement initial des styles au premier rendu
   useEffect(() => {
-    setStylesLoading(true);
-    setError(null);
     fetchExportStyles({ page: stylesPage, limit: LIMIT, code: stylesSearch || undefined, libelle: stylesSearch || undefined })
       .then((data) => {
         setStyles(data.data);
         setStylesTotal(data.total);
+        setStylesLoading(false);
       })
       .catch(() => {
         setError(t('exportConfigLoadError'));
-      })
-      .finally(() => {
         setStylesLoading(false);
       });
   }, [stylesPage, stylesSearch]);
