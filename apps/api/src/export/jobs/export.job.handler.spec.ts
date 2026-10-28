@@ -5,6 +5,7 @@ import { ExportJobHandler } from './export.job.handler.js';
 import { ExportService } from '../export.service.js';
 import { FilestoreService } from '../../filestore/filestore.service.js';
 import { ExportXlsxService } from './export.xlsx.service.js';
+import { ExportPdfService } from './export.pdf.service.js';
 import type { PgBoss as PgBossType } from 'pg-boss';
 
 const mockExportService = {
@@ -20,6 +21,10 @@ const mockXlsxService = {
   generateXlsxForJob: vi.fn(),
 };
 
+const mockPdfService = {
+  generatePdfForJob: vi.fn(),
+};
+
 const mockBoss = {
   subscribe: vi.fn(),
   send: vi.fn(),
@@ -31,6 +36,7 @@ function makeHandler() {
     mockExportService as never,
     mockFilestore as never,
     mockXlsxService as never,
+    mockPdfService as never,
   );
 }
 
@@ -56,7 +62,7 @@ describe('ExportJobHandler', () => {
   describe('processJob', () => {
     const baseJobData = {
       exportJobId: 'job-1',
-      format: 'PDF',
+      format: 'TXT',
       mode: 'BROUILLON',
       grille: 'NORMALE',
       avertissementIds: [],
@@ -149,6 +155,55 @@ describe('ExportJobHandler', () => {
       expect(mockExportService.fail).toHaveBeenCalledWith(
         'job-1',
         'xlsx render failed',
+      );
+    });
+
+    it('devrait générer un PDF via ExportPdfService quand format=PDF', async () => {
+      mockPdfService.generatePdfForJob.mockResolvedValue({
+        buffer: Buffer.from('pdf-content'),
+        filename: 'export-1.0-20240115.pdf',
+      });
+      mockFilestore.storeFile.mockReturnValue({
+        storageKey: 'abc/export-job-1.pdf',
+        sha256: 'hash789',
+        size: 3000,
+      });
+      mockExportService.complete.mockResolvedValue(undefined);
+
+      const handler = makeHandler();
+      (handler as any).currentJobData = {
+        ...baseJobData,
+        format: 'PDF',
+      };
+      await (handler as any).processJob('job-1');
+
+      expect(mockPdfService.generatePdfForJob).toHaveBeenCalledWith('job-1');
+      expect(mockFilestore.storeFile).toHaveBeenCalledWith(
+        Buffer.from('pdf-content'),
+        'export-1.0-20240115.pdf',
+      );
+      expect(mockExportService.complete).toHaveBeenCalledWith(
+        'job-1',
+        'abc/export-job-1.pdf',
+        'hash789',
+      );
+    });
+
+    it('devrait marquer le job FAILED quand generatePdfForJob rejette', async () => {
+      const error = new Error('pdf render failed');
+      mockPdfService.generatePdfForJob.mockRejectedValue(error);
+      mockExportService.fail.mockResolvedValue(undefined);
+
+      const handler = makeHandler();
+      (handler as any).currentJobData = {
+        ...baseJobData,
+        format: 'PDF',
+      };
+      await (handler as any).processJob('job-1');
+
+      expect(mockExportService.fail).toHaveBeenCalledWith(
+        'job-1',
+        'pdf render failed',
       );
     });
   });

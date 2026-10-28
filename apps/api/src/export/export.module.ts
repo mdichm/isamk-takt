@@ -11,6 +11,7 @@ import { ExportService } from './export.service.js';
 import { ExportController } from './export.controller.js';
 import { ExportJobHandler } from './jobs/export.job.handler.js';
 import { ExportXlsxService } from './jobs/export.xlsx.service.js';
+import { ExportPdfService } from './jobs/export.pdf.service.js';
 
 @Module({
   imports: [
@@ -21,8 +22,8 @@ import { ExportXlsxService } from './jobs/export.xlsx.service.js';
     ExportViewModule,
     ExportStyleModule,
   ],
-  providers: [ExportService, ExportJobHandler, ExportXlsxService],
+  providers: [ExportService, ExportJobHandler, ExportXlsxService, ExportPdfService],
   controllers: [ExportController],
-  exports: [ExportService, ExportXlsxService],
+  exports: [ExportService, ExportXlsxService, ExportPdfService],
 })
 export class ExportModule {}
