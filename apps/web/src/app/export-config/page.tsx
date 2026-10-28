@@ -152,10 +152,22 @@ export default function ExportConfigPage() {
     }
   }, [viewsPage, viewsSearch]);
 
+  // Chargement initial des styles au premier rendu
   useEffect(() => {
-    if (tab === 'styles') loadStyles();
-    else loadViews();
-  }, [tab, loadStyles, loadViews]);
+    setStylesLoading(true);
+    setError(null);
+    fetchExportStyles({ page: stylesPage, limit: LIMIT, code: stylesSearch || undefined, libelle: stylesSearch || undefined })
+      .then((data) => {
+        setStyles(data.data);
+        setStylesTotal(data.total);
+      })
+      .catch(() => {
+        setError(t('exportConfigLoadError'));
+      })
+      .finally(() => {
+        setStylesLoading(false);
+      });
+  }, [stylesPage, stylesSearch]);
 
   // ---------- Handlers ----------
   const handleCreate = async (data: StyleFormData | ViewFormData) => {
@@ -410,7 +422,7 @@ export default function ExportConfigPage() {
       <div>
         <h1 className="text-2xl font-bold">{t('exportConfigTitle')}</h1>
         <p className="text-zinc-500 dark:text-zinc-400">
-          Gestion des modèles visuels (styles) et configurations de vue d'export.
+          Gestion des modèles visuels (styles) et configurations de vue d&rsquo;export.
         </p>
       </div>
 
@@ -425,7 +437,13 @@ export default function ExportConfigPage() {
         </div>
       )}
 
-      <Tabs value={tab} onValueChange={(v: string) => { setTab(v as TabId); router.push(`/export-config?tab=${v}`); }}>
+      <Tabs value={tab} onValueChange={(v: string) => {
+        const value = v as TabId;
+        setTab(value);
+        router.push(`/export-config?tab=${value}`);
+        if (value === 'styles') void loadStyles();
+        else void loadViews();
+      }}>
         <TabsList className="grid w-fit grid-cols-2">
           <TabsTrigger value="styles" disabled={!canManageStyles}>
             {t('exportConfigStylesTab')}
