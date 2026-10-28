@@ -51,6 +51,7 @@ import { ProfilsModule } from './profils/profils.module.js';
 import { FilestoreModule } from './filestore/filestore.module.js';
 import { ExportStyleModule } from './export-style/export-style.module.js';
 import { ExportViewModule } from './export-view/export-view.module.js';
+import { ExportModule } from './export/export.module.js';
 import { PreparationModule } from './preparation/preparation.module.js';
 import { GenerationsModule } from './generations/generations.module.js';
 import { TableauDeBordModule } from './tableau-de-bord/tableau-de-bord.module.js';
@@ -152,6 +153,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     FilestoreModule,
     ExportStyleModule,
     ExportViewModule,
+    ExportModule,
     ParametresModule,
     MetricsModule,
   ],
