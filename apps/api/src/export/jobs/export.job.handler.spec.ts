@@ -57,6 +57,14 @@ describe('ExportJobHandler', () => {
       mockExportService.complete.mockResolvedValue(undefined);
 
       const handler = makeHandler();
+      (handler as any).currentJobData = {
+        exportJobId: 'job-1',
+        mode: 'BROUILLON',
+        grille: 'NORMALE',
+        avertissementIds: [],
+        numeroVersion: '1.0',
+        publieLe: null,
+      };
       // @ts-ignore - méthode privée appelée via le souscripteur dans onModuleInit
       await (handler as any).processJob('job-1');
 
@@ -79,6 +87,14 @@ describe('ExportJobHandler', () => {
       mockExportService.fail.mockResolvedValue(undefined);
 
       const handler = makeHandler();
+      (handler as any).currentJobData = {
+        exportJobId: 'job-1',
+        mode: 'BROUILLON',
+        grille: 'NORMALE',
+        avertissementIds: [],
+        numeroVersion: '1.0',
+        publieLe: null,
+      };
       await (handler as any).processJob('job-1');
 
       expect(mockExportService.fail).toHaveBeenCalledWith('job-1', 'rendu impossible');

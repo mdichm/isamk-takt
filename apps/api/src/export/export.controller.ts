@@ -52,7 +52,7 @@ export class ExportController {
     summary: 'Lancer un export asynchrone',
     description:
       'Crée un ExportJob (statut QUEUED) et l\'enfile sur la file pg-boss. ' +
-      'Les versions du style et de la vue sont enregistrées pour régénération ultérieure.',
+      'Les versions du style et de la vue sont enregistrées pour régénération ultérieure. En mode OFFICIEL, la grille effective est la grille figée de la version (ou NORMALE par défaut). Les avertissements acceptés (IDs UUID) sont stockés pour affichage en pied de page.',
   })
   @ApiResponse({
     status: 201,
@@ -62,7 +62,11 @@ export class ExportController {
   @ApiResponse({ status: 400, description: 'Données invalides' })
   @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
   @ApiResponse({ status: 404, description: 'Version, style ou vue introuvable' })
-  @ApiResponse({ status: 422, description: 'Mode officiel sur une version non publiée' })
+  @ApiResponse({
+    status: 422,
+    description:
+      'Mode officiel sur une version non publiée, ou avertissements acceptés invalides (ID inconnu, version mismatch, ou caduc)',
+  })
   async create(
     @Body() dto: CreateExportDto,
     @CurrentUser() currentUser: CurrentUserDto,

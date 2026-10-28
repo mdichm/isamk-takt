@@ -63,6 +63,9 @@ describe('ExportService', () => {
       mockPrisma.versionEdt.findUnique.mockResolvedValue({
         id: 'version-1',
         statut: 'BROUILLON',
+        avertissementsAcceptes: [],
+        publieLe: null,
+        grilleFigée: null,
       });
       mockPrisma.exportStyle.findFirst.mockResolvedValue({
         id: 'style-1',
@@ -79,6 +82,7 @@ describe('ExportService', () => {
         format: ExportFormat.PDF,
         mode: ExportMode.BROUILLON,
         grille: 'NORMALE',
+        avertissementIds: [],
         statut: JobStatut.QUEUED,
         createdAt: new Date(),
       } as never);
@@ -94,10 +98,114 @@ describe('ExportService', () => {
           data: expect.objectContaining({
             statut: JobStatut.QUEUED,
             auteurId: 'user-123',
+            grille: 'NORMALE',
+            avertissementIds: [],
           }),
         }),
       );
       expect(mockBoss.send).toHaveBeenCalledWith('export', expect.anything(), expect.anything());
+    });
+
+    it('devrait utiliser la grille figée de la version pour un export officiel', async () => {
+      mockPrisma.versionEdt.findUnique.mockResolvedValue({
+        id: 'version-1',
+        statut: 'PUBLIEE',
+        avertissementsAcceptes: [],
+        publieLe: new Date('2026-10-26T10:00:00Z'),
+        grilleFigée: 'RAMADAN',
+      });
+      mockPrisma.exportStyle.findFirst.mockResolvedValue({
+        id: 'style-1',
+        styleVersion: 1,
+      });
+      mockPrisma.exportView.findFirst.mockResolvedValue({
+        id: 'view-1',
+        viewVersion: 1,
+      });
+      mockPrisma.exportJob.create.mockResolvedValue({
+        id: 'job-2',
+        style: { styleVersion: 1 },
+        view: { viewVersion: 1 },
+        format: ExportFormat.PDF,
+        mode: ExportMode.OFFICIEL,
+        grille: 'RAMADAN',
+        avertissementIds: [],
+        statut: JobStatut.QUEUED,
+        createdAt: new Date(),
+      } as never);
+      mockBoss.send.mockResolvedValue(undefined);
+
+      const svc = makeService();
+      const result = await svc.create(
+        { ...dto, mode: ExportMode.OFFICIEL },
+        mockCurrentUser(),
+      );
+
+      expect(result.grilleEffective).toBe('RAMADAN');
+    });
+
+    it('devrait lever BadRequestException si avertissement inconnu', async () => {
+      mockPrisma.versionEdt.findUnique.mockResolvedValue({
+        id: 'version-1',
+        statut: 'PUBLIEE',
+        avertissementsAcceptes: [
+          { id: 'avert-1', versionId: 'version-1', caduqueLe: null },
+        ],
+        publieLe: new Date('2026-10-26T10:00:00Z'),
+        grilleFigée: null,
+      });
+      mockPrisma.exportStyle.findFirst.mockResolvedValue({
+        id: 'style-1',
+        styleVersion: 1,
+      });
+      mockPrisma.exportView.findFirst.mockResolvedValue({
+        id: 'view-1',
+        viewVersion: 1,
+      });
+
+      const svc = makeService();
+      await expect(
+        svc.create(
+          {
+            ...dto,
+            mode: ExportMode.OFFICIEL,
+            avertissementsAcceptes: ['avert-inconnu'],
+          },
+          mockCurrentUser(),
+        ),
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it('devrait lever BadRequestException si avertissement caduc', async () => {
+      mockPrisma.versionEdt.findUnique.mockResolvedValue({
+        id: 'version-1',
+        statut: 'PUBLIEE',
+        avertissementsAcceptes: [
+          { id: 'avert-1', versionId: 'version-1', caduqueLe: new Date() },
+        ],
+        publieLe: new Date('2026-10-26T10:00:00Z'),
+        grilleFigée: null,
+      });
+      mockPrisma.exportStyle.findFirst.mockResolvedValue({
+        id: 'style-1',
+        styleVersion: 1,
+      });
+      mockPrisma.exportView.findFirst.mockResolvedValue({
+        id: 'view-1',
+        viewVersion: 1,
+      });
+
+      const svc = makeService();
+      await expect(
+        svc.create(
+          {
+            ...dto,
+            mode: ExportMode.OFFICIEL,
+            avertissementsAcceptes: ['avert-1'],
+          },
+          mockCurrentUser(),
+        ),
+      ).rejects.toThrow(BadRequestException);
     });
 
     it('devrait lever NotFoundException si la version est introuvable', async () => {
