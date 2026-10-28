@@ -4,6 +4,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ExportJobHandler } from './export.job.handler.js';
 import { ExportService } from '../export.service.js';
 import { FilestoreService } from '../../filestore/filestore.service.js';
+import { ExportXlsxService } from './export.xlsx.service.js';
 import type { PgBoss as PgBossType } from 'pg-boss';
 
 const mockExportService = {
@@ -13,6 +14,10 @@ const mockExportService = {
 
 const mockFilestore = {
   storeFile: vi.fn(),
+};
+
+const mockXlsxService = {
+  generateXlsxForJob: vi.fn(),
 };
 
 const mockBoss = {
@@ -25,6 +30,7 @@ function makeHandler() {
     mockBoss as never,
     mockExportService as never,
     mockFilestore as never,
+    mockXlsxService as never,
   );
 }
 
@@ -48,6 +54,16 @@ describe('ExportJobHandler', () => {
   });
 
   describe('processJob', () => {
+    const baseJobData = {
+      exportJobId: 'job-1',
+      format: 'PDF',
+      mode: 'BROUILLON',
+      grille: 'NORMALE',
+      avertissementIds: [],
+      numeroVersion: '1.0',
+      publieLe: null,
+    };
+
     it('devrait stocker un fichier placeholder et marquer le job DONE', async () => {
       mockFilestore.storeFile.mockReturnValue({
         storageKey: 'abc/export-job-1.txt',
@@ -57,14 +73,7 @@ describe('ExportJobHandler', () => {
       mockExportService.complete.mockResolvedValue(undefined);
 
       const handler = makeHandler();
-      (handler as any).currentJobData = {
-        exportJobId: 'job-1',
-        mode: 'BROUILLON',
-        grille: 'NORMALE',
-        avertissementIds: [],
-        numeroVersion: '1.0',
-        publieLe: null,
-      };
+      (handler as any).currentJobData = baseJobData;
       // @ts-ignore - méthode privée appelée via le souscripteur dans onModuleInit
       await (handler as any).processJob('job-1');
 
@@ -79,6 +88,38 @@ describe('ExportJobHandler', () => {
       );
     });
 
+    it('devrait générer un fichier XLSX via ExportXlsxService quand format=XLSX', async () => {
+      mockXlsxService.generateXlsxForJob.mockResolvedValue({
+        buffer: Buffer.from('xlsx-content'),
+        filename: 'export-2.0-20240115.xlsx',
+      });
+      mockFilestore.storeFile.mockReturnValue({
+        storageKey: 'abc/export-job-1.xlsx',
+        sha256: 'hash456',
+        size: 2000,
+      });
+      mockExportService.complete.mockResolvedValue(undefined);
+
+      const handler = makeHandler();
+      (handler as any).currentJobData = {
+        ...baseJobData,
+        format: 'XLSX',
+      };
+      // @ts-ignore
+      await (handler as any).processJob('job-1');
+
+      expect(mockXlsxService.generateXlsxForJob).toHaveBeenCalledWith('job-1');
+      expect(mockFilestore.storeFile).toHaveBeenCalledWith(
+        Buffer.from('xlsx-content'),
+        'export-2.0-20240115.xlsx',
+      );
+      expect(mockExportService.complete).toHaveBeenCalledWith(
+        'job-1',
+        'abc/export-job-1.xlsx',
+        'hash456',
+      );
+    });
+
     it('devrait marquer le job FAILED en cas derreur', async () => {
       const error = new Error('rendu impossible');
       mockFilestore.storeFile.mockImplementation(() => {
@@ -87,17 +128,28 @@ describe('ExportJobHandler', () => {
       mockExportService.fail.mockResolvedValue(undefined);
 
       const handler = makeHandler();
-      (handler as any).currentJobData = {
-        exportJobId: 'job-1',
-        mode: 'BROUILLON',
-        grille: 'NORMALE',
-        avertissementIds: [],
-        numeroVersion: '1.0',
-        publieLe: null,
-      };
+      (handler as any).currentJobData = baseJobData;
       await (handler as any).processJob('job-1');
 
       expect(mockExportService.fail).toHaveBeenCalledWith('job-1', 'rendu impossible');
+    });
+
+    it('devrait marquer le job FAILED quand generateXlsxForJob rejette', async () => {
+      const error = new Error('xlsx render failed');
+      mockXlsxService.generateXlsxForJob.mockRejectedValue(error);
+      mockExportService.fail.mockResolvedValue(undefined);
+
+      const handler = makeHandler();
+      (handler as any).currentJobData = {
+        ...baseJobData,
+        format: 'XLSX',
+      };
+      await (handler as any).processJob('job-1');
+
+      expect(mockExportService.fail).toHaveBeenCalledWith(
+        'job-1',
+        'xlsx render failed',
+      );
     });
   });
 });
