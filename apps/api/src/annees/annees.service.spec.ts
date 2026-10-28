@@ -2,7 +2,7 @@
 // TAKT - Tests unitaires du service Années (L1-02)
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { AnneesService } from './annees.service.js';
-import { CreateAnneeDto, UpdateAnneeDto, TransitionAnneeDto } from './dto/annee.dto.js';
+import { CreateAnneeDto, UpdateAnneeDto, AnneeResponseDto, TransitionAnneeDto, TransitionResponseDto } from './dto/annee.dto.js';
 
 vi.mock('@takt/db', () => {
   class PrismaClientMock {}
@@ -40,6 +40,10 @@ describe('AnneesService', () => {
         delete: vi.fn(),
         count: vi.fn(),
         findMany: vi.fn(),
+      },
+      versionEdt: {
+        findMany: vi.fn(),
+        updateMany: vi.fn(),
       },
     };
 
@@ -221,7 +225,7 @@ describe('AnneesService', () => {
 
       const result = await service.activerAnnee(anneeId, transitionDto, userId);
 
-      expect(result.statut).toBe('ACTIVE');
+      expect((result as AnneeResponseDto).statut).toBe('ACTIVE');
       expect(prisma.annee.update).toHaveBeenCalledWith({
         where: { id: anneeId },
         data: { statut: 'ACTIVE' },
@@ -254,10 +258,12 @@ describe('AnneesService', () => {
     });
 
     it('should cloturer an ACTIVE annee with confirmation', async () => {
-      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: true };
+      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: '2026-2027' };
       prisma.annee.findUnique.mockResolvedValue({
         id: anneeId, code: '2026-2027', statut: 'ACTIVE',
       });
+      prisma.versionEdt.findMany.mockResolvedValue([]);
+      prisma.versionEdt.updateMany.mockResolvedValue({ count: 0 });
       prisma.annee.update.mockResolvedValue({
         id: anneeId, numero: 2026, code: '2026-2027', nbSemaines: 14,
         statut: 'CLOTUREE', createdAt: new Date(), updatedAt: new Date(),
@@ -265,10 +271,19 @@ describe('AnneesService', () => {
 
       const result = await service.activerAnnee(anneeId, clotureDto, userId);
 
-      expect(result.statut).toBe('CLOTUREE');
+      expect(result).toEqual({
+        anneeId,
+        de: 'ACTIVE',
+        vers: 'CLOTUREE',
+        versionsArchivees: 0,
+      });
       expect(prisma.annee.update).toHaveBeenCalledWith({
         where: { id: anneeId },
-        data: { statut: 'CLOTUREE' },
+        data: {
+          statut: 'CLOTUREE',
+          closedAt: expect.any(Date),
+          closedBy: userId,
+        },
       });
     });
 
@@ -282,7 +297,7 @@ describe('AnneesService', () => {
     });
 
     it('should throw Conflict when annee is already CLOTUREE', async () => {
-      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: true };
+      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: '2026-2027' };
       prisma.annee.findUnique.mockResolvedValue({
         id: anneeId, code: '2026-2027', statut: 'CLOTUREE',
       });
@@ -290,13 +305,92 @@ describe('AnneesService', () => {
       await expect(service.activerAnnee(anneeId, clotureDto, userId)).rejects.toThrow('déjà clôturée');
     });
 
-    it('should throw Conflict when trying to CLOTURER a PREPARATION annee', async () => {
-      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: true };
+    it('should throw BadRequest when confirmation does not match code (CONFIRMATION_MISMATCH)', async () => {
+      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: '2025-2026' };
       prisma.annee.findUnique.mockResolvedValue({
-        id: anneeId, code: '2026-2027', statut: 'PREPARATION',
+        id: anneeId, code: '2026-2027', statut: 'ACTIVE',
       });
 
-      await expect(service.activerAnnee(anneeId, clotureDto, userId)).rejects.toThrow('préparation');
+      await expect(service.activerAnnee(anneeId, clotureDto, userId)).rejects.toThrow('confirmation');
+    });
+
+    it('should throw BadRequest when a version is EN_VALIDATION', async () => {
+      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: '2026-2027' };
+      prisma.annee.findUnique.mockResolvedValue({
+        id: anneeId, code: '2026-2027', statut: 'ACTIVE',
+      });
+      prisma.versionEdt.findMany.mockResolvedValue([{ id: 'v1' }]);
+
+      await expect(service.activerAnnee(anneeId, clotureDto, userId)).rejects.toThrow('EN_VALIDATION');
+    });
+
+    it('should archive non-published versions with motif clôture and return count', async () => {
+      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: '2026-2027' };
+      prisma.annee.findUnique.mockResolvedValue({
+        id: anneeId, code: '2026-2027', statut: 'ACTIVE',
+      });
+      prisma.versionEdt.findMany.mockResolvedValue([]);
+      prisma.versionEdt.updateMany.mockResolvedValue({ count: 3 });
+      prisma.annee.update.mockResolvedValue({
+        id: anneeId, numero: 2026, code: '2026-2027', nbSemaines: 14,
+        statut: 'CLOTUREE', createdAt: new Date(), updatedAt: new Date(),
+      });
+
+      const result = await service.activerAnnee(anneeId, clotureDto, userId);
+
+      expect(result).toEqual({
+        anneeId,
+        de: 'ACTIVE',
+        vers: 'CLOTUREE',
+        versionsArchivees: 3,
+      });
+      expect(prisma.versionEdt.updateMany).toHaveBeenCalledWith({
+        where: {
+          semestre: { anneeId },
+          statut: { not: 'PUBLIE' },
+        },
+        data: {
+          statut: 'ARCHIVE',
+          motif: 'clôture',
+          publieLe: expect.any(Date),
+        },
+      });
+    });
+
+    it('should populate closedAt and closedBy on CLOTURER', async () => {
+      const clotureDto: TransitionAnneeDto = { action: 'CLOTURER', confirmation: '2026-2027', motif: "Fin d'année" };
+      prisma.annee.findUnique.mockResolvedValue({
+        id: anneeId, code: '2026-2027', statut: 'ACTIVE',
+      });
+      prisma.versionEdt.findMany.mockResolvedValue([]);
+      prisma.versionEdt.updateMany.mockResolvedValue({ count: 0 });
+      prisma.annee.update.mockResolvedValue({
+        id: anneeId, numero: 2026, code: '2026-2027', nbSemaines: 14,
+        statut: 'CLOTUREE', createdAt: new Date(), updatedAt: new Date(),
+      });
+
+      const result = await service.activerAnnee(anneeId, clotureDto, userId);
+
+      expect((result as TransitionResponseDto).anneeId).toBe(anneeId);
+      expect(prisma.annee.update).toHaveBeenCalledWith({
+        where: { id: anneeId },
+        data: {
+          statut: 'CLOTUREE',
+          closedAt: expect.any(Date),
+          closedBy: userId,
+        },
+      });
+      // Verify audit was called with closedAt/closedBy in nouvelleValeur
+      expect(audit.auditTransaction).toHaveBeenCalledWith(
+        expect.any(Function),
+        expect.objectContaining({
+          nouvelleValeur: expect.objectContaining({
+            statut: 'CLOTUREE',
+            closedAt: expect.any(Date),
+            closedBy: userId,
+          }),
+        }),
+      );
     });
   });
 });
