@@ -12,9 +12,11 @@ import type { PgBoss as PgBossClass } from 'pg-boss';
 import type { Job as PgBossJob } from 'pg-boss';
 import { ExportService } from '../export.service.js';
 import { FilestoreService } from '../../filestore/filestore.service.js';
+import { ExportXlsxService } from './export.xlsx.service.js';
 
 interface ExportJobData {
   exportJobId: string;
+  format: string;
   mode: string;
   grille: string;
   avertissementIds: string[];
@@ -31,6 +33,7 @@ export class ExportJobHandler implements OnModuleInit {
     @Inject('BOSS') private readonly boss: any,
     private readonly exportService: ExportService,
     private readonly filestore: FilestoreService,
+    private readonly xlsxService: ExportXlsxService,
   ) {}
 
   async onModuleInit(): Promise<void> {
@@ -51,13 +54,19 @@ export class ExportJobHandler implements OnModuleInit {
 
   private async processJob(exportJobId: string): Promise<void> {
     try {
-      // Stub L6-04/L6-05 : génère un fichier placeholder enrichi des métadonnées d'export.
-      // Le rendu réel (PDF via Playwright, XLSX via ExcelJS) est délégué à L6-06 et L6-07.
       const job = this.currentJobData;
       if (!job) {
         throw new Error(`Données de job manquantes pour ${exportJobId}`);
       }
 
+      // Branching format : XLSX (L6-06) vs placeholder texte (L6-04/L6-05)
+      if (job.format === 'XLSX') {
+        await this.processXlsxJob(exportJobId);
+        return;
+      }
+
+      // Stub L6-04/L6-05 : génère un fichier placeholder enrichi des métadonnées d'export.
+      // Le rendu réel (PDF via Playwright, XLSX via ExcelJS) est délégué à L6-06 et L6-07.
       const modeLibelle =
         job.mode === 'OFFICIEL' ? 'OFFICIEL' : 'BROUILLON';
       const pubInfo = job.publieLe
@@ -76,6 +85,29 @@ export class ExportJobHandler implements OnModuleInit {
 
       await this.exportService.complete(exportJobId, storageKey, sha256);
       this.logger.log(`ExportJob traité : id=${exportJobId} storageKey=${storageKey}`);
+    } catch (error) {
+      await this.exportService.fail(
+        exportJobId,
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+
+  private async processXlsxJob(exportJobId: string): Promise<void> {
+    try {
+      const { buffer, filename } = await this.xlsxService.generateXlsxForJob(
+        exportJobId,
+      );
+
+      const { storageKey, sha256 } = this.filestore.storeFile(
+        buffer,
+        filename,
+      );
+
+      await this.exportService.complete(exportJobId, storageKey, sha256);
+      this.logger.log(
+        `ExportJob XLSX traité : id=${exportJobId} storageKey=${storageKey} file=${filename}`,
+      );
     } catch (error) {
       await this.exportService.fail(
         exportJobId,
