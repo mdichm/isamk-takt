@@ -23,6 +23,7 @@ import { apiFetch } from '@/lib/api/client';
 type AuthContextType = {
   user: string | undefined;
   role: UserRole | undefined;
+  departments: string[];
   isAuthenticated: boolean;
   login: (token: string) => void;
   logout: () => void;
@@ -71,6 +72,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const payload = decodeJwtPayload<{ role?: string }>(initialToken);
     return (payload?.role ?? undefined) as UserRole | undefined;
   });
+  const [departments, setDepartments] = useState<string[]>(() => {
+    if (!initialToken) return [];
+    const payload = decodeJwtPayload<{ departments?: string[] }>(initialToken);
+    return payload?.departments ?? [];
+  });
   const [user, setUser] = useState<string | undefined>(() => {
     if (!initialToken) return undefined;
     const payload = decodeJwtPayload<{ sub?: string }>(initialToken);
@@ -80,8 +86,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Connexion : stocke le token et déduit le rôle depuis le JWT.
   const login = useCallback((newToken: string) => {
     setToken(newToken);
-    const payload = decodeJwtPayload<{ role?: string; sub?: string }>(newToken);
+    const payload = decodeJwtPayload<{ role?: string; sub?: string; departments?: string[] }>(newToken);
     setRole((payload?.role ?? undefined) as UserRole | undefined);
+    setDepartments(payload?.departments ?? []);
     setUser(payload?.sub);
   }, []);
 
@@ -104,6 +111,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const value: AuthContextType = {
     user,
     role,
+    departments,
     isAuthenticated: !!token,
     login,
     logout,
