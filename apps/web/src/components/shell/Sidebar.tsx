@@ -84,6 +84,7 @@ const NAV_ENTRIES: NavEntry[] = [
   { label: t('audit'), href: '/direction/audit', roles: ['DIRECTION'], icon: SECURITY },
   { label: t('exportsDirection'), href: '/direction/exports', roles: ['DIRECTION'], icon: IMPORT },
   { label: t('exportsTitle'), href: '/exports', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: EXPORT },
+  { label: t('exportConfigTitle'), href: '/export-config', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: EXPORT },
 ];
 
 export default function Sidebar() {
