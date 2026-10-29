@@ -222,6 +222,22 @@ jobs:
           sarif_file: trivy-fs.sarif
           category: filesystem
 
+      - name: Install TruffleHog (secret scanning)
+        run: |
+          curl -sSfL https://github.com/trufflesecurity/trufflehog/releases/download/v3.87.0/trufflehog_3.87.0_linux_amd64.tar.gz \
+            | tar -xz -C /usr/local/bin trufflehog
+          trufflehog --version
+
+      - name: Secret scanning (TruffleHog) — PR
+        run: |
+          trufflehog filesystem . --only-verified --fail
+        if: github.event_name == 'pull_request'
+
+      - name: Secret scanning (TruffleHog) — push/main
+        run: |
+          trufflehog filesystem . --only-verified --fail
+        if: github.event_name != 'pull_request'
+
   # ===========================================================================
   # Docker build de contrôle sur PR (sans push), si Dockerfile / infra / lockfile changent
   # ===========================================================================
@@ -242,6 +258,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Vérifier empreinte binaire FET (worker uniquement)
+        if: matrix.app == 'worker'
+        run: |
+          chmod +x ./docs/tools/verify-fet-fingerprint.sh
+          ./docs/tools/verify-fet-fingerprint.sh
+
       - name: Build ${{ matrix.app }} (no push)
         uses: docker/build-push-action@v6
         with:
@@ -251,6 +273,49 @@ jobs:
           cache-from: type=gha,scope=${{ matrix.app }}
           cache-to: type=gha,mode=max,scope=${{ matrix.app }}
           platforms: linux/amd64
+
+  # ===========================================================================
+  # SBOM (Software Bill of Materials) généré à chaque build pour chaque image
+  # ===========================================================================
+  sbom:
+    name: SBOM (${{ matrix.app }})
+    needs: changes
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [api, web, worker]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install syft (SBOM generator)
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Build image for SBOM (${{ matrix.app }})
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/${{ matrix.app }}/Dockerfile
+          load: true
+          tags: takt-${{ matrix.app }}:sbom
+          cache-from: type=gha,scope=${{ matrix.app }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.app }}
+          platforms: linux/amd64
+
+      - name: Generate SBOM (CycloneDX JSON)
+        run: |
+          syft takt-${{ matrix.app }}:sbom -o cyclonedx-json=sbom-${{ matrix.app }}.cdx.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ matrix.app }}
+          path: sbom-${{ matrix.app }}.cdx.json
+          retention-days: 30
 
   # ===========================================================================
   # Cohérence du backlog : les artefacts versionnés doivent correspondre à tickets_data.py
@@ -332,6 +397,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Vérifier empreinte binaire FET (worker uniquement)
+        if: matrix.app == 'worker'
+        run: |
+          chmod +x ./docs/tools/verify-fet-fingerprint.sh
+          ./docs/tools/verify-fet-fingerprint.sh
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

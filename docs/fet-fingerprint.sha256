@@ -1,0 +1,8 @@
+# SHA256 du binaire FET 7.12.0 (fet-cl)
+# Source : https://lalescu.ro/liviu/fet/download/bin/fet-7.12.0-bin.tar.xz
+# Pour calculer l'empreinte :
+#   curl -sSL https://lalescu.ro/liviu/fet/download/bin/fet-7.12.0-bin.tar.xz -o fet.tar.xz
+#   tar -xf fet.tar.xz && sha256sum fet-7.12.0/fet-cl/fet-cl
+# Puis remplacer PLACEHOLDER_SHA256 ci-dessous par le hash obtenu.
+# À mettre à jour si le binaire FET change (nouvelle version ou nouvelle empreinte).
+PLACEHOLDER_SHA256  fet-cl
