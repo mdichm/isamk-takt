@@ -28,6 +28,9 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# k6 test results
+tests/load/k6/results/
 yarn-debug.log*
 yarn-error.log*
 
