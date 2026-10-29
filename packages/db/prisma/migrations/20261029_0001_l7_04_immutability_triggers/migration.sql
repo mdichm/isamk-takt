@@ -31,6 +31,90 @@ ALTER TABLE "versions_edt" ADD COLUMN IF NOT EXISTS "soumisPar" UUID;
 ALTER TABLE "versions_edt" ADD COLUMN IF NOT EXISTS "validationPlanningRequise" BOOLEAN NOT NULL DEFAULT true;
 ALTER TABLE "versions_edt" ADD COLUMN IF NOT EXISTS "publicationRequise" BOOLEAN NOT NULL DEFAULT true;
 
+-- Type GroupeType (manquant si 20261017_08 a echoue)
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'GroupeType') THEN
+        CREATE TYPE "GroupeType" AS ENUM ('SECTION', 'GROUPE', 'SOUS_GROUPE');
+    END IF;
+END $$;
+
+-- Table groupes (reparation si 20261017_08 a echoue ou cree un schema incomplet)
+CREATE TABLE IF NOT EXISTS "groupes" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "niveauId" UUID NOT NULL,
+    "semestreId" UUID NOT NULL,
+    "parentId" UUID,
+    "type" "GroupeType" NOT NULL DEFAULT 'SECTION',
+    "code" TEXT NOT NULL DEFAULT '',
+    "libelle" TEXT NOT NULL DEFAULT '',
+    "ordre" INTEGER NOT NULL DEFAULT 0,
+    "effectif" INTEGER NOT NULL DEFAULT 0,
+    "originId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "groupes_pkey" PRIMARY KEY ("id")
+);
+
+-- Colonnes potentiellement manquantes sur groupes (si table existe deja sans certaines colonnes)
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "niveauId" UUID;
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "semestreId" UUID;
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "parentId" UUID;
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "type" "GroupeType";
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "code" TEXT;
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "libelle" TEXT;
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "ordre" INTEGER;
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "effectif" INTEGER;
+ALTER TABLE "groupes" ADD COLUMN IF NOT EXISTS "originId" TEXT;
+
+-- Table departements (reparation si 20261017_06 a echoue)
+CREATE TABLE IF NOT EXISTS "departements" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "anneeId" UUID NOT NULL,
+    "code" TEXT NOT NULL DEFAULT '',
+    "libelle" TEXT NOT NULL DEFAULT '',
+    "ordre" INTEGER NOT NULL DEFAULT 0,
+    "originId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "departements_pkey" PRIMARY KEY ("id")
+);
+
+-- Table formations (reparation si 20261017_06 a echoue)
+CREATE TABLE IF NOT EXISTS "formations" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "departementId" UUID NOT NULL,
+    "code" TEXT NOT NULL DEFAULT '',
+    "libelle" TEXT NOT NULL DEFAULT '',
+    "ordre" INTEGER NOT NULL DEFAULT 0,
+    "originId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "formations_pkey" PRIMARY KEY ("id")
+);
+
+-- Table niveaux (reparation si 20261017_06 a echoue)
+CREATE TABLE IF NOT EXISTS "niveaux" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "formationId" UUID NOT NULL,
+    "code" TEXT NOT NULL DEFAULT '',
+    "libelle" TEXT NOT NULL DEFAULT '',
+    "ordre" INTEGER NOT NULL DEFAULT 0,
+    "originId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "niveaux_pkey" PRIMARY KEY ("id")
+);
+
+-- Colonnes potentiellement manquantes sur departements, formations, niveaux (ordre manquait dans 20261017_06_structure_academique)
+ALTER TABLE "departements" ADD COLUMN IF NOT EXISTS "ordre" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "formations" ADD COLUMN IF NOT EXISTS "ordre" INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE "niveaux" ADD COLUMN IF NOT EXISTS "ordre" INTEGER NOT NULL DEFAULT 0;
+
 -- Colonnes potentiellement manquantes sur seances
 ALTER TABLE "seances" ADD COLUMN IF NOT EXISTS "versionId" UUID;
 ALTER TABLE "seances" ADD COLUMN IF NOT EXISTS "affectationKey" TEXT NOT NULL DEFAULT '';

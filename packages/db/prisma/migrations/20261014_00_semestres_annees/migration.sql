@@ -1,16 +1,21 @@
 -- ============================================
--- L7-04 : Tables annees et semestres (creation precoce pour verrouiller la chaine de migrations)
+-- Tables de base annees et semestres (creation precoce)
+-- Permet de resoudre les FK inline des migrations ulterieures sur semestres.
 -- ============================================
 
--- Type AnneeStatut (referencie par plusieurs migrations ultérieures)
 DO $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'AnneeStatut') THEN
         CREATE TYPE "AnneeStatut" AS ENUM ('PREPARATION', 'ACTIVE', 'CLOTUREE');
     END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'VersionStatut') THEN
+        CREATE TYPE "VersionStatut" AS ENUM ('BROUILLON', 'PUBLIE', 'ARCHIVE');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'ExportFormat') THEN
+        CREATE TYPE "ExportFormat" AS ENUM ('PDF', 'HTML', 'ICS');
+    END IF;
 END $$;
 
--- Table annees (toutes les colonnes, dont closedAt/closedBy pour L7-01)
 CREATE TABLE IF NOT EXISTS "annees" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "numero" INTEGER NOT NULL,
@@ -27,15 +32,13 @@ CREATE TABLE IF NOT EXISTS "annees" (
 
 CREATE UNIQUE INDEX IF NOT EXISTS "annees_code_key" ON "annees"("code");
 CREATE UNIQUE INDEX IF NOT EXISTS "annees_numero_key" ON "annees"("numero");
-CREATE UNIQUE INDEX IF NOT EXISTS uq_annee_active ON "annees" (id) WHERE statut = 'ACTIVE';
 
--- Table semestres (referenciee par de nombreuses FK ultérieures)
 CREATE TABLE IF NOT EXISTS "semestres" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "anneeId" UUID NOT NULL,
     "numero" INTEGER NOT NULL,
     "nbSemaines" INTEGER NOT NULL DEFAULT 14,
-    "grilleParams" JSON,
+    "grilleParams" JSONB,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
