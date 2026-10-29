@@ -1626,7 +1626,7 @@ export class VersionService {
         versionId: g.versionId,
         versionNom: version.numero,
         statut: g.statut,
-        score: g.score ?? null,
+        score: g.score ? Number(String(g.score)) : null,
         classee: g.classee ?? null,
         classement: g.classement ?? null,
         motifNonClassee: g.motifNonClassee ?? null,

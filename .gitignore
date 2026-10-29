@@ -31,6 +31,9 @@ npm-debug.log*
 
 # k6 test results
 tests/load/k6/results/
+
+# k6 binary (downloaded standalone, not committed)
+tests/load/k6/k6
 yarn-debug.log*
 yarn-error.log*
 

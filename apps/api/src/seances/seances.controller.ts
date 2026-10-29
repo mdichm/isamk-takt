@@ -26,7 +26,7 @@ import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { IfMatch } from '../common/decorators/if-match.decorator.js';
 import { SeancesService } from './seances.service.js';
-import type { SeanceQueryDto } from './dto/seance-query.dto.js';
+import { SeanceQueryDto } from './dto/seance-query.dto.js';
 import { SeanceResponseDto } from './dto/seance-response.dto.js';
 import { PaginatedSeancesDto } from './dto/seance-query.dto.js';
 import { SimulateSeanceService } from './simulate-seance.service.js';

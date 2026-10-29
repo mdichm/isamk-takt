@@ -310,7 +310,13 @@ export class ChargeRuleSetService {
       },
     );
 
-    return new ChargeReferenceGradeResponseDto(ref);
+    return new ChargeReferenceGradeResponseDto({
+      id: ref.id,
+      rulesetId: ref.rulesetId,
+      gradeId: ref.gradeId,
+      coefficient: Number(String(ref.coefficient)),
+      createdAt: ref.createdAt,
+    });
   }
 
   async updateChargeReferenceGrade(
@@ -344,7 +350,13 @@ export class ChargeRuleSetService {
       },
     );
 
-    return new ChargeReferenceGradeResponseDto(ref);
+    return new ChargeReferenceGradeResponseDto({
+      id: ref.id,
+      rulesetId: ref.rulesetId,
+      gradeId: ref.gradeId,
+      coefficient: Number(String(ref.coefficient)),
+      createdAt: ref.createdAt,
+    });
   }
 
   async removeChargeReferenceGrade(
@@ -410,7 +422,13 @@ export class ChargeRuleSetService {
       },
     );
 
-    return new ChargeCoefficientResponseDto(coef);
+    return new ChargeCoefficientResponseDto({
+      id: coef.id,
+      rulesetId: coef.rulesetId,
+      typeId: coef.typeId,
+      coefficient: Number(String(coef.coefficient)),
+      createdAt: coef.createdAt,
+    });
   }
 
   async updateChargeCoefficient(
@@ -444,7 +462,13 @@ export class ChargeRuleSetService {
       },
     );
 
-    return new ChargeCoefficientResponseDto(coef);
+    return new ChargeCoefficientResponseDto({
+      id: coef.id,
+      rulesetId: coef.rulesetId,
+      typeId: coef.typeId,
+      coefficient: Number(String(coef.coefficient)),
+      createdAt: coef.createdAt,
+    });
   }
 
   async removeChargeCoefficient(

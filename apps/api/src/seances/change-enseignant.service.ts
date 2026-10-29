@@ -10,8 +10,8 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import type { PrismaService } from '../prisma/prisma.service.js';
-import type { AuditService } from '../audit/audit.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { AuditService } from '../audit/audit.service.js';
 import type { WriteAuditDto } from '../audit/dto/audit.dto.js';
 import { ConflitService } from '../conflit/conflit.service.js';
 import { RoleCode, VersionStatut, VerrouType } from '@takt/db';

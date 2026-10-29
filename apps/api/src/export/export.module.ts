@@ -6,6 +6,7 @@ import { PgBossModule } from '../pg-boss/pg-boss.module.js';
 import { FilestoreModule } from '../filestore/filestore.module.js';
 import { AuditModule } from '../audit/audit.module.js';
 import { AnneesModule } from '../annees/annees.module.js';
+import { AuthModule } from '../auth/auth.module.js';
 import { ExportViewModule } from '../export-view/export-view.module.js';
 import { ExportStyleModule } from '../export-style/export-style.module.js';
 import { ExportService } from './export.service.js';
@@ -22,6 +23,7 @@ import { ExportCsvService } from './jobs/export.csv.service.js';
     FilestoreModule,
     AuditModule,
     AnneesModule,
+    AuthModule,
     ExportViewModule,
     ExportStyleModule,
   ],

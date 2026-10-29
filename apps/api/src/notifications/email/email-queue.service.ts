@@ -16,14 +16,14 @@ export class EmailQueueService implements OnModuleInit {
   ) {}
 
   async onModuleInit(): Promise<void> {
-    await this.boss.createQueue('email:failed');
+    await this.boss.createQueue('email-failed');
     await this.boss.createQueue('email', {
       policy: 'standard',
       retryLimit: 2,
       retryDelay: 60,
       retryBackoff: true,
       retryDelayMax: 900,
-      deadLetter: 'email:failed',
+      deadLetter: 'email-failed',
     });
 
     await this.boss.work<EmailJob>(

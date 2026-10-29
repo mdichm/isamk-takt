@@ -33,6 +33,8 @@ const mockCsvService = {
 const mockBoss = {
   subscribe: vi.fn(),
   send: vi.fn(),
+  createQueue: vi.fn(),
+  work: vi.fn(),
 };
 
 function makeHandler() {
@@ -52,14 +54,21 @@ describe('ExportJobHandler', () => {
   });
 
   describe('onModuleInit', () => {
-    it('devrait souscrire à la file pg-boss export', async () => {
+    it('devrait créer la file et démarrer le worker pg-boss export', async () => {
       const handler = makeHandler();
-      mockBoss.subscribe.mockResolvedValue(undefined);
+      mockBoss.createQueue.mockResolvedValue(undefined);
+      mockBoss.work.mockResolvedValue(undefined);
 
       await handler.onModuleInit();
 
-      expect(mockBoss.subscribe).toHaveBeenCalledWith(
+      expect(mockBoss.createQueue).toHaveBeenCalledWith('export');
+      expect(mockBoss.work).toHaveBeenCalledWith(
         'export',
+        expect.objectContaining({
+          localConcurrency: 5,
+          batchSize: 1,
+          perJobResults: true,
+        }),
         expect.any(Function),
       );
     });

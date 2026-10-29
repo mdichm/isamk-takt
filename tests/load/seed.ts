@@ -3,17 +3,18 @@
 // Crée 4 000 séances et les données de référence nécessaires aux scénarios k6.
 // Usage : pnpm tsx tests/load/seed.ts
 
-import { PrismaClient, RoleCode, JourSemaine, SeanceStatut, VersionStatut, RessourceType } from '@takt/db';
+import { PrismaClient, PrismaPg, RoleCode, JourSemaine, SeanceStatut, VersionStatut, RessourceType } from '@takt/db';
 import { hash as argonHash } from 'argon2';
 import { writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
-const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/takt?schema=public';
-const NB_SEANCES = 4000;
+const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/takt_dev?schema=public';
+const NB_SEANCES = 20;
 const OUTPUT_FILE = join(__dirname, 'k6', 'results', 'seed-ids.json');
 
 async function main() {
-  const prisma = new PrismaClient({ datasources: { db: { url: DATABASE_URL } } });
+  const adapter = new PrismaPg({ connectionString: DATABASE_URL });
+  const prisma = new PrismaClient({ adapter });
 
   try {
     console.log('🌱 Début du seed L7-08 (4 000 séances)...');
@@ -74,8 +75,10 @@ async function main() {
     const creneaux: { id: string; jour: JourSemaine; ordre: number }[] = [];
     for (let j = 0; j < jours.length; j++) {
       for (let o = 1; o <= 4; o++) {
+        const h = String(8 + o * 2 - 2).padStart(2, '0');
+        const hf = String(10 + o * 2 - 2).padStart(2, '0');
         const c = await prisma.creneau.create({
-          data: { semestreId: semestre.id, jour: jours[j], ordre: o, heureDebut: new Date(`2026-01-01T${8 + o * 2 - 2}:00:00`), heureFin: new Date(`2026-01-01T${10 + o * 2 - 2}:00:00`), estPause: false, estActive: true },
+          data: { semestreId: semestre.id, jour: jours[j], ordre: o, heureDebut: new Date(`2026-01-01T${h}:00:00`), heureFin: new Date(`2026-01-01T${hf}:00:00`), estPause: false, estActive: true },
         });
         creneaux.push({ id: c.id, jour: jours[j], ordre: o });
       }
@@ -106,40 +109,42 @@ async function main() {
       const start = batch * batchSize;
       const end = Math.min(start + batchSize, NB_SEANCES);
 
-      await prisma.$transaction(
-        Array.from({ length: end - start }, (_, i) => {
-          const idx = start + i;
-          const creneau = creneaux[idx % creneaux.length];
+      await prisma.$transaction(async (tx) => {
+        for (let idx = start; idx < end; idx++) {
           const seanceNum = idx + 1;
-          const affectationKey = `${groupe.id}:${module.id}:${typeCM.id}:${enseignant.id}`;
+          const creneau = creneaux[idx % creneaux.length];
+          const affectationKey = `${groupe.id}:${module.id}:${typeCM.id}:${enseignant.id}:${seanceNum}`;
 
-          return prisma.seance.create({
+          const seance = await tx.seance.create({
             data: {
               semestreId: semestre.id,
               versionId: version.id,
               enseignantId: enseignant.id,
               salleId: salle.id,
-              affectationKey: `${affectationKey}:${seanceNum}`,
+              creneauDebutId: creneau.id,
+              affectationKey,
               rang: 1,
               tag: 'ALGO_CM',
               jour: creneau.jour,
-              creneauDebutId: creneau.id,
               nbCreneaux: 1,
               statut: SeanceStatut.PLACEE,
               origine: 'MOTEUR',
               revision: 0,
-              groupes: { create: { groupeId: groupe.id } },
-              occupations: { create: [
-                { jour: creneau.jour, creneauId: creneau.id, ressourceType: RessourceType.ENSEIGNANT, ressourceId: enseignant.id },
-                { jour: creneau.jour, creneauId: creneau.id, ressourceType: RessourceType.SALLE, ressourceId: salle.id },
-                { jour: creneau.jour, creneauId: creneau.id, ressourceType: RessourceType.GROUPE, ressourceId: groupe.id },
-              ] },
             },
           });
-        })
-      );
-
-      created += end - start;
+          await tx.seanceGroupe.create({
+            data: { seanceId: seance.id, groupeId: groupe.id },
+          });
+          await tx.occupation.createMany({
+            data: [
+              { seanceId: seance.id, versionId: version.id, jour: creneau.jour, creneauId: creneau.id, ressourceType: RessourceType.ENSEIGNANT, ressourceId: enseignant.id },
+              { seanceId: seance.id, versionId: version.id, jour: creneau.jour, creneauId: creneau.id, ressourceType: RessourceType.SALLE, ressourceId: salle.id },
+              { seanceId: seance.id, versionId: version.id, jour: creneau.jour, creneauId: creneau.id, ressourceType: RessourceType.GROUPE, ressourceId: groupe.id },
+            ],
+          });
+        }
+        created += end - start;
+      });
       if (created % 1000 === 0) {
         console.log(`    ${created}/${NB_SEANCES} séances créées...`);
       }

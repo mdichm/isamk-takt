@@ -41,18 +41,27 @@ export class ExportJobHandler implements OnModuleInit {
   ) {}
 
   async onModuleInit(): Promise<void> {
-    await this.boss.subscribe('export', async (job: any) => {
-      this.currentJobData = job.data as ExportJobData;
-      const { exportJobId } = job.data as ExportJobData;
-      try {
-        await this.processJob(exportJobId);
-      } catch (error) {
-        await this.exportService.fail(
-          exportJobId,
-          error instanceof Error ? error.message : String(error),
-        );
-      }
-    });
+    await this.boss.createQueue('export');
+    await this.boss.work(
+      'export',
+      {
+        localConcurrency: 5,
+        batchSize: 1,
+        perJobResults: true,
+      },
+      async (job: any) => {
+        this.currentJobData = job.data as ExportJobData;
+        const { exportJobId } = job.data as ExportJobData;
+        try {
+          await this.processJob(exportJobId);
+        } catch (error) {
+          await this.exportService.fail(
+            exportJobId,
+            error instanceof Error ? error.message : String(error),
+          );
+        }
+      },
+    );
     this.logger.log('Worker export souscrit sur la file pg-boss');
   }
 

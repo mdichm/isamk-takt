@@ -193,7 +193,7 @@ describe('SeancesService', () => {
         expect.objectContaining({
           where: expect.objectContaining({
             versionId,
-            seanceGroupes: expect.objectContaining({
+            groupes: expect.objectContaining({
               some: expect.objectContaining({
                 groupe: expect.objectContaining({
                   niveau: expect.objectContaining({
@@ -286,7 +286,7 @@ describe('SeancesService', () => {
         expect.objectContaining({
           where: expect.objectContaining({
             id: seanceId,
-            seanceGroupes: expect.objectContaining({
+            groupes: expect.objectContaining({
               some: expect.objectContaining({
                 groupe: expect.objectContaining({
                   niveau: expect.objectContaining({

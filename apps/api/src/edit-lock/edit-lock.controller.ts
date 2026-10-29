@@ -23,7 +23,7 @@ import {
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { Permissions } from '../policy/decorators/permissions.decorator.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
-import type { EditLockService } from './edit-lock.service.js';
+import { EditLockService } from './edit-lock.service.js';
 import { EditLockResponseDto } from './dto/edit-lock-response.dto.js';
 
 interface ForceReleaseDto {

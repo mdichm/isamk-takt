@@ -9,6 +9,8 @@ import { PrismaModule } from '../prisma/prisma.module.js';
 import { PasswordResetService } from './password-reset.service.js';
 import { EmailService } from './email.service.js';
 import { LocalAuthProvider } from './providers/local-auth-provider.service.js';
+import { MfaService } from './mfa.service.js';
+import { SecurityEventService } from '../common/services/security-event.service.js';
 
 @Module({
   imports: [
@@ -28,7 +30,15 @@ import { LocalAuthProvider } from './providers/local-auth-provider.service.js';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, LocalAuthProvider, PasswordResetService, EmailService],
-  exports: [AuthService, JwtModule, PasswordResetService, EmailService],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    LocalAuthProvider,
+    PasswordResetService,
+    EmailService,
+    MfaService,
+    SecurityEventService,
+  ],
+  exports: [AuthService, JwtModule, PasswordResetService, EmailService, SecurityEventService],
 })
 export class AuthModule {}

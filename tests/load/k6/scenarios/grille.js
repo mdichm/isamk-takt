@@ -18,7 +18,7 @@ export const options = {
     { duration: '30s', target: 0 },
   ],
   thresholds: {
-    'grid_duration': ['p95<500'],
+    'grid_duration': ['p95(grid_duration) < 500'],
     'grid_fail_rate': ['rate<0.05'],
   },
 };
