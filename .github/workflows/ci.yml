@@ -197,8 +197,11 @@ jobs:
         with:
           install: 'false'
 
-      - name: Audit dependencies
+      - name: Audit dependencies (critical)
         run: pnpm audit --audit-level=critical
+
+      - name: Audit dependencies (moderate — SAST)
+        run: pnpm audit --audit-level=moderate || true
 
       - name: Run Trivy vulnerability scanner (FS)
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
