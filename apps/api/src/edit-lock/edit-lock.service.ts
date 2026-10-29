@@ -2,8 +2,8 @@
 // TAKT - Service du bail d'édition exclusif (L3-19)
 
 import { Injectable, NotFoundException, ForbiddenException, ConflictException } from '@nestjs/common';
-import type { PrismaService } from '../prisma/prisma.service.js';
-import type { AuditService } from '../audit/audit.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { AuditService } from '../audit/audit.service.js';
 import type { WriteAuditDto } from '../audit/dto/audit.dto.js';
 import { EditLockResponseDto } from './dto/edit-lock-response.dto.js';
 import { RoleCode } from '@takt/db';

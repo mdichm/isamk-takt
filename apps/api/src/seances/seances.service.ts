@@ -68,7 +68,7 @@ export class SeancesService {
 
     if (isScopedRole) {
       // Ne garder que les séances dont au moins un groupe appartient aux départements de l'utilisateur
-      (where as Record<string, unknown>).seanceGroupes = {
+      (where as Record<string, unknown>).groupes = {
         some: {
           groupe: {
             niveau: {
@@ -100,7 +100,7 @@ export class SeancesService {
           nbCreneaux: true,
           enseignantId: true,
           salleId: true,
-          seanceGroupes: {
+          groupes: {
             select: { groupeId: true },
           },
         },
@@ -138,7 +138,7 @@ export class SeancesService {
     // Construire le where avec scope
     const where: Record<string, unknown> = { id };
     if (isScopedRole) {
-      (where as Record<string, unknown>).seanceGroupes = {
+      (where as Record<string, unknown>).groupes = {
         some: {
           groupe: {
             niveau: {
@@ -168,7 +168,7 @@ export class SeancesService {
         nbCreneaux: true,
         enseignantId: true,
         salleId: true,
-        seanceGroupes: {
+        groupes: {
           select: { groupeId: true },
         },
         occupations: {

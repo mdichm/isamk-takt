@@ -43,15 +43,10 @@ export class PreparationService {
             },
           },
         },
-        enseignants: true,
-        salles: true,
-        modules: true,
         repartitions: { include: { departement: true } },
         contrainteInstances: { include: { definition: true } },
-        verrous: true,
         exigencesSalle: true,
         indisponibilites: true,
-        profilGeneration: true,
       },
     });
 
@@ -256,15 +251,15 @@ export class PreparationService {
 
   private async controleRessources(
     semestre: {
-      enseignants: { id: string }[];
-      salles: { id: string }[];
-      modules: { id: string; code: string }[];
+      enseignants?: { id: string }[];
+      salles?: { id: string }[];
+      modules?: { id: string; code: string }[];
       id: string;
     },
   ): Promise<ControlePreparationDto> {
     const anomalies: AnomaliePreparationDto[] = [];
 
-    if (semestre.enseignants.length === 0) {
+    if (!semestre.enseignants || semestre.enseignants.length === 0) {
       anomalies.push({
         niveau: NiveauAnomalie.BLOQUANT,
         objet: 'Enseignant',
@@ -277,7 +272,7 @@ export class PreparationService {
       });
     }
 
-    if (semestre.salles.length === 0) {
+    if (!semestre.salles || semestre.salles.length === 0) {
       anomalies.push({
         niveau: NiveauAnomalie.BLOQUANT,
         objet: 'Salle',
@@ -290,7 +285,7 @@ export class PreparationService {
       });
     }
 
-    if (semestre.modules.length === 0) {
+    if (!semestre.modules || semestre.modules.length === 0) {
       anomalies.push({
         niveau: NiveauAnomalie.BLOQUANT,
         objet: 'Module',
@@ -371,7 +366,7 @@ export class PreparationService {
 
   private async controleVolumes(
     semestre: {
-      modules: { id: string; code: string; effectifMax: number | null }[];
+      modules?: { id: string; code: string; effectifMax: number | null }[];
       id: string;
     },
   ): Promise<ControlePreparationDto> {
@@ -407,7 +402,7 @@ export class PreparationService {
 
   private async controleVerrous(
     semestre: {
-      verrous: { leveLe: Date | null }[];
+      verrous?: { leveLe: Date | null }[];
       id: string;
     },
   ): Promise<ControlePreparationDto> {
@@ -446,7 +441,7 @@ export class PreparationService {
   private async controleExigencesSalle(
     semestre: {
       exigencesSalle: { id: string; salleImposeeId: string | null; affectationKey: string }[];
-      salles: { id: string }[];
+      salles?: { id: string }[];
       id: string;
     },
   ): Promise<ControlePreparationDto> {
@@ -613,7 +608,7 @@ export class PreparationService {
 
   private async controleProfil(
     semestre: {
-      profilGeneration: { estParDefaut: boolean }[];
+      profilGeneration?: { estParDefaut: boolean }[];
       id: string;
     },
   ): Promise<ControlePreparationDto> {

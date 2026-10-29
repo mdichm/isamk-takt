@@ -18,7 +18,7 @@ export const options = {
     { duration: '30s', target: 0 },
   ],
   thresholds: {
-    'suggestions_duration': ['p95<1000'],
+    'suggestions_duration': ['p95(suggestions_duration) < 1000'],
     'suggestions_fail_rate': ['rate<0.05'],
   },
 };

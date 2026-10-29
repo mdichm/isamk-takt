@@ -15,7 +15,7 @@ export const options = {
   vus: 1,
   iterations: 1,
   thresholds: {
-    'gen_409_expected_rate': ['rate==1.0'],
+    'gen_409_expected_rate': ['rate(gen_409_expected_rate) == 1.0'],
   },
 };
 

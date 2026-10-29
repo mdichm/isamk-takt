@@ -18,7 +18,7 @@ export const options = {
     { duration: '30s', target: 0 },
   ],
   thresholds: {
-    'charges_duration': ['p95<500'],
+    'charges_duration': ['p95(charges_duration) < 500'],
     'charges_fail_rate': ['rate<0.05'],
   },
 };

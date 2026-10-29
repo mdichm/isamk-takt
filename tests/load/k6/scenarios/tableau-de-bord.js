@@ -18,7 +18,7 @@ export const options = {
     { duration: '30s', target: 0 },
   ],
   thresholds: {
-    'tdb_duration': ['p95<500'],
+    'tdb_duration': ['p(95) < 500'],
     'tdb_fail_rate': ['rate<0.05'],
   },
 };

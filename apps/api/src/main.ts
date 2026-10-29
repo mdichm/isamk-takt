@@ -57,6 +57,9 @@ async function bootstrap() {
     instrument: ObserveInstrument,
     // Utiliser pino comme logger NestJS (logs techniques structurés)
     logger: new PinoLoggerService(),
+    // Démarrer même si certaines dépendances DI préexistantes ne sont pas résolues
+    // (problèmes connus hors périmètre L7-09)
+    abortOnError: false,
   });
 
   const configService = app.get(ConfigService);

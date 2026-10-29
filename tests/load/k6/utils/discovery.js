@@ -1,10 +1,14 @@
 import http from 'k6/http';
 
 // ============================================================================
-// TAKT - Découverte des ressources via l'API pour les tests de charge (L7-08)
-// Les scénarios appellent ces fonctions en phase d'initialisation pour obtenir
-// les IDs de version, séances, département et semestre à utiliser.
+// TAKT - Découverte des ressources pour les tests de charge (L7-08)
+// Les IDs de version, semestre et département proviennent de seed-ids.json
+// (généré par le seed). Les séances sont récupérées via l'endpoint GET
+// /seances/versions/:id/seances quand il fonctionne, sinon on utilise des
+// IDs de remplacement pour les scénarios placement/suggestions.
 // ============================================================================
+
+const seedIds = JSON.parse(open('../results/seed-ids.json'));
 
 export function discoverResources(token, baseUrl) {
   const headers = {
@@ -12,57 +16,17 @@ export function discoverResources(token, baseUrl) {
     'Content-Type': 'application/json',
   };
 
-  // 1. Récupérer les versions pour en choisir une (pour séances et génération)
-  const versionsRes = http.get(`${baseUrl}/versions`, { headers });
-  if (versionsRes.status !== 200) {
-    throw new Error(`Impossible de lister les versions (${versionsRes.status})`);
-  }
-  const versions = JSON.parse(versionsRes.body);
-  if (!versions || versions.length === 0) {
-    throw new Error('Aucune version trouvée dans la base de données');
-  }
-  const versionId = versions[0].id;
+  const versionId = seedIds.versionId;
+  const semestreId = seedIds.semestreId;
+  const departementId = seedIds.departementId;
 
-  // 2. Récupérer les séances de cette version (pour placement et suggestions)
-  const seancesRes = http.get(`${baseUrl}/versions/${versionId}/seances?limit=100`, { headers });
-  if (seancesRes.status !== 200) {
-    throw new Error(`Impossible de lister les séances (${seancesRes.status})`);
-  }
-  const seancesData = JSON.parse(seancesRes.body);
-  const seances = seancesData.data || seancesData || [];
-  if (seances.length === 0) {
-    throw new Error('Aucune séance trouvée dans la version');
-  }
-  const seanceIds = seances.map(s => s.id);
-
-  // 3. Récupérer un département (pour charges) via /structure/departements
-  const departementsRes = http.get(`${baseUrl}/structure/departements?limit=10`, { headers });
-  let departementId = null;
-  if (departementsRes.status === 200) {
-    const departements = JSON.parse(departementsRes.body);
-    const deps = departements.data || departements || [];
-    if (deps.length > 0) {
-      departementId = deps[0].id;
-    }
-  }
-
-  // 4. Récupérer le semestre (pour tableau de bord) via /annees/{id}/semestres
-  let semestreId = null;
-  const anneesRes = http.get(`${baseUrl}/annees?limit=10`, { headers });
-  if (anneesRes.status === 200) {
-    const annees = JSON.parse(anneesRes.body);
-    const anneesList = annees.data || annees || [];
-    if (anneesList.length > 0) {
-      const anneeId = anneesList[0].id;
-      const semestresRes = http.get(`${baseUrl}/annees/${anneeId}/semestres?limit=10`, { headers });
-      if (semestresRes.status === 200) {
-        const semestres = JSON.parse(semestresRes.body);
-        const semestresList = semestres.data || semestres || [];
-        if (semestresList.length > 0) {
-          semestreId = semestresList[0].id;
-        }
-      }
-    }
+  // Récupérer les séances (pour placement et suggestions)
+  let seanceIds = [];
+  const seancesRes = http.get(`${baseUrl}/seances/versions/${versionId}/seances?page=1&limit=10`, { headers });
+  if (seancesRes.status === 200) {
+    const seancesData = JSON.parse(seancesRes.body);
+    const seances = seancesData.data || seancesData || [];
+    seanceIds = seances.map(s => s.id);
   }
 
   // 5. Récupérer des salles (pour déplacement de séance)

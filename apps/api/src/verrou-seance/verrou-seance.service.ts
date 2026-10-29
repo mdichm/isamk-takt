@@ -7,8 +7,8 @@ import {
   ForbiddenException,
   ConflictException,
 } from '@nestjs/common';
-import type { PrismaService } from '../prisma/prisma.service.js';
-import type { AuditService } from '../audit/audit.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { AuditService } from '../audit/audit.service.js';
 import type { WriteAuditDto } from '../audit/dto/audit.dto.js';
 import { VerrouSeanceResponseDto } from './dto/verrou-seance-response.dto.js';
 import { BulkPoseResponseDto } from './dto/bulk-pose-response.dto.js';

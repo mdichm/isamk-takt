@@ -31,9 +31,9 @@ export class SeanceQueryDto {
   @IsEnum(SeanceStatut)
   statut?: SeanceStatut;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ enum: JourSemaine })
   @IsOptional()
-  @IsUUID()
+  @IsEnum(JourSemaine)
   jour?: JourSemaine;
 
   @ApiPropertyOptional()

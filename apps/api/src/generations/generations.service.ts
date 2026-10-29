@@ -105,7 +105,7 @@ export class GenerationsService {
       perimetreHash: generation.perimetreHash ?? null,
       engineVersion: generation.engineVersion ?? null,
       seeds: (generation.seeds as unknown as number[]) ?? null,
-      score: generation.score ?? null,
+      score: generation.score ? Number(String(generation.score)) : null,
       classee: generation.classee ?? null,
       classement: generation.classement ?? null,
       startedAt,

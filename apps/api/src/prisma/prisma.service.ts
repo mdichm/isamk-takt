@@ -1,8 +1,18 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { PrismaClient } from '@takt/db';
+import { PrismaClient, PrismaPg } from '@takt/db';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+  constructor() {
+    const databaseUrl = process.env.DATABASE_URL;
+    if (databaseUrl) {
+      const adapter = new PrismaPg({ connectionString: databaseUrl });
+      super({ adapter });
+    } else {
+      super();
+    }
+  }
+
   async onModuleInit(): Promise<void> {
     await this.$connect();
   }

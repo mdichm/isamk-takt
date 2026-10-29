@@ -14,7 +14,7 @@ export const options = {
   vus: 1,
   iterations: 1,
   thresholds: {
-    'export_duration': ['p95<60000'],
+    'export_duration': ['p95(export_duration) < 60000'],
     'export_fail_rate': ['rate<0.05'],
   },
 };

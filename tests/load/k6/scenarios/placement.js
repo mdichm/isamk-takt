@@ -18,7 +18,7 @@ export const options = {
     { duration: '30s', target: 0 },
   ],
   thresholds: {
-    'placement_duration': ['p95<200'],
+    'placement_duration': ['p95(placement_duration) < 200'],
     'placement_fail_rate': ['rate<0.05'],
   },
 };
