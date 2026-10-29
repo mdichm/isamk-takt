@@ -73,7 +73,9 @@ describe('StructureService', () => {
       auditTransaction: vi.fn(async (operation: any) => operation(prisma)),
     };
 
-    service = new StructureService(prisma as any, audit as any);
+    service = new StructureService(prisma as any, audit as any, {
+      verifyAnneeWritable: vi.fn().mockResolvedValue(undefined),
+    } as any);
   });
 
   describe('Départements', () => {
@@ -189,7 +191,7 @@ describe('StructureService', () => {
         libelle: 'Licence 3 Informatique',
       };
 
-      prisma.departement.findUnique.mockResolvedValue({ id: 'dep-1' });
+      prisma.departement.findUnique.mockResolvedValue({ id: 'dep-1', anneeId: 'annee-1' });
       prisma.formation.findFirst.mockResolvedValue(null);
       prisma.formation.create.mockResolvedValue({
         id: 'form-1', departementId: 'dep-1', code: 'L3-INFO', libelle: 'Licence 3 Informatique', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date(),
@@ -216,6 +218,7 @@ describe('StructureService', () => {
     it('should refuse removal when formation has niveaux', async () => {
       prisma.formation.findUnique.mockResolvedValue({
         id: 'form-1', code: 'L3-INFO', niveaux: [{ id: 'niv-1', code: 'L3' }],
+        departement: { id: 'dep-1', anneeId: 'annee-1' },
       });
 
       await expect(service.removeFormation('form-1', userId)).rejects.toThrow('référencé');
@@ -230,7 +233,7 @@ describe('StructureService', () => {
         libelle: 'Licence 3',
       };
 
-      prisma.formation.findUnique.mockResolvedValue({ id: 'form-1' });
+      prisma.formation.findUnique.mockResolvedValue({ id: 'form-1', departement: { id: 'dep-1', anneeId: 'annee-1' } });
       prisma.niveau.findFirst.mockResolvedValue(null);
       prisma.niveau.create.mockResolvedValue({
         id: 'niv-1', formationId: 'form-1', code: 'L3', libelle: 'Licence 3', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date(),
@@ -257,7 +260,9 @@ describe('StructureService', () => {
     it('should remove a niveau', async () => {
       prisma.niveau.findUnique.mockResolvedValue({
         id: 'niv-1', code: 'L3', formationId: 'form-1',
+        formation: { id: 'form-1', departement: { id: 'dep-1', anneeId: 'annee-1' } },
       });
+      prisma.departement.findUnique.mockResolvedValue({ id: 'dep-1', anneeId: 'annee-1' });
       prisma.niveau.delete.mockResolvedValue({ id: 'niv-1' });
 
       await service.removeNiveau('niv-1', userId);
@@ -336,6 +341,7 @@ describe('StructureService', () => {
         { id: 'form-1', departementId: 'dep-1', ordre: 1 },
         { id: 'form-2', departementId: 'dep-1', ordre: 2 },
       ]);
+      prisma.departement.findUnique.mockResolvedValue({ id: 'dep-1', anneeId: 'annee-1' });
       prisma.$transaction.mockResolvedValue([
         { id: 'form-2', ordre: 1 },
         { id: 'form-1', ordre: 2 },
@@ -362,6 +368,9 @@ describe('StructureService', () => {
         { id: 'niv-1', formationId: 'form-1', ordre: 1 },
         { id: 'niv-2', formationId: 'form-1', ordre: 2 },
       ]);
+      prisma.formation.findUnique.mockResolvedValue({
+        id: 'form-1', departement: { id: 'dep-1', anneeId: 'annee-1' },
+      });
       prisma.$transaction.mockResolvedValue([
         { id: 'niv-2', ordre: 1 },
         { id: 'niv-1', ordre: 2 },

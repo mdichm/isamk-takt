@@ -13,6 +13,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { Prisma, JobStatut, ExportFormat, ExportMode, GrilleAffichage } from '@takt/db';
 import { FilestoreService } from '../filestore/filestore.service.js';
 import { SecurityEventService } from '../common/services/security-event.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 import {
   CreateExportDto,
   ExportJobResponseDto,
@@ -39,6 +40,7 @@ export class ExportService {
     private readonly prisma: PrismaService,
     private readonly filestore: FilestoreService,
     private readonly securityEvent: SecurityEventService,
+    private readonly anneeImmutability: AnneeImmutabilityService,
     @Inject('BOSS') private readonly boss: PgBossType,
   ) {}
 
@@ -53,6 +55,15 @@ export class ExportService {
     if (!version) {
       throw new NotFoundException(`Version introuvable : ${dto.versionId}`);
     }
+
+    const semestre = await this.prisma.semestre.findUnique({
+      where: { id: version.semestreId },
+      select: { anneeId: true },
+    });
+    if (!semestre) {
+      throw new NotFoundException('Semestre parent introuvable');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(semestre.anneeId);
 
     const versionStatut = version.statut as string;
     if (dto.mode === ExportMode.OFFICIEL) {

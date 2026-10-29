@@ -54,7 +54,9 @@ describe('GroupesService', () => {
       recalculerConflitsSemestre: vi.fn().mockResolvedValue(undefined),
     };
 
-    service = new GroupesService(prisma as any, audit as any, conflitService as any);
+    service = new GroupesService(prisma as any, audit as any, conflitService as any, {
+      verifyAnneeWritable: vi.fn().mockResolvedValue(undefined),
+    } as any);
   });
 
   describe('createGroupe', () => {
@@ -242,6 +244,7 @@ describe('GroupesService', () => {
         updatedAt: new Date(),
       });
       prisma.groupe.findFirst.mockResolvedValue(null);
+      prisma.semestre.findUnique.mockResolvedValue({ id: semestreId, anneeId: 'annee-1' });
       prisma.groupe.update.mockResolvedValue({
         id: groupeId,
         niveauId,
@@ -281,6 +284,7 @@ describe('GroupesService', () => {
         id: 'other',
         code: 'INFO-L3-S2',
       });
+      prisma.semestre.findUnique.mockResolvedValue({ id: semestreId, anneeId: 'annee-1' });
       await expect(
         service.updateGroupe(groupeId, updateDto, userId),
       ).rejects.toThrow('existe déjà');
@@ -301,6 +305,7 @@ describe('GroupesService', () => {
         updatedAt: new Date(),
       });
       vi.spyOn(service as any, 'isDescendantOf').mockResolvedValue(true);
+      prisma.semestre.findUnique.mockResolvedValue({ id: semestreId, anneeId: 'annee-1' });
       const dtoWithParent: UpdateGroupeDto = { ...updateDto, parentId };
       await expect(
         service.updateGroupe(groupeId, dtoWithParent, userId),
@@ -323,6 +328,7 @@ describe('GroupesService', () => {
         createdAt: new Date(),
         updatedAt: new Date(),
       });
+      prisma.semestre.findUnique.mockResolvedValue({ id: semestreId, anneeId: 'annee-1' });
       prisma.groupe.count.mockResolvedValue(0);
 
       await expect(
@@ -347,6 +353,7 @@ describe('GroupesService', () => {
         createdAt: new Date(),
         updatedAt: new Date(),
       });
+      prisma.semestre.findUnique.mockResolvedValue({ id: semestreId, anneeId: 'annee-1' });
       prisma.groupe.count.mockResolvedValue(2);
       await expect(service.removeGroupe(groupeId, userId)).rejects.toThrow(
         'sous-groupes',

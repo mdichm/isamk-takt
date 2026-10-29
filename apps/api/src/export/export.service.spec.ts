@@ -14,6 +14,7 @@ import type { PgBoss as PgBossType } from 'pg-boss';
 
 const mockPrisma = {
   versionEdt: { findUnique: vi.fn() },
+  semestre: { findUnique: vi.fn() },
   exportStyle: { findFirst: vi.fn(), findUnique: vi.fn() },
   exportView: { findFirst: vi.fn(), findUnique: vi.fn() },
   exportJob: {
@@ -41,6 +42,9 @@ function makeService(overrides: Record<string, unknown> = {}) {
     mockPrisma as never,
     mockFilestore as never,
     mockSecurityEvent as never,
+    {
+      verifyAnneeWritable: vi.fn().mockResolvedValue(undefined),
+    } as never,
     mockBoss as never,
   );
 }
@@ -66,7 +70,9 @@ describe('ExportService', () => {
         avertissementsAcceptes: [],
         publieLe: null,
         grilleFigée: null,
+        semestreId: 'semestre-1',
       });
+      mockPrisma.semestre.findUnique.mockResolvedValue({ id: 'semestre-1', anneeId: 'annee-1' });
       mockPrisma.exportStyle.findFirst.mockResolvedValue({
         id: 'style-1',
         styleVersion: 1,
@@ -113,7 +119,9 @@ describe('ExportService', () => {
         avertissementsAcceptes: [],
         publieLe: new Date('2026-10-26T10:00:00Z'),
         grilleFigée: 'RAMADAN',
+        semestreId: 'semestre-1',
       });
+      mockPrisma.semestre.findUnique.mockResolvedValue({ id: 'semestre-1', anneeId: 'annee-1' });
       mockPrisma.exportStyle.findFirst.mockResolvedValue({
         id: 'style-1',
         styleVersion: 1,
@@ -153,7 +161,9 @@ describe('ExportService', () => {
         ],
         publieLe: new Date('2026-10-26T10:00:00Z'),
         grilleFigée: null,
+        semestreId: 'semestre-1',
       });
+      mockPrisma.semestre.findUnique.mockResolvedValue({ id: 'semestre-1', anneeId: 'annee-1' });
       mockPrisma.exportStyle.findFirst.mockResolvedValue({
         id: 'style-1',
         styleVersion: 1,
@@ -185,7 +195,9 @@ describe('ExportService', () => {
         ],
         publieLe: new Date('2026-10-26T10:00:00Z'),
         grilleFigée: null,
+        semestreId: 'semestre-1',
       });
+      mockPrisma.semestre.findUnique.mockResolvedValue({ id: 'semestre-1', anneeId: 'annee-1' });
       mockPrisma.exportStyle.findFirst.mockResolvedValue({
         id: 'style-1',
         styleVersion: 1,
@@ -218,7 +230,9 @@ describe('ExportService', () => {
       mockPrisma.versionEdt.findUnique.mockResolvedValue({
         id: 'version-1',
         statut: 'BROUILLON',
+        semestreId: 'semestre-1',
       });
+      mockPrisma.semestre.findUnique.mockResolvedValue({ id: 'semestre-1', anneeId: 'annee-1' });
       const svc = makeService();
       await expect(
         svc.create({ ...dto, mode: ExportMode.OFFICIEL }, mockCurrentUser()),
@@ -229,7 +243,9 @@ describe('ExportService', () => {
       mockPrisma.versionEdt.findUnique.mockResolvedValue({
         id: 'version-1',
         statut: 'PUBLIEE',
+        semestreId: 'semestre-1',
       });
+      mockPrisma.semestre.findUnique.mockResolvedValue({ id: 'semestre-1', anneeId: 'annee-1' });
       const svc = makeService();
       await expect(svc.create(dto, mockCurrentUser())).rejects.toThrow(BadRequestException);
     });

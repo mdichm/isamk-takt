@@ -8,9 +8,10 @@ import { PreparationModule } from '../preparation/preparation.module.js';
 import { ConflitModule } from '../conflit/conflit.module.js';
 import { PgBossModule } from '../pg-boss/pg-boss.module.js';
 import { NotificationsModule } from '../notifications/notifications.module.js';
+import { AnneesModule } from '../annees/annees.module.js';
 
 @Module({
-  imports: [PrismaModule, PreparationModule, ConflitModule, PgBossModule, NotificationsModule],
+  imports: [PrismaModule, PreparationModule, ConflitModule, PgBossModule, NotificationsModule, AnneesModule],
   controllers: [VersionController],
   providers: [VersionService],
   exports: [VersionService],

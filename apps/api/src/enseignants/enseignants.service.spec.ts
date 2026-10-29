@@ -72,7 +72,9 @@ describe('EnseignantsService', () => {
       auditTransaction: vi.fn(async (operation: any) => operation(prisma)),
     };
 
-    service = new EnseignantsService(prisma, audit);
+    service = new EnseignantsService(prisma, audit, {
+      verifyAnneeWritable: vi.fn().mockResolvedValue(undefined),
+    } as any);
   });
 
   describe('createEnseignant', () => {

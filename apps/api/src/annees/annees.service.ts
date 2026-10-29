@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { CreneauService } from '../creneaux/creneau.service.js';
+import { AnneeImmutabilityService } from './annee-immutability.service.js';
 import {
   CreateAnneeDto,
   UpdateAnneeDto,
@@ -46,6 +47,7 @@ export class AnneesService {
     private prisma: PrismaService,
     private audit: AuditService,
     private creneauService: CreneauService,
+    private anneeImmutability: AnneeImmutabilityService,
   ) {}
 
   // ============================================
@@ -343,6 +345,8 @@ export class AnneesService {
       throw new NotFoundException('Année parente non trouvée');
     }
 
+    await this.anneeImmutability.verifyAnneeWritable(dto.anneeId);
+
     const existing = await this.prisma.semestre.findUnique({
       where: { anneeId_numero: { anneeId: dto.anneeId, numero: dto.numero } },
     });
@@ -409,6 +413,8 @@ export class AnneesService {
       throw new NotFoundException('Semestre non trouvé');
     }
 
+    await this.anneeImmutability.verifyAnneeWritable(existing.anneeId);
+
     if (dto.numero !== undefined && dto.numero !== existing.numero) {
       const conflict = await this.prisma.semestre.findUnique({
         where: { anneeId_numero: { anneeId: existing.anneeId, numero: dto.numero } },
@@ -445,6 +451,8 @@ export class AnneesService {
     if (!existing) {
       throw new NotFoundException('Semestre non trouvé');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(existing.anneeId);
 
     await this.audit.auditTransaction(
       async (tx) => {

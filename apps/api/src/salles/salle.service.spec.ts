@@ -83,7 +83,9 @@ describe('SalleService', () => {
       recalculerConflitsSemestre: vi.fn().mockResolvedValue(undefined),
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    service = new SalleService(prisma as any, audit as any, conflitService as any);
+    service = new SalleService(prisma as any, audit as any, conflitService as any, {
+      verifyAnneeWritable: vi.fn().mockResolvedValue(undefined),
+    } as any);
   });
 
   describe('Types de salle', () => {
