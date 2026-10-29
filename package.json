@@ -14,7 +14,7 @@
     "db:migrate": "turbo run db:migrate",
     "db:push": "turbo run db:push",
     "db:studio": "turbo run db:studio",
-    "test:load": "echo \"Tests de charge k6 (L7-08). Prérequis : API démarrée + DB seedée.\" && echo \"  1. pnpm --filter @takt/api db:generate\" && echo \"  2. pnpm tsx tests/load/seed.ts\" && echo \"  3. TOKEN=\$(curl -s -X POST http://localhost:3000/auth/login -H 'Content-Type: application/json' -d '{\\\"email\\\":\\\"gestionnaire@takt.test\\\",\\\"password\\\":\\\"TaktTest2026!\\\"}' | node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>console.log(JSON.parse(d).accessToken))\")\" && echo \"  4. k6 run tests/load/k6/scenarios/placement.js\" && echo \"     k6 run tests/load/k6/scenarios/grille.js\" && echo \"     k6 run tests/load/k6/scenarios/tableau-de-bord.js\" && echo \"     k6 run tests/load/k6/scenarios/suggestions.js\" && echo \"     k6 run tests/load/k6/scenarios/charges-departement.js\" && echo \"     k6 run tests/load/k6/scenarios/generation-parallele.js\" && echo \"     k6 run tests/load/k6/scenarios/export-pdf.js\""
+    "test:load": "sh tests/load/run-tests.sh",
     "format": "prettier --write \"**/*.{ts,tsx,json,md,yaml,yml}\"",
     "changeset": "changeset",
     "version": "changeset version",
