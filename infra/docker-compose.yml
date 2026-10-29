@@ -239,6 +239,24 @@ services:
       - monitoring
 
   # ---------------------------------------------------------------------------
+  # Observabilité - Alertmanager (routing des alertes Prometheus)
+  # ---------------------------------------------------------------------------
+  alertmanager:
+    image: prom/alertmanager:v0.26.0
+    container_name: takt-alertmanager-dev
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/alertmanager
+    volumes:
+      - ./observability/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager_data:/alertmanager
+    networks:
+      - observability
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ---------------------------------------------------------------------------
   # pgAdmin (optional - for database management)
   # ---------------------------------------------------------------------------
   pgadmin:
@@ -283,6 +301,8 @@ volumes:
   loki_data:
     driver: local
   tempo_data:
+    driver: local
+  alertmanager_data:
     driver: local
 
 # -----------------------------------------------------------------------------
