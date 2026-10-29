@@ -24,6 +24,7 @@ describe('AnneesService', () => {
   let prisma: any;
   let audit: any;
   let creneau: any;
+  let anneeImmutability: any;
 
   const userId = '550e8400-e29b-41d4-a716-446655440000';
   const anneeId = '550e8400-e29b-41d4-a716-446655440001';
@@ -52,8 +53,11 @@ describe('AnneesService', () => {
     };
 
     creneau = {};
+    anneeImmutability = {
+      verifyAnneeWritable: vi.fn().mockResolvedValue(undefined),
+    };
 
-    service = new AnneesService(prisma as any, audit as any, creneau as any);
+    service = new AnneesService(prisma as any, audit as any, creneau as any, anneeImmutability as any);
   });
 
   describe('createAnnee', () => {

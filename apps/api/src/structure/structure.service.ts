@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 import {
   CreateDepartementDto,
   UpdateDepartementDto,
@@ -25,6 +26,7 @@ export class StructureService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private anneeImmutability: AnneeImmutabilityService,
   ) {}
 
   // ============================================
@@ -36,6 +38,8 @@ export class StructureService {
     if (!annee) {
       throw new NotFoundException('Année parente non trouvée');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(dto.anneeId);
 
     const existing = await this.prisma.departement.findFirst({
       where: { anneeId: dto.anneeId, code: dto.code },
@@ -118,6 +122,8 @@ export class StructureService {
       throw new NotFoundException('Département non trouvé');
     }
 
+    await this.anneeImmutability.verifyAnneeWritable(existing.anneeId);
+
     if (dto.code && dto.code !== existing.code) {
       const conflict = await this.prisma.departement.findFirst({
         where: { anneeId: existing.anneeId, code: dto.code },
@@ -160,6 +166,8 @@ export class StructureService {
       throw new NotFoundException('Département non trouvé');
     }
 
+    await this.anneeImmutability.verifyAnneeWritable(existing.anneeId);
+
     if (existing.formations.length > 0) {
       const refs = existing.formations.map((f) => `formation "${f.code}"`).join(', ');
       throw new ConflictException(`Suppression refusée : le département est référencé par ${refs}`);
@@ -201,6 +209,8 @@ export class StructureService {
     if (!departement) {
       throw new NotFoundException('Département parent non trouvé');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(departement.anneeId);
 
     const existing = await this.prisma.formation.findFirst({
       where: { departementId: dto.departementId, code: dto.code },
@@ -283,6 +293,12 @@ export class StructureService {
       throw new NotFoundException('Formation non trouvée');
     }
 
+    const departement = await this.prisma.departement.findUnique({ where: { id: existing.departementId } });
+    if (!departement) {
+      throw new NotFoundException('Département parent non trouvé');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(departement.anneeId);
+
     if (dto.code && dto.code !== existing.code) {
       const conflict = await this.prisma.formation.findFirst({
         where: { departementId: existing.departementId, code: dto.code },
@@ -319,11 +335,13 @@ export class StructureService {
   async removeFormation(id: string, userId: string): Promise<void> {
     const existing = await this.prisma.formation.findUnique({
       where: { id },
-      include: { niveaux: true },
+      include: { niveaux: true, departement: true },
     });
     if (!existing) {
       throw new NotFoundException('Formation non trouvée');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(existing.departement.anneeId);
 
     if (existing.niveaux.length > 0) {
       const refs = existing.niveaux.map((n) => `niveau "${n.code}"`).join(', ');
@@ -362,10 +380,15 @@ export class StructureService {
   // ============================================
 
   async createNiveau(dto: CreateNiveauDto, userId: string): Promise<NiveauResponseDto> {
-    const formation = await this.prisma.formation.findUnique({ where: { id: dto.formationId } });
+    const formation = await this.prisma.formation.findUnique({
+      where: { id: dto.formationId },
+      include: { departement: true },
+    });
     if (!formation) {
       throw new NotFoundException('Formation parente non trouvée');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(formation.departement.anneeId);
 
     const existing = await this.prisma.niveau.findFirst({
       where: { formationId: dto.formationId, code: dto.code },
@@ -448,6 +471,15 @@ export class StructureService {
       throw new NotFoundException('Niveau non trouvé');
     }
 
+    const formation = await this.prisma.formation.findUnique({
+      where: { id: existing.formationId },
+      include: { departement: true },
+    });
+    if (!formation) {
+      throw new NotFoundException('Formation parente non trouvée');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(formation.departement.anneeId);
+
     if (dto.code && dto.code !== existing.code) {
       const conflict = await this.prisma.niveau.findFirst({
         where: { formationId: existing.formationId, code: dto.code },
@@ -482,10 +514,15 @@ export class StructureService {
   }
 
   async removeNiveau(id: string, userId: string): Promise<void> {
-    const existing = await this.prisma.niveau.findUnique({ where: { id } });
+    const existing = await this.prisma.niveau.findUnique({
+      where: { id },
+      include: { formation: { include: { departement: true } } },
+    });
     if (!existing) {
       throw new NotFoundException('Niveau non trouvé');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(existing.formation.departement.anneeId);
 
     await this.audit.auditTransaction(
       async (tx) => {
@@ -535,6 +572,8 @@ export class StructureService {
       throw new BadRequestException('Tous les départements doivent appartenir à la même année');
     }
 
+    await this.anneeImmutability.verifyAnneeWritable(departements[0].anneeId);
+
     // Reassigner 1..N dans l'ordre fourni
     await this.prisma.$transaction(
       dto.items.map((item, index) =>
@@ -572,6 +611,15 @@ export class StructureService {
       throw new BadRequestException('Toutes les formations doivent appartenir au même département');
     }
 
+    const departement = await this.prisma.departement.findUnique({
+      where: { id: formations[0].departementId },
+      select: { anneeId: true },
+    });
+    if (!departement) {
+      throw new NotFoundException('Département parent non trouvé');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(departement.anneeId);
+
     await this.prisma.$transaction(
       dto.items.map((item, index) =>
         this.prisma.formation.update({
@@ -607,6 +655,15 @@ export class StructureService {
     if (formationIds.size !== 1) {
       throw new BadRequestException('Tous les niveaux doivent appartenir à la même formation');
     }
+
+    const formation = await this.prisma.formation.findUnique({
+      where: { id: niveaux[0].formationId },
+      include: { departement: { select: { anneeId: true } } },
+    });
+    if (!formation) {
+      throw new NotFoundException('Formation parente non trouvée');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(formation.departement.anneeId);
 
     await this.prisma.$transaction(
       dto.items.map((item, index) =>

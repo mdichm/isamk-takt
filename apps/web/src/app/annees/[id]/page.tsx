@@ -88,6 +88,11 @@ export default function AnneePage({ params }: { params: { id: string } }) {
             <Badge variant={estActive ? 'default' : 'secondary'}>
               {statutLabel(annee.statut)}
             </Badge>
+            {annee.statut === 'CLOTUREE' && (
+              <Badge variant="destructive" className="text-xs">
+                {messages.anneeLectureSeule}
+              </Badge>
+            )}
           </div>
         </div>
 
@@ -120,12 +125,20 @@ export default function AnneePage({ params }: { params: { id: string } }) {
         </Card>
 
         <div className="mt-8 flex items-center gap-3">
-          <AnneeClotureDialog
-            annee={annee}
-            open={dialogOpen}
-            onOpenChange={setDialogOpen}
-            onCloturee={handleCloturee}
-          />
+          {annee.statut !== 'CLOTUREE' && (
+            <AnneeClotureDialog
+              annee={annee}
+              open={dialogOpen}
+              onOpenChange={setDialogOpen}
+              onCloturee={handleCloturee}
+            />
+          )}
+          {annee.statut === 'CLOTUREE' && (
+            <div className="rounded-md border border-destructive/50 bg-destructive/10 p-4 mb-4">
+              <h3 className="font-semibold text-destructive">{messages.anneeLectureSeule}</h3>
+              <p className="text-sm text-destructive/80">{messages.anneeLectureSeuleDescription}</p>
+            </div>
+          )}
         </div>
 
       </div>

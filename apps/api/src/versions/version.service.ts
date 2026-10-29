@@ -61,6 +61,7 @@ import type { VersionProvenanceResponseDto } from './dto/provenance-response.dto
 import type { ChargeRuleSetProvenanceDto } from './dto/provenance-response.dto.js';
 import { PolicyService } from '../policy/policy.service.js';
 import { NotificationsService } from '../notifications/notifications.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 import { CreateNotificationDto } from '../notifications/dto/create-notification.dto.js';
 import { EvenementNotification } from '../notifications/notifications.constants.js';
 
@@ -79,6 +80,7 @@ export class VersionService {
     private readonly policyService: PolicyService,
     @Inject('BOSS') private readonly boss: PgBossType,
     private readonly notifications: NotificationsService,
+    private readonly anneeImmutability: AnneeImmutabilityService,
   ) {}
 
   /** Liste toutes les versions (lecture, permission version:read). */
@@ -279,6 +281,8 @@ export class VersionService {
     if (!semestre) {
       throw new NotFoundException(`Semestre "${dto.semestreId}" introuvable`);
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(semestre.anneeId);
 
     // 2. Récupérer les départements du semestre
     const departements = await this.prisma.departement.findMany({
@@ -2354,6 +2358,15 @@ async submitValidation(
         message: `Impossible de publier une version dont le statut est "${version.statut}" (VALIDE requis)`,
       });
     }
+    const semestre = await this.prisma.semestre.findUnique({
+      where: { id: version.semestreId },
+      select: { anneeId: true },
+    });
+    if (!semestre) {
+      throw new NotFoundException('Semestre parent introuvable');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(semestre.anneeId);
+
     const nbPublie = await this.prisma.versionEdt.count({
       where: {
         semestreId: version.semestreId,
@@ -2549,6 +2562,15 @@ async submitValidation(
         message: `Impossible de créer une révision à partir d'une version dont le statut est "${parent.statut}" (PUBLIE requis)`,
       });
     }
+
+    const semestre = await this.prisma.semestre.findUnique({
+      where: { id: parent.semestreId },
+      select: { anneeId: true },
+    });
+    if (!semestre) {
+      throw new NotFoundException('Semestre parent introuvable');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(semestre.anneeId);
 
     // 2. Numérotation : mineur + 1 (RC-04, correction manuelle)
     const ancienNumero = parent.numero;

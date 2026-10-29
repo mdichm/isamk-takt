@@ -10,6 +10,7 @@ import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
 import { PolicyService } from '../policy/policy.service.js';
 import { NotificationsService } from '../notifications/notifications.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 import type { TransitionType } from '@takt/contracts';
 
 // ============================================
@@ -80,6 +81,10 @@ describe('VersionService.transition', () => {
         {
           provide: NotificationsService,
           useValue: { creerNotifications: vi.fn().mockResolvedValue({ count: 0 }) },
+        },
+        {
+          provide: AnneeImmutabilityService,
+          useValue: { verifyAnneeWritable: vi.fn().mockResolvedValue(undefined) },
         },
       ],
     }).compile();

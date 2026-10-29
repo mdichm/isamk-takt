@@ -42,7 +42,9 @@ describe('AnneesService - generateCreneaux (L1-18)', () => {
     audit = {
       auditTransaction: vi.fn(async (operation: any) => operation(prisma)),
     };
-    service = new AnneesService(prisma as any, audit as any, {} as any);
+    service = new AnneesService(prisma as any, audit as any, {} as any, {
+      verifyAnneeWritable: vi.fn().mockResolvedValue(undefined),
+    } as any);
   });
 
   it('should generate creneaux deterministically with 30-minute slots', async () => {

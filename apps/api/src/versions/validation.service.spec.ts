@@ -16,6 +16,7 @@ import { VersionService } from './version.service.js';
 import type { ValidationDepartementDto } from './dto/validation-departement.dto.js';
 import { PolicyService } from '../policy/policy.service.js';
 import { NotificationsService } from '../notifications/notifications.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 
 // ============================================
 // VersionService.submitValidation (L5-04)
@@ -93,6 +94,10 @@ describe('VersionService.submitValidation', () => {
         { provide: 'BOSS', useValue: bossMock },
         { provide: PolicyService, useValue: policyService },
         { provide: NotificationsService, useValue: notificationsService },
+        {
+          provide: AnneeImmutabilityService,
+          useValue: { verifyAnneeWritable: vi.fn().mockResolvedValue(undefined) },
+        },
       ],
     }).compile();
 

@@ -4,6 +4,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { AuditService } from '../audit/audit.service.js';
 import { ConflitService } from '../conflit/conflit.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 import type {
   CreateTypeSalleDto,
   UpdateTypeSalleDto,
@@ -29,6 +30,7 @@ export class SalleService {
     private prisma: PrismaService,
     private audit: AuditService,
     private conflitService: ConflitService,
+    private anneeImmutability: AnneeImmutabilityService,
   ) {}
 
   // ============================================
@@ -201,6 +203,7 @@ export class SalleService {
       if (!departement) {
         throw new NotFoundException('Département parent non trouvé');
       }
+      await this.anneeImmutability.verifyAnneeWritable(departement.anneeId);
     }
 
     if (dto.typeSalleId) {
@@ -313,6 +316,16 @@ export class SalleService {
       throw new NotFoundException('Salle non trouvée');
     }
 
+    if (existing.departementId) {
+      const departement = await this.prisma.departement.findUnique({
+        where: { id: existing.departementId },
+        select: { anneeId: true },
+      });
+      if (departement) {
+        await this.anneeImmutability.verifyAnneeWritable(departement.anneeId);
+      }
+    }
+
     if (dto.capaciteMax !== undefined && dto.capaciteRecommandee !== undefined && dto.capaciteRecommandee > dto.capaciteMax) {
       throw new BadRequestException('La capacité recommandée ne peut pas dépasser la capacité maximale');
     }
@@ -384,6 +397,16 @@ export class SalleService {
       throw new NotFoundException('Salle non trouvée');
     }
 
+    if (existing.departementId) {
+      const departement = await this.prisma.departement.findUnique({
+        where: { id: existing.departementId },
+        select: { anneeId: true },
+      });
+      if (departement) {
+        await this.anneeImmutability.verifyAnneeWritable(departement.anneeId);
+      }
+    }
+
     await this.audit.auditTransaction(
       async (tx) => {
         await tx.salle.update({ where: { id }, data: { estActive: false } });
@@ -402,6 +425,16 @@ export class SalleService {
     const salle = await this.prisma.salle.findUnique({ where: { id } });
     if (!salle) {
       throw new NotFoundException('Salle non trouvée');
+    }
+
+    if (salle.departementId) {
+      const departement = await this.prisma.departement.findUnique({
+        where: { id: salle.departementId },
+        select: { anneeId: true },
+      });
+      if (departement) {
+        await this.anneeImmutability.verifyAnneeWritable(departement.anneeId);
+      }
     }
 
     const equipements = await this.prisma.equipement.findMany({

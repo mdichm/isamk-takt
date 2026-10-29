@@ -1602,6 +1602,11 @@ export const messages = {
     'Impossible de clôturer : une version est actuellement en validation.',
   clotureErreurConflit: "L’année ne peut pas être clôturée dans son état actuel.",
   clotureErreurGenerique: 'Une erreur inattendue est survenue lors de la clôture.',
+
+  // Année en lecture seule (L7-03)
+  anneeLectureSeule: 'Année clôturée – lecture seule',
+  anneeLectureSeuleDescription:
+    'Cette année est clôturée. Aucun écriture n’est possible sur ses données (planning, répartition, charges, versions, exports), y compris par un Administrateur.',
 } as const;
 
 export type Messages = typeof messages;

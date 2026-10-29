@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 import {
   CreateEnseignantDto,
   UpdateEnseignantDto,
@@ -15,6 +16,7 @@ export class EnseignantsService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private anneeImmutability: AnneeImmutabilityService,
   ) {}
 
   async createEnseignant(
@@ -43,6 +45,8 @@ export class EnseignantsService {
     }
 
     await this.validateForeignKeys(dto.anneeId, dto.departementId, dto.gradeId);
+
+    await this.anneeImmutability.verifyAnneeWritable(dto.anneeId);
 
     const enseignant = await this.audit.auditTransaction(
       async (tx) => {
@@ -161,6 +165,8 @@ export class EnseignantsService {
       throw new NotFoundException('Enseignant non trouvé');
     }
 
+    await this.anneeImmutability.verifyAnneeWritable(existing.anneeId);
+
     if (dto.matricule && dto.matricule !== existing.matricule) {
       const dup = await this.prisma.enseignant.findFirst({
         where: {
@@ -235,6 +241,8 @@ export class EnseignantsService {
       throw new NotFoundException('Enseignant non trouvé');
     }
 
+    await this.anneeImmutability.verifyAnneeWritable(existing.anneeId);
+
     await this.audit.auditTransaction(
       async (tx) => {
         await tx.enseignant.update({
@@ -263,6 +271,8 @@ export class EnseignantsService {
     if (!enseignant) {
       throw new NotFoundException('Enseignant non trouvé');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(enseignant.anneeId);
 
     const modules = await this.prisma.module.findMany({
       where: { id: { in: dto.moduleIds } },
@@ -304,6 +314,8 @@ export class EnseignantsService {
     if (!enseignant) {
       throw new NotFoundException('Enseignant non trouvé');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(enseignant.anneeId);
 
     const existingLink = await this.prisma.enseignantModule.findUnique({
       where: {

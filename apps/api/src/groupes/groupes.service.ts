@@ -7,6 +7,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
 import { ConflitService } from '../conflit/conflit.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 import type { Groupe } from '@takt/db';
 import {
   CreateGroupeDto,
@@ -30,6 +31,7 @@ export class GroupesService {
     private prisma: PrismaService,
     private audit: AuditService,
     private conflitService: ConflitService,
+    private anneeImmutability: AnneeImmutabilityService,
   ) {}
 
   // ============================================
@@ -55,6 +57,8 @@ export class GroupesService {
     if (!semestre) {
       throw new NotFoundException('Semestre non trouvé');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(semestre.anneeId);
 
     // Si un parent est spécifié, vérifier qu'il existe et appartient au même niveau
     if (dto.parentId) {
@@ -143,6 +147,9 @@ export class GroupesService {
     if (!cibleSemestre) {
       throw new NotFoundException('Semestre cible non trouvé');
     }
+
+    await this.anneeImmutability.verifyAnneeWritable(sourceSemestre.anneeId);
+    await this.anneeImmutability.verifyAnneeWritable(cibleSemestre.anneeId);
 
     return this.audit.auditTransaction<DuplicateGroupesResult>(
       async (tx) => {
@@ -332,6 +339,15 @@ export class GroupesService {
       throw new NotFoundException('Groupe non trouvé');
     }
 
+    const semestre = await this.prisma.semestre.findUnique({
+      where: { id: existing.semestreId },
+      select: { anneeId: true },
+    });
+    if (!semestre) {
+      throw new NotFoundException('Semestre parent non trouvé');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(semestre.anneeId);
+
     // Si on change le parent, vérifier l'absence de cycle
     if (dto.parentId !== undefined && dto.parentId !== existing.parentId) {
       if (dto.parentId) {
@@ -413,6 +429,15 @@ export class GroupesService {
     if (!existing) {
       throw new NotFoundException('Groupe non trouvé');
     }
+
+    const semestre = await this.prisma.semestre.findUnique({
+      where: { id: existing.semestreId },
+      select: { anneeId: true },
+    });
+    if (!semestre) {
+      throw new NotFoundException('Semestre parent non trouvé');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(semestre.anneeId);
 
     // Vérifier qu'il n'a pas d'enfants directs
     const enfants = await this.prisma.groupe.count({ where: { parentId: id } });
@@ -625,6 +650,15 @@ export class GroupesService {
         'Tous les groupes doivent appartenir au même niveau et au même semestre',
       );
     }
+
+    const semestre = await this.prisma.semestre.findUnique({
+      where: { id: groupes[0].semestreId },
+      select: { anneeId: true },
+    });
+    if (!semestre) {
+      throw new NotFoundException('Semestre parent non trouvé');
+    }
+    await this.anneeImmutability.verifyAnneeWritable(semestre.anneeId);
 
     await this.prisma.$transaction(
       dto.items.map((item, index) =>

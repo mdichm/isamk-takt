@@ -9,6 +9,7 @@ import { ConflitService } from '../conflit/conflit.service.js';
 import { VersionService } from './version.service.js';
 import { PolicyService } from '../policy/policy.service.js';
 import { NotificationsService } from '../notifications/notifications.service.js';
+import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
 
 // ============================================
 // VersionService (L3-09)
@@ -79,6 +80,10 @@ describe('VersionService', () => {
         {
           provide: NotificationsService,
           useValue: { creerNotifications: vi.fn().mockResolvedValue({ count: 0 }) },
+        },
+        {
+          provide: AnneeImmutabilityService,
+          useValue: { verifyAnneeWritable: vi.fn().mockResolvedValue(undefined) },
         },
       ],
     }).compile();
@@ -916,6 +921,7 @@ describe('VersionService', () => {
         semestreId,
         seances: [seanceAvecGroupeEtVerrou],
       } as any);
+      prisma.semestre.findUnique.mockResolvedValue({ id: semestreId, anneeId: 'annee-1' });
       prisma.versionEdt.create.mockResolvedValue({
         id: 'version-enfant-1',
         numero: '1.1',
@@ -990,6 +996,7 @@ describe('VersionService', () => {
         semestreId,
         seances: [],
       } as any);
+      prisma.semestre.findUnique.mockResolvedValue({ id: semestreId, anneeId: 'annee-1' });
       prisma.versionEdt.create.mockResolvedValue({
         id: 'version-enfant-2',
         numero: '2.1',
