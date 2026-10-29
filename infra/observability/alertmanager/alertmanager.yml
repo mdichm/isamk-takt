@@ -1,0 +1,58 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# TAKT - Configuration Alertmanager (L7-11)
+# Routage des alertes par sévérité vers l'email institutionnel (cck.rnu.tn)
+
+global:
+  smtp_smarthost: 'cck.rnu.tn:25'
+  smtp_from: 'takt-alertes@isamk.rnu.tn'
+  smtp_require_tls: false
+
+route:
+  group_by: ['alertname', 'severity']
+  group_wait: 10s
+  group_interval: 1m
+  repeat_interval: 1h
+  receiver: 'admin-email'
+
+  routes:
+    - matcher:
+        severity: critical
+      receiver: 'admin-email-critical'
+      repeat_interval: 15m
+
+    - matcher:
+        severity: warning
+      receiver: 'admin-email-warning'
+      repeat_interval: 1h
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname']
+
+receivers:
+  - name: 'admin-email'
+    email_configs:
+      - to: 'exploitation@isamk.rnu.tn'
+
+  - name: 'admin-email-critical'
+    email_configs:
+      - to: 'exploitation@isamk.rnu.tn'
+        subject: '[TAKT CRITICAL] {{ .CommonLabels.alertname }}'
+        body: |
+          Alerte TAKT critique : {{ .CommonLabels.alertname }}
+          Sévérité : {{ .CommonLabels.severity }}
+          Description : {{ CommonAnnotations.description }}
+          Début : {{ .CommonLabels.startsAt }}
+
+  - name: 'admin-email-warning'
+    email_configs:
+      - to: 'exploitation@isamk.rnu.tn'
+        subject: '[TAKT WARNING] {{ .CommonLabels.alertname }}'
+        body: |
+          Alerte TAKT : {{ .CommonLabels.alertname }}
+          Sévérité : {{ .CommonLabels.severity }}
+          Description : {{ CommonAnnotations.description }}
+          Début : {{ .CommonLabels.startsAt }}
