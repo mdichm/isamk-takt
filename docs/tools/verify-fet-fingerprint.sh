@@ -30,8 +30,8 @@ fi
 ACTUAL_SHA="$(sha256sum "$FET_BINARY" | awk '{print $1}')"
 echo "Empreinte calculée : $ACTUAL_SHA"
 
-# Lire l'empreinte de référence (première colonne du fichier .sha256)
-REFERENCE_SHA="$(awk '{print $1}' "$REFERENCE_FILE")"
+# Lire l'empreinte de référence (première colonne de la première ligne non commentée)
+REFERENCE_SHA="$(grep -v '^\s*#' "$REFERENCE_FILE" | awk '{print $1}' | head -1)"
 echo "Empreinte de référence : $REFERENCE_SHA"
 
 if [ "$REFERENCE_SHA" = "PLACEHOLDER_SHA256" ]; then
