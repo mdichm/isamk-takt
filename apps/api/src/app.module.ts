@@ -61,6 +61,7 @@ import { ProblemJsonFilter } from './common/filters/http-exception.filter.js';
 import { ValidationPipe } from './common/pipes/validation.pipe.js';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard.js';
 import { RolesGuard } from './common/guards/roles.guard.js';
+import { CsrfGuard } from './common/guards/csrf.guard.js';
 import { PermissionsGuard } from './policy/guards/permissions.guard.js';
 import { ScopeGuard } from './policy/guards/scope.guard.js';
 import { ImmutabilityGuard } from './policy/guards/immutability.guard.js';
@@ -194,6 +195,10 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     {
       provide: APP_GUARD,
       useClass: SegregationOfDutiesGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: CsrfGuard,
     },
     {
       provide: APP_INTERCEPTOR,

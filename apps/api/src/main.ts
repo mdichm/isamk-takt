@@ -90,11 +90,31 @@ async function bootstrap() {
   // Helmet : en-têtes de sécurité (ST §5.3)
   app.use(helmet());
   app.use(helmet.crossOriginEmbedderPolicy({ policy: 'credentialless' }));
+  app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'none'"],
+        baseUri: ["'self'"],
+        frameAncestors: ["'none'"],
+      },
+    })
+  );
 
-  // CORS en liste blanche (ST §5.3)
-  const corsOrigin = configService.get<string>('app.cors.origin') ?? '*';
+  // CORS en liste blanche obligatoire (ST §5.3) — pas de '*' par défaut
+  const corsOriginRaw = configService.get<string>('app.cors.origin') ?? '';
+  const corsOrigins = corsOriginRaw
+    .split(',')
+    .map((o: string) => o.trim())
+    .filter(Boolean);
+
+  if (nodeEnv === 'production' && (corsOrigins.length === 0 || corsOrigins.includes('*'))) {
+    throw new Error(
+      'CORS_ORIGIN must be set to a non-wildcard allowlist in production',
+    );
+  }
+
   app.enableCors({
-    origin: corsOrigin === '*' ? '*' : corsOrigin.split(',').map((o: string) => o.trim()),
+    origin: corsOrigins,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: [
