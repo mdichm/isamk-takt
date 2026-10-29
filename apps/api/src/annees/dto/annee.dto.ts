@@ -1,6 +1,7 @@
 import { IsString, IsOptional, MinLength, MaxLength, IsInt, Min, Max, IsUUID, IsIn } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import { IsNotEmpty } from 'class-validator';
 
 export type AnneeStatut = 'PREPARATION' | 'ACTIVE' | 'CLOTUREE';
 
@@ -134,10 +135,30 @@ export class TransitionAnneeDto {
   @IsIn(['ACTIVER', 'CLOTURER'])
   action: 'ACTIVER' | 'CLOTURER';
 
-  @ApiPropertyOptional({ default: false, description: 'Confirmer la transition (requis pour CLOTURER)' })
+  @ApiPropertyOptional({ example: '2026-2027', description: 'Code de l\'année (requis pour CLOTURER, doit égaler le code de l\'année)' })
   @IsOptional()
-  @Type(() => Boolean)
-  confirmation?: boolean;
+  @IsString()
+  @IsNotEmpty()
+  confirmation?: string;
+
+  @ApiPropertyOptional({ example: 'Fin d\'année', description: 'Motif de la clôture' })
+  @IsOptional()
+  @IsString()
+  motif?: string;
+}
+
+export class TransitionResponseDto {
+  @ApiProperty({ description: 'ID de l\'année' })
+  anneeId: string;
+
+  @ApiProperty({ enum: ['ACTIVE', 'CLOTUREE'], description: 'Statut avant la transition' })
+  de: 'ACTIVE' | 'CLOTUREE';
+
+  @ApiProperty({ enum: ['ACTIVE', 'CLOTUREE'], description: 'Statut après la transition' })
+  vers: 'ACTIVE' | 'CLOTUREE';
+
+  @ApiProperty({ description: 'Nombre de versions non publiées archivées' })
+  versionsArchivees: number;
 }
 
 export class CreateSemestreDto {

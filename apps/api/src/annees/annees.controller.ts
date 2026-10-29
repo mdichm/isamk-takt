@@ -11,7 +11,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiBody } from '@nestjs/swagger';
 import { AnneesService } from './annees.service.js';
 import {
   CreateAnneeDto,
@@ -25,6 +25,7 @@ import {
   PaginatedSemestresDto,
   SemestreQueryDto,
   TransitionAnneeDto,
+  TransitionResponseDto,
 } from './dto/annee.dto.js';
 import {
   GenerateCreneauxDto,
@@ -130,14 +131,17 @@ export class AnneesController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Activer ou clôturer une année universitaire' })
   @ApiParam({ name: 'id', description: 'ID de l\'année (UUID)' })
+  @ApiBody({ type: TransitionAnneeDto, description: 'Transition : ACTIVER ou CLOTURER avec confirmation (code de l\'année)' })
   @ApiResponse({ status: 200, description: 'Année après transition', type: AnneeResponseDto })
-  @ApiResponse({ status: 400, description: 'Confirmation requise pour la clôture' })
+  @ApiResponse({ status: 200, description: 'Résultat de la clôture', type: TransitionResponseDto })
+  @ApiResponse({ status: 400, description: 'Confirmation requise ou invalide pour la clôture' })
   @ApiResponse({ status: 404, description: 'Année non trouvée' })
   @ApiResponse({ status: 409, description: 'Conflit de statut (déjà active / déjà clôturée / impossible de clôturer une année en préparation)' })
+  @ApiResponse({ status: 422, description: 'CONFIRMATION_MISMATCH ou version en EN_VALIDATION' })
   async transitionAnnee(
     @Param('id') id: string,
     @Body() dto: TransitionAnneeDto,
-  ): Promise<AnneeResponseDto> {
+  ): Promise<AnneeResponseDto | TransitionResponseDto> {
     return this.anneesService.activerAnnee(id, dto, 'system');
   }
 

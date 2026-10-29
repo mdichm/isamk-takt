@@ -16,6 +16,7 @@ import {
   SemestreQueryDto,
   AnneeStatut,
   TransitionAnneeDto,
+  TransitionResponseDto,
 } from './dto/annee.dto.js';
 import {
   GenerateCreneauxDto,
@@ -222,7 +223,7 @@ export class AnneesService {
     id: string,
     dto: TransitionAnneeDto,
     userId: string,
-  ): Promise<AnneeResponseDto> {
+  ): Promise<AnneeResponseDto | TransitionResponseDto> {
     const existing = await this.prisma.annee.findUnique({ where: { id } });
     if (!existing) {
       throw new NotFoundException('Année non trouvée');
@@ -259,8 +260,10 @@ export class AnneesService {
     }
 
     // CLOTURER
-    if (!dto.confirmation) {
-      throw new BadRequestException('La clôture d\'une année nécessite une confirmation explicite.');
+    if (!dto.confirmation || dto.confirmation !== existing.code) {
+      throw new BadRequestException(
+        `La confirmation doit être égale au code de l'année ("${existing.code}").`,
+      );
     }
     if (existing.statut === 'CLOTUREE') {
       throw new ConflictException(`L'année "${existing.code}" est déjà clôturée`);
@@ -269,22 +272,65 @@ export class AnneesService {
       throw new ConflictException(`Impossible de clôturer une année en préparation. Activez-la d'abord.`);
     }
 
-    const annee = await this.audit.auditTransaction<{ id: string; numero: number; code: string; nbSemaines: number; statut: AnneeStatut; createdAt: Date; updatedAt: Date }>(
+    // Vérifier qu'aucune version n'est EN_VALIDATION
+    const versionsEnValidation = await this.prisma.versionEdt.findMany({
+      where: {
+        semestre: { anneeId: id },
+        statut: 'EN_VALIDATION',
+      },
+      select: { id: true },
+    });
+    if (versionsEnValidation.length > 0) {
+      throw new BadRequestException(
+        `Clôture refusée : ${versionsEnValidation.length} version(s) en statut EN_VALIDATION.`,
+      );
+    }
+
+    const now = new Date();
+
+    const result = await this.audit.auditTransaction<{ id: string; code: string; versionsArchivees: number }>(
       async (tx) => {
-        return tx.annee.update({
-          where: { id },
-          data: { statut: 'CLOTUREE' },
+        // Archiver les versions non publiées (statut != PUBLIE) avec le motif « clôture »
+        const archivedVersions = await tx.versionEdt.updateMany({
+          where: {
+            semestre: { anneeId: id },
+            statut: { not: 'PUBLIE' },
+          },
+          data: {
+            statut: 'ARCHIVE',
+            motif: 'clôture',
+            publieLe: now,
+          },
         });
+
+        const annee = await tx.annee.update({
+          where: { id },
+          data: {
+            statut: 'CLOTUREE',
+            closedAt: now,
+            closedBy: userId,
+          },
+        });
+
+        return { id: annee.id, code: annee.code, versionsArchivees: archivedVersions.count };
       },
       {
         userId,
         action: 'STATUS_CHANGED',
         objetType: 'Annee',
         objetId: id,
+        ancienneValeur: { statut: existing.statut, code: existing.code },
+        nouvelleValeur: { statut: 'CLOTUREE', code: existing.code, closedAt: now, closedBy: userId },
         motif: `Clôture année ${existing.code}`,
       },
     );
-    return this.toAnneeDto(annee);
+
+    return {
+      anneeId: result.id,
+      de: 'ACTIVE',
+      vers: 'CLOTUREE',
+      versionsArchivees: result.versionsArchivees,
+    };
   }
 
   // ============================================

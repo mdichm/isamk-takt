@@ -569,6 +569,8 @@ model Annee {
   code       String // ex: "2026-2027"
   nbSemaines Int         @default(14)
   statut     AnneeStatut @default(PREPARATION)
+  closedAt   DateTime?   // date de clôture (remplie quand statut = CLOTUREE)
+  closedBy   String?     @db.Uuid // utilisateur ayant clôturé l'année
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 
