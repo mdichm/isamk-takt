@@ -256,7 +256,7 @@ export class SuggestionsService {
         distanceMinutes,
         salleConservee,
         conflitsResiduels: conflits
-          .filter((c) => c.severite !== 'BLOQUANT')
+          .filter((c: Conflit) => c.severite !== 'BLOQUANT')
           .map(toConflitDto),
         estAlternativeEnseignant,
       });
