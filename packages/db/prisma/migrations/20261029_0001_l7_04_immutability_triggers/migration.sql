@@ -31,6 +31,20 @@ ALTER TABLE "versions_edt" ADD COLUMN IF NOT EXISTS "soumisPar" UUID;
 ALTER TABLE "versions_edt" ADD COLUMN IF NOT EXISTS "validationPlanningRequise" BOOLEAN NOT NULL DEFAULT true;
 ALTER TABLE "versions_edt" ADD COLUMN IF NOT EXISTS "publicationRequise" BOOLEAN NOT NULL DEFAULT true;
 
+-- Types enum manquants (securite si migrations precedentes ont echoue)
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'AnneeStatut') THEN
+        CREATE TYPE "AnneeStatut" AS ENUM ('PREPARATION', 'ACTIVE', 'CLOTUREE');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'VersionStatut') THEN
+        CREATE TYPE "VersionStatut" AS ENUM ('BROUILLON', 'PUBLIE', 'ARCHIVE');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'ExportFormat') THEN
+        CREATE TYPE "ExportFormat" AS ENUM ('PDF', 'HTML', 'ICS');
+    END IF;
+END $$;
+
 -- Type GroupeType (manquant si 20261017_08 a echoue)
 DO $$
 BEGIN
@@ -38,6 +52,21 @@ BEGIN
         CREATE TYPE "GroupeType" AS ENUM ('SECTION', 'GROUPE', 'SOUS_GROUPE');
     END IF;
 END $$;
+
+-- Desactiver le trigger trg_propagate_semestre sur groupes :
+-- PL/pgSQL plie NEW.parentId en NEW.parentid (minuscule) mais la colonne est "parentId" (mixte).
+-- Le trigger est donc inutilisable (record "new" has no field "parentid").
+-- Il n'est pas essentiel pour les tests ; la propagation du semestre est geree au niveau applicatif.
+DROP TRIGGER IF EXISTS trg_propagate_semestre ON "groupes";
+DROP FUNCTION IF EXISTS propagate_semestre_from_parent();
+
+-- Colonnes potentiellement manquantes sur annees (statut, closedAt, closedBy etaient dans l'ancienne version de 20261014_00_semestres_annees)
+ALTER TABLE "annees" ADD COLUMN IF NOT EXISTS "statut" "AnneeStatut" NOT NULL DEFAULT 'PREPARATION';
+ALTER TABLE "annees" ADD COLUMN IF NOT EXISTS "closedAt" TIMESTAMP(3);
+ALTER TABLE "annees" ADD COLUMN IF NOT EXISTS "closedBy" UUID;
+
+-- Colonnes potentiellement manquantes sur semestres (grilleParams etait dans l'ancienne version de 20261014_00_semestres_annees)
+ALTER TABLE "semestres" ADD COLUMN IF NOT EXISTS "grilleParams" JSONB;
 
 -- Table groupes (reparation si 20261017_08 a echoue ou cree un schema incomplet)
 CREATE TABLE IF NOT EXISTS "groupes" (

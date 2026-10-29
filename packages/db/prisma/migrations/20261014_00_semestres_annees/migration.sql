@@ -1,29 +1,15 @@
 -- ============================================
--- Tables de base annees et semestres (creation precoce)
--- Permet de resoudre les FK inline des migrations ulterieures sur semestres.
+-- Tables de base annees et semestres (creation precoce, minimale)
+-- Seules les colonnes communes a toutes les migrations sont creees ici.
+-- Les colonnes specifiques (statut, closedAt, grilleParams, ordre, etc.)
+-- sont ajoutees par les migrations ulterieures ou par L7-04.
 -- ============================================
-
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'AnneeStatut') THEN
-        CREATE TYPE "AnneeStatut" AS ENUM ('PREPARATION', 'ACTIVE', 'CLOTUREE');
-    END IF;
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'VersionStatut') THEN
-        CREATE TYPE "VersionStatut" AS ENUM ('BROUILLON', 'PUBLIE', 'ARCHIVE');
-    END IF;
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'ExportFormat') THEN
-        CREATE TYPE "ExportFormat" AS ENUM ('PDF', 'HTML', 'ICS');
-    END IF;
-END $$;
 
 CREATE TABLE IF NOT EXISTS "annees" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "numero" INTEGER NOT NULL,
     "code" TEXT NOT NULL,
     "nbSemaines" INTEGER NOT NULL DEFAULT 14,
-    "statut" "AnneeStatut" NOT NULL DEFAULT 'PREPARATION',
-    "closedAt" TIMESTAMP(3),
-    "closedBy" UUID,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -38,7 +24,6 @@ CREATE TABLE IF NOT EXISTS "semestres" (
     "anneeId" UUID NOT NULL,
     "numero" INTEGER NOT NULL,
     "nbSemaines" INTEGER NOT NULL DEFAULT 14,
-    "grilleParams" JSONB,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
