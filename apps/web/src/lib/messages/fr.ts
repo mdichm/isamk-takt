@@ -1582,6 +1582,26 @@ export const messages = {
   notificationVide: 'Aucune notification pour le moment.',
   notificationChargement: 'Chargement…',
   bellLabel: 'Boîte de notifications',
+
+  // Statuts d'année
+  statutPreparation: 'En préparation',
+  statutActive: 'Active',
+  statutCloturee: 'Clôturée',
+
+  // Clôture d'année (L7-02)
+  clotureTitre: 'Clôture de l’année {code}',
+  clotureDescription:
+    'Une fois clôturée, l’année devient lecture seule de façon irréversible. Aucun planning, répartition, charge, version ou export ne pourra plus être modifié, y compris par un Administrateur. Aucune réouverture n’existe.',
+  clotureLabelCode: 'Code de l’année',
+  cloturePlaceholderCode: 'Saisissez le code de l’année (ex: 2026-2027)',
+  clotureBoutonConfirmer: 'Clôturer l’année',
+  clotureBoutonAnnuler: 'Annuler',
+  clotureSucces: 'L’année a été clôturée avec succès.',
+  clotureErreurConfirmation: "Le code saisi ne correspond pas au code de l’année.",
+  clotureErreurVersionEnValidation:
+    'Impossible de clôturer : une version est actuellement en validation.',
+  clotureErreurConflit: "L’année ne peut pas être clôturée dans son état actuel.",
+  clotureErreurGenerique: 'Une erreur inattendue est survenue lors de la clôture.',
 } as const;
 
 export type Messages = typeof messages;

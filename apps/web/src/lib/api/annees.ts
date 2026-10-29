@@ -78,6 +78,35 @@ export interface SemestreQuery {
 }
 
 /* ============================================================================
+   Transition d'année (L7-01)
+   POST /annees/{id}/transitions
+   ============================================================================ */
+
+export interface TransitionAnneeDto {
+  action: 'ACTIVER' | 'CLOTURER';
+  confirmation?: string;
+  motif?: string;
+}
+
+export interface TransitionResponseDto {
+  anneeId: string;
+  de: string;
+  vers: string;
+  versionsArchivees: number;
+}
+
+export async function transitionAnnee(
+  id: string,
+  dto: TransitionAnneeDto,
+): Promise<TransitionResponseDto> {
+  const res = await apiFetch(`${API_BASE}/annees/${id}/transitions`, {
+    method: 'POST',
+    body: JSON.stringify(dto),
+  });
+  return res.json();
+}
+
+/* ============================================================================
    Années
    ============================================================================ */
 
