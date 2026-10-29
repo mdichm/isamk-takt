@@ -44,6 +44,7 @@ vi.mock('@takt/db', () => ({
     ENSEIGNANT: 'ENSEIGNANT',
     ACTIVITE: 'ACTIVITE',
   },
+  PrismaClient: class {},
 }));
 
 describe('VerrouBulkController', () => {

@@ -33,6 +33,7 @@ const mockCsvService = {
 const mockBoss = {
   subscribe: vi.fn(),
   send: vi.fn(),
+  createQueue: vi.fn(),
 };
 
 function makeHandler() {
