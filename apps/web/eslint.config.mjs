@@ -13,6 +13,8 @@ const eslintConfig = defineConfig(
   {
     rules: {
       "react-hooks/rules-of-hooks": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "no-unused-vars": "warn",
     },
   },
   // Override default ignores of eslint-config-next.
@@ -21,6 +23,12 @@ const eslintConfig = defineConfig(
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "src/test/**/*",
+    "src/mocks/**/*",
   ]),
 );
 

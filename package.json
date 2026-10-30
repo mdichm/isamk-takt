@@ -15,6 +15,7 @@
     "db:push": "turbo run db:push",
     "db:studio": "turbo run db:studio",
     "test:load": "sh tests/load/run-tests.sh",
+    "test:frontend": "vitest run --config apps/web/vitest.config.ts",
     "format": "prettier --write \"**/*.{ts,tsx,json,md,yaml,yml}\"",
     "changeset": "changeset",
     "version": "changeset version",
