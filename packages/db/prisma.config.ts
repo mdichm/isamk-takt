@@ -12,6 +12,6 @@ export default defineConfig({
   
   // Database connection for migrations
   datasource: {
-    url: 'postgresql://postgres:postgres@localhost:5432/takt_dev?schema=public',
+    url: process.env.DATABASE_URL ?? 'postgresql://postgres:takt@localhost:5432/takt_dev?schema=public',
   },
 });

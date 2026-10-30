@@ -1175,6 +1175,16 @@ enum GradeCode {
   PR
   ATER
   AUTRE
+  ASSISTANT
+  MAITRE_ASSISTANT
+  MAITRE_CONFERENCES
+  PROFESSEUR
+  PES
+  PES_P
+  PES_A
+  CONTRAT_EXPERT
+  VACATAIRE
+  CONTRAT
 }
 
 model Grade {
@@ -1423,7 +1433,7 @@ model Site {
 
 model Salle {
   id                  String   @id @default(uuid()) @db.Uuid
-  code                String // ex: "AMPHI-A"
+  code                String @unique // ex: "AMPHI-A"
   libelle             String // ex: "Amphithéâtre A"
   siteId              String?  @db.Uuid // rattachement à un site (null = non affecté)
   capaciteMax         Int // capacité maximale (> 0)
@@ -1572,7 +1582,7 @@ model ContrainteInstance {
   nature       ContrainteNature @default(REGLE)
   commentaire  String?
   actif        Boolean          @default(true)
-  creePar      String           @db.Uuid
+  creePar      String
   creeLe       DateTime         @default(now())
 
   semestre   Semestre             @relation(fields: [semestreId], references: [id], onDelete: Cascade)

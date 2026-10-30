@@ -21,9 +21,11 @@
  */
 
 import { PrismaClient, Prisma } from '@takt/db';
+import { PrismaPg } from '@prisma/adapter-pg';
 import * as fs from 'fs';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL ?? 'postgresql://postgres:takt@localhost:5432/takt_dev?schema=public' });
+const prisma = new PrismaClient({ adapter });
 
 const EXTRACTED_DATA_FILE = '/home/mehdi/dev/isamk-takt/packages/db/prisma/seed/isamk-extracted-data.json';
 
@@ -173,18 +175,21 @@ async function main() {
         code: `TAG_${tag.name.replace(/[^A-Z0-9]/gi, '_').toUpperCase()}`,
         libelle: tag.longName || tag.name,
         isActive: true,
-        typeId: typesEnseignement[typeCode].id,
       },
     });
   }
 
-  // Lier les types d'enseignement à leurs activity tags
+  // Lier les types d'enseignement à leurs activity tags (via le mapping inverse TAG_TO_TYPE_CODE)
+  const typeCodeToTagName: Record<string, string> = {};
+  for (const [tagName, typeCode] of Object.entries(TAG_TO_TYPE_CODE)) {
+    typeCodeToTagName[typeCode] = tagName;
+  }
   for (const code of typeCodes) {
-    const tagForType = Object.values(activityTagsMap).find((t: any) => t.typeId === typesEnseignement[code].id);
-    if (tagForType) {
+    const tagName = typeCodeToTagName[code];
+    if (tagName && activityTagsMap[tagName]) {
       await prisma.typeEnseignement.update({
         where: { id: typesEnseignement[code].id },
-        data: { activityTagId: tagForType.id },
+        data: { activityTagId: activityTagsMap[tagName].id },
       });
     }
   }
@@ -204,9 +209,9 @@ async function main() {
       }
     });
   });
-  const departementsData = Array.from(deptsUsed).map(prefix => {
+  const departementsData = Array.from(deptsUsed).map((prefix, idx) => {
     const info = GROUPE_PREFIX_TO_DEPT[prefix] || { code: prefix, libelle: prefix };
-    return { code: info.code, libelle: info.libelle, ordre: departementsData.length + 1 };
+    return { code: info.code, libelle: info.libelle, ordre: idx + 1 };
   });
   for (const d of departementsData) {
     departements[d.code] = await prisma.departement.upsert({
@@ -242,10 +247,11 @@ async function main() {
     });
   });
   for (const f of formationsData) {
+    const { departement: _depCode, ...rest } = f;
     formations[f.code] = await prisma.formation.upsert({
       where: { departementId_code: { departementId: departements[f.departement].id, code: f.code } },
       update: {},
-      create: { departementId: departements[f.departement].id, ...f },
+      create: { departement: { connect: { id: departements[f.departement].id } }, ...rest },
     });
   }
   console.log(`   ${formationsData.length} formations créées`);
@@ -265,10 +271,11 @@ async function main() {
     });
   });
   for (const n of niveauxData) {
+    const { formation: _formCode, ...rest } = n;
     niveaux[n.formation + ':' + n.code] = await prisma.niveau.upsert({
       where: { formationId_code: { formationId: formations[n.formation].id, code: n.code } },
       update: {},
-      create: { formationId: formations[n.formation].id, ...n },
+      create: { formation: { connect: { id: formations[n.formation].id } }, ...rest },
     });
   }
   console.log(`   ${niveauxData.length} niveaux créés`);
@@ -389,8 +396,10 @@ async function main() {
       : typeCode === 'TP' ? ['ORDINATEUR', 'VIDEOPROJ', 'TABLEAU', 'WIFI']
         : ['TABLEAU', 'WIFI'];
     for (const eqCode of defaultEqs) {
-      await prisma.salleEquipement.create({
-        data: { salleId: salles[salleCode].id, equipementId: equipements[eqCode].id },
+      await prisma.salleEquipement.upsert({
+        where: { salleId_equipementId: { salleId: salles[salleCode].id, equipementId: equipements[eqCode].id } },
+        update: {},
+        create: { salleId: salles[salleCode].id, equipementId: equipements[eqCode].id },
       });
     }
   }
@@ -405,7 +414,7 @@ async function main() {
   const gradesValues = Object.values(grades);
   let gradeIndex = 0;
   for (const t of teachers) {
-    const matricule = `ENS${String(enseignants.length + 1).padStart(3, '0')}`;
+    const matricule = `ENS${String(Object.keys(enseignants).length + 1).padStart(3, '0')}`;
     const nameParts = t.name.trim().split(' ');
     const nom = nameParts.pop() || 'INCONNU';
     const prenom = nameParts.join(' ') || 'INCONNU';
@@ -414,16 +423,16 @@ async function main() {
     gradeIndex++;
     const deptCode = Object.keys(departements)[0] || 'INFO';
     enseignants[t.name.trim()] = await prisma.enseignant.upsert({
-      where: { matricule },
+      where: { anneeId_matricule: { anneeId: annee.id, matricule } },
       update: {},
       create: {
         matricule,
         nom,
         prenom,
         email,
+        anneeId: annee.id,
         departementId: departements[deptCode].id,
         gradeId: grade.id,
-        targetHours: t.targetHours || 0,
       },
     });
   }
@@ -564,8 +573,15 @@ async function main() {
       const hFin = Math.floor(finMin / 60).toString().padStart(2, '0');
       const mFin = (finMin % 60).toString().padStart(2, '0');
       const estPause = debutMin >= 12 * 60 && debutMin < 14 * 60; // pause 12h-14h
-      await prisma.creneau.create({
-        data: {
+      await prisma.creneau.upsert({
+        where: { semestreId_jour_ordre: { semestreId: semestre.id, jour: jourEnum as any, ordre: i + 1 } },
+        update: {
+          heureDebut: new Date(`2026-01-01T${hDebut}:${mDebut}:00`),
+          heureFin: new Date(`2026-01-01T${hFin}:${mFin}:00`),
+          estPause,
+          estActive: true,
+        },
+        create: {
           semestreId: semestre.id,
           jour: jourEnum as any,
           ordre: i + 1,
@@ -599,8 +615,10 @@ async function main() {
   });
 
   for (const grade of Object.values(grades)) {
-    await prisma.chargeReferenceGrade.create({
-      data: {
+    await prisma.chargeReferenceGrade.upsert({
+      where: { rulesetId_gradeId: { rulesetId: chargeRuleSet.id, gradeId: grade.id } },
+      update: { coefficient: new Prisma.Decimal(0) },
+      create: {
         rulesetId: chargeRuleSet.id,
         gradeId: grade.id,
         coefficient: new Prisma.Decimal(0),
@@ -609,8 +627,10 @@ async function main() {
   }
 
   for (const type of Object.values(typesEnseignement)) {
-    await prisma.chargeCoefficient.create({
-      data: {
+    await prisma.chargeCoefficient.upsert({
+      where: { rulesetId_typeId: { rulesetId: chargeRuleSet.id, typeId: type.id } },
+      update: { coefficient: new Prisma.Decimal(1) },
+      create: {
         rulesetId: chargeRuleSet.id,
         typeId: type.id,
         coefficient: new Prisma.Decimal(1),
