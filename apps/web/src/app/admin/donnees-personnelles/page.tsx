@@ -39,7 +39,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Toast, ToastProvider } from '@/components/ui/toaster';
+import { Toast } from '@/components/ui/toaster';
 import { useToast } from '@/components/ui/use-toast';
 import {
   Download,
@@ -104,9 +104,9 @@ function DonneesPersonnellesContent() {
   const exports: DonneesExportDto[] = donnees.exports;
 
   return (
-    <ToastProvider>
-      <Toast />
-      <div className="space-y-6">
+    <>
+    <Toast />
+    <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold">
@@ -161,7 +161,7 @@ function DonneesPersonnellesContent() {
             </div>
             <div className="pt-4 border-t">
               <h3 className="text-sm font-semibold text-muted-foreground mb-3">
-                Jobs d'export ({exports.length})
+                Jobs d&apos;export ({exports.length})
               </h3>
               {exports.length === 0 ? (
                 <p className="text-sm text-muted-foreground">{messages.noData}</p>
@@ -239,7 +239,7 @@ function DonneesPersonnellesContent() {
           </DialogContent>
         </Dialog>
       </div>
-    </ToastProvider>
+    </>
   );
 }
 
