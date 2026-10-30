@@ -75,17 +75,40 @@ export class TypeEnseignementResponseDto {
 // Grades
 // ============================================
 
-export type GradeCode = 'MC' | 'MCF' | 'PR' | 'ATER' | 'AUTRE';
+export type GradeCode =
+  | 'MC'
+  | 'MCF'
+  | 'PR'
+  | 'ATER'
+  | 'AUTRE'
+  | 'ASSISTANT'
+  | 'MAITRE_ASSISTANT'
+  | 'MAITRE_CONFERENCES'
+  | 'PROFESSEUR'
+  | 'PES'
+  | 'PES_P'
+  | 'PES_A'
+  | 'CONTRAT_EXPERT'
+  | 'VACATAIRE'
+  | 'CONTRAT';
 
-export const GradeCode = {
-  MC: 'MC' as GradeCode,
-  MCF: 'MCF' as GradeCode,
-  PR: 'PR' as GradeCode,
-  ATER: 'ATER' as GradeCode,
-  AUTRE: 'AUTRE' as GradeCode,
-} as const;
-
-const GradeValues = ['MC', 'MCF', 'PR', 'ATER', 'AUTRE'] as const;
+const GradeValues = [
+  'MC',
+  'MCF',
+  'PR',
+  'ATER',
+  'AUTRE',
+  'ASSISTANT',
+  'MAITRE_ASSISTANT',
+  'MAITRE_CONFERENCES',
+  'PROFESSEUR',
+  'PES',
+  'PES_P',
+  'PES_A',
+  'CONTRAT_EXPERT',
+  'VACATAIRE',
+  'CONTRAT',
+] as const;
 
 export class CreateGradeDto {
   @ApiProperty({ enum: GradeValues, description: 'Code du grade' })
