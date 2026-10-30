@@ -112,3 +112,27 @@ L'ADR est **Accepté** pour FET 7.12.0. Tous les points de validation sont réal
 Rapport généré dans `s1-work/report.md`.
 
 *Note* : l’analyse documentaire est complète. Le passage à Accepté est conditionné aux tests empiriques décrits ci-dessus.
+
+## 8. Conformité licence (AGPL v3) — ticket L7-13
+
+FET 7.12.0 est distribué sous la licence GNU Affero General Public License v3.0 (AGPL v3).
+L’intégration dans TAKT respecte les obligations suivantes :
+
+- **Mode d’intégration** : le binaire `fet-cl` est utilisé tel quel (non modifié),
+  exécuté dans un processus séparé (worker Docker isolé), invoqué via l’interface CLI
+  par l’API TAKT. Aucun avis juridique externe n’est requis (usage interne ISAMK uniquement).
+
+- **Fichier NOTICE** : présent à la racine du dépôt (`NOTICE`) et dans l’image du worker
+  (`/opt/fet/NOTICE`). Il identifie FET (nom, version 7.12.0, licence AGPL v3, lien vers
+  le code source) et décrit le mode d’intégration.
+
+- **Textes de licence archivés** : `COPYING` (texte AGPL v3) et le `NOTICE` sont archivés
+  dans le dépôt sous `licenses/fet-7.12.0/` et copiés dans l’image du worker par le
+  `Dockerfile.fet-cl`.
+
+- **Règle de non-modification** : FET ne doit pas être modifié. L’application TAKT ni son
+  image Docker ne doivent pas être remises à une autre entité sans réexamen de la licence
+  AGPL v3. Toute évolution nécessitant une modification de FET doit faire l’objet d’une
+  réévaluation juridique.
+
+Références : ticket L7-13, EX-MOT-08, ST §4.6.4.

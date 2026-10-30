@@ -47,6 +47,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Copier le binaire FET depuis le stage provider
 COPY --from=fet-provider /src/fet-7.12.0 /opt/fet
 
+# Copier les fichiers de licence et de notice (AGPL v3, ticket L7-13)
+COPY NOTICE /opt/fet/NOTICE
+COPY licenses/fet-7.12.0/COPYING /opt/fet/COPYING
+
 ENV PATH="/opt/fet/bin:${PATH}"
 ENV LC_ALL=C.UTF-8
 

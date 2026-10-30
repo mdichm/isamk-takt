@@ -1,0 +1,31 @@
+TAKT - NOTICE des dépendances tierces
+=====================================
+
+FET - Free Timetabling Software
+-------------------------------
+Nom           : FET
+Version       : 7.12.0
+Licence       : GNU Affero General Public License v3.0 (AGPL v3)
+Editeur       : Liviu Lalescu
+Site officiel : https://lalescu.ro/liviu/fet/
+Code source   : https://lalescu.ro/liviu/fet/download/bin/fet-7.12.0-bin.tar.xz
+
+Mode d'intégration :
+  FET est utilisé tel quel, sous forme de binaire pre-compile (fet-cl),
+  execute dans un processus separe (worker Docker isole), hors de
+  l'application TAKT. Le binaire n'est pas modifie.
+
+  Ce binaire est invoque par l'API TAKT via l'interface CLI de fet-cl
+  pour generer des emplois du temps. Aucune modification n'est apportee
+  au code source ni au binaire de FET.
+
+  Le texte complet de la licence AGPL v3 est disponible dans
+  licenses/fet-7.12.0/COPYING.
+
+Regle de non-modification :
+  FET ne doit pas etre modifie. L'application TAKT ni son image Docker
+  ne doivent pas etre remises a une autre entite sans reexamen de la
+  licence AGPL v3. Toute evolution necessitant une modification de FET
+  doit faire l'objet d'une reevaluation juridique.
+
+Fichier NOTICE gere par le ticket L7-13 (Conformite INPDP / licence FET).
