@@ -199,4 +199,14 @@ export const handlers = [
     }
     return new HttpResponse(null, { status: 204 });
   }),
+// Groupes API under /groupes (as used by hooks)
+  http.get('*/groupes', ({ request }) => {
+    const url = new URL(request.url);
+    const niveauId = url.searchParams.get('niveauId');
+    const semestreId = url.searchParams.get('semestreId');
+    let data = Array.from(groupes.values());
+    if (niveauId) data = data.filter((g) => g.niveauId === niveauId);
+    if (semestreId) data = data.filter((g) => g.semestreId === semestreId);
+    return HttpResponse.json({ data, total: data.length, page: 1, limit: 10, totalPages: 1 });
+  }),
 ];
