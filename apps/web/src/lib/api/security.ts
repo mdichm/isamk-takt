@@ -13,6 +13,7 @@ export interface SecurityConfigDto {
   mfaRoles: string[];
   conservationAuditJours: number | null;
   conservationSecuriteJours: number;
+  conservationExportJours: number | null;
   updatedAt: string;
   updatedBy: string | null;
 }
@@ -29,6 +30,7 @@ export interface UpdateSecurityConfigDto {
   mfaRoles?: string[];
   conservationAuditJours?: number | null;
   conservationSecuriteJours?: number;
+  conservationExportJours?: number | null;
 }
 
 /** Entrée d'événement de sécurité (journal). */
@@ -78,7 +80,11 @@ export async function updateSecurityConfig(
 }
 
 /** Déclenche la purge des journaux (réservé à l'Administrateur). */
-export async function purgeJournals(): Promise<{ auditDeleted: number; securityDeleted: number }> {
+export async function purgeJournals(): Promise<{
+  auditDeleted: number;
+  securityDeleted: number;
+  exportDeleted: number;
+}> {
   const response = await apiFetch('/audit/purge', {
     method: 'POST',
   });

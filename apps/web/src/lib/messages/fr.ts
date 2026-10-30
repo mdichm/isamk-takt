@@ -493,6 +493,7 @@ export const messages = {
   labelInactivityMinutes: 'Inactivité avant déconnexion (minutes)',
   labelAuditRetentionDays: 'Durée de conservation de l’audit (jours)',
   labelSecurityRetentionDays: 'Durée de conservation du journal de sécurité (jours)',
+  labelExportRetentionDays: 'Durée de conservation des exports (jours)',
   labelMfaRoles: 'Rôles soumis à l’authentification MFA',
   btnSave: 'Enregistrer',
   btnPurge: 'Lancer la purge des journaux',
@@ -513,6 +514,23 @@ export const messages = {
   errorLoadSecurityConfig: 'Impossible de charger les paramètres de sécurité.',
   errorLoadSecurityEvents: 'Impossible de charger le journal de sécurité.',
   errorSaveSecurityConfig: 'Impossible d’enregistrer les paramètres de sécurité.',
+
+  // Données personnelles (INPDP)
+  donneesPersonnelles: 'Mes données personnelles',
+  donneesPersonnellesSubtitle:
+    'Exporter, consulter et rectifier les données personnelles vous concernant.',
+  btnExporterMesDonnees: 'Exporter mes données',
+  btnRectifierMesDonnees: 'Rectifier mes données',
+  btnDemanderSuppression: 'Demander la suppression de mes données',
+  exportSuccess: 'Données personnelles exportées avec succès.',
+  exportError: 'Échec de l’export des données personnelles.',
+  rectificationSuccess: 'Données personnelles rectifiées avec succès.',
+  rectificationError: 'Échec de la rectification des données personnelles.',
+  suppressionSuccess: 'Demande de suppression enregistrée.',
+  suppressionError: 'Échec de la demande de suppression.',
+  suppressionConfirm:
+    'Êtes-vous sûr de vouloir demander la suppression de vos données personnelles ? Cette demande sera traitée par le DPO.',
+  noData: 'Aucune donnée trouvée.',
 
   // Entités créneaux et indisponibilités
   entityCreneau: 'créneau',
