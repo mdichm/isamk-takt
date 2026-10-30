@@ -5,7 +5,7 @@
 
 -- Ajouter la colonne de durée de conservation des exports (nullable, jours)
 ALTER TABLE parametres_securite
-  ADD COLUMN conservation_export_jours integer;
+  ADD COLUMN "conservationExportJours" integer;
 
 -- Étendre la fonction purge_journaux() pour inclure les export_jobs
 CREATE OR REPLACE FUNCTION purge_journaux()
@@ -22,7 +22,7 @@ DECLARE
     v_export_deleted bigint;
 BEGIN
     -- Lecture des durées de conservation (ligne unique id = 1)
-    SELECT conservation_audit_jours, conservation_securite_jours, conservation_export_jours
+    SELECT "conservationAuditJours", "conservationSecuriteJours", "conservationExportJours"
       INTO v_conservation_audit, v_conservation_securite, v_conservation_export
       FROM parametres_securite
      WHERE id = 1;
