@@ -2,9 +2,17 @@
  * Script de seed — Données réelles S4 (semestre 4) de l'ISAMK
  * Ticket L7-16 : Recette sur données réelles
  *
- * Ce script charge des données de référence pour le semestre S4.
- * ⚠️  Les données doivent être complétées avec les vraies données de l'ISAMK
- *    collectées auprès de la maîtrise d'ouvrage.
+ * Ce script charge les données réelles extraites du fichier docs/isamk.fet
+ * via le script extract-fet-data.ts.
+ *
+ * Données extraites du fichier FET :
+ *   - 93 sujets (modules)
+ *   - 111 enseignants
+ *   - 42 groupes dans 5 années (L1, L2, L3, M1, M2)
+ *   - 333 activités (affectations enseignant → matière → groupe)
+ *   - 29 salles (capacité placeholder 30000 → à corriger)
+ *   - 13 activity tags
+ *   - 6 jours, 19 créneaux de 30 min
  *
  * Valeurs initiales du jeu de règles de charge (conformément à ST_TAKT.md §0.4 HY-05) :
  *   - Charge de référence : 0 pour tous les grades
@@ -12,12 +20,68 @@
  *   - Seuil : 1, Plafond : 4
  */
 
-import { PrismaClient } from '@takt/db';
+import { PrismaClient, Prisma } from '@takt/db';
+import * as fs from 'fs';
 
 const prisma = new PrismaClient();
 
+const EXTRACTED_DATA_FILE = '/home/mehdi/dev/isamk-takt/packages/db/prisma/seed/isamk-extracted-data.json';
+
+// Mapping des Activity Tags FET vers les codes TypeEnseignement
+const TAG_TO_TYPE_CODE: Record<string, string> = {
+  'C': 'CM',
+  'TD': 'TD',
+  'TP': 'TP',
+  'CI': 'CI',
+  'Amphi': 'CM',
+  'Labo': 'TP',
+  'Atelier Cer': 'TP',
+  'Atelier AV': 'TP',
+  'Atelier Tsg': 'TP',
+  'Atelier Bij': 'TP',
+  'Autre': 'AUTRE',
+  'peeka': 'AUTRE',
+  'Mezz. AV': 'AUTRE',
+};
+
+// Capacités réalistes par type de salle (le FET indique 30000 pour toutes)
+const CAPACITE_PAR_TYPE: Record<string, { max: number; recommandee: number }> = {
+  AMPHI: { max: 150, recommandee: 120 },
+  TD: { max: 40, recommandee: 30 },
+  TP: { max: 24, recommandee: 20 },
+  CI: { max: 30, recommandee: 25 },
+  BUREAU: { max: 4, recommandee: 4 },
+  AUTRE: { max: 30, recommandee: 25 },
+};
+
+// Déduction du département à partir du préfixe du code de groupe
+const GROUPE_PREFIX_TO_DEPT: Record<string, { code: string; libelle: string }> = {
+  AP: { code: 'AP', libelle: 'Arts Plastiques' },
+  DE: { code: 'DE', libelle: 'Design Espace' },
+  DI: { code: 'DI', libelle: 'Design Industriel' },
+  DP: { code: 'DP', libelle: 'Design Produit' },
+  AI: { code: 'AI', libelle: 'Arts Appliqués' },
+  Cer: { code: 'CER', libelle: 'Céramique' },
+  CI: { code: 'CI', libelle: 'Communication Visuelle' },
+  Pub: { code: 'PUB', libelle: 'Publicité' },
+  Tsg: { code: 'TSG', libelle: 'Textile' },
+  PAV: { code: 'PAV', libelle: 'Arts Visuels' },
+};
+
 async function main() {
   console.log('🌱 Début du seed — Données réelles S4 (L7-16)');
+
+  // ============================================
+  // Chargement des données extraites du fichier FET
+  // ============================================
+  console.log('📖 Chargement des données extraites du fichier FET...');
+  const extracted = JSON.parse(fs.readFileSync(EXTRACTED_DATA_FILE, 'utf-8'));
+  const {
+    days, hours, subjects, teachers, years, activities, rooms, activityTags,
+  } = extracted;
+
+  console.log(`   ${subjects.length} sujets, ${teachers.length} enseignants, ${years.length} années,`);
+  console.log(`   ${years.reduce((s: number, y: any) => s + y.groups.length, 0)} groupes, ${activities.length} activités, ${rooms.length} salles, ${activityTags.length} tags`);
 
   // ============================================
   // 1. Année universitaire
@@ -35,7 +99,7 @@ async function main() {
   });
 
   // ============================================
-  // 2. Semestre 4 (S4)
+  // 2. Semestre 4 (S4 = semestre 2 de l'année)
   // ============================================
   console.log('📅 Création du semestre S4...');
   const semestre = await prisma.semestre.upsert({
@@ -50,22 +114,23 @@ async function main() {
 
 
   // ============================================
-  // 3. Types d'enseignement (CM, TD, TP, CI, AUTRE)
+  // 3. Types d'enseignement (basés sur les Activity Tags FET)
   // ============================================
   console.log('📚 Création des types d\'enseignement...');
   const typesEnseignement: Record<string, any> = {};
-  for (const code of ['CM', 'TD', 'TP', 'CI', 'AUTRE'] as const) {
+  const typeCodes = ['CM', 'TD', 'TP', 'CI', 'AUTRE'];
+  const typeLibelles: Record<string, string> = {
+    CM: 'Cours Magistral',
+    TD: 'Travaux Dirigés',
+    TP: 'Travaux Pratiques',
+    CI: 'Cours Intégré',
+    AUTRE: 'Autre',
+  };
+  for (const code of typeCodes) {
     typesEnseignement[code] = await prisma.typeEnseignement.upsert({
       where: { code },
       update: {},
-      create: {
-        code,
-        libelle: code === 'CM' ? 'Cours Magistral'
-          : code === 'TD' ? 'Travaux Dirigés'
-          : code === 'TP' ? 'Travaux Pratiques'
-          : code === 'CI' ? 'Cours Intégré'
-          : 'Autre',
-      },
+      create: { code, libelle: typeLibelles[code] },
     });
   }
 
@@ -94,43 +159,55 @@ async function main() {
     });
   }
 
-
   // ============================================
-  // 5. ActivityTags (un par type d'enseignement)
+  // 5. ActivityTags (basés sur les tags FET)
   // ============================================
   console.log('🏷️ Création des activity tags...');
-  const activityTags: Record<string, any> = {};
-  for (const code of ['CM', 'TD', 'TP', 'CI', 'AUTRE'] as const) {
-    activityTags[code] = await prisma.activityTag.upsert({
-      where: { code: `TAG_${code}` },
+  const activityTagsMap: Record<string, any> = {};
+  for (const tag of activityTags) {
+    const typeCode = TAG_TO_TYPE_CODE[tag.name] || 'AUTRE';
+    activityTagsMap[tag.name] = await prisma.activityTag.upsert({
+      where: { code: `TAG_${tag.name.replace(/[^A-Z0-9]/gi, '_').toUpperCase()}` },
       update: {},
       create: {
-        code: `TAG_${code}`,
-        libelle: `Tag ${typesEnseignement[code].libelle}`,
+        code: `TAG_${tag.name.replace(/[^A-Z0-9]/gi, '_').toUpperCase()}`,
+        libelle: tag.longName || tag.name,
         isActive: true,
+        typeId: typesEnseignement[typeCode].id,
       },
     });
   }
 
-  for (const code of ['CM', 'TD', 'TP', 'CI', 'AUTRE'] as const) {
-    await prisma.typeEnseignement.update({
-      where: { id: typesEnseignement[code].id },
-      data: { activityTagId: activityTags[code].id },
-    });
+  // Lier les types d'enseignement à leurs activity tags
+  for (const code of typeCodes) {
+    const tagForType = Object.values(activityTagsMap).find((t: any) => t.typeId === typesEnseignement[code].id);
+    if (tagForType) {
+      await prisma.typeEnseignement.update({
+        where: { id: typesEnseignement[code].id },
+        data: { activityTagId: tagForType.id },
+      });
+    }
   }
 
+
   // ============================================
-  // 6. Départements
+  // 6. Départements (déduits des préfixes de groupes FET)
   // ============================================
   console.log('🏢 Création des départements...');
   const departements: Record<string, any> = {};
-  const departementsData = [
-    { code: 'INFO', libelle: 'Informatique', ordre: 1 },
-    { code: 'MATH', libelle: 'Mathématiques', ordre: 2 },
-    { code: 'PHYSIQUE', libelle: 'Physique', ordre: 3 },
-    { code: 'ELECTRO', libelle: 'Électrotechnique', ordre: 4 },
-    { code: 'GENIE_CIVIL', libelle: 'Génie Civil', ordre: 5 },
-  ];
+  const deptsUsed = new Set<string>();
+  years.forEach((y: any) => {
+    y.groups.forEach((g: any) => {
+      const prefix = g.name.split('_')[0].replace(/\d+/, '');
+      if (prefix && !deptsUsed.has(prefix)) {
+        deptsUsed.add(prefix);
+      }
+    });
+  });
+  const departementsData = Array.from(deptsUsed).map(prefix => {
+    const info = GROUPE_PREFIX_TO_DEPT[prefix] || { code: prefix, libelle: prefix };
+    return { code: info.code, libelle: info.libelle, ordre: departementsData.length + 1 };
+  });
   for (const d of departementsData) {
     departements[d.code] = await prisma.departement.upsert({
       where: { anneeId_code: { anneeId: annee.id, code: d.code } },
@@ -138,19 +215,32 @@ async function main() {
       create: { anneeId: annee.id, ...d },
     });
   }
+  console.log(`   ${departementsData.length} départements créés`);
 
   // ============================================
-  // 7. Formations
+  // 7. Formations (déduites des années FET)
   // ============================================
   console.log('🎓 Création des formations...');
   const formations: Record<string, any> = {};
-  const formationsData = [
-    { departement: 'INFO', code: 'L3-INFO', libelle: 'Licence 3 Informatique', ordre: 1 },
-    { departement: 'INFO', code: 'M1-INFO', libelle: 'Master 1 Informatique', ordre: 2 },
-    { departement: 'MATH', code: 'L3-MATH', libelle: 'Licence 3 Mathématiques', ordre: 1 },
-    { departement: 'PHYSIQUE', code: 'L3-PHYS', libelle: 'Licence 3 Physique', ordre: 1 },
-    { departement: 'ELECTRO', code: 'L3-ELEC', libelle: 'Licence 3 Électrotechnique', ordre: 1 },
-  ];
+  const formationsData: Array<{ code: string; libelle: string; departement: string; ordre: number }> = [];
+  let forOrdre = 1;
+  years.forEach((y: any) => {
+    // Déduire le département à partir du premier groupe de l'année
+    const firstGroup = y.groups[0]?.name || '';
+    const prefix = firstGroup.split('_')[0].replace(/\d+/, '');
+    const deptInfo = GROUPE_PREFIX_TO_DEPT[prefix] || { code: prefix, libelle: prefix };
+    const deptCode = deptInfo.code;
+    if (!departements[deptCode]) {
+      console.warn(`   Département ${deptCode} non trouvé pour l'année ${y.name}`);
+      return;
+    }
+    formationsData.push({
+      code: y.name,
+      libelle: y.longName || `${y.name} Formation`,
+      departement: deptCode,
+      ordre: forOrdre++,
+    });
+  });
   for (const f of formationsData) {
     formations[f.code] = await prisma.formation.upsert({
       where: { departementId_code: { departementId: departements[f.departement].id, code: f.code } },
@@ -158,19 +248,22 @@ async function main() {
       create: { departementId: departements[f.departement].id, ...f },
     });
   }
+  console.log(`   ${formationsData.length} formations créées`);
 
   // ============================================
   // 8. Niveaux
   // ============================================
   console.log('📋 Création des niveaux...');
   const niveaux: Record<string, any> = {};
-  const niveauxData = [
-    { formation: 'L3-INFO', code: 'L3', libelle: 'Licence 3', ordre: 1 },
-    { formation: 'M1-INFO', code: 'M1', libelle: 'Master 1', ordre: 1 },
-    { formation: 'L3-MATH', code: 'L3', libelle: 'Licence 3', ordre: 1 },
-    { formation: 'L3-PHYS', code: 'L3', libelle: 'Licence 3', ordre: 1 },
-    { formation: 'L3-ELEC', code: 'L3', libelle: 'Licence 3', ordre: 1 },
-  ];
+  const niveauxData: Array<{ formation: string; code: string; libelle: string; ordre: number }> = [];
+  years.forEach((y: any) => {
+    niveauxData.push({
+      formation: y.name,
+      code: y.name,
+      libelle: y.longName || y.name,
+      ordre: 1,
+    });
+  });
   for (const n of niveauxData) {
     niveaux[n.formation + ':' + n.code] = await prisma.niveau.upsert({
       where: { formationId_code: { formationId: formations[n.formation].id, code: n.code } },
@@ -178,46 +271,41 @@ async function main() {
       create: { formationId: formations[n.formation].id, ...n },
     });
   }
-
+  console.log(`   ${niveauxData.length} niveaux créés`);
 
   // ============================================
-  // 9. Groupes (avec divisions TD/TP)
+  // 9. Groupes (à partir des données FET)
   // ============================================
   console.log('👥 Création des groupes...');
   const groupes: Record<string, any> = {};
-  const groupesData = [
-    { niveau: 'L3-INFO:L3', code: 'L3-INFO-S4', libelle: 'L3 Informatique S4', type: 'SECTION', effectif: 60, ordre: 1 },
-    { niveau: 'L3-INFO:L3', code: 'L3-INFO-S4-TD-A', libelle: 'L3 Info S4 TD A', type: 'GROUPE', effectif: 30, parent: 'L3-INFO-S4', ordre: 2 },
-    { niveau: 'L3-INFO:L3', code: 'L3-INFO-S4-TD-B', libelle: 'L3 Info S4 TD B', type: 'GROUPE', effectif: 30, parent: 'L3-INFO-S4', ordre: 3 },
-    { niveau: 'L3-INFO:L3', code: 'L3-INFO-S4-TP-A', libelle: 'L3 Info S4 TP A', type: 'SOUS_GROUPE', effectif: 15, parent: 'L3-INFO-S4-TD-A', ordre: 4 },
-    { niveau: 'L3-INFO:L3', code: 'L3-INFO-S4-TP-B', libelle: 'L3 Info S4 TP B', type: 'SOUS_GROUPE', effectif: 15, parent: 'L3-INFO-S4-TD-A', ordre: 5 },
-    { niveau: 'L3-INFO:L3', code: 'L3-INFO-S4-TP-C', libelle: 'L3 Info S4 TP C', type: 'SOUS_GROUPE', effectif: 15, parent: 'L3-INFO-S4-TD-B', ordre: 6 },
-    { niveau: 'L3-INFO:L3', code: 'L3-INFO-S4-TP-D', libelle: 'L3 Info S4 TP D', type: 'SOUS_GROUPE', effectif: 15, parent: 'L3-INFO-S4-TD-B', ordre: 7 },
-    { niveau: 'M1-INFO:M1', code: 'M1-INFO-S4', libelle: 'M1 Informatique S4', type: 'SECTION', effectif: 40, ordre: 1 },
-    { niveau: 'M1-INFO:M1', code: 'M1-INFO-S4-TD-A', libelle: 'M1 Info S4 TD A', type: 'GROUPE', effectif: 20, parent: 'M1-INFO-S4', ordre: 2 },
-    { niveau: 'M1-INFO:M1', code: 'M1-INFO-S4-TD-B', libelle: 'M1 Info S4 TD B', type: 'GROUPE', effectif: 20, parent: 'M1-INFO-S4', ordre: 3 },
-    { niveau: 'L3-MATH:L3', code: 'L3-MATH-S4', libelle: 'L3 Math S4', type: 'SECTION', effectif: 50, ordre: 1 },
-    { niveau: 'L3-MATH:L3', code: 'L3-MATH-S4-TD-A', libelle: 'L3 Math S4 TD A', type: 'GROUPE', effectif: 25, parent: 'L3-MATH-S4', ordre: 2 },
-    { niveau: 'L3-MATH:L3', code: 'L3-MATH-S4-TD-B', libelle: 'L3 Math S4 TD B', type: 'GROUPE', effectif: 25, parent: 'L3-MATH-S4', ordre: 3 },
-  ];
-  for (const g of groupesData) {
-    const niveauKey = g.niveau;
-    const parentId = g.parent ? groupes[g.parent]?.id : undefined;
-    groupes[g.code] = await prisma.groupe.upsert({
-      where: { niveauId_semestreId_code: { niveauId: niveaux[niveauKey].id, semestreId: semestre.id, code: g.code } },
-      update: {},
-      create: {
-        niveauId: niveaux[niveauKey].id,
-        semestreId: semestre.id,
-        parentId,
-        type: g.type,
-        code: g.code,
-        libelle: g.libelle,
-        effectif: g.effectif,
-        ordre: g.ordre,
-      },
-    });
+  let groupeOrdre = 1;
+  for (const y of years) {
+    const niveauKey = `${y.name}:${y.name}`;
+    const niveauId = niveaux[niveauKey]?.id;
+    if (!niveauId) {
+      console.warn(`   Niveau non trouvé pour ${y.name}`);
+      continue;
+    }
+    for (const g of y.groups) {
+      const groupeCode = `${y.name}-${g.name}`;
+      const parentId = undefined; // Pas de hiérarchie parent/enfant dans le FET
+      groupes[groupeCode] = await prisma.groupe.upsert({
+        where: { niveauId_semestreId_code: { niveauId, semestreId: semestre.id, code: groupeCode } },
+        update: {},
+        create: {
+          niveauId,
+          semestreId: semestre.id,
+          parentId,
+          type: 'SECTION',
+          code: groupeCode,
+          libelle: g.longName || g.name,
+          effectif: g.numberOfStudents || 30,
+          ordre: groupeOrdre++,
+        },
+      });
+    }
   }
+  console.log(`   ${Object.keys(groupes).length} groupes créés`);
 
 
   // ============================================
@@ -261,205 +349,236 @@ async function main() {
   }
 
   // ============================================
-  // 11. Salles
+  // 11. Salles (à partir des données FET, capacités corrigées)
   // ============================================
   console.log('🏫 Création des salles...');
   const salles: Record<string, any> = {};
-  const sallesData = [
-    { code: 'AMPHI-A', libelle: 'Amphithéâtre A', type: 'AMPHI', capaciteMax: 120, capaciteRecommandee: 100, departement: 'INFO', equipements: ['VIDEOPROJ', 'TABLEAU', 'WIFI', 'CLIM'] },
-    { code: 'AMPHI-B', libelle: 'Amphithéâtre B', type: 'AMPHI', capaciteMax: 100, capaciteRecommandee: 80, departement: 'INFO', equipements: ['VIDEOPROJ', 'TABLEAU', 'WIFI'] },
-    { code: 'TD-1', libelle: 'Salle TD 1', type: 'TD', capaciteMax: 35, capaciteRecommandee: 30, departement: 'INFO', equipements: ['TABLEAU', 'WIFI'] },
-    { code: 'TD-2', libelle: 'Salle TD 2', type: 'TD', capaciteMax: 35, capaciteRecommandee: 30, departement: 'INFO', equipements: ['TABLEAU', 'WIFI'] },
-    { code: 'TD-3', libelle: 'Salle TD 3', type: 'TD', capaciteMax: 30, capaciteRecommandee: 25, departement: 'MATH', equipements: ['TABLEAU', 'WIFI'] },
-    { code: 'TP-INFO-1', libelle: 'Salle TP Info 1', type: 'TP', capaciteMax: 24, capaciteRecommandee: 20, departement: 'INFO', equipements: ['ORDINATEUR', 'VIDEOPROJ', 'TABLEAU', 'WIFI'] },
-    { code: 'TP-INFO-2', libelle: 'Salle TP Info 2', type: 'TP', capaciteMax: 24, capaciteRecommandee: 20, departement: 'INFO', equipements: ['ORDINATEUR', 'VIDEOPROJ', 'TABLEAU', 'WIFI'] },
-    { code: 'TP-PHYS-1', libelle: 'Salle TP Physique 1', type: 'TP', capaciteMax: 20, capaciteRecommandee: 16, departement: 'PHYSIQUE', equipements: ['TABLEAU', 'WIFI'] },
-    { code: 'SALLE-CI-1', libelle: 'Salle CI 1', type: 'SALLE_CI', capaciteMax: 30, capaciteRecommandee: 25, departement: 'INFO', equipements: ['VIDEOPROJ', 'TABLEAU', 'WIFI'] },
-    { code: 'BUREAU-101', libelle: 'Bureau 101', type: 'BUREAU', capaciteMax: 4, capaciteRecommandee: 4, departement: 'INFO', equipements: ['ORDINATEUR', 'WIFI'] },
-  ];
-  for (const s of sallesData) {
-    salles[s.code] = await prisma.salle.upsert({
-      where: { code: s.code },
+  for (const r of rooms) {
+    // Déduire le type de salle à partir du nom
+    let typeCode = 'TD';
+    let departementCode = 'INFO';
+    const nameUpper = r.name.toUpperCase();
+    if (nameUpper.includes('AMPHI') || nameUpper.includes('AMPHITHEATRE')) {
+      typeCode = 'AMPHI';
+    } else if (nameUpper.includes('LABO') || nameUpper.includes('ATELIER')) {
+      typeCode = 'TP';
+    } else if (nameUpper.includes('BUREAU')) {
+      typeCode = 'BUREAU';
+    } else if (nameUpper.includes('CI')) {
+      typeCode = 'CI';
+    }
+
+    const cap = CAPACITE_PAR_TYPE[typeCode];
+    const salleCode = `SALLE-${r.name.replace(/\s+/g, '_').toUpperCase()}`;
+    salles[salleCode] = await prisma.salle.upsert({
+      where: { code: salleCode },
       update: {},
       create: {
-        code: s.code,
-        libelle: s.libelle,
+        code: salleCode,
+        libelle: r.name,
         siteId: sitePrincipal.id,
-        capaciteMax: s.capaciteMax,
-        capaciteRecommandee: s.capaciteRecommandee,
+        capaciteMax: cap.max,
+        capaciteRecommandee: cap.recommandee,
         accesPMR: true,
-        departementId: departements[s.departement]?.id,
-        typeSalleId: typesSalle[s.type].id,
+        departementId: departements[departementCode]?.id,
+        typeSalleId: typesSalle[typeCode].id,
       },
     });
-    for (const eqCode of s.equipements) {
+    // Équipements par défaut selon le type
+    const defaultEqs = typeCode === 'AMPHI' ? ['VIDEOPROJ', 'TABLEAU', 'WIFI', 'CLIM']
+      : typeCode === 'TP' ? ['ORDINATEUR', 'VIDEOPROJ', 'TABLEAU', 'WIFI']
+        : ['TABLEAU', 'WIFI'];
+    for (const eqCode of defaultEqs) {
       await prisma.salleEquipement.create({
-        data: { salleId: salles[s.code].id, equipementId: equipements[eqCode].id },
+        data: { salleId: salles[salleCode].id, equipementId: equipements[eqCode].id },
       });
     }
   }
+  console.log(`   ${Object.keys(salles).length} salles créées`);
 
 
   // ============================================
-  // 12. Enseignants
+  // 12. Enseignants (à partir des données FET)
   // ============================================
   console.log('👨‍🏫 Création des enseignants...');
   const enseignants: Record<string, any> = {};
-  const enseignantsData = [
-    { matricule: 'ENS001', nom: 'Martin', prenom: 'Jean', email: 'jean.martin@isamk.tn', departement: 'INFO', grade: 'MAITRE_CONFERENCES' },
-    { matricule: 'ENS002', nom: 'Dubois', prenom: 'Marie', email: 'marie.dubois@isamk.tn', departement: 'INFO', grade: 'MAITRE_CONFERENCES' },
-    { matricule: 'ENS003', nom: 'Durand', prenom: 'Pierre', email: 'pierre.durand@isamk.tn', departement: 'INFO', grade: 'ASSISTANT' },
-    { matricule: 'ENS004', nom: 'Petit', prenom: 'Sophie', email: 'sophie.petit@isamk.tn', departement: 'MATH', grade: 'PROFESSEUR' },
-    { matricule: 'ENS005', nom: 'Bernard', prenom: 'Luc', email: 'luc.bernard@isamk.tn', departement: 'PHYSIQUE', grade: 'MAITRE_CONFERENCES' },
-    { matricule: 'ENS006', nom: 'Roux', prenom: 'Claire', email: 'claire.roux@isamk.tn', departement: 'ELECTRO', grade: 'MAITRE_ASSISTANT' },
-    { matricule: 'ENS007', nom: 'Moreau', prenom: 'Paul', email: 'paul.moreau@isamk.tn', departement: 'INFO', grade: 'VACATAIRE' },
-    { matricule: 'ENS008', nom: 'Laurent', prenom: 'Anne', email: 'anne.laurent@isamk.tn', departement: 'MATH', grade: 'PES' },
-    { matricule: 'ENS009', nom: 'Michel', prenom: 'David', email: 'david.michel@isamk.tn', departement: 'INFO', grade: 'CONTRAT_EXPERT' },
-    { matricule: 'ENS010', nom: 'Garcia', prenom: 'Elena', email: 'elena.garcia@isamk.tn', departement: 'GENIE_CIVIL', grade: 'MAITRE_ASSISTANT' },
-  ];
-  for (const e of enseignantsData) {
-    enseignants[e.matricule] = await prisma.enseignant.upsert({
-      where: { anneeId_matricule: { anneeId: annee.id, matricule: e.matricule } },
+  const gradesValues = Object.values(grades);
+  let gradeIndex = 0;
+  for (const t of teachers) {
+    const matricule = `ENS${String(enseignants.length + 1).padStart(3, '0')}`;
+    const nameParts = t.name.trim().split(' ');
+    const nom = nameParts.pop() || 'INCONNU';
+    const prenom = nameParts.join(' ') || 'INCONNU';
+    const email = `${prenom.toLowerCase()}.${nom.toLowerCase()}@isamk.tn`.replace(/\s+/g, '.');
+    const grade = gradesValues[gradeIndex % gradesValues.length];
+    gradeIndex++;
+    const deptCode = Object.keys(departements)[0] || 'INFO';
+    enseignants[t.name.trim()] = await prisma.enseignant.upsert({
+      where: { matricule },
       update: {},
       create: {
-        matricule: e.matricule,
-        nom: e.nom,
-        prenom: e.prenom,
-        email: e.email,
-        telephone: null,
-        isActive: true,
-        anneeId: annee.id,
-        departementId: departements[e.departement].id,
-        gradeId: grades[e.grade].id,
+        matricule,
+        nom,
+        prenom,
+        email,
+        departementId: departements[deptCode].id,
+        gradeId: grade.id,
+        targetHours: t.targetHours || 0,
       },
     });
   }
+  console.log(`   ${Object.keys(enseignants).length} enseignants créés`);
 
   // ============================================
-  // 13. Modules (avec codes et semestre S4 = 2)
+  // 13. Modules (sujets FET)
   // ============================================
   console.log('📖 Création des modules...');
   const modules: Record<string, any> = {};
-  const modulesData = [
-    { niveau: 'L3-INFO:L3', code: 'INFO401', libelle: 'Algorithmique avancée', type: 'CM', grade: 'MAITRE_CONFERENCES', semestreNumero: 2, credits: 6, effectifMax: 60 },
-    { niveau: 'L3-INFO:L3', code: 'INFO402', libelle: 'Bases de données', type: 'CM', grade: 'MAITRE_CONFERENCES', semestreNumero: 2, credits: 6, effectifMax: 60 },
-    { niveau: 'L3-INFO:L3', code: 'INFO403', libelle: 'Programmation web', type: 'CM', grade: 'ASSISTANT', semestreNumero: 2, credits: 6, effectifMax: 60 },
-    { niveau: 'L3-INFO:L3', code: 'INFO404', libelle: 'Réseaux informatiques', type: 'CM', grade: 'MAITRE_CONFERENCES', semestreNumero: 2, credits: 6, effectifMax: 60 },
-    { niveau: 'L3-INFO:L3', code: 'INFO405', libelle: 'Génie logiciel', type: 'CM', grade: 'MAITRE_CONFERENCES', semestreNumero: 2, credits: 6, effectifMax: 60 },
-    { niveau: 'M1-INFO:M1', code: 'INFO501', libelle: 'Intelligence artificielle', type: 'CM', grade: 'PROFESSEUR', semestreNumero: 2, credits: 6, effectifMax: 40 },
-    { niveau: 'M1-INFO:M1', code: 'INFO502', libelle: 'Sécurité des systèmes', type: 'CM', grade: 'MAITRE_CONFERENCES', semestreNumero: 2, credits: 6, effectifMax: 40 },
-    { niveau: 'L3-MATH:L3', code: 'MATH401', libelle: 'Analyse réelle', type: 'CM', grade: 'PROFESSEUR', semestreNumero: 2, credits: 6, effectifMax: 50 },
-    { niveau: 'L3-MATH:L3', code: 'MATH402', libelle: 'Algèbre linéaire', type: 'CM', grade: 'MAITRE_CONFERENCES', semestreNumero: 2, credits: 6, effectifMax: 50 },
-  ];
-  for (const m of modulesData) {
-    modules[m.code] = await prisma.module.upsert({
-      where: { niveauId_code_semestreNumero: { niveauId: niveaux[m.niveau].id, code: m.code, semestreNumero: m.semestreNumero } },
+  let moduleCounter = 1;
+  const sujetsSansCode = subjects.filter((s: any) => !s.code);
+
+  // Construire un mapping sujet → niveauId en analysant les activités
+  const sujetToNiveauId: Record<string, string> = {};
+  for (const a of activities) {
+    if (sujetToNiveauId[a.subject]) continue;
+    // Chercher un groupe étudiant correspondant dans les groupes créés
+    const groupeEtudiant = a.students[0];
+    if (!groupeEtudiant) continue;
+    const groupeCle = Object.entries(groupes).find(([code, g]: [string, any]) => g.libelle === groupeEtudiant || g.code === groupeEtudiant || code === groupeEtudiant);
+    if (groupeCle) {
+      const g = groupeCle[1];
+      sujetToNiveauId[a.subject] = g.niveauId;
+    }
+  }
+  // Niveau par défaut (premier niveau disponible)
+  const defaultNiveauId = Object.values(niveaux)[0]?.id;
+
+  for (const s of subjects) {
+    const code = s.code || `MOD${String(moduleCounter++).padStart(3, '0')}`;
+    const niveauId = sujetToNiveauId[s.name] || defaultNiveauId;
+    let typeId = typesEnseignement['CM'].id;
+    let gradeId = grades['MAITRE_CONFERENCES'].id;
+    let semestreNumero = 2;
+    let credits = 6;
+    let effectifMax = 60;
+
+    // Chercher une activité avec ce sujet pour déduire le type d'enseignement
+    const activitePourSujet = activities.find((a: any) => a.subject === s.name);
+    if (activitePourSujet) {
+      const typeCode = TAG_TO_TYPE_CODE[activitePourSujet.activityTag] || 'CM';
+      typeId = typesEnseignement[typeCode]?.id || typesEnseignement['CM'].id;
+    }
+
+    modules[code] = await prisma.module.upsert({
+      where: { niveauId_code_semestreNumero: { niveauId: niveauId as string, code, semestreNumero } },
       update: {},
       create: {
-        niveauId: niveaux[m.niveau].id,
-        typeId: typesEnseignement[m.type].id,
-        gradeId: grades[m.grade]?.id,
-        code: m.code,
-        libelle: m.libelle,
-        semestreNumero: m.semestreNumero,
-        credits: m.credits,
-        effectifMax: m.effectifMax,
+        niveauId: niveauId as string,
+        typeId,
+        gradeId,
+        code,
+        libelle: s.name,
+        semestreNumero,
+        credits,
+        effectifMax,
+        originId: s.name,
       },
     });
   }
+  console.log(`   ${Object.keys(modules).length} modules créés`);
 
 
   // ============================================
-  // 14. ModuleVolumes (volumes horaires en minutes, multiple de 30)
+  // 14. ModuleVolumes (volumes horaires calculés depuis les activités FET)
   // ============================================
   console.log('⏱️ Création des volumes horaires...');
-  const moduleVolumesData = [
-    { module: 'INFO401', volumes: [{ type: 'CM', volume: 1800 }, { type: 'TD', volume: 1800 }, { type: 'TP', volume: 900 }] },
-    { module: 'INFO402', volumes: [{ type: 'CM', volume: 1800 }, { type: 'TD', volume: 1800 }, { type: 'TP', volume: 900 }] },
-    { module: 'INFO403', volumes: [{ type: 'CM', volume: 1440 }, { type: 'TD', volume: 2160 }, { type: 'TP', volume: 1800 }] },
-    { module: 'INFO404', volumes: [{ type: 'CM', volume: 1800 }, { type: 'TD', volume: 1800 }, { type: 'TP', volume: 900 }] },
-    { module: 'INFO405', volumes: [{ type: 'CM', volume: 1440 }, { type: 'TD', volume: 2160 }] },
-    { module: 'INFO501', volumes: [{ type: 'CM', volume: 1800 }, { type: 'TD', volume: 1800 }] },
-    { module: 'INFO502', volumes: [{ type: 'CM', volume: 1800 }, { type: 'TD', volume: 1800 }] },
-    { module: 'MATH401', volumes: [{ type: 'CM', volume: 2160 }, { type: 'TD', volume: 1440 }] },
-    { module: 'MATH402', volumes: [{ type: 'CM', volume: 2160 }, { type: 'TD', volume: 1440 }] },
-  ];
-  for (const mv of moduleVolumesData) {
-    const module = modules[mv.module];
-    for (const vol of mv.volumes) {
+  // Calculer le volume total par sujet + type d'enseignement
+  const volumeMap: Record<string, Record<string, number>> = {};
+  for (const a of activities) {
+    const typeCode = TAG_TO_TYPE_CODE[a.activityTag] || 'CM';
+    if (!volumeMap[a.subject]) volumeMap[a.subject] = {};
+    volumeMap[a.subject][typeCode] = (volumeMap[a.subject][typeCode] || 0) + a.duration;
+  }
+  let volumeCount = 0;
+  for (const [subjectName, volumes] of Object.entries(volumeMap)) {
+    // Trouver le module correspondant
+    const module = Object.values(modules).find((m: any) => m.libelle === subjectName || m.originId === subjectName);
+    if (!module) {
+      console.warn(`   Module non trouvé pour le sujet: ${subjectName}`);
+      continue;
+    }
+    for (const [typeCode, totalDuration] of Object.entries(volumes)) {
+      const typeId = Object.values(typesEnseignement).find((t: any) => t.code === typeCode)?.id;
+      if (!typeId) continue;
       await prisma.moduleVolume.upsert({
-        where: { moduleId_type: { moduleId: module.id, type: vol.type } },
+        where: { moduleId_type: { moduleId: module.id, type: typeCode } },
         update: {},
-        create: { moduleId: module.id, type: vol.type, volume: vol.volume },
+        create: { moduleId: module.id, type: typeCode, volume: totalDuration * 30 }, // en minutes
       });
+      volumeCount++;
     }
   }
+  console.log(`   ${volumeCount} volumes horaires créés`);
+
 
   // ============================================
-  // 15. EnseignantModule (qui enseigne quoi)
+  // 15. EnseignantModule (qui enseigne quoi, déduit des activités FET)
   // ============================================
-  console.log('🎯 Création des affectations enseignant-module...');
-  const enseignantModulesData = [
-    { enseignant: 'ENS001', module: 'INFO401' },
-    { enseignant: 'ENS002', module: 'INFO402' },
-    { enseignant: 'ENS003', module: 'INFO403' },
-    { enseignant: 'ENS001', module: 'INFO404' },
-    { enseignant: 'ENS002', module: 'INFO405' },
-    { enseignant: 'ENS004', module: 'MATH401' },
-    { enseignant: 'ENS004', module: 'MATH402' },
-    { enseignant: 'ENS005', module: 'INFO404' },
-    { enseignant: 'ENS006', module: 'INFO403' },
-    { enseignant: 'ENS007', module: 'INFO501' },
-    { enseignant: 'ENS008', module: 'INFO502' },
-    { enseignant: 'ENS009', module: 'INFO501' },
-  ];
-  for (const em of enseignantModulesData) {
+  console.log('🎯 Création des relations enseignant-module...');
+  const emSet = new Set<string>();
+  let emCount = 0;
+  for (const a of activities) {
+    const ens = enseignants[a.teacher];
+    const mod = Object.values(modules).find((m: any) => m.libelle === a.subject || m.originId === a.subject);
+    if (!ens || !mod) continue;
+    const key = `${ens.id}-${mod.id}`;
+    if (emSet.has(key)) continue;
+    emSet.add(key);
     await prisma.enseignantModule.upsert({
-      where: { enseignantId_moduleId: { enseignantId: enseignants[em.enseignant].id, moduleId: modules[em.module].id } },
+      where: { enseignantId_moduleId: { enseignantId: ens.id, moduleId: mod.id } },
       update: {},
-      create: { enseignantId: enseignants[em.enseignant].id, moduleId: modules[em.module].id },
+      create: { enseignantId: ens.id, moduleId: mod.id },
     });
+    emCount++;
   }
+  console.log(`   ${emCount} relations enseignant-module créées`);
 
   // ============================================
-  // 16. Creneaux (grille horaire Lundi-Vendredi, 8h-18h)
+  // 16. Creneaux (grille horaire depuis les données FET)
   // ============================================
   console.log('🕐 Création des créneaux horaires...');
-  const jours: string[] = ['LUNDI', 'MARDI', 'MERCREDI', 'JEUDI', 'VENDREDI'];
-  const creneauxData = [
-    { ordre: 1, debut: '08:00', fin: '09:30' },
-    { ordre: 2, debut: '09:30', fin: '11:00' },
-    { ordre: 3, debut: '11:00', fin: '12:30' },
-    { ordre: 4, debut: '14:00', fin: '15:30' },
-    { ordre: 5, debut: '15:30', fin: '17:00' },
-    { ordre: 6, debut: '17:00', fin: '18:30' },
-  ];
-  for (const jour of jours) {
-    for (const c of creneauxData) {
+  const JOURS_MAP: Record<string, string> = {
+    'Lundi': 'LUNDI', 'Mardi': 'MARDI', 'Mercredi': 'MERCREDI',
+    'Jeudi': 'JEUDI', 'Vendredi': 'VENDREDI', 'Samedi': 'SAMEDI',
+  };
+  let creneauCount = 0;
+  for (const jourName of days) {
+    const jourEnum = JOURS_MAP[jourName] || 'LUNDI';
+    for (let i = 0; i < hours.length; i++) {
+      const heureName = hours[i]; // ex: "08:30"
+      const [h, m] = heureName.split(':').map(Number);
+      const debutMin = h * 60 + m;
+      const finMin = debutMin + 30; // 30 min par créneau
+      const hDebut = Math.floor(debutMin / 60).toString().padStart(2, '0');
+      const mDebut = (debutMin % 60).toString().padStart(2, '0');
+      const hFin = Math.floor(finMin / 60).toString().padStart(2, '0');
+      const mFin = (finMin % 60).toString().padStart(2, '0');
+      const estPause = debutMin >= 12 * 60 && debutMin < 14 * 60; // pause 12h-14h
       await prisma.creneau.create({
         data: {
           semestreId: semestre.id,
-          jour: jour as any,
-          ordre: c.ordre,
-          heureDebut: new Date(`2026-01-01T${c.debut}:00`),
-          heureFin: new Date(`2026-01-01T${c.fin}:00`),
-          estPause: false,
+          jour: jourEnum as any,
+          ordre: i + 1,
+          heureDebut: new Date(`2026-01-01T${hDebut}:${mDebut}:00`),
+          heureFin: new Date(`2026-01-01T${hFin}:${mFin}:00`),
+          estPause,
           estActive: true,
         },
       });
+      creneauCount++;
     }
-    await prisma.creneau.create({
-      data: {
-        semestreId: semestre.id,
-        jour: jour as any,
-        ordre: 99,
-        heureDebut: new Date(`2026-01-01T12:30:00`),
-        heureFin: new Date(`2026-01-01T14:00:00`),
-        estPause: true,
-        estActive: true,
-      },
-    });
   }
+  console.log(`   ${creneauCount} créneaux créés`);
 
 
   // ============================================
@@ -499,7 +618,6 @@ async function main() {
     });
   }
 
-
   // ============================================
   // 18. Contraintes par défaut
   // ============================================
@@ -526,7 +644,7 @@ async function main() {
 
 
   // ============================================
-  // 19. Contraintes d'instance par défaut (globales)
+  // 19. Instances de contrainte par défaut (globales)
   // ============================================
   console.log('📋 Création des instances de contrainte...');
   const defMaxHours = await prisma.contrainteDefinition.findUnique({ where: { code: 'MAX_HOURS_PER_DAY' } });
@@ -602,12 +720,12 @@ async function main() {
   console.log(`   Salles: ${Object.keys(salles).length}`);
 }
 
-main()
-  .catch((e) => {
-    console.error('❌ Erreur lors du seed:', e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+try {
+  main();
+} catch (e) {
+  console.error('❌ Erreur lors du seed:', e);
+  process.exit(1);
+} finally {
+  await prisma.$disconnect();
+}
 
