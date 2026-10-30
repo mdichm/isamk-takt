@@ -504,6 +504,7 @@ model ParametreSecurite {
   mfaRoles                  RoleCode[] @default([ADMINISTRATEUR])
   conservationAuditJours    Int?
   conservationSecuriteJours Int        @default(365)
+  conservationExportJours   Int?
   updatedAt                 DateTime   @updatedAt
   updatedBy                 String?    @db.Uuid
 

@@ -18,6 +18,7 @@ export class SecurityConfigDto {
   mfaRoles: RoleCode[];
   conservationAuditJours: number | null;
   conservationSecuriteJours: number;
+  conservationExportJours: number | null;
   updatedAt: Date;
   updatedBy: string | null;
 }
@@ -33,6 +34,7 @@ export class UpdateSecurityConfigDto {
   mfaRoles?: RoleCode[];
   conservationAuditJours?: number | null;
   conservationSecuriteJours?: number;
+  conservationExportJours?: number | null;
 }
 
 @Injectable()
@@ -80,6 +82,9 @@ export class SecurityConfigService {
         ...(data.conservationSecuriteJours !== undefined && {
           conservationSecuriteJours: data.conservationSecuriteJours,
         }),
+        ...(data.conservationExportJours !== undefined && {
+          conservationExportJours: data.conservationExportJours,
+        }),
         updatedBy,
       },
     });
@@ -99,6 +104,7 @@ export class SecurityConfigService {
       mfaRoles: config.mfaRoles as RoleCode[],
       conservationAuditJours: config.conservationAuditJours,
       conservationSecuriteJours: config.conservationSecuriteJours,
+      conservationExportJours: config.conservationExportJours,
       updatedAt: config.updatedAt,
       updatedBy: config.updatedBy,
     };

@@ -119,3 +119,77 @@ export async function fetchMe(): Promise<{
 }
 
 export type { UserDto, CreateUserInput, UpdateUserInput };
+
+// ============================================
+// Données personnelles utilisateur (L7-12, EX-NFR-06)
+// Droit d'accès et de rectification (INPDP / RGPD art. 15-16)
+// ============================================
+
+/** Profil utilisateur (droit d'accès). */
+export interface MesDonneesDto {
+  id: string;
+  email: string;
+  nom: string;
+  prenom: string;
+  actif?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+/** Événement de sécurité lié à l'utilisateur (droit d'accès). */
+export interface DonneesSecuriteDto {
+  id: string;
+  at: string;
+  type: string;
+  ip?: string;
+  userAgent?: string;
+  requestId?: string;
+}
+
+/** Job d'export lié à l'utilisateur (droit d'accès). */
+export interface DonneesExportDto {
+  id: string;
+  versionId: string;
+  format: string;
+  mode: string;
+  statut: string;
+  createdAt: string;
+  finishedAt?: string;
+}
+
+/** Résultat complet d'export des données personnelles. */
+export interface ExportMesDonneesDto {
+  profil: MesDonneesDto;
+  securite: DonneesSecuriteDto[];
+  exports: DonneesExportDto[];
+}
+
+/** Données à rectifier (droit de rectification). */
+export interface RectificationDto {
+  nom?: string;
+  prenom?: string;
+  email?: string;
+}
+
+/** Exporte les données personnelles de l'utilisateur connecté (droit d'accès). */
+export async function getMyData(): Promise<ExportMesDonneesDto> {
+  const response = await apiFetch('/utilisateurs/mes-donnees');
+  return response.json();
+}
+
+/** Rectifie les données personnelles de l'utilisateur connecté (droit de rectification). */
+export async function updateMyData(
+  data: RectificationDto,
+): Promise<void> {
+  await apiFetch('/utilisateurs/mes-donnees', {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+/** Demande la suppression des données personnelles de l'utilisateur connecté (droit à l'oubli). */
+export async function deleteMyData(): Promise<void> {
+  await apiFetch('/utilisateurs/mes-donnees/suppression', {
+    method: 'POST',
+  });
+}
