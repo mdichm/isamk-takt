@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timetable>
+  <fetVersion>7.12.0</fetVersion>
+  <teachers>
+    <teacher>
+      <Name>M. Martin</Name>
+      <MinDaysBetweenActivities>0</MinDaysBetweenActivities>
+      <MaxHoursDaily>8</MaxHoursDaily>
+      <MaxGapsPerWeek>0</MaxGapsPerWeek>
+      <MaxDays>5</MaxDays>
+      <ForbiddenTimeSlots/>
+    </teacher>
+  </teachers>
+  <students>
+    <Year>
+      <Name>M2-CI</Name>
+      <Divisions>
+        <Division>
+          <Name>A</Name>
+          <Students>30</Students>
+        </Division>
+      </Divisions>
+    </Year>
+  </students>
+  <subjects>
+    <Subject>
+      <Name>Algorithmes</Name>
+      <Color>-1</Color>
+    </Subject>
+  </subjects>
+  <activitytags>
+    <ActivityTag>
+      <Name>CM</Name>
+      <Color>-1</Color>
+    </ActivityTag>
+  </activitytags>
+  <rooms>
+    <Room>
+      <Name>Salle unique</Name>
+      <Capacity>30</Capacity>
+      <Building>Bâtiment A</Building>
+      <Floor>0</Floor>
+    </Room>
+  </rooms>
+  <activities>
+    <!-- Deux CM dans la même salle au même créneau avec poids 100% -->
+    <Activity>
+      <Id>1</Id>
+      <Teacher>M. Martin</Teacher>
+      <Subject>Algorithmes</Subject>
+      <ActivityTag>CM</ActivityTag>
+      <Students>M2-CI.A</Students>
+      <Duration>2</Duration>
+      <Room>Salle unique</Room>
+    </Activity>
+    <Activity>
+      <Id>2</Id>
+      <Teacher>M. Martin</Teacher>
+      <Subject>Algorithmes</Subject>
+      <ActivityTag>CM</ActivityTag>
+      <Students>M2-CI.A</Students>
+      <Duration>2</Duration>
+      <Room>Salle unique</Room>
+    </Activity>
+  </activities>
+  <constraints>
+    <!-- Verrouillage des deux activités au même créneau (lundi 8:00) -->
+    <ConstraintActivityPreferredTime>
+      <WeightPercentage>100</WeightPercentage>
+      <ActivityId>1</ActivityId>
+      <Day>lundi</Day>
+      <Hour>8:00</Hour>
+    </ConstraintActivityPreferredTime>
+    <ConstraintActivityPreferredTime>
+      <WeightPercentage>100</WeightPercentage>
+      <ActivityId>2</ActivityId>
+      <Day>lundi</Day>
+      <Hour>8:00</Hour>
+    </ConstraintActivityPreferredTime>
+  </constraints>
+</timetable>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timetable>
+  <fetVersion>7.12.0</fetVersion>
+  <teachers>
+    <teacher>
+      <Name>M. Martin</Name>
+      <MinDaysBetweenActivities>0</MinDaysBetweenActivities>
+      <MaxHoursDaily>8</MaxHoursDaily>
+      <MaxGapsPerWeek>0</MaxGapsPerWeek>
+      <MaxDays>5</MaxDays>
+      <ForbiddenTimeSlots>
+        <Time>
+          <Day>mercredi</Day>
+          <Hour>14:00</Hour>
+        </Time>
+      </ForbiddenTimeSlots>
+    </teacher>
+    <teacher>
+      <Name>Mme. Dubois</Name>
+      <MinDaysBetweenActivities>0</MinDaysBetweenActivities>
+      <MaxHoursDaily>8</MaxHoursDaily>
+      <MaxGapsPerWeek>0</MaxGapsPerWeek>
+      <MaxDays>5</MaxDays>
+      <ForbiddenTimeSlots/>
+    </teacher>
+    <teacher>
+      <Name>M. Durand</Name>
+      <MinDaysBetweenActivities>0</MinDaysBetweenActivities>
+      <MaxHoursDaily>8</MaxHoursDaily>
+      <MaxGapsPerWeek>0</MaxGapsPerWeek>
+      <MaxDays>5</MaxDays>
+      <ForbiddenTimeSlots>
+        <Time>
+          <Day>vendredi</Day>
+          <Hour>16:00</Hour>
+        </Time>
+      </ForbiddenTimeSlots>
+    </teacher>
+  </teachers>
+  <students>
+    <Year>
+      <Name>M2-CI</Name>
+      <Divisions>
+        <Division>
+          <Name>A</Name>
+          <Students>30</Students>
+        </Division>
+        <Division>
+          <Name>B</Name>
+          <Students>28</Students>
+        </Division>
+      </Divisions>
+    </Year>
+    <Year>
+      <Name>L3-INFO</Name>
+      <Divisions>
+        <Division>
+          <Name>A</Name>
+          <Students>45</Students>
+        </Division>
+      </Divisions>
+    </Year>
+  </students>
+  <subjects>
+    <Subject>
+      <Name>Algorithmes</Name>
+      <Color>-1</Color>
+    </Subject>
+    <Subject>
+      <Name>Bases de données</Name>
+      <Color>-1</Color>
+    </Subject>
+    <Subject>
+      <Name>Réseaux</Name>
+      <Color>-1</Color>
+    </Subject>
+    <Subject>
+      <Name>Projet tutoré</Name>
+      <Color>-1</Color>
+    </Subject>
+  </subjects>
+  <activitytags>
+    <ActivityTag>
+      <Name>CM</Name>
+      <Color>-1</Color>
+    </ActivityTag>
+    <ActivityTag>
+      <Name>TD</Name>
+      <Color>-1</Color>
+    </ActivityTag>
+    <ActivityTag>
+      <Name>TP</Name>
+      <Color>-1</Color>
+    </ActivityTag>
+    <ActivityTag>
+      <Name>CI</Name>
+      <Color>-1</Color>
+    </ActivityTag>
+  </activitytags>
+  <rooms>
+    <Room>
+      <Name>Amphi A</Name>
+      <Capacity>120</Capacity>
+      <Building>Bâtiment A</Building>
+      <Floor>0</Floor>
+    </Room>
+    <Room>
+      <Name>Salle TD 1</Name>
+      <Capacity>35</Capacity>
+      <Building>Bâtiment B</Building>
+      <Floor>1</Floor>
+    </Room>
+    <Room>
+      <Name>Salle TP 1</Name>
+      <Capacity>24</Capacity>
+      <Building>Bâtiment C</Building>
+      <Floor>0</Floor>
+    </Room>
+    <Room>
+      <Name>Salle spécifique CI</Name>
+      <Capacity>30</Capacity>
+      <Building>Bâtiment D</Building>
+      <Floor>2</Floor>
+    </Room>
+  </rooms>
+  <activities>
+    <!-- CM M2-CI A+B, 2h, Amphi A -->
+    <Activity>
+      <Id>1</Id>
+      <Teacher>M. Martin</Teacher>
+      <Subject>Algorithmes</Subject>
+      <ActivityTag>CM</ActivityTag>
+      <Students>M2-CI.A</Students>
+      <Duration>2</Duration>
+      <Room>Amphi A</Room>
+    </Activity>
+    <!-- TD M2-CI A, 1.5h, Salle TD 1 -->
+    <Activity>
+      <Id>2</Id>
+      <Teacher>Mme. Dubois</Teacher>
+      <Subject>Algorithmes</Subject>
+      <ActivityTag>TD</ActivityTag>
+      <Students>M2-CI.A</Students>
+      <Duration>1.5</Duration>
+      <Room>Salle TD 1</Room>
+    </Activity>
+    <!-- TP M2-CI A, 2h, Salle TP 1 -->
+    <Activity>
+      <Id>3</Id>
+      <Teacher>M. Durand</Teacher>
+      <Subject>Bases de données</Subject>
+      <ActivityTag>TP</ActivityTag>
+      <Students>M2-CI.A</Students>
+      <Duration>2</Duration>
+      <Room>Salle TP 1</Room>
+    </Activity>
+    <!-- CI M2-CI A, 2h, Salle spécifique CI -->
+    <Activity>
+      <Id>4</Id>
+      <Teacher>M. Martin</Teacher>
+      <Subject>Projet tutoré</Subject>
+      <ActivityTag>CI</ActivityTag>
+      <Students>M2-CI.A</Students>
+      <Duration>2</Duration>
+      <Room>Salle spécifique CI</Room>
+    </Activity>
+    <!-- CM L3-INFO A, 2h, Amphi A -->
+    <Activity>
+      <Id>5</Id>
+      <Teacher>Mme. Dubois</Teacher>
+      <Subject>Réseaux</Subject>
+      <ActivityTag>CM</ActivityTag>
+      <Students>L3-INFO.A</Students>
+      <Duration>2</Duration>
+      <Room>Amphi A</Room>
+    </Activity>
+  </activities>
+  <constraints>
+    <!-- Activité verrouillée : CI le lundi 8:00 -->
+    <ConstraintActivityPreferredTime>
+      <WeightPercentage>100</WeightPercentage>
+      <ActivityId>4</ActivityId>
+      <Day>lundi</Day>
+      <Hour>8:00</Hour>
+    </ConstraintActivityPreferredTime>
+    <!-- Préférence : TP le mardi matin -->
+    <ConstraintActivityPreferredTime>
+      <WeightPercentage>80</WeightPercentage>
+      <ActivityId>3</ActivityId>
+      <Day>mardi</Day>
+      <Hour>8:00</Hour>
+    </ConstraintActivityPreferredTime>
+    <!-- Pause déjeuner : pas d'activité entre 12:00 et 14:00 -->
+    <ConstraintTimesNotAvailable>
+      <WeightPercentage>100</WeightPercentage>
+      <Day>lundi</Day>
+      <Hour>12:00</Hour>
+    </ConstraintTimesNotAvailable>
+    <ConstraintTimesNotAvailable>
+      <WeightPercentage>100</WeightPercentage>
+      <Day>mardi</Day>
+      <Hour>12:00</Hour>
+    </ConstraintTimesNotAvailable>
+    <ConstraintTimesNotAvailable>
+      <WeightPercentage>100</WeightPercentage>
+      <Day>mercredi</Day>
+      <Hour>12:00</Hour>
+    </ConstraintTimesNotAvailable>
+    <ConstraintTimesNotAvailable>
+      <WeightPercentage>100</WeightPercentage>
+      <Day>jeudi</Day>
+      <Hour>12:00</Hour>
+    </ConstraintTimesNotAvailable>
+    <ConstraintTimesNotAvailable>
+      <WeightPercentage>100</WeightPercentage>
+      <Day>vendredi</Day>
+      <Hour>12:00</Hour>
+    </ConstraintTimesNotAvailable>
+  </constraints>
+</timetable>
