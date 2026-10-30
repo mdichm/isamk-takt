@@ -28,6 +28,7 @@ const eslintConfig = defineConfig(
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "src/test/**/*",
+    "src/mocks/**/*",
   ]),
 );
 
