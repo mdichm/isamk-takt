@@ -1,0 +1,6920 @@
+{
+  "institution": "ISAM Kairouan",
+  "days": [
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi"
+  ],
+  "hours": [
+    "08:30",
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "12:30",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30"
+  ],
+  "subjects": [
+    {
+      "name": "Activité entrepreneuriale 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Activité entrepreneuriale 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Activités pratiques 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Analyse de l'image",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Anglais appliqué",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Anglais appliqué 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Anglais appliqué 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Application et pratiques techniques 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Applications et Représentation technique",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Applications techniques 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Applications techniques 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Arts et civilisation 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Atelier de spécialité 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Atelier de spécialité 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Compétences Digitales 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Compétences linguistiques 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Compétences linguistiques 5",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Connaissance des Arts  monumentaux 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "couleur 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Création numérique",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Culture de l'entreprise 2",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Culture digitale & outils collaboratifs",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Découpage technique et story board",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Découpage technique et story board 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Design, société et innovation",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Design, socité et innovation",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin analytique",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin Analytique 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin et perspective 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin spatial & perspective 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin technique et perspective",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin technique et perspective 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Dessin, sketching et traitements appliqués au Produit1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Digital Skills 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Droit de propriété intellectuelle et artistique",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Ergonomie 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Espace et volume",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Esthétique des arts plastiques 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Expression Graphique",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "EXPRESSION PLASTIQUE",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Forme et structure 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Formes et volumes",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Français pro 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Gestion et Organisation Professionnelle",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Gestion et organisation professionnelle 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Histoire de l’Art 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Histoire de l’Art moderne1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Histoire de la publicité",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Histoire de l'architecture et des styles 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Histoire de l'art contemporain 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Histoire du design produit 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Histoire thématique 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Industrie de l'audiovisuel",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Infographie 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Infographie appliquée 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Infographie appliquée 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Infographie spécifique 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Infographie spécifique 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Initiation à la recherche",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Initiation au design image",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Initiation au projet",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Lecture de l'art 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Lecture et analyse spécifiques 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Maquette et prototype",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Marketing et technologies de la communication 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Matériaux et nouvelles technologies",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Matériaux et technologies de production",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Matériaux, innovation et créativité 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Méthodologie de projet appliquée 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Méthodologie de projet appliquée 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Méthodologie de recherche appliquée au projet 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Métré et pièces écrites",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Option",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Poiétique",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "psychosociologie de l'espace 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Recherche et conceptualisation 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Représentation technique 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Représentation technique du projet",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Sketching et représentation du produit",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Socio-économie de l'art",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Socio-économie de l'audiovisuel",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Studio en design produit",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Study Skills 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Techniques Audiovisuelles 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Techniques Audiovisuelles 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Techniques d'interprétation plastique 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Techniques d'interprétation plastique 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Technologies de production",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Technologies de production 3",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Théorie de l'image",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    },
+    {
+      "name": "Théorie du Design 1",
+      "longName": "",
+      "code": "",
+      "comments": ""
+    }
+  ],
+  "teachers": [
+    {
+      "name": "Abdellatif ROMDHANI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Abdellatif ROMDHANI"
+    },
+    {
+      "name": "Abderrahim TLIG",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Abderrahim TLIG"
+    },
+    {
+      "name": "Abir HLELI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Abir HLELI"
+    },
+    {
+      "name": "Afef NAOUALI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Afef NAOUALI"
+    },
+    {
+      "name": "Ahmed HARZALLAH",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ahmed HARZALLAH"
+    },
+    {
+      "name": "Akram BOUJNEH",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Akram BOUJNEH"
+    },
+    {
+      "name": "Ali ARAISSIA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ali ARAISSIA"
+    },
+    {
+      "name": "Amel KOUBAA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Amel KOUBAA"
+    },
+    {
+      "name": "Ameni BEN KHLIFA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": ""
+    },
+    {
+      "name": "Anissa GHOUILA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Anissa GHOUILA"
+    },
+    {
+      "name": "Anissa SAIIDI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Anissa SAIIDI"
+    },
+    {
+      "name": "Arbya MSOLLI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Arbya MSOLLI"
+    },
+    {
+      "name": "Ayda SELIM",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ayda SELIM"
+    },
+    {
+      "name": "Aziza HAMDAOUI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Aziza HAMDAOUI"
+    },
+    {
+      "name": "Bachir BEN FRAJ",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Bachir BEN FRAJ"
+    },
+    {
+      "name": "Bakhta NAGGATI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Bakhta NAGGATI"
+    },
+    {
+      "name": "Chahla BELGACEM",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Chahla BELGACEM"
+    },
+    {
+      "name": "Chaker ROMDHANI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Chaker ROMDHANI"
+    },
+    {
+      "name": "Chedia ABBASSI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Chedia ABBASSI"
+    },
+    {
+      "name": "Chekra SELMI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Chekra SELMI"
+    },
+    {
+      "name": "Dhiaa ESSOUSI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Dhiaa ESSOUSI"
+    },
+    {
+      "name": "Dhoha ELLOUZ",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Dhoha ELLOUZ"
+    },
+    {
+      "name": "Dorra DAALOUL",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Dorra DAALOUL"
+    },
+    {
+      "name": "Emna FILELI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Emna FILELI"
+    },
+    {
+      "name": "Eya HERMESSI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Eya HERMESSI"
+    },
+    {
+      "name": "Faouzi LOTFI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Faouzi LOTFI"
+    },
+    {
+      "name": "Fathi MISSAOUI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Fathi MISSAOUI"
+    },
+    {
+      "name": "Fathi RACHED",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Fathi RACHED"
+    },
+    {
+      "name": "Fathi SELMI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Fathi SELMI"
+    },
+    {
+      "name": "Fatma BELGHITH",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Fatma BELGHITH"
+    },
+    {
+      "name": "Fayrouz BOUJDAY",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Fayrouz BOUJDAY"
+    },
+    {
+      "name": "Hajer BEN AMOR",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hajer BEN AMOR"
+    },
+    {
+      "name": "Hajer EDHIF",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hajer EDHIF"
+    },
+    {
+      "name": "Hammouda BEN HSSINE",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hammouda BEN HSSINE"
+    },
+    {
+      "name": "Hamza HAMZAOUI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hamza HAMZAOUI"
+    },
+    {
+      "name": "Hana CHEBBI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hana CHEBBI"
+    },
+    {
+      "name": "Hanene CHGUIR",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hanene CHGUIR"
+    },
+    {
+      "name": "Hatem NAGGATI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hatem NAGGATI"
+    },
+    {
+      "name": "Hedyene EZZINE",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hedyene EZZINE"
+    },
+    {
+      "name": "Hela WESLATI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hela WESLATI"
+    },
+    {
+      "name": "Hodhoua BOULAABA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Hodhoua BOULAABA"
+    },
+    {
+      "name": "Houcine HAMDAOUI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Houcine HAMDAOUI"
+    },
+    {
+      "name": "Houda FARHAT",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Houda FARHAT"
+    },
+    {
+      "name": "Houssem MAJDOUB",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Houssem MAJDOUB"
+    },
+    {
+      "name": "Ibtissema MHADHEB",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ibtissema MHADHEB"
+    },
+    {
+      "name": "Ichrak OMMEZINE",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ichrak OMMEZINE"
+    },
+    {
+      "name": "Ikbel SOUISSI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ikbel SOUISSI"
+    },
+    {
+      "name": "Imed HOUSSINE",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Imed HOUSSINE"
+    },
+    {
+      "name": "Imen ABDELKAFI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Imen ABDELKAFI"
+    },
+    {
+      "name": "Imen ALOUI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Imen ALOUI"
+    },
+    {
+      "name": "Imen BEN AMOR",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Imen BEN AMOR"
+    },
+    {
+      "name": "Imen BEN HASSINE",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Imen BEN HASSINE"
+    },
+    {
+      "name": "Imen BEN HLIMA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": ""
+    },
+    {
+      "name": "Imen BEN TARA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Imen BEN TARA"
+    },
+    {
+      "name": "Imen KHEMIRI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Imen KHEMIRI"
+    },
+    {
+      "name": "Ines BOUJDAY",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ines BOUJDAY"
+    },
+    {
+      "name": "Ines RAYES",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ines RAYES"
+    },
+    {
+      "name": "Islem FATNASI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Islem FATNASI"
+    },
+    {
+      "name": "Jawhara BOUBAKER",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Jawhara BOUBAKER"
+    },
+    {
+      "name": "Karima BEN SAAD",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Karima BEN SAAD"
+    },
+    {
+      "name": "Kawther ACHOUR",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Kawther ACHOUR"
+    },
+    {
+      "name": "Khawla ESSID",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Khawla ESSID"
+    },
+    {
+      "name": "Khawla SOUGUIR",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Khawla SOUGUIR"
+    },
+    {
+      "name": "Maha HAMMADI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Maha HAMMADI"
+    },
+    {
+      "name": "Mahmoud NAKHLI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Mahmoud NAKHLI"
+    },
+    {
+      "name": "Malek OMMEZZINE",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Malek OMMEZZINE"
+    },
+    {
+      "name": "Manel BOUMIZA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Manel BOUMIZA"
+    },
+    {
+      "name": "Manel ROMDHANI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Manel ROMDHANI"
+    },
+    {
+      "name": "Maryem DRIDI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Maryem DRIDI"
+    },
+    {
+      "name": "Maryem GMATI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Maryem GMATI"
+    },
+    {
+      "name": "Mehrez BEN AZOUZ",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Mehrez BEN AZOUZ"
+    },
+    {
+      "name": "Moez OUHIBI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Moez OUHIBI"
+    },
+    {
+      "name": "Mohamed Hedi BEN GHANEM",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Mohamed Hedi BEN GHANEM"
+    },
+    {
+      "name": "Mohamed Nizar MOUADDEB",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Mohamed Nizar MOUADDEB"
+    },
+    {
+      "name": "Mohamed ROMDHANI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Mohamed ROMDHANI"
+    },
+    {
+      "name": "Monya BELGHITH",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Monya BELGHITH"
+    },
+    {
+      "name": "Naceur KHARRAT",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Naceur KHARRAT"
+    },
+    {
+      "name": "Nadhem HAMMOUDA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Nadhem HAMMOUDA"
+    },
+    {
+      "name": "Narjes AMMAR",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Narjes AMMAR"
+    },
+    {
+      "name": "Nawel BELGHITH",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Nawel BELGHITH"
+    },
+    {
+      "name": "Nawel MAHJOUB",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Nawel MAHJOUB"
+    },
+    {
+      "name": "Nesrine BDIRA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Nesrine BDIRA"
+    },
+    {
+      "name": "Nouha CHERIF",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Nouha CHERIF"
+    },
+    {
+      "name": "Olfa MOUSSA SKHIRI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Olfa MOUSSA SKHIRI"
+    },
+    {
+      "name": "Ons GUIZANI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ons GUIZANI"
+    },
+    {
+      "name": "Oussema JBELI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Oussema JBELI"
+    },
+    {
+      "name": "Rahma BENGHANEM",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Rahma BENGHANEM"
+    },
+    {
+      "name": "Rahma GUESMI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Rahma GUESMI"
+    },
+    {
+      "name": "Raja MIRAOUI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Raja MIRAOUI"
+    },
+    {
+      "name": "Ranya GHAZALI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Ranya GHAZALI"
+    },
+    {
+      "name": "Refka KHARBOUCHI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Refka KHARBOUCHI"
+    },
+    {
+      "name": "Riadh TELILI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Riadh TELILI"
+    },
+    {
+      "name": "Rihab MTAWA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Rihab MTAWA"
+    },
+    {
+      "name": "Rym BELGHITH",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Rym BELGHITH"
+    },
+    {
+      "name": "Rym CHRIF",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Rym CHRIF"
+    },
+    {
+      "name": "Rym MANSOUR",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Rym MANSOUR"
+    },
+    {
+      "name": "Saïda BOURGUIBA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": ""
+    },
+    {
+      "name": "Salah HMIDA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Salah HMIDA"
+    },
+    {
+      "name": "Skander HOUCINE",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Skander HOUCINE"
+    },
+    {
+      "name": "Sonia MAKHLOUF",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Sonia MAKHLOUF"
+    },
+    {
+      "name": "Soumaya MEJBRI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Soumaya MEJBRI"
+    },
+    {
+      "name": "Sourour CHTOUROU",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Sourour CHTOUROU"
+    },
+    {
+      "name": "Tarek MAHMOUDI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Tarek MAHMOUDI"
+    },
+    {
+      "name": "Tharouet SAADI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Tharouet SAADI"
+    },
+    {
+      "name": "Wafa ZAIDI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Wided ZAIDI"
+    },
+    {
+      "name": "Wafa ZOUAOUI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Wafa ZOUAOUI"
+    },
+    {
+      "name": "Wahid BOULILA",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Wahid BOULILA"
+    },
+    {
+      "name": "Wala KALAII",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Wala KALAII"
+    },
+    {
+      "name": "Walid HLELI",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Walid HLELI"
+    },
+    {
+      "name": "Yamina JERFEL",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": ""
+    },
+    {
+      "name": "Zaineb SOLTAN",
+      "longName": "",
+      "code": "",
+      "targetHours": 0,
+      "qualifiedSubjects": [],
+      "comments": "Zaineb SOLTAN"
+    }
+  ],
+  "years": [
+    {
+      "name": "L1",
+      "longName": "",
+      "code": "",
+      "numberOfStudents": 0,
+      "comments": "",
+      "groups": [
+        {
+          "name": "L1-AP_1",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-AP_2",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-AP_3",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DE_1",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DE_2",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DE_3",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DE_4",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DE_5",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DE_6",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DI_1",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DI_2",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L1-DP_1",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "name": "L2",
+      "longName": "",
+      "code": "",
+      "numberOfStudents": 0,
+      "comments": "",
+      "groups": [
+        {
+          "name": "L2-AI_1",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-AI_2",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-AI_3",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-AI_4",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-AI_5",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-AI_6",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-Cer",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-CI",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-Pub",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L2-Tsg",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "name": "L3",
+      "longName": "",
+      "code": "",
+      "numberOfStudents": 0,
+      "comments": "",
+      "groups": [
+        {
+          "name": "L3-AI_1",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-AI_2",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-AI_3",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-AI_4",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-AI_5",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-AI_6",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-Cer",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-CI",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-Pub",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "L3-Tsg",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "name": "M1",
+      "longName": "",
+      "code": "",
+      "numberOfStudents": 0,
+      "comments": "",
+      "groups": [
+        {
+          "name": "M1-AI_1",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "M1-AI_2",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "M1-Cer",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "M1-CI",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "M1-PAV",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "name": "M2",
+      "longName": "",
+      "code": "",
+      "numberOfStudents": 0,
+      "comments": "",
+      "groups": [
+        {
+          "name": "M2-AI_1",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "M2-AI_2",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "M2-Cer",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "M2-CI",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        },
+        {
+          "name": "M2-PAV",
+          "longName": "",
+          "code": "",
+          "numberOfStudents": 0,
+          "comments": ""
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "teacher": "Chaker ROMDHANI",
+      "subject": "Dessin 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_1"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 1,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nawel MAHJOUB",
+      "subject": "couleur 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 2,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wafa ZOUAOUI",
+      "subject": "Forme et structure 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_1"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 3,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Akram BOUJNEH",
+      "subject": "Arts et civilisation 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-AP_1",
+        "L1-AP_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 4,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Karima BEN SAAD",
+      "subject": "Histoire de l’Art moderne1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-AP_1",
+        "L1-AP_2",
+        "L1-AP_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 5,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Anissa SAIIDI",
+      "subject": "Esthétique des arts plastiques 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-AP_1",
+        "L1-AP_2",
+        "L1-AP_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 6,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hedyene EZZINE",
+      "subject": "EXPRESSION PLASTIQUE",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_1"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 7,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Moez OUHIBI",
+      "subject": "Français pro 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_1",
+        "L1-AP_2",
+        "L1-AP_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 8,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Sonia MAKHLOUF",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_1",
+        "L1-AP_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 9,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Narjes AMMAR",
+      "subject": "Digital Skills 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-AP_1",
+        "L1-AP_2",
+        "L1-AP_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 10,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chaker ROMDHANI",
+      "subject": "Dessin 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_2"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 11,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen ALOUI",
+      "subject": "couleur 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 12,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nawel MAHJOUB",
+      "subject": "Forme et structure 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_2"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 13,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen ALOUI",
+      "subject": "EXPRESSION PLASTIQUE",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_2"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 14,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ameni BEN KHLIFA",
+      "subject": "Dessin 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_3"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 15,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chekra SELMI",
+      "subject": "couleur 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_3"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 16,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen BEN HLIMA",
+      "subject": "Forme et structure 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_3"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 17,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chekra SELMI",
+      "subject": "EXPRESSION PLASTIQUE",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_3"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 18,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ranya GHAZALI",
+      "subject": "Initiation au projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_1"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 19,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym BELGHITH",
+      "subject": "Représentation technique du projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 20,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hatem NAGGATI",
+      "subject": "Histoire de l’Art 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-DE_1",
+        "L1-DE_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 21,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem DRIDI",
+      "subject": "Théorie du Design 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-DE_1",
+        "L1-DE_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 22,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "",
+      "subject": "Dessin spatial & perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 23,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Dorra DAALOUL",
+      "subject": "Dessin Analytique 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 24,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hajer EDHIF",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 25,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hammouda BEN HSSINE",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_1"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 26,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wafa ZAIDI",
+      "subject": "Français pro 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-DE_1",
+        "L1-DE_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 27,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 28,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Culture digitale & outils collaboratifs",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 29,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ines RAYES",
+      "subject": "Initiation au projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_2"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 30,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Emna FILELI",
+      "subject": "Représentation technique du projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_2"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 31,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym BELGHITH",
+      "subject": "Dessin spatial & perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 32,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Manel ROMDHANI",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_2"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 34,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Arbya MSOLLI",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_2"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 35,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 36,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Culture digitale & outils collaboratifs",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 37,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen ABDELKAFI",
+      "subject": "Initiation au projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_3"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 38,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nesrine BDIRA",
+      "subject": "Représentation technique du projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_3"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 39,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ibtissema MHADHEB",
+      "subject": "Histoire de l’Art 1",
+      "activityTag": "Atelier Tsg",
+      "students": [
+        "L1-DE_3",
+        "L1-DE_4"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 40,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem DRIDI",
+      "subject": "Théorie du Design 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-DE_3",
+        "L1-DE_4"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 41,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "",
+      "subject": "Dessin spatial & perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_3"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 42,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Walid HLELI",
+      "subject": "Dessin Analytique 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_3"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 43,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Kawther ACHOUR",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_3"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 44,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fayrouz BOUJDAY",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_3"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 45,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wafa ZAIDI",
+      "subject": "Français pro 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-DE_3",
+        "L1-DE_4"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 46,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 47,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Culture digitale & outils collaboratifs",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 48,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hanene CHGUIR",
+      "subject": "Initiation au projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_4"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 49,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen ABDELKAFI",
+      "subject": "Représentation technique du projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_4"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 50,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym MANSOUR",
+      "subject": "Dessin spatial & perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_4"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 51,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Walid HLELI",
+      "subject": "Dessin Analytique 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_4"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 52,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Kawther ACHOUR",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_4"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 53,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Aziza HAMDAOUI",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_4"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 54,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_4"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 55,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Culture digitale & outils collaboratifs",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_4"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 56,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hajer BEN AMOR",
+      "subject": "Initiation au projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 57,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "",
+      "subject": "Représentation technique du projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 58,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hatem NAGGATI",
+      "subject": "Histoire de l’Art 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 59,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem DRIDI",
+      "subject": "Théorie du Design 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L1-DE_5",
+        "L1-DE_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 60,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym MANSOUR",
+      "subject": "Dessin spatial & perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 61,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hammouda BEN HSSINE",
+      "subject": "Dessin Analytique 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 62,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Kawther ACHOUR",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 63,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Aziza HAMDAOUI",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 64,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wafa ZAIDI",
+      "subject": "Français pro 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 65,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 66,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Culture digitale & outils collaboratifs",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_5"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 67,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rihab MTAWA",
+      "subject": "Initiation au projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 68,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "",
+      "subject": "Représentation technique du projet",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 69,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hatem NAGGATI",
+      "subject": "Histoire de l’Art 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 70,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Dhiaa ESSOUSI",
+      "subject": "Dessin spatial & perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 71,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abir HLELI",
+      "subject": "Dessin Analytique 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 72,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Narjes AMMAR",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 73,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Aziza HAMDAOUI",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 74,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wafa ZAIDI",
+      "subject": "Français pro 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 75,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 76,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Culture digitale & outils collaboratifs",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DE_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 77,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen BEN TARA",
+      "subject": "Initiation au design image",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 78,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Dhoha ELLOUZ",
+      "subject": "Espace et volume",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 79,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Kawther ACHOUR",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 80,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rihab MTAWA",
+      "subject": "Dessin technique et perspective",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 81,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Walid HLELI",
+      "subject": "Dessin analytique",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 82,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem DRIDI",
+      "subject": "Théorie du Design 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 83,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ibtissema MHADHEB",
+      "subject": "Histoire de l’Art 1",
+      "activityTag": "Atelier Tsg",
+      "students": [
+        "L1-DI_1",
+        "L1-DI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 84,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Aziza HAMDAOUI",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 85,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fathi SELMI",
+      "subject": "Français pro 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_1",
+        "L1-DI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 86,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Compétences Digitales 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 87,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 88,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mohamed Nizar MOUADDEB",
+      "subject": "Initiation au design image",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 89,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ines RAYES",
+      "subject": "Espace et volume",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 90,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym CHRIF",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 91,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen ABDELKAFI",
+      "subject": "Dessin technique et perspective",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 92,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hammouda BEN HSSINE",
+      "subject": "Dessin analytique",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 93,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem DRIDI",
+      "subject": "Théorie du Design 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 94,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Aziza HAMDAOUI",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 95,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Compétences Digitales 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 96,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 97,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Oussema JBELI",
+      "subject": "Studio en design produit",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 98,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Dhoha ELLOUZ",
+      "subject": "Formes et volumes",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 99,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Manel ROMDHANI",
+      "subject": "Infographie 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 100,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Eya HERMESSI",
+      "subject": "Dessin technique et perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 101,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hammouda BEN HSSINE",
+      "subject": "Dessin Analytique 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 102,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Sourour CHTOUROU",
+      "subject": "Théorie du Design 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 103,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ibtissema MHADHEB",
+      "subject": "Histoire de l’Art 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 104,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem GMATI",
+      "subject": "Activités pratiques 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 5,
+      "totalDuration": 5,
+      "id": 105,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fathi SELMI",
+      "subject": "Français pro 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 106,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hamza HAMZAOUI",
+      "subject": "Compétences Digitales 1",
+      "activityTag": "Labo",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 107,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Yamina JERFEL",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DP_1"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 108,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mahmoud NAKHLI",
+      "subject": "Infographie spécifique 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-AI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 111,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rahma GUESMI",
+      "subject": "Application et pratiques techniques 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 112,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ichrak OMMEZINE",
+      "subject": "Histoire de l'architecture et des styles 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_1",
+        "L2-AI_2",
+        "L2-AI_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 113,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Oussema JBELI",
+      "subject": "psychosociologie de l'espace 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_1",
+        "L2-AI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 114,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chahla BELGACEM",
+      "subject": "Dessin et perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 115,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bachir BEN FRAJ",
+      "subject": "Compétences linguistiques 3",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_1",
+        "L2-AI_2",
+        "L2-AI_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 116,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Olfa MOUSSA SKHIRI",
+      "subject": "Activité entrepreneuriale 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_1",
+        "L2-AI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 117,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Soumaya MEJBRI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_1"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 118,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ines BOUJDAY",
+      "subject": "Infographie spécifique 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-AI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 121,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rahma GUESMI",
+      "subject": "Application et pratiques techniques 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_2"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 122,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nesrine BDIRA",
+      "subject": "Dessin et perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 123,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Malek OMMEZZINE",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_2"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 124,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rahma BENGHANEM",
+      "subject": "Infographie spécifique 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-AI_3"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 127,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mohamed Hedi BEN GHANEM",
+      "subject": "Application et pratiques techniques 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_3"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 128,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Oussema JBELI",
+      "subject": "psychosociologie de l'espace 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_3",
+        "L2-AI_4"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 129,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Emna FILELI",
+      "subject": "Dessin et perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_3"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 130,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Olfa MOUSSA SKHIRI",
+      "subject": "Activité entrepreneuriale 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_3",
+        "L2-AI_4"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 131,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Arbya MSOLLI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_3"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 132,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mahmoud NAKHLI",
+      "subject": "Infographie spécifique 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-AI_4"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 135,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mohamed Hedi BEN GHANEM",
+      "subject": "Application et pratiques techniques 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_4"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 136,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ichrak OMMEZINE",
+      "subject": "Histoire de l'architecture et des styles 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_4",
+        "L2-AI_5",
+        "L2-AI_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 137,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen BEN AMOR",
+      "subject": "Dessin et perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_4"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 138,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bachir BEN FRAJ",
+      "subject": "Compétences linguistiques 3",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_4",
+        "L2-AI_5",
+        "L2-AI_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 139,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Dorra DAALOUL",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_4"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 140,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maha HAMMADI",
+      "subject": "Infographie spécifique 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-AI_5"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 143,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen BEN AMOR",
+      "subject": "Application et pratiques techniques 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_5"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 144,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Oussema JBELI",
+      "subject": "psychosociologie de l'espace 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_5",
+        "L2-AI_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 145,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Manel BOUMIZA",
+      "subject": "Dessin et perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_5"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 146,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Olfa MOUSSA SKHIRI",
+      "subject": "Activité entrepreneuriale 1",
+      "activityTag": "Amphi",
+      "students": [
+        "L2-AI_5",
+        "L2-AI_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 147,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fayrouz BOUJDAY",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_5"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 148,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maha HAMMADI",
+      "subject": "Infographie spécifique 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-AI_6"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 151,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen BEN AMOR",
+      "subject": "Application et pratiques techniques 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_6"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 152,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rihab MTAWA",
+      "subject": "Dessin et perspective 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_6"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 153,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Malek OMMEZZINE",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_6"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 154,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chedia ABBASSI",
+      "subject": "Infographie appliquée 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-Cer",
+        "L2-Tsg"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 157,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fathi MISSAOUI",
+      "subject": "Dessin 3",
+      "activityTag": "TD",
+      "students": [
+        "L2-Cer"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 158,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Karima BEN SAAD",
+      "subject": "Recherche et conceptualisation 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-Cer",
+        "L2-Tsg"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 159,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hedyene EZZINE",
+      "subject": "Lecture de l'art 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-Cer",
+        "L2-Tsg"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 160,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hedyene EZZINE",
+      "subject": "Histoire de l'art contemporain 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-Cer",
+        "L2-Tsg"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 161,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Salah HMIDA",
+      "subject": "Poiétique",
+      "activityTag": "TD",
+      "students": [
+        "L2-Cer",
+        "L2-Tsg"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 162,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bachir BEN FRAJ",
+      "subject": "Compétences linguistiques 3",
+      "activityTag": "TD",
+      "students": [
+        "L2-Cer",
+        "L2-Tsg"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 163,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Islem FATNASI",
+      "subject": "Droit de propriété intellectuelle et artistique",
+      "activityTag": "TD",
+      "students": [
+        "L2-Cer",
+        "L2-Tsg"
+      ],
+      "duration": 2,
+      "totalDuration": 2,
+      "id": 164,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nadhem HAMMOUDA",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 165,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nouha CHERIF",
+      "subject": "Infographie spécifique 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-CI"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 168,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Riadh TELILI",
+      "subject": "Dessin, sketching et traitements appliqués au Produit1",
+      "activityTag": "TD",
+      "students": [
+        "L2-CI"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 169,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ichrak OMMEZINE",
+      "subject": "Histoire du design produit 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 170,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Oussema JBELI",
+      "subject": "Ergonomie 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 171,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wahid BOULILA",
+      "subject": "Représentation technique 1",
+      "activityTag": "Atelier Bij",
+      "students": [
+        "L2-CI"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 172,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Olfa MOUSSA SKHIRI",
+      "subject": "Activité entrepreneuriale 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-CI",
+        "L2-Pub"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 173,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bachir BEN FRAJ",
+      "subject": "Compétences linguistiques 3",
+      "activityTag": "TD",
+      "students": [
+        "L2-CI",
+        "L2-Pub"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 174,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "",
+      "subject": "Option",
+      "activityTag": "Atelier Bij",
+      "students": [
+        "L2-CI"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 175,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abderrahim TLIG",
+      "subject": "Infographie spécifique 1",
+      "activityTag": "Labo",
+      "students": [
+        "L2-Pub"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 178,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Saïda BOURGUIBA",
+      "subject": "Découpage technique et story board 1",
+      "activityTag": "Atelier AV",
+      "students": [
+        "L2-Pub"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 179,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Afef NAOUALI",
+      "subject": "Théorie de l'image",
+      "activityTag": "TD",
+      "students": [
+        "L2-Pub"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 180,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Tarek MAHMOUDI",
+      "subject": "Histoire de la publicité",
+      "activityTag": "TD",
+      "students": [
+        "L2-Pub"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 181,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mohamed Nizar MOUADDEB",
+      "subject": "Techniques Audiovisuelles 1",
+      "activityTag": "Atelier AV",
+      "students": [
+        "L2-Pub"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 182,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem GMATI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-Pub"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 183,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fathi MISSAOUI",
+      "subject": "Dessin 3",
+      "activityTag": "TD",
+      "students": [
+        "L2-Tsg"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 186,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Karima BEN SAAD",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L2-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 187,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abdellatif ROMDHANI",
+      "subject": "Infographie spécifique 3",
+      "activityTag": "Labo",
+      "students": [
+        "L3-AI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 190,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hela WESLATI",
+      "subject": "Applications et Représentation technique",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 191,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mehrez BEN AZOUZ",
+      "subject": "Design, société et innovation",
+      "activityTag": "Amphi",
+      "students": [
+        "L3-AI_1",
+        "L3-AI_2",
+        "L3-AI_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 192,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Khawla SOUGUIR",
+      "subject": "Métré et pièces écrites",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 193,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym MANSOUR",
+      "subject": "Matériaux et nouvelles technologies",
+      "activityTag": "Amphi",
+      "students": [
+        "L3-AI_1",
+        "L3-AI_2",
+        "L3-AI_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 194,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Compétences linguistiques 5",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_1",
+        "L3-AI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 195,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Islem FATNASI",
+      "subject": "Activité entrepreneuriale 3",
+      "activityTag": "Amphi",
+      "students": [
+        "L3-AI_1",
+        "L3-AI_2",
+        "L3-AI_3"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 196,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Naceur KHARRAT",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_1"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 197,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ines BOUJDAY",
+      "subject": "Infographie spécifique 3",
+      "activityTag": "Labo",
+      "students": [
+        "L3-AI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 200,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fathi RACHED",
+      "subject": "Applications et Représentation technique",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_2"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 201,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Refka KHARBOUCHI",
+      "subject": "Métré et pièces écrites",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 202,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym CHRIF",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_2"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 203,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abdellatif ROMDHANI",
+      "subject": "Infographie spécifique 3",
+      "activityTag": "Labo",
+      "students": [
+        "L3-AI_3"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 206,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ikbel SOUISSI",
+      "subject": "Applications et Représentation technique",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_3"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 207,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Khawla SOUGUIR",
+      "subject": "Métré et pièces écrites",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_3"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 208,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Compétences linguistiques 5",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_3",
+        "L3-AI_4"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 209,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Walid HLELI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_3"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 210,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rahma BENGHANEM",
+      "subject": "Infographie spécifique 3",
+      "activityTag": "Labo",
+      "students": [
+        "L3-AI_4"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 213,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Khawla ESSID",
+      "subject": "Applications et Représentation technique",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_4"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 214,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mehrez BEN AZOUZ",
+      "subject": "Design, société et innovation",
+      "activityTag": "Amphi",
+      "students": [
+        "L3-AI_4",
+        "L3-AI_5",
+        "L3-AI_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 215,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Refka KHARBOUCHI",
+      "subject": "Métré et pièces écrites",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_4"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 216,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym MANSOUR",
+      "subject": "Matériaux et nouvelles technologies",
+      "activityTag": "Amphi",
+      "students": [
+        "L3-AI_4",
+        "L3-AI_5",
+        "L3-AI_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 217,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Islem FATNASI",
+      "subject": "Activité entrepreneuriale 3",
+      "activityTag": "Amphi",
+      "students": [
+        "L3-AI_4",
+        "L3-AI_5",
+        "L3-AI_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 218,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abir HLELI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_4"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 219,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bakhta NAGGATI",
+      "subject": "Infographie spécifique 3",
+      "activityTag": "Labo",
+      "students": [
+        "L3-AI_5"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 222,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Dhiaa ESSOUSI",
+      "subject": "Applications et Représentation technique",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_5"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 223,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wala KALAII",
+      "subject": "Métré et pièces écrites",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_5"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 224,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Compétences linguistiques 5",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_5",
+        "L3-AI_6"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 225,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Dorra DAALOUL",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_5"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 226,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bakhta NAGGATI",
+      "subject": "Infographie spécifique 3",
+      "activityTag": "Labo",
+      "students": [
+        "L3-AI_6"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 229,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Anissa GHOUILA",
+      "subject": "Applications et Représentation technique",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_6"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 230,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wala KALAII",
+      "subject": "Métré et pièces écrites",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_6"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 231,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fayrouz BOUJDAY",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_6"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 232,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ayda SELIM",
+      "subject": "Initiation à la recherche",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "L3-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 235,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Salah HMIDA",
+      "subject": "Analyse de l'image",
+      "activityTag": "TD",
+      "students": [
+        "L3-Cer",
+        "L3-Tsg"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 236,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Moez OUHIBI",
+      "subject": "Socio-économie de l'art",
+      "activityTag": "TD",
+      "students": [
+        "L3-Cer",
+        "L3-Tsg"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 237,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wafa ZOUAOUI",
+      "subject": "Expression Graphique",
+      "activityTag": "TD",
+      "students": [
+        "L3-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 238,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chedia ABBASSI",
+      "subject": "Création numérique",
+      "activityTag": "Labo",
+      "students": [
+        "L3-Cer",
+        "L3-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 239,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bachir BEN FRAJ",
+      "subject": "Compétences linguistiques 5",
+      "activityTag": "TD",
+      "students": [
+        "L3-Cer",
+        "L3-Tsg"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 240,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Olfa MOUSSA SKHIRI",
+      "subject": "Culture de l'entreprise 2",
+      "activityTag": "TD",
+      "students": [
+        "L3-Cer",
+        "L3-Tsg"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 241,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nadhem HAMMOUDA",
+      "subject": "Option",
+      "activityTag": "Mezz. AV",
+      "students": [
+        "L3-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 242,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mohamed ROMDHANI",
+      "subject": "Infographie spécifique 3",
+      "activityTag": "Labo",
+      "students": [
+        "L3-CI"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 245,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Riadh TELILI",
+      "subject": "Sketching et représentation du produit",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 246,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imed HOUSSINE",
+      "subject": "Matériaux et technologies de production",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 247,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Sourour CHTOUROU",
+      "subject": "Design, socité et innovation",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 248,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wahid BOULILA",
+      "subject": "Maquette et prototype",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 249,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bachir BEN FRAJ",
+      "subject": "Compétences linguistiques 5",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI",
+        "L3-Pub"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 250,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Islem FATNASI",
+      "subject": "Activité entrepreneuriale 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI",
+        "L3-Pub"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 251,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chahla BELGACEM",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 252,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abderrahim TLIG",
+      "subject": "Infographie spécifique 3",
+      "activityTag": "Labo",
+      "students": [
+        "L3-Pub"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 255,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Afef NAOUALI",
+      "subject": "Découpage technique et story board",
+      "activityTag": "Atelier AV",
+      "students": [
+        "L3-Pub"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 256,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen KHEMIRI",
+      "subject": "Industrie de l'audiovisuel",
+      "activityTag": "TD",
+      "students": [
+        "L3-Pub"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 257,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen BEN HASSINE",
+      "subject": "Socio-économie de l'audiovisuel",
+      "activityTag": "TD",
+      "students": [
+        "L3-Pub"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 258,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Saïda BOURGUIBA",
+      "subject": "Techniques Audiovisuelles 3",
+      "activityTag": "Atelier AV",
+      "students": [
+        "L3-Pub"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 259,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem GMATI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-Pub"
+      ],
+      "duration": 10,
+      "totalDuration": 10,
+      "id": 260,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fatma BELGHITH",
+      "subject": "Initiation à la recherche",
+      "activityTag": "TD",
+      "students": [
+        "L3-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 263,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Amel KOUBAA",
+      "subject": "Expression Graphique",
+      "activityTag": "TD",
+      "students": [
+        "L3-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 264,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Salah HMIDA",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "L3-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 265,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mehrez BEN AZOUZ",
+      "subject": "Méthodologie de projet appliquée 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_1"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 266,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mehrez BEN AZOUZ",
+      "subject": "Applications techniques 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_1"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 267,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bakhta NAGGATI",
+      "subject": "Infographie appliquée 1",
+      "activityTag": "Labo",
+      "students": [
+        "M1-AI_1",
+        "M1-AI_2"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 268,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Moez OUHIBI",
+      "subject": "Lecture et analyse spécifiques 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_1",
+        "M1-AI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 269,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ali ARAISSIA",
+      "subject": "Histoire thématique 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_1",
+        "M1-AI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 270,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Saïda BOURGUIBA",
+      "subject": "Marketing et technologies de la communication 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_1",
+        "M1-AI_2"
+      ],
+      "duration": 2,
+      "totalDuration": 2,
+      "id": 271,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Anglais appliqué 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_1",
+        "M1-AI_2"
+      ],
+      "duration": 2,
+      "totalDuration": 2,
+      "id": 272,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Anissa GHOUILA",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_1",
+        "M1-AI_2"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 273,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Khawla ESSID",
+      "subject": "Méthodologie de projet appliquée 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_2"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 274,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Khawla ESSID",
+      "subject": "Applications techniques 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-AI_2"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 275,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houda FARHAT",
+      "subject": "Méthodologie de projet appliquée 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_1"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 276,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Bakhta NAGGATI",
+      "subject": "Infographie appliquée 3",
+      "activityTag": "Labo",
+      "students": [
+        "M2-AI_1",
+        "M2-AI_2"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 277,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houda FARHAT",
+      "subject": "Applications techniques 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_1"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 278,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fathi RACHED",
+      "subject": "Matériaux, innovation et créativité 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_1",
+        "M2-AI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 279,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imed HOUSSINE",
+      "subject": "Technologies de production 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_1",
+        "M2-AI_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 280,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen KHEMIRI",
+      "subject": "Gestion et organisation professionnelle 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_1",
+        "M2-AI_2"
+      ],
+      "duration": 2,
+      "totalDuration": 2,
+      "id": 281,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Anglais appliqué 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_1",
+        "M2-AI_2"
+      ],
+      "duration": 2,
+      "totalDuration": 2,
+      "id": 282,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ikbel SOUISSI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_1",
+        "M2-AI_2"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 283,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hela WESLATI",
+      "subject": "Méthodologie de projet appliquée 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_2"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 284,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hela WESLATI",
+      "subject": "Applications techniques 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-AI_2"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 285,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Afef NAOUALI",
+      "subject": "Méthodologie de projet appliquée 1",
+      "activityTag": "Atelier AV",
+      "students": [
+        "M1-PAV"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 286,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Faouzi LOTFI",
+      "subject": "Applications techniques 1",
+      "activityTag": "Atelier AV",
+      "students": [
+        "M1-PAV"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 287,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abdellatif ROMDHANI",
+      "subject": "Infographie appliquée 1",
+      "activityTag": "Mezz. AV",
+      "students": [
+        "M1-PAV"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 288,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ali ARAISSIA",
+      "subject": "Lecture et analyse spécifiques 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-PAV"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 289,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen BEN TARA",
+      "subject": "Histoire thématique 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-PAV"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 290,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Saïda BOURGUIBA",
+      "subject": "Marketing et technologies de la communication 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-PAV"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 291,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Anglais appliqué 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-PAV",
+        "M1-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 292,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Maryem DRIDI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "M1-PAV"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 293,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen BEN HASSINE",
+      "subject": "Méthodologie de projet appliquée 3",
+      "activityTag": "Mezz. AV",
+      "students": [
+        "M2-PAV"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 294,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mohamed ROMDHANI",
+      "subject": "Infographie appliquée 3",
+      "activityTag": "Labo",
+      "students": [
+        "M2-PAV"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 295,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Faouzi LOTFI",
+      "subject": "Applications techniques 3",
+      "activityTag": "Atelier AV",
+      "students": [
+        "M2-PAV"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 296,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym CHRIF",
+      "subject": "Matériaux, innovation et créativité 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-PAV"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 297,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mohamed Nizar MOUADDEB",
+      "subject": "Technologies de production 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-PAV"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 298,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen KHEMIRI",
+      "subject": "Gestion et organisation professionnelle 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-PAV"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 299,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Anglais appliqué 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-PAV"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 300,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nadhem HAMMOUDA",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "M2-PAV"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 301,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houcine HAMDAOUI",
+      "subject": "Méthodologie de projet appliquée 1",
+      "activityTag": "Atelier Bij",
+      "students": [
+        "M1-CI"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 302,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wahid BOULILA",
+      "subject": "Applications techniques 1",
+      "activityTag": "Atelier Bij",
+      "students": [
+        "M1-CI"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 303,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nouha CHERIF",
+      "subject": "Infographie appliquée 1",
+      "activityTag": "Labo",
+      "students": [
+        "M1-CI"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 304,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Anissa SAIIDI",
+      "subject": "Lecture et analyse spécifiques 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 305,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ali ARAISSIA",
+      "subject": "Histoire thématique 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 306,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen KHEMIRI",
+      "subject": "Marketing et technologies de la communication 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-CI"
+      ],
+      "duration": 2,
+      "totalDuration": 2,
+      "id": 307,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Oussema JBELI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "M1-CI"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 308,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Sourour CHTOUROU",
+      "subject": "Méthodologie de projet appliquée 3",
+      "activityTag": "peeka",
+      "students": [
+        "M2-CI"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 309,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Mohamed ROMDHANI",
+      "subject": "Infographie appliquée 3",
+      "activityTag": "Labo",
+      "students": [
+        "M2-CI"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 310,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wahid BOULILA",
+      "subject": "Applications techniques 3",
+      "activityTag": "Atelier Bij",
+      "students": [
+        "M2-CI"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 311,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Sourour CHTOUROU",
+      "subject": "Matériaux, innovation et créativité 3",
+      "activityTag": "peeka",
+      "students": [
+        "M2-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 312,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Rym MANSOUR",
+      "subject": "Technologies de production 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-CI"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 313,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen KHEMIRI",
+      "subject": "Gestion et organisation professionnelle 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-CI"
+      ],
+      "duration": 2,
+      "totalDuration": 2,
+      "id": 314,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Anglais appliqué 3",
+      "activityTag": "TD",
+      "students": [
+        "M2-CI"
+      ],
+      "duration": 2,
+      "totalDuration": 2,
+      "id": 315,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hana CHEBBI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "M2-CI"
+      ],
+      "duration": 4,
+      "totalDuration": 4,
+      "id": 316,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Tharouet SAADI",
+      "subject": "Méthodologie de recherche appliquée au projet 1",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "M1-Cer"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 317,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ayda SELIM",
+      "subject": "Techniques d'interprétation plastique 1",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "M1-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 318,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abdellatif ROMDHANI",
+      "subject": "Infographie appliquée 1",
+      "activityTag": "Labo",
+      "students": [
+        "M1-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 319,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ayda SELIM",
+      "subject": "Lecture et analyse spécifiques 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-Cer"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 320,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Akram BOUJNEH",
+      "subject": "Histoire thématique 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-Cer"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 321,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Tharouet SAADI",
+      "subject": "Connaissance des Arts  monumentaux 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-Cer"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 322,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Anglais appliqué 1",
+      "activityTag": "TD",
+      "students": [
+        "M1-Cer"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 323,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Wafa ZOUAOUI",
+      "subject": "Option",
+      "activityTag": "TD",
+      "students": [
+        "M1-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 324,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ayda SELIM",
+      "subject": "Méthodologie de projet appliquée 3",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "M2-Cer"
+      ],
+      "duration": 12,
+      "totalDuration": 12,
+      "id": 325,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Abdellatif ROMDHANI",
+      "subject": "Infographie appliquée 3",
+      "activityTag": "Labo",
+      "students": [
+        "M2-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 326,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Tharouet SAADI",
+      "subject": "Techniques d'interprétation plastique 3",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "M2-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 327,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imed HOUSSINE",
+      "subject": "Technologies de production",
+      "activityTag": "TD",
+      "students": [
+        "M2-Cer"
+      ],
+      "duration": 6,
+      "totalDuration": 6,
+      "id": 328,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Raja MIRAOUI",
+      "subject": "Anglais appliqué",
+      "activityTag": "TD",
+      "students": [
+        "M2-Cer"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 329,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Imen KHEMIRI",
+      "subject": "Gestion et Organisation Professionnelle",
+      "activityTag": "TD",
+      "students": [
+        "M2-Cer"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 330,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Salah HMIDA",
+      "subject": "Option",
+      "activityTag": "Mezz. AV",
+      "students": [
+        "M2-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 331,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Monya BELGHITH",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 332,
+      "activityGroupId": 332,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Monya BELGHITH",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 333,
+      "activityGroupId": 332,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ons GUIZANI",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 334,
+      "activityGroupId": 334,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ons GUIZANI",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 335,
+      "activityGroupId": 334,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Skander HOUCINE",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_3"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 336,
+      "activityGroupId": 336,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Skander HOUCINE",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_3"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 337,
+      "activityGroupId": 336,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nawel BELGHITH",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_4"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 338,
+      "activityGroupId": 338,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Nawel BELGHITH",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_4"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 339,
+      "activityGroupId": 338,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chahla BELGACEM",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_5"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 340,
+      "activityGroupId": 340,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Chahla BELGACEM",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_5"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 341,
+      "activityGroupId": 340,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Zaineb SOLTAN",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_6"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 342,
+      "activityGroupId": 342,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Zaineb SOLTAN",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "TD",
+      "students": [
+        "L2-AI_6"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 343,
+      "activityGroupId": 342,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Akram BOUJNEH",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "L2-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 344,
+      "activityGroupId": 344,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Akram BOUJNEH",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "L2-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 345,
+      "activityGroupId": 344,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hana CHEBBI",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "Atelier Bij",
+      "students": [
+        "L2-CI"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 346,
+      "activityGroupId": 346,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hana CHEBBI",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "Atelier Bij",
+      "students": [
+        "L2-CI"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 347,
+      "activityGroupId": 346,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Tarek MAHMOUDI",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "Atelier AV",
+      "students": [
+        "L2-Pub"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 348,
+      "activityGroupId": 348,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Tarek MAHMOUDI",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "Atelier AV",
+      "students": [
+        "L2-Pub"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 349,
+      "activityGroupId": 348,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Amel KOUBAA",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "Atelier Tsg",
+      "students": [
+        "L2-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 350,
+      "activityGroupId": 350,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Amel KOUBAA",
+      "subject": "Atelier de spécialité 1",
+      "activityTag": "Atelier Tsg",
+      "students": [
+        "L2-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 351,
+      "activityGroupId": 350,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Manel BOUMIZA",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 352,
+      "activityGroupId": 352,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Manel BOUMIZA",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_1"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 353,
+      "activityGroupId": 352,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houssem MAJDOUB",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 354,
+      "activityGroupId": 354,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houssem MAJDOUB",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_2"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 355,
+      "activityGroupId": 354,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ikbel SOUISSI",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_3"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 356,
+      "activityGroupId": 356,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ikbel SOUISSI",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_3"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 357,
+      "activityGroupId": 356,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fathi RACHED",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_4"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 358,
+      "activityGroupId": 358,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Fathi RACHED",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_4"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 359,
+      "activityGroupId": 358,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houda FARHAT",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_5"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 360,
+      "activityGroupId": 360,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houda FARHAT",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_5"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 361,
+      "activityGroupId": 360,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Anissa GHOUILA",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_6"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 362,
+      "activityGroupId": 362,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Anissa GHOUILA",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-AI_6"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 363,
+      "activityGroupId": 362,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hodhoua BOULAABA",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "L3-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 364,
+      "activityGroupId": 364,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Hodhoua BOULAABA",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "Atelier Cer",
+      "students": [
+        "L3-Cer"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 365,
+      "activityGroupId": 364,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houcine HAMDAOUI",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 366,
+      "activityGroupId": 366,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Houcine HAMDAOUI",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "TD",
+      "students": [
+        "L3-CI"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 367,
+      "activityGroupId": 366,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Faouzi LOTFI",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "Atelier AV",
+      "students": [
+        "L3-Pub"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 368,
+      "activityGroupId": 368,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Faouzi LOTFI",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "Atelier AV",
+      "students": [
+        "L3-Pub"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 369,
+      "activityGroupId": 368,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Jawhara BOUBAKER",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "Atelier Tsg",
+      "students": [
+        "L3-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 370,
+      "activityGroupId": 370,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Jawhara BOUBAKER",
+      "subject": "Atelier de spécialité 3",
+      "activityTag": "Atelier Tsg",
+      "students": [
+        "L3-Tsg"
+      ],
+      "duration": 8,
+      "totalDuration": 16,
+      "id": 371,
+      "activityGroupId": 370,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Ahmed HARZALLAH",
+      "subject": "Dessin Analytique 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-DE_2"
+      ],
+      "duration": 8,
+      "totalDuration": 8,
+      "id": 372,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Sonia MAKHLOUF",
+      "subject": "Study Skills 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 373,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    },
+    {
+      "teacher": "Akram BOUJNEH",
+      "subject": "Arts et civilisation 1",
+      "activityTag": "TD",
+      "students": [
+        "L1-AP_2"
+      ],
+      "duration": 3,
+      "totalDuration": 3,
+      "id": 374,
+      "activityGroupId": 0,
+      "active": true,
+      "comments": ""
+    }
+  ],
+  "rooms": [
+    {
+      "name": "Salle 1",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 2",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 3",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 4",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 5",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 6",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 7",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 8",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 9",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 10",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 11",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 12",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 13",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 14",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 15",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 16",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Salle 17",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Amphi",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Atelier Bij",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Atelier Cér",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Atelier Tsg",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Atelier Verre",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Labo 1",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Labo 2",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Labo 3",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Labo 4",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Labo AV",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "Mezz. AV",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    },
+    {
+      "name": "peeka",
+      "longName": "",
+      "code": "",
+      "building": "",
+      "capacity": 30000,
+      "virtual": false,
+      "comments": ""
+    }
+  ],
+  "activityTags": [
+    {
+      "name": "TD",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "TP",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "C",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "CI",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "Autre",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "Labo",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "Atelier Cer",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "Atelier AV",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "Atelier Tsg",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "Amphi",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "Atelier Bij",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "peeka",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    },
+    {
+      "name": "Mezz. AV",
+      "longName": "",
+      "code": "",
+      "printable": true,
+      "comments": ""
+    }
+  ]
+}

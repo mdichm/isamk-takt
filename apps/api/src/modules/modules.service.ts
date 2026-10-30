@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
+import { GradeCode as PrismaGradeCode } from '@takt/db';
 import {
   CreateTypeEnseignementDto,
   UpdateTypeEnseignementDto,
@@ -180,12 +181,12 @@ export class ModulesService {
       },
     );
 
-    return this.toGradeDto(grade);
+    return this.toGradeDto(grade as any);
   }
 
   async findAllGrades(): Promise<GradeResponseDto[]> {
     const grades = await this.prisma.grade.findMany({ orderBy: { code: 'asc' } });
-    return grades.map((g) => this.toGradeDto(g));
+    return grades.map((g) => this.toGradeDto(g as any));
   }
 
   async findGradeById(id: string): Promise<GradeResponseDto> {
@@ -193,7 +194,7 @@ export class ModulesService {
     if (!grade) {
       throw new NotFoundException('Grade non trouvé');
     }
-    return this.toGradeDto(grade);
+    return this.toGradeDto(grade as any);
   }
 
   async updateGrade(
@@ -232,7 +233,7 @@ export class ModulesService {
       },
     );
 
-    return this.toGradeDto(grade);
+    return this.toGradeDto(grade as any);
   }
 
   async removeGrade(id: string, userId: string): Promise<void> {
@@ -657,13 +658,10 @@ export class ModulesService {
     };
   }
 
-  private toGradeDto(grade: {
-    id: string; code: GradeCode; libelle: string;
-    createdAt: Date; updatedAt: Date;
-  }): GradeResponseDto {
+  private toGradeDto(grade: { id: string; code: PrismaGradeCode; libelle: string; createdAt: Date; updatedAt: Date; [key: string]: any }): GradeResponseDto {
     return {
       id: grade.id,
-      code: grade.code,
+      code: grade.code as GradeCode,
       libelle: grade.libelle,
       createdAt: grade.createdAt,
       updatedAt: grade.updatedAt,
