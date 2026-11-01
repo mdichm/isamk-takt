@@ -61,6 +61,7 @@ describe('Immutability Integration Tests (L7-04)', () => {
     const admin = await prisma.user.create({
       data: {
         email: 'admin@takt.test',
+        login: 'admin',
         passwordHash: 'hash',
         firstName: 'Admin',
         lastName: 'TAKT',

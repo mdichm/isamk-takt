@@ -16,7 +16,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 import type { Request, Response } from 'express';
 import { AuthService } from './auth.service.js';
 import type { AuthResult } from './auth.service.js';
-import { RegisterDto, LoginDto, AuthResponseDto } from './dto/auth.dto.js';
+import { RegisterDto, LoginDto, AuthResponseDto, LogoutDto } from './dto/auth.dto.js';
 import { ResetPasswordConfirmDto } from './dto/password-reset.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
@@ -28,6 +28,7 @@ import { MfaService } from './mfa.service.js';
 import { PasswordResetService } from './password-reset.service.js';
 
 const REFRESH_TOKEN_COOKIE = 'refreshToken';
+const ACCESS_TOKEN_COOKIE = 'token';
 
 function cookieOptions(): Record<string, unknown> {
   return {
@@ -36,6 +37,17 @@ function cookieOptions(): Record<string, unknown> {
     sameSite: 'strict',
     path: '/',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
+  };
+}
+
+// Cookie accessible par JavaScript (pour le frontend)
+function accessTokenCookieOptions(): Record<string, unknown> {
+  return {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 15 * 60 * 1000, // 15 minutes (comme le JWT expiration)
   };
 }
 
@@ -70,6 +82,7 @@ export class AuthController {
   ): Promise<Omit<AuthResult, 'refreshToken'>> {
     const result = await this.authService.register(registerDto);
     res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, cookieOptions());
+    res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, accessTokenCookieOptions());
     const { refreshToken: _refreshToken, ...response } = result;
     return response;
   }
@@ -93,6 +106,7 @@ export class AuthController {
   ): Promise<Omit<AuthResult, 'refreshToken'>> {
     const result = await this.authService.login(loginDto);
     res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, cookieOptions());
+    res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, accessTokenCookieOptions());
     const { refreshToken: _refreshToken, ...response } = result;
     return response;
   }
@@ -116,6 +130,9 @@ export class AuthController {
     }
     const result = await this.authService.refreshToken(refreshToken);
     res.cookie(REFRESH_TOKEN_COOKIE, result.refreshToken, cookieOptions());
+    // Le nouveau jeton d'accès doit aussi être écrit dans le cookie `token` :
+    // sinon le client continue d'envoyer le jeton expiré (401 en boucle).
+    res.cookie(ACCESS_TOKEN_COOKIE, result.accessToken, accessTokenCookieOptions());
     return { accessToken: result.accessToken };
   }
 
@@ -144,11 +161,13 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Déconnexion réussie' })
   async logout(
     @CurrentUser('id') userId: string,
-    @Body() body: { refreshToken?: string },
+    @Body() dto: LogoutDto,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): Promise<void> {
-    const refreshToken = body.refreshToken ?? extractRefreshToken(req);
+    // `dto` peut être vide (POST sans corps) : le jeton de rafraîchissement est
+    // alors lu dans le cookie httpOnly.
+    const refreshToken = dto?.refreshToken ?? extractRefreshToken(req);
     if (refreshToken) {
       await this.authService.logout(userId, refreshToken);
     }
@@ -156,6 +175,12 @@ export class AuthController {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
+      path: '/',
+    });
+    res.clearCookie(ACCESS_TOKEN_COOKIE, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
       path: '/',
     });
   }

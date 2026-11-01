@@ -27,6 +27,7 @@
     "@takt/contracts": "workspace:*",
     "@takt/db": "workspace:*",
     "@takt/engine-fet": "workspace:*",
+    "dotenv": "^16.4.5",
     "pg-boss": "^12.38.0"
   },
   "devDependencies": {

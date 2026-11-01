@@ -3,9 +3,9 @@
 // Permet à un utilisateur de corriger ses propres données.
 
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
-import type { PrismaService } from '../prisma/prisma.service.js';
-import type { RectificationDto } from './dto/droit-personnel.dto.js';
-import type { AuditService } from './audit.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { RectificationDto } from './dto/droit-personnel.dto.js';
+import { AuditService } from './audit.service.js';
 
 @Injectable()
 export class DroitRectificationService {

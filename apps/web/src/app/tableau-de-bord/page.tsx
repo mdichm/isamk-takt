@@ -164,29 +164,15 @@ export function TableauDeBordPageContent({
 }
 
 export default function TableauDeBordPage() {
-  const { role } = useAuth();
-
-  const peutVoir =
-    ROLES_GESTION.includes(role ?? '') ||
-    role === 'RESPONSABLE_DEPARTEMENT' ||
-    role === 'DIRECTION';
-
-  if (!peutVoir) {
-    return (
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-2">{t('tableauDeBord')}</h1>
-        <div className="p-3 rounded bg-destructive/10 border border-destructive/20 text-destructive text-sm">
-          {t('accesRefuseTableauDeBord')}
-        </div>
-      </div>
-    );
-  }
+  const { isAuthenticated, isLoading: authIsLoading } = useAuth();
 
   const { data, isLoading, error } = useQuery<TableauDeBordResponse, Error>({
     queryKey: tableauDeBordKeys.detail(undefined),
     queryFn: () => fetchTableauDeBord(undefined, false),
     staleTime: 30_000,
+    // N'exécuter la requête que lorsque le token est chargé (évite le 401 au premier rendu)
+    enabled: !authIsLoading && isAuthenticated,
   });
 
-  return <TableauDeBordPageContent data={data} isLoading={isLoading} error={error} />;
+  return <TableauDeBordPageContent data={data} isLoading={isLoading || authIsLoading} error={error} />;
 }

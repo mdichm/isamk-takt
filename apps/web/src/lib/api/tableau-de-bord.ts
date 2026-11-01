@@ -103,9 +103,7 @@ export async function fetchTableauDeBord(
   semestreId?: string,
   actionsAll = false,
 ): Promise<TableauDeBordResponse> {
-  const url = new URL(`/tableau-de-bord`, typeof window === 'undefined'
-    ? 'http://localhost:3000'
-    : window.location.origin);
+  const url = new URL(`/api/tableau-de-bord`, window.location.origin);
   if (semestreId) url.searchParams.set('semestreId', semestreId);
   if (actionsAll) url.searchParams.set('actions', 'all');
 

@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // TAKT - Point d'entrée de l'API NestJS avec observabilité (pino + OpenTelemetry)
 
+// Load environment variables from project root .env FIRST
+import './env-loader.js';
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe as NestValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -104,16 +107,24 @@ async function bootstrap() {
   );
 
   // CORS en liste blanche obligatoire (ST §5.3) — pas de '*' par défaut
+  // L'allow-list configurée reste la référence ; en développement, les origines
+  // locales (web :3000, API :3001) y sont ajoutées sans la remplacer.
   const corsOriginRaw = configService.get<string>('app.cors.origin') ?? '';
-  const corsOrigins = corsOriginRaw
+  const configuredOrigins = corsOriginRaw
     .split(',')
     .map((o: string) => o.trim())
     .filter(Boolean);
 
-  if (nodeEnv === 'production' && (corsOrigins.length === 0 || corsOrigins.includes('*'))) {
-    throw new Error(
-      'CORS_ORIGIN must be set to a non-wildcard allowlist in production',
+  let corsOrigins: string[];
+  if (nodeEnv === 'development') {
+    corsOrigins = Array.from(
+      new Set([...configuredOrigins, 'http://localhost:3000', 'http://localhost:3001']),
     );
+  } else {
+    corsOrigins = configuredOrigins;
+    if (corsOrigins.length === 0 || corsOrigins.includes('*')) {
+      throw new Error('CORS_ORIGIN must be set to a non-wildcard allowlist in production');
+    }
   }
 
   app.enableCors({
@@ -164,7 +175,7 @@ async function bootstrap() {
     });
   }
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 3001);
 }
 
 await bootstrap();

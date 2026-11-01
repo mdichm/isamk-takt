@@ -3,11 +3,19 @@
 // POST /versions/{id}/transitions
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import type { TransitionType } from '@takt/contracts';
 
 // ============================================
 // Transition de version (L5-01)
 // ============================================
+
+/** Actions de workflow autorisées sur une version */
+export type TransitionType =
+  | 'DEMARRER_EDITION'
+  | 'MARQUER_PRET'
+  | 'SOUMETTRE'
+  | 'REPRENDRE'
+  | 'RESOUMETTRE'
+  | 'ABANDONNER';
 
 export class TransitionDto {
   @ApiProperty({

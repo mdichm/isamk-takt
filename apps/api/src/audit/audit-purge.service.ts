@@ -3,7 +3,7 @@
 // Déclenche la fonction SQL purge_journaux() et retourne le nombre de lignes purgées.
 
 import { Injectable } from '@nestjs/common';
-import type { PrismaService } from '../prisma/prisma.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
 
 export class PurgeResult {
   auditDeleted: number;

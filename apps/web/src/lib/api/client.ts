@@ -1,6 +1,15 @@
+import { getTokenFromCookie } from '@/lib/auth';
 import { ApiError } from './errors';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
+const API_BASE = '';
+
+/**
+ * Endpoints d'authentification pour lesquels le refresh automatique est
+ * désactivé. Sans cette garde, un 401 sur /auth/refresh déclencherait à
+ * nouveau le handler de 401 : boucle infinie qui bloque connexion ET
+ * déconnexion.
+ */
+const NO_REFRESH_PATHS = ['/auth/login', '/auth/refresh', '/auth/logout'];
 
 /**
  * Gestionnaire optionnel invoqué lorsqu'une requête reçoit un 401.
@@ -8,11 +17,71 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
  */
 let onUnauthorized: (() => Promise<boolean>) | undefined;
 
+/** Refresh en cours, partagé par toutes les requêtes 401 concurrentes. */
+let refreshInFlight: Promise<boolean> | null = null;
+
 /**
  * Enregistre le gestionnaire de 401 (appelé par AuthProvider au montage).
  */
 export function registerUnauthorizedHandler(handler: () => Promise<boolean>): void {
   onUnauthorized = handler;
+}
+
+/** Indique si l'URL cible un endpoint d'authentification (refresh interdit). */
+function isAuthEndpoint(url: string): boolean {
+  const path = url.startsWith('http') ? new URL(url).pathname : url.split('?')[0];
+  return NO_REFRESH_PATHS.some((p) => path === p || path.endsWith(p));
+}
+
+/**
+ * Déclenche un refresh unique : les requêtes 401 concurrentes partagent la
+ * même promesse, ce qui évite les rotations de refresh token en cascade.
+ */
+async function refreshOnce(): Promise<boolean> {
+  if (refreshInFlight) {
+    return refreshInFlight;
+  }
+  const handler = onUnauthorized;
+  if (!handler) {
+    return false;
+  }
+  const pending = handler().catch(() => false);
+  refreshInFlight = pending;
+  try {
+    return await pending;
+  } finally {
+    if (refreshInFlight === pending) {
+      refreshInFlight = null;
+    }
+  }
+}
+
+/** Construit une ApiError à partir d'une réponse HTTP en erreur. */
+async function toApiError(response: Response): Promise<ApiError> {
+  let detail: string | undefined;
+  let code: string | undefined;
+  try {
+    const body = (await response.json()) as {
+      message?: unknown;
+      error?: unknown;
+      code?: unknown;
+    };
+    const rawMessage = body?.message ?? body?.error;
+    if (Array.isArray(rawMessage)) {
+      // Validation DTO : class-validator renvoie une liste de messages.
+      detail = rawMessage.join(', ');
+    } else if (typeof rawMessage === 'string') {
+      detail = rawMessage;
+    } else {
+      detail = JSON.stringify(body);
+    }
+    if (typeof body?.code === 'string') {
+      code = body.code;
+    }
+  } catch {
+    detail = response.statusText;
+  }
+  return new ApiError(response.status, detail ?? 'Erreur API', code);
 }
 
 /**
@@ -39,9 +108,7 @@ export async function apiFetch(
     }
   }
 
-  const token = typeof document !== 'undefined'
-    ? document.cookie.match(/(?:^|; )token=([^;]*)/)?.[1]
-    : undefined;
+  const token = getTokenFromCookie();
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
@@ -52,50 +119,33 @@ export async function apiFetch(
   });
 
   // Refresh transparent en cas de token expiré (401).
-  if (response.status === 401 && onUnauthorized) {
-    await onUnauthorized();
+  // Les endpoints d'authentification en sont exemptés pour éviter toute récursion.
+  if (response.status === 401 && onUnauthorized && !isAuthEndpoint(url)) {
+    const refreshed = await refreshOnce();
 
-    // Reconstruire les headers avec le nouveau token.
-    const newHeaders: Record<string, string> = { ...headers };
-    const newToken = typeof document !== 'undefined'
-      ? document.cookie.match(/(?:^|; )token=([^;]*)/)?.[1]
-      : undefined;
-    if (newToken) {
-      newHeaders.Authorization = `Bearer ${newToken}`;
+    if (refreshed) {
+      // Reconstruire les headers avec le nouveau token.
+      const newHeaders: Record<string, string> = { ...headers };
+      const newToken = getTokenFromCookie();
+      if (newToken) {
+        newHeaders.Authorization = `Bearer ${newToken}`;
+      } else {
+        delete newHeaders.Authorization;
+      }
+
+      const retried = await fetch(url, {
+        ...init,
+        headers: newHeaders,
+      });
+      if (!retried.ok) {
+        throw await toApiError(retried);
+      }
+      return retried;
     }
-
-    const retried = await fetch(url, {
-      ...init,
-      headers: newHeaders,
-    });
-    return retried;
   }
 
   if (!response.ok) {
-    let detail: string | undefined;
-    let code: string | undefined;
-    try {
-      const body = (await response.json()) as {
-        message?: unknown;
-        error?: unknown;
-        code?: unknown;
-      };
-      const rawMessage = body?.message ?? body?.error;
-      if (Array.isArray(rawMessage)) {
-        // Validation DTO : class-validator renvoie une liste de messages.
-        detail = rawMessage.join(', ');
-      } else if (typeof rawMessage === 'string') {
-        detail = rawMessage;
-      } else {
-        detail = JSON.stringify(body);
-      }
-      if (typeof body?.code === 'string') {
-        code = body.code;
-      }
-    } catch {
-      detail = response.statusText;
-    }
-    throw new ApiError(response.status, detail ?? 'Erreur API', code);
+    throw await toApiError(response);
   }
 
   return response;

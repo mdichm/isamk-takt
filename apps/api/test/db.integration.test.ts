@@ -70,6 +70,7 @@ describe('Database Integration Tests', () => {
       const user = await prisma.user.create({
         data: {
           email: 'test@example.com',
+          login: 'test',
           passwordHash: 'hashed_password',
           firstName: 'John',
           lastName: 'Doe',
@@ -92,6 +93,7 @@ describe('Database Integration Tests', () => {
       await prisma.user.create({
         data: {
           email: 'unique@example.com',
+          login: 'unique',
           passwordHash: 'hash',
           firstName: 'User',
           lastName: 'One',
@@ -102,6 +104,7 @@ describe('Database Integration Tests', () => {
         prisma.user.create({
           data: {
             email: 'unique@example.com',
+            login: 'unique2',
             passwordHash: 'hash',
             firstName: 'User',
             lastName: 'Two',
@@ -114,6 +117,7 @@ describe('Database Integration Tests', () => {
       const user = await prisma.user.create({
         data: {
           email: 'update@example.com',
+          login: 'update',
           passwordHash: 'hash',
           firstName: 'Original',
           lastName: 'User',
@@ -141,6 +145,7 @@ describe('Database Integration Tests', () => {
       const user = await prisma.user.create({
         data: {
           email: 'role@example.com',
+          login: 'role',
           passwordHash: 'hash',
           firstName: 'Role',
           lastName: 'User',
@@ -247,6 +252,7 @@ describe('Database Integration Tests', () => {
       const user = await prisma.user.create({
         data: {
           email: 'refresh@example.com',
+          login: 'refresh',
           passwordHash: 'hash',
           firstName: 'Refresh',
           lastName: 'User',
@@ -323,6 +329,7 @@ describe('Database Integration Tests', () => {
       const user = await prisma.user.create({
         data: {
           email: 'audit@example.com',
+          login: 'audit',
           passwordHash: 'hash',
           firstName: 'Audit',
           lastName: 'User',
@@ -391,6 +398,7 @@ describe('Database Integration Tests', () => {
       const user = await prisma.user.create({
         data: {
           email: 'security@example.com',
+          login: 'security',
           passwordHash: 'hash',
           firstName: 'Security',
           lastName: 'User',
@@ -516,6 +524,7 @@ describe('Database Integration Tests', () => {
       const user = await prisma.user.create({
         data: {
           email: 'history@example.com',
+          login: 'history',
           passwordHash: 'hash',
           firstName: 'History',
           lastName: 'User',
@@ -561,6 +570,7 @@ describe('Database Integration Tests', () => {
       const user = await prisma.user.create({
         data: {
           email: 'reset@example.com',
+          login: 'reset',
           passwordHash: 'hash',
           firstName: 'Reset',
           lastName: 'User',
@@ -571,6 +581,7 @@ describe('Database Integration Tests', () => {
       const admin = await prisma.user.create({
         data: {
           email: 'admin@example.com',
+          login: 'admin',
           passwordHash: 'hash',
           firstName: 'Admin',
           lastName: 'User',

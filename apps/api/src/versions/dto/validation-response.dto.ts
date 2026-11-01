@@ -3,7 +3,7 @@
 // POST /versions/{id}/validations
 import { IsString, IsUUID, IsBoolean, IsOptional } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import type { DecisionDepartement } from '@takt/contracts';
+import { DecisionDepartement } from '@takt/db';
 
 // ============================================
 // Sortie : décision de validation d'un département (L5-04)
@@ -23,7 +23,7 @@ export class ValidationResponseDto {
   departementId: string;
 
   @ApiProperty({
-    enum: ['EN_ATTENTE', 'APPROUVE', 'REJETE'],
+    enum: DecisionDepartement,
     description: 'Décision enregistrée',
   })
   decision: DecisionDepartement;

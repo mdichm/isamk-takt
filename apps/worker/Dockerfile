@@ -44,6 +44,8 @@ COPY . .
 RUN pnpm --filter=@takt/db run db:generate
 # Build shared contracts package (required by Worker)
 RUN pnpm --filter=@takt/contracts run build
+# Build the workspace packages consumed at runtime by the Worker
+RUN pnpm --filter=@takt/db... --filter=@takt/conflict-engine... --filter=@takt/engine-fet... run build
 RUN pnpm --filter=@takt/worker run build
 
 # =============================================================================
@@ -56,10 +58,21 @@ ENV NODE_ENV=production
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S worker -u 1001 -G nodejs
 
-# Copy built application and production deps
-COPY --from=builder --chown=worker:nodejs /app/apps/worker/dist ./dist
+# Copy built application and production deps.
+# Le magasin pnpm partage (/app/node_modules/.pnpm) est indispensable : les
+# dependances directes du worker et celles des paquets du workspace y sont
+# lies par des chemins relatifs.
+COPY --from=builder --chown=worker:nodejs /app/apps/worker/dist ./apps/worker/dist
+COPY --from=builder --chown=worker:nodejs /app/apps/worker/package.json ./apps/worker/package.json
 COPY --from=deps --chown=worker:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=worker:nodejs /app/apps/worker/package.json ./package.json
+COPY --from=deps --chown=worker:nodejs /app/apps/worker/node_modules ./apps/worker/node_modules
+# Sources des paquets du workspace (client Prisma genere) puis dependances de
+# production de ces paquets : le second COPY remplace les node_modules de
+# developpement par ceux de production.
+COPY --from=builder --chown=worker:nodejs /app/packages ./packages
+COPY --from=deps --chown=worker:nodejs /app/packages ./packages
+
+WORKDIR /app/apps/worker
 
 USER worker
 

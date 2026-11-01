@@ -1,8 +1,20 @@
+// Re-export types and enums from the generated Prisma client (not the PrismaClient class)
+// This avoids conflicts with our singleton implementation
+export type * from './generated/prisma/client/index.js';
+export { Prisma } from './generated/prisma/client/index.js';
+export { $Enums } from './generated/prisma/client/index.js';
+
+// Re-export the adapter
+export { PrismaPg } from '@prisma/adapter-pg';
+
+// Import the PrismaClient class for internal use (value import)
 import { PrismaClient } from './generated/prisma/client/index.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 
-export { PrismaClient, PrismaPg };
+// Export the PrismaClient class (value) for consumers who need to instantiate it
+export { PrismaClient };
 
+// Export the singleton prisma instance (lazy initialization)
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };

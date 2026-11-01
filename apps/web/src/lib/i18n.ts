@@ -15,6 +15,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     userLabel: 'Utilisateur',
     logout: 'Déconnexion',
     login: 'Connexion',
+    loginLabel: 'Identifiant',
     mfa: 'Authentification à deux facteurs',
     changePassword: 'Changement de mot de passe',
 
@@ -233,6 +234,7 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     signInButton: 'Se connecter',
     signingIn: 'Connexion en cours...',
     invalidCredentials: 'E-mail ou mot de passe incorrect.',
+    error: 'Une erreur est survenue. Veuillez réessayer.',
     mfaTitle: 'Code de vérification',
     mfaLabel: 'Code à 6 chiffres',
     mfaButton: 'Vérifier le code',
@@ -248,7 +250,6 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     sessionExpired: 'Votre session a expiré. Veuillez vous reconnecter.',
     accessDenied: 'Accès refusé. Vous ne disposez pas des droits nécessaires pour cette page.',
     notFound: 'Page introuvable.',
-    error: 'Une erreur est survenue. Veuillez réessayer.',
     refreshing: 'Actualisation de votre session...',
 
     // États / glossaire (libellés métier, jamais de code technique)

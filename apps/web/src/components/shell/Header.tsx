@@ -50,7 +50,9 @@ export default function Header() {
           )}
           <NotificationBell />
           <button
-            onClick={logout}
+            onClick={() => {
+              void logout();
+            }}
             className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
             aria-label={t('logout')}
           >

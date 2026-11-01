@@ -204,6 +204,7 @@ enum JobStatut {
 model User {
   id                 String       @id @default(uuid()) @db.Uuid
   email              String       @unique
+  login              String       @unique @db.VarChar(50)
   // Optionnel : un compte authentifié via un fournisseur externe (OIDC/LDAP)
   // n'a pas de mot de passe local.
   passwordHash       String?
@@ -243,6 +244,7 @@ model User {
   notifications          Notification[]
 
   @@index([email])
+  @@index([login])
   @@index([isActive])
   @@map("users")
 }

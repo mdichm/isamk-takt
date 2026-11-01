@@ -15,6 +15,7 @@ import { SecurityEventService } from '../common/services/security-event.service.
 type PrismaMock = {
   user: {
     findUnique: ReturnType<typeof vi.fn>;
+    findFirst: ReturnType<typeof vi.fn>;
     create: ReturnType<typeof vi.fn>;
     update: ReturnType<typeof vi.fn>;
   };
@@ -36,6 +37,7 @@ function buildPrismaMock(): PrismaMock {
   return {
     user: {
       findUnique: vi.fn(),
+      findFirst: vi.fn(),
       create: vi.fn(),
       update: vi.fn(),
     },
@@ -111,7 +113,7 @@ describe('AuthService', () => {
   it('register : crée l\'utilisateur avec un hash argon2id et retourne les tokens', async () => {
     const prismaMock = buildPrismaMock();
     prismaMock.parametreSecurite.findUnique.mockResolvedValue(null);
-    prismaMock.user.findUnique.mockResolvedValue(null);
+    prismaMock.user.findFirst.mockResolvedValue(null);
     prismaMock.user.create.mockResolvedValue(baseUser);
     prismaMock.refreshToken.create.mockResolvedValue({ id: 'rt-1', familyId });
 
@@ -120,6 +122,7 @@ describe('AuthService', () => {
 
     const result = await service.register({
       email,
+      login: 'alice',
       password,
       firstName: 'Alice',
       lastName: 'Dupont',
@@ -143,7 +146,7 @@ describe('AuthService', () => {
   it('register : refuse un mot de passe trop court (paramètres de sécurité)', async () => {
     const prismaMock = buildPrismaMock();
     prismaMock.parametreSecurite.findUnique.mockResolvedValue({ longueurMin: 16 } as any);
-    prismaMock.user.findUnique.mockResolvedValue(null);
+    prismaMock.user.findFirst.mockResolvedValue(null);
 
     const { module } = buildModule(prismaMock);
     const service = (await module.compile()).get(AuthService);
@@ -151,6 +154,7 @@ describe('AuthService', () => {
     await expect(
       service.register({
         email,
+        login: 'alice',
         password: 'tropcourt',
         firstName: 'Alice',
         lastName: 'Dupont',
@@ -162,7 +166,7 @@ describe('AuthService', () => {
   it('register : 409 si email déjà utilisé', async () => {
     const prismaMock = buildPrismaMock();
     prismaMock.parametreSecurite.findUnique.mockResolvedValue(null);
-    prismaMock.user.findUnique.mockResolvedValue({ id: userId, email });
+    prismaMock.user.findFirst.mockResolvedValue({ id: userId, email });
 
     const { module } = buildModule(prismaMock);
     const service = (await module.compile()).get(AuthService);
@@ -170,6 +174,7 @@ describe('AuthService', () => {
     await expect(
       service.register({
         email,
+        login: 'alice',
         password,
         firstName: 'Alice',
         lastName: 'Dupont',
@@ -181,28 +186,28 @@ describe('AuthService', () => {
     const prismaMock = buildPrismaMock();
     const hash = await hashPassword(password);
     prismaMock.parametreSecurite.findUnique.mockResolvedValue(null);
-    prismaMock.user.findUnique.mockResolvedValue({ ...baseUser, passwordHash: hash });
+    prismaMock.user.findFirst.mockResolvedValue({ ...baseUser, passwordHash: hash });
     prismaMock.refreshToken.create.mockResolvedValue({ id: 'rt-1', familyId });
 
     const { module, localAuthProvider } = buildModule(prismaMock);
     const service = (await module.compile()).get(AuthService);
 
     localAuthProvider.authenticate.mockResolvedValue({ ...baseUser, passwordHash: hash });
-    const result = await service.login({ email, password });
+    const result = await service.login({ login: email, password });
     expect(result.accessToken).toBe(`token-${userId}`);
     expect(result.refreshToken).toBeDefined();
 
     localAuthProvider.authenticate.mockRejectedValue(
       new UnauthorizedException('Identifiants invalides'),
     );
-    await expect(service.login({ email, password: 'FauxMotDePasse12!' })).rejects.toThrow(
+    await expect(service.login({ login: email, password: 'FauxMotDePasse12!' })).rejects.toThrow(
       'Identifiants invalides',
     );
-    prismaMock.user.findUnique.mockResolvedValue(null);
+    prismaMock.user.findFirst.mockResolvedValue(null);
     localAuthProvider.authenticate.mockRejectedValue(
       new UnauthorizedException('Identifiants invalides'),
     );
-    await expect(service.login({ email: 'inconnu@example.fr', password })).rejects.toThrow(
+    await expect(service.login({ login: 'inconnu@example.fr', password })).rejects.toThrow(
       'Identifiants invalides',
     );
   });
@@ -211,7 +216,7 @@ describe('AuthService', () => {
     const prismaMock = buildPrismaMock();
     const hash = await hashPassword(password);
     prismaMock.parametreSecurite.findUnique.mockResolvedValue(null);
-    prismaMock.user.findUnique.mockResolvedValue({
+    prismaMock.user.findFirst.mockResolvedValue({
       ...baseUser,
       passwordHash: hash,
       isActive: false,
@@ -221,7 +226,7 @@ describe('AuthService', () => {
     const service = (await module.compile()).get(AuthService);
 
     localAuthProvider.authenticate.mockResolvedValue({ ...baseUser, passwordHash: hash });
-    await expect(service.login({ email, password })).rejects.toThrow('Compte désactivé');
+    await expect(service.login({ login: email, password })).rejects.toThrow('Compte désactivé');
   });
 
   it('refreshToken : rotation conserve la même famille', async () => {
@@ -236,7 +241,7 @@ describe('AuthService', () => {
     prismaMock.user.findUnique.mockResolvedValue(baseUser);
     prismaMock.refreshToken.create.mockResolvedValue({ id: 'rt-2', familyId });
 
-    const { module } = buildModule(prismaMock);
+    const { module, jwtService } = buildModule(prismaMock);
     const service = (await module.compile()).get(AuthService);
 
     const result = await service.refreshToken('refresh-token-1');
@@ -246,6 +251,12 @@ describe('AuthService', () => {
       expect.objectContaining({
         data: expect.objectContaining({ familyId }),
       }),
+    );
+    // Le jeton roté doit être unique (contrainte d'unicité sur tokenHash) et
+    // la session reste rattachée à la même famille.
+    expect(jwtService.sign).toHaveBeenCalledWith(
+      expect.objectContaining({ familyId }),
+      expect.objectContaining({ expiresIn: '7d', jwtid: expect.any(String) }),
     );
     expect(prismaMock.refreshToken.update).toHaveBeenCalledWith({
       where: { id: 'rt-1' },
@@ -318,7 +329,7 @@ describe('AuthService', () => {
     prismaMock.parametreSecurite.findUnique.mockResolvedValue({ maxEchecs: 2, verrouillageMinutes: 15 } as any);
 
     // 1ère tentative (mauvais mot de passe) : failedAttempts 1 -> 2, seuil atteint → verrouillage
-    prismaMock.user.findUnique.mockResolvedValueOnce({ ...baseUser, passwordHash: hash, failedAttempts: 1 } as any);
+    prismaMock.user.findFirst.mockResolvedValueOnce({ ...baseUser, passwordHash: hash, failedAttempts: 1 } as any);
     prismaMock.user.update.mockResolvedValue({} as any);
 
     const { module, localAuthProvider } = buildModule(prismaMock);
@@ -329,7 +340,7 @@ describe('AuthService', () => {
     );
 
     await expect(
-      service.login({ email, password: 'MauvaisMotDePasse12!' }),
+      service.login({ login: email, password: 'MauvaisMotDePasse12!' }),
     ).rejects.toThrow('Identifiants invalides');
     expect(prismaMock.user.update).toHaveBeenCalledWith({
       where: { id: userId },
@@ -338,7 +349,7 @@ describe('AuthService', () => {
 
     // 2ème tentative : compte verrouillé, rejet avant vérification du mot de passe
     const lockedUntil = new Date(Date.now() + 15 * 60 * 1000);
-    prismaMock.user.findUnique.mockResolvedValueOnce({
+    prismaMock.user.findFirst.mockResolvedValueOnce({
       ...baseUser,
       passwordHash: hash,
       failedAttempts: 2,
@@ -347,7 +358,7 @@ describe('AuthService', () => {
     localAuthProvider.authenticate.mockResolvedValue({ ...baseUser, passwordHash: hash });
     let err: unknown;
     try {
-      await service.login({ email, password });
+      await service.login({ login: email, password });
     } catch (e) {
       err = e;
     }
@@ -363,7 +374,7 @@ describe('AuthService', () => {
     const hash = await hashPassword(password);
     prismaMock.parametreSecurite.findUnique.mockResolvedValue(null);
     const lockedUntil = new Date(Date.now() + 15 * 60 * 1000);
-    prismaMock.user.findUnique.mockResolvedValue({
+    prismaMock.user.findFirst.mockResolvedValue({
       ...baseUser,
       passwordHash: hash,
       lockedUntil,
@@ -375,7 +386,7 @@ describe('AuthService', () => {
     localAuthProvider.authenticate.mockResolvedValue({ ...baseUser, passwordHash: hash });
     let err: unknown;
     try {
-      await service.login({ email, password });
+      await service.login({ login: email, password });
     } catch (e) {
       err = e;
     }
@@ -390,7 +401,7 @@ describe('AuthService', () => {
     const prismaMock = buildPrismaMock();
     const hash = await hashPassword(password);
     prismaMock.parametreSecurite.findUnique.mockResolvedValue(null);
-    prismaMock.user.findUnique.mockResolvedValue({
+    prismaMock.user.findFirst.mockResolvedValue({
       ...baseUser,
       passwordHash: hash,
       failedAttempts: 3,
@@ -403,7 +414,7 @@ describe('AuthService', () => {
     const service = (await module.compile()).get(AuthService);
 
     localAuthProvider.authenticate.mockResolvedValue({ ...baseUser, passwordHash: hash });
-    await service.login({ email, password });
+    await service.login({ login: email, password });
     expect(prismaMock.user.update).toHaveBeenCalledWith({
       where: { id: userId },
       data: { failedAttempts: 0, lockedUntil: null },
@@ -416,7 +427,7 @@ describe('AuthService', () => {
     prismaMock.parametreSecurite.findUnique.mockResolvedValue({
       mfaRoles: ['ADMINISTRATEUR'],
     } as any);
-    prismaMock.user.findUnique.mockResolvedValue({
+    prismaMock.user.findFirst.mockResolvedValue({
       ...baseUser,
       passwordHash: hash,
       mfaActive: true,
@@ -427,7 +438,7 @@ describe('AuthService', () => {
     const service = (await module.compile()).get(AuthService);
 
     localAuthProvider.authenticate.mockResolvedValue({ ...baseUser, passwordHash: hash });
-    await expect(service.login({ email, password })).rejects.toThrow(
+    await expect(service.login({ login: email, password })).rejects.toThrow(
       'Identifiants invalides',
     );
   });
@@ -438,7 +449,7 @@ describe('AuthService', () => {
     prismaMock.parametreSecurite.findUnique.mockResolvedValue({
       mfaRoles: ['ADMINISTRATEUR'],
     } as any);
-    prismaMock.user.findUnique.mockResolvedValue({
+    prismaMock.user.findFirst.mockResolvedValue({
       ...baseUser,
       passwordHash: hash,
       mfaActive: true,
@@ -451,7 +462,7 @@ describe('AuthService', () => {
     const service = (await module.compile()).get(AuthService);
 
     localAuthProvider.authenticate.mockResolvedValue({ ...baseUser, passwordHash: hash });
-    const result = await service.login({ email, password });
+    const result = await service.login({ login: email, password });
     expect(result.accessToken).toBe(`token-${userId}`);
   });
   });

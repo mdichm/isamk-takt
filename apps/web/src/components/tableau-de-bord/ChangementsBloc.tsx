@@ -11,7 +11,7 @@ interface ChangementsBlocProps {
 }
 
 export function ChangementsBloc({ changements }: ChangementsBlocProps) {
-  if (!changements || changements.departements.length === 0) {
+  if (!changements?.departements?.length) {
     return (
       <Card className="mb-4">
         <CardHeader>

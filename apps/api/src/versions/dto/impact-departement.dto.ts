@@ -3,7 +3,7 @@
 // GET /versions/{id}/impact
 import { IsString, IsUUID, IsBoolean, IsOptional } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import type { ImpactDepartement } from '@takt/contracts';
+import { ImpactDepartementStatut } from '@takt/db';
 
 // ============================================
 // Entrée : impact d'un département (L5-03)
@@ -23,10 +23,10 @@ export class ImpactDepartementDto {
   departementLibelle: string;
 
   @ApiProperty({
-    enum: ['IMPACTE', 'NON_IMPACTE'],
+    enum: ImpactDepartementStatut,
     description: 'Statut d impact du département',
   })
-  statut: ImpactDepartement;
+  statut: ImpactDepartementStatut;
 
   @ApiProperty({
     example: 'SEANCES_MODIFIEES',

@@ -2,8 +2,8 @@
 // TAKT - Service de droit à l'oubli (suppression/anonymisation des données personnelles) (L7-12, EX-NFR-06)
 
 import { Injectable, NotFoundException } from '@nestjs/common';
-import type { PrismaService } from '../prisma/prisma.service.js';
-import type { AuditService } from './audit.service.js';
+import { PrismaService } from '../prisma/prisma.service.js';
+import { AuditService } from './audit.service.js';
 
 @Injectable()
 export class DroitSuppressionService {

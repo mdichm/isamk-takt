@@ -9,8 +9,8 @@ import {
   Body,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
-import type { DroitRectificationService } from './droit-rectification.service.js';
-import type { RectificationDto } from './dto/droit-personnel.dto.js';
+import { DroitRectificationService } from './droit-rectification.service.js';
+import { RectificationDto } from './dto/droit-personnel.dto.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 

@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/components/shell/AuthProvider';
 import { t } from '@/lib/i18n';
+import { apiFetch } from '@/lib/api/client';
 
 const schema = z.object({
   code: z.string().length(6, 'Le code doit contenir 6 chiffres.').regex(/^\d{6}$/, 'Seuls les chiffres sont autorisés.'),
@@ -36,9 +37,8 @@ export default function MfaPage() {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch('/auth/mfa', {
+      const res = await apiFetch('/auth/mfa', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: data.code }),
       });
 

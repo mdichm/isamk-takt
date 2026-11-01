@@ -73,6 +73,7 @@ describe('AuditService Integration (EX-AUD-01, ST §2.4, §0.5)', () => {
     const user = await prisma.user.create({
       data: {
         email: 'audit.integration@example.com',
+        login: 'audit.integration',
         passwordHash: 'hash',
         firstName: 'Audit',
         lastName: 'Integration',

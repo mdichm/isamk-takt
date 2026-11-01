@@ -89,7 +89,7 @@ async function main() {
     const passwordHash = await argonHash(password);
     const user = await prisma.user.create({
       data: {
-        email: 'gestionnaire@takt.test', passwordHash, firstName: 'Gestionnaire', lastName: 'TAKT', isActive: true, provider: 'LOCAL',
+        email: 'gestionnaire@takt.test', login: 'gestionnaire', passwordHash, firstName: 'Gestionnaire', lastName: 'TAKT', isActive: true, provider: 'LOCAL',
         roles: { create: { role: RoleCode.GESTIONNAIRE, departementCode: departement.code } },
       },
       include: { roles: true },

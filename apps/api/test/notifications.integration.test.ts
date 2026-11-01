@@ -36,6 +36,7 @@ const UUID_PATTERN =
 
 const makeUser = (overrides: Record<string, unknown> = {}) => ({
   email: `${crypto.randomUUID()}@example.tn`,
+  login: `u${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`,
   passwordHash: 'hash',
   firstName: 'Test',
   lastName: 'User',
