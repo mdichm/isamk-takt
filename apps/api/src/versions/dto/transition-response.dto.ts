@@ -3,7 +3,7 @@
 // POST /versions/{id}/transitions
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import type { VersionStatut } from '@takt/db';
-import type { TransitionType } from '@takt/contracts';
+import type { TransitionType } from './transition.dto.js';
 import { WorkflowCircuitDto } from './workflow-circuit.dto.js';
 
 // ============================================

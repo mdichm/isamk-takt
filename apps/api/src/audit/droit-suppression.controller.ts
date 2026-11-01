@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
-import type { DroitSuppressionService } from './droit-suppression.service.js';
+import { DroitSuppressionService } from './droit-suppression.service.js';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 

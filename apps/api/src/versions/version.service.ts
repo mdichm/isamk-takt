@@ -39,7 +39,7 @@ import type { GenerationResponseDto } from './dto/generation-response.dto.js';
 import type { TransitionDto } from './dto/transition.dto.js';
 import type { TransitionResponseDto } from './dto/transition-response.dto.js';
 import type { WorkflowCircuitDto } from './dto/workflow-circuit.dto.js';
-import type { TransitionType } from '@takt/contracts';
+import { TransitionType } from './dto/transition.dto.js';
 import { Prisma as PrismaValue } from '@takt/db';
 import { mkdtemp, writeFile } from 'fs/promises';
 import { join } from 'path';
@@ -1868,7 +1868,7 @@ export class VersionService {
 
     // 7. Enfiler le job d'import manuel sur pg-boss
     await this.boss.send(
-      'generation:import-manuel',
+      'generation-import-manuel',
       {
         generationId: generation.id,
         semestreId: generation.semestreId,

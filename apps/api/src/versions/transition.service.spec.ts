@@ -11,7 +11,7 @@ import { VersionService } from './version.service.js';
 import { PolicyService } from '../policy/policy.service.js';
 import { NotificationsService } from '../notifications/notifications.service.js';
 import { AnneeImmutabilityService } from '../annees/annee-immutability.service.js';
-import type { TransitionType } from '@takt/contracts';
+import { TransitionType } from './dto/transition.dto.js';
 
 // ============================================
 // VersionService.transition (L5-01)
