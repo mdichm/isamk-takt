@@ -107,16 +107,21 @@ async function bootstrap() {
   );
 
   // CORS en liste blanche obligatoire (ST §5.3) — pas de '*' par défaut
-  // EN DEV: autoriser localhost:3000 (frontend) et localhost:3001 (API)
-  let corsOrigins: string[] = [];
+  // L'allow-list configurée reste la référence ; en développement, les origines
+  // locales (web :3000, API :3001) y sont ajoutées sans la remplacer.
+  const corsOriginRaw = configService.get<string>('app.cors.origin') ?? '';
+  const configuredOrigins = corsOriginRaw
+    .split(',')
+    .map((o: string) => o.trim())
+    .filter(Boolean);
+
+  let corsOrigins: string[];
   if (nodeEnv === 'development') {
-    corsOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+    corsOrigins = Array.from(
+      new Set([...configuredOrigins, 'http://localhost:3000', 'http://localhost:3001']),
+    );
   } else {
-    const corsOriginRaw = configService.get<string>('app.cors.origin') ?? '';
-    corsOrigins = corsOriginRaw
-      .split(',')
-      .map((o: string) => o.trim())
-      .filter(Boolean);
+    corsOrigins = configuredOrigins;
     if (corsOrigins.length === 0 || corsOrigins.includes('*')) {
       throw new Error('CORS_ORIGIN must be set to a non-wildcard allowlist in production');
     }
