@@ -1,12 +1,12 @@
 /**
  * Page de connexion.
- * Formulaire email/mot de passe. Le token est géré par le backend (cookie httpOnly).
+ * Formulaire login/mot de passe. Le token est géré par le backend (cookie httpOnly).
+ * Les identifiants peuvent être un login (username) OU une adresse e-mail.
  */
 
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,51 +15,53 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/components/shell/AuthProvider';
 import { t } from '@/lib/i18n';
+import { apiFetch } from '@/lib/api/client';
+import { ApiError } from '@/lib/api/errors';
 
 const schema = z.object({
-  email: z.string().email('E-mail invalide.'),
+  login: z.string().min(1, 'Identifiant requis.'),
   password: z.string().min(1, 'Le mot de passe est requis.'),
 });
 
 type FormData = z.infer<typeof schema>;
 
 export default function LoginPage() {
-  const router = useRouter();
   const { login } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { email: '', password: '' },
+    defaultValues: { login: '', password: '' },
   });
+
+  // La redirection vers /tableau-de-bord (et depuis /tableau-de-bord vers /login)
+  // est gérée par RouteGuard : c'est la seule autorité de redirection.
 
   const onSubmit = async (data: FormData) => {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch('/auth/login', {
+      // Utiliser l'API via le proxy Next.js (/api -> backend localhost:3001)
+      const res = await apiFetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: data.email, password: data.password }),
+        body: JSON.stringify({ login: data.login, password: data.password }),
       });
 
-      if (!res.ok) {
+      const body = (await res.json()) as { accessToken?: string };
+      if (!body.accessToken) {
         setError(t('invalidCredentials'));
-        setLoading(false);
         return;
       }
 
-      const body = await res.json();
-      const token = body.token as string | undefined;
-      if (token) {
-        login(token);
-        router.push('/');
+      await login(body.accessToken);
+    } catch (e) {
+      if (e instanceof ApiError) {
+        setError(e.status === 401 ? t('invalidCredentials') : e.message);
       } else {
-        setError(t('invalidCredentials'));
+        setError(t('error'));
       }
-    } catch {
-      setError(t('error'));
     } finally {
       setLoading(false);
     }
@@ -83,16 +85,17 @@ export default function LoginPage() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email">{t('emailLabel')}</Label>
+            <Label htmlFor="login">{t('loginLabel')}</Label>
             <Input
-              id="email"
-              type="email"
-              placeholder="nom@exemple.com"
-              {...form.register('email')}
+              id="login"
+              type="text"
+              placeholder="Identifiant ou e-mail"
+              autoComplete="username"
+              {...form.register('login')}
               disabled={loading}
             />
-            {form.formState.errors.email && (
-              <p className="text-xs text-red-600 dark:text-red-400">{form.formState.errors.email.message}</p>
+            {form.formState.errors.login && (
+              <p className="text-xs text-red-600 dark:text-red-400">{form.formState.errors.login.message}</p>
             )}
           </div>
 
@@ -102,6 +105,7 @@ export default function LoginPage() {
               id="password"
               type="password"
               placeholder="••••••••"
+              autoComplete="current-password"
               {...form.register('password')}
               disabled={loading}
             />

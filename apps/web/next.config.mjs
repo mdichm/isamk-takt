@@ -19,6 +19,16 @@ const nextConfig = {
   },
   // Allow loading from design-tokens package
   transpilePackages: ["@takt/design-tokens"],
+
+  // Proxy des requêtes /api/* vers le backend localhost:3001 (évite CORS et cookies cross-origin)
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://localhost:3001/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

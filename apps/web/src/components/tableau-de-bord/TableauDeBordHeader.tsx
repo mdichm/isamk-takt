@@ -12,6 +12,10 @@ interface TableauDeBordHeaderProps {
 }
 
 export function TableauDeBordHeader({ contexte }: TableauDeBordHeaderProps) {
+  if (!contexte) {
+    return null;
+  }
+
   return (
     <Card className="mb-4">
       <CardHeader className="flex flex-row items-center justify-between py-2">

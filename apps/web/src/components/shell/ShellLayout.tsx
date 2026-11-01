@@ -16,6 +16,8 @@ import { ReactNode, useEffect } from 'react';
 import { Toast } from '@/components/ui/toaster';
 import { AuthProvider, useAuth } from './AuthProvider';
 import { registerUnauthorizedHandler } from '@/lib/api/client';
+import { Navbar } from './Navbar';
+import { RouteGuard } from './RouteGuard';
 
 // Instance partagée du QueryClient (créée une fois, hors du composant pour éviter les recréations).
 const queryClient = new QueryClient({
@@ -53,7 +55,10 @@ export function ShellLayout({ children }: ShellLayoutProps) {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <AuthInitializer />
-        {children}
+        <RouteGuard>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+        </RouteGuard>
         <Toast />
       </AuthProvider>
     </QueryClientProvider>
