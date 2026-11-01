@@ -87,7 +87,8 @@ services:
     volumes:
       # Mount source for hot reload in dev (override in docker-compose.override.yml)
       - ../apps/api/src:/app/src:ro
-      - ../packages:/app/packages:ro
+      # Les paquets du workspace ne sont pas montes : l'image les embarque
+      # compiles (dist), un montage des sources casserait la resolution.
       # FileStore : seule interface d'acces aux fichiers (volume sur disque chiffre en production)
       - filestore_data:/filestore
     # Port not exposed directly - accessed via nginx on frontend network

@@ -46,6 +46,8 @@ COPY . .
 RUN pnpm --filter=@takt/db run db:generate
 # Build shared contracts package (required by API)
 RUN pnpm --filter=@takt/contracts run build
+# Build the workspace packages consumed at runtime by the API
+RUN pnpm --filter=@takt/db --filter=@takt/conflict-engine --filter=@takt/charge-engine run build
 # Build with NestJS CLI (handles TypeScript config correctly)
 RUN cd /app/apps/api && npx nest build
 
@@ -61,10 +63,25 @@ WORKDIR /app
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nestjs -u 1001 -G nodejs
 
-# Copy built application and production deps
-COPY --from=builder /app/apps/api/dist ./dist
+# FileStore : volume monte par le compose. Il doit appartenir a l'utilisateur
+# non-root, y compris quand le volume est cree a partir de l'image.
+RUN mkdir -p /filestore && chown nestjs:nodejs /filestore
+
+# Copy built application and production deps.
+# Le magasin pnpm partage (/app/node_modules/.pnpm) est indispensable : les
+# dependances directes de l'API et celles des paquets du workspace y sont
+# lies par des chemins relatifs.
+COPY --from=builder /app/apps/api/dist ./apps/api/dist
+COPY --from=builder /app/apps/api/package.json ./apps/api/package.json
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=builder /app/apps/api/package.json ./package.json
+COPY --from=deps /app/apps/api/node_modules ./apps/api/node_modules
+# Sources des paquets du workspace (client Prisma genere) puis dependances de
+# production de ces paquets : le second COPY remplace les node_modules de
+# developpement par ceux de production.
+COPY --from=builder /app/packages ./packages
+COPY --from=deps /app/packages ./packages
+
+WORKDIR /app/apps/api
 
 USER nestjs
 

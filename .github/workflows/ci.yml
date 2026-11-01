@@ -170,6 +170,11 @@ jobs:
         run: pnpm db:generate
         working-directory: ./apps/api
 
+      # Les paquets du workspace exposent leur sortie compilee : ils doivent
+      # etre construits avant les tests, comme dans les images Docker.
+      - name: Build workspace packages
+        run: pnpm --filter=@takt/db --filter=@takt/conflict-engine --filter=@takt/charge-engine --filter=@takt/engine-fet run build
+
       - name: Run integration tests
         run: pnpm test:integration
         working-directory: ./apps/api

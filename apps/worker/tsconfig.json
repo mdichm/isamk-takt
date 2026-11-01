@@ -5,7 +5,7 @@
     "moduleResolution": "NodeNext",
     "target": "ES2024",
     "outDir": "./dist",
-    "rootDir": ".",
+    "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
