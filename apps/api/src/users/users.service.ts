@@ -9,11 +9,20 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
-    const existingUser = await this.prisma.user.findUnique({
-      where: { email: createUserDto.email },
+    const existingUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [
+          { email: createUserDto.email },
+          { login: createUserDto.login },
+        ],
+      },
     });
     if (existingUser) {
-      throw new ConflictException('Cet email est déjà utilisé');
+      throw new ConflictException(
+        existingUser.email === createUserDto.email
+          ? 'Cet email est déjà utilisé'
+          : 'Ce login est déjà utilisé',
+      );
     }
 
     const passwordHash = await hashPassword(createUserDto.password);
@@ -21,6 +30,7 @@ export class UsersService {
     const user = await this.prisma.user.create({
       data: {
         email: createUserDto.email,
+        login: createUserDto.login,
         passwordHash,
         firstName: createUserDto.firstName,
         lastName: createUserDto.lastName,

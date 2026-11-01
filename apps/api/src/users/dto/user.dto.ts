@@ -7,6 +7,12 @@ export class CreateUserDto {
   @IsEmail({}, { message: 'Email invalide' })
   email: string;
 
+  @ApiProperty({ example: 'johndoe', minLength: 3, maxLength: 50 })
+  @IsString()
+  @MinLength(3, { message: 'Le login doit contenir au moins 3 caractères' })
+  @MaxLength(50, { message: 'Le login ne doit pas dépasser 50 caractères' })
+  login: string;
+
   @ApiProperty({ example: 'SecurePass123!', minLength: 8 })
   @IsString()
   @MinLength(8, { message: 'Le mot de passe doit contenir au moins 8 caractères' })
@@ -35,6 +41,13 @@ export class UpdateUserDto {
   @IsOptional()
   @IsEmail({}, { message: 'Email invalide' })
   email?: string;
+
+  @ApiPropertyOptional({ example: 'johndoe', minLength: 3, maxLength: 50 })
+  @IsOptional()
+  @IsString()
+  @MinLength(3, { message: 'Le login doit contenir au moins 3 caractères' })
+  @MaxLength(50, { message: 'Le login ne doit pas dépasser 50 caractères' })
+  login?: string;
 
   @ApiPropertyOptional({ example: 'John' })
   @IsOptional()
@@ -83,6 +96,9 @@ export class UserResponseDto {
 
   @ApiProperty()
   email: string;
+
+  @ApiProperty()
+  login: string;
 
   @ApiProperty()
   firstName: string;

@@ -27,6 +27,13 @@ export interface JwtPayload {
   roles: { role: RoleCode; departementCode?: string | null }[];
   /** Codes départementaux de l'utilisateur (pour la ScopeGuard). */
   departments: string[];
+  /**
+   * Famille de refresh tokens à laquelle la session appartient.
+   * Permet à la JwtStrategy de distinguer la rotation normale (l'ancien jeton
+   * est révoqué mais la session reste valide) d'une révocation de famille
+   * (réutilisation d'un jeton, déconnexion, réinitialisation de mot de passe).
+   */
+  familyId?: string;
 }
 
 export interface AuthResult {
@@ -62,16 +69,26 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto): Promise<AuthResult> {
-    const existingUser = await this.prisma.user.findUnique({
-      where: { email: registerDto.email },
+    // Vérifier l'unicité de l'email ET du login
+    const existingUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [
+          { email: registerDto.email },
+          { login: registerDto.login },
+        ],
+      },
     });
     if (existingUser) {
       await this.securityEvent.log({
         type: 'REGISTER_FAILURE',
         email: registerDto.email,
-        details: { reason: 'EMAIL_ALREADY_USED' },
+        details: { reason: existingUser.email === registerDto.email ? 'EMAIL_ALREADY_USED' : 'LOGIN_ALREADY_USED' },
       });
-      throw new ConflictException('Cet email est déjà utilisé');
+      throw new ConflictException(
+        existingUser.email === registerDto.email
+          ? 'Cet email est déjà utilisé'
+          : 'Ce login est déjà utilisé',
+      );
     }
 
     const longueurMin = await getLongueurMinMotDePasse(this.prisma);
@@ -86,6 +103,7 @@ export class AuthService {
     const user = await this.prisma.user.create({
       data: {
         email: registerDto.email,
+        login: registerDto.login,
         passwordHash,
         provider: 'LOCAL',
         firstName: registerDto.firstName,
@@ -114,8 +132,14 @@ export class AuthService {
     const verrouillageMinutes = params?.verrouillageMinutes ?? 15;
     const mfaRoles: RoleCode[] = (params?.mfaRoles as RoleCode[]) ?? [RoleCode.ADMINISTRATEUR];
 
-    const user = await this.prisma.user.findUnique({
-      where: { email: loginDto.email },
+    // Chercher l'utilisateur par login OU email
+    const user = await this.prisma.user.findFirst({
+      where: {
+        OR: [
+          { login: loginDto.login },
+          { email: loginDto.login },
+        ],
+      },
       include: { roles: true },
     });
 
@@ -126,7 +150,7 @@ export class AuthService {
     if (user) {
       try {
         await this.localAuthProvider.authenticate({
-          email: loginDto.email,
+          email: user.email,
           password: loginDto.password,
         });
         authenticated = true;
@@ -154,7 +178,7 @@ export class AuthService {
       // générique, aucune tentative enregistrée (anti-énumération).
       try {
         await this.localAuthProvider.authenticate({
-          email: loginDto.email,
+          email: loginDto.login,
           password: loginDto.password,
         });
       } catch {
@@ -166,7 +190,7 @@ export class AuthService {
     if (!authenticated) {
       await this.securityEvent.log({
         type: 'LOGIN_FAILURE',
-        email: loginDto.email,
+        email: loginDto.login,
         details: { reason: 'UNKNOWN_USER' },
       });
       throw new UnauthorizedException('Identifiants invalides');
@@ -300,9 +324,17 @@ export class AuthService {
       role,
       roles,
       departments,
+      // La session reste rattachée à la même famille : seule la rotation du
+      // jeton change, la famille n'est révoquée qu'en cas de réutilisation.
+      familyId: storedToken.familyId,
     };
     const accessToken = this.jwtService.sign(payload);
-    const newRefreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
+    // `jwtid` garantit un jeton distinct à chaque rotation (contrainte
+    // d'unicité sur RefreshToken.tokenHash).
+    const newRefreshToken = this.jwtService.sign(payload, {
+      expiresIn: '7d',
+      jwtid: randomUUID(),
+    });
 
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     await this.prisma.refreshToken.create({
@@ -353,18 +385,26 @@ export class AuthService {
     const departments = roles
       .map((r) => r.departementCode)
       .filter((d): d is string => Boolean(d));
+
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    const familyId = randomUUID();
     const payload: JwtPayload = {
       sub: user.id,
       email: user.email,
       role,
       roles,
       departments,
+      familyId,
     };
     const accessToken = this.jwtService.sign(payload);
-    const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
+    // `jwtid` rend chaque refresh token unique : sans lui, deux rotations
+    // dans la même seconde produisent le même JWT et violent la contrainte
+    // d'unicité sur RefreshToken.tokenHash (P2002 → 409 Conflict).
+    const refreshToken = this.jwtService.sign(payload, {
+      expiresIn: '7d',
+      jwtid: randomUUID(),
+    });
 
-    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    const familyId = randomUUID();
     await this.prisma.refreshToken.create({
       data: {
         userId: user.id,
