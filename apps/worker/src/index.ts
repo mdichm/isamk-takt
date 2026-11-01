@@ -2,6 +2,28 @@
 // TAKT Worker - pg-boss job processor avec instrumentation OpenTelemetry
 // Conforme ST §5.4 : traces OpenTelemetry (API → base → worker)
 
+import 'dotenv/config';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = resolve(fileURLToPath(import.meta.url), '..');
+// Load .env from project root (works regardless of working directory)
+// From apps/worker/src -> ../../../.env = project root
+import { config } from 'dotenv';
+const envPath = resolve(__dirname, '../../../.env');
+console.log('[Worker] Loading .env from:', envPath);
+console.log('[Worker] __dirname:', __dirname);
+console.log('[Worker] cwd:', process.cwd());
+config({ path: envPath });
+
+// Verify DATABASE_URL is loaded
+if (!process.env.DATABASE_URL) {
+  console.error('[Worker] DATABASE_URL is not set. envPath:', envPath);
+  console.error('[Worker] process.env.DATABASE_URL:', process.env.DATABASE_URL);
+  throw new Error('DATABASE_URL is not set. Please check .env file.');
+}
+console.log('[Worker] DATABASE_URL loaded successfully');
+
 import { PgBoss } from 'pg-boss';
 import { prisma } from '@takt/db';
 import type { Job } from 'pg-boss';
@@ -62,6 +84,9 @@ async function start() {
   await boss.start();
   console.log('Worker started, listening for jobs...');
 
+  // Créer les files si elles n'existent pas
+  await ensureQueuesExist();
+
   // Démarrage du scan des jobs orphelins (reprise idempotente)
   stopOrphanScan = startOrphanRecoveryScan();
 
@@ -73,45 +98,45 @@ async function start() {
   });
 
   // Generation import manuel queue — import de résultat FET manuel
-  await boss.work('generation:import-manuel', { localConcurrency: 1 }, async (jobs: Job[]) => {
+  await boss.work('generation-import-manuel', { localConcurrency: 1 }, async (jobs: Job[]) => {
     for (const job of jobs) {
       await handleGenerationImportManuelJob(job);
     }
   });
 
-  // Export queue
-  await boss.work('export', { localConcurrency: 2 }, async (jobs: Job[]) => {
-    for (const job of jobs) {
-      // Propager le contexte de trace depuis les headers du job (si envoyés par l'API)
-      const parentCtx = propagation.extract(context.active(), {
-        'traceparent': (job.data as Record<string, unknown> | undefined)?.traceparent as string | undefined,
-        'tracestate': (job.data as Record<string, unknown> | undefined)?.tracestate as string | undefined,
-      });
-
-      const tracer = trace.getTracer('takt-worker');
-      const span = tracer.startSpan('worker.job.export', {
-        attributes: {
-          'job.id': job.id,
-          'job.queue': 'export',
-        },
-      }, parentCtx);
-
-      try {
-        console.log(`Processing export job: ${job.id}`);
-        // TODO: Implement export logic
-
-        span.setStatus({ code: SpanStatusCode.OK });
-      } catch (err) {
-        span.setStatus({
-          code: SpanStatusCode.ERROR,
-          message: err instanceof Error ? err.message : 'Unknown error',
-        });
-        throw err;
-      } finally {
-        span.end();
-      }
-    }
-  });
+  // Export queue — désactivé pour l'instant (TODO: implémenter la logique d'export)
+  // await boss.work('export', { localConcurrency: 2 }, async (jobs: Job[]) => {
+  //   for (const job of jobs) {
+  //     // Propager le contexte de trace depuis les headers du job (si envoyés par l'API)
+  //     const parentCtx = propagation.extract(context.active(), {
+  //       'traceparent': (job.data as Record<string, unknown> | undefined)?.traceparent as string | undefined,
+  //       'tracestate': (job.data as Record<string, unknown> | undefined)?.tracestate as string | undefined,
+  //     });
+  //
+  //     const tracer = trace.getTracer('takt-worker');
+  //     const span = tracer.startSpan('worker.job.export', {
+  //       attributes: {
+  //         'job.id': job.id,
+  //         'job.queue': 'export',
+  //       },
+  //     }, parentCtx);
+  //
+  //     try {
+  //       console.log(`Processing export job: ${job.id}`);
+  //       // TODO: Implement export logic
+  //
+  //       span.setStatus({ code: SpanStatusCode.OK });
+  //     } catch (err) {
+  //       span.setStatus({
+  //         code: SpanStatusCode.ERROR,
+  //         message: err instanceof Error ? err.message : 'Unknown error',
+  //       });
+  //       throw err;
+  //     } finally {
+  //       span.end();
+  //     }
+  //   }
+  // });
 
   // La file e-mail est consommée par l'API (ST §4.16), qui est le seul
   // point de sortie SMTP autorisé. Le worker reste dédié aux traitements
@@ -125,6 +150,27 @@ async function start() {
     await prisma.$disconnect();
     process.exit(0);
   });
+}
+
+// S'assurer que les files pg-boss existent avant de les écouter
+async function ensureQueuesExist() {
+  const queues = [
+    'generation',
+    'generation-import-manuel',
+    'export',
+  ];
+
+  for (const queue of queues) {
+    try {
+      await boss.createQueue(queue);
+      console.log(`[Worker] Queue '${queue}' ready`);
+    } catch (err) {
+      // Ignore error if queue already exists
+      if (err instanceof Error && !err.message.includes('already exists')) {
+        console.warn(`[Worker] Could not create queue '${queue}':`, err.message);
+      }
+    }
+  }
 }
 
 start().catch((err) => {

@@ -158,7 +158,7 @@ async function buildEngineInputFromSemestre(semestreId: string): Promise<EngineI
 async function handleGenerationImportManuelJob(job: Job): Promise<void> {
   const tracer = trace.getTracer('takt-worker');
   const span = tracer.startSpan('worker.job.generation-import-manuel', {
-    attributes: { 'job.id': job.id, 'job.queue': 'generation:import-manuel' },
+    attributes: { 'job.id': job.id, 'job.queue': 'generation-import-manuel' },
   });
 
   const data = extractJobData(job);
