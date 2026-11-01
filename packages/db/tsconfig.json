@@ -2,12 +2,23 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": ".",
+    "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
-    "module": "commonjs",
-    "moduleResolution": "node10",
-    "ignoreDeprecations": "6.0"
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "ignoreDeprecations": "6.0",
+    "noEmit": false,
+    "target": "ES2024",
+    "lib": ["ES2024"],
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "sourceMap": true
   },
   "include": ["src/**/*", "src/generated/**/*"],
   "exclude": ["node_modules", "dist"]
