@@ -108,6 +108,7 @@ describe('File e-mail — intégration PostgreSQL', () => {
     const user = await prisma.user.create({
       data: {
         email: 'destinataire@example.tn',
+        login: 'destinataire',
         passwordHash: 'hash',
         firstName: 'Destinataire',
         lastName: 'TAKT',
@@ -138,6 +139,7 @@ describe('File e-mail — intégration PostgreSQL', () => {
     const user = await prisma.user.create({
       data: {
         email: 'deja-envoye@example.tn',
+        login: 'deja-envoye',
         passwordHash: 'hash',
         firstName: 'Déjà',
         lastName: 'Envoyé',
@@ -162,6 +164,7 @@ describe('File e-mail — intégration PostgreSQL', () => {
     const user = await prisma.user.create({
       data: {
         email: 'echec@example.tn',
+        login: 'echec',
         passwordHash: 'hash',
         firstName: 'Échec',
         lastName: 'SMTP',
