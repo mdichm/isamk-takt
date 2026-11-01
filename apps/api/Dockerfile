@@ -47,7 +47,7 @@ RUN pnpm --filter=@takt/db run db:generate
 # Build shared contracts package (required by API)
 RUN pnpm --filter=@takt/contracts run build
 # Build the workspace packages consumed at runtime by the API
-RUN pnpm --filter=@takt/db --filter=@takt/conflict-engine --filter=@takt/charge-engine run build
+RUN pnpm --filter=@takt/db... --filter=@takt/conflict-engine... --filter=@takt/charge-engine... run build
 # Build with NestJS CLI (handles TypeScript config correctly)
 RUN cd /app/apps/api && npx nest build
 

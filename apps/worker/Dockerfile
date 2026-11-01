@@ -45,7 +45,7 @@ RUN pnpm --filter=@takt/db run db:generate
 # Build shared contracts package (required by Worker)
 RUN pnpm --filter=@takt/contracts run build
 # Build the workspace packages consumed at runtime by the Worker
-RUN pnpm --filter=@takt/db --filter=@takt/conflict-engine --filter=@takt/engine-fet run build
+RUN pnpm --filter=@takt/db... --filter=@takt/conflict-engine... --filter=@takt/engine-fet... run build
 RUN pnpm --filter=@takt/worker run build
 
 # =============================================================================
