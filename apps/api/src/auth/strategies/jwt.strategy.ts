@@ -27,14 +27,24 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException('Utilisateur non trouvé ou inactif');
     }
 
-    // Vérifie la non-révocation via la famille de refresh tokens :
-    // si un jeton de rafraîchissement de l'utilisateur a été révoqué
-    // (vol/détection de réutilisation), la session est considérée compromise.
-    const revokedToken = await this.prisma.refreshToken.findFirst({
-      where: { userId: user.id, revokedAt: { not: null } },
-    });
-    if (revokedToken) {
-      throw new UnauthorizedException('Session révoquée');
+    // Vérifie la non-révocation via la famille de refresh tokens.
+    //
+    // La rotation normale révoque le jeton précédent tout en créant un nouveau
+    // jeton dans la MÊME famille : la session reste donc valide. C'est la
+    // révocation de toute la famille (réutilisation d'un jeton déjà révoqué,
+    // déconnexion, réinitialisation de mot de passe) qui rend la session
+    // compromise, c'est-à-dire l'absence de tout jeton actif dans la famille.
+    if (payload.familyId) {
+      const activeToken = await this.prisma.refreshToken.findFirst({
+        where: {
+          familyId: payload.familyId,
+          revokedAt: null,
+          expiresAt: { gt: new Date() },
+        },
+      });
+      if (!activeToken) {
+        throw new UnauthorizedException('Session révoquée');
+      }
     }
 
     return {

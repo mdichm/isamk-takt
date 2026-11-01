@@ -13,7 +13,9 @@ export class ValidationPipe implements PipeTransform<any> {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
-    const object = plainToInstance(metatype, value);
+    // Un corps absent (POST/PUT sans body) ne doit pas provoquer d'erreur 500 :
+    // il est normalisé en objet vide avant validation.
+    const object = plainToInstance(metatype, value ?? {});
     const errors = await validate(object, { whitelist: true, forbidNonWhitelisted: true });
     if (errors.length > 0) {
       const validationErrors: ValidationErrorItem[] = errors.flatMap((err) =>
