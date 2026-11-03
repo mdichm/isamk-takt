@@ -158,7 +158,28 @@ const MESSAGES: Record<Lang, Record<string, string>> = {
     erreurGeneration: 'Erreur de génération',
     recharger: 'Recharger',
 
-// Import manuel (L4-23)
+    // Répartitions (liste et consultation par semestre / département)
+    repartitionsTitle: 'Répartitions',
+    repartitionsSubtitle: 'Consultation des répartitions par semestre et par département.',
+    repartitionsFilters: 'Filtres',
+    repartitionsSearch: 'Rechercher une répartition',
+    repartitionsSearchPlaceholder: 'Libellé, code ou nom du département…',
+    repartitionsAllStatuts: 'Tous les statuts',
+    repartitionsAllDepartements: 'Tous les départements',
+    repartitionsAllSemestres: 'Tous les semestres',
+    repartitionsColumnSemestre: 'Semestre',
+    repartitionsColumnLibelle: 'Libellé',
+    repartitionsColumnStatut: 'Statut',
+    repartitionsColumnActions: 'Actions',
+    repartitionsEmpty: 'Aucune répartition ne correspond aux filtres sélectionnés.',
+    repartitionsError: 'Impossible de charger les répartitions.',
+    repartitionsViewAffectations: 'Consulter les affectations',
+    repartitionsTotal: '{count} répartition(s)',
+    pagePrecedente: 'Page précédente',
+    pageSuivante: 'Page suivante',
+    pageNumber: 'Page {page} sur {total}',
+
+    // Export manuel (L4-23)
     importerResultatManuel: 'Importer un résultat manuel',
     fichierMoteurSha256: 'Empreinte SHA-256 du fichier moteur',
     versionMoteur: 'Version du moteur',

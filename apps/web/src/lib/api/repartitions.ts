@@ -75,6 +75,43 @@ export interface Repartition {
 }
 
 /* ============================================================================
+   Répartition (liste)
+   ============================================================================ */
+
+export type RepartitionStatut = 'BROUILLON' | 'VALIDEE' | 'ROUVERTE';
+
+export interface RepartitionListItem {
+  id: string;
+  semestreId: string;
+  departementId: string;
+  statut: RepartitionStatut;
+  libelle?: string;
+  createdAt: string;
+  updatedAt: string;
+  semestreNumero?: number;
+  departementCode?: string;
+  departementLibelle?: string;
+}
+
+export interface PaginatedRepartitions {
+  data: RepartitionListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface RepartitionsQuery {
+  page?: number;
+  limit?: number;
+  statut?: RepartitionStatut;
+  search?: string;
+  semestreId?: string;
+  departementId?: string;
+  anneeId?: string;
+}
+
+/* ============================================================================
    Références pour le formulaire d'affectation
    ============================================================================ */
 
@@ -115,6 +152,24 @@ interface PaginatedActivityTags {
 
 export async function findRepartition(id: string): Promise<Repartition> {
   const res = await apiFetch(`/repartitions/${id}`);
+  return res.json();
+}
+
+/**
+ * Liste paginée des répartitions avec filtres (semestre, département, statut).
+ */
+export async function findAllRepartitions(
+  query?: RepartitionsQuery,
+): Promise<PaginatedRepartitions> {
+  const params = new URLSearchParams();
+  if (query?.page) params.set('page', String(query.page));
+  if (query?.limit) params.set('limit', String(query.limit));
+  if (query?.statut) params.set('statut', query.statut);
+  if (query?.search) params.set('search', query.search);
+  if (query?.semestreId) params.set('semestreId', query.semestreId);
+  if (query?.departementId) params.set('departementId', query.departementId);
+  if (query?.anneeId) params.set('anneeId', query.anneeId);
+  const res = await apiFetch(`/repartitions?${params.toString()}`);
   return res.json();
 }
 

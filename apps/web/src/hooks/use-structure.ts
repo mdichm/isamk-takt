@@ -43,10 +43,13 @@ export function useDepartements(query?: {
   limit?: number;
   search?: string;
   anneeId?: string;
+  /** Permet d'attendre une donnée amont (ex. année active) avant de déclencher l'appel. */
+  enabled?: boolean;
 }) {
   return useQuery({
     queryKey: [...DEPARTEMENTS_KEY, query],
     queryFn: () => findAllDepartements(query),
+    enabled: query?.enabled ?? true,
   });
 }
 

@@ -53,6 +53,36 @@ describe('use-structure hooks', () => {
       expect(result.current.data?.data).toHaveLength(1);
     });
 
+    it('useDepartements forwards anneeId to the API', async () => {
+      let requestedUrl = '';
+      server.use(
+        http.get('*/structure/departements', ({ request }) => {
+          requestedUrl = request.url;
+          return HttpResponse.json({ data: [], total: 0, page: 1, limit: 10, totalPages: 0 });
+        })
+      );
+      const { result } = renderHook(() => useDepartements({ anneeId: 'annee-42' }), { wrapper });
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+      expect(requestedUrl).toContain('anneeId=annee-42');
+    });
+
+    it('useDepartements does not fetch while disabled', async () => {
+      let called = false;
+      server.use(
+        http.get('*/structure/departements', () => {
+          called = true;
+          return HttpResponse.json({ data: [], total: 0, page: 1, limit: 10, totalPages: 0 });
+        })
+      );
+      const { result } = renderHook(
+        () => useDepartements({ anneeId: 'annee-1', enabled: false }),
+        { wrapper }
+      );
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      expect(called).toBe(false);
+      expect(result.current.fetchStatus).toBe('idle');
+    });
+
     it('useCreateDepartement mutates and invalidates', async () => {
       server.use(
         http.post('*/structure/departements', async ({ request }) => {
