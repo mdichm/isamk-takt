@@ -7,10 +7,19 @@ import {
   UpdateRepartitionDto,
 } from './dto/repartition.dto.js';
 import { ControleStatut, ControlesResponseDto } from './dto/repartition.dto.js';
+import { PolicyService } from '../policy/policy.service.js';
 
 vi.mock('@takt/db', () => ({
   PrismaClient: vi.fn(),
   RepartitionStatut: { BROUILLON: 'BROUILLON', VALIDEE: 'VALIDEE', ROUVERTE: 'ROUVERTE' },
+  RoleCode: {
+    ADMINISTRATEUR: 'ADMINISTRATEUR',
+    GESTIONNAIRE: 'GESTIONNAIRE',
+    RESPONSABLE_DEPARTEMENT: 'RESPONSABLE_DEPARTEMENT',
+    DIRECTION: 'DIRECTION',
+    ENSEIGNANT: 'ENSEIGNANT',
+    ETUDIANT: 'ETUDIANT',
+  },
 }));
 
 describe('RepartitionsService', () => {
@@ -69,7 +78,7 @@ describe('RepartitionsService', () => {
       },
     };
 
-    service = new RepartitionsService(prisma, audit);
+    service = new RepartitionsService(prisma, audit, new PolicyService());
   });
 
   describe('createRepartition', () => {
@@ -208,6 +217,29 @@ describe('RepartitionsService', () => {
       });
     });
 
+    it('devrait exposer le numéro de semestre et le libellé du département', async () => {
+      prisma.repartition.findMany.mockResolvedValue([
+        {
+          id: repartitionId,
+          semestreId,
+          departementId,
+          statut: 'VALIDEE',
+          libelle: 'Répartition L3 INFO S1',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          semestre: { id: semestreId, numero: 1 },
+          departement: { id: departementId, code: 'INFO', libelle: 'Informatique' },
+        },
+      ]);
+      prisma.repartition.count.mockResolvedValue(1);
+
+      const result = await service.findAllRepartitions({ page: 1, limit: 10 });
+
+      expect(result.data[0].semestreNumero).toBe(1);
+      expect(result.data[0].departementCode).toBe('INFO');
+      expect(result.data[0].departementLibelle).toBe('Informatique');
+    });
+
     it('devrait appliquer les filtres de statut, semestre et département', async () => {
       prisma.repartition.findMany.mockResolvedValue([]);
       prisma.repartition.count.mockResolvedValue(0);
@@ -224,7 +256,11 @@ describe('RepartitionsService', () => {
           statut: 'VALIDEE',
           semestreId,
           departementId,
-          OR: [{ libelle: { contains: 'INFO', mode: 'insensitive' } }],
+          OR: [
+            { libelle: { contains: 'INFO', mode: 'insensitive' } },
+            { departement: { code: { contains: 'INFO', mode: 'insensitive' } } },
+            { departement: { libelle: { contains: 'INFO', mode: 'insensitive' } } },
+          ],
         },
         skip: 0,
         take: 10,
@@ -234,6 +270,70 @@ describe('RepartitionsService', () => {
           departement: { select: { id: true, code: true, libelle: true } },
         },
       });
+    });
+
+    it('devrait filtrer par année via le semestre', async () => {
+      prisma.repartition.findMany.mockResolvedValue([]);
+      prisma.repartition.count.mockResolvedValue(0);
+
+      const anneeId = '550e8400-e29b-41d4-a716-446655440013';
+
+      await service.findAllRepartitions({ anneeId });
+
+      expect(prisma.repartition.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { semestre: { anneeId } },
+        }),
+      );
+    });
+
+    it('devrait restreindre un responsable à ses départements', async () => {
+      prisma.repartition.findMany.mockResolvedValue([]);
+      prisma.repartition.count.mockResolvedValue(0);
+
+      await service.findAllRepartitions(
+        { page: 1, limit: 10 },
+        { id: 'user-1', role: 'RESPONSABLE_DEPARTEMENT', departments: ['INFO'] },
+      );
+
+      expect(prisma.repartition.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { departement: { code: { in: ['INFO'] } } },
+        }),
+      );
+    });
+
+    it('ne doit pas restreindre les rôles à portée globale', async () => {
+      prisma.repartition.findMany.mockResolvedValue([]);
+      prisma.repartition.count.mockResolvedValue(0);
+
+      for (const role of ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION']) {
+        await service.findAllRepartitions(
+          { page: 1, limit: 10 },
+          { id: 'user-1', role, departments: ['INFO'] },
+        );
+      }
+
+      expect(prisma.repartition.findMany).toHaveBeenCalledTimes(3);
+      for (const call of prisma.repartition.findMany.mock.calls) {
+        expect(call[0].where).toEqual({});
+      }
+    });
+
+    it('ne doit rien montrer à un responsable sans département affecté', async () => {
+      prisma.repartition.findMany.mockResolvedValue([]);
+      prisma.repartition.count.mockResolvedValue(0);
+
+      await service.findAllRepartitions(
+        { page: 1, limit: 10 },
+        { id: 'user-1', role: 'RESPONSABLE_DEPARTEMENT', departments: [] },
+      );
+
+      expect(prisma.repartition.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { departement: { code: { in: [] } } },
+        }),
+      );
     });
   });
 

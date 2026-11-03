@@ -151,11 +151,9 @@ export class DirectionController {
   @ApiQuery({ name: 'semestreId', required: false, type: String })
   async findRepartitions(
     @Query() query: RepartitionQueryDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<PaginatedRepartitionsDto> {
-    return this.direction.findRepartitions(query, {
-      id: '',
-      role: 'DIRECTION',
-    } as { id: string; role: string; departments?: string[] });
+    return this.direction.findRepartitions(query, currentUser);
   }
 
   @Get('charges')
