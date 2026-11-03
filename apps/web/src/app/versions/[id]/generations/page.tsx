@@ -15,6 +15,7 @@ import {
 } from '@/components/generations';
 import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
+import { VersionNav } from '@/components/versions/version-nav';
 import {
   findVersionById,
   type Version,
@@ -168,6 +169,7 @@ export default function GenerationsPage() {
 
   return (
     <div className="p-6">
+      <VersionNav versionId={versionId} />
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold">{t('generation')}</h1>

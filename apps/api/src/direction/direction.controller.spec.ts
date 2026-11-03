@@ -80,7 +80,7 @@ describe('DirectionController', () => {
     const expected = { data: [], total: 0, page: 1, limit: 10, totalPages: 0 };
     mockFindRepartitions.mockResolvedValue(expected);
 
-    const result = await controller.findRepartitions({ page: 1, limit: 10 });
+    const result = await controller.findRepartitions({ page: 1, limit: 10 }, mockUser);
 
     expect(mockFindRepartitions).toHaveBeenCalledWith(
       { page: 1, limit: 10 },

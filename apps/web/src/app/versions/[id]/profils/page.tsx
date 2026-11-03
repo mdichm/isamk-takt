@@ -9,6 +9,7 @@ import {
   ProfilFormDialog,
 } from '@/components/profils';
 import { messages } from '@/lib/messages/fr';
+import { VersionNav } from '@/components/versions/version-nav';
 import { findVersionById, type Version } from '@/lib/api/versions';
 
 export default function ProfilsPage() {
@@ -83,6 +84,7 @@ export default function ProfilsPage() {
 
   return (
     <div className="p-6">
+      {versionId && <VersionNav versionId={versionId} />}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl font-bold">{messages.profils}</h1>

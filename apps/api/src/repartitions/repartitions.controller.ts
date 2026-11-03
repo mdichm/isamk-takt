@@ -11,7 +11,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { RepartitionsService } from './repartitions.service.js';
 import {
   CreateRepartitionDto,
@@ -60,12 +60,20 @@ export class RepartitionsController {
   @Get()
   @Permissions('repartition:read')
   @ApiOperation({ summary: 'Lister les répartitions avec pagination et filtres' })
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Numéro de page' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Taille de page' })
+  @ApiQuery({ name: 'statut', required: false, enum: ['BROUILLON', 'VALIDEE', 'ROUVERTE'], description: 'Filtrer par statut' })
+  @ApiQuery({ name: 'search', required: false, type: String, description: 'Rechercher sur le libellé, le code ou le libellé du département' })
+  @ApiQuery({ name: 'semestreId', required: false, type: String, description: 'Filtrer par semestre (UUID)' })
+  @ApiQuery({ name: 'departementId', required: false, type: String, description: 'Filtrer par département (UUID)' })
+  @ApiQuery({ name: 'anneeId', required: false, type: String, description: 'Filtrer par année (UUID)' })
   @ApiResponse({ status: 200, description: 'Liste paginée des répartitions', type: PaginatedRepartitionsDto })
   @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
   async findAllRepartitions(
     @Query() query: RepartitionQueryDto,
+    @CurrentUser() currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<PaginatedRepartitionsDto> {
-    return this.repartitionsService.findAllRepartitions(query);
+    return this.repartitionsService.findAllRepartitions(query, currentUser);
   }
 
   @Get(':id')

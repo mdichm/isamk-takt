@@ -18,6 +18,18 @@ const UNSCOPED_ROLES = new Set<RoleCode>([
 ]);
 
 /**
+ * Rôles consultant les répartitions au-delà de leur département (ST §5.2) :
+ * l'Administrateur et le Gestionnaire n'ont pas de portée, la Direction est
+ * en lecture seule globale (elle consulte les versions publiées/archivées de
+ * tous les départements).
+ */
+const GLOBAL_READ_ROLES = new Set<RoleCode>([
+  RoleCode.ADMINISTRATEUR,
+  RoleCode.GESTIONNAIRE,
+  RoleCode.DIRECTION,
+]);
+
+/**
  * Moteur de politique RBAC avec portée (département), matricé sur ST §5.2.
  * Défaut = refus ; séparation des fonctions (Gestionnaire pas d'écriture sur la
  * répartition, Direction lecture seule, Administrateur = union des droits).
@@ -128,6 +140,25 @@ export class PolicyService {
     }
     const departments = userDepartments ?? [];
     return departments.includes(targetDepartment);
+  }
+
+  /**
+   * Renvoie les codes départementaux lisibles par l'utilisateur pour une
+   * consultation transverse (liste des répartitions), ou null si sa lecture
+   * couvre tous les départements (ST §5.2).
+   *
+   * L'Administrateur et le Gestionnaire n'ont pas de portée ; la Direction est
+   * en lecture seule globale ; le Responsable est restreint à ses départements
+   * et, sans département affecté, ne voit aucune répartition.
+   */
+  scopedDepartmentsForRead(
+    role: RoleCode,
+    userDepartments: string[] | undefined,
+  ): string[] | null {
+    if (GLOBAL_READ_ROLES.has(role)) {
+      return null;
+    }
+    return userDepartments ?? [];
   }
 
   hasPermission(role: RoleCode, required: Permission[]): boolean {

@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { VersionBadge } from '@/components/versions/version-badge';
 import { VersionActions } from '@/components/versions/version-actions';
+import { VersionNav } from '@/components/versions/version-nav';
 import {
   useVersion,
   useVersionAvertissements,
@@ -60,6 +61,7 @@ function VersionPageContent({ versionId }: { versionId: string }) {
 
   return (
     <div className="p-6 max-w-4xl">
+      <VersionNav versionId={versionId} />
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-xl font-bold">

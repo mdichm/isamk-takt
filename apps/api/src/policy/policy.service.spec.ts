@@ -100,6 +100,20 @@ describe('PolicyService (matrice RBAC ST §5.2)', () => {
     expect(policy.isWithinScope(dir, undefined, undefined)).toBe(true);
   });
 
+  it('scopedDepartmentsForRead: lecture globale pour Admin, Gestionnaire et Direction', () => {
+    // null = portée illimitée (tous les départements visibles).
+    expect(policy.scopedDepartmentsForRead(adm, ['DEP1'])).toBeNull();
+    expect(policy.scopedDepartmentsForRead(ges, ['DEP1'])).toBeNull();
+    expect(policy.scopedDepartmentsForRead(dir, undefined)).toBeNull();
+  });
+
+  it('scopedDepartmentsForRead: responsable limite a ses departements', () => {
+    expect(policy.scopedDepartmentsForRead(resp, ['DEP1', 'DEP2'])).toEqual(['DEP1', 'DEP2']);
+    // Sans departement affecte, le responsable ne voit aucune repartition.
+    expect(policy.scopedDepartmentsForRead(resp, undefined)).toEqual([]);
+    expect(policy.scopedDepartmentsForRead(resp, [])).toEqual([]);
+  });
+
   it('requirePermission lance ForbiddenException en cas de refus', () => {
     expect(() =>
       policy.requirePermission(dir, ['user:manage']),

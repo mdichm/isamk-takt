@@ -129,6 +129,21 @@ describe('StructureService', () => {
       expect(result.totalPages).toBe(1);
     });
 
+    // Prisma 7 refuse la forme objet multi-champs pour `orderBy` :
+    // la liste doit rester sous forme de tableau, sinon PrismaClientValidationError (400).
+    it('should order departements with the array form required by Prisma 7', async () => {
+      prisma.departement.findMany.mockResolvedValue([]);
+      prisma.departement.count.mockResolvedValue(0);
+
+      await service.findAllDepartements({ page: 1, limit: 10 });
+
+      expect(prisma.departement.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          orderBy: [{ ordre: 'asc' }, { code: 'asc' }],
+        }),
+      );
+    });
+
     it('should find departement by id', async () => {
       prisma.departement.findUnique.mockResolvedValue({
         id: 'dep-1', anneeId, code: 'INFO', libelle: 'Informatique', ordre: 1, originId: null, createdAt: new Date(), updatedAt: new Date(),

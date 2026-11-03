@@ -86,7 +86,7 @@ export class DirectionService {
     query: RepartitionQueryDto,
     currentUser: { id: string; role: string; departments?: string[] },
   ): Promise<PaginatedRepartitionsDto> {
-    return this.repartitions.findAllRepartitions(query);
+    return this.repartitions.findAllRepartitions(query, currentUser);
   }
 
   /** Charges (lecture seule). */

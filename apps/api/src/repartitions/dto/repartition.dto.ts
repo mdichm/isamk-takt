@@ -67,6 +67,15 @@ export class RepartitionResponseDto {
 
   @ApiProperty()
   updatedAt: Date;
+
+  @ApiPropertyOptional({ description: 'Numéro du semestre (1 ou 2)' })
+  semestreNumero?: number;
+
+  @ApiPropertyOptional({ description: 'Code du département (ex. INFO)' })
+  departementCode?: string;
+
+  @ApiPropertyOptional({ description: 'Libellé du département' })
+  departementLibelle?: string;
 }
 
 export class PaginatedRepartitionsDto {
@@ -121,6 +130,11 @@ export class RepartitionQueryDto {
   @IsOptional()
   @IsUUID()
   departementId?: string;
+
+  @ApiPropertyOptional({ description: "Filtrer par année (via le semestre de la répartition)" })
+  @IsOptional()
+  @IsUUID()
+  anneeId?: string;
 }
 
 // ============================================

@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImpactSynthese } from '@/components/versions/impact-synthese';
 import { messages } from '@/lib/messages/fr';
+import { VersionNav } from '@/components/versions/version-nav';
 
 export default function ImpactPage() {
   const params = useParams();
@@ -22,6 +23,7 @@ export default function ImpactPage() {
 
   return (
     <div className="p-4 max-w-6xl">
+      <VersionNav versionId={id} />
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl font-bold mb-1">

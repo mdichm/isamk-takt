@@ -94,7 +94,7 @@ export class StructureService {
         where,
         skip,
         take: limit,
-        orderBy: { ordre: 'asc', code: 'asc' },
+        orderBy: [{ ordre: 'asc' }, { code: 'asc' }],
       }),
       this.prisma.departement.count({ where }),
     ]);
@@ -265,7 +265,7 @@ export class StructureService {
         where,
         skip,
         take: limit,
-        orderBy: { ordre: 'asc', code: 'asc' },
+        orderBy: [{ ordre: 'asc' }, { code: 'asc' }],
       }),
       this.prisma.formation.count({ where }),
     ]);
@@ -443,7 +443,7 @@ export class StructureService {
         where,
         skip,
         take: limit,
-        orderBy: { ordre: 'asc', code: 'asc' },
+        orderBy: [{ ordre: 'asc' }, { code: 'asc' }],
       }),
       this.prisma.niveau.count({ where }),
     ]);

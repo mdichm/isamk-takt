@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
+import { PolicyService } from '../policy/policy.service.js';
 import {
   CreateRepartitionDto,
   UpdateRepartitionDto,
@@ -32,7 +33,7 @@ import {
   PaginatedAffectationsDto,
   AffectationQueryDto,
 } from './dto/affectation.dto.js';
-import { RepartitionStatut } from '@takt/db';
+import { RepartitionStatut, RoleCode } from '@takt/db';
 
 const toRepartitionDto = (entity: any): RepartitionResponseDto => ({
   id: entity.id,
@@ -66,6 +67,7 @@ export class RepartitionsService {
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private policyService: PolicyService,
   ) {}
 
   async createRepartition(
@@ -127,6 +129,7 @@ export class RepartitionsService {
 
   async findAllRepartitions(
     query: RepartitionQueryDto,
+    currentUser?: { id: string; role: string; departments?: string[] },
   ): Promise<PaginatedRepartitionsDto> {
     const page = Math.max(query.page ?? 1, 1);
     const limit = Math.min(Math.max(query.limit ?? 10, 1), 100);
@@ -137,6 +140,8 @@ export class RepartitionsService {
     if (query.search) {
       where.OR = [
         { libelle: { contains: query.search, mode: 'insensitive' as const } },
+        { departement: { code: { contains: query.search, mode: 'insensitive' as const } } },
+        { departement: { libelle: { contains: query.search, mode: 'insensitive' as const } } },
       ];
     }
 
@@ -150,6 +155,18 @@ export class RepartitionsService {
 
     if (query.departementId) {
       where.departementId = query.departementId;
+    }
+
+    if (query.anneeId) {
+      where.semestre = { anneeId: query.anneeId };
+    }
+
+    // Portée départementale : un Responsable ne voit que les répartitions de
+    // ses départements (ST §5.2). `currentUser.departments` contient des codes
+    // départementaux (ex. « INFO »), d'où le filtre sur la relation.
+    const scopedDepartments = this.scopedDepartmentCodes(currentUser);
+    if (scopedDepartments) {
+      where.departement = { code: { in: scopedDepartments } };
     }
 
     const [repartitions, total] = await Promise.all([
@@ -175,12 +192,32 @@ export class RepartitionsService {
         libelle: r.libelle ?? undefined,
         createdAt: r.createdAt,
         updatedAt: r.updatedAt,
+        semestreNumero: r.semestre?.numero,
+        departementCode: r.departement?.code,
+        departementLibelle: r.departement?.libelle,
       })),
       total,
       page,
       limit,
       totalPages: Math.ceil(total / limit),
     };
+  }
+
+  /**
+   * Renvoie la liste des codes départementaux visibles par l'utilisateur, ou
+   * null si sa lecture couvre tous les départements. La règle de portée est
+   * centralisée dans `PolicyService` (ST §5.2).
+   */
+  private scopedDepartmentCodes(
+    currentUser?: { id: string; role: string; departments?: string[] },
+  ): string[] | null {
+    if (!currentUser) {
+      return null;
+    }
+    return this.policyService.scopedDepartmentsForRead(
+      currentUser.role as RoleCode,
+      currentUser.departments,
+    );
   }
 
   async findRepartitionById(id: string): Promise<RepartitionResponseDto> {

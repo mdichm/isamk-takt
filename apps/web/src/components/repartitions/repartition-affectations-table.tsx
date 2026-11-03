@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import {
-  Table, TableBody, TableCell, TableHeader, TableRow,
+  Table, TableBody, TableCell, TableHeader, TableHead, TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { messages } from '@/lib/messages/fr';
+import { t } from '@/lib/i18n';
 import { Trash2, Plus, Edit2, Lock, Unlock, History } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { getErrorMessage } from '@/lib/api/errors';
@@ -199,17 +201,17 @@ export function RepartitionAffectationsTable({ repartitionId, versionId }: Repar
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHeader className="w-1/4">{messages.columnGroupe}</TableHeader>
-              <TableHeader className="w-1/4">{messages.columnModule}</TableHeader>
-              <TableHeader>{messages.columnTypeEnseignement}</TableHeader>
-              <TableHeader>{messages.columnEnseignant}</TableHeader>
-              <TableHeader className="text-right">{messages.columnActivityTag}</TableHeader>
-              <TableHeader className="text-right">{messages.columnVolumeHebdo}</TableHeader>
-              <TableHeader className="text-right">{messages.columnSeances}</TableHeader>
-              <TableHeader className="text-right">{messages.columnDuree}</TableHeader>
-              <TableHeader className="text-right">{messages.columnEcart}</TableHeader>
-              <TableHeader className="text-right">{messages.columnVerrou}</TableHeader>
-              <TableHeader className="text-right">{messages.columnActions}</TableHeader>
+              <TableHead className="w-1/4">{messages.columnGroupe}</TableHead>
+              <TableHead className="w-1/4">{messages.columnModule}</TableHead>
+              <TableHead>{messages.columnTypeEnseignement}</TableHead>
+              <TableHead>{messages.columnEnseignant}</TableHead>
+              <TableHead className="text-right">{messages.columnActivityTag}</TableHead>
+              <TableHead className="text-right">{messages.columnVolumeHebdo}</TableHead>
+              <TableHead className="text-right">{messages.columnSeances}</TableHead>
+              <TableHead className="text-right">{messages.columnDuree}</TableHead>
+              <TableHead className="text-right">{messages.columnEcart}</TableHead>
+              <TableHead className="text-right">{messages.columnVerrou}</TableHead>
+              <TableHead className="text-right">{messages.columnActions}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -223,7 +225,18 @@ export function RepartitionAffectationsTable({ repartitionId, versionId }: Repar
               affectations.map((a) => (
                 <TableRow key={a.id}>
                   <TableCell className="font-medium">{a.groupeId ?? '—'}</TableCell>
-                  <TableCell>{a.moduleId}</TableCell>
+                  <TableCell>
+                    {/* Accès contextuel aux volumes du module (L2-02). */}
+                    <div className="flex flex-col">
+                      <span>{a.moduleId}</span>
+                      <Link
+                        href={`/modules/${a.moduleId}/volumes`}
+                        className="text-xs text-primary underline underline-offset-2"
+                      >
+                        {t('modulesVolumes')}
+                      </Link>
+                    </div>
+                  </TableCell>
                   <TableCell>{a.typeEnseignementId}</TableCell>
                   <TableCell>{a.enseignantId}</TableCell>
                   <TableCell className="text-right">{a.activityTagId ?? '—'}</TableCell>
