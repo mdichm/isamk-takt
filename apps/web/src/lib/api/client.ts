@@ -1,7 +1,34 @@
 import { getTokenFromCookie } from '@/lib/auth';
 import { ApiError } from './errors';
 
-const API_BASE = '';
+/**
+ * Préfixe des appels API côté navigateur.
+ *
+ * Le web et l'API sont servis sous la même origine : le proxy Next
+ * (`next.config.mjs`) en développement et nginx (`infra/nginx.conf`) en
+ * production routent tous deux « /api/* » vers le backend. Les chemins
+ * relatifs doivent donc passer par ce préfixe, faute de quoi ils sont
+ * interprétés comme des routes du front (404 ou page HTML).
+ */
+const API_BASE = '/api';
+
+/**
+ * Résout l'URL effective d'un appel API.
+ *
+ * - URL absolue : inchangée (appel direct à l'API, CORS inclus).
+ * - Chemin déjà préfixé par « /api » : inchangé (pas de double préfixe).
+ * - Chemin relatif : préfixé par « /api » (ex. « /repartitions?page=1 »
+ *   devient « /api/repartitions?page=1 »).
+ */
+function resolveApiUrl(input: string): string {
+  if (input.startsWith('http')) {
+    return input;
+  }
+  if (input === API_BASE || input.startsWith(`${API_BASE}/`)) {
+    return input;
+  }
+  return `${API_BASE}${input.startsWith('/') ? '' : '/'}${input}`;
+}
 
 /**
  * Endpoints d'authentification pour lesquels le refresh automatique est
@@ -95,7 +122,7 @@ export async function apiFetch(
   input: string,
   init?: RequestInit,
 ): Promise<Response> {
-  const url = input.startsWith('http') ? input : `${API_BASE}${input}`;
+  const url = resolveApiUrl(input);
 
   const isFormData = init?.body instanceof FormData;
   const headers: Record<string, string> = {};
