@@ -18,6 +18,7 @@ import { AuthProvider, useAuth } from './AuthProvider';
 import { registerUnauthorizedHandler } from '@/lib/api/client';
 import { Navbar } from './Navbar';
 import { RouteGuard } from './RouteGuard';
+import Sidebar from './Sidebar';
 
 // Instance partagée du QueryClient (créée une fois, hors du composant pour éviter les recréations).
 const queryClient = new QueryClient({
@@ -56,8 +57,13 @@ export function ShellLayout({ children }: ShellLayoutProps) {
       <AuthProvider>
         <AuthInitializer />
         <RouteGuard>
-          <Navbar />
-          <main className="flex-1">{children}</main>
+          <div className="flex min-h-screen w-full">
+            <Sidebar />
+            <div className="flex min-w-0 flex-1 flex-col">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+            </div>
+          </div>
         </RouteGuard>
         <Toast />
       </AuthProvider>

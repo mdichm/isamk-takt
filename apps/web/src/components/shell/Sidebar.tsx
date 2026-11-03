@@ -2,7 +2,14 @@
  * Sidebar - Navigation latérale conditionnée par rôle.
  *
  * Le menu affiche uniquement les entrées autorisées au rôle de l'utilisateur
- * connecté. Les libellés sont externalisés via i18n (fonction t()).
+ * connecté (règle L0-29). Les libellés sont externalisés via i18n (fonction t()).
+ * Les entrées sont regroupées par sections, conformément à la charte TAKT
+ * V2.3.6 (« Structure courte, hiérarchie claire »).
+ *
+ * Les écrans liés à une version (profils, générations, validation, impact,
+ * prévisualisation) et les volumes par module ne figurent pas dans le menu
+ * global : ce sont des accès contextuels, depuis la version et depuis la
+ * répartition (voir VersionNav et le tableau des affectations).
  */
 
 'use client';
@@ -11,21 +18,65 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from './AuthProvider';
 import { t } from '@/lib/i18n';
+import type { UserRole } from '@/lib/auth';
 
-type Role =
-  | 'ADMINISTRATEUR'
-  | 'GESTIONNAIRE'
-  | 'RESPONSABLE_DEPARTEMENT'
-  | 'DIRECTION'
-  | 'ENSEIGNANT'
-  | 'ETUDIANT';
+/** Sections de navigation, dans l'ordre d'affichage de la charte. */
+type NavSectionKey =
+  | 'vueEnsemble'
+  | 'donnees'
+  | 'planning'
+  | 'ressources'
+  | 'rapports'
+  | 'administration'
+  | 'direction';
 
 type NavEntry = {
   label: string;
   href: string;
-  roles: Role[];
+  roles: UserRole[];
   icon: React.ReactNode;
+  section: NavSectionKey;
 };
+
+/** Ordre d'affichage des sections. */
+const SECTION_ORDER: NavSectionKey[] = [
+  'vueEnsemble',
+  'donnees',
+  'planning',
+  'ressources',
+  'rapports',
+  'administration',
+  'direction',
+];
+
+/** Clé i18n du libellé de chaque section. */
+const SECTION_LABEL_KEYS: Record<NavSectionKey, string> = {
+  vueEnsemble: 'navSectionVueEnsemble',
+  donnees: 'navSectionDonnees',
+  planning: 'navSectionPlanning',
+  ressources: 'navSectionRessources',
+  rapports: 'navSectionRapports',
+  administration: 'navSectionAdministration',
+  direction: 'navSectionDirection',
+};
+
+/** Tous les rôles de l'application (ST_TAKT §0.3, règle RC-11). */
+const ALL_ROLES: UserRole[] = [
+  'ADMINISTRATEUR',
+  'GESTIONNAIRE',
+  'RESPONSABLE_DEPARTEMENT',
+  'DIRECTION',
+  'ENSEIGNANT',
+  'ETUDIANT',
+];
+
+/** Rôles de pilotage : Administrateur, Gestionnaire, Responsable, Direction. */
+const PILOTAGE_ROLES: UserRole[] = [
+  'ADMINISTRATEUR',
+  'GESTIONNAIRE',
+  'RESPONSABLE_DEPARTEMENT',
+  'DIRECTION',
+];
 
 const icon = (d: string) => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,7 +92,6 @@ const SLOTS = icon('M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z');
 const RAMADAN = icon('M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.29l-.707-.707M12 19l.707-.707M5 19l.707.707M21 19l-.707.707');
 const IMPORT = icon('M11.586 15.692a1 1 0 00-1.172 0L8.5 14.692V3h5a1 1 0 011 1v9.692l2.293 2.293a1 1 0 001.172 0l3.293-3.293a1 1 0 011.172 0l3.293 3.293a1 1 0 001.172 0l3.293-3.293a1 1 0 011.172 0l3.293 3.293z');
 const SECURITY = icon('M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.047A7 7 0 003 11c0 1.611.55 3.093 1.456 4.233A10.077 10.077 0 015 20c-5.623 0-10-4.477-10-10a9.876 9.876 0 011.565-3.047c-.466-2.259.446-4.536 1.93-6.246A11.955 11.955 0 0112 2.944z');
-const VOLUMES = icon('M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z');
 const RULES = icon('M12 9v3.936c-.584.312-1 .995-1 1.564s.416 1.252 1 1.564V21h6v-3.5c0-.567-.224-1.067-.595-1.436M4.929 9.737c.577-.577 1.448-.577 2.025 0l.082.082a7 7 0 000 9.9l.082.082c.577.577 1.448.577 2.025 0l.082-.082a7 7 0 000-9.9l-.082-.082c-.577-.577-1.448-.577-2.025 0l-.082.082z');
 const REPARTITIONS = icon("M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z");
 const DEMANDES = icon("M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10");
@@ -53,75 +103,135 @@ const NOTIF = icon('M18.364 5.636l-.707-.707a3 3 0 00-4.242 4.242l.707.707q.112.
 const DIRECTION = icon('M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2-2z');
 
 const NAV_ENTRIES: NavEntry[] = [
-  { label: t('home'), href: '/', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT', 'ETUDIANT'], icon: DASHBOARD },
-  { label: t('tableauDeBord'), href: '/tableau-de-bord', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: DASHBOARD },
-  { label: t('structure'), href: '/structure', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT'], icon: STRUCTURE },
-  { label: t("repartitions"), href: "/repartitions", roles: ["ADMINISTRATEUR", "GESTIONNAIRE", "RESPONSABLE_DEPARTEMENT", "DIRECTION"], icon: REPARTITIONS },
-  { label: t('demandes'), href: '/demandes', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: DEMANDES },
-  { label: t('enseignants'), href: '/enseignants', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: USERS },
-  { label: t('salles'), href: '/salles', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: STRUCTURE },
-  { label: t('creneaux'), href: '/creneaux', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: SLOTS },
-  { label: t('ramadan'), href: '/ramadan', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: RAMADAN },
-  { label: t('covoiturage'), href: '/covoiturage', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: COVOITURAGE },
-  { label: t('notifications'), href: '/notifications', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT', 'ETUDIANT'], icon: NOTIF },
-  { label: t('import'), href: '/import', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: IMPORT },
-  { label: t('adminUsers'), href: '/admin/users', roles: ['ADMINISTRATEUR'], icon: USERS },
-  { label: t('adminCircuit'), href: '/admin/circuit', roles: ['ADMINISTRATEUR'], icon: CIRCUIT },
-  { label: t('adminSecurity'), href: '/admin/security', roles: ['ADMINISTRATEUR'], icon: SECURITY },
-  { label: t('adminSecurityEvents'), href: '/admin/security-events', roles: ['ADMINISTRATEUR'], icon: SECURITY },
-  { label: t('modulesVolumes'), href: '/modules', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: VOLUMES },
-  { label: t('parametrageCharge'), href: '/charge/rulesets', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: RULES },
-  { label: t('charges'), href: '/charges', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: CHARGES },
-  { label: t('chargesAnnueles'), href: '/charges/annuelles', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: CHARGES },
-  { label: t('contraintes'), href: '/contraintes', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES },
-  { label: t('profils'), href: '/versions/[id]/profils', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES },
-  { label: t('generations'), href: '/versions/[id]/generations', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES },
-  { label: t('validation'), href: '/versions/[id]/validation', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: RULES },
-  { label: t('impact'), href: '/versions/[id]/impact', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT'], icon: RULES },
-  { label: t('previsualisation'), href: '/versions/[id]/previsualisation', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: RULES },
-  { label: t('espaceDirection'), href: '/direction', roles: ['DIRECTION'], icon: DIRECTION },
-  { label: t('planningPublieArchivé'), href: '/direction/planning', roles: ['DIRECTION'], icon: DASHBOARD },
-  { label: t('audit'), href: '/direction/audit', roles: ['DIRECTION'], icon: SECURITY },
-  { label: t('exportsDirection'), href: '/direction/exports', roles: ['DIRECTION'], icon: IMPORT },
-  { label: t('exportsTitle'), href: '/exports', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION'], icon: EXPORT },
-  { label: t('exportConfigTitle'), href: '/export-config', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: EXPORT },
+  // Vue d'ensemble
+  { label: t('home'), href: '/', roles: ALL_ROLES, icon: DASHBOARD, section: 'vueEnsemble' },
+  { label: t('tableauDeBord'), href: '/tableau-de-bord', roles: PILOTAGE_ROLES, icon: DASHBOARD, section: 'vueEnsemble' },
+  { label: t('notifications'), href: '/notifications', roles: ALL_ROLES, icon: NOTIF, section: 'vueEnsemble' },
+
+  // Données
+  { label: t('structure'), href: '/structure', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'RESPONSABLE_DEPARTEMENT', 'DIRECTION', 'ENSEIGNANT'], icon: STRUCTURE, section: 'donnees' },
+  { label: t('repartitions'), href: '/repartitions', roles: PILOTAGE_ROLES, icon: REPARTITIONS, section: 'donnees' },
+  { label: t('demandes'), href: '/demandes', roles: PILOTAGE_ROLES, icon: DEMANDES, section: 'donnees' },
+  { label: t('enseignants'), href: '/enseignants', roles: PILOTAGE_ROLES, icon: USERS, section: 'donnees' },
+  { label: t('salles'), href: '/salles', roles: PILOTAGE_ROLES, icon: STRUCTURE, section: 'donnees' },
+  { label: t('import'), href: '/import', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: IMPORT, section: 'donnees' },
+  { label: t('charges'), href: '/charges', roles: PILOTAGE_ROLES, icon: CHARGES, section: 'donnees' },
+  { label: t('chargesAnnueles'), href: '/charges/annuelles', roles: PILOTAGE_ROLES, icon: CHARGES, section: 'donnees' },
+  { label: t('contraintes'), href: '/contraintes', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE', 'DIRECTION'], icon: RULES, section: 'donnees' },
+  { label: t('parametrageCharge'), href: '/charge/rulesets', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: RULES, section: 'donnees' },
+
+  // Planning
+  { label: t('creneaux'), href: '/creneaux', roles: PILOTAGE_ROLES, icon: SLOTS, section: 'planning' },
+  { label: t('ramadan'), href: '/ramadan', roles: PILOTAGE_ROLES, icon: RAMADAN, section: 'planning' },
+
+  // Ressources
+  { label: t('covoiturage'), href: '/covoiturage', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: COVOITURAGE, section: 'ressources' },
+
+  // Rapports
+  { label: t('exportsTitle'), href: '/exports', roles: PILOTAGE_ROLES, icon: EXPORT, section: 'rapports' },
+  { label: t('exportConfigTitle'), href: '/export-config', roles: ['ADMINISTRATEUR', 'GESTIONNAIRE'], icon: EXPORT, section: 'rapports' },
+
+  // Administration
+  { label: t('adminUsers'), href: '/admin/users', roles: ['ADMINISTRATEUR'], icon: USERS, section: 'administration' },
+  { label: t('adminCircuit'), href: '/admin/circuit', roles: ['ADMINISTRATEUR'], icon: CIRCUIT, section: 'administration' },
+  { label: t('adminSecurity'), href: '/admin/security', roles: ['ADMINISTRATEUR'], icon: SECURITY, section: 'administration' },
+  { label: t('adminSecurityEvents'), href: '/admin/security-events', roles: ['ADMINISTRATEUR'], icon: SECURITY, section: 'administration' },
+
+  // Direction
+  { label: t('espaceDirection'), href: '/direction', roles: ['DIRECTION'], icon: DIRECTION, section: 'direction' },
+  { label: t('planningPublieArchivé'), href: '/direction/planning', roles: ['DIRECTION'], icon: DASHBOARD, section: 'direction' },
+  { label: t('audit'), href: '/direction/audit', roles: ['DIRECTION'], icon: SECURITY, section: 'direction' },
+  { label: t('exportsDirection'), href: '/direction/exports', roles: ['DIRECTION'], icon: IMPORT, section: 'direction' },
 ];
 
-export default function Sidebar() {
-  const { role } = useAuth();
-  const pathname = usePathname();
+/**
+ * Détermine l'entrée active pour la route courante.
+ * Le lien le plus spécifique l'emporte (par exemple « Charges annuelles »
+ * plutôt que « Charges »).
+ */
+function findActiveHref(pathname: string, entries: NavEntry[]): string | null {
+  const exact = entries.find((entry) => entry.href === pathname);
+  if (exact) {
+    return exact.href;
+  }
+  const candidates = entries.filter(
+    (entry) => entry.href !== '/' && pathname.startsWith(`${entry.href}/`),
+  );
+  if (candidates.length === 0) {
+    return null;
+  }
+  return candidates.reduce((longest, entry) =>
+    entry.href.length > longest.href.length ? entry : longest,
+  ).href;
+}
 
-  const entries = NAV_ENTRIES.filter((e) => e.roles.includes(role as Role));
+export default function Sidebar() {
+  const { role, isAuthenticated } = useAuth();
+  const pathname = usePathname() ?? '/';
+
+  // Aucun menu pour les visiteurs non authentifiés (pages /login, /mfa, /password-reset).
+  if (!isAuthenticated || !role) {
+    return null;
+  }
+
+  const entries = NAV_ENTRIES.filter((entry) => entry.roles.includes(role));
+  const activeHref = findActiveHref(pathname, entries);
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-20 w-64 border-r border-solid border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-50 transition-colors">
-      <nav className="flex flex-col h-full py-4">
-        <div className="px-4 mb-6">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">TAKT</span>
-          </div>
-        </div>
-        <div className="px-3 space-y-1">
-          <h2 className="px-3 text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-3">
-            {t('nav')}
-          </h2>
-          {entries.map((entry) => {
-            const isActive = pathname === entry.href;
-            return (
-              <Link
-                key={entry.href}
-                href={entry.href}
-                className={`
-                  flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors
-                  ${isActive ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-white' : 'text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900'}
-                `}
-              >
-                {entry.icon}
-                {entry.label}
-              </Link>
-            );
-          })}
-        </div>
+    <aside
+      aria-label={t('nav')}
+      className="sticky top-0 z-30 flex h-screen w-64 shrink-0 flex-col border-r border-[var(--semantic-color-border-subtle)] bg-[var(--semantic-color-surface-navigation)] text-[var(--color-navigation_on_deep-text_primary)]"
+    >
+      <div className="flex items-center px-5 py-5">
+        <span className="font-brand text-lg font-bold tracking-[0.3em]">
+          {t('appTitle')}
+        </span>
+      </div>
+      <nav className="flex-1 overflow-y-auto px-3 pb-6">
+        {SECTION_ORDER.map((sectionKey) => {
+          const sectionEntries = entries.filter(
+            (entry) => entry.section === sectionKey,
+          );
+          if (sectionEntries.length === 0) {
+            return null;
+          }
+          return (
+            <div key={sectionKey} className="mb-5">
+              <h2 className="mb-2 px-3 text-[10px] font-bold uppercase tracking-wider text-[var(--color-navigation_on_deep-text_secondary)]">
+                {t(SECTION_LABEL_KEYS[sectionKey])}
+              </h2>
+              <ul className="space-y-0.5">
+                {sectionEntries.map((entry) => {
+                  const isActive = entry.href === activeHref;
+                  return (
+                    <li key={entry.href}>
+                      <Link
+                        href={entry.href}
+                        aria-current={isActive ? 'page' : undefined}
+                        className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                          isActive
+                            ? 'bg-white/10 text-[var(--color-navigation_on_deep-text_primary)]'
+                            : 'text-[var(--color-navigation_on_deep-text_secondary)] hover:bg-white/5 hover:text-[var(--color-navigation_on_deep-text_primary)]'
+                        }`}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`h-4 w-0.5 rounded-full ${
+                            isActive
+                              ? 'bg-[var(--color-navigation_on_deep-active_indicator)]'
+                              : 'bg-transparent'
+                          }`}
+                        />
+                        {entry.icon}
+                        <span>{entry.label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        })}
       </nav>
     </aside>
   );
