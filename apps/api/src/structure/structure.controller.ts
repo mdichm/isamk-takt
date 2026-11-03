@@ -46,7 +46,7 @@ export class StructureController {
   // ============================================
 
   @Post('departements')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @ApiOperation({ summary: 'Créer un département' })
   @ApiResponse({ status: 201, description: 'Département créé', type: DepartementResponseDto })
   @ApiResponse({ status: 404, description: 'Année parente non trouvée' })
@@ -56,7 +56,7 @@ export class StructureController {
   }
 
   @Get('departements')
-  @Permissions('structure:read')
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Lister les départements avec pagination' })
   @ApiResponse({ status: 200, description: 'Liste paginée des départements', type: PaginatedDepartementsDto })
   async findAllDepartements(@Query() query: DepartementQueryDto): Promise<PaginatedDepartementsDto> {
@@ -64,7 +64,7 @@ export class StructureController {
   }
 
   @Get('departements/:id')
-  @Permissions('structure:read')
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Obtenir un département par ID' })
   @ApiParam({ name: 'id', description: 'ID du département (UUID)' })
   @ApiResponse({ status: 200, description: 'Département trouvé', type: DepartementResponseDto })
@@ -74,7 +74,7 @@ export class StructureController {
   }
 
   @Patch('departements/:id')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @ApiOperation({ summary: 'Mettre à jour un département' })
   @ApiParam({ name: 'id', description: 'ID du département (UUID)' })
   @ApiResponse({ status: 200, description: 'Département mis à jour', type: DepartementResponseDto })
@@ -88,7 +88,7 @@ export class StructureController {
   }
 
   @Delete('departements/:id')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer un département' })
   @ApiParam({ name: 'id', description: 'ID du département (UUID)' })
@@ -100,7 +100,7 @@ export class StructureController {
   }
 
   @Patch('departements/reorder')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Réordonner les départements d\'une année' })
   @ApiResponse({ status: 204, description: 'Départements réordonnés' })
@@ -115,7 +115,7 @@ export class StructureController {
   // ============================================
 
   @Post('departements/:departementId/formations')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @ApiOperation({ summary: 'Créer une formation pour un département' })
   @ApiParam({ name: 'departementId', description: 'ID du département parent (UUID)' })
   @ApiResponse({ status: 201, description: 'Formation créée', type: FormationResponseDto })
@@ -129,7 +129,7 @@ export class StructureController {
   }
 
   @Get('departements/:departementId/formations')
-  @Permissions('structure:read')
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Lister les formations d\'un département' })
   @ApiParam({ name: 'departementId', description: 'ID du département parent (UUID)' })
   @ApiResponse({ status: 200, description: 'Liste paginée des formations', type: PaginatedFormationsDto })
@@ -141,7 +141,7 @@ export class StructureController {
   }
 
   @Get('formations/:id')
-  @Permissions('structure:read')
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Obtenir une formation par ID' })
   @ApiParam({ name: 'id', description: 'ID de la formation (UUID)' })
   @ApiResponse({ status: 200, description: 'Formation trouvée', type: FormationResponseDto })
@@ -151,7 +151,7 @@ export class StructureController {
   }
 
   @Patch('formations/:id')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @ApiOperation({ summary: 'Mettre à jour une formation' })
   @ApiParam({ name: 'id', description: 'ID de la formation (UUID)' })
   @ApiResponse({ status: 200, description: 'Formation mise à jour', type: FormationResponseDto })
@@ -165,7 +165,7 @@ export class StructureController {
   }
 
   @Delete('formations/:id')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer une formation' })
   @ApiParam({ name: 'id', description: 'ID de la formation (UUID)' })
@@ -177,7 +177,7 @@ export class StructureController {
   }
 
   @Patch('formations/reorder')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Réordonner les formations d\'un département' })
   @ApiResponse({ status: 204, description: 'Formations réordonnées' })
@@ -192,7 +192,7 @@ export class StructureController {
   // ============================================
 
   @Post('formations/:formationId/niveaux')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @ApiOperation({ summary: 'Créer un niveau pour une formation' })
   @ApiParam({ name: 'formationId', description: 'ID de la formation parente (UUID)' })
   @ApiResponse({ status: 201, description: 'Niveau créé', type: NiveauResponseDto })
@@ -206,7 +206,7 @@ export class StructureController {
   }
 
   @Get('formations/:formationId/niveaux')
-  @Permissions('structure:read')
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Lister les niveaux d\'une formation' })
   @ApiParam({ name: 'formationId', description: 'ID de la formation parente (UUID)' })
   @ApiResponse({ status: 200, description: 'Liste paginée des niveaux', type: PaginatedNiveauxDto })
@@ -218,7 +218,7 @@ export class StructureController {
   }
 
   @Get('niveaux/:id')
-  @Permissions('structure:read')
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Obtenir un niveau par ID' })
   @ApiParam({ name: 'id', description: 'ID du niveau (UUID)' })
   @ApiResponse({ status: 200, description: 'Niveau trouvé', type: NiveauResponseDto })
@@ -228,7 +228,7 @@ export class StructureController {
   }
 
   @Patch('niveaux/:id')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @ApiOperation({ summary: 'Mettre à jour un niveau' })
   @ApiParam({ name: 'id', description: 'ID du niveau (UUID)' })
   @ApiResponse({ status: 200, description: 'Niveau mis à jour', type: NiveauResponseDto })
@@ -242,7 +242,7 @@ export class StructureController {
   }
 
   @Delete('niveaux/:id')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer un niveau' })
   @ApiParam({ name: 'id', description: 'ID du niveau (UUID)' })
@@ -253,7 +253,7 @@ export class StructureController {
   }
 
   @Patch('niveaux/reorder')
-  @Permissions('structure:write')
+  @Permissions('referentiel:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Réordonner les niveaux d\'une formation' })
   @ApiResponse({ status: 204, description: 'Niveaux réordonnés' })
