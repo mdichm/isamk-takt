@@ -67,6 +67,8 @@ function CouvertureCell({ value }: { value: number }) {
 }
 
 export function CompletudeTable({ data, isLoading, error, versionId }: CompletudeTableProps) {
+  const rows = useMemo(() => data?.parAffectation ?? [], [data]);
+
   if (isLoading) {
     return (
       <Card className="p-8 text-center">
@@ -90,8 +92,6 @@ export function CompletudeTable({ data, isLoading, error, versionId }: Completud
       </Card>
     );
   }
-
-  const rows = useMemo(() => data.parAffectation, [data]);
 
   return (
     <div className="space-y-6">

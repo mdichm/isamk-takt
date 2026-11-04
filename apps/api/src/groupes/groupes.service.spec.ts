@@ -189,6 +189,11 @@ describe('GroupesService', () => {
       expect(result.page).toBe(1);
       expect(result.limit).toBe(10);
       expect(result.totalPages).toBe(1);
+      expect(prisma.groupe.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          orderBy: [{ ordre: 'asc' }, { code: 'asc' }],
+        }),
+      );
     });
   });
 

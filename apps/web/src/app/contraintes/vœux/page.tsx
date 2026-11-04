@@ -19,7 +19,7 @@ import {
   SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
+  Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import {
@@ -82,13 +82,27 @@ export default function VoeuxPage() {
   const [selectedSemestreId, setSelectedSemestreId] = useState<string>('');
   const [selectedEnseignantId, setSelectedEnseignantId] = useState<string>('');
   const [editingVoeu, setEditingVoeu] = useState<VoeuResponseDto | null>(null);
-  const [role, setRole] = useState<UserRole | undefined>(getCurrentUserRole());
+  const [role] = useState<UserRole | undefined>(getCurrentUserRole());
   const canManage = canManageVoeu(role);
   const { toast } = useToast();
 
   const { data: annees, isPending: anneesPending } = useAnnees();
 
   const defaultAnneeId = annees?.[0]?.id ?? '';
+
+  const { data, error } = useVoeux(
+    {
+      semestreId: selectedSemestreId || undefined,
+      enseignantId: selectedEnseignantId || undefined,
+      page: 1,
+      limit: 50,
+    },
+    role !== undefined && !anneesPending,
+  );
+
+  const createMutation = useCreateVoeu();
+  const updateMutation = useUpdateVoeu();
+  const deleteMutation = useDeleteVoeu();
 
   if (role === undefined || anneesPending) {
     return (
@@ -97,17 +111,6 @@ export default function VoeuxPage() {
       </div>
     );
   }
-
-  const { data, isPending, error } = useVoeux({
-    semestreId: selectedSemestreId || undefined,
-    enseignantId: selectedEnseignantId || undefined,
-    page: 1,
-    limit: 50,
-  });
-
-  const createMutation = useCreateVoeu();
-  const updateMutation = useUpdateVoeu();
-  const deleteMutation = useDeleteVoeu();
 
   if (error) {
     toast({

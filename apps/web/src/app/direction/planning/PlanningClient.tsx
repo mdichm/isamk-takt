@@ -31,17 +31,6 @@ export function PlanningClient({
   );
   const [page, setPage] = useState(1);
 
-  if (role !== ROLE_DIRECTION) {
-    return (
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-2">{t('planningPublieArchivé')}</h1>
-        <div className="p-3 rounded bg-destructive/10 border border-destructive/20 text-destructive text-sm">
-          {t('accessDenied')}
-        </div>
-      </div>
-    );
-  }
-
   const seancesQuery = useQuery({
     queryKey: ['direction-seances', selectedVersionId, page],
     queryFn: () =>
@@ -54,9 +43,20 @@ export function PlanningClient({
             limit: 20,
             totalPages: 0,
           }),
-    enabled: !!selectedVersionId,
+    enabled: role === ROLE_DIRECTION && !!selectedVersionId,
     staleTime: 30_000,
   });
+
+  if (role !== ROLE_DIRECTION) {
+    return (
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-2">{t('planningPublieArchivé')}</h1>
+        <div className="p-3 rounded bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+          {t('accessDenied')}
+        </div>
+      </div>
+    );
+  }
 
   const error = seancesQuery.error;
   const data = seancesQuery.data;

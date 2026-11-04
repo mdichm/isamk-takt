@@ -71,6 +71,15 @@ describe('StructureController (métadonnées de permissions)', () => {
     ).toEqual(['referentiel:write']);
   });
 
+  it('expose des listes plates paginées pour les formations et les niveaux', () => {
+    expect(
+      Reflect.getMetadata(PERMISSIONS_KEY, StructureController.prototype.findAllFormationsByQuery),
+    ).toEqual(['referentiel:read']);
+    expect(
+      Reflect.getMetadata(PERMISSIONS_KEY, StructureController.prototype.findAllNiveauxByQuery),
+    ).toEqual(['referentiel:read']);
+  });
+
   it('autorise les quatre rôles métier à lire le référentiel', () => {
     for (const role of ROLES_METIER) {
       expect(policy.getPermissions(role)).toContain('referentiel:read');

@@ -199,10 +199,18 @@ export async function deleteDepartement(id: string): Promise<void> {
    ============================================================================ */
 
 export async function createFormation(input: CreateFormationInput): Promise<Formation> {
-  const res = await apiFetch(API_BASE + '/structure/formations', {
-    method: 'POST',
-    body: JSON.stringify(input),
-  });
+  const res = await apiFetch(
+    API_BASE + '/structure/departements/' + input.departementId + '/formations',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        code: input.code,
+        libelle: input.libelle,
+        ordre: input.ordre,
+        originId: input.originId,
+      }),
+    },
+  );
   return res.json();
 }
 

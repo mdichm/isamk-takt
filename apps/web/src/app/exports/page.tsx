@@ -4,17 +4,15 @@
 // TAKT - Page d'export des charges et plannings (L6-09)
 // Route : /exports — accessible à ADMINISTRATEUR, GESTIONNAIRE, RESPONSABLE_DEPARTEMENT, DIRECTION
 
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+import { useState, useEffect, useRef } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@/components/shell/AuthProvider';
 import { t } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
@@ -30,14 +28,6 @@ import {
   type ExportStyle,
   type CreateExportJobInput,
 } from '@/lib/api/exports';
-
-type Role =
-  | 'ADMINISTRATEUR'
-  | 'GESTIONNAIRE'
-  | 'RESPONSABLE_DEPARTEMENT'
-  | 'DIRECTION'
-  | 'ENSEIGNANT'
-  | 'ETUDIANT';
 
 type Version = {
   id: string;
@@ -113,6 +103,14 @@ export default function ExportsPage() {
     },
   });
 
+  const selectedVersionId = useWatch({ control: form.control, name: 'versionId' });
+  const selectedStyleId = useWatch({ control: form.control, name: 'styleId' });
+  const selectedViewId = useWatch({ control: form.control, name: 'viewId' });
+  const selectedFormat = useWatch({ control: form.control, name: 'format' });
+  const selectedMode = useWatch({ control: form.control, name: 'mode' });
+  const selectedGrille = useWatch({ control: form.control, name: 'grille' });
+  const selectedDepartementId = useWatch({ control: form.control, name: 'departementId' });
+
   // ---- Vérification du rôle ----
   const isResponsable = role === 'RESPONSABLE_DEPARTEMENT';
   const isDirection = role === 'DIRECTION';
@@ -125,23 +123,9 @@ export default function ExportsPage() {
     role === 'RESPONSABLE_DEPARTEMENT' ||
     role === 'DIRECTION';
 
-  if (!peutCreerExport) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle>{t('accessDeniedExport')}</CardTitle>
-            <CardDescription>
-              {t('accessDeniedExportDescription')}
-            </CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    );
-  }
-
   // ---- Chargement des données de référence ----
   useEffect(() => {
+    if (!peutCreerExport) return;
     let mounted = true;
     async function loadReferenceData() {
       try {
@@ -164,9 +148,10 @@ export default function ExportsPage() {
     }
     loadReferenceData();
     return () => { mounted = false; };
-  }, []);
+  }, [peutCreerExport]);
   // ---- Chargement de la liste des jobs ----
   useEffect(() => {
+    if (!peutCreerExport) return;
     let mounted = true;
     async function loadJobs() {
       try {
@@ -178,7 +163,7 @@ export default function ExportsPage() {
     }
     loadJobs();
     return () => { mounted = false; };
-  }, []);
+  }, [peutCreerExport]);
 
   // ---- Polling du statut des jobs en cours ----
   useEffect(() => {
@@ -257,7 +242,7 @@ export default function ExportsPage() {
     try {
       const { downloadUrl } = await fetchExportDownloadUrl(id);
       setDownloadUrl(downloadUrl);
-      window.location.href = downloadUrl;
+      window.location.assign(downloadUrl);
     } catch (err) {
       const message = err instanceof Error ? err.message : t('exportError');
       setError(message);
@@ -278,6 +263,22 @@ export default function ExportsPage() {
   const statutLabel = (statut: string) => {
     return STATUT_LABEL[statut] ?? statut;
   };
+
+  if (!peutCreerExport) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>{t('accessDeniedExport')}</CardTitle>
+            <CardDescription>
+              {t('accessDeniedExportDescription')}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
       {/* Header */}
@@ -322,7 +323,7 @@ export default function ExportsPage() {
                     <Label>{t('exportVersion')}</Label>
                     <Select
                       onValueChange={(val) => form.setValue('versionId', val as string)}
-                      value={form.watch('versionId') ?? undefined}
+                      value={selectedVersionId || undefined}
                       disabled={creating}
                     >
                       <SelectTrigger>
@@ -348,7 +349,7 @@ export default function ExportsPage() {
                       <Label>{t('exportStyle')}</Label>
                       <Select
                         onValueChange={(val) => form.setValue('styleId', val ?? undefined)}
-                        value={form.watch('styleId') ?? undefined}
+                        value={selectedStyleId ?? undefined}
                         disabled={creating}
                       >
                         <SelectTrigger>
@@ -375,7 +376,7 @@ export default function ExportsPage() {
                       <Label>{t('exportView')}</Label>
                       <Select
                         onValueChange={(val) => form.setValue('viewId', val ?? undefined)}
-                        value={form.watch('viewId') ?? undefined}
+                        value={selectedViewId ?? undefined}
                         disabled={creating}
                       >
                         <SelectTrigger>
@@ -400,11 +401,11 @@ export default function ExportsPage() {
                     <Label>{t('exportFormat')}</Label>
                     <Select
                       onValueChange={(val) => form.setValue('format', val as 'PDF' | 'XLSX' | 'CSV')}
-                      value={form.watch('format') ?? undefined}
+                      value={selectedFormat ?? undefined}
                       disabled={creating}
                     >
                       <SelectTrigger>
-                        <SelectValue>{(form.watch('format') as 'PDF' | 'XLSX' | 'CSV' | undefined) ?? 'CSV'}</SelectValue>
+                        <SelectValue>{selectedFormat ?? 'CSV'}</SelectValue>
                       </SelectTrigger>
                       <SelectContent>
                         {FORMATS.map((f) => (
@@ -420,11 +421,11 @@ export default function ExportsPage() {
                     <Label>{t('exportMode')}</Label>
                     <Select
                       onValueChange={(val) => form.setValue('mode', val as 'BROUILLON' | 'OFFICIEL')}
-                      value={form.watch('mode') ?? undefined}
+                      value={selectedMode ?? undefined}
                       disabled={creating}
                     >
                       <SelectTrigger>
-                        <SelectValue>{(form.watch('mode') as 'BROUILLON' | 'OFFICIEL' | undefined) ?? 'BROUILLON'}</SelectValue>
+                        <SelectValue>{selectedMode ?? 'BROUILLON'}</SelectValue>
                       </SelectTrigger>
                       <SelectContent>
                         {filteredModes.map((m) => (
@@ -440,11 +441,11 @@ export default function ExportsPage() {
                     <Label>{t('exportGrille')}</Label>
                     <Select
                       onValueChange={(val) => form.setValue('grille', val as 'NORMALE' | 'RAMADAN' | undefined)}
-                      value={form.watch('grille') ?? undefined}
+                      value={selectedGrille ?? undefined}
                       disabled={creating}
                     >
                       <SelectTrigger>
-                        <SelectValue>{(form.watch('grille') as 'NORMALE' | 'RAMADAN' | undefined) ?? 'NORMALE'}</SelectValue>
+                        <SelectValue>{selectedGrille ?? 'NORMALE'}</SelectValue>
                       </SelectTrigger>
                       <SelectContent>
                         {GRILLES.map((g) => (
@@ -461,7 +462,7 @@ export default function ExportsPage() {
                       <Label>{t('exportDepartements')}</Label>
                       <Select
                         onValueChange={(val) => form.setValue('departementId', val ?? undefined)}
-                        value={form.watch('departementId') ?? undefined}
+                        value={selectedDepartementId ?? undefined}
                         disabled={creating}
                       >
                         <SelectTrigger>
@@ -519,7 +520,7 @@ export default function ExportsPage() {
                   <Button
                     type="submit"
                     className="w-full"
-                    disabled={creating || !form.watch('versionId')}
+                    disabled={creating || !selectedVersionId}
                   >
                     {creating ? 'Chargement…' : t('exportLaunch')}
                   </Button>

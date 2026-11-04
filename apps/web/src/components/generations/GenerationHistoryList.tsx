@@ -10,11 +10,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import { GenerationStatusBadge } from './GenerationStatusBadge';
 import { GenerationAdoptDialog } from './GenerationAdoptDialog';
 import { GenerationDetailDialog } from './GenerationDetailDialog';
-import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
 import { type GenerationStatut, type GenerationSummary } from '@/lib/api/generations';
 
@@ -25,7 +23,6 @@ interface GenerationHistoryListProps {
 
 export function GenerationHistoryList({
   generations,
-  versionId,
 }: GenerationHistoryListProps) {
   const [adoptOpen, setAdoptOpen] = useState(false);
   const [selectedForAdoption, setSelectedForAdoption] =
@@ -58,12 +55,12 @@ export function GenerationHistoryList({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHeader className="w-20">{t('colDate')}</TableHeader>
-            <TableHeader>{t('colMode')}</TableHeader>
-            <TableHeader className="w-24">{t('etat')}</TableHeader>
-            <TableHeader className="w-20">{t('scoreGlobal')}</TableHeader>
-            <TableHeader className="w-20">{t('colDuree')}</TableHeader>
-            <TableHeader className="w-24">{t('colActions')}</TableHeader>
+            <TableHead className="w-20">{t('colDate')}</TableHead>
+            <TableHead>{t('colMode')}</TableHead>
+            <TableHead className="w-24">{t('etat')}</TableHead>
+            <TableHead className="w-20">{t('scoreGlobal')}</TableHead>
+            <TableHead className="w-20">{t('colDuree')}</TableHead>
+            <TableHead className="w-24">{t('colActions')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

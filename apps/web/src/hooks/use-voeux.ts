@@ -30,10 +30,11 @@ export const voeuxKeys = {
 /**
  * Hook pour récupérer la liste paginée des vœux avec filtres.
  */
-export function useVoeux(query?: VoeuQueryDto) {
+export function useVoeux(query?: VoeuQueryDto, enabled = true) {
   return useQuery({
     queryKey: voeuxKeys.list(query ?? {}),
     queryFn: () => findAllVoeux(query),
+    enabled,
     staleTime: 30_000,
   });
 }

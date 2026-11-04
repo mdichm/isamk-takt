@@ -48,7 +48,7 @@ export function usePublishVersion(versionId: string) {
       const res = await publishVersion(versionId);
       return res as PublishResponseDto;
     },
-    onSuccess: (_data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: previsualisationKeys.detail(versionId),
       });

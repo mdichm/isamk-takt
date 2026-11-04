@@ -18,6 +18,13 @@ const ROLE_DIRECTION = 'DIRECTION';
 export default function AuditPage() {
   const { role } = useAuth();
 
+  const { data, isLoading, error } = useQuery<PaginatedAudit, Error>({
+    queryKey: ['direction-audit'],
+    queryFn: () => fetchDirectionAudit(),
+    enabled: role === ROLE_DIRECTION,
+    staleTime: 30_000,
+  });
+
   if (role !== ROLE_DIRECTION) {
     return (
       <div className="p-6">
@@ -28,12 +35,6 @@ export default function AuditPage() {
       </div>
     );
   }
-
-  const { data, isLoading, error } = useQuery<PaginatedAudit, Error>({
-    queryKey: ['direction-audit'],
-    queryFn: () => fetchDirectionAudit(),
-    staleTime: 30_000,
-  });
 
   if (isLoading) {
     return (

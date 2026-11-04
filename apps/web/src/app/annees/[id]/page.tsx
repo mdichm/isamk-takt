@@ -1,7 +1,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { AnneeClotureDialog } from '@/components/annees/annee-cloture-dialog';
 import { findAnneeById, type Annee } from '@/lib/api/annees';

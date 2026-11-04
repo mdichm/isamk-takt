@@ -101,6 +101,20 @@ describe('API functions', () => {
 
   // Similar pattern for formations, niveaux, groupes - abbreviated for brevity
   describe('formations', () => {
+    it('createFormation posts under its parent department', async () => {
+      const created = { id: 'form-1', code: 'L3-INFO', libelle: 'Licence 3 Informatique' };
+      (apiFetch as unknown as vi.Mock).mockResolvedValue(mockResponse(created, 201));
+      const result = await createFormation({
+        departementId: 'dep-1',
+        code: 'L3-INFO',
+        libelle: 'Licence 3 Informatique',
+      });
+      expect(result).toEqual(created);
+      const [url, init] = getLastCall();
+      expect(url).toContain('structure/departements/dep-1/formations');
+      expect(init).toMatchObject({ method: 'POST' });
+    });
+
     it('findAllFormations', async () => {
       const data = { data: [], total: 0, page: 1, limit: 10, totalPages: 1 };
       (apiFetch as unknown as vi.Mock).mockResolvedValue(mockResponse(data));
