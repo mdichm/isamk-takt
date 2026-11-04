@@ -140,6 +140,16 @@ export class StructureController {
     return this.structureService.findAllFormations({ ...query, departementId });
   }
 
+  @Get('formations')
+  @Permissions('referentiel:read')
+  @ApiOperation({ summary: 'Lister les formations avec pagination et filtre optionnel' })
+  @ApiResponse({ status: 200, description: 'Liste paginée des formations', type: PaginatedFormationsDto })
+  async findAllFormationsByQuery(
+    @Query() query: FormationQueryDto,
+  ): Promise<PaginatedFormationsDto> {
+    return this.structureService.findAllFormations(query);
+  }
+
   @Get('formations/:id')
   @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Obtenir une formation par ID' })
@@ -215,6 +225,16 @@ export class StructureController {
     @Query() query: NiveauQueryDto,
   ): Promise<PaginatedNiveauxDto> {
     return this.structureService.findAllNiveaux({ ...query, formationId });
+  }
+
+  @Get('niveaux')
+  @Permissions('referentiel:read')
+  @ApiOperation({ summary: 'Lister les niveaux avec pagination et filtre optionnel' })
+  @ApiResponse({ status: 200, description: 'Liste paginée des niveaux', type: PaginatedNiveauxDto })
+  async findAllNiveauxByQuery(
+    @Query() query: NiveauQueryDto,
+  ): Promise<PaginatedNiveauxDto> {
+    return this.structureService.findAllNiveaux(query);
   }
 
   @Get('niveaux/:id')

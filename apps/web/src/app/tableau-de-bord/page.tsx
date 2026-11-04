@@ -29,8 +29,6 @@ export const tableauDeBordKeys = {
   detail: (semestreId?: string) => [...tableauDeBordKeys.all, 'detail', semestreId ?? 'actif'] as const,
 };
 
-const ROLES_GESTION = ['GESTIONNAIRE', 'ADMINISTRATEUR'];
-
 export function TableauDeBordPageContent({
   data,
   isLoading,

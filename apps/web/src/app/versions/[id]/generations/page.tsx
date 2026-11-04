@@ -57,8 +57,7 @@ export default function GenerationsPage() {
   const [generationMode, setGenerationMode] = useState<GenerationMode | null>(null);
 
   // Historique et comparaison (L4-21)
-  const { data: generations, isPending: generationsLoading } =
-    useGenerationsByVersion(versionId);
+  const { data: generations } = useGenerationsByVersion(versionId);
 
   // Charger la version pour récupérer le semestreId
   useEffect(() => {

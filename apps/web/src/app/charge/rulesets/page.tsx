@@ -11,12 +11,12 @@ export default function ChargeRulesetsPage() {
   const role = getCurrentUserRole();
   const canWrite = role === 'ADMINISTRATEUR' || role === 'GESTIONNAIRE';
 
+  const [createOpen, setCreateOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+
   if (role === undefined) {
     return <div className="p-4">{messages.loading}</div>;
   }
-
-  const [createOpen, setCreateOpen] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
 
   return (
     <div className="space-y-6">

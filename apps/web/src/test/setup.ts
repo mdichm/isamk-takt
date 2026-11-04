@@ -16,3 +16,8 @@ class MockResizeObserver {
   callback: ResizeObserverCallback;
 }
 global.ResizeObserver = MockResizeObserver as any;
+
+// Base UI utilise Element.getAnimations(), absent de JSDOM.
+if (!Element.prototype.getAnimations) {
+  Element.prototype.getAnimations = () => [];
+}

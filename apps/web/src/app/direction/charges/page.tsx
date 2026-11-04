@@ -18,6 +18,13 @@ const ROLE_DIRECTION = 'DIRECTION';
 export default function ChargesPage() {
   const { role } = useAuth();
 
+  const { data, isLoading, error } = useQuery<PaginatedCharges, Error>({
+    queryKey: ['direction-charges'],
+    queryFn: () => fetchDirectionCharges(),
+    enabled: role === ROLE_DIRECTION,
+    staleTime: 30_000,
+  });
+
   if (role !== ROLE_DIRECTION) {
     return (
       <div className="p-6">
@@ -28,12 +35,6 @@ export default function ChargesPage() {
       </div>
     );
   }
-
-  const { data, isLoading, error } = useQuery<PaginatedCharges, Error>({
-    queryKey: ['direction-charges'],
-    queryFn: () => fetchDirectionCharges(),
-    staleTime: 30_000,
-  });
 
   if (isLoading) {
     return (

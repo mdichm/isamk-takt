@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo, type ReactNode } from 'react';
 import { Plus, Edit, Trash2, Folder, School, GraduationCap, Users, LayoutGrid } from 'lucide-react';
 import { DndContext, useSensor, PointerSensor } from '@dnd-kit/core';
 import { useSortable } from '@dnd-kit/sortable';
@@ -36,6 +36,25 @@ interface TreeState {
   selectedFormationId: string | null;
   selectedNiveauId: string | null;
   selectedGroupeId: string | null;
+}
+
+interface SortableListItemProps {
+  id: string;
+  children: ReactNode;
+}
+
+function SortableListItem({ id, children }: SortableListItemProps) {
+  const { attributes, listeners, transform, transition } = useSortable({ id });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div {...attributes} {...listeners} style={style}>
+      {children}
+    </div>
+  );
 }
 
 export function StructureTree() {
@@ -99,15 +118,22 @@ export function StructureTree() {
   const deleteGrp = useDeleteGroupe();
   const reorderGrp = useReorderGroupes();
 
-
-  if (anneesLoading || depsLoading || formLoading || nivLoading || grpLoading || semestresLoading) {
-    return <div className="p-4">{messages.loading}</div>;
-  }
-
-  const departements: Departement[] = departementsData?.data ?? [];
-  const formations: Formation[] = formationsData?.data ?? [];
-  const niveaux: Niveau[] = niveauxData?.data ?? [];
-  const groupes: Groupe[] = groupesData?.data ?? [];
+  const departements = useMemo<Departement[]>(
+    () => departementsData?.data ?? [],
+    [departementsData]
+  );
+  const formations = useMemo<Formation[]>(
+    () => formationsData?.data ?? [],
+    [formationsData]
+  );
+  const niveaux = useMemo<Niveau[]>(
+    () => niveauxData?.data ?? [],
+    [niveauxData]
+  );
+  const groupes = useMemo<Groupe[]>(
+    () => groupesData?.data ?? [],
+    [groupesData]
+  );
 
   const sensors = useSensor(PointerSensor);
 
@@ -173,19 +199,6 @@ export function StructureTree() {
     await reorderGrp.mutateAsync(input);
   }, [groupes, reorderGrp]);
 
-  function SortableListItem({ id, children }: { id: string; children: React.ReactNode }) {
-    const { attributes, listeners, transform, transition } = useSortable({ id });
-    const style = {
-      transform: CSS.Transform.toString(transform),
-      transition,
-    };
-    return (
-      <div {...attributes} {...listeners} style={style}>
-        {children}
-      </div>
-    );
-  }
-
   /* ---------- Formulaires réactifs ---------- */
   const depForm = useForm<DepartementFormValues>({
     resolver: zodResolver(departementSchema),
@@ -203,6 +216,20 @@ export function StructureTree() {
     resolver: zodResolver(groupeSchema),
     defaultValues: { code: '', libelle: '', type: 'SECTION', parentId: '', effectif: undefined },
   });
+
+  const selectDepartement = useCallback((id: string) => {
+    setTree((prev) => ({ ...prev, selectedDepartementId: id, selectedFormationId: null, selectedNiveauId: null, selectedGroupeId: null }));
+  }, []);
+  const selectFormation = useCallback((id: string) => {
+    setTree((prev) => ({ ...prev, selectedFormationId: id, selectedNiveauId: null, selectedGroupeId: null }));
+  }, []);
+  const selectNiveau = useCallback((id: string) => {
+    setTree((prev) => ({ ...prev, selectedNiveauId: id, selectedGroupeId: null }));
+  }, []);
+
+  if (anneesLoading || depsLoading || formLoading || nivLoading || grpLoading || semestresLoading) {
+    return <div className="p-4">{messages.loading}</div>;
+  }
 
   const handleSave = () => {
     switch (mode) {
@@ -300,16 +327,6 @@ export function StructureTree() {
       case 'groupe': deleteGrp.mutate(id); break;
     }
   };
-
-  const selectDepartement = useCallback((id: string) => {
-    setTree((prev) => ({ ...prev, selectedDepartementId: id, selectedFormationId: null, selectedNiveauId: null, selectedGroupeId: null }));
-  }, []);
-  const selectFormation = useCallback((id: string) => {
-    setTree((prev) => ({ ...prev, selectedFormationId: id, selectedNiveauId: null, selectedGroupeId: null }));
-  }, []);
-  const selectNiveau = useCallback((id: string) => {
-    setTree((prev) => ({ ...prev, selectedNiveauId: id, selectedGroupeId: null }));
-  }, []);
 
   const openCreateForm = (kind: EntityKind) => {
     setMode(kind);

@@ -49,7 +49,7 @@ export class GroupesController {
   // ============================================
 
   @Post()
-  @Permissions('groupe:write')
+  @Permissions('referentiel:write')
   @ApiOperation({ summary: 'Créer un groupe hiérarchique' })
   @ApiResponse({
     status: 201,
@@ -69,7 +69,7 @@ export class GroupesController {
   }
 
   @Post('duplicate')
-  @Permissions('groupe:write')
+  @Permissions('referentiel:write')
   @ApiOperation({
     summary: 'Dupliquer les groupes d’un semestre vers un autre',
   })
@@ -93,7 +93,7 @@ export class GroupesController {
   }
 
   @Get()
-  @Permissions('groupe:read')
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Lister les groupes avec pagination et filtres' })
   @ApiResponse({
     status: 200,
@@ -107,7 +107,7 @@ export class GroupesController {
   }
 
   @Get('code-suggestion')
-  @Permissions('groupe:read')
+  @Permissions('referentiel:read')
   @ApiOperation({
     summary:
       'Proposer le prochain identifiant de groupe conforme à la nomenclature',
@@ -128,7 +128,7 @@ export class GroupesController {
   }
 
   @Get(':id')
-  @Permissions('groupe:read')
+  @Permissions('referentiel:read')
   @ApiOperation({ summary: 'Obtenir un groupe par ID' })
   @ApiParam({ name: 'id', description: 'ID du groupe (UUID)' })
   @ApiResponse({
@@ -142,7 +142,7 @@ export class GroupesController {
   }
 
   @Patch(':id')
-  @Permissions('groupe:write')
+  @Permissions('referentiel:write')
   @ApiOperation({ summary: 'Mettre à jour un groupe' })
   @ApiParam({ name: 'id', description: 'ID du groupe (UUID)' })
   @ApiResponse({
@@ -163,7 +163,7 @@ export class GroupesController {
   }
 
   @Delete(':id')
-  @Permissions('groupe:write')
+  @Permissions('referentiel:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Supprimer un groupe' })
   @ApiParam({ name: 'id', description: 'ID du groupe (UUID)' })
@@ -178,7 +178,7 @@ export class GroupesController {
   }
 
   @Get(':id/fermeture')
-  @Permissions('groupe:read')
+  @Permissions('referentiel:read')
   @ApiOperation({
     summary: 'Obtenir la fermeture hiérarchique (soi, ancêtres, descendants)',
   })
@@ -190,7 +190,7 @@ export class GroupesController {
   }
 
   @Patch('reorder')
-  @Permissions('groupe:write')
+  @Permissions('referentiel:write')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Réordonner les groupes d\'un niveau et semestre' })
   @ApiResponse({ status: 204, description: 'Groupes réordonnés' })

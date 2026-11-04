@@ -18,6 +18,13 @@ const ROLE_DIRECTION = 'DIRECTION';
 export default function ContraintesPage() {
   const { role } = useAuth();
 
+  const { data, isLoading, error } = useQuery<PaginatedContraintes, Error>({
+    queryKey: ['direction-contraintes'],
+    queryFn: () => fetchDirectionContraintes(),
+    enabled: role === ROLE_DIRECTION,
+    staleTime: 30_000,
+  });
+
   if (role !== ROLE_DIRECTION) {
     return (
       <div className="p-6">
@@ -28,12 +35,6 @@ export default function ContraintesPage() {
       </div>
     );
   }
-
-  const { data, isLoading, error } = useQuery<PaginatedContraintes, Error>({
-    queryKey: ['direction-contraintes'],
-    queryFn: () => fetchDirectionContraintes(),
-    staleTime: 30_000,
-  });
 
   if (isLoading) {
     return (

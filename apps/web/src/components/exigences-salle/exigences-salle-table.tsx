@@ -1,13 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table';
+import { TableBody, TableCell } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select } from '@/components/ui/select';
-import { SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useExigencesSalle, useDeleteExigenceSalle } from '@/hooks/use-exigences-salle';
 import { messages } from '@/lib/messages/fr';
 import { ExigenceSalleActivite, ExigenceSalleQuery } from '@/lib/api/exigences-salle';

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import {
   Table,
   TableBody,
@@ -13,12 +12,10 @@ import {
 } from '@/components/ui/table';
 import { useCompareGenerations } from '@/hooks/use-generations';
 import { GenerationStatusBadge } from './GenerationStatusBadge';
-import { messages } from '@/lib/messages/fr';
 import { t } from '@/lib/i18n';
 import {
   type GenerationStatut,
   type GenerationSummary,
-  type CompareResponse,
 } from '@/lib/api/generations';
 
 interface GenerationComparisonProps {
@@ -54,11 +51,11 @@ export function GenerationComparison({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHeader className="w-10" />
-              <TableHeader>{t('colDate')}</TableHeader>
-              <TableHeader>{t('etat')}</TableHeader>
-              <TableHeader className="w-20">{t('scoreGlobal')}</TableHeader>
-              <TableHeader className="w-20">{t('classement')}</TableHeader>
+              <TableHead className="w-10" />
+              <TableHead>{t('colDate')}</TableHead>
+              <TableHead>{t('etat')}</TableHead>
+              <TableHead className="w-20">{t('scoreGlobal')}</TableHead>
+              <TableHead className="w-20">{t('classement')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -120,9 +117,9 @@ export function GenerationComparison({
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHeader>{t('indicateur')}</TableHeader>
+                <TableHead>{t('indicateur')}</TableHead>
                 {compareData.generations.map((g) => (
-                  <TableHeader key={g.id}>{g.versionNom}</TableHeader>
+                  <TableHead key={g.id}>{g.versionNom}</TableHead>
                 ))}
               </TableRow>
             </TableHeader>

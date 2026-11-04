@@ -18,6 +18,13 @@ const ROLE_DIRECTION = 'DIRECTION';
 export default function RepartitionsPage() {
   const { role } = useAuth();
 
+  const { data, isLoading, error } = useQuery<PaginatedRepartitions, Error>({
+    queryKey: ['direction-repartitions'],
+    queryFn: () => fetchDirectionRepartitions(),
+    enabled: role === ROLE_DIRECTION,
+    staleTime: 30_000,
+  });
+
   if (role !== ROLE_DIRECTION) {
     return (
       <div className="p-6">
@@ -28,12 +35,6 @@ export default function RepartitionsPage() {
       </div>
     );
   }
-
-  const { data, isLoading, error } = useQuery<PaginatedRepartitions, Error>({
-    queryKey: ['direction-repartitions'],
-    queryFn: () => fetchDirectionRepartitions(),
-    staleTime: 30_000,
-  });
 
   if (isLoading) {
     return (

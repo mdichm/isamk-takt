@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useVersionDiff } from '@/hooks/use-version-diff';
 import { messages } from '@/lib/messages/fr';
-import type { ChangementSeanceDto, VersionDiffDto } from '@/lib/api/versions';
+import type { ChangementSeanceDto } from '@/lib/api/versions';
 
 interface VersionDiffProps {
   versionId: string;

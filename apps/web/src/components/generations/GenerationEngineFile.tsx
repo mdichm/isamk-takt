@@ -16,7 +16,7 @@ interface GenerationEngineFileProps {
   onReady?: (sha256: string, engineVersion: string) => void;
 }
 
-export function GenerationEngineFile({ generationId, mode, onReady }: GenerationEngineFileProps) {
+export function GenerationEngineFile({ generationId, onReady }: GenerationEngineFileProps) {
   const [isFetching, setIsFetching] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);

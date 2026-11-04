@@ -7,14 +7,11 @@ const eslintConfig = defineConfig(
   ...nextVitals,
   ...nextTs,
   prettierConfig,
-  // Disable react-hooks/rules-of-hooks: it flags false positives on setters
-  // called inside async functions invoked by useEffect. Local ESLint does not
-  // even resolve this rule, so disabling it globally is safe.
   {
     rules: {
-      "react-hooks/rules-of-hooks": "off",
+      "react-hooks/rules-of-hooks": "error",
       "@typescript-eslint/no-unused-vars": "warn",
-      "no-unused-vars": "warn",
+      "no-unused-vars": "off",
     },
   },
   // Override default ignores of eslint-config-next.

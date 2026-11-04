@@ -9,13 +9,19 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '@/components/shell/AuthProvider';
 import { t } from '@/lib/i18n';
 import { fetchDirectionVersions } from '@/lib/api/direction';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 const ROLE_DIRECTION = 'DIRECTION';
 
 export default function DirectionPage() {
   const { role } = useAuth();
+
+  const { data: versions, isLoading, error } = useQuery({
+    queryKey: ['direction-versions'],
+    queryFn: fetchDirectionVersions,
+    enabled: role === ROLE_DIRECTION,
+    staleTime: 30_000,
+  });
 
   if (role !== ROLE_DIRECTION) {
     return (
@@ -27,12 +33,6 @@ export default function DirectionPage() {
       </div>
     );
   }
-
-  const { data: versions, isLoading, error } = useQuery({
-    queryKey: ['direction-versions'],
-    queryFn: fetchDirectionVersions,
-    staleTime: 30_000,
-  });
 
   if (isLoading) {
     return (

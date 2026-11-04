@@ -306,7 +306,7 @@ export class GroupesService {
         where,
         skip,
         take: limit,
-        orderBy: { ordre: 'asc', code: 'asc' },
+        orderBy: [{ ordre: 'asc' }, { code: 'asc' }],
         include: { parent: true, enfants: true },
       }),
       this.prisma.groupe.count({ where }),

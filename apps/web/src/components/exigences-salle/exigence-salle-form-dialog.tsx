@@ -35,10 +35,10 @@ interface ExigenceSalleFormDialogProps {
   onSave: (exigence: ExigenceSalleActivite) => Promise<void>;
 }
 
-export function ExigenceSalleFormDialog({ open, onOpenChange, semestreId, exigenceToEdit, onSave }: ExigenceSalleFormDialogProps) {
+export function ExigenceSalleFormDialog({ open, onOpenChange, semestreId, exigenceToEdit }: ExigenceSalleFormDialogProps) {
   const isEdit = !!exigenceToEdit;
   const [salles, setSalles] = useState<Salle[]>([]);
-  const [loadingSalles, setLoadingSalles] = useState(false);
+  const [, setLoadingSalles] = useState(false);
 
   const createMutation = useCreateExigenceSalle();
   const updateMutation = useUpdateExigenceSalle();

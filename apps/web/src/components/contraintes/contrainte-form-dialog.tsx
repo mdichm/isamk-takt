@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useState, useEffect, useMemo } from 'react';
+import { useForm, useWatch, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
@@ -57,8 +57,6 @@ export function ContrainteFormDialog({
 }: ContrainteFormDialogProps) {
   const isEdit = !!instanceToEdit;
   const [definitions, setDefinitions] = useState<ContrainteDefinition[]>([]);
-  const [selectedDefinition, setSelectedDefinition] = useState<ContrainteDefinition | null>(null);
-  const [applicationMode, setApplicationMode] = useState<'immediate' | 'next_generation' | null>(null);
 
   const createMutation = useCreateContrainteInstance();
   const updateMutation = useUpdateContrainteInstance();
@@ -92,18 +90,11 @@ export function ContrainteFormDialog({
     return () => { cancelled = true; };
   }, [open]);
 
-  useEffect(() => {
-    if (form.watch('definitionId')) {
-      const def = definitions.find((d) => d.id === form.watch('definitionId'));
-      setSelectedDefinition(def ?? null);
-    }
-  }, [form.watch('definitionId'), definitions]);
-
-  useEffect(() => {
-    if (hasPublishedVersion && applicationMode === null) {
-      setApplicationMode('immediate');
-    }
-  }, [hasPublishedVersion]);
+  const selectedDefinitionId = useWatch({ control: form.control, name: 'definitionId' });
+  const selectedDefinition = useMemo(
+    () => definitions.find((definition) => definition.id === selectedDefinitionId) ?? null,
+    [definitions, selectedDefinitionId],
+  );
 
   const poidsDisabled = selectedDefinition?.categorie === 'DURE';
   const showApplicationChoice = isEdit && hasPublishedVersion;
@@ -314,7 +305,6 @@ export function ContrainteFormDialog({
                       checked={form.getValues('application') === 'immediate'}
                       onChange={(e) => {
                         form.setValue('application', e.target.value as 'immediate' | 'next_generation');
-                        setApplicationMode('immediate');
                       }}
                     />
                     {messages.modeImmediate}
@@ -327,7 +317,6 @@ export function ContrainteFormDialog({
                       checked={form.getValues('application') === 'next_generation'}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         form.setValue('application', e.target.value as 'immediate' | 'next_generation');
-                        setApplicationMode('next_generation');
                       }}
                     />
                     {messages.modeNextGeneration}

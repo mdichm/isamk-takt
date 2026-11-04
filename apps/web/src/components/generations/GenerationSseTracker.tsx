@@ -71,7 +71,7 @@ export function GenerationSseTracker({
         if (data.cancelRequested) {
           setCancelRequested(true);
         }
-        if (termine(statut)) {
+        if (data.statut && termine(data.statut as GenerationStatut)) {
           es.close();
           onGenerationComplete();
         }
